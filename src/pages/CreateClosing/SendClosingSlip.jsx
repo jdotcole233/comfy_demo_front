@@ -1,0 +1,184 @@
+/* eslint-disable no-throw-literal */
+import React, { useState, useContext, useEffect } from 'react'
+import styles from './styles/inputOffer.module.css'
+import JoditEditor from "jodit-react";
+import { useMutation, useQuery } from 'react-apollo';
+import { Selector } from '../../components'
+import { SEND_CLOSING_SLIP } from '../../graphql/mutattions';
+import swal from 'sweetalert';
+import { useForm } from 'react-hook-form';
+import { Alert } from 'react-bootstrap'
+import { DrawerContext } from '../../components/Drawer';
+import { EMPLOYEES } from '../../graphql/queries/employees'
+
+
+const createOption = (label) => ({
+    label,
+    value: label,
+});
+
+const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+
+function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
+    const { closed } = useContext(DrawerContext)
+    const { register, errors, handleSubmit, setError, clearError, reset } = useForm()
+    const [contentError, setContentError] = useState(false);
+    const [inputvalue, setInputvalue] = useState("")
+    const [copiedMails, setCopiedMails] = useState([])
+    const [selectedableEmail, setSelectedableEmail] = useState([])
+    const [content, setContent] = useState("")
+    const [emails, setEmails] = useState("")
+    const { data: employees, loading } = useQuery(EMPLOYEES)
+
+    const [sendmail] = useMutation(SEND_CLOSING_SLIP);
+
+
+    useEffect(() => {
+        if (employees) {
+            const _emails = employees.employees.map(e => ({ label: e.employee_email, value: e.employee_email }))
+            setSelectedableEmail(_emails)
+        }
+    }, [employees])
+
+    useEffect(() => {
+        if (closed) {
+            reset();
+            setContent("");
+            setEmails("");
+        }
+    }, [closed, reset])
+
+    const handleKeyDown = (event) => {
+        if (!inputvalue) return;
+        // eslint-disable-next-line default-case
+        switch (event.key) {
+            case 'Enter':
+            case 'Tab':
+                setInputvalue("");
+                setCopiedMails([...copiedMails, createOption(inputvalue)])
+                event.preventDefault();
+        }
+    };
+
+    const handleInputChange = event => {
+        setInputvalue(event)
+    }
+
+    const validateEmails = emails => {
+        let flag = true;
+        for (let index = 0; index < emails.length; index++) {
+            const element = emails[index];
+            if (emailRegex.test(element)) {
+                flag = flag && true;
+            } else {
+                flag = flag && false;
+            }
+        }
+
+        return flag;
+    }
+
+    const handleCopiedmailChange = value => {
+        setCopiedMails(value ? value : [])
+        handleEmailChange(value)
+    }
+
+    const handleEmailChange = emails => {
+        const validEmails = emails.length ? validateEmails(emails) : false;
+        if (!validEmails) {
+            setError("copied_emails", "pattern", "Provide valid mails")
+        } else {
+            clearError("copied_emails")
+        }
+        setEmails(emails)
+    }
+
+    const handleSubmitSendMail = ({ subject, copied_emails }) => {
+        if (content.length < 1) {
+            setContentError(true);
+            return;
+        } else {
+            setContentError(false);
+        }
+        const data = {
+            reinsurer_id: reisnsurer?.reinsurer.reinsurer_id,
+            offer_id: offer?.offer_id,
+            message_content: content,
+            subject,
+            copied_emails: emails.length ? [...copiedMails.map(e => e.label)] : [],
+        };
+        swal({
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            icon: "warning",
+            title: "Are you sure ?",
+            buttons: ["No", { text: "Yes", closeModal: false }]
+        }).then(input => {
+            if (!input) throw null;
+            sendmail({
+                variables: { data }
+            }).then(res => {
+                swal("Hurray!!", "Mail sent successfully", 'success');
+                setContent("");
+                reset();
+                toggle();
+            }).catch(err => {
+                if (err) {
+                    console.log(err)
+                    swal("Oh noes!", "The AJAX request failed!", "error");
+                } else {
+                    swal.stopLoading();
+                    swal.close();
+                }
+            })
+        })
+    }
+    return (
+        <>
+            <div className={styles.card_header}>
+                <h2 className={styles.card_title}>Send Closing Slip</h2>
+                <Alert variant="danger">
+                    <p>This session will send a copy of closing slip to <strong>{reisnsurer?.reinsurer.re_company_name}</strong>  as attachment</p>
+                    <p>N.B: You can include any number of EMAILS. Press ENTER or TAB key to add more </p>
+                </Alert>
+            </div>
+            <form onSubmit={handleSubmit(handleSubmitSendMail)} className={styles.card_body}>
+                <div className="form-group row mb-4">
+                    <label className="col-form-label col-lg-2">Subject</label>
+                    <div className="col-lg-10">
+                        <input ref={register({ required: "Required" })} name="subject" type="text" className="form-control" placeholder="Enter subject" />
+                        {errors.subject && <p className="text-danger">{errors.subject.message}</p>}
+                    </div>
+                </div>
+                <div className="form-group row mb-4">
+                    <label className="col-form-label col-lg-2">CC</label>
+                    <div className="col-lg-10">
+                        <Selector inputValue={inputvalue} onInputChange={handleInputChange} isMulti value={copiedMails} isLoading={loading} onChange={handleCopiedmailChange} onKeyDown={handleKeyDown} options={selectedableEmail} />
+                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} onChange={handleEmailChange} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
+                        {errors.copied_emails && <p className="text-danger">{errors.copied_emails.message}</p>}
+                    </div>
+                </div>
+                <div className="form-group row mb-4">
+                    <label className="col-form-label col-lg-2">Message</label>
+                    <div className="col-lg-10">
+                        <JoditEditor value={content} onChange={value => setContent(value)} />
+                    </div>
+                    <div className="col-md-2"></div>
+                    <div className="col-md-10">
+                        {contentError && <p className="text-danger">Required</p>}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-form-label col-lg-2"></div>
+                    <div className="col-lg-10 d-flex justify-content-end">
+                        <button type="submit" className="btn btn-sm w-md btn-primary">Send Email</button>
+                    </div>
+                </div>
+
+            </form>
+        </>
+    )
+}
+
+export default CreateBroadcastEmail
+

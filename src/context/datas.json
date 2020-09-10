@@ -1,0 +1,8 @@
+{
+  "title": "",
+  "type": ["SYSTEM:OFFER","SYSTEM:BUSINESS" ,"EMAIL", "SMS"],
+  "data": "",
+  "created_at": "",
+  "message": "",
+  "notification_id": ""
+}

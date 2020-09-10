@@ -1,0 +1,29 @@
+import React, { Suspense } from "react";
+import routes from "../routes";
+import { Switch, Route } from "react-router-dom";
+import ConnectionDetector from "../components/ConnectionDetector";
+
+export default () => {
+  const getRoutes = (routes) => {
+    return routes.map((el, key) =>
+      el.layout === "/auth" ? (
+        <Route
+          key={key}
+          path={el.layout + el.path}
+          exact
+          component={el.component}
+        />
+      ) : null
+    );
+  };
+  return (
+    <div className="account-pages my-5 pt-sm-5">
+      <ConnectionDetector />
+      <div className="container">
+        <Suspense fallback={<div>Loading</div>}>
+          <Switch>{getRoutes(routes)}</Switch>
+        </Suspense>
+      </div>
+    </div>
+  );
+};
