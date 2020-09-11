@@ -48,8 +48,8 @@ const AdminContent = () => {
                     <div className="row">
                         <div className="col-sm-6">
                             {new Date().getFullYear()}©
-                  KEK Insurance group
-                </div>
+                            KEK Insurance Brokers Ltd
+                        </div>
                         <div className="col-sm-6"></div>
                     </div>
                 </div>

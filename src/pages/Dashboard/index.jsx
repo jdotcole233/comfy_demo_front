@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState, useEffect, useContext } from 'react'
-import Chart from 'react-apexcharts';
 import { Link } from "react-router-dom"
 import { Modal } from 'react-bootstrap';
 import { CurrencyValues, Datatable, Loader } from '../../components'
@@ -9,21 +8,16 @@ import { DASHBOARD } from '../../graphql/queries';
 import { columns } from './columns'
 import { AuthContext } from '../../context/AuthContext';
 import OfferButtons from './components/OfferButtons'
+import ChartDisplay from './components/ChartDisplay'
 
 const Dashboard = () => {
     const { state } = useContext(AuthContext)
-    const [options, setOptions] = useState({
-        series: [],
-        labels: []
-    })
-    const [businessStats, setBusinessStats] = useState([])
-    const [dateTypes] = useState(["month", "year", "week"])
-    const [activeTab, setActiveTab] = useState("year")
-    const [variables, setVariables] = useState({
+    const [businessStats] = useState([])
+    const [variables] = useState({
         year: new Date().getFullYear(),
         month: ""
     })
-    const { data, refetch, called } = useQuery(DASHBOARD, {
+    const { data, called } = useQuery(DASHBOARD, {
         variables,
         fetchPolicy: 'network-only'
     });
@@ -32,34 +26,11 @@ const Dashboard = () => {
 
     const [overView, setOverView] = useState(null)
 
-    const handleChooseTimeFrame = type => {
-        const date = new Date();
-        const value = type === "month" ? date.getMonth() + 1 : date.getFullYear();
-        if (type === "week") {
-            setVariables({
-                year: "",
-                month: ""
-            })
-        } else if (type === "month") {
-            setVariables({
-                year: "",
-                month: value
-            })
-        } else {
-            setVariables({
-                month: "",
-                year: value
-            })
-        }
-        refetch()
-        setActiveTab(type)
-    }
 
 
 
     useEffect(() => {
         if (data) {
-            const series = [], labels = []
             const list = [];
             [...data.offers].map((offer) => {
                 const row = {
@@ -80,21 +51,8 @@ const Dashboard = () => {
             })
             setOfferListing(list);
             setOverView(JSON.parse(data.offerOverview))
-            const arr = JSON.parse(data.dashboardByPieChartData);
-            setBusinessStats(arr.total_businesses);
-            arr.total_businesses.slice(0, 5).map(business => {
-                series.push(business.total_businesses);
-                labels.push(business.business_name)
-                return business;
-            });
-            setOptions({
-                series,
-                labels
-            })
         }
     }, [data])
-
-
 
 
     if (!data) {
@@ -125,12 +83,12 @@ const Dashboard = () => {
                     <div className="row">
                         <div className="col-xl-4">
                             <div className="card overflow-hidden">
-                                <div className="bg-soft-primary">
+                                <div className="bg-soft-danger">
                                     <div className="row">
                                         <div className="col-7">
-                                            <div className="text-primary p-3">
-                                                <h5 className="text-primary">Welcome Back !</h5>
-                                                <p>Visal-RE Dashboard</p>
+                                            <div className="text-danger p-3">
+                                                <h5 className="text-danger">Welcome Back !</h5>
+                                                <p> KEK Insurance Brokers Dashboard</p>
                                             </div>
                                         </div>
                                         <div className="col-5 align-self-end">
@@ -146,7 +104,7 @@ const Dashboard = () => {
                                     <div className="row">
                                         <div className="col-sm-4">
                                             <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                                                <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
+                                                <span className="avatar-title rounded-circle bg-soft-danger text-danger font-size-16">
                                                     {state?.user?.employee?.emp_abbrv}
                                                 </span>
                                             </div>
@@ -264,36 +222,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4 className="card-title mb-4 float-sm-left">Top Businesses</h4>
-                                    <div className="float-sm-right">
-                                        <ul className="nav nav-pills">
-                                            {dateTypes.map((dateType, key) => (
-                                                <li onClick={() => handleChooseTimeFrame(dateType)} className="nav-item" key={key}>
-                                                    <a className={`nav-link link-hover ${dateType === activeTab ? "active" : ""}`}>
-                                                        {dateType.charAt(0).toLocaleUpperCase() + "" + dateType.substring(1, dateType.length)}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                            {businessStats.length > 5 && <li className="nav-item">
-                                                <a className={`nav-link link-hover`} onClick={() => setOpenMoreBusinessesModal(!openMoreBusinessesModal)} >
-                                                    More
-                                        </a>
-                                            </li>}
-                                        </ul>
-                                    </div>
-                                    <div className="clearfix"></div>
-                                    <div
-                                        id="stacked-column-chart"
-                                        className="apex-charts"
-                                        dir="ltr"
-                                    >
-                                        <Chart height="265" type="donut" options={options} series={options.series} />
-
-                                    </div>
-                                </div>
-                            </div>
+                            <ChartDisplay />
                         </div>
                     </div>
 

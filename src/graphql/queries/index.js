@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const FETCH_CLASS_OF_BUSINESS = gql`
   {
@@ -374,6 +374,12 @@ export const SINGLE_OFFER = gql`
         }
       }
     }
+  }
+`;
+
+export const DASHBOARD_PIE_DATA = gql`
+  query dashboard($year: String, $month: String) {
+    dashboardByPieChartData(year: $year, month: $month)
   }
 `;
 

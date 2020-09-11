@@ -115,11 +115,11 @@ function InsurerDetail() {
                 <div className="row">
                     <div className="col-xl-4">
                         <div className="card overflow-hidden">
-                            <div className="bg-soft-primary">
+                            <div className="bg-soft-danger">
                                 <div className="row">
                                     <div className="col-7">
-                                        <div className="text-primary p-3">
-                                            <h5 className="text-primary">Welcome Back !</h5>
+                                        <div className="text-danger p-3">
+                                            <h5 className="text-danger">Welcome Back !</h5>
                                             <p>It will seem like simplified</p>
                                         </div>
                                     </div>
@@ -132,7 +132,7 @@ function InsurerDetail() {
                                 <div className="row">
                                     <div className="col-sm-4">
                                         <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                                            <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
+                                            <span className="avatar-title rounded-circle bg-soft-danger text-danger font-size-16">
                                                 {insurer?.insurer.insurer_abbrv}
                                             </span>
                                         </div>
