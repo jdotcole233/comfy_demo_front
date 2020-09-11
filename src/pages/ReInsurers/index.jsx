@@ -89,7 +89,7 @@ function ReInsurers() {
                         <h3>Re-Insurers List</h3>
                     </div>
                     <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                        <button onClick={() => setshowAddReInsurer(!0)} className="btn btn-primary">Add Re-Insurer</button>
+                        <button onClick={() => setshowAddReInsurer(!0)} className="btn btn-rounded btn-sm btn-primary">Add Re-Insurer</button>
                     </div>
                 </div>
             </div>

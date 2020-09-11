@@ -73,7 +73,7 @@ function Claims() {
                     premium: offer.offer_detail?.currency + " " + offer.premium.toLocaleString(undefined, { maximumFractionDigits: 2 }),
                     participants: offer.offer_participant.length,
                     claim_status: (
-                        <span style={{ letterSpacing: 3 }} className={`badge badge-soft-${offer.claim_status === "CLAIMED" ? "danger" : "primary"}`}>{offer.claim_status}</span>
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.claim_status === "CLAIMED" ? "danger" : "primary"}`}>{offer.claim_status}</span>
                     ),
                     cob: offer.classofbusiness.business_name,
                     offer_date: new Date(offer.created_at).toDateString(),

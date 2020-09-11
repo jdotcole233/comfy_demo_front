@@ -3,7 +3,7 @@ export const PROTOCOL =
   process.env.NODE_ENV === 'development' ? 'http://' : 'https://';
 export const DOMAIN =
   process.env.NODE_ENV === 'development'
-    ? 'manage.visalreinsurance.com'
+    ? '192.168.100.7:8000'
     : 'manage.visalreinsurance.com';
 export const COOKIE_NAME_AUTH_TOKEN = 'visal_re_auth_token';
 export const PUSHER_KEY = '6732a1bd9862dfe49492';

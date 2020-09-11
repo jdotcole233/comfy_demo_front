@@ -42,7 +42,7 @@ const Login = () => {
                             <div className="col-7">
                                 <div className="text-primary p-4">
                                     <h5 className="text-primary">Welcome Back !</h5>
-                                    <p>Sign in to continue to Visal Re-Dashboard.</p>
+                                    <p>Sign in to continue to KEK Re-Dashboard.</p>
                                 </div>
                             </div>
                             <div className="col-5 align-self-end">

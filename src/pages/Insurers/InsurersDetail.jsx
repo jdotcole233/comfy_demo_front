@@ -50,10 +50,10 @@ function InsurerDetail() {
                     cob: offer.classofbusiness.business_name,
                     offer_date: offer.created_at,
                     offer_status: (
-                        <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-soft-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
+                        <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
                     ),
                     payment_status: (
-                        <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-soft-${offer.payment_status === "PARTPAYMENT" ? "primary" : offer.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.payment_status}</span>
+                        <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.payment_status === "PARTPAYMENT" ? "primary" : offer.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.payment_status}</span>
                     ),
                     salary: <OfferButtons insurer={insurer} state={state} offer={offer} />,
                 }
@@ -115,11 +115,11 @@ function InsurerDetail() {
                 <div className="row">
                     <div className="col-xl-4">
                         <div className="card overflow-hidden">
-                            <div className="bg-soft-danger">
+                            <div className="bg-soft-primary">
                                 <div className="row">
                                     <div className="col-7">
-                                        <div className="text-danger p-3">
-                                            <h5 className="text-danger">Welcome Back !</h5>
+                                        <div className="text-primary p-3">
+                                            <h5 className="text-primary">Welcome Back !</h5>
                                             <p>It will seem like simplified</p>
                                         </div>
                                     </div>
@@ -132,7 +132,7 @@ function InsurerDetail() {
                                 <div className="row">
                                     <div className="col-sm-4">
                                         <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                                            <span className="avatar-title rounded-circle bg-soft-danger text-danger font-size-16">
+                                            <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
                                                 {insurer?.insurer.insurer_abbrv}
                                             </span>
                                         </div>

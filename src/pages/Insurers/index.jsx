@@ -115,7 +115,7 @@ function Insurers() {
                         <h3>Insurers List</h3>
                     </div>
                     <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                        <button onClick={() => setshowAddInsurer(!0)} className="btn btn-primary">Add Insurer</button>
+                        <button onClick={() => setshowAddInsurer(!0)} className="btn btn-rounded btn-primary">Add Insurer</button>
                     </div>
                 </div>
             </div>

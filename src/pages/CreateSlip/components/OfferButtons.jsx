@@ -18,16 +18,13 @@ import { deleteAccessRoles, editAccessRoles } from '../../../layout/adminRoutes'
 const OfferButtons = ({ offer }) => {
     const { state: { user } } = useContext(AuthContext)
     const history = useHistory();
-    const [selectedOffer, setSelectedOffer] = useState(null)
     const [editOfferDrawer, setEditOfferDrawer] = useState(false)
     const [generateSlip, setGenerateSlip] = useState(false)
-    const handleShowEditDrawer = offer => {
-        setSelectedOffer(offer)
+    const handleShowEditDrawer = () => {
         setEditOfferDrawer(!editOfferDrawer)
     }
 
-    const handleGenerateSlip = offer => {
-        setSelectedOffer(offer)
+    const handleGenerateSlip = () => {
         setGenerateSlip(!generateSlip)
     }
 
@@ -36,7 +33,7 @@ const OfferButtons = ({ offer }) => {
         refetchQueries: [{ query: OFFERS, variables: { offer_status: ["OPEN", "PENDING"] } }],
     });
 
-    const handleDeleteOffer = offer => {
+    const handleDeleteOffer = () => {
         swal({
             closeOnClickOutside: false,
             closeOnEsc: true,
@@ -61,24 +58,27 @@ const OfferButtons = ({ offer }) => {
                 })
         })
     }
+
+    const offer_id = offer?.offer_id
+
     return (
         <div>
             <>
                 <DropdownButton className="mr-1 mb-1" variant="danger" size="sm" as={ButtonGroup} id="dropdown-basic-button" title="Offer Action">
-                    <Dropdown.Item onClick={() => history.push({ pathname: "/admin/view-offer", state: { offer_id: offer.offer_id } })}>View offer</Dropdown.Item>
-                    {editAccessRoles.includes(user?.position) && <Dropdown.Item onClick={() => handleShowEditDrawer(offer)}>Edit offer</Dropdown.Item>}
-                    {deleteAccessRoles.includes(user?.position) && <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>Delete offer</Dropdown.Item>}
+                    <Dropdown.Item onClick={() => history.push({ pathname: "/admin/view-offer", state: { offer_id } })}>View offer</Dropdown.Item>
+                    {editAccessRoles.includes(user?.position) && <Dropdown.Item onClick={handleShowEditDrawer}>Edit offer</Dropdown.Item>}
+                    {deleteAccessRoles.includes(user?.position) && <Dropdown.Item onClick={handleDeleteOffer}>Delete offer</Dropdown.Item>}
                 </DropdownButton>
-                <button onClick={() => handleGenerateSlip(offer)} className="btn btn-primary btn-sm">Generate Slip</button>
+                <button onClick={handleGenerateSlip} className="btn btn-primary btn-sm">Generate Slip</button>
             </>
             {/* Edit Offer Drawer */}
             <Drawer isvisible={editOfferDrawer} width="40%" toggle={() => setEditOfferDrawer(!editOfferDrawer)}>
-                <EditOffer offer={selectedOffer} toggle={() => setEditOfferDrawer(!editOfferDrawer)} />
+                <EditOffer offer={offer} toggle={() => setEditOfferDrawer(!editOfferDrawer)} />
             </Drawer>
 
             {/* Generate Slip Drawer */}
             <Drawer isvisible={generateSlip} width="50%" toggle={() => setGenerateSlip(!generateSlip)}>
-                <GenerateSlip offer={selectedOffer} />
+                <GenerateSlip offer={offer} />
             </Drawer>
         </div>
 

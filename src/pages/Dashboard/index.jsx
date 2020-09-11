@@ -83,11 +83,11 @@ const Dashboard = () => {
                     <div className="row">
                         <div className="col-xl-4">
                             <div className="card overflow-hidden">
-                                <div className="bg-soft-danger">
+                                <div className="bg-soft-primary">
                                     <div className="row">
                                         <div className="col-7">
-                                            <div className="text-danger p-3">
-                                                <h5 className="text-danger">Welcome Back !</h5>
+                                            <div className="text-primary p-3">
+                                                <h5 className="text-primary">Welcome Back !</h5>
                                                 <p> KEK Insurance Brokers Dashboard</p>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@ const Dashboard = () => {
                                     <div className="row">
                                         <div className="col-sm-4">
                                             <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                                                <span className="avatar-title rounded-circle bg-soft-danger text-danger font-size-16">
+                                                <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
                                                     {state?.user?.employee?.emp_abbrv}
                                                 </span>
                                             </div>
@@ -222,7 +222,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            <ChartDisplay />
+                            <ChartDisplay/>
                         </div>
                     </div>
 

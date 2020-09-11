@@ -11,9 +11,9 @@ const SideBar = () => {
             <li key={key}>
                 <Link
                     to={el.link}
-                    className={`waves-effect ${pathname === el.link ? "active" : ""}`}
+                    className={`waves-effect ${pathname === el.link ? "bg-danger text-white" : ""}`}
                 >
-                    <i className={el.icon}></i>
+                    <i className={`${el.icon} text-white`}></i>
                     <span>{el.name}</span>
                 </Link>
             </li>
@@ -21,9 +21,9 @@ const SideBar = () => {
     };
 
     return (
-        <div className="vertical-menu">
+        <div style={{ backgroundColor: "#273B97" }} className="vertical-menu">
             <div data-simplebar className="h-100 ">
-                <div id="sidebar-menu">
+                <div style={{ backgroundColor: "#273B97" }} id="sidebar-menu">
                     <ul className="metismenu list-unstyled" id="side-menu">
                         {showSideBarLinks(dashboard)}
                         <li className="menu-title">Offers</li>

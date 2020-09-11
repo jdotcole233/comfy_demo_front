@@ -69,11 +69,11 @@ function ReinsurerDetail() {
                     fac_sum_insured: offer.reinsurer_offers_only.fac_sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 }),
                     fac_premium: offer.reinsurer_offers_only.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 }),
                     offer_status: (
-                        <span style={{ letterSpacing: 3 }} className={`badge badge-soft-${offer.reinsurer_offers_only.offer_status === "OPEN" ? "primary" : offer.reinsurer_offers_only.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.reinsurer_offers_only.offer_status}</span>
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.reinsurer_offers_only.offer_status === "OPEN" ? "primary" : offer.reinsurer_offers_only.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.reinsurer_offers_only.offer_status}</span>
                     ),
                     brokerage: offer.reinsurer_offers_only.brokerage,
                     payment_status: (
-                        <span style={{ letterSpacing: 3 }} className={`badge badge-soft-${offer.reinsurer_offers_only.payment_status === "PART PAYMENT" ? "primary" : offer.reinsurer_offers_only.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.reinsurer_offers_only.payment_status}</span>
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.reinsurer_offers_only.payment_status === "PART PAYMENT" ? "primary" : offer.reinsurer_offers_only.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.reinsurer_offers_only.payment_status}</span>
                     ),
                     offer_date: offer.reinsurer_offers_only.created_at,
                     insured: offer.reinsurer_offers_only.offer_detail.insured_by,
@@ -112,11 +112,11 @@ function ReinsurerDetail() {
                 <div className="row">
                     <div className="col-xl-4">
                         <div className="card overflow-hidden">
-                            <div className="bg-soft-danger">
+                            <div className="bg-soft-primary">
                                 <div className="row">
                                     <div className="col-7">
-                                        <div className="text-danger p-3">
-                                            <h5 className="text-danger">Welcome Back !</h5>
+                                        <div className="text-primary p-3">
+                                            <h5 className="text-primary">Welcome Back !</h5>
                                             <p>It will seem like simplified</p>
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@ function ReinsurerDetail() {
                                 <div className="row">
                                     <div className="col-sm-4">
                                         <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                                            <span className="avatar-title rounded-circle bg-soft-danger text-danger font-size-16">
+                                            <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
                                                 {data?.reinsurer.re_abbrv}
                                             </span>
                                         </div>

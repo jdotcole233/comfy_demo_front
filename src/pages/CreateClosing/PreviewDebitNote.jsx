@@ -31,7 +31,7 @@ function PreviewCoverNote({ offer }) {
                         </address>
                     </div>
                     <div className="col-md-6" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-                        <img width={100} height={100} src={require("../../assets/logo.png")} alt="company name" />
+                        {/* <img width={100} height={100} src={require("../../assets/logo.png")} alt="company name" /> */}
                     </div>
                     <div className="col-md-12 text-align-center mt-3 mb-3">
                         <h3 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>Debit Note</h3>
@@ -39,15 +39,23 @@ function PreviewCoverNote({ offer }) {
                     <div className="col-md-10 col-12 col-sm-12 col-xs-12 ml-4">
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
-                                <h3 className="dark-text">POLICY TYPE:</h3>
+                                <h3 className="dark-text">Type:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET","")}</h3>
+                                <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET", "")}</h3>
+                            </div>
+                        </div>
+                        <div className="row mb-2">
+                            <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
+                                <h3 className="dark-text">Form:</h3>
+                            </div>
+                            <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
+                                <h3 className="dark-text-value">As Original and/ Slip Policy Reins</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">REINSURED:</h3>
+                                <h3 className="dark-text">Reinsured:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.insurer.insurer_company_name.toUpperCase()}</h3>
@@ -55,7 +63,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">INSURED :</h3>
+                                <h3 className="dark-text">Insured :</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.offer_detail.insured_by.toUpperCase()}</h3>
@@ -63,7 +71,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">PERIOD:</h3>
+                                <h3 className="dark-text">Period:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{showDate(offer)}</h3>
@@ -71,7 +79,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">CURRENCY:</h3>
+                                <h3 className="dark-text">Currency:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.offer_detail.currency}</h3>
@@ -79,7 +87,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">ANNUAL PREMIUM:</h3>
+                                <h3 className="dark-text">100% Premium:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
@@ -87,7 +95,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">OUR ORDER:</h3>
+                                <h3 className="dark-text">Our Offer:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.facultative_offer}% of 100%</h3>
@@ -95,7 +103,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">FACULTATIVE PREMIUM:</h3>
+                                <h3 className="dark-text">Facultative Premium:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
@@ -103,7 +111,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">YOUR COMMISSION:</h3>
+                                <h3 className="dark-text">Commission to you:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.commission_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
@@ -111,7 +119,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 style={{ fontWeight: "bolder" }} className="dark-text">Amount Due Visal Re:</h3>
+                                <h3 style={{ fontWeight: "bolder" }} className="dark-text">Amount now due to KEK RE:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 style={{ fontWeight: "bolder" }} className="dark-text-value">{offer?.offer_detail.currency} {(parseFloat(offer?.fac_premium) - parseFloat(offer?.commission_amount)).toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>

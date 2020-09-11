@@ -205,10 +205,10 @@ function Reports() {
             brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
             offer_date: new Date(report.offer_date).toDateString(),
             offer_status: (
-                <span style={{ letterSpacing: 3 }} className={`badge badge-soft-${report.offer_status === "OPEN" ? "primary" : report.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{report.offer_status}</span>
+                <span style={{ letterSpacing: 3 }} className={`badge badge-${report.offer_status === "OPEN" ? "primary" : report.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{report.offer_status}</span>
             ),
             payment_status: (
-                <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-soft-${report.payment_status === "PARTPAYMENT" ? "primary" : report.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{report.payment_status}</span>
+                <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${report.payment_status === "PARTPAYMENT" ? "primary" : report.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{report.payment_status}</span>
             )
         }))
         setPrintData(printerData)

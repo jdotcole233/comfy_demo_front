@@ -30,7 +30,7 @@ export default memo(() => {
                     insurance_company: offer.insurer.insurer_company_name,
                     rate: offer.rate,
                     offer_status: (
-                        <span style={{ letterSpacing: 3 }} className={`badge badge-soft-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
                     ),
                     cob: offer.classofbusiness.business_name,
                     offer_date: new Date(offer.created_at).toDateString(),
@@ -192,7 +192,7 @@ export default memo(() => {
                         <button onClick={() => {
                             setInputOffer(!inputOffer)
                         }
-                        } className="btn btn-primary btn-sm w-md">Input offer</button>
+                        } className="btn btn-rounded btn-primary btn-sm w-md">Input offer</button>
                     </div>
                 </div>
             </div>

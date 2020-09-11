@@ -10,7 +10,7 @@ export const Navbar = () => {
         <header id="page-topbar">
             <div className="navbar-header">
                 <div className="d-flex">
-                    <div className="navbar-brand-box">
+                    <div style={{ backgroundColor: "#273B97" }} className="navbar-brand-box">
                         <Link to="/admin/" className="logo logo-dark">
                             <span className="logo-sm">
                                 <img
