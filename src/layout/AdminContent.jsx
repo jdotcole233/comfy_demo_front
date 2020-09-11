@@ -32,7 +32,7 @@ const AdminContent = () => {
     };
 
     return (
-        <div className="main-content" style={{ backgroundColor: "#262B3C" }}>
+        <div className="main-content">
             {/* Main Content */}
             <Suspense fallback={<div> loading </div>}>
                 <ConnectionDetector />
@@ -47,8 +47,8 @@ const AdminContent = () => {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-6">
-                            <script>document.write(new Date().getFullYear());</script>©
-                  Visal re-insurance
+                            {new Date().getFullYear()}©
+                  KEK Insurance group
                 </div>
                         <div className="col-sm-6"></div>
                     </div>

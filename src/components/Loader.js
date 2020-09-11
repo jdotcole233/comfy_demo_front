@@ -13,10 +13,10 @@ export default () => (
       }}
     >
       <img src={require("../assets/visal-sm-logo.png")} alt="" height="40" />
-      <div className="spinner-border text-dark m-1" role="status">
+      <div className="spinner-border text-primary m-1" role="status">
         <span className="sr-only">Loading...</span>
       </div>
-      <h6>Loading ...</h6>
+      <h6 className="text-primary">Loading ...</h6>
     </div>
   </div>
 );

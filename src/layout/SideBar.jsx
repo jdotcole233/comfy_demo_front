@@ -22,7 +22,7 @@ const SideBar = () => {
 
     return (
         <div className="vertical-menu">
-            <div data-simplebar className="h-100">
+            <div data-simplebar className="h-100 ">
                 <div id="sidebar-menu">
                     <ul className="metismenu list-unstyled" id="side-menu">
                         {showSideBarLinks(dashboard)}

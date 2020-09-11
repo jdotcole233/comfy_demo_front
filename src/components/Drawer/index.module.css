@@ -10,9 +10,10 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: #F14646;
+  background-color: #f14646;
   font-size: larger;
   font-weight: bolder;
+  color: #fff;
 }
 
 .drawer_container {

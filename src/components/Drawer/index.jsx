@@ -51,7 +51,7 @@ function Drawer({ children, containerStyles = {}, width, isvisible, toggle }) {
             bottom: 0,
             width: R_width > 768 ? width : "100%",
             height: "100vh",
-            backgroundColor: "#262B3C",
+            backgroundColor: "#F8F8FB",
             ...containerStyles,
           }}
           className={styles.drawer_container}
@@ -59,7 +59,7 @@ function Drawer({ children, containerStyles = {}, width, isvisible, toggle }) {
           <div
             className="row"
             style={{
-              backgroundColor: "#1b2133",
+              // backgroundColor: "#1b2133",
               height: 25,
               // padding: 10,
               display: "flex",
