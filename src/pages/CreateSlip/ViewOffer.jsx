@@ -25,7 +25,7 @@ function ViewOffer() {
     variables: {
       offer_id: state?.offer_id,
     },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "network-only",
   });
 
 

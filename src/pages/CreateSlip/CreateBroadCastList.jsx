@@ -161,8 +161,8 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
 const RepCard = ({ rep, remove }) => {
     return (
         <div className={styles.repCard} >
-            <div>
-                <h6 style={{ fontWeight: "lighter" }}>{rep}</h6>
+            <div className="text-white">
+                <h6 style={{ fontWeight: "lighter", color: "#fff" }}>{rep}</h6>
             </div>
             <div style={{
                 fontSize: 20,

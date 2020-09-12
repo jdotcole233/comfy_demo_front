@@ -175,7 +175,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                                 setAddPaymentDrawer(!addPaymentDrawer)
                             }} className="btn btn-sm w-md btn-primary">Add Payment</button> : null}
                     </div>
-                    <Datatable columns={paymentsColumns} data={payments} />
+                    <Datatable  entries={5}  columns={paymentsColumns} data={payments} />
                 </Modal.Body>
             </Modal>
             {/* /end of payments modal */}

@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -14,12 +14,12 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .link-hover:hover {
-  background-color: #D4DBF9;
+  background-color: #d4dbf9;
   cursor: pointer;
 }
 
@@ -27,6 +27,13 @@ code {
   width: 90%;
 }
 
+.bg-auth {
+  background: linear-gradient(to top, #0033cc 0%, #66ccff 100%);
+}
+
+.border-form {
+  border: 1px solid #cccccc;
+}
 
 .form-control-editor {
   /* height: 570px; */
@@ -38,25 +45,24 @@ td {
   /* overflow: hidden; */
   max-width: 400px;
   word-wrap: break-word;
-  }
+}
 
+.internet-error {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4vh;
+  color: #ffffff;
+  /* width: 100vw; */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  background-color: red;
+  align-items: center;
+}
 
- .internet-error {
-   position: absolute;
-   top: 0;
-   right: 0;
-   left: 0;
-   height: 4vh;
-   color: #ffffff;
-   /* width: 100vw; */
-   z-index: 1000;
-   display: flex;
-   justify-content: center;
-   background-color: red;
-   align-items: center;
- } 
-
- .truncate {
+.truncate {
   width: 250px;
   white-space: nowrap;
   overflow: hidden;

@@ -85,7 +85,7 @@ const MakeClaim = ({ offer, toggle }) => {
                             <Alert variant="danger">
                                 <strong></strong>
                             </Alert>
-                            <fieldset className="border p-2 mb-2">
+                            <fieldset className="border-form p-2 mb-2">
                                 <legend className={styles.details_title}>Claim Details [{offer?.offer_detail?.policy_number}]</legend>
                                 <table className="table">
                                     <tbody>
@@ -135,25 +135,27 @@ const MakeClaim = ({ offer, toggle }) => {
                             {/* <fieldset className="border p-1"> */}
                             <div className="row">
                                 <form onSubmit={handleMakeClain} className="col-md-12">
-                                    <legend style={{ fontSize: 16 }} className="w-auto">Claim Details</legend>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label htmlFor="">Enter amount to be claimed</label>
-                                                <input type="number" value={claim_amount} onChange={e => setclaim_amount(e.target.value)} className="form-control" placeholder="Claim amount" required />
-                                                {error && <p className="text-danger">{`Claim amount cannot exceed  ${leftAmount}`}</p>}
+                                    <fieldset className="border-form p-2">
+                                        <legend className={styles.details_title}>Claim Details</legend>
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="">Enter amount to be claimed</label>
+                                                    <input type="number" value={claim_amount} onChange={e => setclaim_amount(e.target.value)} className="form-control" placeholder="Claim amount" required />
+                                                    {error && <p className="text-danger">{`Claim amount cannot exceed  ${leftAmount}`}</p>}
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="">Claim date</label>
+                                                    <input type="date" value={claim_date} onChange={e => setclaim_date(e.target.value)} className="form-control" placeholder="Claim amount" required />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label htmlFor="">Claim date</label>
-                                                <input type="date" value={claim_date} onChange={e => setclaim_date(e.target.value)} className="form-control" placeholder="Claim amount" required />
-                                            </div>
+                                        <div className="form-group">
+                                            <button type="submit" className="btn btn-primary w-md btn-sm float-right">Make claim</button>
                                         </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <button type="submit" className="btn btn-primary w-md btn-sm float-right">Make claim</button>
-                                    </div>
+                                    </fieldset>
                                 </form>
                             </div>
                             {/* </fieldset> */}

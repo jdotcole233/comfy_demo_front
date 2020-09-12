@@ -328,7 +328,7 @@ export default function InputOffer({ toggle }) {
                     </div>
 
                 </div>
-                {classOfBusiness ? (<fieldset className="w-auto p-2 border">
+                {classOfBusiness ? (<fieldset className="w-auto p-2  border-form">
                     <legend className={styles.details_title}>Business class details</legend>
                     <div className="row">
                         {offerDetails.map((cob, key) => (
@@ -349,7 +349,7 @@ export default function InputOffer({ toggle }) {
                     <button onClick={handleAddMotor} className="btn btn-sm w-md btn-primary" type="button">Add Motor</button>
                     {fleetData.length > 1 && <button onClick={handleRemoveMotor} id className="btn ml-2 btn-sm w-md btn-danger" type="button">Add Motor</button>}
                 </div>} */}
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -437,7 +437,7 @@ export default function InputOffer({ toggle }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Period Of Insurance</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -456,7 +456,7 @@ export default function InputOffer({ toggle }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2  border-form">
                     <legend className={styles.details_title}>Comment</legend>
                     <div className="row">
                         <div className="col-md-12">

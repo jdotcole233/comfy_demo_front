@@ -12,7 +12,7 @@ const OfferDetails = ({ data }) => {
     return (
         <div className="col-xl-4">
             <div className="card">
-                <div className="card-header">
+                <div className="card-header bg-soft-primary">
                     <h4 className="card-title">Offer Overview</h4>
                 </div>
                 <div className="card-body">
@@ -285,7 +285,7 @@ const OfferDetails = ({ data }) => {
                         }}
                     >
                         <div
-                            className="col-md-6"
+                            className="col-md-6 text"
                             style={{ display: "flex", alignItems: "center" }}
                         >
                             <h3 style={{ fontSize: 15, fontWeight: "lighter" }}>
@@ -384,7 +384,7 @@ const OfferDetails = ({ data }) => {
                             className="col-md-6"
                             style={{ display: "flex", alignItems: "center" }}
                         >
-                            <h3 style={{ fontSize: 15, fontWeight: "lighter" }}>
+                            <h3 style={{ fontSize: 15, fontWeight: "lighter", }}>
                                 {data?.findSingleOffer?.offer_detail.currency}{" "}
                                 {data?.findSingleOffer?.fac_premium.toLocaleString(
                                     undefined,

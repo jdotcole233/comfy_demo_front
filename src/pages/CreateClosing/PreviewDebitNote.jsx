@@ -17,7 +17,7 @@ function PreviewCoverNote({ offer }) {
                     <i className="bx bxs-file-pdf"></i> Save
                 </a>
             </div>
-            <div style={{ height: 800 }} className="preview-card container-fluid p-4 text-black bg-white">
+            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }}  className="preview-card container-fluid p-4 text-black bg-white">
                 <div className="row">
                     <div className="col-md-6">
                         <address>

@@ -17,7 +17,7 @@ export default () => {
     );
   };
   return (
-    <div className="account-pages my-5 pt-sm-5">
+    <div style={{height: "100vh", margin: 0}} className="account-pages  bg-auth pt-sm-5">
       <ConnectionDetector />
       <div className="container">
         <Suspense fallback={<div>Loading</div>}>

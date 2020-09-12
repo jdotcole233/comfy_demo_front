@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import styles from './styles/ViewInsurerOffer.module.css'
 import { useQuery } from 'react-apollo'
 import { FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries'
+import JoditEditor from "jodit-react";
+
 
 export default function ViewInsurerOffer({ data }) {
     const [details, setDetails] = useState(null)
@@ -40,7 +42,7 @@ export default function ViewInsurerOffer({ data }) {
                     <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="BusinessClass">Insurance Company</label>
-                            <input value={details?.insurer?.insurer_company_name} type="text" name="business_class" className="form-control" list="insurance_companies" placeholder="Insurance company" readOnly/>
+                            <input value={details?.insurer?.insurer_company_name} type="text" name="business_class" className="form-control" list="insurance_companies" placeholder="Insurance company" readOnly />
                             <datalist id="insurance_companies">
                                 <select name="business_class" id="" className="form-control">
                                     <option value="Regency Nem Insurance Ghana Ltd">Regency Nem Insurance Ghana Ltd</option>
@@ -65,7 +67,7 @@ export default function ViewInsurerOffer({ data }) {
                     </div>
 
                 </div>
-                {selectedClassOfBusiness ? <fieldset className="w-auto p-2 border">
+                {selectedClassOfBusiness ? <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Business class details</legend>
                     <div className="row">
                         {JSON.parse(details?.offer_detail.offer_details).map((detail, key) => {
@@ -80,7 +82,7 @@ export default function ViewInsurerOffer({ data }) {
                         })}
                     </div>
                 </fieldset> : null}
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -128,7 +130,7 @@ export default function ViewInsurerOffer({ data }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Brokerage</label>
-                                <input type="text" className="form-control" placeholder="Brokerage" value={details?.brokerage} readOnly/>
+                                <input type="text" className="form-control" placeholder="Brokerage" value={details?.brokerage} readOnly />
                             </div>
                         </div>
                         <div className="col-md-12">
@@ -139,7 +141,7 @@ export default function ViewInsurerOffer({ data }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Period Of Insurance</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -156,10 +158,12 @@ export default function ViewInsurerOffer({ data }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
-                    <legend className={styles.details_title}></legend>
+                <fieldset className="w-auto p-2 border-form">
+                    <legend className={styles.details_title}>Comment</legend>
                     <div className="form-grpup">
-                        <textarea name="" id="" cols="30" rows="10" value={details?.offer_detail?.offer_comment} className="form-control" readOnly></textarea>
+                        <JoditEditor value={details?.offer_detail?.offer_comment} onChange={() => { }} />
+
+                        <textarea hidden name="" id="" cols="30" rows="10" value={details?.offer_detail?.offer_comment} className="form-control" readOnly></textarea>
                     </div>
                 </fieldset>
             </div>

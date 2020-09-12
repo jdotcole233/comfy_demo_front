@@ -3,46 +3,57 @@ import React, { useState, useRef, useContext, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
 import { useForm } from 'react-hook-form';
 import { useQuery, useMutation } from 'react-apollo'
-import { INPUT_OFFER_QUERIES, OFFERS } from '../../graphql/queries';
+import { INPUT_OFFER_QUERIES, OFFERS, SINGLE_OFFER } from '../../graphql/queries';
 import currencies from '../../assets/currencies.json'
 import { UPDATE_OFFER } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { DrawerContext } from '../../components/Drawer'
-import { Selector, InsurerOption, CurrencyOption } from '../../components';
+import { Selector, InsurerOption, CurrencyOption, Loader } from '../../components';
 import { AuthContext } from '../../context/AuthContext';
 import JoditEditor from "jodit-react";
 import { prepVariables } from './InputOffer'
 
 
-export default function InputOffer({ offer, toggle }) {
+export default function InputOffer({ offer_id, toggle }) {
+    // const offer = JSON.parse(_offer)
     const { closed } = useContext(DrawerContext);
     const { state } = useContext(AuthContext);
     const formRef = useRef()
     const { data } = useQuery(INPUT_OFFER_QUERIES);
-    const { register, errors, handleSubmit, reset, setValue, clearError } = useForm()
+    const { register, errors, handleSubmit, reset, setValue, clearError } = useForm({
+        defaultValues: {}
+    })
     const [classOfBusiness, setClassOfBusiness] = useState(null);
     const [offerDetails, setofferDetails] = useState([])
     const [content, setContent] = useState("")
     const [selectedInsurer, setSelectedInsurer] = useState("")
     const [selectedBusiness, setSelectedBusiness] = useState("")
     const [selectedCurrency, setSelectedCurrency] = useState("")
+    const { data: _offer, loading } = useQuery(SINGLE_OFFER, {
+        variables: {
+            offer_id,
+        },
+        fetchPolicy: "network-only",
+    });
 
     const [updateOffer] = useMutation(UPDATE_OFFER, {
         refetchQueries: [{ query: OFFERS, variables: { offer_status: ["OPEN", "PENDING"] } }]
     });
+    const offer = _offer?.findSingleOffer
 
     useEffect(() => {
-        if (offer) {
+        if (_offer) {
+            console.log(offer)
             setValue("policy_number", offer.offer_detail?.policy_number)//insurance_company
             setValue("insurer_id", offer.insurer?.insurer_id)//insurance_company
             setValue("class_of_business_id", offer.classofbusiness?.class_of_business_id)//insurance_company
             setSelectedBusiness(offer.classofbusiness.business_name)
-            setValue("commission", offer.commission,)
-            setValue("brokerage", offer.brokerage,)
-            setValue("facultative_offer", offer.facultative_offer,)
-            setValue("sum_insured", offer.sum_insured,)
-            setValue("premium", offer.premium,)
-            setValue("rate", offer.rate,)
+            setValue("commission", offer.commission)
+            setValue("brokerage", offer.brokerage)
+            setValue("facultative_offer", offer.facultative_offer)
+            setValue("sum_insured", offer.sum_insured)
+            setValue("premium", offer.premium)
+            setValue("rate", offer.rate)
             setValue("insured_by", offer.offer_detail.insured_by)
             setValue("currency", offer.offer_detail.currency)
             setValue("offer_comment", offer.offer_detail.offer_comment)
@@ -54,7 +65,8 @@ export default function InputOffer({ offer, toggle }) {
             setClassOfBusiness(JSON.parse(offer.offer_detail.offer_details))
             setSelectedCurrency(offer.offer_detail.currency)
         }
-    }, [offer])
+
+    }, [_offer])
 
     const handleCurrencyChange = value => {
         setValue("currency", value ? value.value.code : "");
@@ -137,7 +149,7 @@ export default function InputOffer({ offer, toggle }) {
 
 
 
-    if (!offer) return null
+    if (loading && !offer) return <Loader />
     return (
         <form onSubmit={handleSubmit(handleCreateOffer)} ref={formRef} >
             <div className={styles.card_header}>
@@ -167,7 +179,7 @@ export default function InputOffer({ offer, toggle }) {
                     </div>
 
                 </div>
-                {classOfBusiness && offerDetails.length ? (<fieldset className="w-auto p-2 border">
+                {classOfBusiness && offerDetails.length ? (<fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Business class details</legend>
                     <div className="row">
                         {offerDetails.map((cob, key) => (
@@ -181,7 +193,7 @@ export default function InputOffer({ offer, toggle }) {
                         ))}
                     </div>
                 </fieldset>) : null}
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -254,7 +266,7 @@ export default function InputOffer({ offer, toggle }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Period Of Insurance</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -273,7 +285,7 @@ export default function InputOffer({ offer, toggle }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Comment</legend>
                     <div className="row">
                         <div className="col-md-12">

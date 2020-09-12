@@ -149,12 +149,12 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
                     <>
                         {forms.length ? forms.map((participant, key) => {
                             return (
-                                <fieldset className="border p-2 mb-2" key={key}>
+                                <fieldset className="border-form p-2 mb-2" key={key}>
                                     <legend className={styles.details_title}>{data?.offer_participant[key]?.reinsurer?.re_company_name}</legend>
                                     <div className="row">
                                         <div className="col-md-12">
                                             {data?.offer_participant[key]?.offer_participant_payment?.length ?
-                                                <table className="table">
+                                                <table className="table border border-dark table-bordered">
                                                     <tbody>
                                                         <tr>
                                                             <th>Facultative Premuim</th>
