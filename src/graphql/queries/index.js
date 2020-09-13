@@ -327,6 +327,7 @@ export const SINGLE_OFFER = gql`
       payment_status
       claim_status
       offer_detail {
+        offer_detail_id
         offersoffer_id
         policy_number
         insured_by
@@ -353,6 +354,7 @@ export const SINGLE_OFFER = gql`
       }
 
       insurer {
+        insurer_id
         insurer_company_name
         insurer_company_email
         insurer_company_website

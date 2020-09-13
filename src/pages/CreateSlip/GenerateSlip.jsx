@@ -158,7 +158,7 @@ REINSURANCE PLACING SLIP</h4>
                                 <h3 className="dark-text">Commission</h3>
                             </div>
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text-value">{offer?.commission + offer?.brokerage} %</h3>
+                                <h3 className="dark-text-value">{offer?.commission_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">

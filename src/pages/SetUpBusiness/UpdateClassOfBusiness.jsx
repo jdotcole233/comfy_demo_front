@@ -73,7 +73,7 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
                 closeOnEsc: false,
                 icon: "warning",
                 title: "Are you sure ?",
-                text: `you want to update ${businessname} with  ${business_details.length} detail(s) to Visal-Re System?.`,
+                text: `You want to update ${businessname} with  ${business_details.length} detail(s) to KEK-Re System?.`,
                 buttons: ["No", {
                     text: "Yes",
                     closeModal: false

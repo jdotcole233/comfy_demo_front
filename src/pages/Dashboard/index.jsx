@@ -88,7 +88,7 @@ const Dashboard = () => {
                                         <div className="col-7">
                                             <div className="text-primary p-3">
                                                 <h5 className="text-primary">Welcome Back !</h5>
-                                                <p> KEK Insurance Brokers Dashboard</p>
+                                                <p> KEK-Re Dashboard</p>
                                             </div>
                                         </div>
                                         <div className="col-5 align-self-end">

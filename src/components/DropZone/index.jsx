@@ -14,7 +14,7 @@ const baseStyle = {
     borderRadius: 2,
     borderColor: 'grey',
     borderStyle: 'dashed',
-    backgroundColor: '#2E3548',
+    backgroundColor: '#ffffff',
     color: '#bdbdbd',
     outline: 'none',
     transition: 'border .24s ease-in-out'
