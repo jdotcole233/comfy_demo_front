@@ -12,6 +12,7 @@ import { DrawerContext } from '../../components/Drawer';
 
 function AddManager({ details, toggle }) {
     const { closed } = useContext(DrawerContext);
+    const [errors, setErros] = useState({})
     const [formInputs, setFormInputs] = useState({
         first_name: "",
         last_name: "",
@@ -51,6 +52,29 @@ function AddManager({ details, toggle }) {
         refetchQueries: [{ query: REINSURERS }]
     })
 
+
+    const validatePhoneNumber = e => {
+        let regexp = /^\d{13}$/
+        const { value, name } = e.target
+        if (!value) {
+            setErros(prev => ({
+                ...prev,
+                [name]: null
+            }))
+            return
+        }
+        if (!regexp.test(value)) {
+            setErros(prev => ({
+                ...prev,
+                [name]: { message: "Wrong phone number" }
+            }))
+        } else {
+            setErros(prev => ({
+                ...prev,
+                [name]: null
+            }))
+        }
+    }
 
     const handleFormInputChange = e => {
         const { name, value } = e.target;
@@ -106,7 +130,7 @@ function AddManager({ details, toggle }) {
         <div>
             <div className={styles.card_header}>
                 <h2 className={styles.card_title}>Add Manager</h2>
-                
+
                 <fieldset className="border p-2 mb-2">
                     <legend className={styles.details_title}>Insurer Details</legend>
                     <table className="table">
@@ -157,13 +181,15 @@ function AddManager({ details, toggle }) {
                     <div className="col-md-6">
                         <div className="form-group">
                             <label htmlFor="">Primary Phone number</label>
-                            <input name="phone_pri" value={formInputs.phone_pri} onChange={handleFormInputChange} type="text" className="form-control" placeholder="Primary Phone number" required />
+                            <input onKeyUp={validatePhoneNumber} name="phone_pri" value={formInputs.phone_pri} onChange={handleFormInputChange} type="text" className="form-control" placeholder="Primary Phone number" required />
+                            {errors["phone_pri"] && <p className="text-danger">{errors["phone_pri"].message}</p>}
                         </div>
                     </div>
                     <div className="col-md-6">
                         <div className="form-group">
                             <label htmlFor="">Secondary Phone number</label>
-                            <input name="phone_sec" value={formInputs.phone_sec} onChange={handleFormInputChange} type="text" className="form-control" placeholder="Secondary Phone number" />
+                            <input onKeyUp={validatePhoneNumber} name="phone_sec" value={formInputs.phone_sec} onChange={handleFormInputChange} type="text" className="form-control" placeholder="Secondary Phone number" />
+                            {errors["phone_sec"] && <p className="text-danger">{errors["phone_sec"].message}</p>}
                         </div>
                     </div>
                     <div className="col-md-12">
