@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import swal from 'sweetalert'
 import { useMutation } from 'react-apollo';
 import { CREATE_INSURER_REP } from '../../graphql/mutattions';
-import { REINSURERS } from '../../graphql/queries';
+import { INSURERS } from '../../graphql/queries';
 import styles from './styles/ViewInsurerOffer.module.css'
 import { DrawerContext } from '../../components/Drawer';
 
@@ -49,7 +49,7 @@ function AddManager({ details, toggle }) {
         variables: {
             ...formInputs
         },
-        refetchQueries: [{ query: REINSURERS }]
+        refetchQueries: [{ query: INSURERS }]
     })
 
 

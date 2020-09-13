@@ -12,13 +12,13 @@ export default () => (
         flexDirection: 'column',
       }}
     >
-      <div class="spinner-chase">
-        <div class="chase-dot"></div>
-        <div class="chase-dot"></div>
-        <div class="chase-dot"></div>
-        <div class="chase-dot"></div>
-        <div class="chase-dot"></div>
-        <div class="chase-dot"></div>
+      <div className="spinner-chase">
+        <div className="chase-dot"></div>
+        <div className="chase-dot"></div>
+        <div className="chase-dot"></div>
+        <div className="chase-dot"></div>
+        <div className="chase-dot"></div>
+        <div className="chase-dot"></div>
       </div>
     </div>
   </div>
