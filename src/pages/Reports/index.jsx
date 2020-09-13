@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 import React from 'react'
-import { CurrencyValues, Selector, Datatable } from '../../components'
+import { CurrencyValues, Selector, Datatable, Loader } from '../../components'
 import Chart from 'react-apexcharts';
 import { INSURERS, REINSURERS, FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries';
 import { useEffect, useState, useRef } from 'react';
@@ -31,7 +31,7 @@ const groupProps = {
 
 
 function Reports() {
-    const { data: piechartData } = useQuery(REPORT_PIECHART)
+    const { data: piechartData, loading: pageLoading } = useQuery(REPORT_PIECHART)
     const tablesRef = useRef(null)
     const { register, setValue, handleSubmit, errors } = useForm()
     const [insurersData, setInsurersData] = useState([])
@@ -53,9 +53,9 @@ function Reports() {
     const [printData, setPrintData] = useState([])
     const [pieChartLabels, setLabels] = useState([])
     const [pieChartSeries, setSeries] = useState([])
-    const { data: insurers } = useQuery(INSURERS);
-    const { data: reinsurers } = useQuery(REINSURERS);
-    const { data: classOfbusiness } = useQuery(FETCH_CLASS_OF_BUSINESS)
+    const { data: insurers, loading: insurersLoading } = useQuery(INSURERS);
+    const { data: reinsurers, loading: reinsurersLoading } = useQuery(REINSURERS);
+    const { data: classOfbusiness, loading: classOfBusinessLoading } = useQuery(FETCH_CLASS_OF_BUSINESS)
     const [returnedCurrencies, setReturnedCurrencies] = useState([])
     const [totalCurrencies, setTotalCurrencies] = useState([])
     const [formData, setFormData] = useState(null)
@@ -276,6 +276,8 @@ function Reports() {
 
     const executeScroll = () => scrollToRef(tablesRef)
 
+
+    if (pageLoading || insurersLoading || reinsurersLoading || classOfBusinessLoading) return <Loader />
 
     return (
         <div className="page-content">

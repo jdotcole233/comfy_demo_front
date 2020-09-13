@@ -159,7 +159,7 @@ const ManagerButtons = ({ manager, state }) => {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="first_name">Position</label>
-                                <select name="position" ref={register({ required: "Required" })} id="" className="form-control" disabled>
+                                <select name="position" ref={register({ required: "Required" })} id="" className="form-control">
                                     <option value="">Position</option>
                                     <option value="Manager">Manager</option>
                                     <option value="Underwriter">Underwriter</option>
