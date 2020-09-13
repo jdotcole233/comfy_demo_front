@@ -1,35 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './styles/ViewInsurerOffer.module.css'
 import swal from 'sweetalert'
 import { useMutation, useQuery } from 'react-apollo';
 import { DISTRIBUTE_PAYMENT } from '../../graphql/mutattions';
 import { INSURER, GET_ISNURER_DEDUCTIONS } from '../../graphql/queries';
 import { Alert } from 'react-bootstrap';
-import { DrawerContext } from '../../components/Drawer';
 
 
 
 
 
 export default function DistributePayment({ data, toggle, insurer_id = 1, showFlag }) {
-    const { closed } = useContext(DrawerContext);
     const [forms, setForms] = useState([])
     const [errors, setErrors] = useState([])
     const [reinsurers, setReinsurers] = useState([])
-    useEffect(() => {
-        if (closed) {
-            setErrors([])
-            setForms([])
-            setReinsurers([])
-        }
-    }, [closed])
+
 
     const getPaymentId = () => {
-        // console.log(data)
         if (data && data.offer_payment.length > 0) {
-            // console.log(data.offer_payment)
             return data?.offer_payment[data.offer_payment.length - 1]?.offer_payment_id
         }
         return 0

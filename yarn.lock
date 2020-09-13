@@ -16118,6 +16118,11 @@ react-hook-form@^5.7.2:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-5.7.2.tgz#a84e259e5d37dd30949af4f79c4dac31101b79ac"
   integrity sha512-bJvY348vayIvEUmSK7Fvea/NgqbT2racA2IbnJz/aPlQ3GBtaTeDITH6rtCa6y++obZzG6E3Q8VuoXPir7QYUg==
 
+react-idle-timer@^4.3.6:
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/react-idle-timer/-/react-idle-timer-4.3.6.tgz#bdf56cee6ccc8c144ece18d152b3e304e13f3fa2"
+  integrity sha512-sJS4w123E4HkuM/l3j8FTVl0St6ghGA22Ich/Nz/luJSM4MEA6PvSwEBaAXLx3uCLB1fK7CACjvB4ozW3uWuCA==
+
 react-image-lightbox@5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-image-lightbox/-/react-image-lightbox-5.1.1.tgz#872d1a4336b5a6410ea7909b767cf59014081004"
