@@ -1,9 +1,9 @@
 // export const DOMAIN = "manage.visalreinsurance.com";
 export const PROTOCOL =
-  process.env.NODE_ENV === 'development' ? 'http://' : 'https://';
+  process.env.NODE_ENV === 'development' ? 'https://' : 'https://';
 export const DOMAIN =
   process.env.NODE_ENV === 'development'
-    ? '192.168.100.7:8000'
+    ? 'manage.comfybroker.com'
     : 'manage.comfybroker.com';
 export const COOKIE_NAME_AUTH_TOKEN = 'visal_re_auth_token';
 export const PUSHER_KEY = '8fdc449c93173e31d8a2';
