@@ -76,7 +76,7 @@
     "build": "rm -rf build && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postbuild": "cp src/assets/logoEmail.png build/static/media && 7z a build"
+    "postbuild": "cp src/assets/logoEmail.jpg build/static/media"
   },
   "eslintConfig": {
     "extends": "react-app"

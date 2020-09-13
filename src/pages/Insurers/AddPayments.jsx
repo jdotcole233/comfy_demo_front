@@ -60,13 +60,15 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     useEffect(() => {
         if (payment) {
             const obj = JSON.parse(payment.payment_details);
+            console.log(obj)
             setForm_inputs({
                 payment_amount: payment.payment_amount,
                 cheque_number: obj.payment_from.cheque_number,
                 bank_name: obj.payment_from.bank_name,
                 beneficiary_bank_name: obj.payment_to,
                 offer_payment_comment: payment.offer_payment_comment,
-                payment_type: obj.payment_type
+                payment_type: obj.payment_type,
+                date_on_cheque: obj.payment_from.date_on_cheque
             })
         }
     }, [payment])
@@ -96,7 +98,8 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 payment_type: form_inputs.payment_type,
                 payment_from: {
                     cheque_number: form_inputs.cheque_number ? form_inputs.cheque_number : "N/A",
-                    bank_name: form_inputs.bank_name
+                    bank_name: form_inputs.bank_name,
+                    date_on_cheque: form_inputs.date_on_cheque
                 },
                 payment_to: form_inputs.beneficiary_bank_name
             }),
@@ -221,12 +224,12 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         </select>
                     </div>
                 </div>
-                {form_inputs.payment_type.length ? <fieldset className="border mt-3 p-2">
+                {form_inputs.payment_type.length ? <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment From</legend>
                     <div className="row">
                         {form_inputs.payment_type !== "Bank Transfer" && <div className="col-md-6">
                             <div className="form-group">
-                                <label htmlFor="cheque Nunmber">cheque Number</label>
+                                <label htmlFor="cheque Nunmber">Cheque number</label>
                                 <input name="cheque_number" value={form_inputs.cheque_number} onChange={handleChange} type="text" className="form-control" placeholder="cheque Nunmber" required />
                             </div>
                         </div>}
@@ -238,13 +241,13 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         </div>
                         {form_inputs.payment_type !== "Bank Transfer" && <div className="col-md-12">
                             <div className="form-group">
-                                <label htmlFor="cheque Nunmber">Date on Cheque</label>
+                                <label htmlFor="cheque Nunmber">Date on cheque</label>
                                 <input name="date_on_cheque" value={form_inputs.date_on_cheque} onChange={handleChange} type="date" className="form-control" placeholder="" required />
                             </div>
                         </div>}
                     </div>
                 </fieldset> : null}
-                <fieldset className="border mt-3 p-2">
+                <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment To</legend>
                     <div className="row">
                         <div className="col-md-12">
@@ -255,7 +258,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="border mt-3 p-2">
+                <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment Details</legend>
                     <div className="row">
                         <div className="col-md-6">

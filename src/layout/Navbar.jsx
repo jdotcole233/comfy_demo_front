@@ -11,30 +11,13 @@ export const Navbar = () => {
             <div className="navbar-header">
                 <div className="d-flex">
                     <div style={{ backgroundColor: "#273B97" }} className="navbar-brand-box">
-                        <Link to="/admin/" className="logo logo-dark">
-                            <span className="logo-sm">
-                                <img
-                                    src={require("../assets/visal-sm-logo.png")}
-                                    alt=""
-                                    height="22"
-                                />
-                            </span>
-                            <span className="logo-lg">
-                                <img
-                                    src={require("../assets/visal-logo-big.png")}
-                                    alt=""
-                                    width="100"
-                                    height="60"
-                                />
-                            </span>
-                        </Link>
-
                         <Link to="/admin/" className="logo logo-light">
                             <span className="logo-sm">
                                 <img
-                                    src={require("../assets/visal-sm-logo.png")}
+                                    src={require("../assets/visal-sm-logo.JPG")}
                                     alt=""
                                     height="40"
+                                    width="40"
                                 />
                             </span>
                             <span className="logo-lg">

@@ -22,16 +22,16 @@ function PreviewCoverNote({ offer, shares, claim }) {
                     <i className="bx bxs-file-pdf"></i> Save
                 </a>
             </div>
-            <div className="preview-card container-fluid p-4 text-black bg-white">
+            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid p-4 text-black bg-white">
                 <div className="row">
                     <div className="col-md-6 col-6">
 
                     </div>
                     <div className="col-md-6 col-6" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-                        <img width={100} height={100} src={require("../../assets/logo.png")} alt="company name" />
+                        {/* <img width={100} height={100} src={require("../../assets/logo.png")} alt="company name" /> */}
                     </div>
                     <div className="col-md-12 mt-3 mb-3">
-                        <h3 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>VISAL RE:FACULTATIVE CLAIM DEBIT NOTE</h3>
+                        <h3 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>KEK RE: FACULTATIVE CLAIM DEBIT NOTE</h3>
                     </div>
                     <div className="col-md-10 col-sm-12 col-xs-12 ml-md-4">
                         <div className="row mb-2">
@@ -47,7 +47,7 @@ function PreviewCoverNote({ offer, shares, claim }) {
                                 <h3 className="dark-text">TYPE:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET","")}</h3>
+                                <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET", "")}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
