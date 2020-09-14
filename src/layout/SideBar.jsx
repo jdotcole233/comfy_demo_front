@@ -11,7 +11,7 @@ const SideBar = () => {
             <li key={key}>
                 <Link
                     to={el.link}
-                    className={`waves-effect ${pathname === el.link ? "bg-danger text-white" : ""}`}
+                    className={`waves-effect ${pathname === el.link || (pathname === "/admin/view-offer" && el.name === "Create Slip") ? "bg-danger text-white" : ""}`}
                 >
                     <i className={`${el.icon} text-white`}></i>
                     <span>{el.name}</span>
