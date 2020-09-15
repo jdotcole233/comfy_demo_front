@@ -48,7 +48,7 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
                                 <div className="media">
                                     <div className="mr-3 align-self-center"></div>
                                     <div className="media-body">
-                                        <p className="text-muted mb-2">
+                                        <p className="mb-2">
                                             Create Distribution list
                         </p>
                                         <button
@@ -68,7 +68,7 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
                                 <div className="media">
                                     <div className="mr-3 align-self-center"></div>
                                     <div className="media-body">
-                                        <p className="text-muted mb-2">Broadcast Email</p>
+                                        <p className="mb-2">Broadcast Email</p>
                                         <button
                                             disabled={!data?.findSingleOffer.offer_associates.length}
                                             onClick={() => setbroadCastEmail(!broadCastEmail)}
@@ -87,7 +87,7 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
                                 <div className="media">
                                     <div className="mr-3 align-self-center"></div>
                                     <div className="media-body">
-                                        <p className="text-muted mb-2">Close Offer</p>
+                                        <p className="mb-2">Close Offer</p>
                                         <button
                                             disabled={["OPEN", "CLOSED"].includes(
                                                 data?.findSingleOffer.offer_status

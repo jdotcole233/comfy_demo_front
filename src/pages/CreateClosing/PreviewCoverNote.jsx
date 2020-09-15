@@ -150,7 +150,35 @@ function PreviewCoverNote({ offer }) {
                     </div>
                     <div className="col-md-10 col-sm-12 ml-md-4">
                         <div className="mt-3 mb-2">
+                            {/* <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>RISK DESCRIPTION</h3> */}
+                            {offer && JSON.parse(offer?.offer_detail.offer_details).map((detail, key) => {
+                                let value = parseFloat(detail.value);
+                                if (isNaN(value)) {
+                                    value = detail.value
+                                }
+                                else if (detail.keydetail === "Year of Manufacture") {
+                                    value = detail.value
+                                }
+                                else {
+                                    value = value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+                                }
+                                return (
+                                    <div className="row" key={key}>
+                                        <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                                            <h3 className="dark-text">{detail.keydetail}:</h3>
+                                        </div>
+                                        <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                                            <h3 className="dark-text-value">{value}</h3>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
 
+
+                    </div>
+                    <div className="col-md-10 col-sm-12 ml-md-4">
+                        <div className="mt-3 mb-2">
                             <h5 className="dark-text" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.offer_comment }}></h5>
                         </div>
 

@@ -49,6 +49,23 @@ FACULTATIVE CLOSING</h3>
                                 <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET", "")}</h3>
                             </div>
                         </div>
+                        {["Motor Comprehensive", "Motor Comprehensive Fleet"].includes(offer?.classofbusiness.business_name) &&
+                            <div className="row mb-2">
+                                <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
+                                    <h3 className="dark-text">REGISTRATION:</h3>
+                                </div>
+                                <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
+                                    <h3 className="dark-text-value">
+                                        {
+                                            JSON.parse(
+                                                offer?.offer_detail.offer_details
+                                            ).find((el) => el.keydetail === "Vehicle Reg No." || el.keydetail === "Vehicle Reg No")
+                                                ?.value
+                                        }
+                                    </h3>
+                                </div>
+                            </div>
+                        }
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
                                 <h3 className="dark-text">Form:</h3>

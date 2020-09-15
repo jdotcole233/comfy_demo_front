@@ -105,7 +105,11 @@ REINSURANCE PLACING SLIP</h4>
                                 let value = parseFloat(detail.value);
                                 if (isNaN(value)) {
                                     value = detail.value
-                                } else {
+                                }
+                                else if (detail.keydetail === "Year of Manufacture") {
+                                    value = detail.value
+                                }
+                                else {
                                     value = value.toLocaleString(undefined, { maximumFractionDigits: 2 })
                                 }
                                 return (
@@ -158,12 +162,12 @@ REINSURANCE PLACING SLIP</h4>
                                 <h3 className="dark-text">Commission</h3>
                             </div>
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text-value">{offer?.commission_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
+                                <h3 className="dark-text-value">{offer?.commission + offer?.brokerage}%</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text">Information </h3>
+                                <h3 className="dark-text">Information:</h3>
                             </div>
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text-value">

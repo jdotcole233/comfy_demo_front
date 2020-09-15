@@ -32,7 +32,7 @@ const AdminContent = () => {
     };
 
     return (
-        <div className="main-content">
+        <div className="main-content bg-layout">
             {/* Main Content */}
             <Suspense fallback={<div> loading </div>}>
                 <ConnectionDetector />

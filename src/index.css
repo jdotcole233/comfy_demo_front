@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;
   transition: 300ms ease-in-out;
+  background-color: #F5F5F9;
 }
 
 ::-webkit-scrollbar {
@@ -30,6 +31,10 @@ code {
 .bg-auth {
   background: linear-gradient(to top, #0033cc 0%, #66ccff 100%);
 }
+.bg-layout {
+  background-color: #F5F5F9;
+}
+
 
 .border-form {
   border: 1px solid #cccccc;

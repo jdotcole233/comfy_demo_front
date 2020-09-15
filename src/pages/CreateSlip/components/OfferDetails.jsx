@@ -12,7 +12,7 @@ const OfferDetails = ({ data }) => {
     return (
         <div className="col-xl-4">
             <div className="card">
-                <div className="card-header bg-soft-primary">
+                <div className="card-header ">
                     <h4 className="card-title">Offer Overview</h4>
                 </div>
                 <div className="card-body">
