@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 /* eslint-disable no-throw-literal */
 import React, { useState, useContext, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
@@ -10,7 +11,7 @@ import { DrawerContext } from '../../components/Drawer';
 import { Selector } from '../../components'
 import { useMutation, useQuery } from 'react-apollo';
 import { EMPLOYEES } from '../../graphql/queries/employees'
-
+import _ from 'lodash'
 
 
 const createOption = (label) => ({
@@ -33,8 +34,9 @@ function CreateBroadcastEmail({ offer, toggle }) {
 
     useEffect(() => {
         if (employees) {
-            const _emails = employees.employees.map(e => ({ label: e.employee_email, value: e.employee_email }))
+            const _emails = _.map(employees.employees, (e) => ({ label: e.employee_email, value: e.employee_email }))
             setSelectedableEmail(_emails)
+
         }
     }, [employees])
 
@@ -47,7 +49,6 @@ function CreateBroadcastEmail({ offer, toggle }) {
 
     const handleKeyDown = (event) => {
         if (!inputvalue) return;
-        // eslint-disable-next-line default-case
         switch (event.key) {
             case 'Enter':
             case 'Tab':
@@ -62,45 +63,28 @@ function CreateBroadcastEmail({ offer, toggle }) {
         setInputvalue(event)
     }
 
-    const validateEmails = emails => {
-        let flag = true;
-        for (let index = 0; index < emails.length; index++) {
-            const element = emails[index];
-            console.log("email" + index, element)
-            if (emailRegex.test(element)) {
-                flag = flag && true;
-                console.log(true);
-            } else {
-                flag = flag && false;
-                console.log(false)
-            }
+    const validateEmails = emails => emails.every(email => emailRegex.test(email.value))
+
+
+    const handleCopiedmailChange = value => setCopiedMails(value ? value : [])
+
+
+    useEffect(() => {
+        if (copiedMails && copiedMails.length) {
+            const validEmails = validateEmails(copiedMails);
+            !validEmails ? setError("copied_emails", "pattern", "Provide valid mails") : clearError("copied_emails")
         }
+    }, [clearError, copiedMails, setError])
 
-        return flag;
-    }
 
-    const handleCopiedmailChange = value => {
-        setCopiedMails(value ? value : [])
-        handleEmailChange(value)
-    }
-
-    const handleEmailChange = emails => {
-        const validEmails = emails.length ? validateEmails(emails) : false;
-        if (!validEmails) {
-            setError("copied_emails", "pattern", "Provide valid mails")
-        } else {
-            clearError("copied_emails")
-        }
-    }
-
-    const handleSubmitSendMail = ({ subject, copied_emails }) => {
+    const handleSubmitSendMail = ({ subject }) => {
         if (content.length < 1) {
             setContentError(true);
             return;
         } else {
             setContentError(false);
         }
-        const data = { offer_id: offer?.offer_id, message_content: content, subject, copied_emails: [...copiedMails.map(e => e.label)] };
+        const data = { offer_id: offer?.offer_id, message_content: content, subject, copied_emails: [...copiedMails.map(e => e.value)] };
         swal({
             closeOnClickOutside: false,
             closeOnEsc: false,
@@ -141,7 +125,7 @@ function CreateBroadcastEmail({ offer, toggle }) {
                 <div className="form-group row mb-4">
                     <label htmlFor="taskname" className="col-form-label col-lg-2">Subject</label>
                     <div className="col-lg-10">
-                        <input  ref={register({ required: "Required" })} name="subject" type="text" className="form-control" placeholder="Enter subject" />
+                        <input ref={register({ required: "Required" })} name="subject" type="text" className="form-control" placeholder="Enter subject" />
                         {errors.subject && <p className="text-danger">{errors.subject.message}</p>}
                     </div>
                 </div>
@@ -149,7 +133,7 @@ function CreateBroadcastEmail({ offer, toggle }) {
                     <label htmlFor="taskname" className="col-form-label col-lg-2">CC</label>
                     <div className="col-lg-10">
                         <Selector inputValue={inputvalue} onInputChange={handleInputChange} isMulti value={copiedMails} isLoading={loading} onChange={handleCopiedmailChange} onKeyDown={handleKeyDown} options={selectedableEmail} />
-                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} onChange={handleEmailChange} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
+                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
                         {errors.copied_emails && <p className="text-danger">{errors.copied_emails.message}</p>}
                     </div>
                 </div>

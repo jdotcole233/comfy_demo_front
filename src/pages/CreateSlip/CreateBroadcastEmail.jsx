@@ -9,7 +9,6 @@ import swal from 'sweetalert';
 import { Alert } from 'react-bootstrap'
 import { useForm } from 'react-hook-form';
 import JoditEditor from "jodit-react";
-import { DrawerContext } from '../../components/Drawer';
 import PDF from '../../assets/pdf.png'
 import { responseFound } from './columns'
 import { SINGLE_OFFER } from '../../graphql/queries';
@@ -23,8 +22,7 @@ const createOption = (label) => ({
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssociates = 0 }) {
-    const { closed } = useContext(DrawerContext);
+function CreateBroadcastEmail({ offer_id, toggle,closed ,noOfReinsurers = 0, noOfAssociates = 0 }) {
     const { register, errors, handleSubmit, setError, clearError, reset } = useForm()
     const [content, setContent] = useState("")
     const [contentError, setContentError] = useState(false);
@@ -49,7 +47,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
     }, [employees])
 
     useEffect(() => {
-        if (closed) {
+        if (!closed) {
             reset();
             setContent("");
             setFiles([])
@@ -250,7 +248,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
                 <div className="form-group row mb-4">
                     <label className="col-form-label col-lg-2">Attachment(s)</label>
                     <div className="col-lg-10">
-                        <Dropzone onChange={(set) => setFiles(set)} multiple={true} />
+                        <Dropzone closed={closed} onChange={(set) => setFiles(set)} multiple={true} />
                     </div>
                 </div>
                 <div className="row">

@@ -3,14 +3,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
-import { Drawer, Datatable, Loader, CurrencyValues } from '../../components'
-import EditInsurer from './AddReInsurer';
+import { Drawer, Datatable, Loader, OverViewCard } from '../../components'
+import EditReinsurer from './EditResinsurer';
 import { associatesColumnns, offersColumns } from './columns'
 import { useQuery } from 'react-apollo';
 import { REINSURER } from '../../graphql/queries'
 import OfferButtons from './components/OfferButtons'
 import AssociateButtons from './components/AssociateButtons'
 import BrokerageComponent from './components/BrokerageComponent'
+import OfferListing from '../CreateSlip/OfferListing';
 
 
 function ReinsurerDetail() {
@@ -33,9 +34,6 @@ function ReinsurerDetail() {
         },
         fetchPolicy: "network-only"
     })
-
-
-
 
 
     useEffect(() => {
@@ -86,12 +84,12 @@ function ReinsurerDetail() {
         }
     }, [data])
 
-
+    if (loading) return <Loader />
 
     return (
         <div className="page-content">
-            {loading ? <Loader /> : null}
-            {!loading ? <div className="container-fluid">
+
+            <div className="container-fluid">
 
                 <div className="row">
                     <div className="col-12">
@@ -227,74 +225,19 @@ function ReinsurerDetail() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-12">
-                                <div className="card mini-stats-wid">
-                                    <div className="card-body">
-                                        <div className="media">
-                                            <div className="media-body">
-                                                <p className="text-muted font-weight-medium">Total Revenue</p>
-                                                <CurrencyValues data={JSON.parse(overview?.total_fac_premium || null)} />
-                                            </div>
 
-                                            <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
-                                                <span className="avatar-title">
-                                                    <i className="bx bx-money  font-size-24"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="card mini-stats-wid">
-                                    <div className="card-body">
-                                        <div className="media">
-                                            <div className="media-body">
-                                                <p className="text-muted font-weight-medium">Total Withholding Tax</p>
-                                                <CurrencyValues data={JSON.parse(overview?.total_withholding_tax || null)} />
-                                            </div>
 
-                                            <div className="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary">
-                                                <span className="avatar-title">
-                                                    <i className="bx bx-money font-size-24"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="card mini-stats-wid">
-                                    <div className="card-body">
-                                        <div className="media">
-                                            <div className="media-body">
-                                                <p className="text-muted font-weight-medium">Total NIC Levy</p>
-                                                <CurrencyValues data={JSON.parse(overview?.total_nic_tax || null)} />
-                                            </div>
+                            <OverViewCard title="Total Revenue" value={JSON.parse(overview?.total_fac_premium || null)} className="col-md-12" />
+                            <OverViewCard title="Total Withholding Tax" value={JSON.parse(overview?.total_withholding_tax || null)} />
+                            <OverViewCard title="Total NIC Levy" value={JSON.parse(overview?.total_nic_tax || null)} />
 
-                                            <div className="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary">
-                                                <span className="avatar-title">
-                                                    <i className="bx bx-money font-size-24"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
                 </div>
-                <div className="row">
-                    <BrokerageComponent data={data} />
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title mb-4">Offers</h4>
-                                <Datatable data={offerListing} entries={5} columns={offersColumns} />
-                            </div>
-                        </div>
-                    </div>
+                <BrokerageComponent data={data} />
+                <OfferListing title="Offers" offerListing={offerListing} setInputOffer={1} columns={offersColumns} />
+                <div className="">
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-body">
@@ -306,11 +249,11 @@ function ReinsurerDetail() {
                 </div>
 
 
-            </div> : null}
+            </div>
 
             {/* Edit Reinsurer */}
             <Drawer width="40%" isvisible={showInsurerProfile} toggle={() => setShowInsurerProfile(!showInsurerProfile)}>
-                <EditInsurer edit={true} data={data} toggle={() => setShowInsurerProfile(!showInsurerProfile)} />
+                {showInsurerProfile && <EditReinsurer closed={showInsurerProfile} data={data} toggle={() => setShowInsurerProfile(!showInsurerProfile)} />}
             </Drawer>
 
         </div>

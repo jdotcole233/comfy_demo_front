@@ -7,9 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;
   transition: 300ms ease-in-out;
-  background-color: #F5F5F9;
+  background-color: #FFFFFF;
 }
-
+/* #F8F8FB */
 ::-webkit-scrollbar {
   width: 0;
 }
@@ -32,7 +32,7 @@ code {
   background: linear-gradient(to top, #0033cc 0%, #66ccff 100%);
 }
 .bg-layout {
-  background-color: #F5F5F9;
+  /* background-color: #abb7ed;; */
 }
 
 

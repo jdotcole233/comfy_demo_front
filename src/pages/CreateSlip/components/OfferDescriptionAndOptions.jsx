@@ -154,6 +154,7 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
                 <CreateBroadcastEmail
                     offer_id={state?.offer_id}
                     visible={broadCastEmail}
+                    closed={broadCastEmail}
                     noOfAssociates={data?.findSingleOffer.offer_associates.length}
                     noOfReinsurers={data?.findSingleOffer.offer_participant.length}
                     toggle={() => setbroadCastEmail(!broadCastEmail)}

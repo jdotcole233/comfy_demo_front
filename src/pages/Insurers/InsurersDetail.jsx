@@ -3,8 +3,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
-import { Drawer, CurrencyValues, Datatable, Loader } from '../../components'
-import EditInsurer from './AddInsurer'
+import { Drawer, Datatable, Loader, OverViewCard } from '../../components'
+import EditInsurer from './EditInsurer'
 import f_dat, { managersColumn } from './dummy';
 import { useQuery } from 'react-apollo'
 import { INSURER } from '../../graphql/queries'
@@ -12,6 +12,7 @@ import OfferButtons from './components/Offerbuttons'
 import ManagerButtons from './components/ManagerButtons'
 import BrokerageComponent from './components/BrokerageComponent'
 import Reschedule from './components/Reschedule';
+import OfferListing from '../CreateSlip/OfferListing';
 
 
 function InsurerDetail() {
@@ -21,7 +22,7 @@ function InsurerDetail() {
     useEffect(() => {
         if (!state || !state.insurer_id) {
             history.push("/admin/insurers")
-        } 
+        }
     }, [state])
 
 
@@ -87,14 +88,15 @@ function InsurerDetail() {
 
 
 
+    if (loading) return <Loader />
 
 
 
 
     return (
         <div className="page-content">
-            {loading && <Loader />}
-            {!loading && insurer && <div className="container-fluid">
+
+            <div className="container-fluid">
 
                 <div className="row">
                     <div className="col-12">
@@ -250,58 +252,16 @@ function InsurerDetail() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-12">
-                                <div className="card mini-stats-wid">
-                                    <div className="card-body">
-                                        <div className="media">
-                                            <div className="media-body">
-                                                <p className="text-muted font-weight-medium">Total Fac. Premium</p>
-                                                <CurrencyValues data={JSON.parse(insurer?.insurer.insurer_overview?.total_fac_premium)} />
-                                            </div>
+                            <OverViewCard title="Total Fac. Premium" value={JSON.parse(insurer?.insurer.insurer_overview?.total_fac_premium)} className="col-md-12" />
+                            <OverViewCard title="Total Brokerage" value={JSON.parse(insurer?.insurer.insurer_overview?.total_brokerage_amt)} className="col-md-12" />
 
-                                            <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
-                                                <span className="avatar-title">
-                                                    <i className="bx bx-money font-size-24"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-12">
-                                <div className="card mini-stats-wid">
-                                    <div className="card-body">
-                                        <div className="media">
-                                            <div className="media-body">
-                                                <p className="text-muted font-weight-medium">Total Brokerage</p>
-                                                <CurrencyValues data={JSON.parse(insurer?.insurer.insurer_overview?.total_brokerage_amt)} />
-                                            </div>
-
-                                            <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
-                                                <span className="avatar-title">
-                                                    <i className="bx bx-money font-size-24"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
                 </div>
-                <div className="row">
-
-                    <BrokerageComponent insurer={insurer} />
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title mb-4">Offers</h4>
-
-                                <Datatable btn hover striped responsive bordered data={rows} columns={f_dat.columns} />
-                            </div>
-                        </div>
-                    </div>
+                <BrokerageComponent insurer={insurer} />
+                <OfferListing title="Offers" setInputOffer={1} offerListing={rows} columns={f_dat.columns} />
+                <div className="">
 
                     <div className="col-md-12">
                         <div className="card">
@@ -313,11 +273,11 @@ function InsurerDetail() {
                     </div>
                 </div>
 
-            </div>}
+            </div>
 
             {/* Edit Insurer */}
             <Drawer width="40%" isvisible={showInsurerProfile} toggle={() => setShowInsurerProfile(!showInsurerProfile)}>
-                <EditInsurer edit={true} data={insurer} toggle={() => setShowInsurerProfile(!showInsurerProfile)} />
+                {showInsurerProfile && <EditInsurer closed={showInsurerProfile} data={insurer} toggle={() => setShowInsurerProfile(!showInsurerProfile)} />}
             </Drawer>
             {/* /end of edit insurer */}
 

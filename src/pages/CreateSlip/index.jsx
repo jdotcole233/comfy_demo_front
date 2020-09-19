@@ -1,16 +1,19 @@
 import React, { useState, useEffect, memo } from 'react';
-import { Drawer, CurrencyValues, Datatable, Loader } from '../../components'
+import { Drawer, Loader } from '../../components'
 import InputOffer from './InputOffer';
-import { columns } from './columns';
 import { useQuery } from 'react-apollo';
 import { OFFERS } from '../../graphql/queries';
 import OfferButtons from './components/OfferButtons'
+import OfferListing from './OfferListing';
+import Header from './Header';
+import OfferOverView from './OfferOverView';
+import { columns } from './columns';
 
 export default memo(() => {
     const [inputOffer, setInputOffer] = useState(false)
     const [offerListing, setOfferListing] = useState([]);
     const [offerOverview, setOfferOverview] = useState(null);
-    const { data: offers, loading, called } = useQuery(OFFERS, {
+    const { data: offers, loading } = useQuery(OFFERS, {
         variables: {
             offer_status: ["OPEN", "PENDING"]
         },
@@ -49,161 +52,11 @@ export default memo(() => {
         return <Loader />
     }
 
-    return !loading && called && offers ? (
+    return !loading && offers ? (
         <div className="page-content">
-            <div className="col-xl-12 mt-">
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="card mini-stats-wid">
-                            <div className="card-body">
-                                <div className="media">
-                                    <div className="media-body">
-                                        <p className="text-muted font-weight-medium">Total Offers</p>
-                                        <h4 className="mb-0">{offerListing.length}</h4>
-                                    </div>
-
-                                    <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
-                                        <span className="avatar-title">
-                                            <i className="bx bx-copy-alt font-size-24"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card mini-stats-wid">
-                            <div className="card-body">
-                                <div className="media">
-                                    <div className="media-body">
-                                        <p className="text-muted font-weight-medium">Pending Offers</p>
-                                        <h4 className="mb-0">{offerOverview?.total_pending}</h4>
-                                    </div>
-
-                                    <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                        <span className="avatar-title rounded-circle bg-primary">
-                                            <i className="bx bx-archive-in font-size-24"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-6">
-                        <h3>Offer Overview</h3>
-                    </div>
-                </div>
-            </div>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="card mini-stats-wid">
-                            <div className="card-body">
-                                <div className="media">
-                                    <div className="media-body">
-                                        <p className="text-muted font-weight-medium">
-                                            Facultative Sum Insured
-                                        </p>
-                                        <CurrencyValues data={offerOverview?.total_fac_sum_insured} />
-                                    </div>
-
-                                    <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                        <span className="avatar-title rounded-circle bg-primary">
-                                            <i className="bx bx-money font-size-24"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card mini-stats-wid">
-                            <div className="card-body">
-                                <div className="media">
-                                    <div className="media-body">
-                                        <p className="text-muted font-weight-medium">
-                                            Facultative Premium
-                                        </p>
-                                        <CurrencyValues data={offerOverview?.total_fac_premium} />
-                                    </div>
-
-                                    <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                        <span className="avatar-title rounded-circle bg-primary">
-                                            <i className="bx bx-money font-size-24"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card mini-stats-wid">
-                            <div className="card-body">
-                                <div className="media">
-                                    <div className="media-body">
-                                        <p className="text-muted font-weight-medium">
-                                            Sum Insured
-                                        </p>
-                                        <CurrencyValues data={offerOverview?.total_sum_insured} />
-                                    </div>
-
-                                    <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                        <span className="avatar-title rounded-circle bg-primary">
-                                            <i className="bx bx-money font-size-24"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card mini-stats-wid">
-                            <div className="card-body">
-                                <div className="media">
-                                    <div className="media-body">
-                                        <p className="text-muted font-weight-medium">
-                                            Premium
-                                        </p>
-                                        <CurrencyValues data={offerOverview?.total_premium} />
-                                    </div>
-
-                                    <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                        <span className="avatar-title rounded-circle bg-primary">
-                                            <i className="bx bx-money font-size-24"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-6">
-                        <h3>Offer Listing</h3>
-                    </div>
-                    <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                        <button onClick={() => {
-                            setInputOffer(!inputOffer)
-                        }
-                        } className="btn btn-rounded btn-primary btn-sm w-md">Input offer</button>
-                    </div>
-                </div>
-            </div>
-            <div className="container-fluid mt-2">
-                <div className="card">
-                    {!loading ? (<div className="card-body">
-                        <Datatable data={offerListing} columns={columns} />
-                    </div>) : null}
-                </div >
-            </div >
-
+            <Header offerListing={offerListing} offerOverview={offerOverview} />
+            <OfferOverView offerOverview={offerOverview} />
+            <OfferListing title="Offer Listing" setInputOffer={setInputOffer} offerListing={offerListing} loading={loading} columns={columns} />
 
             {/* Input Offer  Drawer */}
             <Drawer isvisible={inputOffer} width="40%" toggle={() => setInputOffer(!inputOffer)}>

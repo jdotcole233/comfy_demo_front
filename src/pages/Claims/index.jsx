@@ -15,7 +15,7 @@ import { REMOVE_CLAIM_AMOUNT, UPDATE_CLAIM_AMOUNT } from '../../graphql/mutattio
 import swal from 'sweetalert';
 import PreViewClaimDebitNote from './PreViewClaimDebitNote';
 import ClaimRequest from './ClaimRequest'
-// import swall from 'sweetalert2'
+import OfferListing from '../CreateSlip/OfferListing'
 import { editAccessRoles, deleteAccessRoles } from '../../layout/adminRoutes';
 import { AuthContext } from '../../context/AuthContext';
 import SendSingleDebitNote from './SendSingleClaimDebitNote'
@@ -127,7 +127,7 @@ function Claims() {
     useEffect(() => {
         if (distributionList) {
             const rows = [];
-            distributionList.offer_claim_participants.map((shares, index) => {
+            distributionList.offer_claim_participants.map((shares) => {
                 const row = {
                     reinsurer: shares.re_company_name,
                     claim_amount: selectedOffer?.offer_detail?.currency + " " + distributionList.claim_amount,
@@ -192,37 +192,6 @@ function Claims() {
         setViewDistribution(false)
         setShowSingleClaimSendBox(!showSingleClaimSendBox)
         return;
-        // swall.fire({
-        //     icon: "warning",
-        //     allowOutsideClick: false,
-        //     allowEscapeKey: false,
-        //     title: "Send Claim Debit Note",
-        //     text: `A copy of the claim debit note will be sent to all associates of ${data.re_company_name}`,
-        //     buttons: ["No", { text: "Yes", closeModal: false }],
-        //     showCancelButton: true,
-        //     confirmButtonText: "Yes",
-        //     cancelButtonText: "No",
-        //     reverseButtons: true,
-        //     showLoaderOnConfirm: true
-        // }).then(input => {
-        //     if (!input.value) throw null
-        //     sendClaimDebitNote({
-        //         variables: {
-        //             offer_claim_participant_id: data.offer_claim_participant_id,
-        //             offer_id: selectedOffer?.offer_id,
-        //             reinsurer_id: data.reinsurer_id,
-        //         }
-        //     }).then(_res => {
-        //         swal("Hurray!!", "Claim Debit note sent to all participants", "success")
-        //     }).catch(err => {
-        //         if (err) {
-        //             swal("Oh noes!", "The AJAX request failed!", "error");
-        //         } else {
-        //             swal.stopLoading();
-        //             swal.close();
-        //         }
-        //     })
-        // });
     }
 
     const generateArray = (data, curr) => {
@@ -453,33 +422,9 @@ function Claims() {
                         </div>
                     </div>
                 </div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <h3>Offer List</h3>
-                        </div>
-                        <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                            {/* <button onClick={()=> setshowCreateBusinessForm(!showCreateBusinessForm)} className="btn
-                    btn-primary">Create Business</button> */}
-                        </div>
-                    </div>
-                </div>
-                <div className="container-fluid mt-2">
-                    <div className="card">
-                        <div className="card-body">
+                <OfferListing offerListing={offerListing} loading={loading} columns={columns} setInputOffer={1} />
 
-                            <div id="datatable-buttons_wrapper" className="dataTables_wrapper dt-bootstrap4 no-footer">
-                                <div className="row">
-                                    <div className="col-sm-12">
 
-                                        <Datatable entries={5} columns={columns} data={offerListing} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
                 {/* Create business modal */}
                 <Drawer width="40%" toggle={() => setMakeClaimDrawer(!makeClaimDrawer)} isvisible={makeClaimDrawer} >
                     <MakeClaim offer={selectedOffer} toggle={() => setMakeClaimDrawer(!makeClaimDrawer)} />

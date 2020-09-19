@@ -4821,9 +4821,9 @@ input[type='submit'].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #cdd4f4;
+  background-color: #efeff6;
   background-clip: border-box;
-  border: 0 solid #f6f6f6;
+  border: 0 solid #F8F8FB;
   border-radius: 0.25rem;
 }
 .card > hr {
@@ -4864,7 +4864,7 @@ input[type='submit'].btn-block {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: #96a5e8;
+  background-color: #f6f6f6;
   border-bottom: 0 solid #f6f6f6;
 }
 .card-header:first-child {
@@ -4875,7 +4875,7 @@ input[type='submit'].btn-block {
 }
 .card-footer {
   padding: 0.75rem 1.25rem;
-  background-color: #cfd6f6;
+  background-color: #f6f6f6;
   border-top: 0 solid #f6f6f6;
 }
 .card-footer:last-child {
