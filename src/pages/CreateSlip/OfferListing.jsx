@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Datatable } from '../../components'
 
 const OfferListing = ({
@@ -13,6 +14,9 @@ const OfferListing = ({
     allTotal
 }) => {
     const [tab, setTab] = useState(0)
+
+    const handleTabChange = useCallback((el) => setTab(el), [tab])
+
     return (
         <div className="row">
             <div className="col-md-12">
@@ -38,10 +42,10 @@ const OfferListing = ({
                                 <div className="d-flex w-auto justify-content-between">
                                     <ul className="nav nav-tabs nav-tabs-custom">
                                         <li className="nav-item">
-                                            <a onClick={() => setTab(0)} className={`nav-link ${tab === 0 ? "active" : ""}`}>Recent</a>
+                                            <a onClick={() => handleTabChange(0)} className={`nav-link ${tab === 0 ? "active" : ""}`}>Recent</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a onClick={() => setTab(1)} className={`nav-link ${tab === 1 ? "active" : ""}`}>All</a>
+                                            <a onClick={() => handleTabChange(1)} className={`nav-link ${tab === 1 ? "active" : ""}`}>All</a>
                                         </li>
                                     </ul>
                                 </div>

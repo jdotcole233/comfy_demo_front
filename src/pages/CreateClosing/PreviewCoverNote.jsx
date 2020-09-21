@@ -10,7 +10,7 @@ function PreviewCoverNote({ offer }) {
     const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
-        return <h1 className="dark-text-value">{`${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()}`} {" - "} {`${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`}</h1>
+        return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
     }
 
     return (
@@ -189,7 +189,7 @@ function PreviewCoverNote({ offer }) {
                             <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>SECURITY</h3>
                         </div>
                         {offer?.offer_participant.map((reinsurer, key) => (
-                            <div className="row mb-2">
+                            <div key={key} className="row mb-2">
                                 <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                     <h3 className="dark-text">{reinsurer.reinsurer.re_company_name} :</h3>
                                 </div>

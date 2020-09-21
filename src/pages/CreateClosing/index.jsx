@@ -72,7 +72,7 @@ function ClosingOffer() {
         <>
             {loading && <Loader />}
             {!loading && offers && <div className="page-content">
-                <Header closedOffers={closedOffers} />
+                <Header closedOffers={{ length: allTotal }} />
 
                 <OfferOverView offerOverview={offerOverview} />
 

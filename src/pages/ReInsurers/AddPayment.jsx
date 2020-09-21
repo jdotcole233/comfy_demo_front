@@ -12,7 +12,7 @@ import { DrawerContext } from '../../components/Drawer';
 export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) => {
     const { closed } = useContext(DrawerContext);
     const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0)
-    const [amountError] = useState(false)
+    const [amountError, setAmountError] = useState(false)
     const [currency, setCurrency] = useState("")
     const [policy_number, setPolicy_number] = useState("")
     const [form_inputs, setForm_inputs] = useState({
@@ -175,6 +175,19 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
 
     }
 
+    const handleChange = event => {
+        const { name, value } = event.target;
+        if (name === "payment_amount" && (value > expectedAmtToBePaid || value < 0)) {
+            setAmountError(true);
+        } else {
+            setAmountError(false)
+        }
+        setForm_inputs({
+            ...form_inputs,
+            [name]: value
+        })
+    }
+
     return (
         <div>
             <div className={styles.card_header}>
@@ -242,13 +255,13 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
                         {form_inputs.payment_type !== "Bank Transfer" && <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="cheque Nunmber">cheque Number</label>
-                                <input name="cheque_number" value={form_inputs.cheque_number} type="text" className="form-control" placeholder="cheque Nunmber" required />
+                                <input name="cheque_number" value={form_inputs.cheque_number} onChange={handleChange} type="text" className="form-control" placeholder="cheque Nunmber" required />
                             </div>
                         </div>}
                         <div className={`col-md-${form_inputs.payment_type === "Bank Transfer" ? "12" : "6"}`}>
                             <div className="form-group">
                                 <label htmlFor="Bank name">Bank name</label>
-                                <input type="text" name="bank_name" value={form_inputs.bank_name} className="form-control" placeholder="Bank name" required />
+                                <input type="text" name="bank_name" value={form_inputs.bank_name} onChange={handleChange} className="form-control" placeholder="Bank name" required />
                             </div>
                         </div>
                     </div>
@@ -259,7 +272,7 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
                         <div className="col-md-12">
                             <div className="form-group">
                                 <label htmlFor="Bank name">Bank name</label>
-                                <input type="text" name="beneficiary_bank_name" value={form_inputs.beneficiary_bank_name} className="form-control" placeholder="Bank name" required />
+                                <input type="text" name="beneficiary_bank_name" onChange={handleChange} value={form_inputs.beneficiary_bank_name} className="form-control" placeholder="Bank name" required />
                             </div>
                         </div>
                     </div>
@@ -283,7 +296,7 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
                         <div className="col-md-12">
                             <div className="form-group">
                                 <label htmlFor="Comment">Comment</label>
-                                <textarea value={form_inputs.offer_payment_comment} name="offer_payment_comment" id="" cols="30" rows="10" className="form-control" required></textarea>
+                                <textarea value={form_inputs.offer_payment_comment} onChange={handleChange} name="offer_payment_comment" id="" cols="30" rows="10" className="form-control" required></textarea>
                             </div>
                         </div>
                     </div>

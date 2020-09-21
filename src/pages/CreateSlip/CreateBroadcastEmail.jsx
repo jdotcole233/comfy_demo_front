@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from 'react'
@@ -80,16 +81,17 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
     useEffect(() => {
         if (copiedMails && copiedMails.length) {
             const validEmails = validateEmails(copiedMails);
-            !validEmails ? setError("copied_emails", "pattern", "Provide valid mails") : clearError("copied_emails")
+            // alert(validEmails)
+            validEmails ? clearError("copied_emails") : setError("copied_emails", "pattern", "Provide valid mails")
         }
-    }, [clearError, copiedMails, setError])
+    }, [copiedMails])
 
 
 
 
     const handleSubmitSendMail = ({ subject, copied_emails }) => {
         console.log(files);
-        if (!validateEmails(copiedMails.map(e => e.label))) {
+        if (!validateEmails(copiedMails)) {
             setError("copied_emails", "pattern", "Provide valid mails")
             return
         }
@@ -273,7 +275,7 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
                             <button onClick={() => handleSendAgain(1)} className="btn btn-danger">No</button>
                             <button onClick={() => handleSendAgain(2)} className="btn btn-primary">Yes</button>
                         </> : <button className="btn btn-primary w-md" disabled>
-                            <i class="bx bx-hourglass bx-spin mr-2"></i>
+                            <i className="bx bx-hourglass bx-spin mr-2"></i>
                                 Sending...
                             </button>}
 

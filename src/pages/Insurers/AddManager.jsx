@@ -11,7 +11,17 @@ import { useForm } from 'react-hook-form'
 
 
 function AddManager({ details, toggle, closed }) {
-    const { register, handleSubmit, errors, setValue, reset } = useForm()
+    const { register, handleSubmit, errors, setValue, reset } = useForm({
+        defaultValues: {
+            first_name: "",
+            last_name: "",
+            email: "",
+            phone_sec: "",
+            phone_pri: "",
+            position: "",
+            insurer_id: details?.insurer_id
+        }
+    })
     useEffect(() => {
         if (!closed) {
             reset()
@@ -20,6 +30,7 @@ function AddManager({ details, toggle, closed }) {
 
     useEffect(() => {
         if (details) {
+            console.log(details)
             setValue("insurer_id", details.insurer_id)
         }
     }, [details])
@@ -32,6 +43,7 @@ function AddManager({ details, toggle, closed }) {
 
 
     const handleAddManager = values => {
+        console.log(values)
         swal({
             closeOnClickOutside: false,
             closeOnEsc: false,
@@ -102,6 +114,7 @@ function AddManager({ details, toggle, closed }) {
                     <div className="col-md-6">
                         <div className="form-group">
                             <label htmlFor="">Last Name</label>
+                            <input type="hidden" name="insurer_id" ref={register({ required: "Required" })} />
                             <input name="last_name" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Last Name" />
                             {errors.last_name && <p className="text-danger">{errors.last_name.message}</p>}
                         </div>

@@ -51,16 +51,20 @@ function DropZone({ onChange, closed }) {
     }, [closed])
     const onDrop = useCallback(acceptedFiles => {
         // Do something with the files
-        console.log(acceptedFiles)
-        setFiles(prev => [...prev, ...acceptedFiles])
+        // console.log(acceptedFiles)
+        // const _ = files;
+        // console.log(_)
+        const newFiles = [...files, ...acceptedFiles]
+        setFiles(newFiles)
         acceptedFiles.map(file =>
             Object.assign(file, {
                 preview: URL.createObjectURL(file),
                 formattedSize: formatBytes(file.size)
             })
         );
-        onChange(files);
-    }, [onChange])
+        // console.log("new Files", newFiles)
+        onChange(newFiles);
+    }, [onChange, files])
     const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({ onDrop })
 
 

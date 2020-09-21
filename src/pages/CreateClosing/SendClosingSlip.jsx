@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
 import React, { useState, useContext, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
@@ -64,34 +65,20 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
         setInputvalue(event)
     }
 
-    const validateEmails = emails => {
-        let flag = true;
-        for (let index = 0; index < emails.length; index++) {
-            const element = emails[index];
-            if (emailRegex.test(element)) {
-                flag = flag && true;
-            } else {
-                flag = flag && false;
-            }
+    const validateEmails = emails => emails.every(email => emailRegex.test(email.value))
+
+
+    const handleCopiedmailChange = value => setCopiedMails(value ? value : [])
+
+
+    useEffect(() => {
+        if (copiedMails && copiedMails.length) {
+            const validEmails = validateEmails(copiedMails);
+            // alert(validEmails)
+            validEmails ? clearError("copied_emails") : setError("copied_emails", "pattern", "Provide valid mails")
         }
+    }, [copiedMails])
 
-        return flag;
-    }
-
-    const handleCopiedmailChange = value => {
-        setCopiedMails(value ? value : [])
-        handleEmailChange(value)
-    }
-
-    const handleEmailChange = emails => {
-        const validEmails = emails.length ? validateEmails(emails) : false;
-        if (!validEmails) {
-            setError("copied_emails", "pattern", "Provide valid mails")
-        } else {
-            clearError("copied_emails")
-        }
-        setEmails(emails)
-    }
 
     const handleSubmitSendMail = ({ subject, copied_emails }) => {
         if (content.length < 1) {
@@ -154,7 +141,7 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
                     <label className="col-form-label col-lg-2">CC</label>
                     <div className="col-lg-10">
                         <Selector inputValue={inputvalue} onInputChange={handleInputChange} isMulti value={copiedMails} isLoading={loading} onChange={handleCopiedmailChange} onKeyDown={handleKeyDown} options={selectedableEmail} />
-                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} onChange={handleEmailChange} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
+                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
                         {errors.copied_emails && <p className="text-danger">{errors.copied_emails.message}</p>}
                     </div>
                 </div>

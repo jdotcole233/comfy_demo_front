@@ -83,13 +83,13 @@ export const Navbar = () => {
                                 <i className="bx bx-user font-size-16 align-middle mr-1"></i>
                     Profile
                   </Link>
-                            <Link
+                            {/* <Link
                                 to={{ pathname: "/admin/settings" }}
                                 className="dropdown-item"
                             >
                                 <i className="bx bx-cog font-size-16 align-middle mr-1"></i>
-                    Settings
-                  </Link>
+                                Settings
+                            </Link> */}
 
                             <div className="dropdown-divider"></div>
                             <button

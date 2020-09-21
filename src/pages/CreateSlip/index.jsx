@@ -111,7 +111,7 @@ export default memo(() => {
 
     return !loading && recentOffers ? (
         <div className="page-content">
-            <Header offerListing={offerListing} offerOverview={offerOverview} />
+            <Header offerListing={{ length: total }} offerOverview={offerOverview} />
             <OfferOverView offerOverview={offerOverview} />
 
 
