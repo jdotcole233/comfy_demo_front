@@ -8,7 +8,7 @@ import { AddPayments } from '../AddPayment'
 import { paymentsColumns } from '../columns'
 
 
-const OfferButtons = ({ offer, data }) => {
+const OfferButtons = ({ offer, data, type = "recent" }) => {
     const [paymentsModal, setPaymentsModal] = useState(false)
     const [addPaymentDrawer, setAddPaymentDrawer] = useState(false)
     const [updatepaymentDrawer, setUpdatepaymentDrawer] = useState(false);
@@ -75,7 +75,7 @@ const OfferButtons = ({ offer, data }) => {
             <>
                 <DropdownButton className="mr-1 mb-1 w-md" variant="danger" size="sm" as={ButtonGroup} id="dropdown-basic-button" title="Action">
                     <Dropdown.Item onClick={() => handleViewOfferDetails(offer)}>View Details</Dropdown.Item>
-                    {offer.offer_extra_charges && offer.reinsurer_offers_only.payment_status !== "PAID" ? <Dropdown.Item onClick={() => handleViewExtraCharges(offer)}>View Deductions</Dropdown.Item> : null}
+                    {offer.offer_extra_charges && !["PARTPAYMENT", "PAID"].includes(offer.reinsurer_offers_only.payment_status) ? <Dropdown.Item onClick={() => handleViewExtraCharges(offer)}>View Deductions</Dropdown.Item> : null}
                 </DropdownButton>
                 {offer.offer_participant_payment.length ? <button onClick={() => handleShowPayments(offer)} className="btn w-md btn-primary btn-sm">Payments</button> : null}
             </>
@@ -110,7 +110,7 @@ const OfferButtons = ({ offer, data }) => {
 
             {/* Edit payment Drawer */}
             <Drawer width="40%" isvisible={updatepaymentDrawer} toggle={() => setUpdatepaymentDrawer(!updatepaymentDrawer)}>
-                <AddPayments edit={true} details={selectedOffer} reinsurer_id={data?.reinsurer.reinsurer_id} payment={payment} toggle={() => setUpdatepaymentDrawer(!updatepaymentDrawer)} />
+                <AddPayments edit={true} details={selectedOffer} reinsurer_id={type === "recent" ? data?.reinsurer.reinsurer_id : data?.reinsurer_id} payment={payment} toggle={() => setUpdatepaymentDrawer(!updatepaymentDrawer)} />
             </Drawer>
             {/* /end of add payment Drawer */}
 

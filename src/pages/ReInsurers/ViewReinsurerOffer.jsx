@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import styles from './styles/ViewReinsurerOffer.module.css'
 import { useQuery } from 'react-apollo'
 import { FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries'
+import JoditEditor from "jodit-react";
+
 
 export default function ViewReinsurerOffer({ data }) {
     const [details, setDetails] = useState(null)
@@ -73,7 +75,7 @@ export default function ViewReinsurerOffer({ data }) {
                                 <div key={key} className="col-md-6">
                                     <div className="form-group">
                                         <label htmlFor="Type of goods">{detail.keydetail}</label>
-                                        <input type="text" onChange={() => {}} className="form-control" value={detail.value} placeholder={detail.keydetail} />
+                                        <input type="text" onChange={() => { }} className="form-control" value={detail.value} placeholder={detail.keydetail} />
                                     </div>
                                 </div>
                             )
@@ -86,55 +88,55 @@ export default function ViewReinsurerOffer({ data }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Policy no.</label>
-                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.policy_number} className="form-control" placeholder="Policy no." onChange={() => {}} />
+                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.policy_number} className="form-control" placeholder="Policy no." onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Insured</label>
-                                <input type="text" className="form-control" value={details?.reinsurer_offers_only.offer_detail.insured_by} placeholder="Insured" onChange={() => {}} />
+                                <input type="text" className="form-control" value={details?.reinsurer_offers_only.offer_detail.insured_by} placeholder="Insured" onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Sum Insured</label>
-                                <input type="text" className="form-control" value={details?.reinsurer_offers_only.sum_insured} placeholder="Sum Insured" onChange={() => {}} />
+                                <input type="text" className="form-control" value={details?.reinsurer_offers_only.sum_insured} placeholder="Sum Insured" onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Rate (%)</label>
-                                <input type="text" className="form-control" placeholder="Rate" value={details?.reinsurer_offers_only.rate} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Rate" value={details?.reinsurer_offers_only.rate} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Premium</label>
-                                <input type="text" className="form-control" placeholder="Premium" value={details?.reinsurer_offers_only.premium} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Premium" value={details?.reinsurer_offers_only.premium} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Facultative Offer (%)</label>
-                                <input type="text" className="form-control" placeholder="Facultative Offer" value={details?.reinsurer_offers_only.facultative_offer} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Facultative Offer" value={details?.reinsurer_offers_only.facultative_offer} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Commision (%)</label>
-                                <input type="text" className="form-control" placeholder="Commision" value={details?.reinsurer_offers_only.commission} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Commision" value={details?.reinsurer_offers_only.commission} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Brokerage (%)</label>
-                                <input type="text" className="form-control" placeholder="Brokerage" value={details?.reinsurer_offers_only.brokerage} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Brokerage" value={details?.reinsurer_offers_only.brokerage} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-12">
                             <div className="form-group">
                                 <label htmlFor="currency">Currency</label>
-                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.currency} className="form-control" onChange={() => {}} readOnly />
+                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.currency} className="form-control" onChange={() => { }} readOnly />
                             </div>
                         </div>
                     </div>
@@ -145,13 +147,13 @@ export default function ViewReinsurerOffer({ data }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">From</label>
-                                <input type="text" value={details?.reinsurer_offers_only?.offer_detail.period_of_insurance_from} className="form-control" placeholder="From" onChange={() => {}} readOnly />
+                                <input type="text" value={details?.reinsurer_offers_only?.offer_detail.period_of_insurance_from} className="form-control" placeholder="From" onChange={() => { }} readOnly />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">To</label>
-                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.period_of_insurance_to} className="form-control" placeholder="To" onChange={() => {}} readOnly />
+                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.period_of_insurance_to} className="form-control" placeholder="To" onChange={() => { }} readOnly />
                             </div>
                         </div>
                     </div>
@@ -159,7 +161,8 @@ export default function ViewReinsurerOffer({ data }) {
                 <fieldset className="w-auto p-2 border">
                     <legend className={styles.details_title}></legend>
                     <div className="form-grpup">
-                        <textarea name="" id="" cols="30" rows="10" value={details?.reinsurer_offers_only.offer_detail.offer_comment} onChange={() => {}}  className="form-control"></textarea>
+                        <JoditEditor config={{ readonly: true }} value={details?.reinsurer_offers_only.offer_detail.offer_comment} onChange={() => { }} />
+                        <textarea name="" hidden id="" cols="30" rows="10" value={details?.reinsurer_offers_only.offer_detail.offer_comment} onChange={() => { }} className="form-control"></textarea>
                     </div>
                 </fieldset>
             </div>

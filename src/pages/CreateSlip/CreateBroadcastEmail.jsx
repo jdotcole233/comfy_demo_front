@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-throw-literal */
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
 import { Dropzone, Modal, Datatable, Selector } from '../../components'
 import { useMutation, useQuery } from 'react-apollo';
@@ -22,7 +22,7 @@ const createOption = (label) => ({
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function CreateBroadcastEmail({ offer_id, toggle,closed ,noOfReinsurers = 0, noOfAssociates = 0 }) {
+function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, noOfAssociates = 0 }) {
     const { register, errors, handleSubmit, setError, clearError, reset } = useForm()
     const [content, setContent] = useState("")
     const [contentError, setContentError] = useState(false);
@@ -71,38 +71,21 @@ function CreateBroadcastEmail({ offer_id, toggle,closed ,noOfReinsurers = 0, noO
         setInputvalue(event)
     }
 
-    const validateEmails = emails => {
-        let flag = true;
-        for (let index = 0; index < emails.length; index++) {
-            const element = emails[index];
-            console.log("email" + index, element)
-            if (emailRegex.test(element)) {
-                flag = flag && true;
-                console.log(true);
-            } else {
-                flag = flag && false;
-                console.log(false)
-            }
+    const validateEmails = emails => emails.every(email => emailRegex.test(email.value))
+
+
+    const handleCopiedmailChange = value => setCopiedMails(value ? value : [])
+
+
+    useEffect(() => {
+        if (copiedMails && copiedMails.length) {
+            const validEmails = validateEmails(copiedMails);
+            !validEmails ? setError("copied_emails", "pattern", "Provide valid mails") : clearError("copied_emails")
         }
-
-        return flag;
-    }
+    }, [clearError, copiedMails, setError])
 
 
-    const handleCopiedmailChange = value => {
-        setCopiedMails(value ? value : [])
-    }
 
-    const handleEmailChange = event => {
-        const { value } = event.target;
-        const emails = value.length && value.split(",");
-        const validEmails = emails.length ? validateEmails(emails) : false;
-        if (!validEmails) {
-            setError("copied_emails", "pattern", "Provide valid mails")
-        } else {
-            clearError("copied_emails")
-        }
-    }
 
     const handleSubmitSendMail = ({ subject, copied_emails }) => {
         console.log(files);
@@ -220,7 +203,7 @@ function CreateBroadcastEmail({ offer_id, toggle,closed ,noOfReinsurers = 0, noO
                     <label htmlFor="taskname" className="col-form-label col-lg-2">CC</label>
                     <div className="col-lg-10">
                         <Selector inputValue={inputvalue} onInputChange={handleInputChange} isMulti value={copiedMails} isLoading={loading} onChange={handleCopiedmailChange} onKeyDown={handleKeyDown} options={selectedableEmail} />
-                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} onChange={handleEmailChange} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
+                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
                         {errors.copied_emails && <p className="text-danger">{errors.copied_emails.message}</p>}
                     </div>
                 </div>

@@ -32,7 +32,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (data) {
             const list = [];
-            [...data.offers].map((offer) => {
+            [...data.offers.offers].map((offer) => {
                 const row = {
                     policy_number: offer.offer_detail.policy_number,
                     insured: offer.offer_detail.insured_by,

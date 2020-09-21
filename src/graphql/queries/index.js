@@ -185,96 +185,194 @@ export const REINSURER = gql`
 `;
 
 export const OFFERS = gql`
-  query getOffers($offer_status: [String]!) {
-    offers(offer_status: $offer_status) {
-      offer_id
-      rate
-      commission
-      commission_amount
-      brokerage
-      facultative_offer
-      sum_insured
-      fac_sum_insured
-      premium
-      fac_premium
-      offer_status
-      payment_status
-      claim_status
-      offer_detail {
-        offer_detail_id
-        offersoffer_id
-        policy_number
-        insured_by
-        period_of_insurance_to
-        period_of_insurance_from
-        currency
-        offer_comment
-        offer_details
-      }
-      offer_claims {
-        offer_claim_id
-        claim_amount
-        claim_date
-        created_at
-        offer_claim_participants {
-          offer_claimsoffer_claim_id
-          offer_claim_participant_id
-          reinsurer_id
-          offer_participantsoffer_participant_id
+  query getOffers($offer_status: [String]!, $skip: Int) {
+    offers(offer_status: $offer_status, skip: $skip) {
+      offers {
+        offer_id
+        rate
+        commission
+        commission_amount
+        brokerage
+        facultative_offer
+        sum_insured
+        fac_sum_insured
+        premium
+        fac_premium
+        offer_status
+        payment_status
+        claim_status
+        offer_detail {
+          offer_detail_id
+          offersoffer_id
+          policy_number
+          insured_by
+          period_of_insurance_to
+          period_of_insurance_from
+          currency
+          offer_comment
+          offer_details
+        }
+        offer_claims {
+          offer_claim_id
+          claim_amount
+          claim_date
+          created_at
+          offer_claim_participants {
+            offer_claimsoffer_claim_id
+            offer_claim_participant_id
+            reinsurer_id
+            offer_participantsoffer_participant_id
+            offer_participant_percentage
+            re_company_name
+            claim_share
+            created_at
+          }
+        }
+        offer_participant {
+          offer_participant_id
           offer_participant_percentage
-          re_company_name
-          claim_share
+          offer_amount
+          participant_fac_premium
+          participant_fac_sum_insured
+          offer_extra_charges {
+            nic_levy
+            agreed_brokerage_percentage
+            withholding_tax
+            agreed_commission
+            agreed_commission_amount
+            brokerage_amount
+            nic_levy_amount
+            withholding_tax_amount
+          }
+          offer_deduction_charge {
+            nic_levy_paid
+            withholding_tax_paid
+            brokerage_amount_paid
+            commission_taken
+          }
+          reinsurer {
+            reinsurer_id
+            re_company_name
+            re_company_email
+          }
+        }
+        insurer {
+          insurer_id
+          insurer_company_name
+          insurer_company_email
+          insurer_company_website
+          insurer_address {
+            suburb
+            region
+            country
+          }
+        }
+        classofbusiness {
+          class_of_business_id
+          business_name
+          business_details
           created_at
         }
-      }
-      offer_participant {
-        offer_participant_id
-        offer_participant_percentage
-        offer_amount
-        participant_fac_premium
-        participant_fac_sum_insured
-        offer_extra_charges {
-          nic_levy
-          agreed_brokerage_percentage
-          withholding_tax
-          agreed_commission
-          agreed_commission_amount
-          brokerage_amount
-          nic_levy_amount
-          withholding_tax_amount
-        }
-        offer_deduction_charge {
-          nic_levy_paid
-          withholding_tax_paid
-          brokerage_amount_paid
-          commission_taken
-        }
-        reinsurer {
-          reinsurer_id
-          re_company_name
-          re_company_email
-        }
-      }
-      insurer {
-        insurer_id
-        insurer_company_name
-        insurer_company_email
-        insurer_company_website
-        insurer_address {
-          suburb
-          region
-          country
-        }
-      }
-      classofbusiness {
-        class_of_business_id
-        business_name
-        business_details
         created_at
       }
-      created_at
     }
     offerOverview(filter_by: $offer_status)
+  }
+`;
+
+export const ALLOFFERS = gql`
+  query getOffers($offer_status: [String]!, $skip: Int) {
+    offers_all(offer_status: $offer_status, skip: $skip) {
+      offers {
+        offer_id
+        rate
+        commission
+        commission_amount
+        brokerage
+        facultative_offer
+        sum_insured
+        fac_sum_insured
+        premium
+        fac_premium
+        offer_status
+        payment_status
+        claim_status
+        offer_detail {
+          offer_detail_id
+          offersoffer_id
+          policy_number
+          insured_by
+          period_of_insurance_to
+          period_of_insurance_from
+          currency
+          offer_comment
+          offer_details
+        }
+        offer_claims {
+          offer_claim_id
+          claim_amount
+          claim_date
+          created_at
+          offer_claim_participants {
+            offer_claimsoffer_claim_id
+            offer_claim_participant_id
+            reinsurer_id
+            offer_participantsoffer_participant_id
+            offer_participant_percentage
+            re_company_name
+            claim_share
+            created_at
+          }
+        }
+        offer_participant {
+          offer_participant_id
+          offer_participant_percentage
+          offer_amount
+          participant_fac_premium
+          participant_fac_sum_insured
+          offer_extra_charges {
+            nic_levy
+            agreed_brokerage_percentage
+            withholding_tax
+            agreed_commission
+            agreed_commission_amount
+            brokerage_amount
+            nic_levy_amount
+            withholding_tax_amount
+          }
+          offer_deduction_charge {
+            nic_levy_paid
+            withholding_tax_paid
+            brokerage_amount_paid
+            commission_taken
+          }
+          reinsurer {
+            reinsurer_id
+            re_company_name
+            re_company_email
+          }
+        }
+        insurer {
+          insurer_id
+          insurer_company_name
+          insurer_company_email
+          insurer_company_website
+          insurer_address {
+            suburb
+            region
+            country
+          }
+        }
+        classofbusiness {
+          class_of_business_id
+          business_name
+          business_details
+          created_at
+        }
+        created_at
+      }
+      total
+    }
   }
 `;
 
@@ -390,47 +488,49 @@ export const DASHBOARD = gql`
     offerOverview(filter_by: ["PENDING", "OPEN", "CLOSED"])
     dashboardByPieChartData(year: $year, month: $month)
     offers(offer_status: ["OPEN", "PENDING"]) {
-      offer_id
-      rate
-      commission
-      commission_amount
-      brokerage
-      facultative_offer
-      sum_insured
-      fac_sum_insured
-      premium
-      fac_premium
-      offer_status
-      payment_status
-      claim_status
-      offer_detail {
-        offersoffer_id
-        policy_number
-        insured_by
-        period_of_insurance_from
-        period_of_insurance_to
-        currency
-        offer_comment
-        offer_details
-      }
-      offer_participant {
-        reinsurer {
-          re_company_name
+      offers {
+        offer_id
+        rate
+        commission
+        commission_amount
+        brokerage
+        facultative_offer
+        sum_insured
+        fac_sum_insured
+        premium
+        fac_premium
+        offer_status
+        payment_status
+        claim_status
+        offer_detail {
+          offersoffer_id
+          policy_number
+          insured_by
+          period_of_insurance_from
+          period_of_insurance_to
+          currency
+          offer_comment
+          offer_details
         }
-      }
-      insurer {
-        insurer_id
-        insurer_company_name
-        insurer_company_email
-        insurer_company_website
-      }
-      classofbusiness {
-        class_of_business_id
-        business_name
-        business_details
+        offer_participant {
+          reinsurer {
+            re_company_name
+          }
+        }
+        insurer {
+          insurer_id
+          insurer_company_name
+          insurer_company_email
+          insurer_company_website
+        }
+        classofbusiness {
+          class_of_business_id
+          business_name
+          business_details
+          created_at
+        }
         created_at
       }
-      created_at
     }
   }
 `;
@@ -555,5 +655,148 @@ export const GET_ISNURER_DEDUCTIONS = gql`
 export const CLAIM_OVERVIEW = gql`
   {
     claimOverview(offer_status: ["CLOSED"])
+  }
+`;
+
+export const INSURER_OFFERS = gql`
+  # Write your query or mutation here
+  query insurer_offers($skip: Int, $id: ID) {
+    insurer_all_offers(skip: $skip, insurer_id: $id) {
+      total
+      offers {
+        created_at
+        offer_id
+        offer_status
+        sum_insured
+        rate
+        fac_sum_insured
+        premium
+        fac_premium
+        brokerage
+        facultative_offer
+        payment_status
+        commission
+        commission_amount
+        offer_participant {
+          offer_participant_id
+          participant_fac_premium
+          offer_participant_percentage
+          reinsurer {
+            re_company_name
+          }
+
+          offer_participant_payment {
+            offer_participant_payment_id
+            offer_payment_amount
+            paid_details
+            offer_deduction_charge {
+              offer_deduction_payment_id
+              nic_levy_paid
+              withholding_tax_paid
+              brokerage_amount_paid
+              commission_taken
+            }
+          }
+        }
+        offer_payment {
+          offer_payment_id
+          payment_details
+          payment_amount
+          offer_payment_comment
+          created_at
+          updated_at
+        }
+        classofbusiness {
+          business_name
+        }
+        offer_detail {
+          offer_details
+          policy_number
+          period_of_insurance_from
+          period_of_insurance_to
+          offer_comment
+          insured_by
+          currency
+        }
+        insurer {
+          insurer_company_name
+        }
+      }
+    }
+  }
+`;
+
+export const REINSURER_OFFERS = gql`
+  query reinsurers_offers($skip: Int, $id: ID) {
+    reinsurer_all_offers(reinsurer_id: $id, skip: $skip) {
+      offers {
+        offersoffer_id
+        reinsurer {
+          reinsurer_id
+        }
+        offer_participant_id
+        offer_detail {
+          currency
+          policy_number
+        }
+        offer_participant_percentage
+        participant_fac_premium
+        offer_extra_charges {
+          offer_extra_charge_id
+          withholding_tax
+          agreed_commission
+          nic_levy
+          agreed_brokerage_percentage
+        }
+        offer_participant_payment {
+          offer_participant_payment_id
+          offer_payment_amount
+          paid_details
+          offer_participant_payment_comment
+          payment_status
+          created_at
+          updated_at
+          offer_deduction_charge {
+            offer_deduction_payment_id
+            nic_levy_paid
+            withholding_tax_paid
+            brokerage_amount_paid
+            commission_taken
+          }
+        }
+        reinsurer_offers_only {
+          offer_id
+          rate
+          premium
+          brokerage
+          fac_premium
+          facultative_offer
+          commission
+          fac_sum_insured
+          sum_insured
+          created_at
+          offer_status
+          payment_status
+          classofbusiness {
+            business_name
+            class_of_business_id
+            business_details
+          }
+          insurer {
+            insurer_company_name
+          }
+          offer_detail {
+            insured_by
+            currency
+            policy_number
+            period_of_insurance_from
+            period_of_insurance_to
+            offer_comment
+            offer_details
+          }
+        }
+      }
+      total
+    }
   }
 `;

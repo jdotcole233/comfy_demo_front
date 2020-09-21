@@ -7,7 +7,7 @@ import { Drawer, Datatable, Loader, OverViewCard } from '../../components'
 import EditReinsurer from './EditResinsurer';
 import { associatesColumnns, offersColumns } from './columns'
 import { useQuery } from 'react-apollo';
-import { REINSURER } from '../../graphql/queries'
+import { REINSURER, REINSURER_OFFERS } from '../../graphql/queries'
 import OfferButtons from './components/OfferButtons'
 import AssociateButtons from './components/AssociateButtons'
 import BrokerageComponent from './components/BrokerageComponent'
@@ -20,7 +20,9 @@ function ReinsurerDetail() {
     const [showInsurerProfile, setShowInsurerProfile] = useState(false);
     const [associates, setAssociates] = useState([]);
     const [offerListing, setOfferListing] = useState([])
+    const [allOfferListing, setAllOfferListing] = useState([])
     const [overview, setOverview] = useState(null)
+    const [allTotalValue, setAllTotalValue] = useState(0)
 
     useEffect(() => {
         if (!state) {
@@ -34,6 +36,15 @@ function ReinsurerDetail() {
         },
         fetchPolicy: "network-only"
     })
+    const { data: reinsurer_offers, loading: fetching, fetchMore } = useQuery(REINSURER_OFFERS, {
+        variables: {
+            id: state?.reinsurer_id,
+            skip: 0
+        },
+        fetchPolicy: "cache-and-network"
+    })
+
+
 
 
     useEffect(() => {
@@ -54,6 +65,36 @@ function ReinsurerDetail() {
             setOverview(data.reinsurer.reinsurer_overview)
         }
     }, [data])
+
+    useEffect(() => {
+        if (reinsurer_offers) {
+            const offers = [];
+            reinsurer_offers.reinsurer_all_offers.offers.map((offer) => {
+                const row = {
+                    policy_no: offer.reinsurer_offers_only.offer_detail.policy_number,
+                    company: offer.reinsurer_offers_only.insurer.insurer_company_name,
+                    cob: offer.reinsurer_offers_only.classofbusiness.business_name,
+                    participating_percentage: offer.offer_participant_percentage,
+                    fac_sum_insured: offer.reinsurer_offers_only.fac_sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+                    fac_premium: offer.reinsurer_offers_only.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+                    offer_status: (
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.reinsurer_offers_only.offer_status === "OPEN" ? "primary" : offer.reinsurer_offers_only.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.reinsurer_offers_only.offer_status}</span>
+                    ),
+                    brokerage: offer.reinsurer_offers_only.brokerage,
+                    payment_status: (
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.reinsurer_offers_only.payment_status === "PART PAYMENT" ? "primary" : offer.reinsurer_offers_only.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.reinsurer_offers_only.payment_status}</span>
+                    ),
+                    offer_date: offer.reinsurer_offers_only.created_at,
+                    insured: offer.reinsurer_offers_only.offer_detail.insured_by,
+                    actions: <OfferButtons type="all" data={reinsurer_offers} offer={offer} />,
+                }
+                offers.push(row)
+                return offer;
+            })
+            setAllOfferListing(offers)
+            setAllTotalValue(reinsurer_offers.reinsurer_all_offers.total)
+        }
+    }, [reinsurer_offers])
 
     useEffect(() => {
         if (data) {
@@ -83,6 +124,26 @@ function ReinsurerDetail() {
             setOfferListing(offers)
         }
     }, [data])
+
+
+    const handleLoadMore = (skip) => {
+        fetchMore({
+            variables: {
+                id: state?.reinsurer_id,
+                skip
+            },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                fetchMoreResult.reinsurer_all_offers.offers = [
+                    ...prev.reinsurer_all_offers.offers,
+                    ...fetchMoreResult.reinsurer_all_offers.offers
+                ];
+                // setSkip(p => p + 1)
+                return fetchMoreResult
+            }
+        })
+    }
+
 
     if (loading) return <Loader />
 
@@ -236,7 +297,16 @@ function ReinsurerDetail() {
                     </div>
                 </div>
                 <BrokerageComponent data={data} />
-                <OfferListing title="Offers" offerListing={offerListing} setInputOffer={1} columns={offersColumns} />
+                <OfferListing
+                    title="Offers"
+                    recent={offerListing}
+                    all={allOfferListing}
+                    allTotal={allTotalValue}
+                    setInputOffer={1}
+                    columns={offersColumns}
+                    fetching={fetching}
+                    handleLoadMore={handleLoadMore}
+                />
                 <div className="">
                     <div className="col-md-12">
                         <div className="card">

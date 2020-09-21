@@ -7,12 +7,13 @@ import { Drawer, Datatable, Loader, OverViewCard } from '../../components'
 import EditInsurer from './EditInsurer'
 import f_dat, { managersColumn } from './dummy';
 import { useQuery } from 'react-apollo'
-import { INSURER } from '../../graphql/queries'
+import { INSURER, INSURER_OFFERS } from '../../graphql/queries'
 import OfferButtons from './components/Offerbuttons'
 import ManagerButtons from './components/ManagerButtons'
 import BrokerageComponent from './components/BrokerageComponent'
 import Reschedule from './components/Reschedule';
 import OfferListing from '../CreateSlip/OfferListing';
+import { useMemo } from 'react';
 
 
 function InsurerDetail() {
@@ -24,6 +25,14 @@ function InsurerDetail() {
             history.push("/admin/insurers")
         }
     }, [state])
+
+    const { data: insurer_offers, loading: fetching, fetchMore } = useQuery(INSURER_OFFERS, {
+        variables: {
+            id: state?.insurer_id,
+            skip: 0
+        },
+        fetchPolicy: "cache-and-network"
+    })
 
 
     const { data: insurer, loading } = useQuery(INSURER, {
@@ -68,6 +77,28 @@ function InsurerDetail() {
 
 
 
+    const insurers_all_offers = useMemo(() => insurer_offers?.insurer_all_offers?.offers.map((offer, i) => ({
+        name: offer.offer_detail?.policy_number,
+        insured: offer.offer_detail?.insured_by,
+        sum_insured: `${offer?.offer_detail?.currency} ${offer.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
+        f_sum_insured: `${offer?.offer_detail?.currency} ${offer.fac_sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
+        comission: offer.commission,
+        cob: offer.classofbusiness.business_name,
+        offer_date: offer.created_at,
+        offer_status: (
+            <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
+        ),
+        payment_status: (
+            <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.payment_status === "PARTPAYMENT" ? "primary" : offer.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.payment_status}</span>
+        ),
+        salary: <OfferButtons insurer={insurer} state={state} offer={offer} />,
+    })), [insurer_offers])
+
+
+    const insurers_all_offers_total = useMemo(() => insurer_offers?.insurer_all_offers?.total, [insurer_offers])
+
+
+
     useEffect(() => {
         if (insurer) {
             const list = [];
@@ -85,6 +116,23 @@ function InsurerDetail() {
         }
     }, [insurer])
 
+
+    const loadMore = (skip) => {
+        fetchMore({
+            variables: {
+                id: state?.insurer_id,
+                skip
+            },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                fetchMoreResult.insurer_all_offers.offers = [
+                    ...prev.insurer_all_offers.offers,
+                    ...fetchMoreResult.insurer_all_offers.offers,
+                ]
+                return fetchMoreResult
+            }
+        })
+    }
 
 
 
@@ -260,7 +308,16 @@ function InsurerDetail() {
                     </div>
                 </div>
                 <BrokerageComponent insurer={insurer} />
-                <OfferListing title="Offers" setInputOffer={1} offerListing={rows} columns={f_dat.columns} />
+                <OfferListing
+                    title="Offers"
+                    setInputOffer={1}
+                    fetching={fetching}
+                    handleLoadMore={loadMore}
+                    recent={rows}
+                    all={insurers_all_offers}
+                    columns={f_dat.columns}
+                    allTotal={insurers_all_offers_total}
+                />
                 <div className="">
 
                     <div className="col-md-12">

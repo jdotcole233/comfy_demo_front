@@ -2,7 +2,16 @@
 import React, { useState } from 'react'
 import { Datatable } from '../../components'
 
-const OfferListing = ({ setInputOffer, loading, offerListing, columns, title }) => {
+const OfferListing = ({
+    setInputOffer,
+    recent,
+    all,
+    columns,
+    title,
+    handleLoadMore,
+    fetching,
+    allTotal
+}) => {
     const [tab, setTab] = useState(0)
     return (
         <div className="row">
@@ -26,16 +35,34 @@ const OfferListing = ({ setInputOffer, loading, offerListing, columns, title }) 
                     <div className="card">
                         <div className="card-body">
                             <div className="row mb-3">
-                                <ul className="nav nav-tabs nav-tabs-custom">
-                                    <li className="nav-item">
-                                        <a onClick={() => setTab(0)} className={`nav-link ${tab === 0 ? "active" : ""}`}>Recent</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a onClick={() => setTab(1)} className={`nav-link ${tab === 1 ? "active" : ""}`}>All</a>
-                                    </li>
-                                </ul>
+                                <div className="d-flex w-auto justify-content-between">
+                                    <ul className="nav nav-tabs nav-tabs-custom">
+                                        <li className="nav-item">
+                                            <a onClick={() => setTab(0)} className={`nav-link ${tab === 0 ? "active" : ""}`}>Recent</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a onClick={() => setTab(1)} className={`nav-link ${tab === 1 ? "active" : ""}`}>All</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            {!loading ? (<Datatable data={offerListing} columns={columns} />) : null}
+                            {tab === 0 && (
+                                <div>
+                                    <Datatable data={recent} columns={columns} />
+                                </div>)}
+                            {tab === 1 && (
+                                <div>
+                                    <div className="d-flex w-auto justify-content-end">
+                                        {all.length < allTotal &&
+                                            <button className="btn btn-primary btn-sm w-md " onClick={() => handleLoadMore(all.length)}>
+                                                {fetching ? "loading ..." : "load More"}
+                                                {fetching}
+                                            </button>
+                                        }
+                                    </div>
+                                    <Datatable data={all} columns={columns} />
+                                </div>
+                            )}
                         </div>
                     </div >
                 </div >

@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useMemo, useCallback } from 'react'
 import { Alert } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { Drawer, Modal, CurrencyValues, Datatable, Loader } from '../../components';
@@ -10,7 +10,7 @@ import styles from './styles/card.module.css'
 import MakeClaim from './MakeClaim';
 import { columns, claimsColumns, distributionsColumns } from './columns'
 import { useQuery, useMutation } from 'react-apollo';
-import { OFFERS, CLAIM_OVERVIEW } from '../../graphql/queries';
+import { OFFERS, CLAIM_OVERVIEW, ALLOFFERS } from '../../graphql/queries';
 import { REMOVE_CLAIM_AMOUNT, UPDATE_CLAIM_AMOUNT } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import PreViewClaimDebitNote from './PreViewClaimDebitNote';
@@ -19,6 +19,7 @@ import OfferListing from '../CreateSlip/OfferListing'
 import { editAccessRoles, deleteAccessRoles } from '../../layout/adminRoutes';
 import { AuthContext } from '../../context/AuthContext';
 import SendSingleDebitNote from './SendSingleClaimDebitNote'
+import { generateClaimsTable } from './actions';
 
 
 const currency_key = {
@@ -32,19 +33,28 @@ const currency_key = {
 function Claims() {
     const { state: { user } } = useContext(AuthContext)
     const { data: overview } = useQuery(CLAIM_OVERVIEW, { fetchPolicy: "network-only" });
+    const [skip] = useState(0)
     const { data: offers, loading, refetch } = useQuery(OFFERS, {
         variables: {
             offer_status: ["CLOSED"]
         },
         fetchPolicy: "network-only"
     });
+
+    const { data: offers_all, loading: fetching, fetchMore } = useQuery(ALLOFFERS, {
+        variables: {
+            offer_status: ["CLOSED"],
+            skip
+        },
+        fetchPolicy: "cache-and-network"
+    });
+
     const { register, setValue, errors, handleSubmit } = useForm();
     const [makeClaimDrawer, setMakeClaimDrawer] = useState(false)
     const [currency, setCurrency] = useState("GHC")
     const [showClaimDebitNote, setShowClaimDebitNote] = useState(false)
     const [claims, setClaims] = useState([])
     const [claimsDistribution, setClaimsDistribution] = useState([])
-    const [offerListing, setOfferListing] = useState([]);
     const [selectedOffer, setSelectedOffer] = useState(null)
     const [offerOverview, setOfferOverview] = useState(null);
     const [distributionList, setDistributionList] = useState(null)
@@ -60,43 +70,10 @@ function Claims() {
     const [updateClaimAmount] = useMutation(UPDATE_CLAIM_AMOUNT);
     // const [sendClaimDebitNote] = useMutation(SEND_CLAIM_DEBIT_NOTE);
 
-    useEffect(() => {
-        if (offers) {
-            const list = [];
-            [...offers.offers].map((offer) => {
-                const row = {
-                    clickEvent: (e) => console.log(e.target),
-                    policy_number: offer.offer_detail?.policy_number,
-                    insured: offer.offer_detail?.insured_by,
-                    sum_insured: offer.offer_detail?.currency + " " + offer.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 }),
-                    insurance_company: offer.insurer.insurer_company_name,
-                    premium: offer.offer_detail?.currency + " " + offer.premium.toLocaleString(undefined, { maximumFractionDigits: 2 }),
-                    participants: offer.offer_participant.length,
-                    claim_status: (
-                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.claim_status === "CLAIMED" ? "danger" : "primary"}`}>{offer.claim_status}</span>
-                    ),
-                    cob: offer.classofbusiness.business_name,
-                    offer_date: new Date(offer.created_at).toDateString(),
-                    actions: (
-                        <>
-                            <button onClick={() => handleViewClaimsModal(offer)} className="btn btn-danger btn-sm m-1">
-                                View claims
-                            </button>
-                            {offer?.payment_status !== "UNPAID" && <button onClick={() => handleViewMakeClaimDrawer(offer)} className="btn btn-primary btn-sm m-1">
-                                Make claim
-                    </button>}
-                            {offer?.payment_status !== "UNPAID" && <button onClick={() => handleViewClaimRequest(offer)} className="btn btn-success mt-1 btn-sm m-1">
-                                Claim Request
-                            </button>}
-                        </>
-                    ),
-                }
-                list.push(row);
-                return row;
-            })
-            setOfferListing(list);
-        }
-    }, [offers])
+
+
+
+
 
     useEffect(() => {
         if (selectedOffer) {
@@ -313,7 +290,40 @@ function Claims() {
     }, [overview]);
 
 
+    const allOffers = useMemo(() => generateClaimsTable({
+        offers: offers_all ? offers_all?.offers_all?.offers : [],
+        handleViewClaimRequest,
+        handleViewClaimsModal,
+        handleViewMakeClaimDrawer
+    }), [offers_all])
 
+    const allOffersTotal = useMemo(() => offers_all?.offers_all?.total, [offers_all])
+
+    const recent = useMemo(() => generateClaimsTable({
+        offers: offers ? offers?.offers?.offers : [],
+        handleViewClaimRequest,
+        handleViewClaimsModal,
+        handleViewMakeClaimDrawer
+    }), [offers])
+
+
+
+    const handleLoadMore = useCallback((skip) => {
+        fetchMore({
+            variables: {
+                offer_status: ["CLOSED"],
+                skip
+            },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                fetchMoreResult.offers_all.offers = [
+                    ...prev.offers_all.offers,
+                    ...fetchMoreResult.offers_all.offers
+                ];
+                return fetchMoreResult
+            }
+        })
+    })
 
 
     return (
@@ -422,7 +432,16 @@ function Claims() {
                         </div>
                     </div>
                 </div>
-                <OfferListing offerListing={offerListing} loading={loading} columns={columns} setInputOffer={1} />
+                <OfferListing
+                    recent={recent}
+                    all={allOffers}
+                    fetching={fetching}
+                    loading={loading}
+                    columns={columns}
+                    setInputOffer={1}
+                    allTotal={allOffersTotal}
+                    handleLoadMore={handleLoadMore}
+                />
 
 
                 {/* Create business modal */}
