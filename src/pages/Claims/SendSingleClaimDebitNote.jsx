@@ -146,7 +146,7 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
                 <div className="form-group row mb-4">
                     <label htmlFor="taskname" className="col-form-label col-lg-2">Subject</label>
                     <div className="col-lg-10">
-                        <input id="taskname" ref={register({ required: "Required" })} name="subject" type="text" className="form-control" placeholder="Enter subject" />
+                        <input ref={register({ required: "Required" })} name="subject" type="text" className="form-control" placeholder="Enter subject" />
                         {errors.subject && <p className="text-danger">{errors.subject.message}</p>}
                     </div>
                 </div>

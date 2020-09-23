@@ -8,7 +8,7 @@ import { SEND_DEBIT_AND_CREDIT } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { useForm } from 'react-hook-form';
 import { DrawerContext } from '../../components/Drawer';
-import { Selector } from '../../components'
+import { Editor, Selector } from '../../components'
 import { useMutation, useQuery } from 'react-apollo';
 import { EMPLOYEES } from '../../graphql/queries/employees'
 import _ from 'lodash'
@@ -140,7 +140,8 @@ function CreateBroadcastEmail({ offer, toggle }) {
                 <div className="form-group row mb-4">
                     <label className="col-form-label col-lg-2">Message</label>
                     <div className="col-lg-10">
-                        <JoditEditor value={content} onChange={value => setContent(value)} />
+                        {/* <JoditEditor value={content} onChange={value => setContent(value)} /> */}
+                        <Editor value={content} onChange={value => setContent(value)} />
                     </div>
                     <div className="col-md-2"></div>
                     <div className="col-md-10">

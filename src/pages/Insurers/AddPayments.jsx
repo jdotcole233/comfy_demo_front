@@ -4,7 +4,7 @@ import styles from './styles/ViewInsurerOffer.module.css'
 import { Alert } from 'react-bootstrap'
 import { useMutation } from 'react-apollo'
 import { MAKE_PAYMENT_INSURER, UPDATE_PAYMENT_INSURER } from '../../graphql/mutattions'
-import { INSURER } from '../../graphql/queries'
+import { INSURER, INSURER_OFFERS } from '../../graphql/queries'
 import swal from 'sweetalert'
 import { DrawerContext } from '../../components/Drawer';
 
@@ -38,11 +38,17 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     }, [closed])
     const formRef = useRef()
     const [makePayment] = useMutation(MAKE_PAYMENT_INSURER, {
-        refetchQueries: [{ query: INSURER, variables: { id: insurer_id } }]
+        refetchQueries: [
+            { query: INSURER, variables: { id: insurer_id } },
+            { query: INSURER_OFFERS, variables: { id: insurer_id, skip: 0 } }
+        ]
     })
 
     const [updatePayment] = useMutation(UPDATE_PAYMENT_INSURER, {
-        refetchQueries: [{ query: INSURER, variables: { id: insurer_id } }]
+        refetchQueries: [
+            { query: INSURER, variables: { id: insurer_id } },
+            { query: INSURER_OFFERS, variables: { id: insurer_id, skip: 0 } }
+        ]
     })
 
     useEffect(() => {

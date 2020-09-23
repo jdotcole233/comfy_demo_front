@@ -9,6 +9,7 @@ import { OFFERS } from '../../graphql/queries';
 import swal from 'sweetalert';
 import emptyImage from '../../assets/empty.png'
 import { DrawerContext } from '../../components/Drawer';
+import { Editor } from '../../components';
 
 
 
@@ -17,12 +18,13 @@ const MakeClaim = ({ offer, toggle }) => {
     const [claim_amount, setclaim_amount] = useState(0);
     const [claim_date, setclaim_date] = useState("");
     const [error, setError] = useState(false)
+    const [comments, setComments] = useState("")
     const [makeClaim] = useMutation(MAKE_CLAIM_ON_OFFER, { refetchQueries: [{ query: OFFERS, variables: { offer_status: ["CLOSED"] } }] })
     const amountSpent = offer?.offer_claims.reduce((total, currentClaim) => total + parseFloat(currentClaim.claim_amount), 0)
     const leftAmount = parseFloat(offer?.fac_sum_insured) - amountSpent;
     const handleMakeClain = event => {
         event.preventDefault();
-        const data = { claim_amount, claim_date, offer_id: offer?.offer_id };
+        const data = { claim_amount, claim_date, offer_id: offer?.offer_id, claim_comment: comments };
         swal({
             icon: "warning",
             title: "Are you sure you want to make claim of " + offer?.offer_detail?.currency + " " + claim_amount + "?",
@@ -149,6 +151,13 @@ const MakeClaim = ({ offer, toggle }) => {
                                                 <div className="form-group">
                                                     <label htmlFor="">Claim date</label>
                                                     <input type="date" value={claim_date} onChange={e => setclaim_date(e.target.value)} className="form-control" placeholder="Claim amount" required />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group">
+                                                    <label htmlFor="">Comment</label>
+                                                    {/* <textarea hidden required value={comments} id="" cols="30" rows="10"></textarea> */}
+                                                    <Editor value={comments} onChange={val => setComments(val)} />
                                                 </div>
                                             </div>
                                         </div>

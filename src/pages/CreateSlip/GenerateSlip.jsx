@@ -28,8 +28,10 @@ function PreviewCoverNote({ offer }) {
                         {/* <img width={100} height={100} src={require("../../assets/logo.png")} alt="company name" /> */}
                     </div>
                     <div className="col-md-12 mt-3 mb-3">
-                        <h4 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>KEK REINSURANCE BROKERS (AFRICA) LIMITED <br />
-REINSURANCE PLACING SLIP</h4>
+                        <h4 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>
+                            KEK REINSURANCE BROKERS (AFRICA) LIMITED <br />
+                            REINSURANCE PLACING SLIP
+                        </h4>
                     </div>
                     <div className="col-md-10 col-sm-12 col-xs-12 ml-md-4">
                         <div className="row mb-2">
@@ -134,53 +136,55 @@ REINSURANCE PLACING SLIP</h4>
                             {/* <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>REINSURANCE ORDER</h3> */}
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Facultative Offer:</h3>
                             </div>
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-7 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text-value">{offer?.facultative_offer}% of 100%</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Facultative Reinsurance</h3>
                             </div>
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-7 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text-value">{offer?.fac_sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Facultative Premium</h3>
                             </div>
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-7 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text-value">{offer?.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Commission</h3>
                             </div>
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-7 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text-value">{offer?.commission + offer?.brokerage}%</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Information:</h3>
                             </div>
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-7 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text-value">
                                     Subject to NKORL as at {new Date().toLocaleDateString()} and NIC's NPNC
                                     guidelines
                                 </h3>
+
+                                <h3 className="dark-text-value" dangerouslySetInnerHTML={{ __html: offer?.offer_detail?.information_comment }}></h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <p className="dark-text">Date: {new Date().toLocaleDateString()}</p>
                             </div>
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-7 col-4 col-sm-4 col-xs-4">
                             </div>
                         </div>
 

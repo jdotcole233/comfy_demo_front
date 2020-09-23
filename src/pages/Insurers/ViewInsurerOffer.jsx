@@ -4,6 +4,7 @@ import styles from './styles/ViewInsurerOffer.module.css'
 import { useQuery } from 'react-apollo'
 import { FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries'
 import JoditEditor from "jodit-react";
+import { Editor } from '../../components';
 
 
 export default function ViewInsurerOffer({ data }) {
@@ -32,7 +33,7 @@ export default function ViewInsurerOffer({ data }) {
         }
     }
 
-    return (
+    return !data ? null : (
         <>
             <div className={styles.card_header}>
                 <h2 className={styles.card_title}>View facultative placement slip</h2>
@@ -161,8 +162,8 @@ export default function ViewInsurerOffer({ data }) {
                 <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Comment</legend>
                     <div className="form-grpup">
-                        <JoditEditor value={details?.offer_detail?.offer_comment} onChange={() => { }} />
-
+                        {/* <JoditEditor value={details?.offer_detail?.offer_comment || ""} onChange={() => { }} /> */}
+                        <Editor value={details?.offer_detail?.offer_comment || ""} onChange={() => { }} />
                         <textarea hidden name="" id="" cols="30" rows="10" value={details?.offer_detail?.offer_comment} className="form-control" readOnly></textarea>
                     </div>
                 </fieldset>

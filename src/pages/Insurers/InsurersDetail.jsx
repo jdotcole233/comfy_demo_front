@@ -92,7 +92,7 @@ function InsurerDetail() {
             <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.payment_status === "PARTPAYMENT" ? "primary" : offer.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.payment_status}</span>
         ),
         salary: <OfferButtons insurer={insurer} state={state} offer={offer} />,
-    })), [insurer_offers])
+    })), [insurer_offers, insurer])
 
 
     const insurers_all_offers_total = useMemo(() => insurer_offers?.insurer_all_offers?.total, [insurer_offers])
@@ -137,8 +137,6 @@ function InsurerDetail() {
 
 
     if (loading) return <Loader />
-
-
 
 
     return (

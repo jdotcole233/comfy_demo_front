@@ -107,10 +107,18 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                                <h3 className="dark-text">Original Offer:</h3>
+                            </div>
+                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text-value">{offer?.facultative_offer}% of 100.00%</h3>
+                            </div>
+                        </div>
+                        <div className="row mb-2">
+                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text">Our Offer:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.facultative_offer}% of 100%</h3>
+                                <h3 className="dark-text-value">{offer?.placed_offer}% of 100.00%</h3>
                             </div>
                         </div>
                         <div className="row mb-2">

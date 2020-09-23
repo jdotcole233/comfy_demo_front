@@ -9,9 +9,8 @@ import currencies from '../../assets/currencies.json'
 import { CREATE_INPUT_OFFER, CREATE_FLEET_OFFER } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { DrawerContext } from '../../components/Drawer'
-import { Selector, Modal, Datatable, CurrencyOption, InsurerOption } from '../../components';
+import { Selector, Modal, Datatable, CurrencyOption, InsurerOption, Editor } from '../../components';
 import { AuthContext } from '../../context/AuthContext';
-import JoditEditor from "jodit-react";
 import { previewTable } from './columns';
 
 
@@ -31,6 +30,7 @@ export const prepVariables = (values, offerDetails, employee_id) => {
         period_of_insurance_to: values.period_of_insurance_to,
         currency: values.currency,
         offer_comment: values.offer_comment || " ",
+        information_comment: values.information_comment || " ",
         employee_id,
         offer_details: JSON.stringify(offerDetails)
     }
@@ -42,6 +42,7 @@ export const prepVariables = (values, offerDetails, employee_id) => {
 export default function InputOffer({ toggle }) {
     const { closed } = useContext(DrawerContext);
     const { state } = useContext(AuthContext);
+    const [nkrol, setNkrol] = useState(false)
     const [showPreviewModal, setshowPreviewModal] = useState(false)
     const formRef = useRef()
     const { data } = useQuery(INPUT_OFFER_QUERIES);
@@ -55,6 +56,7 @@ export default function InputOffer({ toggle }) {
     const [editData, setEditData] = useState(null)
     const [currency, setCurrency] = useState(null)
     const [updateIndex, setUpdateIndex] = useState(-1)
+    const [infoContent, setInfoContent] = useState("")
     //
 
     const [createFleetOfferMutation, { loading: creatingFleet }] = useMutation(CREATE_FLEET_OFFER, {
@@ -144,6 +146,14 @@ export default function InputOffer({ toggle }) {
         setContent(value)
         if (value) {
             clearError("offer_comment")
+        }
+    }
+
+    const handleInfoCommentChange = value => {
+        setValue("information_comment", value)
+        setInfoContent(value)
+        if (value) {
+            clearError("information_comment")
         }
     }
 
@@ -376,7 +386,7 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Rate (%)</label>
-                                <input name="rate" ref={register({ required: "Provide rate" })} type="text" className="form-control" placeholder="Rate" />
+                                <input name="rate" ref={register({ required: false })} type="text" className="form-control" placeholder="Rate" />
                                 {errors.rate && <p className="text-danger">{errors.rate.message}</p>}
                             </div>
                         </div>
@@ -461,13 +471,32 @@ export default function InputOffer({ toggle }) {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                                <JoditEditor value={content} onChange={handleCommentChange} />
-
+                                {/* <JoditEditor value={content} onChange={handleCommentChange} /> */}
+                                <Editor value={content} onChange={handleCommentChange} />
                                 <textarea hidden rows={10} ref={register({ required: false })} name="offer_comment" className="form-control" placeholder="Add Comment" ></textarea>
                             </div>
                         </div>
                     </div>
                 </fieldset>
+                <div className="w-auto p-2">
+                    <div className="form-check">
+                        <input type="checkbox" className="form-check-input" id="exampleCheck1" onChange={e => setNkrol(e.target.checked)} />
+                        <label className="form-check-label" htmlFor="exampleCheck1">Include NKORL information to placing slip</label>
+                    </div>
+                </div>
+                {nkrol && <fieldset className="w-auto p-2  border-form">
+                    <legend className={styles.details_title}>NKORL</legend>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                {/* <JoditEditor value={content} onChange={handleCommentChange} /> */}
+                                <Editor value={infoContent} onChange={handleInfoCommentChange} />
+                                <textarea hidden rows={10} ref={register({ required: nkrol })} name="information_comment" className="form-control" placeholder="Add Comment" ></textarea>
+                            </div>
+                            {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>}
+                        </div>
+                    </div>
+                </fieldset>}
                 <div className="form-group">
                     <input type="submit" className="btn btn-primary btn-sm form-control my-2" value={editData ? "Update Offer" : isFleetType ? "Add Offer" : "Create Offer"} />
                 </div>

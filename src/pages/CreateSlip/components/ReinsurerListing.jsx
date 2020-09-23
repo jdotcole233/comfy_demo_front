@@ -11,6 +11,8 @@ import { useMutation } from 'react-apollo';
 import { REMOVE_REINSURER_FROM_PARTICIPATION, ADD_PERCENTAGE } from '../../../graphql/mutattions';
 import { SINGLE_OFFER } from '../../../graphql/queries';
 import swal from 'sweetalert';
+import PlaceOffer from './PlaceOffer';
+import UnplacedOffer from './UnplaceOffer'
 
 const ReinsurerListing = ({ data, state, user }) => {
     const [reinsurers, setReinsurers] = useState([]);
@@ -110,12 +112,11 @@ const ReinsurerListing = ({ data, state, user }) => {
                     offer_status: (
                         <span
                             style={{ letterSpacing: 3 }}
-                            className={`badge badge-soft-${
-                                data.findSingleOffer.offer_status === "OPEN"
-                                    ? "primary"
-                                    : data.findSingleOffer.offer_status === "CLOSING"
-                                        ? "success"
-                                        : "defualt"
+                            className={`badge badge-soft-${data.findSingleOffer.offer_status === "OPEN"
+                                ? "primary"
+                                : data.findSingleOffer.offer_status === "CLOSING"
+                                    ? "success"
+                                    : "defualt"
                                 } p-1 font-size-11`}
                         >
                             {data.findSingleOffer.offer_status}
@@ -124,6 +125,7 @@ const ReinsurerListing = ({ data, state, user }) => {
                     actions: (
                         <>
                             <DropdownButton
+                                disabled={data?.findSingleOffer?.placed_offer}
                                 className="mr-1 mb-1"
                                 variant="primary"
                                 size="sm"
@@ -145,6 +147,7 @@ const ReinsurerListing = ({ data, state, user }) => {
                                     )}
                             </DropdownButton>
                             {deleteAccessRoles.includes(user?.position) && <button
+                                disabled={data?.findSingleOffer?.placed_offer}
                                 onClick={() => handleRemoveReinsurer(reinsurer)}
                                 className="btn btn-danger btn-sm w-md"
                             >
@@ -229,10 +232,17 @@ const ReinsurerListing = ({ data, state, user }) => {
                             <h4 className="card-title mb-4">
                                 Distribution Companies(Re-Insurers)
                 </h4>
-                            <h5 style={{ fontSize: 12, color: "red" }}>
-                                Current Fac. Offer :{" "}
-                                {showingFacOffer.toFixed(5)}{" "}%
-                </h5>
+                            <div className="row pl-3 pr-3 d-flex justify-content-between">
+                                <h5 style={{ fontSize: 12, color: "red" }}>
+                                    Current Fac. Offer :{" "}
+                                    {showingFacOffer.toFixed(5)}{" "}%
+                                </h5>
+
+                                {data?.findSingleOffer?.placed_offer ? <UnplacedOffer offer={data?.findSingleOffer} remaining={showingFacOffer} /> :
+                                    <PlaceOffer offer={data?.findSingleOffer} remaining={showingFacOffer} />
+                                }
+
+                            </div>
 
                             <ul className="nav nav-tabs nav-tabs-custom">
                                 <li className="nav-item">

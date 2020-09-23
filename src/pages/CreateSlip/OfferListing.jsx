@@ -11,6 +11,7 @@ const OfferListing = ({
     title,
     handleLoadMore,
     fetching,
+    hideTab,
     allTotal
 }) => {
     const [tab, setTab] = useState(0)
@@ -39,7 +40,7 @@ const OfferListing = ({
                     <div className="card">
                         <div className="card-body">
                             <div className="row mb-3">
-                                <div className="d-flex w-auto justify-content-between">
+                                {!hideTab && <div className="d-flex w-auto justify-content-between">
                                     <ul className="nav nav-tabs nav-tabs-custom">
                                         <li className="nav-item">
                                             <a onClick={() => handleTabChange(0)} className={`nav-link ${tab === 0 ? "active" : ""}`}>Recent</a>
@@ -48,7 +49,7 @@ const OfferListing = ({
                                             <a onClick={() => handleTabChange(1)} className={`nav-link ${tab === 1 ? "active" : ""}`}>All</a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div>}
                             </div>
                             {tab === 0 && (
                                 <div>

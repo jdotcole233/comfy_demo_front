@@ -60,6 +60,14 @@ const Offerbuttons = ({ offer, state, insurer }) => {
         }))}`, "_blank");
     }
 
+    const handlePaymentSchedule = payment => {
+        window.open(`${BASE_URL_LOCAL}/payment_schedule/${btoa(JSON.stringify({
+            offer_id: selectedOFfer?.offer_id,
+            payment_id: payment.offer_payment_id,
+            insurer_id: state?.insurer_id
+        }))}`, "_blank");
+    }
+
 
     useEffect(() => {
         if (selectedOFfer) {
@@ -94,8 +102,9 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                     actions: (
                         <>
                             <button onClick={() => handleShowEditpaymentDrawer(payment)} className="btn btn-sm w-md btn-info mr-1">View</button>
-                            <button onClick={() => handleRemovePayment(payment)} className="btn btn-sm w-md btn-danger ">Remove</button>
-                            <button onClick={() => handleGenerateReceipt(payment)} className="btn btn-sm btn-success w-md mt-1">Generate Receipt</button>
+                            <button onClick={() => handleRemovePayment(payment)} className="btn btn-sm w-md btn-danger mr-1">Remove</button>
+                            <button onClick={() => handlePaymentSchedule(payment)} className="btn btn-sm btn-success w-md mt-1">Payment Schedule</button>
+                            <button onClick={() => handleGenerateReceipt(payment)} className="btn btn-sm btn-warning w-md mt-1">Generate Receipt</button>
                         </>
                     )
                 }
@@ -160,7 +169,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
             </Drawer>
             {/* / end of View Offer Drawer */}
 
-            
+
 
             {/* payments modal */}
             <Modal size="xl" show={paymentsModal} onHide={() => setPaymentsModal(!paymentsModal)}>
@@ -175,7 +184,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                                 setAddPaymentDrawer(!addPaymentDrawer)
                             }} className="btn btn-sm w-md btn-primary">Add Payment</button> : null}
                     </div>
-                    <Datatable  entries={5}  columns={paymentsColumns} data={payments} />
+                    <Datatable entries={5} columns={paymentsColumns} data={payments} />
                 </Modal.Body>
             </Modal>
             {/* /end of payments modal */}

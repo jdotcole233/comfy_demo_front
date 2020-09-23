@@ -43,11 +43,11 @@ const OfferDetails = ({ data }) => {
                     <OfferDeatilsRow label="Rate" value={`${data?.findSingleOffer?.rate}%`} />
 
                     <OfferDeatilsRow label="Comission"
-                        value={`${data?.findSingleOffer?.offer_detail.currency} 
-                                ${data?.findSingleOffer?.commission_amount.toLocaleString(
+                        value={` 
+                                ${data?.findSingleOffer?.commission.toLocaleString(
                             undefined,
                             { maximumFractionDigits: 2 }
-                        )}`} />
+                        )}%`} />
 
 
                     <OfferDeatilsRow label="Fac. Offer" value={`${data?.findSingleOffer?.facultative_offer}%`} />

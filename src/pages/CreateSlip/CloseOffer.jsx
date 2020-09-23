@@ -138,7 +138,7 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
             </div>
             <div className={styles.card_body}>
                 {reinsurer_data.map((reinsurer, key) => (
-                    <fieldset key={key} className="w-auto p-2 border">
+                    <fieldset key={key} className="w-auto p-2 border-form">
                         <legend className={styles.details_title}>{reinsurer.name}</legend>
                         <div className="row">
                             <div className="col-md-6">

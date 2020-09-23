@@ -176,6 +176,7 @@ export const REINSURER = gql`
             period_of_insurance_from
             period_of_insurance_to
             offer_comment
+            information_comment
             offer_details
           }
         }
@@ -185,8 +186,16 @@ export const REINSURER = gql`
 `;
 
 export const OFFERS = gql`
-  query getOffers($offer_status: [String]!, $skip: Int) {
-    offers(offer_status: $offer_status, skip: $skip) {
+  query getOffers(
+    $offer_status: [String]!
+    $skip: Int
+    $approval_status: String
+  ) {
+    offers(
+      offer_status: $offer_status
+      skip: $skip
+      approval_status: $approval_status
+    ) {
       offers {
         offer_id
         rate
@@ -194,11 +203,13 @@ export const OFFERS = gql`
         commission_amount
         brokerage
         facultative_offer
+        placed_offer
         sum_insured
         fac_sum_insured
         premium
         fac_premium
         offer_status
+        approval_status
         payment_status
         claim_status
         offer_detail {
@@ -210,11 +221,13 @@ export const OFFERS = gql`
           period_of_insurance_from
           currency
           offer_comment
+          information_comment
           offer_details
         }
         offer_claims {
           offer_claim_id
           claim_amount
+          claim_comment
           claim_date
           created_at
           offer_claim_participants {
@@ -281,8 +294,16 @@ export const OFFERS = gql`
 `;
 
 export const ALLOFFERS = gql`
-  query getOffers($offer_status: [String]!, $skip: Int) {
-    offers_all(offer_status: $offer_status, skip: $skip) {
+  query getOffers(
+    $offer_status: [String]!
+    $skip: Int
+    $approval_status: String
+  ) {
+    offers_all(
+      offer_status: $offer_status
+      skip: $skip
+      approval_status: $approval_status
+    ) {
       offers {
         offer_id
         rate
@@ -295,6 +316,7 @@ export const ALLOFFERS = gql`
         premium
         fac_premium
         offer_status
+        approval_status
         payment_status
         claim_status
         offer_detail {
@@ -306,6 +328,7 @@ export const ALLOFFERS = gql`
           period_of_insurance_from
           currency
           offer_comment
+          information_comment
           offer_details
         }
         offer_claims {
@@ -417,6 +440,7 @@ export const SINGLE_OFFER = gql`
       commission_amount
       brokerage
       facultative_offer
+      placed_offer
       sum_insured
       fac_sum_insured
       premium
@@ -433,6 +457,7 @@ export const SINGLE_OFFER = gql`
         period_of_insurance_from
         currency
         offer_comment
+        information_comment
         offer_details
       }
       offer_participant {
@@ -510,6 +535,7 @@ export const DASHBOARD = gql`
           period_of_insurance_to
           currency
           offer_comment
+          information_comment
           offer_details
         }
         offer_participant {
@@ -631,6 +657,7 @@ export const INSURER = gql`
           period_of_insurance_from
           period_of_insurance_to
           offer_comment
+          information_comment
           insured_by
           currency
         }
@@ -715,6 +742,7 @@ export const INSURER_OFFERS = gql`
           period_of_insurance_from
           period_of_insurance_to
           offer_comment
+          information_comment
           insured_by
           currency
         }
@@ -792,6 +820,7 @@ export const REINSURER_OFFERS = gql`
             period_of_insurance_from
             period_of_insurance_to
             offer_comment
+            information_comment
             offer_details
           }
         }

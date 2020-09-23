@@ -17,6 +17,7 @@ const ReinsurersDetails = lazy(() =>
   import('./pages/ReInsurers/ReinsurerDetail')
 );
 const Notifications = lazy(() => import('./pages/Notifications'));
+const UnapprovedList = lazy(() => import('./pages/UnapprovedClosing'));
 
 const Profile = lazy(() => import('./pages/profile'));
 const Settings = lazy(() => import('./pages/Settings'));
@@ -69,6 +70,12 @@ export default [
       'Frontline Executive',
       'Finance Officer',
     ],
+  },
+  {
+    path: '/approve-closing',
+    layout: '/admin',
+    component: UnapprovedList,
+    roles: ['Managing Director', 'Senior Broking Officer'],
   },
   {
     path: '/re-insurers',
