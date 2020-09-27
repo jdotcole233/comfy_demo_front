@@ -9,7 +9,7 @@ import { SEND_OFFER_AS_BROADCAST } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { Alert } from 'react-bootstrap'
 import { useForm } from 'react-hook-form';
-import JoditEditor from "jodit-react";
+// import JoditEditor from "jodit-react";
 import PDF from '../../assets/pdf.png'
 import { responseFound } from './columns'
 import { SINGLE_OFFER } from '../../graphql/queries';

@@ -23,7 +23,7 @@ export default function InputOffer({ offer_id, toggle }) {
     const { register, errors, handleSubmit, reset, setValue, clearError } = useForm()
     const [offer_comment, fillComment] = useState("")
     const [nkrol, setNkrol] = useState(false)
-    const [myComment, setMyComment] = useState("")
+    // const [myComment, setMyComment] = useState("")
 
     const [classOfBusiness, setClassOfBusiness] = useState(null);
     const [offerDetails, setofferDetails] = useState([])
@@ -76,12 +76,12 @@ export default function InputOffer({ offer_id, toggle }) {
 
     }, [_offer])
 
-    useEffect(() => {
-        if (_offer) {
-            setMyComment(offer.offer_detail.offer_comment)
-        }
+    // useEffect(() => {
+    //     if (_offer) {
+    //         // setMyComment(offer.offer_detail.offer_comment)
+    //     }
 
-    }, [_offer])
+    // }, [_offer])
 
     const handleCurrencyChange = value => {
         setValue("currency", value ? value.value.code : "");

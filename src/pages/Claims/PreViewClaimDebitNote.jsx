@@ -5,7 +5,7 @@ import { BASE_URL_LOCAL } from '../../graphql'
 
 
 
-function PreviewCoverNote({ offer, shares, claim }) {
+function PreviewClaimDebitNote({ offer, shares, claim }) {
     const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
@@ -148,4 +148,4 @@ function PreviewCoverNote({ offer, shares, claim }) {
     )
 }
 
-export default PreviewCoverNote
+export default PreviewClaimDebitNote

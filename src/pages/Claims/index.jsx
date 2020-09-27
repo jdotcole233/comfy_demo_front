@@ -67,22 +67,7 @@ function Claims() {
     const [claimComment, setClaimComment] = useState("")
     // const [hasComment, setHasComment] = useState(true)
     //handle the deletion of claim amount
-    const [removeClaim] = useMutation(REMOVE_CLAIM_AMOUNT, {
-        refetchQueries: [
-            {
-                query: OFFERS, variables: {
-                    offer_status: ["CLOSED"],
-                    skip
-                }
-            },
-            {
-                query: ALLOFFERS, variables: {
-                    offer_status: ["CLOSED"],
-                    skip
-                }
-            }
-        ]
-    });
+    const [removeClaim] = useMutation(REMOVE_CLAIM_AMOUNT);
     const [updateClaimAmount] = useMutation(UPDATE_CLAIM_AMOUNT, {
         refetchQueries: [
             {
@@ -109,7 +94,7 @@ function Claims() {
     useEffect(() => {
         if (selectedOffer) {
             const rows = [];
-            selectedOffer.offer_claims.map((claim) => {
+            selectedOffer.offer_claims.map((claim, key) => {
                 const row = {
                     claim_amount: selectedOffer?.offer_detail?.currency + " " + claim.claim_amount,
                     claim_date: new Date(claim.claim_date).toDateString(),
@@ -160,6 +145,9 @@ function Claims() {
 
     useEffect(() => {
         if (selectedClaim) {
+            // alert(selectedClaim.claim_comment)
+            setClaimComment(selectedClaim.claim_comment)
+            // setHasComment(selectedClaim.claim_comment ? true : false)
             setValue("claim_amount", selectedClaim.claim_amount);
             setValue("claim_date", selectedClaim.claim_date);
             setValue("claim_comment", selectedClaim.claim_comment)
@@ -187,10 +175,16 @@ function Claims() {
     }
 
     const handleViewUpdateForm = claim => {
+        // alert(JSON.stringify(claim))
         setSelectedClaim(claim);
-        setClaimComment(claim.claim_comment)
         setShowUpdateClaimAmount(true);
     }
+
+    useEffect(() => {
+        if (!showUpdateClaimAmount) {
+            setSelectedClaim(null)
+        }
+    }, [showUpdateClaimAmount])
 
 
 
@@ -493,7 +487,7 @@ function Claims() {
                     <PreViewClaimDebitNote offer={selectedOffer} claim={distributionList} shares={selectedShare} />
                 </Drawer>
 
-                <Modal show={showUpdateClaimAmount} onHide={() => setShowUpdateClaimAmount(false)}>
+                <Modal centered show={showUpdateClaimAmount} onHide={() => setShowUpdateClaimAmount(false)}>
                     <Modal.Header className="bg-soft-dark" closeButton>
                         <p> Update Claim amount (<strong>{`${selectedOffer?.offer_detail?.currency} ${selectedClaim?.claim_amount}`}</strong>) made on <strong>{new Date(selectedClaim?.claim_date).toDateString()}</strong></p>
                     </Modal.Header>

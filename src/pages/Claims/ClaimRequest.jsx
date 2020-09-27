@@ -18,7 +18,7 @@ const createOption = (label) => ({
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function CreateBroadcastEmail({ offer, toggle }) {
+function ClaimRequest({ offer, toggle }) {
     const { closed } = useContext(DrawerContext);
     const { data: employees, loading } = useQuery(EMPLOYEES)
     const [inputvalue, setInputvalue] = useState("")
@@ -177,5 +177,5 @@ function CreateBroadcastEmail({ offer, toggle }) {
     )
 }
 
-export default CreateBroadcastEmail
+export default ClaimRequest
 
