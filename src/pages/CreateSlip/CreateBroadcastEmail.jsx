@@ -3,7 +3,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
-import { Dropzone, Modal, Datatable, Selector } from '../../components'
+import { Dropzone, Modal, Datatable, Selector, Editor } from '../../components'
 import { useMutation, useQuery } from 'react-apollo';
 import { SEND_OFFER_AS_BROADCAST } from '../../graphql/mutattions';
 import swal from 'sweetalert';
@@ -213,8 +213,8 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
                     <label className="col-form-label col-lg-2">Message</label>
                     <div className="col-lg-10">
                         {/* <SummerNote onChange={e => setContent(e)} /> */}
-                        <JoditEditor value={content} onChange={value => setContent(value)} />
-
+                        {/* <JoditEditor value={content} onChange={value => setContent(value)} /> */}
+                        <Editor value={content}  onChange={value => setContent(value)} />
                     </div>
                     <div className="col-md-2"></div>
                     <div className="col-md-10">

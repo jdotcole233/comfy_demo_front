@@ -60,10 +60,16 @@ const Offerbuttons = ({ offer, state, insurer }) => {
         }))}`, "_blank");
     }
 
-    const handlePaymentSchedule = payment => {
+    const handlePaymentSchedule = (payment, id) => {
+
+        // alert(payment.offer_payment_id)
+        const ids = selectedOFfer.offer_payment.slice(id, selectedOFfer.offer_payment.length).map(el => el.offer_payment_id);
+        // alert(JSON.stringify(ids));
+        // return
+
         window.open(`${BASE_URL_LOCAL}/payment_schedule/${btoa(JSON.stringify({
             offer_id: selectedOFfer?.offer_id,
-            payment_id: payment.offer_payment_id,
+            payment_id: JSON.stringify(ids),
             insurer_id: state?.insurer_id
         }))}`, "_blank");
     }
@@ -90,7 +96,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
     useEffect(() => {
         if (selectedOFfer) {
             const rows = [];
-            selectedOFfer.offer_payment.map((payment) => {
+            selectedOFfer.offer_payment.map((payment, key) => {
                 const obj = JSON.parse(payment.payment_details);
                 const row = {
                     type: obj.payment_type === "Cheque" ? obj.payment_type + " - " + obj.payment_from.cheque_number + " " : obj.payment_type,
@@ -103,7 +109,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                         <>
                             <button onClick={() => handleShowEditpaymentDrawer(payment)} className="btn btn-sm w-md btn-info mr-1">View</button>
                             <button onClick={() => handleRemovePayment(payment)} className="btn btn-sm w-md btn-danger mr-1">Remove</button>
-                            <button onClick={() => handlePaymentSchedule(payment)} className="btn btn-sm btn-success w-md mt-1">Payment Schedule</button>
+                            <button onClick={() => handlePaymentSchedule(payment, key)} className="btn btn-sm btn-success w-md mt-1">Payment Schedule</button>
                             <button onClick={() => handleGenerateReceipt(payment)} className="btn btn-sm btn-warning w-md mt-1">Generate Receipt</button>
                         </>
                     )

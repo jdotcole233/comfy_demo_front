@@ -11,6 +11,7 @@ import EditOffer from '../EditOffer'
 import GenerateSlip from '../GenerateSlip'
 import { AuthContext } from '../../../context/AuthContext';
 import { deleteAccessRoles, editAccessRoles } from '../../../layout/adminRoutes';
+import OfferComments from '../OfferComments';
 
 
 
@@ -21,9 +22,15 @@ const OfferButtons = ({ offer }) => {
     const [editOfferDrawer, setEditOfferDrawer] = useState(false)
     const [selectedOffer, setSelectedOffer] = useState(null)
     const [generateSlip, setGenerateSlip] = useState(false)
+    const [viewComments, setViewComments] = useState(false)
     const handleShowEditDrawer = () => {
         setSelectedOffer(JSON.stringify(offer))
         setEditOfferDrawer(!editOfferDrawer)
+    }
+
+    const handleShowCommentsDrawer = () => {
+        setSelectedOffer(JSON.stringify(offer))
+        setViewComments(!viewComments)
     }
 
     const handleGenerateSlip = () => {
@@ -74,6 +81,7 @@ const OfferButtons = ({ offer }) => {
                     </Dropdown.Item>
                     {editAccessRoles.includes(user?.position) && <Dropdown.Item onClick={handleShowEditDrawer}>Edit offer</Dropdown.Item>}
                     {deleteAccessRoles.includes(user?.position) && <Dropdown.Item onClick={handleDeleteOffer}>Delete offer</Dropdown.Item>}
+                    <Dropdown.Item onClick={handleShowCommentsDrawer}>View Comments</Dropdown.Item>
                 </DropdownButton>
                 <button onClick={handleGenerateSlip} className="btn btn-primary btn-sm">Generate Slip</button>
             </>
@@ -85,6 +93,11 @@ const OfferButtons = ({ offer }) => {
             {/* Generate Slip Drawer */}
             <Drawer isvisible={generateSlip} width="50%" toggle={() => setGenerateSlip(!generateSlip)}>
                 <GenerateSlip offer={offer} />
+            </Drawer>
+
+            {/* Offer Comments */}
+            <Drawer isvisible={viewComments} width="40%" toggle={() => setViewComments(!viewComments)}>
+                <OfferComments offer={offer} closed={!viewComments} setClose={setViewComments} />
             </Drawer>
         </div>
 

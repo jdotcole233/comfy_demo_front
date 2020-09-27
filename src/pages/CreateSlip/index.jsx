@@ -19,7 +19,8 @@ export default memo(() => {
         variables: {
             offer_status: ["OPEN", "PENDING"],
         },
-        fetchPolicy: "network-only"
+        fetchPolicy: "network-only",
+        // pollInterval: 1000 
     });
 
     const { data: allOffers, fetchMore, loading: fetching } = useQuery(ALLOFFERS, {
@@ -64,6 +65,9 @@ export default memo(() => {
                     offer_status: (
                         <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
                     ),
+                    approval_status: (
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.approval_status === "UNAPPROVED" ? "primary" : offer.approval_status === "DELETE" ? "danger" : "warning"} font-size-11`}>{offer.approval_status}</span>
+                    ),
                     cob: offer.classofbusiness.business_name,
                     offer_date: new Date(offer.created_at).toDateString(),
                     actions: <OfferButtons offer={offer} />
@@ -88,6 +92,9 @@ export default memo(() => {
                     rate: offer.rate,
                     offer_status: (
                         <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
+                    ),
+                    approval_status: (
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.approval_status === "UNAPPROVED" ? "primary" : offer.approval_status === "DELETE" ? "danger" : "warning"} font-size-11`}>{offer.approval_status}</span>
                     ),
                     cob: offer.classofbusiness.business_name,
                     offer_date: new Date(offer.created_at).toDateString(),

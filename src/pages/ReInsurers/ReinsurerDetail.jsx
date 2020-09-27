@@ -86,7 +86,7 @@ function ReinsurerDetail() {
                     ),
                     offer_date: offer.reinsurer_offers_only.created_at,
                     insured: offer.reinsurer_offers_only.offer_detail.insured_by,
-                    actions: <OfferButtons type="all" data={reinsurer_offers} offer={offer} />,
+                    actions: <OfferButtons  type="all" data={reinsurer_offers} offer={offer} />,
                 }
                 offers.push(row)
                 return offer;

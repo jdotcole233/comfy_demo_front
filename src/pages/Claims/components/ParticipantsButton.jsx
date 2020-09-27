@@ -3,8 +3,8 @@ import React from 'react'
 import { useState } from "react"
 import { useMutation } from 'react-apollo'
 import { SEND_CLAIM_DEBIT_NOTE } from '../../../graphql/mutattions';
-import swall from 'sweetalert2'
-import swal from 'sweetalert'
+// import swall from 'sweetalert2'
+// import swal from 'sweetalert'
 import { Drawer } from '../../../components';
 import PreViewClaimDebitNote from '../PreViewClaimDebitNote';
 import SingleDebitNote from '../SendSingleClaimDebitNote'

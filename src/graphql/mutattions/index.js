@@ -199,11 +199,13 @@ export const ADD_PERCENTAGE = gql`
     $offer_participant_id: ID!
     $offer_id: ID!
     $percentage: Float!
+    $reopen: Boolean
   ) {
     addPrecentageToParticipant(
       offer_participant_id: $offer_participant_id
       offer_id: $offer_id
       participating_percentage: $percentage
+      reopen: $reopen
     ) {
       offer_amount
     }
@@ -254,9 +256,7 @@ export const CREATE_INSURER = gql`
         region: $region
         country: $country
       }
-    ) {
-      insurer_id
-    }
+    ) 
   }
 `;
 
@@ -464,5 +464,21 @@ export const UPDATE_EXTRA_CHARGE = gql`
       participant_id: $participatant_id
       extra_charge: $data
     )
+  }
+`;
+
+export const OFFER_APPROVAL = gql`
+  mutation approveOffer($offer_id: ID, $status: String, $messages: [String]) {
+    setApprovalStatus(
+      offer_id: $offer_id
+      approval_status: $status
+      document_message: $messages
+    )
+  }
+`;
+
+export const MAKE_COMMENT = gql`
+  mutation comment($id: ID, $messages: [String]) {
+    publishCommentOnDocument(offer_id: $id, document_message: $messages)
   }
 `;

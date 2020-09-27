@@ -2,7 +2,6 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useContext, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
-import JoditEditor from "jodit-react";
 import { Alert } from 'react-bootstrap'
 import { SEND_DEBIT_AND_CREDIT } from '../../graphql/mutattions';
 import swal from 'sweetalert';

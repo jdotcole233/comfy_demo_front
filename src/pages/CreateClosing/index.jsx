@@ -18,7 +18,8 @@ function ClosingOffer() {
         variables: {
             offer_status: ["CLOSED"]
         },
-        fetchPolicy: "network-only"
+        fetchPolicy: "network-only",
+        // pollInterval: 1000
     });
 
     const { data: alloffers, fetchMore, loading: fetching } = useQuery(ALLOFFERS, {

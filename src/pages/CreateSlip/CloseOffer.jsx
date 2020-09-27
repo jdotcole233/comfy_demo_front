@@ -32,6 +32,7 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
         if(reinsurers){
             const list = [];
             reinsurers.map((reinsurer) => {
+                console.log(reinsurer)
                 const row = {
                     name:reinsurer.reinsurer.re_company_name,
                     agreed_brokerage_percentage: 0,
@@ -39,7 +40,8 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
                     withholding_tax: 0,
                     nic_levy:0,
                     reinsurer_participant_id:reinsurer.offer_participant_id,
-                    reinsurer_id:reinsurer.reinsurer.reinsurer_id
+                    reinsurer_id:reinsurer.reinsurer.reinsurer_id,
+                    hasPercentage: reinsurer.offer_participant_percentage > 0 
                 }
                 list.push(row);
                 return row;
@@ -70,6 +72,7 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
             if(!input) throw null;
             const data = reinsurer_data.map(el => {
                 delete el.name
+                delete el.hasPercentage
                 return {
                     ...el, 
                     agreed_commission: el.agreed_commission || offer_commission
@@ -137,7 +140,7 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
                 </div>
             </div>
             <div className={styles.card_body}>
-                {reinsurer_data.map((reinsurer, key) => (
+                {reinsurer_data.map((reinsurer, key) => !reinsurer.hasPercentage ? null : (
                     <fieldset key={key} className="w-auto p-2 border-form">
                         <legend className={styles.details_title}>{reinsurer.name}</legend>
                         <div className="row">

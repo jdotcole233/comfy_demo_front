@@ -8,9 +8,9 @@ import currencies from '../../assets/currencies.json'
 import { UPDATE_OFFER } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { DrawerContext } from '../../components/Drawer'
-import { Selector, InsurerOption, CurrencyOption, Loader } from '../../components';
+import { Selector, InsurerOption, CurrencyOption, Loader, Editor } from '../../components';
 import { AuthContext } from '../../context/AuthContext';
-import JoditEditor from "jodit-react";
+// import JoditEditor from "jodit-react";
 import { prepVariables } from './InputOffer'
 
 
@@ -20,15 +20,18 @@ export default function InputOffer({ offer_id, toggle }) {
     const { state } = useContext(AuthContext);
     const formRef = useRef()
     const { data } = useQuery(INPUT_OFFER_QUERIES);
-    const { register, errors, handleSubmit, reset, setValue, clearError } = useForm({
-        defaultValues: {}
-    })
+    const { register, errors, handleSubmit, reset, setValue, clearError } = useForm()
+    const [offer_comment, fillComment] = useState("")
+    const [nkrol, setNkrol] = useState(false)
+    const [myComment, setMyComment] = useState("")
+
     const [classOfBusiness, setClassOfBusiness] = useState(null);
     const [offerDetails, setofferDetails] = useState([])
-    const [content, setContent] = useState("")
     const [selectedInsurer, setSelectedInsurer] = useState("")
     const [selectedBusiness, setSelectedBusiness] = useState("")
     const [selectedCurrency, setSelectedCurrency] = useState("")
+    const [infoContent, setInfoContent] = useState("")
+
     const { data: _offer, loading } = useQuery(SINGLE_OFFER, {
         variables: {
             offer_id,
@@ -56,14 +59,26 @@ export default function InputOffer({ offer_id, toggle }) {
             setValue("rate", offer.rate)
             setValue("insured_by", offer.offer_detail.insured_by)
             setValue("currency", offer.offer_detail.currency)
+            console.log("Offer Comment", offer.offer_detail.offer_comment?.toString())
+            console.log("Info Comment", offer.offer_detail.information_comment?.toString())
             setValue("offer_comment", offer.offer_detail.offer_comment)
-            setContent(offer.offer_detail.offer_comment || " ")
             setofferDetails(JSON.parse(offer.offer_detail.offer_details))
             setValue("period_of_insurance_from", offer.offer_detail.period_of_insurance_from)
             setValue("period_of_insurance_to", offer.offer_detail.period_of_insurance_to)
             setSelectedInsurer(offer.insurer.insurer_company_name)
             setClassOfBusiness(JSON.parse(offer.offer_detail.offer_details))
             setSelectedCurrency(offer.offer_detail.currency)
+            setInfoContent(offer.offer_detail.information_comment?.toString())
+            setValue("information_comment", offer.offer_detail.information_comment?.toString())
+            setNkrol(offer.offer_detail.information_comment ? true : false)
+            fillComment(offer.offer_detail.offer_comment)
+        }
+
+    }, [_offer])
+
+    useEffect(() => {
+        if (_offer) {
+            setMyComment(offer.offer_detail.offer_comment)
         }
 
     }, [_offer])
@@ -86,9 +101,17 @@ export default function InputOffer({ offer_id, toggle }) {
 
     const handleCommentChange = value => {
         setValue("offer_comment", value)
-        setContent(value)
+        fillComment(value)
         if (value) {
             clearError("offer_comment")
+        }
+    }
+
+    const handleInfoCommentChange = value => {
+        setValue("information_comment", value)
+        setInfoContent(value)
+        if (value) {
+            clearError("information_comment")
         }
     }
 
@@ -133,7 +156,7 @@ export default function InputOffer({ offer_id, toggle }) {
             // eslint-disable-next-line no-throw-literal
             if (!input) throw null
             updateOffer({ variables }).then(res => {
-                swal("Hurray", "Facultative offer Created Successfully", "success");
+                swal("Hurray", "Facultative offer updated Successfully", "success");
                 formRef.current.reset()
                 toggle()
             }).catch(err => {
@@ -153,7 +176,7 @@ export default function InputOffer({ offer_id, toggle }) {
     return (
         <form onSubmit={handleSubmit(handleCreateOffer)} ref={formRef} >
             <div className={styles.card_header}>
-                <h2 className={styles.card_title}>Create facultative placement slip</h2>
+                <h2 className={styles.card_title}>Create facultative placement slip {offer_comment}</h2>
             </div>
             <div className={styles.card_body}>
                 <div className="row">
@@ -220,7 +243,7 @@ export default function InputOffer({ offer_id, toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Rate (%)</label>
-                                <input name="rate" ref={register({ required: "Provide rate" })} type="text" className="form-control" placeholder="Rate" />
+                                <input name="rate" ref={register({ required: false })} type="text" className="form-control" placeholder="Rate" />
                                 {errors.rate && <p className="text-danger">{errors.rate.message}</p>}
                             </div>
                         </div>
@@ -285,19 +308,48 @@ export default function InputOffer({ offer_id, toggle }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border-form">
+                {!offer_comment && <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Comment</legend>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                                <JoditEditor value={content} onChange={handleCommentChange} />
-
-                                <textarea hidden rows={10} name="offer_comment" ref={register({ required: "Provide a comment" })} className="form-control" placeholder="Add Comment" ></textarea>
+                                <Editor value={offer_comment} onChange={handleCommentChange} />
+                                <textarea hidden rows={10} name="offer_comment" ref={register({ required: false })} className="form-control" ></textarea>
                                 {errors.offer_comment && <p className="text-danger">{errors.offer_comment.message}</p>}
                             </div>
                         </div>
                     </div>
-                </fieldset>
+                </fieldset>}
+                {offer_comment && <fieldset className="w-auto p-2  border-form">
+                    <legend className={styles.details_title}>Comment</legend>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <Editor value={offer_comment} onChange={handleCommentChange} />
+                                <textarea hidden rows={10} ref={register({ required: nkrol })} value={offer_comment} name="offer_comment" className="form-control" placeholder="Add Comment" ></textarea>
+                                {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>}
+                <div className="w-auto p-2">
+                    <div className="form-check">
+                        <input type="checkbox" checked={nkrol} className="form-check-input" id="exampleCheck1" onChange={e => setNkrol(e.target.checked)} />
+                        <label className="form-check-label" htmlFor="exampleCheck1">Include NKORL information to placing slip</label>
+                    </div>
+                </div>
+                {nkrol && <fieldset className="w-auto p-2  border-form">
+                    <legend className={styles.details_title}>NKORL</legend>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <Editor value={infoContent} onChange={handleInfoCommentChange} />
+                                <textarea hidden rows={10} ref={register({ required: nkrol })} value={infoContent} name="information_comment" className="form-control" placeholder="Add Comment" ></textarea>
+                                {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>}
                 <div className="form-group">
                     <input type="submit" className="btn btn-primary btn-sm form-control my-2" value="update offer" />
                 </div>

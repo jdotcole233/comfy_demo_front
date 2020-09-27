@@ -2,23 +2,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react'
 import { Alert } from 'react-bootstrap'
-import { Selector } from '../../components'
+import { Selector,InsurerOption } from '../../components'
 import { useMutation, useQuery } from 'react-apollo';
 import { CREATE_REINSURER, UPDATE_REINSURER } from '../../graphql/mutattions';
 import { REINSURERS, REINSURER, INSURERS } from '../../graphql/queries';
 import swal from 'sweetalert';
 import countriesData from '../../assets/countriesData'
 import { useForm } from 'react-hook-form';
-import { DrawerContext } from '../../components/Drawer';
+// import { DrawerContext } from '../../components/Drawer';
 import { AuthContext } from '../../context/AuthContext';
 import { editAccessRoles } from '../../layout/adminRoutes';
 
 
 
 
-function AddInsurer({ edit, toggle, data }) {
-    const { closed } = useContext(DrawerContext);
+function AddInsurer({ edit, toggle, data, closed }) {
+    // const { closed } = useContext(DrawerContext);
     const { state: { user } } = useContext(AuthContext)
+    const [choice, setChoice] = useState("")
 
     const { data: insurers } = useQuery(INSURERS);
     const { register, handleSubmit, errors, setValue, reset } = useForm();
@@ -35,20 +36,7 @@ function AddInsurer({ edit, toggle, data }) {
         region: "",
         country: "",
     })
-    useEffect(() => {
-        if (closed) {
-            reset();
-            setFormInputs({
-                re_company_name: "",
-                re_company_email: "",
-                re_company_website: "",
-                street: "",
-                suburb: "",
-                region: "",
-                country: "",
-            })
-        }
-    }, [closed, reset])
+
 
     useEffect(() => {
         if (insurers) {
@@ -69,6 +57,22 @@ function AddInsurer({ edit, toggle, data }) {
             setValue("re_company_website", data.reinsurer.re_company_website)
         }
     }, [data])
+
+    useEffect(() => {
+        if (closed) {
+            setChoice("")
+            reset();
+            setFormInputs({
+                re_company_name: "",
+                re_company_email: "",
+                re_company_website: "",
+                street: "",
+                suburb: "",
+                region: "",
+                country: "",
+            })
+        }
+    }, [closed])
 
 
     useEffect(() => {
@@ -207,20 +211,20 @@ function AddInsurer({ edit, toggle, data }) {
         }
     }, [selectedInsurer])
 
-    const CustomOption = ({ innerProps, isSelected, isDisabled, label, value }) =>
-        !isDisabled && !isSelected ? (
-            <div {...innerProps} className="row p-2">
-                <div className="col-md-8">
-                    <h4>{label}</h4>
-                    <p>{value.insurer_company_email}</p>
-                </div>
-                <div className="col-md-4 d-flex justify-content-end">
-                    <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
-                        {value.insurer_abbrv || "NA"}
-                    </span>
-                </div>
-            </div>
-        ) : null;
+    // const CustomOption = ({ innerProps, isSelected, isDisabled, label, value }) =>
+    //     !isDisabled && !isSelected ? (
+    //         <div {...innerProps} className="row p-2">
+    //             <div className="col-md-8">
+    //                 <h4>{label}</h4>
+    //                 <p>{value.insurer_company_email}</p>
+    //             </div>
+    //             <div className="col-md-4 d-flex justify-content-end">
+    //                 <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
+    //                     {value.insurer_abbrv || "NA"}
+    //                 </span>
+    //             </div>
+    //         </div>
+    //     ) : null;
 
     const CountryOption = ({ innerProps, isSelected, isDisabled, label, value }) =>
         !isDisabled && !isSelected ? (
@@ -238,141 +242,161 @@ function AddInsurer({ edit, toggle, data }) {
             </div>
         ) : null;
 
-    return (
-        <div>
-            <div className="row">
-                <div className="form-group">
-                    <h3 className="modal-title">{!edit ? "Add" : "Edit"} Reinsurer</h3>
-                </div>
-                <form onSubmit={handleSubmit(onSubmit)} className="row">
-                    {!edit && <div className="col-md-12">
-                        <fieldset className="border p-2 mb-2">
-                            <legend className="w-auto" style={{ fontSize: 16 }}>Add from list</legend>
-                            <Alert variant="danger">
-                                <strong>Select an Insurer from the list to add as a Reinsurer</strong>
-                            </Alert>
-                            <Selector components={{ Option: CustomOption }} onChange={handleGetReinsurer} options={insurersData} />
-                        </fieldset>
-                    </div>}
+    const Form = (
+        <div className="col-md-12">
+            <fieldset className="border-form p-2 mb-2">
+                <legend className="w-auto" style={{ fontSize: 16 }}>{!edit ? "Create new reinsurer" : "Edit reinsurer"}</legend>
+                <div className="row" >
                     <div className="col-md-12">
-                        <fieldset className="border p-2 mb-2">
-                            <legend className="w-auto" style={{ fontSize: 16 }}>{!edit ? "Create new reinsurer" : "Edit reinsurer"}</legend>
-                            <div className="row" >
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Company name</label>
-                                        <input ref={register({
-                                            required: "Company name is Required"
-                                        })} name="re_company_name" type="text" className="form-control" placeholder="Company name" />
-                                        {errors.re_company_name && <p className="text-danger">{errors.re_company_name.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label htmlFor="">Email</label>
-                                        <input ref={register({
-                                            required: "Email is required",
-                                            pattern: {
-                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                                message: "Invalid email address"
-                                            }
-                                        })} name="re_company_email"
+                        <div className="form-group">
+                            <label htmlFor="">Company name</label>
+                            <input ref={register({
+                                required: "Company name is Required"
+                            })} name="re_company_name" type="text" className="form-control" placeholder="Company name" />
+                            {errors.re_company_name && <p className="text-danger">{errors.re_company_name.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label htmlFor="">Email</label>
+                            <input ref={register({
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                    message: "Invalid email address"
+                                }
+                            })} name="re_company_email"
 
-                                            type="email"
-                                            className="form-control"
-                                            placeholder="Email" />
-                                        {errors.re_company_email && <p className="text-danger">{errors.re_company_email.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label htmlFor="">Website</label>
-                                        <input ref={register({
-                                            required: "Company website is required"
-                                        })} name="re_company_website"
+                                type="email"
+                                className="form-control"
+                                placeholder="Email" />
+                            {errors.re_company_email && <p className="text-danger">{errors.re_company_email.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label htmlFor="">Website</label>
+                            <input ref={register({
+                                required: "Company website is required"
+                            })} name="re_company_website"
 
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Website" />
-                                        {errors.re_company_website && <p className="text-danger">{errors.re_company_website.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Street Address</label>
-                                        <input ref={register({
-                                            required: "Street address is required"
-                                        })}
-                                            name="street"
+                                type="text"
+                                className="form-control"
+                                placeholder="Website" />
+                            {errors.re_company_website && <p className="text-danger">{errors.re_company_website.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label htmlFor="">Street Address</label>
+                            <input ref={register({
+                                required: "Street address is required"
+                            })}
+                                name="street"
 
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Street Address"
-                                        />
-                                        {errors.re_company_website && <p className="text-danger">{errors.re_company_website.message}</p>}
+                                type="text"
+                                className="form-control"
+                                placeholder="Street Address"
+                            />
+                            {errors.re_company_website && <p className="text-danger">{errors.re_company_website.message}</p>}
 
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Suburb/city</label>
-                                        <input
-                                            ref={register({
-                                                required: "Suburb/city is required"
-                                            })}
-                                            name="suburb"
+                        </div>
+                    </div>
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label htmlFor="">Suburb/city</label>
+                            <input
+                                ref={register({
+                                    required: "Suburb/city is required"
+                                })}
+                                name="suburb"
 
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Suburb" />
-                                        {errors.suburb && <p className="text-danger">{errors.suburb.message}</p>}
+                                type="text"
+                                className="form-control"
+                                placeholder="Suburb" />
+                            {errors.suburb && <p className="text-danger">{errors.suburb.message}</p>}
 
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Region/State</label>
-                                        <input
-                                            ref={register({
-                                                required: "Region/State is required"
-                                            })}
-                                            name="region"
+                        </div>
+                    </div>
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label htmlFor="">Region/State</label>
+                            <input
+                                ref={register({
+                                    required: "Region/State is required"
+                                })}
+                                name="region"
 
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Region" />
-                                        {errors.region && <p className="text-danger">{errors.region.message}</p>}
+                                type="text"
+                                className="form-control"
+                                placeholder="Region" />
+                            {errors.region && <p className="text-danger">{errors.region.message}</p>}
 
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label> Country</label>
-                                        <Selector value={selectedCountry} placeholder="Country" onChange={handleCountrySelect} components={{ Option: CountryOption }} options={countries} />
-                                        <input ref={register({
-                                            required: "Country is required"
-                                        })} type="hidden" name="country" list="movies" placeholder="Country" className="form-control" />
+                        </div>
+                    </div>
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label> Country</label>
+                            <Selector value={selectedCountry} placeholder="Country" onChange={handleCountrySelect} components={{ Option: CountryOption }} options={countries} />
+                            <input ref={register({
+                                required: "Country is required"
+                            })} type="hidden" name="country" list="movies" placeholder="Country" className="form-control" />
 
-                                        {/* <datalist id="movies">
+                            {/* <datalist id="movies">
                                             <select name="movies" className="form-control">
                                                 {countries.map((country, key) => (
                                                     <option key={key} value={country.label} />
                                                 ))}
                                             </select>
                                         </datalist> */}
-                                        {errors.country && <p className="text-danger">{errors.country.message}</p>}
+                            {errors.country && <p className="text-danger">{errors.country.message}</p>}
 
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
+                        </div>
                     </div>
-                    <div className="col-md-12">
+                </div>
+            </fieldset>
+        </div>
+
+    )
+
+    return (
+        <div>
+            <div className="">
+                <div className="form-group">
+                    <h3 className="modal-title">{!edit ? "Add" : "Edit"} Reinsurer</h3>
+                </div>
+                <div className="">
+                    <fieldset className="border-form p-2 mb-2">
+                        <legend className="w-auto" style={{ fontSize: 16 }}>Choose action</legend>
+                        <div className="form-group">
+                            <select name="" id="" onChange={evt => { setChoice(evt.target.value); setSelectedInsurer(null) }} className="form-control">
+                                <option value="">Choose one</option>
+                                <option value="new">Create new</option>
+                                <option value="old">Add from list</option>
+                            </select>
+                            {/* {errors.insurer_company_name && <p className="text-danger">{errors.insurer_company_name.message}</p>} */}
+                        </div>
+                    </fieldset>
+                </div>
+                <form onSubmit={handleSubmit(onSubmit)} className="row">
+                    {!edit && choice === "old" && <div className="col-md-12">
+                        <fieldset className="border-form p-2 mb-2">
+                            <legend className="w-auto" style={{ fontSize: 16 }}>Add from list</legend>
+                            <Alert variant="danger">
+                                <strong>Select an Insurer from the list to add as a Reinsurer</strong>
+                            </Alert>
+                            <Selector components={{ Option: InsurerOption }} onChange={handleGetReinsurer} options={insurersData} />
+                        </fieldset>
+                    </div>}
+                    {choice === "old" && selectedInsurer && Form}
+                    {choice === "new" && Form}
+
+                    {(choice || selectedInsurer) && <div className="col-md-12">
                         <div className="form-group d-flex justify-content-end">
                             {!edit && <button type="submit" className="btn btn-sm btn-primary w-md">Add Reinsurer</button>}
                             {editAccessRoles.includes(user?.position) && edit && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Reinsurer</button>}
                         </div>
-                    </div>
+                    </div>}
                 </form>
             </div>
         </div>

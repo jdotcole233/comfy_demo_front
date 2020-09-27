@@ -159,6 +159,7 @@ const OfferButtons = ({ offer }) => {
                     offer_participant_id: selectedReinsurer?.offer_participant_id,
                     offer_id: selectedOffer?.offer_id,
                     percentage,
+                    reopen: true
                 },
             })
                 .then((res) => {
@@ -229,9 +230,9 @@ const OfferButtons = ({ offer }) => {
                     <Dropdown.Item onClick={() => handlePreviewDebitNote(offer)}>
                         Preview Debit Note
             </Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleShowSendMailDrawer(offer)}>
+                    {offer?.approval_status === "APPROVED" && <Dropdown.Item onClick={() => handleShowSendMailDrawer(offer)}>
                         Send
-            </Dropdown.Item>
+            </Dropdown.Item>}
                 </DropdownButton>
 
                 <button
@@ -241,7 +242,7 @@ const OfferButtons = ({ offer }) => {
                     Credit Notes
           </button>
                 {/* <button onClick={() => (offer)} className="btn btn-sm w-md btn-warning mb-2"></button> */}
-                {["UNPAID"].includes(offer?.payment_status) && (
+                {(["UNPAID"].includes(offer?.payment_status) && offer?.approval_status === "APPROVED") && (
                     <DropdownButton
                         variant="warning"
                         className="mr-1 mb-1 w-md"
@@ -353,7 +354,7 @@ const OfferButtons = ({ offer }) => {
                     <div className="row">
                         <div className="col-md-6"></div>
                         <div className="col-md-6 d-flex justify-content-end">
-                            <button onClick={handleDownloadAll} className="btn btn-sm btn-primary w-md">Generate Notes</button>
+                            {selectedOffer?.approval_status === "APPROVED" && <button onClick={handleDownloadAll} className="btn btn-sm btn-primary w-md">Generate Notes</button>}
                         </div>
                     </div>
                     <div className="mt-4" >

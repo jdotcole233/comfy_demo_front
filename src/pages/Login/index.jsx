@@ -58,13 +58,14 @@ const Login = () => {
 
                         <div>
                             <a href="index.html">
-                                <div className="avatar-md profile-user-wid mb-4">
+                                <div className="avatar-xl profile-user-wid mb-4">
                                     <span className="avatar-title rounded-circle bg-white">
                                         <img
-                                            src={require("../../assets/visal-sm-logo.JPG")}
+                                            src={require("../../assets/visal-sm-logo.jpeg")}
                                             alt=""
-                                            className="rounded-circle"
+                                            // className="rounded-circle"
                                             height="44"
+                                            width="100"
                                         />
                                     </span>
                                 </div>

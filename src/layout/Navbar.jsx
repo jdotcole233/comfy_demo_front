@@ -14,13 +14,13 @@ export const Navbar = () => {
                         <Link to="/admin/" className="logo logo-light">
                             <span className="logo-sm">
                                 <img
-                                    src={require("../assets/visal-sm-logo.JPG")}
+                                    src={require("../assets/visal-sm-logo.jpeg")}
                                     alt=""
                                     height="40"
                                     width="40"
                                 />
                             </span>
-                            <span className="logo-lg">
+                            <span className="logo logo-lg">
                                 <img
                                     src={require("../assets/visal-logo-big.png")}
                                     alt=""

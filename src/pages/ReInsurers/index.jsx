@@ -127,7 +127,7 @@ function ReInsurers() {
             />
             {/*Drawer for add Reinsurer */}
             <Drawer width="40%" isvisible={showAddReInsurer} toggle={() => setshowAddReInsurer(!!0)}>
-                <AddReInsurer toggle={() => setshowAddReInsurer(!!0)} />
+                <AddReInsurer toggle={() => setshowAddReInsurer(!!0)} closed={!showAddReInsurer} />
             </Drawer>
             <Drawer width="40%" isvisible={showAddAssociate} toggle={() => setshowAddAssociate(!!0)}>
                 <AddAssociate details={selectedReinsurer} toggle={() => setshowAddAssociate(!!0)} />

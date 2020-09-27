@@ -212,6 +212,15 @@ export const OFFERS = gql`
         approval_status
         payment_status
         claim_status
+        document_messages {
+          offersoffer_id
+          document_message
+          created_at
+          employee {
+            emp_abbrv
+            employee_id
+          }
+        }
         offer_detail {
           offer_detail_id
           offersoffer_id
@@ -448,6 +457,15 @@ export const SINGLE_OFFER = gql`
       offer_status
       payment_status
       claim_status
+      document_messages {
+        offersoffer_id
+        document_message
+        created_at
+        employee {
+          emp_abbrv
+          employee_id
+        }
+      }
       offer_detail {
         offer_detail_id
         offersoffer_id

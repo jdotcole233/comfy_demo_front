@@ -3,14 +3,16 @@ import React, { useState, useRef, useEffect, useContext } from 'react'
 import styles from './styles/ViewReinsurerOffer.module.css'
 import { useMutation } from 'react-apollo'
 import { MAKE_PAYMENT_INSURER, UPDATE_PAYMENT_REINSURER } from '../../graphql/mutattions'
-import { INSURER, REINSURER } from '../../graphql/queries'
+import { INSURER, REINSURER, REINSURER_OFFERS } from '../../graphql/queries'
 import swal from 'sweetalert'
 import { DrawerContext } from '../../components/Drawer';
 
 
 
-export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) => {
+export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment, skip = 0 }) => {
     const { closed } = useContext(DrawerContext);
+    console.log(details)
+    console.log(reinsurer_id)
     const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0)
     const [amountError, setAmountError] = useState(false)
     const [currency, setCurrency] = useState("")
@@ -24,16 +26,16 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
         payment_amount: ""
     })
     useEffect(() => {
-        if (closed) {
-            setForm_inputs({
-                payment_type: "",
-                cheque_number: "",
-                bank_name: "",
-                beneficiary_bank_name: "",
-                offer_payment_comment: "",
-                payment_amount: ""
-            })
-        }
+        // if (closed) {
+        //     setForm_inputs({
+        //         payment_type: "",
+        //         cheque_number: "",
+        //         bank_name: "",
+        //         beneficiary_bank_name: "",
+        //         offer_payment_comment: "",
+        //         payment_amount: ""
+        //     })
+        // }
     }, [closed])
     const formRef = useRef()
     const [makePayment] = useMutation(MAKE_PAYMENT_INSURER, {
@@ -41,7 +43,10 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
     })
 
     const [updatePayment] = useMutation(UPDATE_PAYMENT_REINSURER, {
-        refetchQueries: [{ query: REINSURER, variables: { id: reinsurer_id } }]
+        refetchQueries: [
+            { query: REINSURER, variables: { id: details?.reinsurer?.reinsurer_id } },
+            { query: REINSURER_OFFERS, variables: { skip, id: details?.reinsurer?.reinsurer_id } }
+        ]
     })
 
     useEffect(() => {
@@ -193,7 +198,7 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
             <div className={styles.card_header}>
                 <h3 className={styles.card_title}>{!edit ? "Make" : "Edit"} Payment</h3>
             </div>
-            <fieldset className="border p-2 mb-2">
+            <fieldset className="border-form p-2 mb-2">
                 <legend className={styles.details_title}>Payment Quota [{policy_number}]</legend>
                 <table className="table">
                     <tbody>
@@ -249,7 +254,7 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
                         </select>
                     </div>
                 </div>
-                {form_inputs.payment_type.length ? <fieldset className="border mt-3 p-2">
+                {form_inputs.payment_type.length ? <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment From</legend>
                     <div className="row">
                         {form_inputs.payment_type !== "Bank Transfer" && <div className="col-md-6">
@@ -266,7 +271,7 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
                         </div>
                     </div>
                 </fieldset> : null}
-                <fieldset className="border mt-3 p-2">
+                <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment To</legend>
                     <div className="row">
                         <div className="col-md-12">
@@ -277,7 +282,7 @@ export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) =>
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="border mt-3 p-2">
+                <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment Details</legend>
                     <div className="row">
                         <div className="col-md-6">

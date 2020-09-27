@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import OfferListing from '../CreateSlip/OfferListing'
 import Header from './Header'
-import { columns } from '../CreateClosing/columns'
+import { columns } from './columns'
 import { useQuery } from 'react-apollo'
 import { OFFERS } from '../../graphql/queries'
 import { Loader } from '../../components'
@@ -15,7 +15,8 @@ const UnApproved = () => {
         variables: {
             offer_status: ["CLOSED"],
             approval_status: "UNAPPROVED"
-        }
+        },
+        // pollInterval: 1000
     })
 
 
@@ -38,7 +39,7 @@ const UnApproved = () => {
                         offer.offer_detail?.currency +
                         " " +
                         offer.premium.toLocaleString(undefined, { maximumFractionDigits: 2 }),
-                    participants: offer.offer_participant.length,
+                    participants: offer.offer_participant.filter((el) => el.offer_participant_percentage !== 0).length,
                     cob: offer.classofbusiness.business_name,
                     offer_date: new Date(offer.created_at).toDateString(),
                     actions: <OfferButtons offer={offer} />
@@ -56,7 +57,7 @@ const UnApproved = () => {
 
     return (
         <div className="page-content">
-            <Header />
+            <Header closedOffers={offerListing} />
             <OfferListing title="Unapproved Closings" recent={offerListing} hideTab columns={columns} />
         </div>
     )

@@ -5,7 +5,7 @@ import { BASE_URL_LOCAL } from '../../graphql'
 
 
 function PreviewCoverNote({ offer, reinsurer }) {
-     const showDate = (offer) => {
+    const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
@@ -13,12 +13,12 @@ function PreviewCoverNote({ offer, reinsurer }) {
     return (
         <Fragment>
             <div className="row m-2">
-                <a target="_blank" href={`${BASE_URL_LOCAL}/generate_closing_slip/${btoa(JSON.stringify({
+                {offer?.approval_status === "APPROVED" && <a target="_blank" href={`${BASE_URL_LOCAL}/generate_closing_slip/${btoa(JSON.stringify({
                     offer_id: offer?.offer_id,
                     reinsurer_id: reinsurer?.reinsurer.reinsurer_id
                 }))}`} className="btn btn-sm btn-primary w-md">
                     <i className="bx bxs-file-pdf"></i> Save
-                </a>
+            </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid p-4 text-black bg-white">
                 <div className="row">

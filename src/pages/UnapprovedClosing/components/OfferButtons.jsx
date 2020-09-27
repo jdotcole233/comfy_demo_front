@@ -15,10 +15,11 @@ import { BASE_URL_LOCAL } from '../../../graphql'
 import PreviewCoverNote from '../../CreateClosing/PreviewCoverNote'
 import PreviewDebitNote from '../../CreateClosing/PreviewDebitNote'
 import PreviewCreditNote from '../../CreateClosing/PreviewCreditNote'
-import SendCoverNoteMail from '../../CreateClosing/SendCoverNoteMail'
+// import SendCoverNoteMail from '../../CreateClosing/SendCoverNoteMail'
 import SendClosngSlip from '../../CreateClosing/SendClosingSlip';
 import { AuthContext } from '../../../context/AuthContext';
 import { deleteAccessRoles } from '../../../layout/adminRoutes';
+import OfferApproval from '../OfferApproval';
 
 const OfferButtons = ({ offer }) => {
     const { state: { user } } = useContext(AuthContext)
@@ -62,7 +63,7 @@ const OfferButtons = ({ offer }) => {
     }, [])
 
     const handleApprovalDrawer = useCallback(offer => {
-        alert("Hello")
+        // alert("Hello")
         setSelectedOffer(offer);
         setshowCoverNoteMail(!showCoverNoteMail)
     }, [])
@@ -323,7 +324,7 @@ const OfferButtons = ({ offer }) => {
             </Drawer>
             {/* Send debit and credit  Note */}
             <Drawer width="40%" isvisible={showCoverNoteMail} toggle={() => setshowCoverNoteMail(!showCoverNoteMail)}>
-                <SendCoverNoteMail visible={showCoverNoteMail} offer={selectedOffer} toggle={() => setshowCoverNoteMail(!showCoverNoteMail)} />
+                <OfferApproval offer={selectedOffer} setClose={setshowCoverNoteMail} />
             </Drawer>
             {/* Send closing slip Note */}
             <Drawer width="50%" isvisible={showSendClosingSlip} toggle={() => setShowSendClosingSlip(!showSendClosingSlip)}>

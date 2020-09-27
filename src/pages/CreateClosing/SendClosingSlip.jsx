@@ -2,7 +2,6 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useContext, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
-import JoditEditor from "jodit-react";
 import { useMutation, useQuery } from 'react-apollo';
 import { Editor, Selector } from '../../components'
 import { SEND_CLOSING_SLIP } from '../../graphql/mutattions';

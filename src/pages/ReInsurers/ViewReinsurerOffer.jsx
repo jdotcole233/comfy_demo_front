@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './styles/ViewReinsurerOffer.module.css'
 import { useQuery } from 'react-apollo'
 import { FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries'
-import JoditEditor from "jodit-react";
+import { Editor } from '../../components';
 
 
 export default function ViewReinsurerOffer({ data }) {
@@ -67,7 +67,7 @@ export default function ViewReinsurerOffer({ data }) {
                     </div>
 
                 </div>
-                {selectedClassOfBusiness ? <fieldset className="w-auto p-2 border">
+                {selectedClassOfBusiness ? <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Business class details</legend>
                     <div className="row">
                         {JSON.parse(details?.reinsurer_offers_only.offer_detail.offer_details).map((detail, key) => {
@@ -82,7 +82,7 @@ export default function ViewReinsurerOffer({ data }) {
                         })}
                     </div>
                 </fieldset> : null}
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -141,7 +141,7 @@ export default function ViewReinsurerOffer({ data }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Period Of Insurance</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -158,13 +158,18 @@ export default function ViewReinsurerOffer({ data }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
-                    <legend className={styles.details_title}></legend>
+                {details?.reinsurer_offers_only?.offer_detail?.offer_comment && <fieldset className="w-auto p-2 border-form">
+                    <legend className={styles.details_title}>Comment</legend>
                     <div className="form-grpup">
-                        <JoditEditor config={{ readonly: true }} value={details?.reinsurer_offers_only.offer_detail.offer_comment} onChange={() => { }} />
-                        <textarea name="" hidden id="" cols="30" rows="10" value={details?.reinsurer_offers_only.offer_detail.offer_comment} onChange={() => { }} className="form-control"></textarea>
+                        <Editor value={details?.reinsurer_offers_only?.offer_detail?.offer_comment || ""} onChange={() => { }} />
                     </div>
-                </fieldset>
+                </fieldset>}
+                {details?.reinsurer_offers_only?.offer_detail?.information_comment && <fieldset className="w-auto p-2 border-form">
+                    <legend className={styles.details_title}>NROL</legend>
+                    <div className="form-grpup">
+                        <Editor value={details?.reinsurer_offers_only?.offer_detail?.information_comment || ""} onChange={() => { }} />
+                    </div>
+                </fieldset>}
             </div>
         </>
     )

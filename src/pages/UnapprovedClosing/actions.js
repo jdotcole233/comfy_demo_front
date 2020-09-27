@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropdownButton, Dropdown, ButtonGroup } from "react-bootstrap";
+import {DropdownButton, Dropdown, ButtonGroup} from 'react-bootstrap';
 
 export const calculateFacOffer = ({offer, setFac_offer, setTest_offer}) => {
   if (!offer) return 0;
@@ -20,27 +20,29 @@ export const generateParticipants = ({
   handleShowUpdateModal,
 }) => {
   if (!offer) return {rows: [], participants: [], downloadLink: ''};
-  const rows = offer.offer_participant.map((reinsurer) => ({
-    ...reinsurer,
-    ...reinsurer.reinsurer,
-    amount: `${offer.offer_detail.currency} ${reinsurer.offer_amount}`,
-    actions: (
-      <DropdownButton
-        variant="danger"
-        size="sm"
-        as={ButtonGroup}
-        id="dropdown-basic-button"
-        title="Generate Credit Note"
-      >
-        <Dropdown.Item
-          onClick={() => {
-            setSelectedReinsurer(reinsurer);
-            setshowCreditNotePreview((s) => !s);
-          }}
+  const rows = offer.offer_participant
+    .filter((el) => el.offer_participant_percentage !== 0)
+    .map((reinsurer) => ({
+      ...reinsurer,
+      ...reinsurer.reinsurer,
+      amount: `${offer.offer_detail.currency} ${reinsurer.offer_amount}`,
+      actions: (
+        <DropdownButton
+          variant="danger"
+          size="sm"
+          as={ButtonGroup}
+          id="dropdown-basic-button"
+          title="Generate Credit Note"
         >
-          Preview
-        </Dropdown.Item>
-        <Dropdown.Item
+          <Dropdown.Item
+            onClick={() => {
+              setSelectedReinsurer(reinsurer);
+              setshowCreditNotePreview((s) => !s);
+            }}
+          >
+            Preview
+          </Dropdown.Item>
+          {/* <Dropdown.Item
           onClick={() => {
             setSelectedReinsurer(reinsurer);
             setViewOffer((s) => !s);
@@ -48,10 +50,10 @@ export const generateParticipants = ({
           }}
         >
           Send
-        </Dropdown.Item>
-      </DropdownButton>
-    ),
-  }));
+        </Dropdown.Item> */}
+        </DropdownButton>
+      ),
+    }));
   const participants = offer.offer_participant.map((reinsurer) => ({
     ...reinsurer,
     ...reinsurer.reinsurer,

@@ -13,9 +13,9 @@ function PreviewCoverNote({ offer }) {
     return (
         <div>
             <div className="row m-2">
-                <a target="_blank" href={`${BASE_URL_LOCAL}/generate_debit_slip/${btoa(JSON.stringify({ offer_id: offer?.offer_id }))}`} className="btn btn-sm btn-primary w-md">
+                {offer?.approval_status === "APPROVED" && <a target="_blank" href={`${BASE_URL_LOCAL}/generate_debit_slip/${btoa(JSON.stringify({ offer_id: offer?.offer_id }))}`} className="btn btn-sm btn-primary w-md">
                     <i className="bx bxs-file-pdf"></i> Save
-                </a>
+                </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid p-4 text-black bg-white">
                 <div className="row">

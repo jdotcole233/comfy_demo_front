@@ -19,7 +19,8 @@ const Dashboard = () => {
     })
     const { data, called } = useQuery(DASHBOARD, {
         variables,
-        fetchPolicy: 'network-only'
+        fetchPolicy: 'network-only',
+        // pollInterval: 1000
     });
     const [openMoreBusinessesModal, setOpenMoreBusinessesModal] = useState(false);
     const [offerListing, setOfferListing] = useState([]);
@@ -222,7 +223,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            <ChartDisplay/>
+                            <ChartDisplay />
                         </div>
                     </div>
 

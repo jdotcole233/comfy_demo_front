@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import styles from './styles/ViewInsurerOffer.module.css'
 import { useQuery } from 'react-apollo'
 import { FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries'
-import JoditEditor from "jodit-react";
 import { Editor } from '../../components';
 
 
@@ -159,14 +158,26 @@ export default function ViewInsurerOffer({ data }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border-form">
+                {details?.offer_detail?.offer_comment && <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Comment</legend>
                     <div className="form-grpup">
                         {/* <JoditEditor value={details?.offer_detail?.offer_comment || ""} onChange={() => { }} /> */}
-                        <Editor value={details?.offer_detail?.offer_comment || ""} onChange={() => { }} />
-                        <textarea hidden name="" id="" cols="30" rows="10" value={details?.offer_detail?.offer_comment} className="form-control" readOnly></textarea>
+                        <Editor value={details?.offer_detail?.offer_comment?.toString() || ""} onChange={() => { }} />
+                        {/* <textarea hidden name="" id="" cols="30" rows="10" value={details?.offer_detail?.offer_comment} className="form-control" readOnly></textarea> */}
                     </div>
-                </fieldset>
+                </fieldset>}
+                {details?.offer_detail?.information_comment && <fieldset className="w-auto p-2  border-form">
+                    <legend className={styles.details_title}>NKORL</legend>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <Editor value={details?.offer_detail?.information_comment?.toString()} onChange={() => { }} />
+                                {/* <textarea hidden rows={10} ref={register({ required: nkrol })} value={infoContent} name="information_comment" className="form-control" placeholder="Add Comment" ></textarea> */}
+                                {/* {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>} */}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>}
             </div>
         </>
     )

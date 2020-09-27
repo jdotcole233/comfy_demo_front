@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useContext } from "react";
 import { Loader } from "../../components";
-import { useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-apollo";
 import { SINGLE_OFFER } from "../../graphql/queries";
 import { AuthContext } from "../../context/AuthContext";
@@ -26,6 +26,7 @@ function ViewOffer() {
       offer_id: state?.offer_id,
     },
     fetchPolicy: "network-only",
+    pollInterval: 1000
   });
 
 
@@ -35,9 +36,11 @@ function ViewOffer() {
     }
   }, [state])
 
-  if (loading && !data) {
+  if (loading) {
     return <Loader />;
   }
+
+  if (!loading && data?.findSingleOffer?.offer_status === "CLOSED") return <Redirect to="/admin/create-slip" />
 
 
   return (

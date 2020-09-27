@@ -5,7 +5,7 @@ import styles from './styles/card.module.css'
 import { Alert } from 'react-bootstrap'
 import { useMutation } from 'react-apollo';
 import { MAKE_CLAIM_ON_OFFER } from '../../graphql/mutattions';
-import { OFFERS } from '../../graphql/queries';
+import { ALLOFFERS, OFFERS } from '../../graphql/queries';
 import swal from 'sweetalert';
 import emptyImage from '../../assets/empty.png'
 import { DrawerContext } from '../../components/Drawer';
@@ -19,7 +19,7 @@ const MakeClaim = ({ offer, toggle }) => {
     const [claim_date, setclaim_date] = useState("");
     const [error, setError] = useState(false)
     const [comments, setComments] = useState("")
-    const [makeClaim] = useMutation(MAKE_CLAIM_ON_OFFER, { refetchQueries: [{ query: OFFERS, variables: { offer_status: ["CLOSED"] } }] })
+    const [makeClaim] = useMutation(MAKE_CLAIM_ON_OFFER, { refetchQueries: [{ query: OFFERS, variables: { offer_status: ["CLOSED"] } }, { query: ALLOFFERS, variables: { offer_status: ["CLOSED"], skip: 0 } }] })
     const amountSpent = offer?.offer_claims.reduce((total, currentClaim) => total + parseFloat(currentClaim.claim_amount), 0)
     const leftAmount = parseFloat(offer?.fac_sum_insured) - amountSpent;
     const handleMakeClain = event => {

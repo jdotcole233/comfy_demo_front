@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useContext, useMemo, useCallback } from 'react'
 import { Alert } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
-import { Drawer, Modal, CurrencyValues, Datatable, Loader } from '../../components';
+import { Drawer, Modal, CurrencyValues, Datatable, Loader, Editor } from '../../components';
 import Chart from 'react-apexcharts'
 import styles from './styles/card.module.css'
 import MakeClaim from './MakeClaim';
@@ -64,10 +64,41 @@ function Claims() {
     const [selectedShare, setSelectedShare] = useState(null)
     const [showClaimRequest, setShowClaimRequest] = useState(false)
     const [showSingleClaimSendBox, setShowSingleClaimSendBox] = useState(false)
-
+    const [claimComment, setClaimComment] = useState("")
+    // const [hasComment, setHasComment] = useState(true)
     //handle the deletion of claim amount
-    const [removeClaim] = useMutation(REMOVE_CLAIM_AMOUNT);
-    const [updateClaimAmount] = useMutation(UPDATE_CLAIM_AMOUNT);
+    const [removeClaim] = useMutation(REMOVE_CLAIM_AMOUNT, {
+        refetchQueries: [
+            {
+                query: OFFERS, variables: {
+                    offer_status: ["CLOSED"],
+                    skip
+                }
+            },
+            {
+                query: ALLOFFERS, variables: {
+                    offer_status: ["CLOSED"],
+                    skip
+                }
+            }
+        ]
+    });
+    const [updateClaimAmount] = useMutation(UPDATE_CLAIM_AMOUNT, {
+        refetchQueries: [
+            {
+                query: OFFERS, variables: {
+                    offer_status: ["CLOSED"],
+                    skip
+                }
+            },
+            {
+                query: ALLOFFERS, variables: {
+                    offer_status: ["CLOSED"],
+                    skip
+                }
+            }
+        ]
+    });
     // const [sendClaimDebitNote] = useMutation(SEND_CLAIM_DEBIT_NOTE);
 
 
@@ -78,7 +109,7 @@ function Claims() {
     useEffect(() => {
         if (selectedOffer) {
             const rows = [];
-            selectedOffer.offer_claims.map((claim, key) => {
+            selectedOffer.offer_claims.map((claim) => {
                 const row = {
                     claim_amount: selectedOffer?.offer_detail?.currency + " " + claim.claim_amount,
                     claim_date: new Date(claim.claim_date).toDateString(),
@@ -131,6 +162,7 @@ function Claims() {
         if (selectedClaim) {
             setValue("claim_amount", selectedClaim.claim_amount);
             setValue("claim_date", selectedClaim.claim_date);
+            setValue("claim_comment", selectedClaim.claim_comment)
         }
     }, [selectedClaim]);
 
@@ -156,6 +188,7 @@ function Claims() {
 
     const handleViewUpdateForm = claim => {
         setSelectedClaim(claim);
+        setClaimComment(claim.claim_comment)
         setShowUpdateClaimAmount(true);
     }
 
@@ -235,6 +268,7 @@ function Claims() {
                         offer_id: selectedOffer?.offer_id,
                         claim_amount: values.claim_amount,
                         claim_date: values.claim_date,
+                        claim_comment: values.claim_comment
                     }
                 }
             }).then(res => {
@@ -459,11 +493,11 @@ function Claims() {
                     <PreViewClaimDebitNote offer={selectedOffer} claim={distributionList} shares={selectedShare} />
                 </Drawer>
 
-                <Modal centered show={showUpdateClaimAmount} onHide={() => setShowUpdateClaimAmount(false)}>
-                    <Modal.Header closeButton>
+                <Modal show={showUpdateClaimAmount} onHide={() => setShowUpdateClaimAmount(false)}>
+                    <Modal.Header className="bg-soft-dark" closeButton>
                         <p> Update Claim amount (<strong>{`${selectedOffer?.offer_detail?.currency} ${selectedClaim?.claim_amount}`}</strong>) made on <strong>{new Date(selectedClaim?.claim_date).toDateString()}</strong></p>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className="bg-soft-dark">
                         <Alert variant="danger">
                             <p><strong>Changes made on this claim will affect all reinsurers' participation</strong></p>
                         </Alert>
@@ -482,6 +516,20 @@ function Claims() {
                                     {errors.claim_date && <p className="text-danger">{errors.claim_date.message}</p>}
                                 </div>
                             </div>
+                            {claimComment && <div className="col-md-12">
+                                <div className="form-group">
+                                    <label htmlFor="">Claim Date</label>
+                                    <Editor value={claimComment} onChange={value => setClaimComment(value)} />
+                                    <input type="hidden" value={claimComment} name="claim_comment" ref={register({ required: false })} />
+                                </div>
+                            </div>}
+                            {!claimComment && <div className="col-md-12">
+                                <div className="form-group">
+                                    <label htmlFor="">Claim Date</label>
+                                    <Editor value={claimComment} onChange={value => setClaimComment(value)} />
+                                    <input type="hidden" value={claimComment} name="claim_comment" ref={register({ required: false })} />
+                                </div>
+                            </div>}
                             <div className="col-md-12">
                                 <div className="form-group">
                                     <input type="submit" className="btn btn-primary btn-block btn-sm" value="Update" />

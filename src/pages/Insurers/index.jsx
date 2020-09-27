@@ -153,7 +153,7 @@ function Insurers() {
 
             {/*Drawer for add Reinsurer */}
             <Drawer width="40%" isvisible={showAddInsurer} toggle={() => setshowAddInsurer(!!0)}>
-                <AddInsurer toggle={() => setshowAddInsurer(!!0)} />
+                <AddInsurer toggle={() => setshowAddInsurer(!!0)} closed={!showAddInsurer} />
             </Drawer>
             <Drawer width="40%" isvisible={showAddManager} toggle={() => setshowAddManager(!!0)}>
                 <AddManager closed={showAddManager} details={selectedInsurer} toggle={() => setshowAddManager(!!0)} />
