@@ -109,7 +109,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                         <>
                             <button onClick={() => handleShowEditpaymentDrawer(payment)} className="btn btn-sm w-md btn-info mr-1">View</button>
                             <button onClick={() => handleRemovePayment(payment)} className="btn btn-sm w-md btn-danger mr-1">Remove</button>
-                            <button onClick={() => handlePaymentSchedule(payment, key)} className="btn btn-sm btn-success w-md mt-1">Payment Schedule</button>
+                            <button onClick={() => handlePaymentSchedule(payment, key)} className="btn btn-sm btn-success w-md mt-1 mr-1">Payment Schedule</button>
                             <button onClick={() => handleGenerateReceipt(payment)} className="btn btn-sm btn-warning w-md mt-1">Generate Receipt</button>
                         </>
                     )
