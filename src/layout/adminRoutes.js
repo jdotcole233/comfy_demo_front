@@ -47,11 +47,11 @@ const dashboard = [
     name: 'Dashboard',
     icon: 'bx bx-home-circle',
     roles: [
-      'Managing Director',
+      'CEO',
+      'General Manager',
       'Senior Broking Officer',
-      'Broking Officer',
-      'Frontline Executive',
-      'Finance Officer',
+      'Finance Executive',
+      'System Administrator',
     ],
   },
 ];
@@ -61,29 +61,35 @@ const offers = [
     link: '/admin/create-slip',
     name: 'Create Slip',
     roles: [
-      'Managing Director',
+      'CEO',
+      'General Manager',
       'Senior Broking Officer',
-      'Broking Officer',
-      'Frontline Executive',
-      'Finance Officer',
+      // 'Finance Executive',
+      'System Administrator',
     ],
     icon: 'bx bxs-file-plus',
   },
   {
     link: '/admin/approve-closing',
     name: 'Unapproved Closings',
-    roles: ['Managing Director', 'Senior Broking Officer'],
+    roles: [
+      'CEO',
+      'General Manager',
+      // 'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
     icon: 'bx bxs-file-plus',
   },
   {
     link: '/admin/create-closing',
     name: 'Create Closing',
     roles: [
-      'Managing Director',
+      'CEO',
+      'General Manager',
       'Senior Broking Officer',
-      'Broking Officer',
-      'Frontline Executive',
-      'Finance Officer',
+      // 'Finance Executive',
+      'System Administrator',
     ],
     icon: 'bx bx-lock-alt',
   },
@@ -93,11 +99,11 @@ const clients = [
     link: '/admin/insurers',
     name: 'Insurers',
     roles: [
-      'Managing Director',
+      'CEO',
+      'General Manager',
       'Senior Broking Officer',
-      'Broking Officer',
-      'Frontline Executive',
-      'Finance Officer',
+      'Finance Executive',
+      'System Administrator',
     ],
     icon: 'bx bx-group',
   },
@@ -105,11 +111,11 @@ const clients = [
     link: '/admin/re-insurers',
     name: 'Re-insurers',
     roles: [
-      'Managing Director',
+      'CEO',
+      'General Manager',
       'Senior Broking Officer',
-      'Broking Officer',
-      'Frontline Executive',
-      'Finance Officer',
+      'Finance Executive',
+      'System Administrator',
     ],
     icon: 'bx bx-group',
   },
@@ -118,51 +124,120 @@ const others = [
   {
     link: '/admin/setup-business',
     name: 'Setup Business',
-    roles: ['Managing Director', 'Senior Broking Officer'],
+    roles: [
+      // 'CEO',
+      // 'General Manager',
+      // 'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
     icon: 'bx bx-group',
   },
   {
     link: '/admin/claims',
     name: 'Claims',
     roles: [
-      'Managing Director',
+      'CEO',
+      'General Manager',
       'Senior Broking Officer',
-      'Broking Officer',
-      'Frontline Executive',
-      'Finance Officer',
+      // 'Finance Executive',
+      'System Administrator',
     ],
     icon: 'bx bx-receipt',
   },
   {
     link: '/admin/employees',
     name: 'Employees',
-    roles: ['Managing Director', 'Senior Broking Officer'],
+    roles: [
+      'CEO',
+      'General Manager',
+      // 'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
     icon: 'bx bx-id-card',
   },
   {
     link: '/admin/reports',
     name: 'Reports',
     roles: [
-      'Managing Director',
+      'CEO',
+      'General Manager',
       'Senior Broking Officer',
-      'Broking Officer',
-      'Frontline Executive',
-      'Finance Officer',
+      'Finance Executive',
+      'System Administrator',
     ],
     icon: 'bx bx-box',
   },
 ];
 
 export const deleteAccessRoles = [
-  'Managing Director',
+  'General Manager',
+  'CEO',
   'Senior Broking Officer',
+  'System Administrator',
 ];
 export const editAccessRoles = [
-  'Managing Director',
+  'General Manager',
   'Senior Broking Officer',
-  'Broking Officer',
-  'Frontline Executive',
-  'Finance Officer',
+  'Finance Executive',
+  'CEO',
+  'System Administrator',
 ];
 
-export {clients, others, offers, dashboard};
+const create_Access = [
+  'General Manager',
+  'Senior Broking Officer',
+  // 'Finance Executive',
+  'CEO',
+  'System Administrator',
+];
+
+const create_insurer_access = ['System Administrator'];
+const delete_insurer_access = ['System Administrator'];
+const edit_insurer_access = ['System Administrator'];
+
+const create_reinsurer_access = ['System Administrator'];
+const delete_reinsurer_access = ['System Administrator'];
+const edit_reinsurer_access = ['System Administrator'];
+
+const Offers_Access = [
+  'CEO',
+  'General Manager',
+  'Senior Broking Officer',
+  'System Administrator',
+];
+const clients_Access = [
+  'CEO',
+  'General Manager',
+  'Senior Broking Officer',
+  'Finance Executive',
+  'System Administrator',
+];
+const others_Access = [
+  'CEO',
+  'General Manager',
+  'Senior Broking Officer',
+  'Finance Executive',
+  'System Administrator',
+];
+
+const insurer_offer_access = ['Finance Executive', 'System Administrator'];
+
+export {
+  clients,
+  others,
+  offers,
+  dashboard,
+  Offers_Access,
+  clients_Access,
+  others_Access,
+  create_Access,
+  create_insurer_access,
+  delete_insurer_access,
+  edit_insurer_access,
+  insurer_offer_access,
+  create_reinsurer_access,
+  delete_reinsurer_access,
+  edit_reinsurer_access,
+};

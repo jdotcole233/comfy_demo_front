@@ -1,10 +1,17 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
+import { AuthContext } from '../../context/AuthContext'
 
+const downloadAccess = ['CEO',
+    'General Manager',
+    // 'Senior Broking Officer',
+    // 'Finance Executive',
+    'System Administrator']
 
 function PreviewCoverNote({ offer, reinsurer }) {
+    const { state: ctx } = useContext(AuthContext)
     const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
@@ -13,7 +20,7 @@ function PreviewCoverNote({ offer, reinsurer }) {
     return (
         <Fragment>
             <div className="row m-2">
-                {offer?.approval_status === "APPROVED" && <a target="_blank" href={`${BASE_URL_LOCAL}/generate_closing_slip/${btoa(JSON.stringify({
+                {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) && <a target="_blank" href={`${BASE_URL_LOCAL}/generate_closing_slip/${btoa(JSON.stringify({
                     offer_id: offer?.offer_id,
                     reinsurer_id: reinsurer?.reinsurer.reinsurer_id
                 }))}`} className="btn btn-sm btn-primary w-md">

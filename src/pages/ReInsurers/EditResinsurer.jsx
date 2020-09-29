@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import countriesData from '../../assets/countriesData'
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../context/AuthContext';
-import { editAccessRoles } from '../../layout/adminRoutes';
+import { editAccessRoles, edit_reinsurer_access } from '../../layout/adminRoutes';
 
 
 
@@ -238,7 +238,7 @@ function EditReinsurer({ closed, toggle, data }) {
                     </div>
                     <div className="col-md-12">
                         <div className="form-group d-flex justify-content-end">
-                            {editAccessRoles.includes(user?.position) && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Reinsurer</button>}
+                            {edit_reinsurer_access.includes(user?.position) && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Reinsurer</button>}
                         </div>
                     </div>
                 </form>

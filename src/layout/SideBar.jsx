@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { dashboard, offers, clients, others } from "./adminRoutes";
+import { dashboard, offers, clients, others, Offers_Access, clients_Access, others_Access } from "./adminRoutes";
 import { Link, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext';
 
@@ -27,11 +27,11 @@ const SideBar = () => {
                 <div style={{ backgroundColor: "#273B97" }} id="sidebar-menu">
                     <ul className="metismenu list-unstyled" id="side-menu">
                         {showSideBarLinks(dashboard)}
-                        <li className="menu-title">Offers</li>
+                        {Offers_Access.includes(state?.user?.position) && <li className="menu-title">Offers</li>}
                         {showSideBarLinks(offers)}
-                        <li className="menu-title">Clients</li>
+                        {clients_Access.includes(state?.user?.position) && <li className="menu-title">Clients</li>}
                         {showSideBarLinks(clients)}
-                        <li className="menu-title">others</li>
+                        {others_Access.includes(state?.user?.position) && <li className="menu-title">others</li>}
                         {showSideBarLinks(others)}
                     </ul>
                 </div>

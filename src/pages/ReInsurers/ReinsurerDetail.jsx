@@ -12,11 +12,14 @@ import OfferButtons from './components/OfferButtons'
 import AssociateButtons from './components/AssociateButtons'
 import BrokerageComponent from './components/BrokerageComponent'
 import OfferListing from '../CreateSlip/OfferListing';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 
 function ReinsurerDetail() {
     const history = useHistory();
     const { state } = useLocation();
+    const { state: ctx } = useContext(AuthContext)
     const [showInsurerProfile, setShowInsurerProfile] = useState(false);
     const [associates, setAssociates] = useState([]);
     const [offerListing, setOfferListing] = useState([])
@@ -56,7 +59,7 @@ function ReinsurerDetail() {
                     phone: `${reinsurer.rep_primary_phonenumber}, ${reinsurer.rep_secondary_phonenumber}`,
                     email: `${reinsurer.rep_email}`,
                     position: `${reinsurer.position}`,
-                    actions: <AssociateButtons reinsurer={reinsurer} data={data} />,
+                    actions: 'System Administrator' === ctx?.user?.position ? <AssociateButtons reinsurer={reinsurer} data={data} /> : null,
                 }
                 list.push(row);
                 return reinsurer;
@@ -86,7 +89,7 @@ function ReinsurerDetail() {
                     ),
                     offer_date: offer.reinsurer_offers_only.created_at,
                     insured: offer.reinsurer_offers_only.offer_detail.insured_by,
-                    actions: <OfferButtons  type="all" data={reinsurer_offers} offer={offer} />,
+                    actions: <OfferButtons type="all" data={reinsurer_offers} offer={offer} />,
                 }
                 offers.push(row)
                 return offer;

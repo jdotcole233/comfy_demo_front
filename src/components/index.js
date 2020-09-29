@@ -126,3 +126,6 @@ export const ReinsurerOption = ({
       </div>
     </div>
   ) : null;
+
+export const generateNewCulumns = (list, exclude) =>
+  list.filter((item) => !exclude.includes(item.field));

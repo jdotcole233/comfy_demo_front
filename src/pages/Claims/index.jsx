@@ -67,7 +67,22 @@ function Claims() {
     const [claimComment, setClaimComment] = useState("")
     // const [hasComment, setHasComment] = useState(true)
     //handle the deletion of claim amount
-    const [removeClaim] = useMutation(REMOVE_CLAIM_AMOUNT);
+    const [removeClaim] = useMutation(REMOVE_CLAIM_AMOUNT, {
+        refetchQueries: [
+            {
+                query: OFFERS, variables: {
+                    offer_status: ["CLOSED"],
+                    skip
+                }
+            },
+            {
+                query: ALLOFFERS, variables: {
+                    offer_status: ["CLOSED"],
+                    skip
+                }
+            }
+        ]
+    });
     const [updateClaimAmount] = useMutation(UPDATE_CLAIM_AMOUNT, {
         refetchQueries: [
             {
@@ -106,7 +121,7 @@ function Claims() {
                                 setDistributionList(claim);
                             }} className="btn btn-sm w-md btn-primary mr-1">Reinsurer's claim share</button>
                             {editAccessRoles.includes(user?.position) && <button onClick={() => handleViewUpdateForm(claim)} className="btn btn-sm w-md btn-info mr-1">Modify claim</button>}
-                            {deleteAccessRoles.includes(user?.position) && <button onClick={() => removeClaimAmount(claim)} className="btn btn-sm w-md btn-danger">Remove claim</button>}
+                            {["System Administrator"].includes(user?.position) && <button onClick={() => removeClaimAmount(claim)} className="btn btn-sm w-md btn-danger">Remove claim</button>}
                         </>
                     )
                 }
@@ -145,14 +160,11 @@ function Claims() {
 
     useEffect(() => {
         if (selectedClaim) {
-            // alert(selectedClaim.claim_comment)
-            setClaimComment(selectedClaim.claim_comment)
-            // setHasComment(selectedClaim.claim_comment ? true : false)
             setValue("claim_amount", selectedClaim.claim_amount);
             setValue("claim_date", selectedClaim.claim_date);
             setValue("claim_comment", selectedClaim.claim_comment)
         }
-    }, [selectedClaim]);
+    }, [selectedClaim, showUpdateClaimAmount]);
 
     const handleViewMakeClaimDrawer = offer => {
         setSelectedOffer(offer);
@@ -177,12 +189,14 @@ function Claims() {
     const handleViewUpdateForm = claim => {
         // alert(JSON.stringify(claim))
         setSelectedClaim(claim);
+        setClaimComment(claim.claim_comment)
         setShowUpdateClaimAmount(true);
     }
 
     useEffect(() => {
         if (!showUpdateClaimAmount) {
             setSelectedClaim(null)
+            setClaimComment("")
         }
     }, [showUpdateClaimAmount])
 
@@ -268,7 +282,7 @@ function Claims() {
             }).then(res => {
                 setShowClaimsModal(false);
                 setShowUpdateClaimAmount(false)
-                swal("Hurray", "Claim removed successfully", "success");
+                swal("Hurray", "Claim updated successfully", "success");
                 refetch()
             }).catch(err => {
                 if (err) {
@@ -510,16 +524,9 @@ function Claims() {
                                     {errors.claim_date && <p className="text-danger">{errors.claim_date.message}</p>}
                                 </div>
                             </div>
-                            {claimComment && <div className="col-md-12">
+                            {selectedClaim && <div className="col-md-12">
                                 <div className="form-group">
-                                    <label htmlFor="">Claim Date</label>
-                                    <Editor value={claimComment} onChange={value => setClaimComment(value)} />
-                                    <input type="hidden" value={claimComment} name="claim_comment" ref={register({ required: false })} />
-                                </div>
-                            </div>}
-                            {!claimComment && <div className="col-md-12">
-                                <div className="form-group">
-                                    <label htmlFor="">Claim Date</label>
+                                    <label htmlFor="">Claim comment</label>
                                     <Editor value={claimComment} onChange={value => setClaimComment(value)} />
                                     <input type="hidden" value={claimComment} name="claim_comment" ref={register({ required: false })} />
                                 </div>

@@ -19,8 +19,8 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
 
 
     const getPaymentId = () => {
-        if (data && data.offer_payment.length > 0) {
-            return data?.offer_payment[data.offer_payment.length - 1]?.offer_payment_id
+        if (data && data.offer_payment.length) {
+            return data?.offer_payment[0]?.offer_payment_id
         }
         return 0
     }
@@ -41,7 +41,7 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
     useEffect(() => {
         if (deductions) {
             setReinsurers([...JSON.parse(deductions.getOfferparticipantDeductions)])
-            console.log(reinsurers)
+            // console.log(reinsurers)
         }
     }, [deductions])
 
@@ -129,7 +129,7 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
         })
     }
 
-    return (
+    return !deductions ? null : (
         <div>
             <div className={styles.card_header}>
                 <h2 className={styles.card_title}>Distribute Payments</h2>
@@ -138,7 +138,7 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
                 {!showFlag ?
                     <>
                         {forms.length ? forms.map((participant, key) => {
-                            return (
+                            return !data?.offer_participant[key].offer_participant_percentage ? null : (
                                 <fieldset className="border-form p-2 mb-2" key={key}>
                                     <legend className={styles.details_title}>{data?.offer_participant[key]?.reinsurer?.re_company_name}</legend>
                                     <div className="row">
@@ -148,27 +148,27 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
                                                     <tbody>
                                                         <tr>
                                                             <th>Facultative Premuim</th>
-                                                            <td>{data?.offer_participant[key].participant_fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{data?.offer_participant[key].participant_fac_premium?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                             <th>Withholding Tax</th>
-                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.withholding_tax_paid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.withholding_tax_paid?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Participating %</th>
                                                             <td>{data?.offer_participant[key].offer_participant_percentage}</td>
                                                             <th>Brokerage</th>
-                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.brokerage_amount_paid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.brokerage_amount_paid?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>NIC levy</th>
-                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.nic_levy_paid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.nic_levy_paid?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                             <th>Commission taken</th>
-                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.commission_taken.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.commission_taken?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                         </tr>
                                                         <tr>
                                                             <th></th>
                                                             <td></td>
                                                             <th>Amount</th>
-                                                            <td>{data?.offer_participant[key].offer_participant_payment[data?.offer_participant[key].offer_participant_payment.length - 1].offer_payment_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{data?.offer_participant[key].offer_participant_payment[data?.offer_participant[key].offer_participant_payment.length - 1].offer_payment_amount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table> : null}

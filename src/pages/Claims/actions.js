@@ -34,12 +34,14 @@ export const generateClaimsTable = ({
     offer_date: new Date(offer.created_at).toDateString(),
     actions: (
       <>
-        <button
-          onClick={() => handleViewClaimsModal(offer)}
-          className="btn btn-danger btn-sm m-1"
-        >
-          View claims
-        </button>
+        {offer?.offer_claims?.length ? (
+          <button
+            onClick={() => handleViewClaimsModal(offer)}
+            className="btn btn-danger btn-sm m-1"
+          >
+            View claims
+          </button>
+        ) : null}
         {offer?.payment_status !== 'UNPAID' && (
           <button
             onClick={() => handleViewMakeClaimDrawer(offer)}

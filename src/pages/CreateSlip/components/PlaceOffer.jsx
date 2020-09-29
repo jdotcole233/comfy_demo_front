@@ -5,7 +5,7 @@ import swal from 'sweetalert'
 import { PLACE_OFFER } from '../../../graphql/mutattions'
 import { SINGLE_OFFER } from '../../../graphql/queries'
 
-const PlaceOffer = ({ offer, remaining }) => {
+const PlaceOffer = ({ offer, remaining, disabled }) => {
 
     const [placeOffer] = useMutation(PLACE_OFFER, {
         variables: {
@@ -36,7 +36,7 @@ const PlaceOffer = ({ offer, remaining }) => {
 
     return (
         <>
-            <button onClick={handlePlaceOffer} className="btn btn-info btn-sm w-md ">Place Offer</button>
+            <button disabled={disabled} onClick={handlePlaceOffer} className="btn btn-info btn-sm w-md ">Place Offer</button>
         </>
     )
 }

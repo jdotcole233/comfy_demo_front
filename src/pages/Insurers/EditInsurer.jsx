@@ -9,7 +9,7 @@ import { UPDATE_INSURER } from '../../graphql/mutattions'
 import { INSURER } from '../../graphql/queries'
 import swal from 'sweetalert'
 import { AuthContext } from '../../context/AuthContext'
-import { editAccessRoles } from '../../layout/adminRoutes'
+import { editAccessRoles, edit_insurer_access } from '../../layout/adminRoutes'
 
 
 
@@ -172,7 +172,7 @@ function EditInsurer({ toggle, data, closed }) {
                     </div>
                     <div className="col-md-12 mt-2">
                         <div className="form-group d-flex justify-content-end">
-                            {editAccessRoles.includes(user?.position) && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Insurer</button>}
+                            {edit_insurer_access.includes(user?.position) && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Insurer</button>}
                         </div>
                     </div>
                 </div>

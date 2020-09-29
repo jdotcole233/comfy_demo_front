@@ -16,6 +16,7 @@ const UnApproved = () => {
             offer_status: ["CLOSED"],
             approval_status: "UNAPPROVED"
         },
+        fetchPolicy: "network-only"
         // pollInterval: 1000
     })
 

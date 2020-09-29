@@ -6,10 +6,13 @@ import ConnectionDetector from "../components/ConnectionDetector";
 import Dashboard from "../pages/Dashboard";
 import Zoom from "react-reveal/Reveal";
 import { AuthContext } from "../context/AuthContext";
+import { Offers_Access } from './adminRoutes';
 
 
 const AdminContent = () => {
     const { state } = useContext(AuthContext);
+
+    console.log(Offers_Access.includes(state?.user?.position))
 
     const getRoutes = (routes) => {
         return routes.map((el, key) => {
@@ -39,7 +42,7 @@ const AdminContent = () => {
                 <Switch>
                     <Private exact path="/" component={Dashboard} />
                     {getRoutes(routes)}
-                    <Route component={Dashboard} />
+                    <Route component={null} />
                 </Switch>
             </Suspense>
 

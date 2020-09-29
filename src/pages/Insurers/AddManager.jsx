@@ -82,7 +82,7 @@ function AddManager({ details, toggle, closed }) {
             <div className={styles.card_header}>
                 <h2 className={styles.card_title}>Add Manager</h2>
 
-                <fieldset className="border p-2 mb-2">
+                <fieldset className="border-form p-2 mb-2">
                     <legend className={styles.details_title}>Insurer Details</legend>
                     <table className="table">
                         <tbody>

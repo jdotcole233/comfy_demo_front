@@ -176,7 +176,7 @@ export default function InputOffer({ offer_id, toggle }) {
     return (
         <form onSubmit={handleSubmit(handleCreateOffer)} ref={formRef} >
             <div className={styles.card_header}>
-                <h2 className={styles.card_title}>Create facultative placement slip {offer_comment}</h2>
+                <h2 className={styles.card_title}>Create facultative placement slip</h2>
             </div>
             <div className={styles.card_body}>
                 <div className="row">

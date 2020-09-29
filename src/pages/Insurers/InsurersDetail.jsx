@@ -1,9 +1,9 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
-import { Drawer, Datatable, Loader, OverViewCard } from '../../components'
+import { Drawer, Datatable, Loader, OverViewCard, generateNewCulumns } from '../../components'
 import EditInsurer from './EditInsurer'
 import f_dat, { managersColumn } from './dummy';
 import { useQuery } from 'react-apollo'
@@ -14,9 +14,12 @@ import BrokerageComponent from './components/BrokerageComponent'
 import Reschedule from './components/Reschedule';
 import OfferListing from '../CreateSlip/OfferListing';
 import { useMemo } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 
 function InsurerDetail() {
+    const { state: ctx } = useContext(AuthContext)
+    // console.log(ctx?.user)
     const history = useHistory();
     const { state } = useLocation()
 
@@ -107,7 +110,7 @@ function InsurerDetail() {
                     name: `${manager.assoc_first_name} ${manager.assoc_last_name}`,
                     phone: `${manager.assoc_primary_phonenumber}, ${manager.assoc_secondary_phonenumber}`,
                     email: `${manager.assoc_email}`,
-                    actions: <ManagerButtons manager={manager} state={state} />,
+                    actions: 'System Administrator' === ctx?.user?.position ? <ManagerButtons manager={manager} state={state} /> : null,
                 }
                 list.push(row);
                 return insurer;
@@ -322,7 +325,7 @@ function InsurerDetail() {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title mb-4">Managers</h4>
-                                <Datatable btn hover striped responsive bordered data={managers} columns={managersColumn} />
+                                <Datatable btn hover striped responsive bordered data={managers} columns={generateNewCulumns(managersColumn, 'System Administrator' === ctx?.user?.position ? [] : ["actions"])} />
                             </div>
                         </div>
                     </div>

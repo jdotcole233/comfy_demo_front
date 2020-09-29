@@ -11,9 +11,13 @@ import ViewinsurerOffer from '../ViewInsurerOffer'
 import { AddPayments } from '../AddPayments'
 import DistributePayment from '../DistributePayment'
 import { BASE_URL_LOCAL } from '../../../graphql'
+import { insurer_offer_access } from '../../../layout/adminRoutes'
+import { useContext } from 'react'
+import { AuthContext } from '../../../context/AuthContext'
 
 
 const Offerbuttons = ({ offer, state, insurer }) => {
+    const { state: ctx } = useContext(AuthContext)
     const [viewOffer, setViewOffer] = useState(false)
     const [paymentsModal, setPaymentsModal] = useState(false)
     const [addPaymentDrawer, setAddPaymentDrawer] = useState(false)
@@ -160,9 +164,14 @@ const Offerbuttons = ({ offer, state, insurer }) => {
     return (
         <div>
             <>
-                <button onClick={() => handleViewOfferDetails(offer)} className="btn btn-sm btn-primary m-1">View Offer</button>
-                {offer?.offer_status === "CLOSED" && <button onClick={() => handleViewOfferPayments(offer)} className="btn btn-sm btn-danger m-1">Payments</button>}
-                {offer?.offer_status === "CLOSED" &&
+                {
+                    ['CEO',
+                        'General Manager',
+                        'Senior Broking Officer',
+                        'Finance Executive',
+                        'System Administrator',].includes(ctx?.user?.position) && <button onClick={() => handleViewOfferDetails(offer)} className="btn btn-sm btn-primary m-1">View Offer</button>}
+                {['Finance Executive', 'System Administrator'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" && <button onClick={() => handleViewOfferPayments(offer)} className="btn btn-sm btn-danger m-1">Payments</button>}
+                {['Finance Executive', 'System Administrator'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" &&
                     <button button onClick={() => handleViewDistributePayments(offer)} className="btn btn-sm btn-success m-1">Distribute Payment</button>
                 }
             </>

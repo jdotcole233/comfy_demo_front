@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { DropdownButton, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { Drawer, Datatable } from '../../../components'
 import UpdateExtraCharges from '../UpdateExtraCharges'
@@ -6,6 +6,7 @@ import ViewReinsurerOffer from '../ViewReinsurerOffer'
 import { Modal } from 'react-bootstrap'
 import { AddPayments } from '../AddPayment'
 import { paymentsColumns } from '../columns'
+import { AuthContext } from '../../../context/AuthContext';
 
 
 const OfferButtons = ({ offer, data, skip = 0, type = "recent" }) => {
@@ -17,6 +18,7 @@ const OfferButtons = ({ offer, data, skip = 0, type = "recent" }) => {
     const [showExtraChargesDrawer, setShowExtraChargesDrawer] = useState(false)
     const [payments, setPayments] = useState([])
     const [payment, setPayment] = useState(null)
+    const { state: ctx } = useContext(AuthContext)
 
     useEffect(() => {
         if (selectedOffer) {
@@ -75,9 +77,14 @@ const OfferButtons = ({ offer, data, skip = 0, type = "recent" }) => {
             <>
                 <DropdownButton className="mr-1 mb-1 w-md" variant="danger" size="sm" as={ButtonGroup} id="dropdown-basic-button" title="Action">
                     <Dropdown.Item onClick={() => handleViewOfferDetails(offer)}>View Details</Dropdown.Item>
-                    {offer.reinsurer_offers_only.offer_status === "CLOSED" && !["PARTPAYMENT", "PAID"].includes(offer.reinsurer_offers_only.payment_status) ? <Dropdown.Item onClick={() => handleViewExtraCharges(offer)}>View Deductions</Dropdown.Item> : null}
+                    {
+                        ['CEO',
+                            'General Manager',
+                            'Senior Broking Officer',
+                            'System Administrator',].includes(ctx?.user?.position) && offer.reinsurer_offers_only.offer_status === "CLOSED" && !["PARTPAYMENT", "PAID"].includes(offer.reinsurer_offers_only.payment_status) ? <Dropdown.Item onClick={() => handleViewExtraCharges(offer)}>View Deductions</Dropdown.Item> : null
+                    }
                 </DropdownButton>
-                {offer.offer_participant_payment.length ? <button onClick={() => handleShowPayments(offer)} className="btn w-md btn-primary btn-sm">Payments</button> : null}
+                {offer.offer_participant_payment.length && ['System Administrator', 'Finance Executive'].includes(ctx?.user?.position) ? <button onClick={() => handleShowPayments(offer)} className="btn w-md btn-primary btn-sm">Payments</button> : null}
             </>
 
 

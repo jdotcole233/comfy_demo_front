@@ -135,11 +135,11 @@ function AddEmployee({ editing, employee, toggle }) {
                             <label htmlFor="">Position</label>
                             <select name="employee_position" ref={register({ required: "Required" })} className="form-control" id="">
                                 <option value="">Select position</option>
-                                <option value="Managing Director">Managing Director</option>
+                                <option value="CEO">CEO</option>
+                                <option value="General Manager">General Manager</option>
                                 <option value="Senior Broking Officer">Senior Broking Officer</option>
-                                <option value="Broking Officer">Broking Officer</option>
-                                <option value="Frontline Executive">Frontline Executive</option>
-                                <option value="Finance Officer">Finance Officer</option>
+                                <option value="Finance Executive">Finance Executive</option>
+                                <option value="System Administrator">System Administrator</option>
                             </select>
                             {errors.employee_position && <p className="text-danger">{errors.employee_position.message}</p>}
                         </div>

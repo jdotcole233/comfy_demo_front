@@ -7,7 +7,7 @@ import { REMOVE_REINSURER } from '../../graphql/mutattions'
 import { REINSURERS } from '../../graphql/queries'
 import swal from 'sweetalert'
 import { AuthContext } from '../../context/AuthContext'
-import { deleteAccessRoles } from '../../layout/adminRoutes'
+import { create_reinsurer_access, deleteAccessRoles, delete_reinsurer_access } from '../../layout/adminRoutes'
 
 function ReInsurer({ data, openAssociateModal }) {
     const { state: { user } } = useContext(AuthContext)
@@ -65,10 +65,10 @@ function ReInsurer({ data, openAssociateModal }) {
                             state: { reinsurer_id: data?.reinsurer_id }
 
                         }} className="flex-fill link-hover" data-toggle="tooltip" data-placement="top" title="View"><i className="bx bx-pie-chart-alt"></i></Link>
-                        <div className="flex-fill link-hover" onClick={() => openAssociateModal(data, !0)}>
+                        {create_reinsurer_access.includes(user?.position) && <div className="flex-fill link-hover" onClick={() => openAssociateModal(data, !0)}>
                             <a data-toggle="tooltip" data-placement="top" title="Add Associate"><i className="bx bx-user-circle"></i></a>
-                        </div>
-                        {deleteAccessRoles.includes(user?.position) && <div onClick={() => handleDeleteReinsurer(data)} className="flex-fill link-hover">
+                        </div>}
+                        {delete_reinsurer_access.includes(user?.position) && <div onClick={() => handleDeleteReinsurer(data)} className="flex-fill link-hover">
                             <i className="bx bx-trash-alt"></i>
                         </div>}
                     </div>

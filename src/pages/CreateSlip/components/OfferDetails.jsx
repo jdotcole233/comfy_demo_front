@@ -48,7 +48,7 @@ const OfferDetails = ({ data }) => {
                         <OfferDeatilsRow label="Insured" value={data?.findSingleOffer?.offer_detail.insured_by} />
 
                         <OfferDeatilsRow label="Period Of Insurance" value={showDate(data?.findSingleOffer)} />
-                        <OfferDeatilsRow label="Rate" value={`${data?.findSingleOffer?.rate}%`} />
+                        {data?.findSingleOffer?.rate && <OfferDeatilsRow label="Rate" value={`${data?.findSingleOffer?.rate}%`} />}
 
                         <OfferDeatilsRow label="Comission"
                             value={` 

@@ -239,7 +239,7 @@ const ReinsurerListing = ({ data, state, user }) => {
                                 </h5>
 
                                 {data?.findSingleOffer?.placed_offer ? <UnplacedOffer offer={data?.findSingleOffer} remaining={showingFacOffer} /> :
-                                    <PlaceOffer offer={data?.findSingleOffer} remaining={showingFacOffer} />
+                                    <PlaceOffer disabled={!(showingFacOffer < data?.findSingleOffer?.facultative_offer)} offer={data?.findSingleOffer} remaining={showingFacOffer} />
                                 }
 
                             </div>
