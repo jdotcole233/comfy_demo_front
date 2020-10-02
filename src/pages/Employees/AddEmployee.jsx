@@ -49,7 +49,7 @@ function AddEmployee({ editing, employee, toggle }) {
             }).catch(err => {
                 if (err) {
                     swal("Whoops!!", "Something went wrong, try again", "error")
-                    console.log(err)
+                    // console.log(err)
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -75,7 +75,7 @@ function AddEmployee({ editing, employee, toggle }) {
             }).catch(err => {
                 if (err) {
                     swal("Whoops!!", "Something went wrong, try again", "error")
-                    console.log(err)
+                    // console.log(err)
                 } else {
                     swal.stopLoading();
                     swal.close();

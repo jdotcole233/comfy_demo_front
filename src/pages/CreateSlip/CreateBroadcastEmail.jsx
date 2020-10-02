@@ -139,7 +139,7 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
                 }
             }).catch(err => {
                 if (err) {
-                    console.log(err)
+                    // console.log(err)
                     swal("Oh noes!", "The AJAX request failed!", "error");
                 } else {
                     swal.stopLoading();
@@ -163,7 +163,7 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
             setShowModal(false)
         }).catch(err => {
             if (err) {
-                console.log(err)
+                // console.log(err)
                 swal("Oh noes!", "The AJAX request failed!", "error");
             } else {
                 swal.stopLoading();

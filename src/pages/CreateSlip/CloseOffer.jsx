@@ -90,11 +90,11 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
             }).then(res => {
                 swal({
                     closeOnClickOutside: false,
-            closeOnEsc: false,
+                    closeOnEsc: false,
                     icon:"success",
                     title:"Hurray",
                     text:"Offer closed successfully",
-                    buttons:["Back to Offer lsiting", { text: "Go to closing list"}]
+                    buttons:["Back to Offer listing", { text: "Go to closing list"}]
                 }).then(input => {
                     if(!input) history.goBack();
                     setReinsurer_data([]);
@@ -105,7 +105,7 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
             })
             .catch(err => {
                 if (err) {
-                    console.log(err)
+                    // console.log(err)
                     swal("Oh noes!", "The AJAX request failed!", "error");
                 } else {
                     swal.stopLoading();

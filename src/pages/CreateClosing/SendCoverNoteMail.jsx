@@ -102,7 +102,7 @@ function CreateBroadcastEmail({ offer, toggle }) {
                 toggle();
             }).catch(err => {
                 if (err) {
-                    console.log(err)
+                    // console.log(err)
                     swal("Oh noes!", "The AJAX request failed!", "error");
                 } else {
                     swal.stopLoading();
