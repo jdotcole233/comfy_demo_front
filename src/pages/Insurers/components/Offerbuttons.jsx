@@ -11,7 +11,6 @@ import ViewinsurerOffer from '../ViewInsurerOffer'
 import { AddPayments } from '../AddPayments'
 import DistributePayment from '../DistributePayment'
 import { BASE_URL_LOCAL } from '../../../graphql'
-import { insurer_offer_access } from '../../../layout/adminRoutes'
 import { useContext } from 'react'
 import { AuthContext } from '../../../context/AuthContext'
 
@@ -148,7 +147,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                     id: payment.offer_payment_id
                 }
             }).then(res => {
-                swal("Hurray", "Payment record removed successfully", "success");
+                swal("Success", "Payment record removed successfully", "success");
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
@@ -170,8 +169,8 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                         'Senior Broking Officer',
                         'Finance Executive',
                         'System Administrator',].includes(ctx?.user?.position) && <button onClick={() => handleViewOfferDetails(offer)} className="btn btn-sm btn-primary m-1">View Offer</button>}
-                {['Finance Executive', 'System Administrator'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" && <button onClick={() => handleViewOfferPayments(offer)} className="btn btn-sm btn-danger m-1">Payments</button>}
-                {['Finance Executive', 'System Administrator'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" &&
+                {['Finance Executive'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" && <button onClick={() => handleViewOfferPayments(offer)} className="btn btn-sm btn-danger m-1">Payments</button>}
+                {['Finance Executive'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" &&
                     <button button onClick={() => handleViewDistributePayments(offer)} className="btn btn-sm btn-success m-1">Distribute Payment</button>
                 }
             </>

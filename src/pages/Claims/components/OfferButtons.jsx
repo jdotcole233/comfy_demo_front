@@ -113,7 +113,7 @@ const OfferButtons = ({ offer }) => {
             }).then(res => {
                 setShowClaimsModal(false);
                 setShowUpdateClaimAmount(false)
-                swal("Hurray", "Claim removed successfully", "success");
+                swal("Success", "Claim removed successfully", "success");
                 // refetch()
             }).catch(err => {
                 if (err) {

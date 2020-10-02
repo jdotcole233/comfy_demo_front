@@ -55,7 +55,7 @@ const OfferButtons = ({ offer }) => {
             deleteoffer({
                 variables: { id: offer?.offer_id }
             }).then(res => {
-                swal("Hurray!", "Offer Deleted successfully", "success")
+                swal("Success", "Offer Deleted successfully", "success")
             })
                 .catch(err => {
                     if (err) {

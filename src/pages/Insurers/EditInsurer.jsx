@@ -9,7 +9,7 @@ import { UPDATE_INSURER } from '../../graphql/mutattions'
 import { INSURER } from '../../graphql/queries'
 import swal from 'sweetalert'
 import { AuthContext } from '../../context/AuthContext'
-import { editAccessRoles, edit_insurer_access } from '../../layout/adminRoutes'
+import { edit_insurer_access } from '../../layout/adminRoutes'
 
 
 

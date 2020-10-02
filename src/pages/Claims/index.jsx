@@ -16,7 +16,7 @@ import swal from 'sweetalert';
 import PreViewClaimDebitNote from './PreViewClaimDebitNote';
 import ClaimRequest from './ClaimRequest'
 import OfferListing from '../CreateSlip/OfferListing'
-import { editAccessRoles, deleteAccessRoles } from '../../layout/adminRoutes';
+import { editAccessRoles } from '../../layout/adminRoutes';
 import { AuthContext } from '../../context/AuthContext';
 import SendSingleDebitNote from './SendSingleClaimDebitNote'
 import { generateClaimsTable } from './actions';
@@ -282,7 +282,7 @@ function Claims() {
             }).then(res => {
                 setShowClaimsModal(false);
                 setShowUpdateClaimAmount(false)
-                swal("Hurray", "Claim updated successfully", "success");
+                swal("Success", "Claim updated successfully", "success");
                 refetch()
             }).catch(err => {
                 if (err) {
@@ -310,7 +310,7 @@ function Claims() {
                     offer_id: selectedOffer?.offer_id
                 }
             }).then(res => {
-                swal("Hurray", "Claim removed successfully", "success");
+                swal("Success", "Claim removed successfully", "success");
                 refetch()
             }).catch(err => {
                 if (err) {

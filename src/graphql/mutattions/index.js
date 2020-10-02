@@ -256,7 +256,7 @@ export const CREATE_INSURER = gql`
         region: $region
         country: $country
       }
-    ) 
+    )
   }
 `;
 
@@ -441,8 +441,10 @@ export const SEND_CLAIM_DEBIT_NOTE = gql`
     $subject: String
     $copied_emails: [String]
     $message_content: String
+    $attachments: [Upload]
   ) {
     sendClaimDebitNote(
+      attachments: $attachments
       offer_claim_participant_id: $offer_claim_participant_id
       offer_id: $offer_id
       reinsurer_id: $reinsurer_id

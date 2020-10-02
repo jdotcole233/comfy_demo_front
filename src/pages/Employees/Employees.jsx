@@ -29,7 +29,7 @@ export default function Employees({ data, openViewEmployee }) {
             closeOnEsc: false
         }).then(input => {
             if (!input) throw {}
-            resetEmployeePassword().then(res => swal("Hurray", "Employee credentials reset successful", "success"))
+            resetEmployeePassword().then(res => swal("Success", "Employee credentials reset successful", "success"))
                 .catch(err => {
                     if (err) {
                         swal("Whoops!!", "Somehing went wrong", 'error')
@@ -55,7 +55,7 @@ export default function Employees({ data, openViewEmployee }) {
         //     return resetEmployeePassword().then(res => res.json())
         //         .catch(err => new Error(err))
 
-        // }).then(res => swall.fire("Hurray!!", "Employee credentials reset successful", "success"))
+        // }).then(res => swall.fire("Success", "Employee credentials reset successful", "success"))
         //     .catch(err => swall.fire("Whoops!!", "Something went wrong", "error"));
     }
 
@@ -78,7 +78,7 @@ export default function Employees({ data, openViewEmployee }) {
             }
         }).then(input => {
             if(!input.isConfirmed) return
-            swall.fire("Hurray!!", "Employee deleted successfully", "success")
+            swall.fire("Success", "Employee deleted successfully", "success")
         }).catch(err => swall.fire("Whoops!!", "Something went wrong", "error"));
     }
 

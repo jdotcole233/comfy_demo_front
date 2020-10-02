@@ -156,7 +156,7 @@ export default function InputOffer({ offer_id, toggle }) {
             // eslint-disable-next-line no-throw-literal
             if (!input) throw null
             updateOffer({ variables }).then(res => {
-                swal("Hurray", "Facultative offer updated Successfully", "success");
+                swal("Success", "Facultative offer updated Successfully", "success");
                 formRef.current.reset()
                 toggle()
             }).catch(err => {

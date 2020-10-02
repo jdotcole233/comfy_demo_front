@@ -7,7 +7,7 @@ import { REMOVE_REINSURER } from '../../graphql/mutattions'
 import { REINSURERS } from '../../graphql/queries'
 import swal from 'sweetalert'
 import { AuthContext } from '../../context/AuthContext'
-import { create_reinsurer_access, deleteAccessRoles, delete_reinsurer_access } from '../../layout/adminRoutes'
+import { create_reinsurer_access, delete_reinsurer_access } from '../../layout/adminRoutes'
 
 function ReInsurer({ data, openAssociateModal }) {
     const { state: { user } } = useContext(AuthContext)

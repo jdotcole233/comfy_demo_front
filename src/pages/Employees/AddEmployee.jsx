@@ -44,7 +44,7 @@ function AddEmployee({ editing, employee, toggle }) {
             createEmployee({
                 variables: { employee: { ...values } }
             }).then(res => {
-                swal("Hurray!!", "Employee account created successfully", 'success');
+                swal("Success", "Employee account created successfully", 'success');
                 toggle()
             }).catch(err => {
                 if (err) {
@@ -70,7 +70,7 @@ function AddEmployee({ editing, employee, toggle }) {
             updateEmployee({
                 variables: { employee: { ...values }, employee_id: employee.employee_id }
             }).then(res => {
-                swal("Hurray!!", "Employee account updated successfully", 'success')
+                swal("Success", "Employee account updated successfully", 'success')
                 toggle()
             }).catch(err => {
                 if (err) {

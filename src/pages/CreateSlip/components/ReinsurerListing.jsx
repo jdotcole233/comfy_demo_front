@@ -77,7 +77,7 @@ const ReinsurerListing = ({ data, state, user }) => {
                 },
             })
                 .then((res) => {
-                    swal("Hurray", "Reinsurer removed successfully", "success");
+                    swal("Success", "Reinsurer removed successfully", "success");
                 })
                 .catch((err) => {
                     if (err) {
@@ -188,7 +188,7 @@ const ReinsurerListing = ({ data, state, user }) => {
             if (!input) throw null;
             addPercentage()
                 .then((res) => {
-                    swal("Hurray", "Percentage updated", "success");
+                    swal("Success", "Percentage updated", "success");
                     setPercentage("");
                     setSelectedReinsurer(null);
                     setAddPercentageModal(!addPercentageModal);

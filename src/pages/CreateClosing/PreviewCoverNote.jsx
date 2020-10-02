@@ -120,7 +120,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">Our Offer:</h3>
+                                <h3 className="dark-text">Placed Offer:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.placed_offer}% of 100.00%</h3>
@@ -155,8 +155,11 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Information:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">Subject to NKORL as at {new Date().toLocaleDateString()} and NIC's NPNC
-                                    guidelines</h3>
+                                {offer?.offer_detail?.information_comment ? <div className="dark-text-value" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.information_comment }}>
+                                </div> :
+                                    <h3 className="dark-text-value">Subject to NKORL as at {new Date().toLocaleDateString()} and NIC's NPNC
+                                    guidelines
+                                </h3>}
                             </div>
                         </div>
 

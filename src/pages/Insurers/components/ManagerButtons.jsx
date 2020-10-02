@@ -60,7 +60,7 @@ const ManagerButtons = ({ manager, state }) => {
                     id: manager.insurer_associate_id,
                 }
             }).then(res => {
-                swal("Hurray", "Manager removed successfully", "success");
+                swal("Success", "Manager removed successfully", "success");
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
@@ -94,7 +94,7 @@ const ManagerButtons = ({ manager, state }) => {
                     }
                 }
             }).then(res => {
-                swal("Hurray", "Manager updated successfully", "success");
+                swal("Success", "Manager updated successfully", "success");
                 setViewAssociate(false)
             }).catch(err => {
                 if (err) {

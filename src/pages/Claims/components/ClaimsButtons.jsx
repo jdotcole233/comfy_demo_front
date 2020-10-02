@@ -66,7 +66,7 @@ const ClaimsButtons = ({ offer, claim, closeParent }) => {
                     offer_id: offer?.offer_id
                 }
             }).then(res => {
-                swal("Hurray", "Claim removed successfully", "success");
+                swal("Success", "Claim removed successfully", "success");
                 // refetch()
             }).catch(err => {
                 if (err) {

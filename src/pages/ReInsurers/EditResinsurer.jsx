@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import countriesData from '../../assets/countriesData'
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../context/AuthContext';
-import { editAccessRoles, edit_reinsurer_access } from '../../layout/adminRoutes';
+import { edit_reinsurer_access } from '../../layout/adminRoutes';
 
 
 

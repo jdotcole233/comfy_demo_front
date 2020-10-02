@@ -101,7 +101,7 @@ export default () => {
             deleteNotification({ variables: { id } })
                 .then((_res) => {
                     refetch();
-                    swal("Hurray!", "Notification Deleted Successfully", "success");
+                    swal("Success", "Notification Deleted Successfully", "success");
                 })
                 .catch((_err) => {
                     swal(

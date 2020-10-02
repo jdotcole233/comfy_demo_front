@@ -33,7 +33,7 @@ const MakeClaim = ({ offer, toggle }) => {
             if (!input) throw {};
             makeClaim({ variables: { data } })
                 .then(res => {
-                    swal("Hurray!!", "Claimed made successfully", 'success');
+                    swal("Success", "Claimed made successfully", 'success');
                     setclaim_amount("");
                     setclaim_date("");
                     toggle();

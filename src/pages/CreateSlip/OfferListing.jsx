@@ -45,9 +45,9 @@ const OfferListing = ({
                                         <li className="nav-item">
                                             <a onClick={() => handleTabChange(0)} className={`nav-link ${tab === 0 ? "active" : ""}`}>Recent</a>
                                         </li>
-                                        <li className="nav-item">
+                                        {/* <li className="nav-item">
                                             <a onClick={() => handleTabChange(1)} className={`nav-link ${tab === 1 ? "active" : ""}`}>All</a>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </div>}
                             </div>

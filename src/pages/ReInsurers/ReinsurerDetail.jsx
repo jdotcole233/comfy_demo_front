@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
-import { Drawer, Datatable, Loader, OverViewCard } from '../../components'
+import { Drawer, Datatable, Loader, OverViewCard, generateNewCulumns } from '../../components'
 import EditReinsurer from './EditResinsurer';
 import { associatesColumnns, offersColumns } from './columns'
 import { useQuery } from 'react-apollo';
@@ -315,7 +315,7 @@ function ReinsurerDetail() {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title mb-4">Associates</h4>
-                                <Datatable columns={associatesColumnns} data={associates} />
+                                <Datatable btn hover striped responsive bordered columns={generateNewCulumns(associatesColumnns, 'System Administrator' === ctx?.user?.position ? [] : ["actions"])} data={associates} />
                             </div>
                         </div>
                     </div>

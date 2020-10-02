@@ -86,7 +86,7 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
                 .then(json => {
                     setaddintionalInputFields([])
                     toggle();
-                    swal("Hurray", "Class of Business Created Successfully", "success");
+                    swal("Success", "Class of Business Created Successfully", "success");
                 })
                 .catch(err => {
                     if (err) {

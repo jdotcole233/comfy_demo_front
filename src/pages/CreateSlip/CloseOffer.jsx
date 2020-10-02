@@ -92,7 +92,7 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
                     closeOnClickOutside: false,
                     closeOnEsc: false,
                     icon:"success",
-                    title:"Hurray",
+                    title:"Success",
                     text:"Offer closed successfully",
                     buttons:["Back to Offer listing", { text: "Go to closing list"}]
                 }).then(input => {

@@ -7,7 +7,7 @@ import swal from 'sweetalert'
 import { REMOVE_INSURER } from '../../graphql/mutattions'
 import { INSURERS } from '../../graphql/queries'
 import { AuthContext } from '../../context/AuthContext'
-import { create_Access, create_insurer_access, deleteAccessRoles, delete_insurer_access } from '../../layout/adminRoutes'
+import { create_insurer_access, delete_insurer_access } from '../../layout/adminRoutes'
 
 function Insurer({ data, openManagerDrawer }) {
     const { state: { user } } = useContext(AuthContext)

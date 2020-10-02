@@ -2,7 +2,7 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
 import { Link } from "react-router-dom"
 import { Modal } from 'react-bootstrap';
-import { CurrencyValues, Datatable, generateNewCulumns, Loader } from '../../components'
+import { CurrencyValues, Datatable, generateNewCulumns, Loader, OverViewCard } from '../../components'
 import { useQuery } from 'react-apollo'
 import { DASHBOARD } from '../../graphql/queries';
 import { columns } from './columns'
@@ -53,7 +53,7 @@ const Dashboard = () => {
             setOfferListing(list);
             setOverView(JSON.parse(data.offerOverview))
         }
-    }, [data])
+    }, [data, state])
 
 
     if (!data) {
@@ -109,7 +109,7 @@ const Dashboard = () => {
                                                     {state?.user?.employee?.emp_abbrv}
                                                 </span>
                                             </div>
-                                            <h5 className="font-size-15 text-truncate">{state?.user?.employee?.employee_first_name} {state?.user?.employee?.employee_last_name}</h5>
+                                            <h5 className="font-size-15 ">{state?.user?.employee?.employee_first_name} {state?.user?.employee?.employee_last_name}</h5>
 
                                         </div>
 
@@ -202,25 +202,8 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-12">
-                                    <div className="card mini-stats-wid">
-                                        <div className="card-body">
-                                            <div className="media">
-                                                <div className="media-body">
-                                                    <p className="text-muted font-weight-medium">
-                                                        Total fac Premium</p>
-                                                    <CurrencyValues data={overView?.offer_overview?.total_fac_premium} />
-                                                </div>
-
-                                                <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                                    <span className="avatar-title rounded-circle bg-primary">
-                                                        <i className="bx bx-money font-size-24"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <OverViewCard className="col-md-12" title="Total fac Premium" value={overView?.offer_overview?.total_fac_premium} />
+                                
                             </div>
 
                             <ChartDisplay />
@@ -234,7 +217,7 @@ const Dashboard = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <h4 className="card-title mb-4">Latest Offers</h4>
-                                    <Datatable entries={5} columns={generateNewCulumns(columns, !["Finance Executive"].includes(state?.user?.position) ? [] : ["actions"])} data={offerListing.splice(0, 20)} />
+                                    <Datatable btn hover striped responsive bordered entries={5} columns={generateNewCulumns(columns, !["Finance Executive"].includes(state?.user?.position) ? [] : ["actions"])} data={offerListing.splice(0, 20)} />
                                 </div>
                             </div>
                         </div>

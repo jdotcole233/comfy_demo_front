@@ -43,7 +43,7 @@ const Reschedule = ({ remainders, id }) => {
             postpone().then(res => {
                 setShowForm(false)
                 setDate("")
-                swal("Hurray!!", "Notification has been postponed", "success")
+                swal("Success", "Notification has been postponed", "success")
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");

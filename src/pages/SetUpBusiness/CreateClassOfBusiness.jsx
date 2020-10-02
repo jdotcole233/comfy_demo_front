@@ -81,7 +81,7 @@ export default ({ toggle }) => {
                     setaddintionalInputFields([]);
                     setCount(0)
                     toggle();
-                    swal("Hurray", "Class of Business Created Successfully", "success");
+                    swal("Success", "Class of Business Created Successfully", "success");
                 })
                 .catch(err => {
                     if (err) {

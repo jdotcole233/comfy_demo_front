@@ -42,7 +42,7 @@ const ParticipantsButton = ({ offer, shares, list, toggleModal }) => {
     //                 reinsurer_id: data.reinsurer_id,
     //             }
     //         }).then(_res => {
-    //             swal("Hurray!!", "Claim Debit note sent to all participants", "success")
+    //             swal("Success", "Claim Debit note sent to all participants", "success")
     //         }).catch(err => {
     //             if (err) {
     //                 swal("Oh noes!", "The AJAX request failed!", "error");

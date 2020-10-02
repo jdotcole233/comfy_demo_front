@@ -94,7 +94,7 @@ const OfferButtons = ({ offer }) => {
             deleteoffer({
                 variables: { id: offer?.offer_id }
             }).then(res => {
-                swal("Hurray!", "Offer Deleted successfully", "success")
+                swal("Success", "Offer Deleted successfully", "success")
             })
                 .catch(err => {
                     if (err) {
@@ -165,7 +165,7 @@ const OfferButtons = ({ offer }) => {
                 .then((res) => {
                     swal({
                         icon: "success",
-                        title: "Hurray!",
+                        title: "Success",
                         text: "Offer has been reopened successfully",
                         buttons: ["Stay here", { text: "Go to Reopened offer" }]
                     }).then(input => {

@@ -252,7 +252,7 @@ export default function InputOffer({ toggle }) {
         }).then(input => {
             if (!input) throw {}
             createFleetOfferMutation({ variables: { data: fleetData } }).then(res => {
-                swal("Hurray", "Facultative offer Created Successfully", "success");
+                swal("Success", "Facultative offer Created Successfully", "success");
                 formRef.current.reset()
                 setSelectedInsurer(null)
                 setshowPreviewModal(false)
@@ -292,7 +292,7 @@ export default function InputOffer({ toggle }) {
         }).then(input => {
             if (!input) throw {}
             createOffer({ variables }).then(res => {
-                swal("Hurray", "Facultative offer Created Successfully", "success");
+                swal("Success", "Facultative offer Created Successfully", "success");
                 formRef.current.reset()
                 setSelectedInsurer(null)
                 toggle()

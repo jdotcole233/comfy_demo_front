@@ -103,7 +103,7 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
             sendmail({
                 variables: { data }
             }).then(res => {
-                swal("Hurray!!", "Mail sent successfully", 'success');
+                swal("Success", "Mail sent successfully", 'success');
                 setContent("");
                 reset();
                 toggle();

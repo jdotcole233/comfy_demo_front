@@ -109,7 +109,7 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
                     offer_id
                 }
             }).then(res => {
-                swal("Hurray", "Distribution List created successfully", "success");
+                swal("Success", "Distribution List created successfully", "success");
                 setBroadcastList([]);
                 setRepData([]);
                 toggle()

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { Fragment, useContext } from 'react'
+import React, { useContext } from 'react'
 import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
 import { AuthContext } from '../../context/AuthContext'
@@ -128,7 +128,7 @@ function PreviewCoverNote({ offer }) {
                         </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">Our Offer:</h3>
+                                <h3 className="dark-text">Placed Offer:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.placed_offer}% of 100.00%</h3>

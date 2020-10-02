@@ -90,7 +90,7 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
 
 
     const handleSubmitSendMail = ({ subject, copied_emails }) => {
-        console.log(files);
+        // console.log(files);
         if (!validateEmails(copiedMails)) {
             setError("copied_emails", "pattern", "Provide valid mails")
             return
@@ -130,7 +130,7 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
                     setShowModal(true)
                     setResponseData(JSON.parse(res.data.sendOfferAsBroadCast))
                 } else {
-                    swal("Hurray!!", "Mail sent successfully", 'success');
+                    swal("Success", "Mail sent successfully", 'success');
                     setContent("");
                     setFiles([]);
                     setFiles([]);
@@ -154,7 +154,7 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
         sendmail({
             variables: { data, should_send: should_send_input, include_attachment }
         }).then(res => {
-            swal("Hurray!!", "Mail sent successfully", 'success');
+            swal("Success", "Mail sent successfully", 'success');
             // toggle();
             setContent("");
             setFiles([]);

@@ -193,13 +193,28 @@ const create_Access = [
   'System Administrator',
 ];
 
-const create_insurer_access = ['System Administrator'];
-const delete_insurer_access = ['System Administrator'];
-const edit_insurer_access = ['System Administrator'];
+const create_insurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+const delete_insurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+const edit_insurer_access = ['System Administrator', 'Senior Broking Officer'];
 
-const create_reinsurer_access = ['System Administrator'];
-const delete_reinsurer_access = ['System Administrator'];
-const edit_reinsurer_access = ['System Administrator'];
+const create_reinsurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+const delete_reinsurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+const edit_reinsurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
 
 const Offers_Access = [
   'CEO',
@@ -222,7 +237,7 @@ const others_Access = [
   'System Administrator',
 ];
 
-const insurer_offer_access = ['Finance Executive', 'System Administrator'];
+const insurer_offer_access = ['Finance Executive'];
 
 export {
   clients,
