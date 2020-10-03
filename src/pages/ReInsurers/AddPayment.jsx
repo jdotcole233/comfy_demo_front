@@ -11,8 +11,8 @@ import { DrawerContext } from '../../components/Drawer';
 
 export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment, skip = 0 }) => {
     const { closed } = useContext(DrawerContext);
-    console.log(details)
-    console.log(reinsurer_id)
+    // console.log(details)
+    // console.log(reinsurer_id)
     const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0)
     const [amountError, setAmountError] = useState(false)
     const [currency, setCurrency] = useState("")

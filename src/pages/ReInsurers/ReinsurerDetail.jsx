@@ -104,21 +104,21 @@ function ReinsurerDetail() {
             const offers = [];
             data.reinsurer.offers_participant.map((offer) => {
                 const row = {
-                    policy_no: offer.reinsurer_offers_only.offer_detail.policy_number,
-                    company: offer.reinsurer_offers_only.insurer.insurer_company_name,
-                    cob: offer.reinsurer_offers_only.classofbusiness.business_name,
-                    participating_percentage: offer.offer_participant_percentage,
-                    fac_sum_insured: offer.reinsurer_offers_only.fac_sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 }),
-                    fac_premium: offer.reinsurer_offers_only.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+                    policy_no: offer?.reinsurer_offers_only?.offer_detail?.policy_number,
+                    company: offer?.reinsurer_offers_only?.insurer?.insurer_company_name,
+                    cob: offer?.reinsurer_offers_only?.classofbusiness?.business_name,
+                    participating_percentage: offer?.offer_participant_percentage,
+                    fac_sum_insured: offer?.reinsurer_offers_only?.fac_sum_insured?.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+                    fac_premium: offer?.reinsurer_offers_only?.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 }),
                     offer_status: (
-                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.reinsurer_offers_only.offer_status === "OPEN" ? "primary" : offer.reinsurer_offers_only.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.reinsurer_offers_only.offer_status}</span>
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer?.reinsurer_offers_only?.offer_status === "OPEN" ? "primary" : offer?.reinsurer_offers_only?.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer?.reinsurer_offers_only?.offer_status}</span>
                     ),
-                    brokerage: offer.reinsurer_offers_only.brokerage,
+                    brokerage: offer?.reinsurer_offers_only?.brokerage,
                     payment_status: (
-                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer.reinsurer_offers_only.payment_status === "PART PAYMENT" ? "primary" : offer.reinsurer_offers_only.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.reinsurer_offers_only.payment_status}</span>
+                        <span style={{ letterSpacing: 3 }} className={`badge badge-${offer?.reinsurer_offers_only?.payment_status === "PART PAYMENT" ? "primary" : offer?.reinsurer_offers_only?.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer?.reinsurer_offers_only?.payment_status}</span>
                     ),
-                    offer_date: offer.reinsurer_offers_only.created_at,
-                    insured: offer.reinsurer_offers_only.offer_detail.insured_by,
+                    offer_date: offer?.reinsurer_offers_only?.created_at,
+                    insured: offer?.reinsurer_offers_only?.offer_detail?.insured_by,
                     actions: <OfferButtons data={data} offer={offer} />,
                 }
                 offers.push(row)

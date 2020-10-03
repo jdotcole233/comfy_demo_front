@@ -32,7 +32,7 @@ const Converter = ({ available_cuurencies, formData, onGenerateFinished }) => {
     const handleChange = evt => {
         const { name, value } = evt.target
         const newData = convert_from;
-        console.log(newData[+name])
+        // console.log(newData[+name])
         newData[+name].rate = value
         setConvertFrom([...newData])
     }
