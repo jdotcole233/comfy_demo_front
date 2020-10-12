@@ -88,7 +88,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Total Sum Insured:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.offer_detail.currency} {offer?.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
+                                <h3 className="dark-text-value">{offer?.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -125,7 +125,7 @@ function PreviewCoverNote({ offer }) {
                                     </div>
                                 )
                             })}
-                            <h5 className="dark-text" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.offer_comment }}></h5>
+
                             {/* <h5 className="dark-text">Please see attached schedule.</h5> */}
                         </div>
 
@@ -180,6 +180,16 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text-value" dangerouslySetInnerHTML={{ __html: offer?.offer_detail?.information_comment }}></h3>
                             </div>
                         </div>
+                        <div className="row mb-2">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text">Taxes Payable By Reinsurers</h3>
+                            </div>
+                            <div className="col-md-7 col-4 col-sm-4 col-xs-4">
+                                <h3 className="dark-text-value">National Insurance Commission Levy: 1.50%
+                                Withholding Tax - 5.00% (Only applicable to Countries that do not have a Double Taxation Agreement with Ghana) </h3>
+                            </div>
+                        </div>
+                        <h5 className="dark-text" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.offer_comment }}></h5>
                         <div className="row mb-2">
                             <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <p className="dark-text">Date: {new Date().toLocaleDateString()}</p>

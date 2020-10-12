@@ -53,7 +53,7 @@ FACULTATIVE CLOSING</h3>
                                 <h3 className="dark-text">Type:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET", "")}</h3>
+                                <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET", "").toLowerCase()}</h3>
                             </div>
                         </div>
                         {["Motor Comprehensive", "Motor Comprehensive Fleet"].includes(offer?.classofbusiness.business_name) &&
