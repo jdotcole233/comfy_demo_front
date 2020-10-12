@@ -45,7 +45,7 @@ FACULTATIVE CLOSING</h3>
                                 <h3 className="dark-text">To:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
-                                <h3 className="dark-text-value">{reinsurer?.reinsurer.re_company_name.toUpperCase()}</h3>
+                                <h3 className="dark-text-value">{reinsurer?.reinsurer.re_company_name}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -86,7 +86,7 @@ FACULTATIVE CLOSING</h3>
                                 <h3 className="dark-text">Reinsured:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.insurer.insurer_company_name.toUpperCase()}</h3>
+                                <h3 className="dark-text-value">{offer?.insurer.insurer_company_name}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -94,7 +94,7 @@ FACULTATIVE CLOSING</h3>
                                 <h3 className="dark-text">Insured:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.offer_detail.insured_by.toUpperCase()}</h3>
+                                <h3 className="dark-text-value">{offer?.offer_detail.insured_by}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
