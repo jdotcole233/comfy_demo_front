@@ -94,8 +94,8 @@ function AddInsurer({ edit, toggle, data, closed }) {
             })
                 .catch(err => {
                     if (err) {
-                        console.log(err.message)
-                        swal("Oh noes!", "The AJAX request failed!", "error");
+                        // console.log(err.message.replace("GraphQL error:",""))
+                        swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
                         swal.close();
@@ -125,7 +125,7 @@ function AddInsurer({ edit, toggle, data, closed }) {
                 .catch(err => {
                     if (err) {
                         console.log(err.getMessage())
-                        swal("Oh noes!", "The AJAX request failed!", "error");
+                        swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
                         swal.close();

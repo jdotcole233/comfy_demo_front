@@ -90,7 +90,7 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
                 })
                 .catch(err => {
                     if (err) {
-                        swal("Oh noes!", "The AJAX request failed!", "error");
+                        swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
                         swal.close();

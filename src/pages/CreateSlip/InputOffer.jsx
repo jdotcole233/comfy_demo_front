@@ -379,21 +379,21 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Sum Insured</label>
-                                <input ref={register({ required: "Provide sum insured" })} name="sum_insured" type="text" className="form-control" placeholder="Sum Insured" />
+                                <input ref={register({ required: "Provide sum insured" })}  min="0" step="0.000001" name="sum_insured" type="number" className="form-control" placeholder="Sum Insured" />
                                 {errors.sum_insured && <p className="text-danger">{errors.sum_insured.message}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Rate (%)</label>
-                                <input name="rate" ref={register({ required: false })} type="text" className="form-control" placeholder="Rate" />
+                                <input name="rate" ref={register({ required: false })} min="0" step="0.000001" type="number" className="form-control" placeholder="Rate" />
                                 {errors.rate && <p className="text-danger">{errors.rate.message}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Premium</label>
-                                <input name="premium" ref={register({ required: "Provide premium" })} type="text" className="form-control" placeholder="Premium" />
+                                <input name="premium" ref={register({ required: "Provide premium" })} min="0" step="0.000001" type="number" className="form-control" placeholder="Premium" />
                                 {errors.premium && <p className="text-danger">{errors.premium.message}</p>}
 
                             </div>
@@ -401,7 +401,7 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Facultative Offer (%)</label>
-                                <input name="facultative_offer" ref={register({ required: "Provide facultative offer" })} type="text" className="form-control" placeholder="Facultative Offer" />
+                                <input name="facultative_offer" min="0" step="0.000001" ref={register({ required: "Provide facultative offer" })} type="number" className="form-control" placeholder="Facultative Offer" />
                                 {errors.facultative_offer && <p className="text-danger">{errors.facultative_offer.message}</p>}
 
                             </div>
@@ -409,14 +409,14 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Commision (%)</label>
-                                <input type="text" ref={register({ required: "Provide commission" })} name="commission" className="form-control" placeholder="Commision" />
+                                <input type="number" min="0" step="0.000001" ref={register({ required: "Provide commission" })} name="commission" className="form-control" placeholder="Commision" />
                                 {errors.commission && <p className="text-danger">{errors.commission.message}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Preliminary Brokerage (%)</label>
-                                <input type="text" ref={register({ required: "Provide preliminary brokerage" })} name="brokerage" className="form-control" placeholder="Preliminary Brokerage" />
+                                <input type="number" min="0" step="0.000001" ref={register({ required: "Provide preliminary brokerage" })} name="brokerage" className="form-control" placeholder="Preliminary Brokerage" />
                                 {errors.brokerage && <p className="text-danger">{errors.brokerage.message}</p>}
                             </div>
                         </div>

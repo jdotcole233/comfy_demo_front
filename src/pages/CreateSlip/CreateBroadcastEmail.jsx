@@ -140,7 +140,7 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
             }).catch(err => {
                 if (err) {
                     // console.log(err)
-                    swal("Oh noes!", "The AJAX request failed!", "error");
+                    swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                 } else {
                     swal.stopLoading();
                     swal.close();
