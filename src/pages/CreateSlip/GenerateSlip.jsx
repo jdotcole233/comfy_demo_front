@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react'
 import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
+import { getCurrencyFullName } from '../../components'
 
 function PreviewCoverNote({ offer }) {
 
@@ -72,7 +73,6 @@ function PreviewCoverNote({ offer }) {
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 {showDate(offer)}
-
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -80,7 +80,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Currency:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.offer_detail.currency}</h3>
+                                <h3 className="dark-text-value">{getCurrencyFullName(offer?.offer_detail.currency)}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">

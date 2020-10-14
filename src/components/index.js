@@ -5,6 +5,8 @@ import {
 } from 'mdbreact';
 import {Modal} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
+import currencies from '../assets/currencies.json'
+
 
 export {default as Drawer} from './Drawer';
 export {default as CurrencyValues} from './CurrencyValues';
@@ -129,3 +131,6 @@ export const ReinsurerOption = ({
 
 export const generateNewCulumns = (list, exclude) =>
   list.filter((item) => !exclude.includes(item.field));
+
+
+  export const getCurrencyFullName = (currency) => currencies[currency]?.name

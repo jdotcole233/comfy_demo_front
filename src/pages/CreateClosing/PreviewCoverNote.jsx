@@ -3,6 +3,7 @@ import React, { Fragment, useContext } from 'react'
 import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
 import { AuthContext } from '../../context/AuthContext'
+import { getCurrencyFullName } from '../../components'
 
 const downloadAccess = ['CEO',
     'General Manager',
@@ -91,7 +92,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Currency:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.offer_detail.currency}</h3>
+                                <h3 className="dark-text-value">{getCurrencyFullName(offer?.offer_detail.currency)}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -99,7 +100,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Total Sum Insured:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.offer_detail.currency} {offer?.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
+                                <h3 className="dark-text-value">{offer?.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
