@@ -226,39 +226,38 @@ const OfferButtons = ({ offer }) => {
                 >
                     <Dropdown.Item onClick={() => handlePreviewCoverNote(offer)}>
                         Preview Cover Note
-            </Dropdown.Item>
+                    </Dropdown.Item>
                     <Dropdown.Item onClick={() => handlePreviewDebitNote(offer)}>
                         Preview Debit Note
-            </Dropdown.Item>
-                    {offer?.approval_status === "APPROVED" && <Dropdown.Item onClick={() => handleShowSendMailDrawer(offer)}>
-                        Send
-            </Dropdown.Item>}
+                    </Dropdown.Item>
+                    {offer?.approval_status === "APPROVED" &&
+                        <Dropdown.Item onClick={() => handleShowSendMailDrawer(offer)}>
+                            Send
+                        </Dropdown.Item>
+                    }
                 </DropdownButton>
 
-                <button
-                    onClick={() => handleShowPayments(offer)}
-                    className="btn btn-sm w-md btn-info mb-1 mr-1"
-                >
+                <button onClick={() => handleShowPayments(offer)} className="btn btn-sm w-md btn-info mb-1 mr-1">
                     Credit Notes
-          </button>
-                {/* <button onClick={() => (offer)} className="btn btn-sm w-md btn-warning mb-2"></button> */}
-                {(["UNPAID"].includes(offer?.payment_status) && offer?.approval_status === "APPROVED") && (
-                    <DropdownButton
-                        variant="warning"
-                        className="mr-1 mb-1 w-md"
-                        size="sm"
-                        as={ButtonGroup}
-                        id="dropdown-basic-button"
-                        title="Actions"
-                    >
-                        <Dropdown.Item onClick={() => handleReopenOffer(offer)}>
-                            Reopen Offer
-              </Dropdown.Item>
-                        {deleteAccessRoles.includes(user?.position) && <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>
+                </button>
+                <DropdownButton
+                    variant="warning"
+                    className="mr-1 mb-1 w-md"
+                    size="sm"
+                    as={ButtonGroup}
+                    id="dropdown-basic-button"
+                    title="Actions"
+                >
+                    <Dropdown.Item onClick={() => handleReopenOffer(offer)}>
+                        Reopen Offer
+                    </Dropdown.Item>
+                    {(["UNPAID"].includes(offer?.payment_status) && offer?.approval_status === "APPROVED") && deleteAccessRoles.includes(user?.position) &&
+                        <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>
                             Delete Offer
-              </Dropdown.Item>}
-                    </DropdownButton>
-                )}
+                        </Dropdown.Item>
+                    }
+                </DropdownButton>
+
             </>
 
 
