@@ -57,7 +57,6 @@ export default function InputOffer({ toggle }) {
     const [currency, setCurrency] = useState(null)
     const [updateIndex, setUpdateIndex] = useState(-1)
     const [infoContent, setInfoContent] = useState("")
-    //
 
     const [createFleetOfferMutation, { loading: creatingFleet }] = useMutation(CREATE_FLEET_OFFER, {
         refetchQueries: [
@@ -98,7 +97,6 @@ export default function InputOffer({ toggle }) {
             setValue("period_of_insurance_from", editData.period_of_insurance_from)
             setValue("period_of_insurance_to", editData.period_of_insurance_to)
             setSelectedInsurer({ label: data?.insurers.find(el => el.insurer_id === editData.insurer_id)?.insurer_company_name })
-            // setClassOfBusiness(JSON.parse(editData.offer_details))
             setCurrency(editData.currency)
         }
     }, [editData])
@@ -182,7 +180,6 @@ export default function InputOffer({ toggle }) {
         const { value } = e.target;
         const inputs = [...offerDetails];
         inputs[index]["value"] = value
-        console.log(inputs[index])
         setofferDetails(inputs)
     }
 
@@ -195,12 +192,6 @@ export default function InputOffer({ toggle }) {
         }).then(input => {
             if (!input) throw {}
             const _ = [...fleetData]
-            // offerDetails.map(item => {
-            //     delete values[item.keydetail]
-            //     return 0
-            // })
-            console.log(values)
-
             const variable = prepVariables(values, offerDetails, state.user.employee.employee_id)
             _[updateIndex] = variable
             setFleetData(_);
@@ -218,19 +209,12 @@ export default function InputOffer({ toggle }) {
             buttons: ["No", { text: "Yes" }]
         }).then(input => {
             if (!input) {
-                // offerDetails.map(item => {
-                //     delete values[item.keydetail]
-                //     return 0
-                // })
                 const variable = prepVariables(values, offerDetails, state.user.employee.employee_id)
                 setFleetData(prev => [...prev, variable])
                 toggle()
                 setshowPreviewModal(prev => !prev)
             } else {
-                // offerDetails.map(item => {
-                //     delete values[item.keydetail]
-                //     return 0
-                // })
+                
                 const variable = prepVariables(values, offerDetails, state.user.employee.employee_id)
                 setFleetData(prev => [...prev, variable])
             }
@@ -264,7 +248,6 @@ export default function InputOffer({ toggle }) {
                 setIsFleetType(false)
                 setContent("")
                 setFleetData([])
-                // toggle()
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
@@ -352,13 +335,7 @@ export default function InputOffer({ toggle }) {
                         ))}
                     </div>
                 </fieldset>) : null}
-                {/* <fieldset className="w-auto p-2">
-                    {fleetData.map((value, id) => <FormDetails value={value} remove={handleRemoveMotorByIndex} id={id} onChange={(data) => handleFleetDataChange(data, id)} key={id} />)}
-                </fieldset>
-                {isFleetType && <div className="row mt-2 px-2 d-flex justify-content-end">
-                    <button onClick={handleAddMotor} className="btn btn-sm w-md btn-primary" type="button">Add Motor</button>
-                    {fleetData.length > 1 && <button onClick={handleRemoveMotor} id className="btn ml-2 btn-sm w-md btn-danger" type="button">Add Motor</button>}
-                </div>} */}
+              
                 <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
@@ -433,15 +410,6 @@ export default function InputOffer({ toggle }) {
                                 <input ref={register({
                                     required: "Currency is required"
                                 })} type="hidden" name="currency" list="currencies" placeholder="Currency" className="form-control" />
-
-                                {/* <datalist id="currencies">
-                                    <select className="form-control">
-                                        {Object.values(currencies).map((currency, key) => (
-                                            <option key={key} value={country.currencies[0].code} >{country.currencies[0].name}</option>
-
-                                        ))}
-                                    </select>
-                                </datalist> */}
                                 {errors.currency && <p className="text-danger">{errors.currency.message}</p>}
                             </div>
                         </div>
@@ -471,7 +439,6 @@ export default function InputOffer({ toggle }) {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                                {/* <JoditEditor value={content} onChange={handleCommentChange} /> */}
                                 <Editor value={content} onChange={handleCommentChange} />
                                 <textarea hidden rows={10} ref={register({ required: false })} name="offer_comment" className="form-control" placeholder="Add Comment" ></textarea>
                             </div>
@@ -489,7 +456,6 @@ export default function InputOffer({ toggle }) {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                                {/* <JoditEditor value={content} onChange={handleCommentChange} /> */}
                                 <Editor value={infoContent} onChange={handleInfoCommentChange} />
                                 <textarea hidden rows={10} ref={register({ required: nkrol })} name="information_comment" className="form-control" placeholder="Add Comment" ></textarea>
                             </div>

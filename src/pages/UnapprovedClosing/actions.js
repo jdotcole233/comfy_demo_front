@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable react/jsx-no-target-blank */
+import React, {Fragment} from 'react';
 import {DropdownButton, Dropdown, ButtonGroup} from 'react-bootstrap';
+import {BASE_URL_LOCAL} from '../../graphql';
 
 export const calculateFacOffer = ({offer, setFac_offer, setTest_offer}) => {
   if (!offer) return 0;
@@ -27,31 +29,38 @@ export const generateParticipants = ({
       ...reinsurer.reinsurer,
       amount: `${offer.offer_detail.currency} ${reinsurer.offer_amount}`,
       actions: (
-        <DropdownButton
-          variant="danger"
-          size="sm"
-          as={ButtonGroup}
-          id="dropdown-basic-button"
-          title="Generate Credit Note"
-        >
-          <Dropdown.Item
-            onClick={() => {
-              setSelectedReinsurer(reinsurer);
-              setshowCreditNotePreview((s) => !s);
-            }}
+        <Fragment>
+          <DropdownButton
+            variant="danger"
+            size="sm"
+            as={ButtonGroup}
+            id="dropdown-basic-button"
+            title="Generate Credit Note"
           >
-            Preview
-          </Dropdown.Item>
-          {/* <Dropdown.Item
-          onClick={() => {
-            setSelectedReinsurer(reinsurer);
-            setViewOffer((s) => !s);
-            setShowSendClosingSlip((s) => !s);
-          }}
-        >
-          Send
-        </Dropdown.Item> */}
-        </DropdownButton>
+            <Dropdown.Item
+              onClick={() => {
+                setSelectedReinsurer(reinsurer);
+                setshowCreditNotePreview((s) => !s);
+              }}
+            >
+              Preview
+            </Dropdown.Item>
+          </DropdownButton>
+          {reinsurer?.reinsurer?.reinsurer_address?.country !== 'Ghana' && (
+            <a
+              target="_blank"
+              href={`${BASE_URL_LOCAL}/nic_form/${btoa(
+                JSON.stringify({
+                  offer_id: offer?.offer_id,
+                  reinsurer_id: reinsurer?.reinsurer.reinsurer_id,
+                })
+              )}`}
+              className="btn btn-sm ml-1 btn-warning w-md"
+            >
+              Transfer schedule
+            </a>
+          )}
+        </Fragment>
       ),
     }));
   const participants = offer.offer_participant.map((reinsurer) => ({

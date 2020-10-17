@@ -5,11 +5,13 @@ import { BASE_URL_LOCAL } from '../../graphql'
 import { AuthContext } from '../../context/AuthContext'
 import { getCurrencyFullName } from '../../components'
 
-const downloadAccess = ['CEO',
+const downloadAccess = [
+    'CEO',
     'General Manager',
     // 'Senior Broking Officer',
     // 'Finance Executive',
-    'System Administrator']
+    'System Administrator'
+]
 
 function PreviewCoverNote({ offer, reinsurer }) {
     const { state: ctx } = useContext(AuthContext)

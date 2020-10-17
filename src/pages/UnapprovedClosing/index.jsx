@@ -11,14 +11,28 @@ const UnApproved = () => {
 
     const [offerListing, setOfferListing] = useState([])
 
-    const { data, loading } = useQuery(OFFERS, {
+    const { data, loading, startPolling, stopPolling } = useQuery(OFFERS, {
         variables: {
             offer_status: ["CLOSED"],
             approval_status: "UNAPPROVED"
         },
-        fetchPolicy: "network-only"
-        // pollInterval: 1000
+        fetchPolicy: "network-only",
+        pollInterval: 1000
     })
+
+
+    const myStartPolling = () => startPolling(1000)
+
+    useEffect(() => {
+        window.addEventListener('focus', myStartPolling);
+        window.addEventListener('blur', stopPolling);
+
+        // Specify how to clean up after this effect:
+        return () => {
+            window.removeEventListener('focus', startPolling);
+            window.removeEventListener('blur', stopPolling);
+        };
+    });
 
 
     useEffect(() => {

@@ -276,6 +276,9 @@ export const OFFERS = gql`
             reinsurer_id
             re_company_name
             re_company_email
+            reinsurer_address {
+              country
+            }
           }
         }
         insurer {

@@ -21,12 +21,12 @@ function ViewOffer() {
     state,
   } = useLocation();
 
-  const { data, loading } = useQuery(SINGLE_OFFER, {
+  const { data, loading, startPolling, stopPolling } = useQuery(SINGLE_OFFER, {
     variables: {
       offer_id: state?.offer_id,
     },
     fetchPolicy: "network-only",
-    pollInterval: 1000
+    pollInterval: 1000,
   });
 
 
@@ -35,6 +35,20 @@ function ViewOffer() {
       history.push("/admin/create-slip")
     }
   }, [state])
+
+
+  const myStartPolling = () => startPolling(1000)
+
+  useEffect(() => {
+    window.addEventListener('focus', myStartPolling);
+    window.addEventListener('blur', stopPolling);
+
+    // Specify how to clean up after this effect:
+    return () => {
+      window.removeEventListener('focus', startPolling);
+      window.removeEventListener('blur', stopPolling);
+    };
+  });
 
   if (loading) {
     return <Loader />;

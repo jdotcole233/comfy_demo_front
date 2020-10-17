@@ -266,7 +266,7 @@ const OfferButtons = ({ offer }) => {
             <Modal size="xl" centered show={showReopenOfferModal} onHide={handleCloseReopenOffer}>
                 <Modal.Header closeButton>
                     Reopen offer
-                    </Modal.Header>
+                </Modal.Header>
                 <Modal.Body>
                     <div className="container ">
                         <div className="col-md-12 alert alert-warning">
