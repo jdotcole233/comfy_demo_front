@@ -156,6 +156,7 @@ export const REINSURER = gql`
           fac_premium
           facultative_offer
           commission
+          co_insurance_share
           fac_sum_insured
           sum_insured
           created_at
@@ -542,6 +543,7 @@ export const DASHBOARD = gql`
         offer_id
         rate
         commission
+        co_insurance_share
         commission_amount
         brokerage
         facultative_offer
@@ -629,6 +631,7 @@ export const INSURER = gql`
         offer_id
         offer_status
         sum_insured
+        co_insurance_share
         rate
         fac_sum_insured
         premium
@@ -824,6 +827,7 @@ export const REINSURER_OFFERS = gql`
           brokerage
           fac_premium
           facultative_offer
+          co_insurance_share
           commission
           fac_sum_insured
           sum_insured

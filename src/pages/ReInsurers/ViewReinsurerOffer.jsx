@@ -14,6 +14,7 @@ export default function ViewReinsurerOffer({ data }) {
     useEffect(() => {
         if (data && classOfBusinesses) {
             setDetails(data);
+            console.log(data)
             chooseSelectedBusiness(data.reinsurer_offers_only.classofbusiness.business_name)
         }
     }, [data, classOfBusinesses])
@@ -133,10 +134,16 @@ export default function ViewReinsurerOffer({ data }) {
                                 <input type="text" className="form-control" placeholder="Brokerage" value={details?.reinsurer_offers_only.brokerage} onChange={() => { }} />
                             </div>
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="currency">Currency</label>
                                 <input type="text" value={details?.reinsurer_offers_only.offer_detail.currency} className="form-control" onChange={() => { }} readOnly />
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="Type of goods">Co-Insurance Share (%)</label>
+                                <input type="text" className="form-control" placeholder="Co-Insurance Share" value={details?.reinsurer_offers_only?.co_insurance_share} onChange={() => { }} />
                             </div>
                         </div>
                     </div>
