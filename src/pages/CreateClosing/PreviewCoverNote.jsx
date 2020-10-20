@@ -26,21 +26,22 @@ function PreviewCoverNote({ offer }) {
                     <i className="bx bxs-file-pdf"></i> Save
                 </a>}
             </div>
-            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid p-4 text-black bg-white">
+            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid text-black bg-white">
                 <div className="row">
+                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
+
                     <div className="col-md-6 col-6">
-                        <address>
+                        <p style={{ lineHeight: 0 }}>Our Ref: {`${offer?.employee?.emp_abbrv}/KEKRE/${new Date().getFullYear()}`}</p>
+                        <p>{new Date().toDateString()}</p>
+                        <address className="address">
                             The Managing Director  <br />
                             {offer?.insurer.insurer_company_name}, <br />
                             {offer?.insurer.insurer_address.suburb}.  <br />
                             {offer?.insurer.insurer_address.region}, {offer?.insurer.insurer_address.country}  <br />
-
-                            {new Date().toDateString()}
+                            <br /> Dear sir,
                         </address>
                     </div>
-                    <div className="col-md-6 col-6" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-                        {/* <img width={100} height={100} src={require("../../assets/logo.png")} alt="company name" /> */}
-                    </div>
+
                     <div className="col-md-12 mt-3 mb-3">
                         <h3 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>Cover Note</h3>
                         <p style={{ textAlign: "center" }}>IN ACCORDANCE WITH YOUR INSTRUCTIONS WE HAVE EFFECTED REINSUREANCE WITH
@@ -103,6 +104,14 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text-value">{offer?.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
+                        {offer?.co_insurance_share && <div className="row mb-2">
+                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                                <h3 className="dark-text">Co-Insurance share:</h3>
+                            </div>
+                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text-value">{offer?.co_insurance_share}%</h3>
+                            </div>
+                        </div>}
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text">100% Premium:</h3>
@@ -148,7 +157,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Commission:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.commission.toLocaleString(undefined, { maximumFractionDigits: 2 })} %</h3>
+                                <h3 className="dark-text-value">{offer?.commission.toLocaleString(undefined, { maximumFractionDigits: 2 })}%</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -219,10 +228,18 @@ function PreviewCoverNote({ offer }) {
                                     <h3 className="dark-text">{reinsurer.reinsurer.re_company_name} :</h3>
                                 </div>
                                 <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                    <h3 className="dark-text-value">{reinsurer.offer_participant_percentage}% of 100%</h3>
+                                    <h3 className="dark-text-value">{reinsurer.offer_participant_percentage}% of 100.00%</h3>
                                 </div>
                             </div>
                         ))}
+                        <div className="row mb-2">
+                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text">Total :</h3>
+                            </div>
+                            <div className="col-md-4 col-4 col-sm-4 col-xs-4 border border-bottom-0 border-left-0 border-right-0 border-dark">
+                                <h3 className="dark-text-value">{offer?.placed_offer}% of 100.00%</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

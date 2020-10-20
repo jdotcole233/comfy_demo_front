@@ -16,92 +16,96 @@ function PreviewCoverNote({ offer }) {
 
     return (
         <Fragment>
-            <div className="row m-2">
+            <div className="row m-2 ">
                 <a target="_blank" href={`${BASE_URL_LOCAL}/generate_placing_slip/${btoa(JSON.stringify({ offer_id: offer?.offer_id }))}`} className="btn btn-sm btn-primary w-md">
                     <i className="bx bxs-file-pdf"></i> Save
                 </a>
             </div>
-            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid p-4 text-black bg-white">
+            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid  text-black bg-white">
                 <div className="row">
-                    <div className="col-md-6 col-6">
-                    </div>
-                    <div className="col-md-6 col-6" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-                        {/* <img width={100} height={100} src={require("../../assets/logo.png")} alt="company name" /> */}
-                    </div>
-                    <div className="col-md-12 mt-3 mb-3">
+                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
+                    <div className="col-md-12  mb-3">
                         <h4 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>
-                            KEK REINSURANCE BROKERS (AFRICA) LIMITED <br />
                             REINSURANCE PLACING SLIP
                         </h4>
                     </div>
                     <div className="col-md-10 col-sm-12 col-xs-12 ml-md-4">
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Type:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET", "")}</h3>
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET", "").toLowerCase()}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Form:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">As Original and/ Slip Policy Reins</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Reinsured:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.insurer.insurer_company_name}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Insured:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.offer_detail.insured_by}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Period:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 {showDate(offer)}
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Currency:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{getCurrencyFullName(offer?.offer_detail.currency)}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Total Sum Insured:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
+                        {offer?.co_insurance_share && <div className="row mb-2">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text">Co-Insurance share:</h3>
+                            </div>
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text-value">{offer?.co_insurance_share}%</h3>
+                            </div>
+                        </div>}
+                        <h3 className="dark-text-value" dangerouslySetInnerHTML={{ __html: offer?.offer_detail?.offer_comment }}></h3>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Premium:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-10 col-sm-12 ml-md-4">
-                        <div className="mt-3 mb-2">
+                        <div className="mb-2">
                             {/* <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>RISK DESCRIPTION</h3> */}
                             {offer && JSON.parse(offer?.offer_detail.offer_details).map((detail, key) => {
                                 let value = parseFloat(detail.value);
@@ -116,10 +120,10 @@ function PreviewCoverNote({ offer }) {
                                 }
                                 return (
                                     <div className="row" key={key}>
-                                        <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                                        <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                             <h3 className="dark-text">{detail.keydetail}:</h3>
                                         </div>
-                                        <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                                        <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                             <h3 className="dark-text-value">{value}</h3>
                                         </div>
                                     </div>
@@ -132,9 +136,6 @@ function PreviewCoverNote({ offer }) {
 
                     </div>
                     <div className="col-md-10 col-sm-12 ml-md-4">
-                        <div className="mt-3 mb-2">
-                            {/* <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>REINSURANCE ORDER</h3> */}
-                        </div>
                         <div className="row mb-2">
                             <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Facultative Offer:</h3>

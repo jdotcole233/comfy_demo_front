@@ -199,6 +199,7 @@ export const OFFERS = gql`
       offers {
         offer_id
         rate
+        co_insurance_share
         commission
         commission_amount
         brokerage
@@ -212,6 +213,9 @@ export const OFFERS = gql`
         approval_status
         payment_status
         claim_status
+        employee {
+          emp_abbrv
+        }
         document_messages {
           offersoffer_id
           document_message

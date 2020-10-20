@@ -55,6 +55,7 @@ export default function InputOffer({ offer_id, toggle }) {
             setValue("brokerage", offer.brokerage)
             setValue("facultative_offer", offer.facultative_offer)
             setValue("sum_insured", offer.sum_insured)
+            setValue("co_insurance_share", offer.co_insurance_share)
             setValue("premium", offer.premium)
             setValue("rate", offer.rate)
             setValue("insured_by", offer.offer_detail.insured_by)
@@ -277,7 +278,7 @@ export default function InputOffer({ offer_id, toggle }) {
                                 {errors.brokerage && <p className="text-danger">{errors.brokerage.message}</p>}
                             </div>
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Currency</label>
                                 <Selector value={{ label: Object.values(currencies).find(eel => eel.code === selectedCurrency)?.name }} components={{ Option: CurrencyOption }} onChange={handleCurrencyChange} options={[...Object.values(currencies).map(currency => ({ label: currency.name, value: currency }))]} />
@@ -285,6 +286,14 @@ export default function InputOffer({ offer_id, toggle }) {
                                     required: "Currency is required"
                                 })} type="hidden" name="currency" list="currencies" placeholder="Currency" className="form-control" />
                                 {errors.currency && <p className="text-danger">{errors.currency.message}</p>}
+                            </div>
+                        </div>
+
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="Type of goods">Co-Insurance share (%)</label>
+                                <input type="number" min="0" step="0.000001" ref={register({ required: false })} name="co_insurance_share" className="form-control" placeholder="Co-Insurance share" />
+                                {errors.co_insurance_share && <p className="text-danger">{errors.co_insurance_share.message}</p>}
                             </div>
                         </div>
                     </div>

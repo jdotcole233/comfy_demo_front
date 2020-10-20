@@ -30,16 +30,13 @@ function PreviewCoverNote({ offer, reinsurer }) {
                     <i className="bx bxs-file-pdf"></i> Save
             </a>}
             </div>
-            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid p-4 text-black bg-white">
+            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid  text-black bg-white">
                 <div className="row">
-                    <div className="col-md-6">
-                    </div>
-                    <div className="col-md-6" style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-                        {/* <img width={100} height={100} src={require("../../assets/logo.png")} alt="company name" /> */}
-                    </div>
+                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
                     <div className="col-md-12 text-align-center mt-3 mb-3">
-                        <h3 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>KEK REINSURANCE BROKERS (AFRICA) LIMITED <br />
-FACULTATIVE CLOSING</h3>
+                        <h3 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>
+                            FACULTATIVE CLOSING
+                        </h3>
                     </div>
 
                     <div className="col-md-12 ml-md-4">
@@ -170,7 +167,7 @@ FACULTATIVE CLOSING</h3>
                                 </tr>
                                 <tr className="trial-balance-tr">
                                     <td>Your reinsurance participation</td>
-                                    <td>{reinsurer?.offer_participant_percentage}% of 100%</td>
+                                    <td>100% of {reinsurer?.offer_participant_percentage}%</td>
                                     <td></td>
                                 </tr>
                                 <tr className="trial-balance-tr">
@@ -180,6 +177,9 @@ FACULTATIVE CLOSING</h3>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div className="col-md-5 col-8 col-sm-8 col-xs-8">
+                        <p className="date-text">Date: {new Date().toLocaleDateString()}</p>
                     </div>
                 </div>
             </div>

@@ -114,6 +114,7 @@ export const CREATE_INPUT_OFFER = gql`
     $class_of_business_id: ID!
     $insurer_id: ID!
     $employee_id: ID!
+    $co_insurance_share: Float
     $rate: Float
     $commission: Float!
     $brokerage: Float!
@@ -148,6 +149,7 @@ export const CREATE_INPUT_OFFER = gql`
         offer_comment: $offer_comment
         offer_details: $offer_details
         information_comment: $information_comment
+        co_insurance_share: $co_insurance_share
       }
     ) {
       rate

@@ -32,7 +32,8 @@ export const prepVariables = (values, offerDetails, employee_id) => {
         offer_comment: values.offer_comment || " ",
         information_comment: values.information_comment || " ",
         employee_id,
-        offer_details: JSON.stringify(offerDetails)
+        offer_details: JSON.stringify(offerDetails),
+        co_insurance_share: values.co_insurance_share
     }
 
     return variable
@@ -214,7 +215,7 @@ export default function InputOffer({ toggle }) {
                 toggle()
                 setshowPreviewModal(prev => !prev)
             } else {
-                
+
                 const variable = prepVariables(values, offerDetails, state.user.employee.employee_id)
                 setFleetData(prev => [...prev, variable])
             }
@@ -335,7 +336,7 @@ export default function InputOffer({ toggle }) {
                         ))}
                     </div>
                 </fieldset>) : null}
-              
+
                 <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
@@ -356,7 +357,7 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Sum Insured</label>
-                                <input ref={register({ required: "Provide sum insured" })}  min="0" step="0.000001" name="sum_insured" type="number" className="form-control" placeholder="Sum Insured" />
+                                <input ref={register({ required: "Provide sum insured" })} min="0" step="0.000001" name="sum_insured" type="number" className="form-control" placeholder="Sum Insured" />
                                 {errors.sum_insured && <p className="text-danger">{errors.sum_insured.message}</p>}
                             </div>
                         </div>
@@ -397,7 +398,7 @@ export default function InputOffer({ toggle }) {
                                 {errors.brokerage && <p className="text-danger">{errors.brokerage.message}</p>}
                             </div>
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Currency</label>
                                 <Selector
@@ -411,6 +412,13 @@ export default function InputOffer({ toggle }) {
                                     required: "Currency is required"
                                 })} type="hidden" name="currency" list="currencies" placeholder="Currency" className="form-control" />
                                 {errors.currency && <p className="text-danger">{errors.currency.message}</p>}
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="Type of goods">Co-Insurance share (%)</label>
+                                <input type="number" min="0" step="0.000001" ref={register({ required: false })} name="co_insurance_share" className="form-control" placeholder="Co-Insurance share" />
+                                {errors.co_insurance_share && <p className="text-danger">{errors.co_insurance_share.message}</p>}
                             </div>
                         </div>
                     </div>

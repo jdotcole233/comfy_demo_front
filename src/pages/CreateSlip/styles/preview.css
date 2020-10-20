@@ -1,6 +1,6 @@
 .preview-card {
     display: flex;
-    padding: 50px;
+    /* padding: 50px; */
     justify-content: center;
     align-items: center;
   }
@@ -27,6 +27,7 @@
   .dark-text {
     color: #000000;
     font-size: medium;
+    font-weight: bold;
   }
   
   .dark-text-value {

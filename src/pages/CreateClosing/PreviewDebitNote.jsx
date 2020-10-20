@@ -26,10 +26,13 @@ function PreviewCoverNote({ offer }) {
                     <i className="bx bxs-file-pdf"></i> Save
                 </a>}
             </div>
-            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid p-4 text-black bg-white">
+            <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid text-black bg-white">
                 <div className="row">
+                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
                     <div className="col-md-6">
                         <address>
+                            <p style={{ lineHeight: 0 }}>Our Ref: {`${offer?.employee?.emp_abbrv}/KEKRE/${new Date().getFullYear()}`}</p>
+                            <p>{new Date().toDateString()}</p>
                             <address>
                                 The Managing Director  <br />
                                 {offer?.insurer.insurer_company_name}, <br />
@@ -47,19 +50,19 @@ function PreviewCoverNote({ offer }) {
                     </div>
                     <div className="col-md-10 col-12 col-sm-12 col-xs-12 ml-4">
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
+                            <div className="col-md-6 col-4 col-sm-4 col-4 col-xs-4">
                                 <h3 className="dark-text">Type:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.classofbusiness.business_name.toUpperCase().replace("FLEET", "").toLowerCase()}</h3>
                             </div>
                         </div>
                         {["Motor Comprehensive", "Motor Comprehensive Fleet"].includes(offer?.classofbusiness.business_name) &&
                             <div className="row mb-2">
-                                <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
+                                <div className="col-md-6 col-4 col-sm-4 col-4 col-xs-4">
                                     <h3 className="dark-text">REGISTRATION:</h3>
                                 </div>
-                                <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
+                                <div className="col-md-6 col-8 col-sm-8 col-8 col-xs-8">
                                     <h3 className="dark-text-value">
                                         {
                                             JSON.parse(
@@ -72,91 +75,99 @@ function PreviewCoverNote({ offer }) {
                             </div>
                         }
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
+                            <div className="col-md-6 col-4 col-sm-4 col-4 col-xs-4">
                                 <h3 className="dark-text">Form:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-8 col-xs-8">
                                 <h3 className="dark-text-value">As Original and/ Slip Policy Reins</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 className="dark-text">Reinsured:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.insurer.insurer_company_name}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 className="dark-text">Insured :</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.offer_detail.insured_by}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 className="dark-text">Period:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{showDate(offer)}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 className="dark-text">Currency:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{getCurrencyFullName(offer?.offer_detail.currency)}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 className="dark-text">100% Premium:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 className="dark-text">Original Offer:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.facultative_offer}% of 100.00%</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 className="dark-text">Placed Offer:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.placed_offer}% of 100.00%</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 className="dark-text">Facultative Premium:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                <h3 className="dark-text">Commission to you:</h3>
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
+                                <h3 className="dark-text">Payable</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text-value">In full at inception</h3>
+                            </div>
+                        </div>
+                        <div className="row mb-2">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
+                                <h3 className="dark-text">Commission:</h3>
+                            </div>
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text-value">{offer?.commission_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
-                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                            <div className="col-md-6 col-6 col-sm-6 col-xs-12">
                                 <h3 style={{ fontWeight: "bolder" }} className="dark-text">Amount now due to KEK RE:</h3>
                             </div>
-                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 style={{ fontWeight: "bolder" }} className="dark-text-value">{offer?.offer_detail.currency} {(parseFloat(offer?.fac_premium) - parseFloat(offer?.commission_amount)).toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
+                            <div className="col-md-6 col-8 col-sm-8 col-xs-8">
+                                <h3 style={{ fontWeight: "bolder" }} className="dark-text-value">{(parseFloat(offer?.fac_premium) - parseFloat(offer?.commission_amount)).toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                     </div>
