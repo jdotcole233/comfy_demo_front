@@ -454,6 +454,7 @@ export const SINGLE_OFFER = gql`
       offer_id
       rate
       commission
+      co_insurance_share
       commission_amount
       brokerage
       facultative_offer

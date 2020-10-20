@@ -172,7 +172,7 @@ function PreviewCoverNote({ offer }) {
                                 </h3>}
                             </div>
                         </div>
-                        <div className="row mb-2">
+                        {offer?.insurer?.insurer_address?.country === "Ghana" &&<div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text">Taxes Payable By Reinsurers</h3>
                             </div>
@@ -180,7 +180,16 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text-value">National Insurance Commission Levy: 1.50%
                                 Withholding Tax - 5.00% (Only applicable to Countries that do not have a Double Taxation Agreement with Ghana) </h3>
                             </div>
-                        </div>
+                        </div>}
+
+                        {offer?.insurer?.insurer_address?.country === "Sierra Leone" &&<div className="row mb-2">
+                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                                <h3 className="dark-text">Taxes Payable By Reinsurers</h3>
+                            </div>
+                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text-value">SLICOM Levy: 1.50% and Withholding Tax - 10.00%  </h3>
+                            </div>
+                        </div>}
                     </div>
                     <div className="col-md-10 col-sm-12 ml-md-4">
                         <div className="mt-3 mb-2">

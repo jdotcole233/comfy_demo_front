@@ -77,12 +77,7 @@ export default function InputOffer({ offer_id, toggle }) {
 
     }, [_offer])
 
-    // useEffect(() => {
-    //     if (_offer) {
-    //         // setMyComment(offer.offer_detail.offer_comment)
-    //     }
 
-    // }, [_offer])
 
     const handleCurrencyChange = value => {
         setValue("currency", value ? value.value.code : "");
