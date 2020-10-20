@@ -174,8 +174,8 @@ function PreviewCoverNote({ offer }) {
                             </div>
                             <div className="col-md-7 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text-value">
-                                    Subject to NKORL as at {new Date().toLocaleDateString()} and NIC's NPNC
-                                    guidelines
+                                    Subject to NKORL as at {new Date().toLocaleDateString()} {offer?.insurer?.insurer_address?.country !== "Sierra Leone" && `and NIC's NPNC
+                                    guidelines`}
                                 </h3>
 
                                 <h3 className="dark-text-value" dangerouslySetInnerHTML={{ __html: offer?.offer_detail?.information_comment }}></h3>

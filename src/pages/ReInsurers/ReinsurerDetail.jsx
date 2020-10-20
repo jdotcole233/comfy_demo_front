@@ -59,7 +59,7 @@ function ReinsurerDetail() {
                     phone: `${reinsurer.rep_primary_phonenumber}, ${reinsurer.rep_secondary_phonenumber}`,
                     email: `${reinsurer.rep_email}`,
                     position: `${reinsurer.position}`,
-                    actions: 'System Administrator' === ctx?.user?.position ? <AssociateButtons reinsurer={reinsurer} data={data} /> : null,
+                    actions: ['System Administrator', 'Senior Broking Officer'].includes(ctx?.user?.position) ? <AssociateButtons reinsurer={reinsurer} data={data} /> : null,
                 }
                 list.push(row);
                 return reinsurer;
@@ -315,7 +315,7 @@ function ReinsurerDetail() {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title mb-4">Associates</h4>
-                                <Datatable btn hover striped responsive bordered columns={generateNewCulumns(associatesColumnns, 'System Administrator' === ctx?.user?.position ? [] : ["actions"])} data={associates} />
+                                <Datatable btn hover striped responsive bordered columns={generateNewCulumns(associatesColumnns, ['System Administrator', 'Senior Broking Officer'].includes(ctx?.user?.position) ? [] : ["actions"])} data={associates} />
                             </div>
                         </div>
                     </div>

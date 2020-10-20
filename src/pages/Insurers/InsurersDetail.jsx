@@ -110,7 +110,7 @@ function InsurerDetail() {
                     name: `${manager.assoc_first_name} ${manager.assoc_last_name}`,
                     phone: `${manager.assoc_primary_phonenumber}, ${manager.assoc_secondary_phonenumber}`,
                     email: `${manager.assoc_email}`,
-                    actions: 'System Administrator' === ctx?.user?.position ? <ManagerButtons manager={manager} state={state} /> : null,
+                    actions: ['System Administrator', 'Senior Broking Officer'].includes(ctx?.user?.position) ? <ManagerButtons manager={manager} state={state} /> : null,
                 }
                 list.push(row);
                 return insurer;
@@ -325,7 +325,7 @@ function InsurerDetail() {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title mb-4">Managers</h4>
-                                <Datatable btn hover striped responsive bordered data={managers} columns={generateNewCulumns(managersColumn, 'System Administrator' === ctx?.user?.position ? [] : ["actions"])} />
+                                <Datatable btn hover striped responsive bordered data={managers} columns={generateNewCulumns(managersColumn, ['System Administrator', 'Senior Broking Officer'].includes(ctx?.user?.position) ? [] : ["actions"])} />
                             </div>
                         </div>
                     </div>

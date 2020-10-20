@@ -36,7 +36,7 @@ function PreviewCoverNote({ offer }) {
                         <address className="address">
                             The Managing Director  <br />
                             {offer?.insurer.insurer_company_name}, <br />
-                            {offer?.insurer.insurer_address.suburb}.  <br />
+                            {/* {offer?.insurer.insurer_address.suburb}.  <br /> */}
                             {offer?.insurer.insurer_address.region}, {offer?.insurer.insurer_address.country}  <br />
                             <br /> Dear sir,
                         </address>
@@ -104,6 +104,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text-value">{offer?.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
+
                         {offer?.co_insurance_share && <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text">Co-Insurance share:</h3>
@@ -112,6 +113,35 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text-value">{offer?.co_insurance_share}%</h3>
                             </div>
                         </div>}
+                        <div className="col-md-10 col-sm-12 ml-md-4">
+                            <div className="mt-3 mb-2">
+                                {/* <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>RISK DESCRIPTION</h3> */}
+                                {offer && JSON.parse(offer?.offer_detail.offer_details).map((detail, key) => {
+                                    let value = parseFloat(detail.value);
+                                    if (isNaN(value)) {
+                                        value = detail.value
+                                    }
+                                    else if (detail.keydetail === "Year of Manufacture") {
+                                        value = detail.value
+                                    }
+                                    else {
+                                        value = value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+                                    }
+                                    return (
+                                        <div className="row" key={key}>
+                                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                                                <h3 className="dark-text">{detail.keydetail}:</h3>
+                                            </div>
+                                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                                                <h3 className="dark-text-value">{value}</h3>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+
+                        </div>
                         <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text">100% Premium:</h3>
@@ -167,12 +197,13 @@ function PreviewCoverNote({ offer }) {
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 {offer?.offer_detail?.information_comment ? <div className="dark-text-value" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.information_comment }}>
                                 </div> :
-                                    <h3 className="dark-text-value">Subject to NKORL as at {new Date().toLocaleDateString()} and NIC's NPNC
-                                    guidelines
-                                </h3>}
+                                    <h3 className="dark-text-value">Subject to NKORL as at {new Date().toLocaleDateString()}
+                                        {offer?.insurer?.insurer_address?.country !== "Sierra Leone" && `and NIC's NPNC
+                                    guidelines`}
+                                    </h3>}
                             </div>
                         </div>
-                        {offer?.insurer?.insurer_address?.country === "Ghana" &&<div className="row mb-2">
+                        {offer?.insurer?.insurer_address?.country === "Ghana" && <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text">Taxes Payable By Reinsurers</h3>
                             </div>
@@ -182,44 +213,16 @@ function PreviewCoverNote({ offer }) {
                             </div>
                         </div>}
 
-                        {offer?.insurer?.insurer_address?.country === "Sierra Leone" &&<div className="row mb-2">
+                        {offer?.insurer?.insurer_address?.country === "Sierra Leone" && <div className="row mb-2">
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                                 <h3 className="dark-text">Taxes Payable By Reinsurers</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">SLICOM Levy: 1.50% and Withholding Tax - 10.00%  </h3>
+                                <h3 className="dark-text-value">SLICOM Levy: 1.00% and Withholding Tax - 10.00%  </h3>
                             </div>
                         </div>}
                     </div>
-                    <div className="col-md-10 col-sm-12 ml-md-4">
-                        <div className="mt-3 mb-2">
-                            {/* <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>RISK DESCRIPTION</h3> */}
-                            {offer && JSON.parse(offer?.offer_detail.offer_details).map((detail, key) => {
-                                let value = parseFloat(detail.value);
-                                if (isNaN(value)) {
-                                    value = detail.value
-                                }
-                                else if (detail.keydetail === "Year of Manufacture") {
-                                    value = detail.value
-                                }
-                                else {
-                                    value = value.toLocaleString(undefined, { maximumFractionDigits: 2 })
-                                }
-                                return (
-                                    <div className="row" key={key}>
-                                        <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                            <h3 className="dark-text">{detail.keydetail}:</h3>
-                                        </div>
-                                        <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                            <h3 className="dark-text-value">{value}</h3>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
 
-
-                    </div>
                     <div className="col-md-10 col-sm-12 ml-md-4">
                         <div className="mt-3 mb-2">
                             <h5 className="dark-text" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.offer_comment }}></h5>

@@ -36,7 +36,7 @@ function PreviewCoverNote({ offer }) {
                             <address>
                                 The Managing Director  <br />
                                 {offer?.insurer.insurer_company_name}, <br />
-                                {offer?.insurer.insurer_address.suburb}.  <br />
+                                {/* {offer?.insurer.insurer_address.suburb}.  <br /> */}
                                 {offer?.insurer.insurer_address.region}, {offer?.insurer.insurer_address.country}  <br />
                                 {new Date().toDateString()}
                             </address>
