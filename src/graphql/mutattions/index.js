@@ -126,6 +126,8 @@ export const CREATE_INPUT_OFFER = gql`
     $period_of_insurance_from: Date!
     $period_of_insurance_to: Date!
     $currency: String!
+    $ex_rate: Float!
+    $ex_currency: String!
     $offer_comment: String
     $offer_details: String!
     $information_comment: String
@@ -146,6 +148,8 @@ export const CREATE_INPUT_OFFER = gql`
         period_of_insurance_from: $period_of_insurance_from
         period_of_insurance_to: $period_of_insurance_to
         currency: $currency
+        ex_rate: $ex_rate
+        ex_currency: $ex_currency
         offer_comment: $offer_comment
         offer_details: $offer_details
         information_comment: $information_comment

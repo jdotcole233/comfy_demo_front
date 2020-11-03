@@ -5,7 +5,7 @@ import swal from 'sweetalert'
 import { useMutation } from 'react-apollo'
 import { DELETE_OFFER } from '../../../graphql/mutattions';
 import { OFFERS } from '../../../graphql/queries';
-import { Link } from 'react-router-dom'
+import {  useHistory } from 'react-router-dom'
 import { Drawer } from '../../../components'
 import EditOffer from '../EditOffer'
 import GenerateSlip from '../GenerateSlip'
@@ -18,7 +18,7 @@ import OfferComments from '../OfferComments';
 
 const OfferButtons = ({ offer }) => {
     const { state: { user } } = useContext(AuthContext)
-    // const history = useHistory();
+    const history = useHistory();
     const [editOfferDrawer, setEditOfferDrawer] = useState(false)
     const [selectedOffer, setSelectedOffer] = useState(null)
     const [generateSlip, setGenerateSlip] = useState(false)
@@ -74,10 +74,10 @@ const OfferButtons = ({ offer }) => {
         <div>
             <>
                 <DropdownButton className="mr-1 mb-1" variant="danger" size="sm" as={ButtonGroup} id="dropdown-basic-button" title="Offer Action">
-                    <Dropdown.Item>
-                        <Link className="text-dark" to={{ pathname: "/admin/view-offer", state: { offer_id } }}>
+                    <Dropdown.Item onClick={() => { history.push({ pathname: "/admin/view-offer", state: { offer_id } }) }}>
+                        {/* <Link className="text-dark" to={{}}> */}
                             View offer
-                        </Link>
+                        {/* </Link> */}
                     </Dropdown.Item>
                     {editAccessRoles.includes(user?.position) && <Dropdown.Item onClick={handleShowEditDrawer}>Edit offer</Dropdown.Item>}
                     {deleteAccessRoles.includes(user?.position) && <Dropdown.Item onClick={handleDeleteOffer}>Delete offer</Dropdown.Item>}

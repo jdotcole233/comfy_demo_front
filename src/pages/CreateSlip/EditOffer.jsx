@@ -23,14 +23,15 @@ export default function InputOffer({ offer_id, toggle }) {
     const { register, errors, handleSubmit, reset, setValue, clearError } = useForm()
     const [offer_comment, fillComment] = useState("")
     const [nkrol, setNkrol] = useState(false)
-    // const [myComment, setMyComment] = useState("")
 
     const [classOfBusiness, setClassOfBusiness] = useState(null);
     const [offerDetails, setofferDetails] = useState([])
     const [selectedInsurer, setSelectedInsurer] = useState("")
     const [selectedBusiness, setSelectedBusiness] = useState("")
     const [selectedCurrency, setSelectedCurrency] = useState("")
+    const [selectedExCurrency, setSelectedExCurrency] = useState("")
     const [infoContent, setInfoContent] = useState("")
+    const [addExchangeRate, setAddExchangeRate] = useState(true)
 
     const { data: _offer, loading } = useQuery(SINGLE_OFFER, {
         variables: {
@@ -47,34 +48,36 @@ export default function InputOffer({ offer_id, toggle }) {
     useEffect(() => {
         if (_offer) {
             console.log(offer)
+            setAddExchangeRate(offer.exchange_rate ? true : false);
             setValue("policy_number", offer.offer_detail?.policy_number)//insurance_company
             setValue("insurer_id", offer.insurer?.insurer_id)//insurance_company
             setValue("class_of_business_id", offer.classofbusiness?.class_of_business_id)//insurance_company
             setSelectedBusiness(offer.classofbusiness.business_name)
             setValue("commission", offer.commission)
             setValue("brokerage", offer.brokerage)
-            setValue("facultative_offer", offer.facultative_offer)
-            setValue("sum_insured", offer.sum_insured)
-            setValue("co_insurance_share", offer.co_insurance_share)
-            setValue("premium", offer.premium)
-            setValue("rate", offer.rate)
-            setValue("insured_by", offer.offer_detail.insured_by)
-            setValue("currency", offer.offer_detail.currency)
-            console.log("Offer Comment", offer.offer_detail.offer_comment?.toString())
-            console.log("Info Comment", offer.offer_detail.information_comment?.toString())
-            setValue("offer_comment", offer.offer_detail.offer_comment)
-            setofferDetails(JSON.parse(offer.offer_detail.offer_details))
-            setValue("period_of_insurance_from", offer.offer_detail.period_of_insurance_from)
-            setValue("period_of_insurance_to", offer.offer_detail.period_of_insurance_to)
-            setSelectedInsurer(offer.insurer.insurer_company_name)
-            setClassOfBusiness(JSON.parse(offer.offer_detail.offer_details))
-            setSelectedCurrency(offer.offer_detail.currency)
-            setInfoContent(offer.offer_detail.information_comment?.toString())
-            setValue("information_comment", offer.offer_detail.information_comment?.toString())
-            setNkrol(offer.offer_detail.information_comment ? true : false)
-            fillComment(offer.offer_detail.offer_comment)
+            setValue("facultative_offer", offer.facultative_offer);
+            setValue("ex_rate", offer?.exchange_rate?.ex_rate);
+            setValue("sum_insured", offer.sum_insured);
+            setValue("co_insurance_share", offer.co_insurance_share);
+            setValue("premium", offer.premium);
+            setValue("rate", offer.rate);
+            setValue("insured_by", offer.offer_detail.insured_by);
+            setValue("currency", offer.offer_detail.currency);
+            setValue("offer_comment", offer.offer_detail.offer_comment);
+            setofferDetails(JSON.parse(offer.offer_detail.offer_details));
+            setValue("period_of_insurance_from", offer.offer_detail.period_of_insurance_from);
+            setValue("period_of_insurance_to", offer.offer_detail.period_of_insurance_to);
+            setSelectedInsurer(offer.insurer.insurer_company_name);
+            setClassOfBusiness(JSON.parse(offer.offer_detail.offer_details));
+            setSelectedCurrency(offer.offer_detail.currency);
+            setInfoContent(offer.offer_detail.information_comment?.toString());
+            setValue("information_comment", offer.offer_detail.information_comment?.toString());
+            setNkrol(offer.offer_detail.information_comment ? true : false);
+            fillComment(offer.offer_detail.offer_comment);
+            setValue("ex_currency", offer.exchange_rate?.ex_currency);
+            setSelectedExCurrency(offer.exchange_rate?.ex_currency);
+            // alert(parseFloat(offer.exchange_rate?.ex_rate))
         }
-
     }, [_offer])
 
 
@@ -84,6 +87,14 @@ export default function InputOffer({ offer_id, toggle }) {
         setSelectedCurrency(value ? value.value.code : offer.offer_detail.currency)
         if (value) {
             clearError("currency")
+        }
+    }
+
+    const handleExCurrencyChange = value => {
+        setValue("ex_currency", value ? value.value.code : "");
+        setSelectedExCurrency(value ? value.value.code : "")
+        if (value) {
+            clearError("ex_currency")
         }
     }
 
@@ -291,6 +302,42 @@ export default function InputOffer({ offer_id, toggle }) {
                                 {errors.co_insurance_share && <p className="text-danger">{errors.co_insurance_share.message}</p>}
                             </div>
                         </div>
+                        <div className="col-md-12">
+                            <div className="form-check">
+                                <input type="checkbox" checked={addExchangeRate} className="form-check-input" onChange={e => setAddExchangeRate(e.target.checked)} />
+                                <label className="form-check-label" htmlFor="exampleCheck1">Add Exchange rate</label>
+                            </div>
+                        </div>
+                        {addExchangeRate && <div className="col-md-12 mt-2">
+                            <div className="form-group alert alert-danger text-danger w-auto ">
+                                Premium and Deductions on all documents will be affected by this exchange rate value
+                            </div>
+                        </div>}
+                        {addExchangeRate && <>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="">Exchange Currency</label>
+                                    <Selector
+                                        value={{ label: Object.values(currencies).find(eel => eel.code === selectedExCurrency)?.name }}
+                                        components={{ Option: CurrencyOption }}
+                                        onChange={handleExCurrencyChange}
+                                        options={[...Object.values(currencies).map(currency => ({
+                                            label: currency.name, value: currency
+                                        }))]} />
+                                    <input ref={register({
+                                        required: addExchangeRate
+                                    })} type="hidden" name="ex_currency" placeholder="Currency" className="form-control" />
+                                    {errors.ex_currency && <p className="text-danger">{errors.ex_currency.message}</p>}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="Type of goods">Exchange rate {offer?.exchange_rate?.ex_rate} </label>
+                                    <input type="number" min="0" step="0.000001" ref={register({ required: addExchangeRate ? true : false })} name="ex_rate" className="form-control" placeholder="Exchange rate" />
+                                    {errors.ex_rate && <p className="text-danger">{errors.ex_rate.message}</p>}
+                                </div>
+                            </div>
+                        </>}
                     </div>
                 </fieldset>
                 <fieldset className="w-auto p-2 border-form">

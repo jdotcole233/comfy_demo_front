@@ -32,7 +32,7 @@ const CommentChatBox = ({ onChange, comments, userComments, height = 400 }) => {
             </div>
             <div className="">
                 <div className="input-group mb-3">
-                    <textarea value={comment} onChange={e => setComment(e.target.value)} class="form-control" aria-label="With textarea"></textarea>
+                    <textarea value={comment} onChange={e => setComment(e.target.value)} className="form-control" aria-label="With textarea"></textarea>
                     <div className="input-group-append">
                         <button onClick={() => handleOnchange(comment)} className="btn btn-success" type="button">COMMENT</button>
                     </div>

@@ -64,7 +64,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     }, [details])
 
     useEffect(() => {
-        if (payment) {
+        if (payment && details) {
             const obj = JSON.parse(payment.payment_details);
             console.log(obj)
             setForm_inputs({
@@ -77,7 +77,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 date_on_cheque: obj.payment_from.date_on_cheque
             })
         }
-    }, [payment])
+    }, [payment, details])
 
 
     const handleChange = event => {
@@ -217,7 +217,8 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                     <p>The amount to be added to this offer will be distributed evenly to all entities participating on offer [{details?.offer_detail.policy_number}].
                     Taking into consideration <strong>commission, brokerage, withholding tax and NIC levy</strong> where applicable.</p>
                     <p>{!edit ? "Make" : "Update"} payment to [{details?.offer_detail.policy_number}]</p>
-                    <p><strong>Expected Amount: {details?.offer_detail.currency} {expectedAmtToBePaid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong></p>
+                    {details?.exchange_rate && <p>This offer was created in {details?.offer_detail.currency}, but with an exchange rate of {details?.exchange_rate?.ex_rate} in {details?.exchange_rate?.ex_currency}</p>}
+                    <p><strong>Expected Amount: {details?.exchange_rate?.ex_currency || details?.offer_detail.currency} {expectedAmtToBePaid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong></p>
                 </Alert>
 
                 <div className="row">
@@ -277,7 +278,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Currency">Currency</label>
-                                <input type="text" value={details?.offer_detail.currency} className="form-control" placeholder="Currency" readOnly />
+                                <input type="text" value={details?.exchange_rate?.ex_currency || details?.offer_detail.currency} className="form-control" placeholder="Currency" readOnly />
                             </div>
                         </div>
                         <div className="col-md-12">

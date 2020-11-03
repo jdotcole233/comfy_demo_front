@@ -119,7 +119,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">100% Premium:</h3>
                             </div>
                             <div className="col-md-6 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
+                                <h3 className="dark-text-value">{offer?.exchange_rate?.ex_currency} {offer?.premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -143,7 +143,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Facultative Premium:</h3>
                             </div>
                             <div className="col-md-6 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
+                                <h3 className="dark-text-value">{offer?.exchange_rate?.ex_currency} {offer?.fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -159,7 +159,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Commission:</h3>
                             </div>
                             <div className="col-md-6 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.commission_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
+                                <h3 className="dark-text-value">{offer?.exchange_rate?.ex_currency} {offer?.commission_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -167,7 +167,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 style={{ fontWeight: "bolder" }} className="dark-text">Amount now due to KEK RE:</h3>
                             </div>
                             <div className="col-md-6 col-8 col-sm-8 col-xs-8">
-                                <h3 style={{ fontWeight: "bolder" }} className="dark-text-value">{(parseFloat(offer?.fac_premium) - parseFloat(offer?.commission_amount)).toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
+                                <h3 style={{ fontWeight: "bolder" }} className="dark-text-value">{offer?.exchange_rate?.ex_currency}  {(parseFloat(offer?.fac_premium) - parseFloat(offer?.commission_amount)).toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3>
                             </div>
                         </div>
                     </div>

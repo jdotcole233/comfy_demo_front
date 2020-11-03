@@ -146,6 +146,34 @@ export default function ViewReinsurerOffer({ data }) {
                                 <input type="text" className="form-control" placeholder="Co-Insurance Share" value={details?.reinsurer_offers_only?.co_insurance_share} onChange={() => { }} />
                             </div>
                         </div>
+                        <div className="col-md-12">
+                            <div className="form-check">
+                                <input type="checkbox" checked={details?.exchange_rate} className="form-check-input" />
+                                <label className="form-check-label" htmlFor="exampleCheck1">Add Exchange rate</label>
+                            </div>
+                        </div>
+                        {details?.exchange_rate && <div className="col-md-12 mt-2">
+                            <div className="form-group alert alert-danger text-danger w-auto ">
+                                Premium and Deductions on all documents will be affected by this exchange rate value
+                            </div>
+                        </div>}
+                        {details?.exchange_rate && <>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="">Exchange Currency</label>
+                                    <input type="text" value={details?.exchange_rate?.ex_currency} className="form-control" readOnly />
+
+                                    {/* {errors.ex_currency && <p className="text-danger">{errors.ex_currency.message}</p>} */}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="Type of goods">Exchange rate {details?.exchange_rate?.ex_rate} </label>
+                                    <input type="number" min="0" step="0.000001" value={details?.exchange_rate?.ex_rate} name="ex_rate" className="form-control" placeholder="Exchange rate" />
+                                    {/* {errors.ex_rate && <p className="text-danger">{errors.ex_rate.message}</p>} */}
+                                </div>
+                            </div>
+                        </>}
                     </div>
                 </fieldset>
                 <fieldset className="w-auto p-2 border-form">

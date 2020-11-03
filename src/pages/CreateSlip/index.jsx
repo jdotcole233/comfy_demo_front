@@ -53,7 +53,7 @@ export default memo(() => {
 
     useEffect(() => {
         if (allOffers) {
-            console.log([...allOffers.offers_all.offers].length)
+            // console.log([...allOffers.offers_all.offers].length)
             const list = [];
             [...allOffers.offers_all.offers].map((offer) => {
                 const row = {

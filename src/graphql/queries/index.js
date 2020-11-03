@@ -170,6 +170,10 @@ export const REINSURER = gql`
           insurer {
             insurer_company_name
           }
+          exchange_rate {
+            ex_rate
+            ex_currency
+          }
           offer_detail {
             insured_by
             currency
@@ -225,6 +229,10 @@ export const OFFERS = gql`
             emp_abbrv
             employee_id
           }
+        }
+        exchange_rate {
+          ex_currency
+          ex_rate
         }
         offer_detail {
           offer_detail_id
@@ -475,6 +483,10 @@ export const SINGLE_OFFER = gql`
           employee_id
         }
       }
+      exchange_rate {
+        ex_currency
+        ex_rate
+      }
       offer_detail {
         offer_detail_id
         offersoffer_id
@@ -679,6 +691,10 @@ export const INSURER = gql`
         }
         classofbusiness {
           business_name
+        }
+        exchange_rate {
+          ex_rate
+          ex_currency
         }
         offer_detail {
           offer_details

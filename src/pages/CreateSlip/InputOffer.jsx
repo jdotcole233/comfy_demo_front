@@ -31,6 +31,8 @@ export const prepVariables = (values, offerDetails, employee_id) => {
         currency: values.currency,
         offer_comment: values.offer_comment || " ",
         information_comment: values.information_comment || " ",
+        ex_currency: values.ex_currency || " ",
+        ex_rate: values.ex_rate || " ",
         employee_id,
         offer_details: JSON.stringify(offerDetails),
         co_insurance_share: values.co_insurance_share
@@ -44,6 +46,7 @@ export default function InputOffer({ toggle }) {
     const { closed } = useContext(DrawerContext);
     const { state } = useContext(AuthContext);
     const [nkrol, setNkrol] = useState(false)
+    const [addExchangeRate, setAddExchangeRate] = useState(false)
     const [showPreviewModal, setshowPreviewModal] = useState(false)
     const formRef = useRef()
     const { data } = useQuery(INPUT_OFFER_QUERIES);
@@ -56,6 +59,7 @@ export default function InputOffer({ toggle }) {
     const [fleetData, setFleetData] = useState([])
     const [editData, setEditData] = useState(null)
     const [currency, setCurrency] = useState(null)
+    const [ex_currency, setExCurrency] = useState(null)
     const [updateIndex, setUpdateIndex] = useState(-1)
     const [infoContent, setInfoContent] = useState("")
 
@@ -129,6 +133,14 @@ export default function InputOffer({ toggle }) {
         setCurrency(value ? value.value.code : "")
         if (value) {
             clearError("currency")
+        }
+    }
+
+    const handleExCurrencyChange = value => {
+        setValue("ex_currency", value ? value.value.code : "");
+        setExCurrency(value ? value.value.code : "")
+        if (value) {
+            clearError("ex_currency")
         }
     }
 
@@ -421,6 +433,42 @@ export default function InputOffer({ toggle }) {
                                 {errors.co_insurance_share && <p className="text-danger">{errors.co_insurance_share.message}</p>}
                             </div>
                         </div>
+                        <div className="col-md-12">
+                            <div className="form-check">
+                                <input type="checkbox" className="form-check-input" onChange={e => setAddExchangeRate(e.target.checked)} />
+                                <label className="form-check-label" htmlFor="exampleCheck1">Add Exchange rate</label>
+                            </div>
+                        </div>
+                        {addExchangeRate && <div className="col-md-12 mt-2">
+                            <div className="form-group alert alert-danger text-danger w-auto ">
+                                Premium and Deductions on all documents will be affected by this exchange rate value
+                            </div>
+                        </div>}
+                        {addExchangeRate && <>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="Type of goods">Exchange Currency</label>
+                                    <Selector
+                                        value={ex_currency ? { label: Object.values(currencies).find(eel => eel.code === ex_currency)?.name } : ""}
+                                        components={{ Option: CurrencyOption }}
+                                        onChange={handleExCurrencyChange}
+                                        options={[...Object.values(currencies).map(currency => ({
+                                            label: currency.name, value: currency
+                                        }))]} />
+                                    <input ref={register({
+                                        required: addExchangeRate
+                                    })} type="hidden" name="ex_currency" placeholder="Currency" className="form-control" />
+                                    {errors.ex_currency && <p className="text-danger">{errors.ex_currency.message}</p>}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="Type of goods">Exchange rate </label>
+                                    <input type="number" min="0" step="0.000001" ref={register({ required: addExchangeRate })} name="ex_rate" className="form-control" placeholder="Exchange rate" />
+                                    {errors.ex_rate && <p className="text-danger">{errors.ex_rate.message}</p>}
+                                </div>
+                            </div>
+                        </>}
                     </div>
                 </fieldset>
                 <fieldset className="w-auto p-2 border-form">
