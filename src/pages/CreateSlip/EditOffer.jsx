@@ -298,7 +298,7 @@ export default function InputOffer({ offer_id, toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Co-Insurance share (%)</label>
-                                <input type="number" min="0" step="0.000001" ref={register({ required: false })} name="co_insurance_share" className="form-control" placeholder="Co-Insurance share" />
+                                <input type="number" min="0" step="any" ref={register({ required: false })} name="co_insurance_share" className="form-control" placeholder="Co-Insurance share" />
                                 {errors.co_insurance_share && <p className="text-danger">{errors.co_insurance_share.message}</p>}
                             </div>
                         </div>
@@ -333,7 +333,7 @@ export default function InputOffer({ offer_id, toggle }) {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label htmlFor="Type of goods">Exchange rate {offer?.exchange_rate?.ex_rate} </label>
-                                    <input type="number" min="0" step="0.000001" ref={register({ required: addExchangeRate ? true : false })} name="ex_rate" className="form-control" placeholder="Exchange rate" />
+                                    <input type="number" min="0" step="any" ref={register({ required: addExchangeRate ? true : false })} name="ex_rate" className="form-control" placeholder="Exchange rate" />
                                     {errors.ex_rate && <p className="text-danger">{errors.ex_rate.message}</p>}
                                 </div>
                             </div>

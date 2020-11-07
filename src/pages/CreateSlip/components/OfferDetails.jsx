@@ -61,7 +61,7 @@ const OfferDetails = ({ data }) => {
                         <OfferDeatilsRow label="Fac. Offer" value={`${data?.findSingleOffer?.facultative_offer}%`} />
                         <OfferDeatilsRow label="Brokerage" value={`${data?.findSingleOffer?.brokerage}%`} />
                         <OfferDeatilsRow label="Premium"
-                            value={`${data?.findSingleOffer?.offer_detail.currency} 
+                            value={`${data?.findSingleOffer?.exchange_rate?.ex_currency || data?.findSingleOffer?.offer_detail.currency} 
                                 ${data?.findSingleOffer?.premium.toLocaleString(
                                 undefined,
                                 { maximumFractionDigits: 2 }
@@ -82,7 +82,7 @@ const OfferDetails = ({ data }) => {
                             )}`} />
                         <OfferDeatilsRow
                             label="Fac. Premium"
-                            value={`${data?.findSingleOffer?.offer_detail.currency} 
+                            value={`${data?.findSingleOffer?.exchange_rate?.ex_currency || data?.findSingleOffer?.offer_detail.currency} 
                                 ${data?.findSingleOffer?.fac_premium.toLocaleString(
                                 undefined,
                                 { maximumFractionDigits: 2 }

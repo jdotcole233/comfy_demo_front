@@ -235,7 +235,7 @@ const ReinsurerListing = ({ data, state, user }) => {
                             <div className="row pl-3 pr-3 d-flex justify-content-between">
                                 <h5 style={{ fontSize: 12, color: "red" }}>
                                     Current Fac. Offer :{" "}
-                                    {showingFacOffer.toFixed(5)}{" "}%
+                                    {showingFacOffer}{" "}%
                                 </h5>
 
                                 {data?.findSingleOffer?.placed_offer ? <UnplacedOffer offer={data?.findSingleOffer} remaining={showingFacOffer} /> :

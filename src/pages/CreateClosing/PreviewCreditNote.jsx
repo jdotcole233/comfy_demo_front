@@ -110,7 +110,7 @@ function PreviewCoverNote({ offer, reinsurer }) {
                                 <h3 className="dark-text">Currency:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{getCurrencyFullName(offer?.offer_detail.currency)}</h3>
+                                <h3 className="dark-text-value">{getCurrencyFullName(offer?.exchange_rate?.ex_currency || offer?.offer_detail.currency)}</h3>
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@ function PreviewCoverNote({ offer, reinsurer }) {
                                 <tr className="trial-balance-tr">
                                     <td className="balance">Balance Due to you </td>
                                     <td className="balance"></td>
-                                    <td className="balance">{offer?.offer_detail.currency} {reinsurer?.offer_amount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                    <td className="balance">{offer?.exchange_rate?.ex_currency || offer?.offer_detail.currency} {reinsurer?.offer_amount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                 </tr>
                             </tbody>
                         </table>
