@@ -25,7 +25,7 @@ const CommentChatBox = ({ onChange, comments, userComments, height = 400 }) => {
         <div style={{ width: "100%", backgroundColor: "#fff", height: height * 1.2, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div style={{ height, overflowY: "scroll" }} ref={chatBoxRef} className="border-form p-2">
                 {
-                    comments.map((comment, id) => <Pill comment={comment} key={id} />)
+                    comments?.map((comment, id) => <Pill comment={comment} key={id} />)
                 }
                 {userComments.map((comment, id) => <NewMessagePill comment={comment} key={id} />
                 )}

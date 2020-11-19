@@ -31,7 +31,7 @@ function Drawer({ children, containerStyles = {}, width, isvisible, toggle }) {
           onClick={handleToggle}
           style={{
             display: isvisible ? "block" : "none",
-            zIndex: 999,
+            zIndex: 3000,
             position: "fixed",
             right: 0,
             left: 0,

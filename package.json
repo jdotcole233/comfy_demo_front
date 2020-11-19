@@ -39,6 +39,7 @@
     "lodash": "^4.17.15",
     "mdbreact": "^4.25.6",
     "moment": "^2.27.0",
+    "node-sass": "4.14.1",
     "popper.js": "^1.16.1",
     "push.js": "^1.0.12",
     "pusher-js": "^6.0.3",
@@ -65,6 +66,7 @@
     "react-select-2": "^2.0.11",
     "react-summernote": "^2.0.0",
     "react-table": "^7.2.1",
+    "react-tabs": "^3.1.1",
     "react-to-print": "^2.9.0",
     "react-toast-notifications": "^2.4.0",
     "react-transition-group": "^4.4.1",
@@ -75,8 +77,9 @@
     "sweetalert2": "^9.14.4"
   },
   "scripts": {
+    "prebuild": "rm -rf build",
     "start": "react-scripts start",
-    "build": "rm -rf build && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postbuild": "cp src/assets/logoEmail.jpeg build/static/media"

@@ -4,7 +4,7 @@ import InputOffer from './InputOffer';
 import { useQuery } from 'react-apollo';
 import { OFFERS, ALLOFFERS } from '../../graphql/queries';
 import OfferButtons from './components/OfferButtons'
-import OfferListing from './OfferListing';
+import OfferListing from './OfferListingComponennt';
 import Header from './Header';
 import OfferOverView from './OfferOverView';
 import { columns } from './columns';

@@ -320,7 +320,7 @@ const OfferButtons = ({ offer }) => {
             {/* End of Modal for Reinsurer percentage */}
 
             {/* Preview Cover note */}
-            <Drawer width="50%" isvisible={showCoverNotePreview} toggle={() => setShowCoverNotePreview(!showCoverNotePreview)}>
+            <Drawer width="60%" isvisible={showCoverNotePreview} toggle={() => setShowCoverNotePreview(!showCoverNotePreview)}>
                 <PreviewCoverNote offer={selectedOffer} />
             </Drawer>
             {/* Send debit and credit  Note */}

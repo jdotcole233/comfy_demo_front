@@ -82,7 +82,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
 
     const handleChange = event => {
         const { name, value } = event.target;
-        if (name === "payment_amount" && (value > expectedAmtToBePaid || value < 0)) {
+        if (name === "payment_amount" && (value > expectedAmtToBePaid.toFixed(2) || value < 0)) {
             setAmountError(true);
         } else {
             setAmountError(false)
@@ -272,7 +272,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                             <div className="form-group">
                                 <label htmlFor="Amount">Amount</label>
                                 <input type="number" value={form_inputs.payment_amount} onChange={handleChange} name="payment_amount" className="form-control" placeholder="Amount" required />
-                                {amountError && <p className="text-danger">Please enter a value not less than 0 or greater than {expectedAmtToBePaid}</p>}
+                                {amountError && <p className="text-danger">Please enter a value not less than 0 or greater than {expectedAmtToBePaid.toFixed(2)}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
