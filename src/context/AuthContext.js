@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {createContext, useReducer, memo} from 'react';
+import React, { createContext, useReducer, memo, useContext } from 'react';
 import reducer from './AuthReducer';
-import {REFRESH, SIGNOUT} from './AuthActions';
+import { REFRESH, SIGNOUT } from './AuthActions';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
-import {useMutation} from 'react-apollo';
-import {LOGOUT} from '../graphql/mutattions/auth';
+import { useMutation } from 'react-apollo';
+import { LOGOUT } from '../graphql/mutattions/auth';
 import IdleTimer from 'react-idle-timer';
 
 const TIMEOUT = 60 * 1000 * 30;
@@ -16,16 +16,21 @@ const getUserData = () => {
 };
 
 export const setToken = (token, expires) =>
-  Cookies.set('visal_re_auth_token', token, {expires});
+  Cookies.set('visal_re_auth_token', token, { expires });
 
 
 export const AuthContext = createContext();
 
-export default memo(({children}) => {
+export function useAuth() {
+  return useContext(AuthContext);
+}
+
+
+export default memo(({ children }) => {
   const [logout] = useMutation(LOGOUT);
   const [state, dispatch] = useReducer(
     reducer,
-    {user: null, token: null},
+    { user: null, token: null },
     getUserData
   );
 
@@ -40,12 +45,12 @@ export default memo(({children}) => {
         },
         token: values.access_token,
       },
-      {expires: 0.5}
+      { expires: 0.5 }
     );
     dispatch({
       type: REFRESH,
       payload: {
-        user: {...values.user},
+        user: { ...values.user },
         token: values.access_token,
       },
     });
@@ -57,9 +62,9 @@ export default memo(({children}) => {
       .then((res) => {
         Cookies.remove('visal_re_auth');
         Cookies.remove('visal_re_auth_token');
-        dispatch({type: SIGNOUT});
+        dispatch({ type: SIGNOUT });
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const warn = () => {
@@ -90,6 +95,7 @@ export default memo(({children}) => {
         value={{
           state,
           dispatch,
+          user: state?.user,
           authenticate,
           signOut,
         }}

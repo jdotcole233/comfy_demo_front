@@ -7,11 +7,13 @@ import { MAKE_PAYMENT_INSURER, UPDATE_PAYMENT_INSURER } from '../../graphql/muta
 import { INSURER, INSURER_OFFERS } from '../../graphql/queries'
 import swal from 'sweetalert'
 import { DrawerContext } from '../../components/Drawer';
+import { useAuth } from '../../context/AuthContext'
 
 
 
 export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     const { closed } = useContext(DrawerContext);
+    const { user } = useAuth()
     const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0)
     const [amountError, setAmountError] = useState(false)
     const [form_inputs, setForm_inputs] = useState({
@@ -101,6 +103,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             offer_id: details?.offer_id,
             payment_amount: form_inputs.payment_amount,
             payment_details: JSON.stringify({
+                employee_id: user?.employee?.employee_id,
                 payment_type: form_inputs.payment_type,
                 payment_from: {
                     cheque_number: form_inputs.cheque_number ? form_inputs.cheque_number : "N/A",
@@ -154,6 +157,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             offer_id: details?.offer_id,
             payment_amount: form_inputs.payment_amount,
             payment_details: JSON.stringify({
+                employee_id: user?.employee?.employee_id,
                 payment_type: form_inputs.payment_type,
                 payment_from: {
                     cheque_number: form_inputs.cheque_number ? form_inputs.cheque_number : "N/A",
