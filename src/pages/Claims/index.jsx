@@ -205,7 +205,7 @@ function Claims() {
 
     const handleSendSingleClaimDebitNote = data => {
         setSelectedShare(data);
-        console.log(selectedOffer)
+        // console.log(selectedOffer)
         setShowClaimsModal(false);
         setViewDistribution(false)
         setShowSingleClaimSendBox(!showSingleClaimSendBox)

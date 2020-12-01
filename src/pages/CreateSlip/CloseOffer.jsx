@@ -32,7 +32,7 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
         if(reinsurers){
             const list = [];
             reinsurers.map((reinsurer) => {
-                console.log(reinsurer)
+                // console.log(reinsurer)
                 const row = {
                     name:reinsurer.reinsurer.re_company_name,
                     agreed_brokerage_percentage: 0,
@@ -77,10 +77,6 @@ export default function InputOffer({ reinsurers, toggle, offer_id, policy_number
                     ...el, 
                     agreed_commission: el.agreed_commission || offer_commission
                 };
-            })
-            console.log({
-                offer_id,
-                    data,
             })
             closeOffer({
                 variables:{

@@ -7,7 +7,7 @@ export const generateClaimsTable = ({
   handleViewMakeClaimDrawer,
 }) =>
   offers.map((offer) => ({
-    clickEvent: (e) => console.log(e.target),
+    // clickEvent: (e) => console.log(e.target),
     policy_number: offer.offer_detail?.policy_number,
     insured: offer.offer_detail?.insured_by,
     sum_insured:

@@ -12,7 +12,7 @@ import { Offers_Access } from './adminRoutes';
 const AdminContent = () => {
     const { state } = useContext(AuthContext);
 
-    console.log(Offers_Access.includes(state?.user?.position))
+    // console.log(Offers_Access.includes(state?.user?.position))
 
     const getRoutes = (routes) => {
         return routes.map((el, key) => {

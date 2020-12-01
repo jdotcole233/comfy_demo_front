@@ -94,7 +94,6 @@ function AddInsurer({ edit, toggle, data, closed }) {
             })
                 .catch(err => {
                     if (err) {
-                        // console.log(err.message.replace("GraphQL error:",""))
                         swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
@@ -124,7 +123,6 @@ function AddInsurer({ edit, toggle, data, closed }) {
             })
                 .catch(err => {
                     if (err) {
-                        console.log(err.getMessage())
                         swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();

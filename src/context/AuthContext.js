@@ -36,7 +36,7 @@ export default memo(({ children }) => {
 
   const authenticate = async (values, referrer = '/admin/') => {
     setToken(values.access_token, 0.5);
-    console.log(values);
+    // console.log(values);
     await Cookies.set(
       'visal_re_auth',
       {

@@ -40,8 +40,6 @@ export default memo(() => {
             },
             updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult) return prev;
-                console.log("Prev", prev.offers_all.offers)
-                console.log("Now", fetchMoreResult.offers_all.offers)
                 fetchMoreResult.offers_all.offers = [
                     ...prev.offers_all.offers,
                     ...fetchMoreResult.offers_all.offers

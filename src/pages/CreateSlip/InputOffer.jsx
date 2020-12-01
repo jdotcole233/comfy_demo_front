@@ -83,7 +83,6 @@ export default function InputOffer({ toggle }) {
 
     useEffect(() => {
         if (editData) {
-            console.log(editData.insurer)
             setValue("policy_number", editData?.policy_number)//insurance_company
             setValue("insurer_id", editData?.insurer_id)//insurance_company
             setValue("class_of_business_id", editData?.class_of_business_id)//insurance_company

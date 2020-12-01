@@ -47,7 +47,6 @@ export default function InputOffer({ offer_id, toggle }) {
 
     useEffect(() => {
         if (_offer) {
-            console.log(offer)
             setAddExchangeRate(offer.exchange_rate ? true : false);
             setValue("policy_number", offer.offer_detail?.policy_number)//insurance_company
             setValue("insurer_id", offer.insurer?.insurer_id)//insurance_company
@@ -144,7 +143,6 @@ export default function InputOffer({ offer_id, toggle }) {
     }
 
     const handleCreateOffer = values => {
-        console.log(offerDetails);
         const variables = {
             offer_id: offer?.offer_id,
             offer_detail_id: offer?.offer_detail?.offer_detail_id,

@@ -61,7 +61,6 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
         switch (event.key) {
             case 'Enter':
             case 'Tab':
-                console.log(copiedMails);
                 setInputvalue("");
                 setCopiedMails([...copiedMails, createOption(inputvalue)])
                 event.preventDefault();
@@ -102,7 +101,6 @@ function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, no
         } else {
             setContentError(false);
         }
-        console.log(copied_emails);
         // return;
         const data = {
             offer_id,

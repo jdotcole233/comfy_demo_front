@@ -30,7 +30,6 @@ function AddManager({ details, toggle, closed }) {
 
     useEffect(() => {
         if (details) {
-            console.log(details)
             setValue("insurer_id", details.insurer_id)
         }
     }, [details])
@@ -43,7 +42,6 @@ function AddManager({ details, toggle, closed }) {
 
 
     const handleAddManager = values => {
-        console.log(values)
         swal({
             closeOnClickOutside: false,
             closeOnEsc: false,
