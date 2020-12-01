@@ -18,7 +18,7 @@ const EmailComponent = ({ data }) => {
   return (
     <div className="container-fluid">
       <div className="row alert alert-warning">
-        {JSON.parse(data.system_notification.notification_content).message}
+        {JSON.parse(data?.system_notification?.notification_content)?.message}
       </div>
       <div className="row">
         <table className="table table-borderless">
@@ -51,14 +51,14 @@ const EmailComponent = ({ data }) => {
                 <strong>To</strong>
               </td>
               <td>
-                {email?.recipient?.company_name || email?.recipient?.re_company_name} {`<${email?.recipient.email || email?.recipient?.associate_email.join(", ")}>`}
+                {email?.recipient?.company_name || email?.recipient?.re_company_name} {`<${email?.recipient?.email || email?.recipient?.associate_email?.join(", ")}>`}
               </td>
             </tr>
             <tr>
               <td>
                 <strong>Cc</strong>
               </td>
-              <td>{email?.other_recipients.join(", ")}</td>
+              <td>{email?.other_recipients?.join(", ")}</td>
             </tr>
           </tbody>
         </table>

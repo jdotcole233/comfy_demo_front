@@ -65,7 +65,7 @@ const Profile = () => {
                                         <div className="col-7">
                                             <div className="text-primary p-3">
                                                 <h5 className="text-primary">Welcome Back !</h5>
-                                                <p>Visal-RE Dashboard</p>
+                                                <p>KEK-Re Dashboard</p>
                                             </div>
                                         </div>
                                         <div className="col-5 align-self-end">

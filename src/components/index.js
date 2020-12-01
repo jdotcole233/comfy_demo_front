@@ -1,24 +1,28 @@
-import React from "react";
+import React from 'react';
 import {
   MDBModalBody as ModalBody,
   MDBModalHeader as ModalHeader,
-} from "mdbreact";
-import { Modal } from "react-bootstrap";
-import { useState, useEffect } from "react";
+} from 'mdbreact';
+import {Modal} from 'react-bootstrap';
+import {useState, useEffect} from 'react';
+import currencies from '../assets/currencies.json'
 
-export { default as Drawer } from "./Drawer";
-export { default as CurrencyValues } from "./CurrencyValues";
-export { default as Dropzone } from "./DropZone";
-export { default as Datatable } from "./DataTable";
-export { default as SummerNote } from "./SummerNote";
-export { default as Select } from "./Selectize";
-export { default as Selector } from "./Select";
-export { default as Loader } from "./Loader";
-export { default as NoData } from "./Nodata";
-export { Modal, ModalBody, ModalHeader };
+
+export {default as Drawer} from './Drawer';
+export {default as CurrencyValues} from './CurrencyValues';
+export {default as Dropzone} from './DropZone';
+export {default as Datatable} from './DataTable';
+export {default as SummerNote} from './SummerNote';
+export {default as Select} from './Selectize';
+export {default as Selector} from './Select';
+export {default as Loader} from './Loader';
+export {default as NoData} from './Nodata';
+export {default as OverViewCard} from './OverViewCard';
+export {default as Editor} from './Editor';
+export {Modal, ModalBody, ModalHeader};
 
 function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
+  const {innerWidth: width, innerHeight: height} = window;
   return {
     width,
     height,
@@ -35,8 +39,8 @@ export const useWindowDimensions = () => {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return windowDimensions;
@@ -56,7 +60,6 @@ export function chunkArray(myArray, chunk_size) {
 
   for (index = 0; index < arrayLength; index += chunk_size) {
     const myChunk = myArray.slice(index, index + chunk_size);
-    // Do something if you want with the group
     tempArray.push(myChunk);
   }
 
@@ -78,7 +81,7 @@ export const InsurerOption = ({
       </div>
       <div className="col-md-4 d-flex justify-content-end">
         <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
-          {value.insurer_abbrv || "NA"}
+          {value.insurer_abbrv || 'NA'}
         </span>
       </div>
     </div>
@@ -95,7 +98,7 @@ export const CurrencyOption = ({
     <div {...innerProps} className="row p-2">
       <div className="col-md-2">
         <span className="d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-12">
-          {value.symbol || "NA"}
+          {value.symbol || 'NA'}
         </span>
       </div>
       <div className="col-md-8">
@@ -103,3 +106,30 @@ export const CurrencyOption = ({
       </div>
     </div>
   ) : null;
+
+export const ReinsurerOption = ({
+  innerProps,
+  isSelected,
+  isDisabled,
+  label,
+  value,
+}) =>
+  !isDisabled && !isSelected ? (
+    <div {...innerProps} className="row p-2">
+      <div className="col-md-8">
+        <h4>{label}</h4>
+        <p>{value.re_company_email}</p>
+      </div>
+      <div className="col-md-4 d-flex justify-content-end">
+        <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
+          {value.re_abbrv || 'NA'}
+        </span>
+      </div>
+    </div>
+  ) : null;
+
+export const generateNewCulumns = (list, exclude) =>
+  list.filter((item) => !exclude.includes(item.field));
+
+
+  export const getCurrencyFullName = (currency) => currencies[currency]?.name

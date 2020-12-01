@@ -13,17 +13,17 @@ const NotificationMiniCard = ({ notification }) => {
             <div className="media">
                 <div className="avatar-xs mr-3">
                     <span className="avatar-title bg-primary rounded-circle font-size-16">
-                        <i className={`bx bx-${notification.system_notification.notification_type.includes("SYSTEM") ? "cog" : "bell"}`}></i>
+                        <i className={`bx bx-${notification?.system_notification?.notification_type?.includes("SYSTEM") ? "cog" : "bell"}`}></i>
                     </span>
                 </div>
                 <div className="media-body">
-                    <h6 className="mt-0 mb-1 truncate">{JSON.parse(notification.system_notification.notification_content).title}</h6>
+                    <h6 className="mt-0 mb-1 truncate">{JSON.parse(notification?.system_notification?.notification_content || null)?.title}</h6>
                     <div className="font-size-12 text-muted">
                         <p className="mb-1 truncate" style={{ textOverflow: "elipsis" }}>
-                            {JSON.parse(notification.system_notification.notification_content).message}
+                            {JSON.parse(notification?.system_notification?.notification_content || null)?.message}
                         </p>
                         <p className="mb-0">
-                            <i className="mdi mdi-clock-outline"></i> {" " + moment(notification.system_notification.created_at).fromNow()}
+                            <i className="mdi mdi-clock-outline"></i> {" " + moment(notification?.system_notification?.created_at).fromNow()}
                         </p>
                     </div>
                 </div>

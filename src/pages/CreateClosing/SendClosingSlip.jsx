@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
 import React, { useState, useContext, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
-import JoditEditor from "jodit-react";
 import { useMutation, useQuery } from 'react-apollo';
-import { Selector } from '../../components'
+import { Editor, Selector } from '../../components'
 import { SEND_CLOSING_SLIP } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { useForm } from 'react-hook-form';
@@ -27,7 +27,7 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
     const [copiedMails, setCopiedMails] = useState([])
     const [selectedableEmail, setSelectedableEmail] = useState([])
     const [content, setContent] = useState("")
-    const [emails, setEmails] = useState("")
+    // const [emails, setEmails] = useState("")
     const { data: employees, loading } = useQuery(EMPLOYEES)
 
     const [sendmail] = useMutation(SEND_CLOSING_SLIP);
@@ -44,7 +44,7 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
         if (closed) {
             reset();
             setContent("");
-            setEmails("");
+            // setEmails("");
         }
     }, [closed, reset])
 
@@ -64,34 +64,19 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
         setInputvalue(event)
     }
 
-    const validateEmails = emails => {
-        let flag = true;
-        for (let index = 0; index < emails.length; index++) {
-            const element = emails[index];
-            if (emailRegex.test(element)) {
-                flag = flag && true;
-            } else {
-                flag = flag && false;
-            }
+    const validateEmails = emails => emails.every(email => emailRegex.test(email.value))
+
+
+    const handleCopiedmailChange = value => setCopiedMails(value ? value : [])
+
+
+    useEffect(() => {
+        if (copiedMails && copiedMails.length) {
+            const validEmails = validateEmails(copiedMails);
+            validEmails ? clearError("copied_emails") : setError("copied_emails", "pattern", "Provide valid mails")
         }
+    }, [copiedMails])
 
-        return flag;
-    }
-
-    const handleCopiedmailChange = value => {
-        setCopiedMails(value ? value : [])
-        handleEmailChange(value)
-    }
-
-    const handleEmailChange = emails => {
-        const validEmails = emails.length ? validateEmails(emails) : false;
-        if (!validEmails) {
-            setError("copied_emails", "pattern", "Provide valid mails")
-        } else {
-            clearError("copied_emails")
-        }
-        setEmails(emails)
-    }
 
     const handleSubmitSendMail = ({ subject, copied_emails }) => {
         if (content.length < 1) {
@@ -105,7 +90,7 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
             offer_id: offer?.offer_id,
             message_content: content,
             subject,
-            copied_emails: emails.length ? [...copiedMails.map(e => e.label)] : [],
+            copied_emails: [...copiedMails.map(e => e.label)],
         };
         swal({
             closeOnClickOutside: false,
@@ -118,13 +103,13 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
             sendmail({
                 variables: { data }
             }).then(res => {
-                swal("Hurray!!", "Mail sent successfully", 'success');
+                swal("Success", "Mail sent successfully", 'success');
                 setContent("");
                 reset();
                 toggle();
             }).catch(err => {
                 if (err) {
-                    console.log(err)
+                    // console.log(err)
                     swal("Oh noes!", "The AJAX request failed!", "error");
                 } else {
                     swal.stopLoading();
@@ -154,14 +139,15 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
                     <label className="col-form-label col-lg-2">CC</label>
                     <div className="col-lg-10">
                         <Selector inputValue={inputvalue} onInputChange={handleInputChange} isMulti value={copiedMails} isLoading={loading} onChange={handleCopiedmailChange} onKeyDown={handleKeyDown} options={selectedableEmail} />
-                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} onChange={handleEmailChange} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
+                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
                         {errors.copied_emails && <p className="text-danger">{errors.copied_emails.message}</p>}
                     </div>
                 </div>
                 <div className="form-group row mb-4">
                     <label className="col-form-label col-lg-2">Message</label>
                     <div className="col-lg-10">
-                        <JoditEditor value={content} onChange={value => setContent(value)} />
+                        {/* <JoditEditor value={content} onChange={value => setContent(value)} /> */}
+                        <Editor value={content} onChange={value => setContent(value)} />
                     </div>
                     <div className="col-md-2"></div>
                     <div className="col-md-10">

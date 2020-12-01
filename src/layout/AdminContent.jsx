@@ -6,10 +6,13 @@ import ConnectionDetector from "../components/ConnectionDetector";
 import Dashboard from "../pages/Dashboard";
 import Zoom from "react-reveal/Reveal";
 import { AuthContext } from "../context/AuthContext";
+import { Offers_Access } from './adminRoutes';
 
 
 const AdminContent = () => {
     const { state } = useContext(AuthContext);
+
+    // console.log(Offers_Access.includes(state?.user?.position))
 
     const getRoutes = (routes) => {
         return routes.map((el, key) => {
@@ -32,14 +35,14 @@ const AdminContent = () => {
     };
 
     return (
-        <div className="main-content">
+        <div className="main-content bg-layout">
             {/* Main Content */}
             <Suspense fallback={<div> loading </div>}>
                 <ConnectionDetector />
                 <Switch>
                     <Private exact path="/" component={Dashboard} />
                     {getRoutes(routes)}
-                    <Route component={Dashboard} />
+                    <Route component={null} />
                 </Switch>
             </Suspense>
 
@@ -48,8 +51,8 @@ const AdminContent = () => {
                     <div className="row">
                         <div className="col-sm-6">
                             {new Date().getFullYear()}©
-                  KEK Insurance group
-                </div>
+                            KEK Reinsurance Brokers Ltd
+                        </div>
                         <div className="col-sm-6"></div>
                     </div>
                 </div>

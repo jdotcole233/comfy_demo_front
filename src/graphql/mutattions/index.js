@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const CREATE_CLASS_OF_BUSINESS = gql`
   mutation createClassOfBusiness(
@@ -114,7 +114,8 @@ export const CREATE_INPUT_OFFER = gql`
     $class_of_business_id: ID!
     $insurer_id: ID!
     $employee_id: ID!
-    $rate: Float!
+    $co_insurance_share: Float
+    $rate: Float
     $commission: Float!
     $brokerage: Float!
     $facultative_offer: Float!
@@ -125,8 +126,11 @@ export const CREATE_INPUT_OFFER = gql`
     $period_of_insurance_from: Date!
     $period_of_insurance_to: Date!
     $currency: String!
+    $ex_rate: Float
+    $ex_currency: String
     $offer_comment: String
     $offer_details: String!
+    $information_comment: String
   ) {
     createInputOffer(
       offer_input: {
@@ -144,8 +148,12 @@ export const CREATE_INPUT_OFFER = gql`
         period_of_insurance_from: $period_of_insurance_from
         period_of_insurance_to: $period_of_insurance_to
         currency: $currency
+        ex_rate: $ex_rate
+        ex_currency: $ex_currency
         offer_comment: $offer_comment
         offer_details: $offer_details
+        information_comment: $information_comment
+        co_insurance_share: $co_insurance_share
       }
     ) {
       rate
@@ -165,10 +173,7 @@ export const CREATE_DISTRIBUTION_LIST = gql`
     $reinsurer_reps: [Reinsurer_representative_data!]!
   ) {
     createDistributionList(
-      distribution_list: {
-        offer_id: $offer_id
-        reinsurer_reps: $reinsurer_reps
-      }
+      distribution_list: {offer_id: $offer_id, reinsurer_reps: $reinsurer_reps}
     )
   }
 `;
@@ -200,11 +205,13 @@ export const ADD_PERCENTAGE = gql`
     $offer_participant_id: ID!
     $offer_id: ID!
     $percentage: Float!
+    $reopen: Boolean
   ) {
     addPrecentageToParticipant(
       offer_participant_id: $offer_participant_id
       offer_id: $offer_id
       participating_percentage: $percentage
+      reopen: $reopen
     ) {
       offer_amount
     }
@@ -214,7 +221,7 @@ export const ADD_PERCENTAGE = gql`
 export const CLOSE_OFFER = gql`
   mutation closeOffer($offer_id: ID!, $data: [Reinsurer_extra_charge!]!) {
     createClosingForOffer(
-      extra_charges: { offer_id: $offer_id, reinsurer_data: $data }
+      extra_charges: {offer_id: $offer_id, reinsurer_data: $data}
     ) {
       nic_levy_amount
     }
@@ -255,9 +262,7 @@ export const CREATE_INSURER = gql`
         region: $region
         country: $country
       }
-    ) {
-      insurer_id
-    }
+    )
   }
 `;
 
@@ -422,24 +427,38 @@ export const UPDATE_CLAIM_AMOUNT = gql`
   }
 `;
 
+export const PLACE_OFFER = gql`
+  mutation placeOffer($offer_id: ID, $placed_offer: Float) {
+    placeOfferAt(offer_id: $offer_id, placed_offer: $placed_offer)
+  }
+`;
+
+export const UNPLACE_OFFER = gql`
+  mutation unplaceOffer($offer_id: ID) {
+    unplaceOfferPlaced(offer_id: $offer_id)
+  }
+`;
+
 export const SEND_CLAIM_DEBIT_NOTE = gql`
   mutation sendClaim(
-  $offer_claim_participant_id: ID!
-  $offer_id: ID!
-  $reinsurer_id: ID!
-  $subject: String
-  $copied_emails: [String]
-  $message_content: String
-) {
-  sendClaimDebitNote(
-    offer_claim_participant_id: $offer_claim_participant_id
-    offer_id: $offer_id
-    reinsurer_id: $reinsurer_id
-    subject: $subject
-    copied_emails: $copied_emails
-    message_content: $message_content
-  )
-}
+    $offer_claim_participant_id: ID!
+    $offer_id: ID!
+    $reinsurer_id: ID!
+    $subject: String
+    $copied_emails: [String]
+    $message_content: String
+    $attachments: [Upload]
+  ) {
+    sendClaimDebitNote(
+      attachments: $attachments
+      offer_claim_participant_id: $offer_claim_participant_id
+      offer_id: $offer_id
+      reinsurer_id: $reinsurer_id
+      subject: $subject
+      copied_emails: $copied_emails
+      message_content: $message_content
+    )
+  }
 `;
 
 export const UPDATE_EXTRA_CHARGE = gql`
@@ -453,5 +472,21 @@ export const UPDATE_EXTRA_CHARGE = gql`
       participant_id: $participatant_id
       extra_charge: $data
     )
+  }
+`;
+
+export const OFFER_APPROVAL = gql`
+  mutation approveOffer($offer_id: ID, $status: String, $messages: [String]) {
+    setApprovalStatus(
+      offer_id: $offer_id
+      approval_status: $status
+      document_message: $messages
+    )
+  }
+`;
+
+export const MAKE_COMMENT = gql`
+  mutation comment($id: ID, $messages: [String]) {
+    publishCommentOnDocument(offer_id: $id, document_message: $messages)
   }
 `;

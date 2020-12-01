@@ -11,9 +11,12 @@ import ViewinsurerOffer from '../ViewInsurerOffer'
 import { AddPayments } from '../AddPayments'
 import DistributePayment from '../DistributePayment'
 import { BASE_URL_LOCAL } from '../../../graphql'
+import { useContext } from 'react'
+import { AuthContext } from '../../../context/AuthContext'
 
 
 const Offerbuttons = ({ offer, state, insurer }) => {
+    const { state: ctx } = useContext(AuthContext)
     const [viewOffer, setViewOffer] = useState(false)
     const [paymentsModal, setPaymentsModal] = useState(false)
     const [addPaymentDrawer, setAddPaymentDrawer] = useState(false)
@@ -60,6 +63,20 @@ const Offerbuttons = ({ offer, state, insurer }) => {
         }))}`, "_blank");
     }
 
+    const handlePaymentSchedule = (payment, id) => {
+
+        // alert(payment.offer_payment_id)
+        const ids = selectedOFfer.offer_payment.slice(id, selectedOFfer.offer_payment.length).map(el => el.offer_payment_id);
+        // alert(JSON.stringify(ids));
+        // return
+
+        window.open(`${BASE_URL_LOCAL}/payment_schedule/${btoa(JSON.stringify({
+            offer_id: selectedOFfer?.offer_id,
+            payment_id: JSON.stringify(ids),
+            insurer_id: state?.insurer_id
+        }))}`, "_blank");
+    }
+
 
     useEffect(() => {
         if (selectedOFfer) {
@@ -82,7 +99,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
     useEffect(() => {
         if (selectedOFfer) {
             const rows = [];
-            selectedOFfer.offer_payment.map((payment) => {
+            selectedOFfer.offer_payment.map((payment, key) => {
                 const obj = JSON.parse(payment.payment_details);
                 const row = {
                     type: obj.payment_type === "Cheque" ? obj.payment_type + " - " + obj.payment_from.cheque_number + " " : obj.payment_type,
@@ -94,8 +111,9 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                     actions: (
                         <>
                             <button onClick={() => handleShowEditpaymentDrawer(payment)} className="btn btn-sm w-md btn-info mr-1">View</button>
-                            <button onClick={() => handleRemovePayment(payment)} className="btn btn-sm w-md btn-danger ">Remove</button>
-                            <button onClick={() => handleGenerateReceipt(payment)} className="btn btn-sm btn-success w-md mt-1">Generate Receipt</button>
+                            <button onClick={() => handleRemovePayment(payment)} className="btn btn-sm w-md btn-danger mr-1">Remove</button>
+                            <button onClick={() => handlePaymentSchedule(payment, key)} className="btn btn-sm btn-success w-md mt-1 mr-1">Payment Schedule</button>
+                            <button onClick={() => handleGenerateReceipt(payment)} className="btn btn-sm btn-warning w-md mt-1">Generate Receipt</button>
                         </>
                     )
                 }
@@ -129,7 +147,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                     id: payment.offer_payment_id
                 }
             }).then(res => {
-                swal("Hurray", "Payment record removed successfully", "success");
+                swal("Success", "Payment record removed successfully", "success");
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
@@ -145,9 +163,14 @@ const Offerbuttons = ({ offer, state, insurer }) => {
     return (
         <div>
             <>
-                <button onClick={() => handleViewOfferDetails(offer)} className="btn btn-sm btn-primary m-1">View Offer</button>
-                {offer?.offer_status === "CLOSED" && <button onClick={() => handleViewOfferPayments(offer)} className="btn btn-sm btn-danger m-1">Payments</button>}
-                {offer?.offer_status === "CLOSED" &&
+                {
+                    ['CEO',
+                        'General Manager',
+                        'Senior Broking Officer',
+                        'Finance Executive',
+                        'System Administrator',].includes(ctx?.user?.position) && <button onClick={() => handleViewOfferDetails(offer)} className="btn btn-sm btn-primary m-1">View Offer</button>}
+                {['Finance Executive'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" && <button onClick={() => handleViewOfferPayments(offer)} className="btn btn-sm btn-danger m-1">Payments</button>}
+                {['Finance Executive'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" &&
                     <button button onClick={() => handleViewDistributePayments(offer)} className="btn btn-sm btn-success m-1">Distribute Payment</button>
                 }
             </>
@@ -160,7 +183,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
             </Drawer>
             {/* / end of View Offer Drawer */}
 
-            
+
 
             {/* payments modal */}
             <Modal size="xl" show={paymentsModal} onHide={() => setPaymentsModal(!paymentsModal)}>
@@ -175,7 +198,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                                 setAddPaymentDrawer(!addPaymentDrawer)
                             }} className="btn btn-sm w-md btn-primary">Add Payment</button> : null}
                     </div>
-                    <Datatable columns={paymentsColumns} data={payments} />
+                    <Datatable entries={5} columns={paymentsColumns} data={payments} />
                 </Modal.Body>
             </Modal>
             {/* /end of payments modal */}

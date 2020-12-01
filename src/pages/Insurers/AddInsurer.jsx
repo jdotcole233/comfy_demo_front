@@ -9,7 +9,7 @@ import { useMutation, useQuery } from 'react-apollo'
 import { CREATE_INSURER, UPDATE_INSURER } from '../../graphql/mutattions'
 import { INSURERS, INSURER, REINSURERS } from '../../graphql/queries'
 import swal from 'sweetalert'
-import { DrawerContext } from '../../components/Drawer';
+// import { DrawerContext } from '../../components/Drawer';
 import { AuthContext } from '../../context/AuthContext'
 import { editAccessRoles } from '../../layout/adminRoutes'
 
@@ -18,10 +18,11 @@ import { editAccessRoles } from '../../layout/adminRoutes'
 
 
 
-function AddInsurer({ edit, toggle, data }) {
-    const { closed } = useContext(DrawerContext);
+function AddInsurer({ edit, toggle, data, closed }) {
+    // const { closed } = useContext(DrawerContext);
     const { state: { user } } = useContext(AuthContext)
     const { data: reinsurers } = useQuery(REINSURERS);
+    const [choice, setChoice] = useState("")
     const { register, errors, handleSubmit, reset, setValue } = useForm()
     const [countries, setCountries] = useState([]);
     const [selectedReinsurer, setSelectedReinsurer] = useState(null)
@@ -29,6 +30,7 @@ function AddInsurer({ edit, toggle, data }) {
     useEffect(() => {
         if (closed) {
             reset();
+            setChoice("")
         }
     }, [closed, reset])
 
@@ -92,8 +94,7 @@ function AddInsurer({ edit, toggle, data }) {
             })
                 .catch(err => {
                     if (err) {
-                        console.log(err)
-                        swal("Oh noes!", "The AJAX request failed!", "error");
+                        swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
                         swal.close();
@@ -122,8 +123,7 @@ function AddInsurer({ edit, toggle, data }) {
             })
                 .catch(err => {
                     if (err) {
-                        console.log(err)
-                        swal("Oh noes!", "The AJAX request failed!", "error");
+                        swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
                         swal.close();
@@ -166,15 +166,106 @@ function AddInsurer({ edit, toggle, data }) {
             </div>
         ) : null;
 
+
+    const Form = (
+        <div className="col-md-12">
+            <fieldset className="border-form p-2">
+                <legend className="w-auto" style={{ fontSize: 16 }}>{!edit ? "Create new insurer" : "Edit insurer"}</legend>
+                <div className="row" >
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label htmlFor="">Company name</label>
+                            <input name="insurer_company_name" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Company name" />
+                            {errors.insurer_company_name && <p className="text-danger">{errors.insurer_company_name.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label htmlFor="">Email</label>
+                            <input name="insurer_company_email" ref={register({
+                                required: "Required", pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                    message: "Invalid email address"
+                                }
+                            })} type="email" className="form-control" placeholder="Email" />
+                            {errors.insurer_company_email && <p className="text-danger">{errors.insurer_company_email.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label htmlFor="">Website</label>
+                            <input name="insurer_company_website" ref={register({ required: false })} type="text" className="form-control" placeholder="Website" />
+                            {errors.insurer_company_website && <p className="text-danger">{errors.insurer_company_website.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label htmlFor="">Street Address</label>
+                            <input name="street" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Street Address" />
+                            {errors.street && <p className="text-danger">{errors.street.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label htmlFor="">Suburb/city</label>
+                            <input name="suburb" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Suburb" />
+                            {errors.suburb && <p className="text-danger">{errors.suburb.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label htmlFor="">Region/State</label>
+                            <input name="region" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Region" />
+                            {errors.region && <p className="text-danger">{errors.region.message}</p>}
+                        </div>
+                    </div>
+                    <div className="col-md-12">
+                        <div className="form-group">
+                            <label htmlFor="">Country</label>
+                            <input ref={register({
+                                required: "Required"
+                            })} type="text" name="country" list="movies" placeholder="Country" className="form-control" />
+                            {errors.country && <p className="text-danger">{errors.country.message}</p>}
+
+                            <datalist id="movies">
+                                <select name="movies" className="form-control">
+                                    {countries.map((country, key) => (
+                                        <option key={key} value={country.label} />
+                                    ))}
+                                </select>
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    )
+
     return (
         <form onSubmit={handleSubmit(!edit ? handleAddInsurer : handleUpdateInsurer)}>
-            <div className="row">
+            <div className="">
                 <div className="form-group">
                     <h3 className="modal-title">{!edit ? "Add" : "Edit"} Insurer</h3>
                 </div>
+                {/* <div className="row"> */}
+                <div className="">
+                    <fieldset className="border-form p-2 mb-2">
+                        <legend className="w-auto" style={{ fontSize: 16 }}>Choose action</legend>
+                        <div className="form-group">
+                            <select name="" id="" value={choice} onChange={evt => { setChoice(evt.target.value); setSelectedReinsurer(null) }} className="form-control">
+                                <option value="">Choose one</option>
+                                <option value="new">Create new</option>
+                                <option value="old">Add from list</option>
+                            </select>
+                            {/* {errors.insurer_company_name && <p className="text-danger">{errors.insurer_company_name.message}</p>} */}
+                        </div>
+                    </fieldset>
+                </div>
+                {/* </div> */}
                 <div className="row">
-                    {!edit && <div className="col-md-12">
-                        <fieldset className="border p-2 mb-2">
+
+                    {!edit && choice === "old" && <div className="col-md-12">
+                        <fieldset className="border-form p-2 mb-2">
                             <legend className="w-auto" style={{ fontSize: 16 }}>Add from list</legend>
                             <Alert variant="danger">
                                 <strong>Select a Reinsurance company from the list to add as an insurer</strong>
@@ -182,83 +273,14 @@ function AddInsurer({ edit, toggle, data }) {
                             <Selector components={{ Option: CustomOption }} onChange={handleGetReinsurer} options={reinsurersData} />
                         </fieldset>
                     </div>}
-                    <div className="col-md-12">
-                        <fieldset className="border p-2">
-                            <legend className="w-auto" style={{ fontSize: 16 }}>{!edit ? "Create new insurer" : "Edit insurer"}</legend>
-                            <div className="row" >
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Company name</label>
-                                        <input name="insurer_company_name" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Company name" />
-                                        {errors.insurer_company_name && <p className="text-danger">{errors.insurer_company_name.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label htmlFor="">Email</label>
-                                        <input name="insurer_company_email" ref={register({
-                                            required: "Required", pattern: {
-                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                                message: "Invalid email address"
-                                            }
-                                        })} type="email" className="form-control" placeholder="Email" />
-                                        {errors.insurer_company_email && <p className="text-danger">{errors.insurer_company_email.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label htmlFor="">Website</label>
-                                        <input name="insurer_company_website" ref={register({ required: false })} type="text" className="form-control" placeholder="Website" />
-                                        {errors.insurer_company_website && <p className="text-danger">{errors.insurer_company_website.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Street Address</label>
-                                        <input name="street" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Street Address" />
-                                        {errors.street && <p className="text-danger">{errors.street.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Suburb/city</label>
-                                        <input name="suburb" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Suburb" />
-                                        {errors.suburb && <p className="text-danger">{errors.suburb.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Region/State</label>
-                                        <input name="region" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Region" />
-                                        {errors.region && <p className="text-danger">{errors.region.message}</p>}
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="">Country</label>
-                                        <input ref={register({
-                                            required: "Required"
-                                        })} type="text" name="country" list="movies" placeholder="Country" className="form-control" />
-                                        {errors.country && <p className="text-danger">{errors.country.message}</p>}
-
-                                        <datalist id="movies">
-                                            <select name="movies" className="form-control">
-                                                {countries.map((country, key) => (
-                                                    <option key={key} value={country.label} />
-                                                ))}
-                                            </select>
-                                        </datalist>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div className="col-md-12 mt-2">
+                    {choice === "old" && selectedReinsurer && Form}
+                    {choice === "new" && Form}
+                    {(choice || selectedReinsurer) && <div className="col-md-12 mt-2">
                         <div className="form-group d-flex justify-content-end">
                             {!edit && <button type="submit" className="btn btn-sm btn-primary w-md">Add Insurer</button>}
                             {editAccessRoles.includes(user?.position) && edit && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Insurer</button>}
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </form>

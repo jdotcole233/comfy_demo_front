@@ -42,7 +42,7 @@ const Login = () => {
                             <div className="col-7">
                                 <div className="text-primary p-4">
                                     <h5 className="text-primary">Welcome Back !</h5>
-                                    <p>Sign in to continue to Visal Re-Dashboard.</p>
+                                    <p>Sign in to continue to KEK Re-Dashboard.</p>
                                 </div>
                             </div>
                             <div className="col-5 align-self-end">
@@ -58,13 +58,14 @@ const Login = () => {
 
                         <div>
                             <a href="index.html">
-                                <div className="avatar-md profile-user-wid mb-4">
+                                <div className="avatar-xl profile-user-wid mb-4">
                                     <span className="avatar-title rounded-circle bg-white">
                                         <img
-                                            src={require("../../assets/visal-sm-logo.png")}
+                                            src={require("../../assets/visal-sm-logo.jpeg")}
                                             alt=""
-                                            className="rounded-circle"
-                                            height="34"
+                                            // className="rounded-circle"
+                                            height="44"
+                                            width="100"
                                         />
                                     </span>
                                 </div>
@@ -72,7 +73,7 @@ const Login = () => {
                         </div>
                         <div className="p-2">
                             {state?.changed_password && <div className="container alert alert-success font-size-14 text-center" >
-                                Password Changed SuccessFully. Login to access the Visal-Re Dashboard
+                                Password Changed SuccessFully. Login to access the KEK-Re Dashboard
                         </div>}
                             <form
                                 onSubmit={handleSubmit(handleLogin)}

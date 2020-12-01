@@ -12,7 +12,7 @@ const Reschedule = ({ remainders, id }) => {
     const [error, setError] = useState(false)
     const now = new Date()
     const [postpone, { loading }] = useMutation(PostPoneNotification, {
-        variables: { date, ids: remainders.map(remainder => remainder.remainder_id) },
+        variables: { date, ids: typeof remainders === "object" ? remainders.map(remainder => remainder.remainder_id) : [] },
         refetchQueries: [{ query: INSURER, variables: { id } }]
     })
 
@@ -43,7 +43,7 @@ const Reschedule = ({ remainders, id }) => {
             postpone().then(res => {
                 setShowForm(false)
                 setDate("")
-                swal("Hurray!!", "Notification has been postponed", "success")
+                swal("Success", "Notification has been postponed", "success")
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
@@ -54,7 +54,7 @@ const Reschedule = ({ remainders, id }) => {
             })
         })
     }
-    return remainders.length ?
+    return remainders?.length ?
         <>
             {/* use postpone till in value to either show or not show button */}
             {remainders[0].postponed_till && <button onClick={handleShowRescheduleForm} className="btn btn-warning waves-effect waves-light btn-sm">Reschedule</button>}
@@ -67,7 +67,7 @@ const Reschedule = ({ remainders, id }) => {
                         <div className="form-group">
                             <label htmlFor="postpone_date">Postpone till</label>
                             <input type="date" min={now.getFullYear().toString() + '-' + (now.getMonth() + 1).toString().padStart(2, 0) +
-    '-' + now.getDate().toString().padStart(2, 0)} value={date} onChange={evt => setDate(evt.target.value)} className="form-control" />
+                                '-' + now.getDate().toString().padStart(2, 0)} value={date} onChange={evt => setDate(evt.target.value)} className="form-control" />
                             {error && <p className="text-danger">Required</p>}
                         </div>
                     </div>

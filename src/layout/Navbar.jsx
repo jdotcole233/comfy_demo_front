@@ -10,34 +10,17 @@ export const Navbar = () => {
         <header id="page-topbar">
             <div className="navbar-header">
                 <div className="d-flex">
-                    <div className="navbar-brand-box">
-                        <Link to="/admin/" className="logo logo-dark">
-                            <span className="logo-sm">
-                                <img
-                                    src={require("../assets/visal-sm-logo.png")}
-                                    alt=""
-                                    height="22"
-                                />
-                            </span>
-                            <span className="logo-lg">
-                                <img
-                                    src={require("../assets/visal-logo-big.png")}
-                                    alt=""
-                                    width="100"
-                                    height="60"
-                                />
-                            </span>
-                        </Link>
-
+                    <div style={{ backgroundColor: "#273B97" }} className="navbar-brand-box">
                         <Link to="/admin/" className="logo logo-light">
                             <span className="logo-sm">
                                 <img
-                                    src={require("../assets/visal-sm-logo.png")}
+                                    src={require("../assets/visal-sm-logo.jpeg")}
                                     alt=""
                                     height="40"
+                                    width="40"
                                 />
                             </span>
-                            <span className="logo-lg">
+                            <span className="logo logo-lg">
                                 <img
                                     src={require("../assets/visal-logo-big.png")}
                                     alt=""
@@ -100,6 +83,13 @@ export const Navbar = () => {
                                 <i className="bx bx-user font-size-16 align-middle mr-1"></i>
                     Profile
                   </Link>
+                            {/* <Link
+                                to={{ pathname: "/admin/settings" }}
+                                className="dropdown-item"
+                            >
+                                <i className="bx bx-cog font-size-16 align-middle mr-1"></i>
+                                Settings
+                            </Link> */}
 
                             <div className="dropdown-divider"></div>
                             <button

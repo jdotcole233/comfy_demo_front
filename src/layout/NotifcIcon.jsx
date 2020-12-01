@@ -23,6 +23,8 @@ const NotifcIcon = ({ state }) => {
     variables: { id: state?.user?.employee?.employee_id || 1, page: 1, first: 100 },
     fetchPolicy: "cache-first",
   });
+
+
   useEffect(() => {
     if (data) {
       setNotifications(data.readSystemNotifications?.employee_notification.data || []);
@@ -34,7 +36,6 @@ const NotifcIcon = ({ state }) => {
 
 
   React.useEffect(() => {
-    // console.log("subscribe");
     var pusher = new Pusher(PUSHER_KEY, {
       cluster: PUSHER_CLUSTER,
     });
@@ -53,9 +54,9 @@ const NotifcIcon = ({ state }) => {
         JSON.parse(notif.system_data).owner_id !=
         state.user.employee.employee_id
       ) {
-        Push.create("Visal-Re Notification", {
+        Push.create("KEK-Re Notification", {
           body: notif.message,
-          icon: "/apple-icon.png",
+          icon: "/ms-icon-70x70.png",
           timeout: 4000,
           onClick: function () {
             history.push({
@@ -65,14 +66,11 @@ const NotifcIcon = ({ state }) => {
             this.close();
           },
         });
-
-        // console.log("New Notif");
       }
     });
     return () => {
-      // console.log("unsubscribed")
       pusher.unbind_all();
-      pusher.unsubscribe("LgzULSz64aed7WJ7YwDq3qmHAeX786dZNZ3Ko4Bisf0")
+      pusher.unsubscribe(CHANNEL)
     }
   }, []);
 
@@ -108,7 +106,6 @@ const NotifcIcon = ({ state }) => {
         <div data-simplebar style={{ maxHeight: 230, overflow: "scroll" }}>
           <div>
             {notifications.map((notif, key) => {
-              // console.log(notif);
               return <NotificationMiniCard key={key} notification={notif} />;
             })}
           </div>

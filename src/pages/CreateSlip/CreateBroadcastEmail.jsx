@@ -1,15 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-throw-literal */
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './styles/inputOffer.module.css'
-import { Dropzone, Modal, Datatable, Selector } from '../../components'
+import { Dropzone, Modal, Datatable, Selector, Editor } from '../../components'
 import { useMutation, useQuery } from 'react-apollo';
 import { SEND_OFFER_AS_BROADCAST } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { Alert } from 'react-bootstrap'
 import { useForm } from 'react-hook-form';
-import JoditEditor from "jodit-react";
-import { DrawerContext } from '../../components/Drawer';
+// import JoditEditor from "jodit-react";
 import PDF from '../../assets/pdf.png'
 import { responseFound } from './columns'
 import { SINGLE_OFFER } from '../../graphql/queries';
@@ -23,8 +23,7 @@ const createOption = (label) => ({
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssociates = 0 }) {
-    const { closed } = useContext(DrawerContext);
+function CreateBroadcastEmail({ offer_id, toggle, closed, noOfReinsurers = 0, noOfAssociates = 0 }) {
     const { register, errors, handleSubmit, setError, clearError, reset } = useForm()
     const [content, setContent] = useState("")
     const [contentError, setContentError] = useState(false);
@@ -49,7 +48,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
     }, [employees])
 
     useEffect(() => {
-        if (closed) {
+        if (!closed) {
             reset();
             setContent("");
             setFiles([])
@@ -62,7 +61,6 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
         switch (event.key) {
             case 'Enter':
             case 'Tab':
-                console.log(copiedMails);
                 setInputvalue("");
                 setCopiedMails([...copiedMails, createOption(inputvalue)])
                 event.preventDefault();
@@ -73,42 +71,26 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
         setInputvalue(event)
     }
 
-    const validateEmails = emails => {
-        let flag = true;
-        for (let index = 0; index < emails.length; index++) {
-            const element = emails[index];
-            console.log("email" + index, element)
-            if (emailRegex.test(element)) {
-                flag = flag && true;
-                console.log(true);
-            } else {
-                flag = flag && false;
-                console.log(false)
-            }
+    const validateEmails = emails => emails.every(email => emailRegex.test(email.value))
+
+
+    const handleCopiedmailChange = value => setCopiedMails(value ? value : [])
+
+
+    useEffect(() => {
+        if (copiedMails && copiedMails.length) {
+            const validEmails = validateEmails(copiedMails);
+            // alert(validEmails)
+            validEmails ? clearError("copied_emails") : setError("copied_emails", "pattern", "Provide valid mails")
         }
-
-        return flag;
-    }
+    }, [copiedMails])
 
 
-    const handleCopiedmailChange = value => {
-        setCopiedMails(value ? value : [])
-    }
 
-    const handleEmailChange = event => {
-        const { value } = event.target;
-        const emails = value.length && value.split(",");
-        const validEmails = emails.length ? validateEmails(emails) : false;
-        if (!validEmails) {
-            setError("copied_emails", "pattern", "Provide valid mails")
-        } else {
-            clearError("copied_emails")
-        }
-    }
 
     const handleSubmitSendMail = ({ subject, copied_emails }) => {
-        console.log(files);
-        if (!validateEmails(copiedMails.map(e => e.label))) {
+        // console.log(files);
+        if (!validateEmails(copiedMails)) {
             setError("copied_emails", "pattern", "Provide valid mails")
             return
         }
@@ -119,7 +101,6 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
         } else {
             setContentError(false);
         }
-        console.log(copied_emails);
         // return;
         const data = {
             offer_id,
@@ -147,7 +128,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
                     setShowModal(true)
                     setResponseData(JSON.parse(res.data.sendOfferAsBroadCast))
                 } else {
-                    swal("Hurray!!", "Mail sent successfully", 'success');
+                    swal("Success", "Mail sent successfully", 'success');
                     setContent("");
                     setFiles([]);
                     setFiles([]);
@@ -156,8 +137,8 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
                 }
             }).catch(err => {
                 if (err) {
-                    console.log(err)
-                    swal("Oh noes!", "The AJAX request failed!", "error");
+                    // console.log(err)
+                    swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -171,7 +152,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
         sendmail({
             variables: { data, should_send: should_send_input, include_attachment }
         }).then(res => {
-            swal("Hurray!!", "Mail sent successfully", 'success');
+            swal("Success", "Mail sent successfully", 'success');
             // toggle();
             setContent("");
             setFiles([]);
@@ -180,7 +161,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
             setShowModal(false)
         }).catch(err => {
             if (err) {
-                console.log(err)
+                // console.log(err)
                 swal("Oh noes!", "The AJAX request failed!", "error");
             } else {
                 swal.stopLoading();
@@ -222,7 +203,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
                     <label htmlFor="taskname" className="col-form-label col-lg-2">CC</label>
                     <div className="col-lg-10">
                         <Selector inputValue={inputvalue} onInputChange={handleInputChange} isMulti value={copiedMails} isLoading={loading} onChange={handleCopiedmailChange} onKeyDown={handleKeyDown} options={selectedableEmail} />
-                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} onChange={handleEmailChange} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
+                        <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
                         {errors.copied_emails && <p className="text-danger">{errors.copied_emails.message}</p>}
                     </div>
                 </div>
@@ -230,8 +211,8 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
                     <label className="col-form-label col-lg-2">Message</label>
                     <div className="col-lg-10">
                         {/* <SummerNote onChange={e => setContent(e)} /> */}
-                        <JoditEditor value={content} onChange={value => setContent(value)} />
-
+                        {/* <JoditEditor value={content} onChange={value => setContent(value)} /> */}
+                        <Editor value={content}  onChange={value => setContent(value)} />
                     </div>
                     <div className="col-md-2"></div>
                     <div className="col-md-10">
@@ -250,7 +231,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
                 <div className="form-group row mb-4">
                     <label className="col-form-label col-lg-2">Attachment(s)</label>
                     <div className="col-lg-10">
-                        <Dropzone onChange={(set) => setFiles(set)} multiple={true} />
+                        <Dropzone closed={closed} onChange={(set) => setFiles(set)} multiple={true} />
                     </div>
                 </div>
                 <div className="row">
@@ -292,7 +273,7 @@ function CreateBroadcastEmail({ offer_id, toggle, noOfReinsurers = 0, noOfAssoci
                             <button onClick={() => handleSendAgain(1)} className="btn btn-danger">No</button>
                             <button onClick={() => handleSendAgain(2)} className="btn btn-primary">Yes</button>
                         </> : <button className="btn btn-primary w-md" disabled>
-                            <i class="bx bx-hourglass bx-spin mr-2"></i>
+                            <i className="bx bx-hourglass bx-spin mr-2"></i>
                                 Sending...
                             </button>}
 

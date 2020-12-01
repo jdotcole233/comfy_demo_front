@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react'
 import { DASHBOARD_PIE_DATA } from '../../../graphql/queries'
 import { useQuery } from 'react-apollo'
 import { Modal } from 'react-bootstrap';
+import Chart from 'react-apexcharts';
 
-const Chart = () => {
+
+const ChartDisplay = () => {
     const [dateTypes] = useState(["month", "year", "week"])
     const [activeTab, setActiveTab] = useState("year")
     const [variables, setVariables] = useState({
@@ -25,18 +27,18 @@ const Chart = () => {
 
     useEffect(() => {
         if (data) {
-            // const series = [], labels = []
-            // const arr = JSON.parse(data.dashboardByPieChartData);
-            // setBusinessStats(arr.total_businesses);;
-            // arr.total_businesses.slice(0, 5).map(business => {
-            //     series.push(business.total_businesses);
-            //     labels.push(business.business_name)
-            //     return business;
-            // });
-            // setOptions({
-            //     series,
-            //     labels
-            // })
+            const series = [], labels = []
+            const arr = JSON.parse(data.dashboardByPieChartData);
+            setBusinessStats(arr.total_businesses);;
+            arr.total_businesses.slice(0, 5).map(business => {
+                series.push(business.total_businesses);
+                labels.push(business.business_name)
+                return business;
+            });
+            setOptions({
+                series,
+                labels
+            })
         }
     }, [data])
 
@@ -123,4 +125,4 @@ const Chart = () => {
     )
 }
 
-export default Chart
+export default ChartDisplay

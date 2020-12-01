@@ -1,162 +1,258 @@
 export default [
   {
-    link: "/admin/",
-    name: "Dashboard",
-    icon: "bx bx-home-circle",
+    link: '/admin/',
+    name: 'Dashboard',
+    icon: 'bx bx-home-circle',
   },
   {
-    link: "/admin/create-slip",
-    name: "Create Slip",
-    icon: "bx bxs-file-plus",
+    link: '/admin/create-slip',
+    name: 'Create Slip',
+    icon: 'bx bxs-file-plus',
   },
   {
-    link: "/admin/create-closing",
-    name: "Create Closing",
-    icon: "bx bx-lock-alt",
+    link: '/admin/create-closing',
+    name: 'Create Closing',
+    icon: 'bx bx-lock-alt',
   },
   {
-    link: "/admin/re-insurers",
-    name: "Re-insurers",
-    icon: "bx bx-group",
+    link: '/admin/re-insurers',
+    name: 'Re-insurers',
+    icon: 'bx bx-group',
   },
   {
-    link: "/admin/setup-business",
-    name: "Setup Business",
-    icon: "bx bx-group",
+    link: '/admin/setup-business',
+    name: 'Setup Business',
+    icon: 'bx bx-group',
   },
   {
-    link: "/admin/insurers",
-    name: "Insurers",
-    icon: "bx bx-group",
+    link: '/admin/insurers',
+    name: 'Insurers',
+    icon: 'bx bx-group',
   },
   {
-    link: "/admin/employees",
-    name: "Employees",
-    icon: "bx bx-home-circle",
+    link: '/admin/employees',
+    name: 'Employees',
+    icon: 'bx bx-home-circle',
   },
   {
-    link: "/admin/reports",
-    name: "Reports",
-    icon: "bx bx-home-circle",
+    link: '/admin/reports',
+    name: 'Reports',
+    icon: 'bx bx-home-circle',
   },
 ];
 
 const dashboard = [
   {
-    link: "/admin/",
-    name: "Dashboard",
-    icon: "bx bx-home-circle",
+    link: '/admin/',
+    name: 'Dashboard',
+    icon: 'bx bx-home-circle',
     roles: [
-      "Managing Director",
-      "Senior Broking Officer",
-      "Broking Officer",
-      "Frontline Executive",
-      "Finance Officer",
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
     ],
   },
 ];
 
 const offers = [
   {
-    link: "/admin/create-slip",
-    name: "Create Slip",
+    link: '/admin/create-slip',
+    name: 'Create Slip',
     roles: [
-      "Managing Director",
-      "Senior Broking Officer",
-      "Broking Officer",
-      "Frontline Executive",
-      "Finance Officer",
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
     ],
-    icon: "bx bxs-file-plus",
+    icon: 'bx bxs-file-plus',
   },
   {
-    link: "/admin/create-closing",
-    name: "Create Closing",
+    link: '/admin/approve-closing',
+    name: 'Unapproved Closings',
     roles: [
-      "Managing Director",
-      "Senior Broking Officer",
-      "Broking Officer",
-      "Frontline Executive",
-      "Finance Officer",
+      'CEO',
+      'General Manager',
+      // 'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
     ],
-    icon: "bx bx-lock-alt",
+    icon: 'bx bxs-file-plus',
+  },
+  {
+    link: '/admin/create-closing',
+    name: 'Create Closing',
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
+    icon: 'bx bx-lock-alt',
   },
 ];
 const clients = [
   {
-    link: "/admin/insurers",
-    name: "Insurers",
+    link: '/admin/insurers',
+    name: 'Insurers',
     roles: [
-      "Managing Director",
-      "Senior Broking Officer",
-      "Broking Officer",
-      "Frontline Executive",
-      "Finance Officer",
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
     ],
-    icon: "bx bx-group",
+    icon: 'bx bx-group',
   },
   {
-    link: "/admin/re-insurers",
-    name: "Re-insurers",
+    link: '/admin/re-insurers',
+    name: 'Re-insurers',
     roles: [
-      "Managing Director",
-      "Senior Broking Officer",
-      "Broking Officer",
-      "Frontline Executive",
-      "Finance Officer",
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
     ],
-    icon: "bx bx-group",
+    icon: 'bx bx-group',
   },
 ];
 const others = [
   {
-    link: "/admin/setup-business",
-    name: "Setup Business",
-    roles: ["Managing Director", "Senior Broking Officer"],
-    icon: "bx bx-group",
-  },
-  {
-    link: "/admin/claims",
-    name: "Claims",
+    link: '/admin/setup-business',
+    name: 'Setup Business',
     roles: [
-      "Managing Director",
-      "Senior Broking Officer",
-      "Broking Officer",
-      "Frontline Executive",
-      "Finance Officer",
+      // 'CEO',
+      // 'General Manager',
+      'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
     ],
-    icon: "bx bx-receipt",
+    icon: 'bx bx-group',
   },
   {
-    link: "/admin/employees",
-    name: "Employees",
-    roles: ["Managing Director", "Senior Broking Officer"],
-    icon: "bx bx-id-card",
-  },
-  {
-    link: "/admin/reports",
-    name: "Reports",
+    link: '/admin/claims',
+    name: 'Claims',
     roles: [
-      "Managing Director",
-      "Senior Broking Officer",
-      "Broking Officer",
-      "Frontline Executive",
-      "Finance Officer",
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
     ],
-    icon: "bx bx-box",
+    icon: 'bx bx-receipt',
+  },
+  {
+    link: '/admin/employees',
+    name: 'Employees',
+    roles: [
+      'CEO',
+      'General Manager',
+      // 'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
+    icon: 'bx bx-id-card',
+  },
+  {
+    link: '/admin/reports',
+    name: 'Reports',
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+    icon: 'bx bx-box',
   },
 ];
 
 export const deleteAccessRoles = [
-  "Managing Director",
-  "Senior Broking Officer",
+  'General Manager',
+  'CEO',
+  'Senior Broking Officer',
+  'System Administrator',
 ];
 export const editAccessRoles = [
-  "Managing Director",
-  "Senior Broking Officer",
-  "Broking Officer",
-  "Frontline Executive",
-  "Finance Officer",
+  'General Manager',
+  'Senior Broking Officer',
+  'Finance Executive',
+  'CEO',
+  'System Administrator',
 ];
 
-export { clients, others, offers, dashboard };
+const create_Access = [
+  'General Manager',
+  'Senior Broking Officer',
+  // 'Finance Executive',
+  'CEO',
+  'System Administrator',
+];
+
+const create_insurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+const delete_insurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+const edit_insurer_access = ['System Administrator', 'Senior Broking Officer'];
+
+const create_reinsurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+const delete_reinsurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+const edit_reinsurer_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+
+const Offers_Access = [
+  'CEO',
+  'General Manager',
+  'Senior Broking Officer',
+  'System Administrator',
+];
+const clients_Access = [
+  'CEO',
+  'General Manager',
+  'Senior Broking Officer',
+  'Finance Executive',
+  'System Administrator',
+];
+const others_Access = [
+  'CEO',
+  'General Manager',
+  'Senior Broking Officer',
+  'Finance Executive',
+  'System Administrator',
+];
+
+const insurer_offer_access = ['Finance Executive'];
+
+export {
+  clients,
+  others,
+  offers,
+  dashboard,
+  Offers_Access,
+  clients_Access,
+  others_Access,
+  create_Access,
+  create_insurer_access,
+  delete_insurer_access,
+  edit_insurer_access,
+  insurer_offer_access,
+  create_reinsurer_access,
+  delete_reinsurer_access,
+  edit_reinsurer_access,
+};

@@ -30,7 +30,6 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
 
     useEffect(() => {
         if (data) {
-            console.log(data)
             const options_v = buildSelectRows(data.reinsurers);
             setOptions(options_v)
         }
@@ -42,7 +41,6 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
         setBroadcastList(new_reps);
         const associate = options.find(option => option.label === rep);
         const new_repData = [...repData.filter(repData => repData.reinsurer_representative_id !== associate.value.reinsurer_representative_id)];
-        console.log(new_repData)
         setRepData(new_repData)
     }
 
@@ -109,14 +107,14 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
                     offer_id
                 }
             }).then(res => {
-                swal("Hurray", "Distribution List created successfully", "success");
+                swal("Success", "Distribution List created successfully", "success");
                 setBroadcastList([]);
                 setRepData([]);
                 toggle()
             }).catch(err => {
                 if (err) {
-                    console.log(err)
-                    swal("Oh noes!", "The AJAX request failed!", "error");
+                    // console.log(err)
+                    swal("Sorry!!!", err.message.replace("GraphQL error:", ""), "error");
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -161,8 +159,8 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
 const RepCard = ({ rep, remove }) => {
     return (
         <div className={styles.repCard} >
-            <div>
-                <h6 style={{ fontWeight: "lighter" }}>{rep}</h6>
+            <div className="text-white">
+                <h6 style={{ fontWeight: "lighter", color: "#fff" }}>{rep}</h6>
             </div>
             <div style={{
                 fontSize: 20,

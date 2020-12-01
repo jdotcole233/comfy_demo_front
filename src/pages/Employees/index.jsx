@@ -86,7 +86,7 @@ export default () => {
                             <h3>Employees</h3>
                         </div>
                         <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                            <button onClick={() => setshowAddInsurer(!0)} className="btn btn-sm w-md btn-primary">Add Employee</button>
+                            <button onClick={() => setshowAddInsurer(!0)} className="btn btn-rounded btn-sm w-md btn-primary">Add Employee</button>
                         </div>
                     </div>
                 </div>

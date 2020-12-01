@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ConnectionDetector = () => {
   const [online, setOnline] = React.useState(true);
@@ -6,18 +6,18 @@ const ConnectionDetector = () => {
 
   React.useEffect(() => {
     setOnline(navigator.onLine);
-    window.addEventListener("online", handleConnectionChange);
-    window.addEventListener("offline", handleConnectionChange);
+    window.addEventListener('online', handleConnectionChange);
+    window.addEventListener('offline', handleConnectionChange);
   }, []);
 
   const handleConnectionChange = () => {
-    const condition = navigator.onLine ? "online" : "offline";
+    const condition = navigator.onLine ? 'online' : 'offline';
     console.log(condition);
-    if (condition === "online") {
+    if (condition === 'online') {
       const webPing = setInterval(() => {
-        console.log("pinging...");
-        fetch("//google.com", {
-          mode: "no-cors",
+        console.log('pinging...');
+        fetch('//google.com', {
+          mode: 'no-cors',
         })
           .then(() => {
             setOnline(true);

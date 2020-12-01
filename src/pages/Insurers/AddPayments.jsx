@@ -4,14 +4,16 @@ import styles from './styles/ViewInsurerOffer.module.css'
 import { Alert } from 'react-bootstrap'
 import { useMutation } from 'react-apollo'
 import { MAKE_PAYMENT_INSURER, UPDATE_PAYMENT_INSURER } from '../../graphql/mutattions'
-import { INSURER } from '../../graphql/queries'
+import { INSURER, INSURER_OFFERS } from '../../graphql/queries'
 import swal from 'sweetalert'
 import { DrawerContext } from '../../components/Drawer';
+import { useAuth } from '../../context/AuthContext'
 
 
 
 export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     const { closed } = useContext(DrawerContext);
+    const { user } = useAuth()
     const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0)
     const [amountError, setAmountError] = useState(false)
     const [form_inputs, setForm_inputs] = useState({
@@ -38,11 +40,17 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     }, [closed])
     const formRef = useRef()
     const [makePayment] = useMutation(MAKE_PAYMENT_INSURER, {
-        refetchQueries: [{ query: INSURER, variables: { id: insurer_id } }]
+        refetchQueries: [
+            { query: INSURER, variables: { id: insurer_id } },
+            { query: INSURER_OFFERS, variables: { id: insurer_id, skip: 0 } }
+        ]
     })
 
     const [updatePayment] = useMutation(UPDATE_PAYMENT_INSURER, {
-        refetchQueries: [{ query: INSURER, variables: { id: insurer_id } }]
+        refetchQueries: [
+            { query: INSURER, variables: { id: insurer_id } },
+            { query: INSURER_OFFERS, variables: { id: insurer_id, skip: 0 } }
+        ]
     })
 
     useEffect(() => {
@@ -58,23 +66,25 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     }, [details])
 
     useEffect(() => {
-        if (payment) {
+        if (payment && details) {
             const obj = JSON.parse(payment.payment_details);
+            console.log(obj)
             setForm_inputs({
                 payment_amount: payment.payment_amount,
                 cheque_number: obj.payment_from.cheque_number,
                 bank_name: obj.payment_from.bank_name,
                 beneficiary_bank_name: obj.payment_to,
                 offer_payment_comment: payment.offer_payment_comment,
-                payment_type: obj.payment_type
+                payment_type: obj.payment_type,
+                date_on_cheque: obj.payment_from.date_on_cheque
             })
         }
-    }, [payment])
+    }, [payment, details])
 
 
     const handleChange = event => {
         const { name, value } = event.target;
-        if (name === "payment_amount" && (value > expectedAmtToBePaid || value < 0)) {
+        if (name === "payment_amount" && (value > expectedAmtToBePaid.toFixed(2) || value < 0)) {
             setAmountError(true);
         } else {
             setAmountError(false)
@@ -93,10 +103,12 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             offer_id: details?.offer_id,
             payment_amount: form_inputs.payment_amount,
             payment_details: JSON.stringify({
+                employee_id: user?.employee?.employee_id,
                 payment_type: form_inputs.payment_type,
                 payment_from: {
                     cheque_number: form_inputs.cheque_number ? form_inputs.cheque_number : "N/A",
-                    bank_name: form_inputs.bank_name
+                    bank_name: form_inputs.bank_name,
+                    date_on_cheque: form_inputs.date_on_cheque
                 },
                 payment_to: form_inputs.beneficiary_bank_name
             }),
@@ -145,6 +157,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             offer_id: details?.offer_id,
             payment_amount: form_inputs.payment_amount,
             payment_details: JSON.stringify({
+                employee_id: user?.employee?.employee_id,
                 payment_type: form_inputs.payment_type,
                 payment_from: {
                     cheque_number: form_inputs.cheque_number ? form_inputs.cheque_number : "N/A",
@@ -181,7 +194,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             })
                 .catch(err => {
                     if (err) {
-                        console.log(err)
+                        // console.log(err)
                         swal("Oh noes!", "The AJAX request failed!", "error");
                     } else {
                         swal.stopLoading();
@@ -208,7 +221,8 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                     <p>The amount to be added to this offer will be distributed evenly to all entities participating on offer [{details?.offer_detail.policy_number}].
                     Taking into consideration <strong>commission, brokerage, withholding tax and NIC levy</strong> where applicable.</p>
                     <p>{!edit ? "Make" : "Update"} payment to [{details?.offer_detail.policy_number}]</p>
-                    <p><strong>Expected Amount: {details?.offer_detail.currency} {expectedAmtToBePaid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong></p>
+                    {details?.exchange_rate && <p>This offer was created in {details?.offer_detail.currency}, but with an exchange rate of {details?.exchange_rate?.ex_rate} in {details?.exchange_rate?.ex_currency}</p>}
+                    <p><strong>Expected Amount: {details?.exchange_rate?.ex_currency || details?.offer_detail.currency} {expectedAmtToBePaid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong></p>
                 </Alert>
 
                 <div className="row">
@@ -221,12 +235,12 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         </select>
                     </div>
                 </div>
-                {form_inputs.payment_type.length ? <fieldset className="border mt-3 p-2">
+                {form_inputs.payment_type.length ? <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment From</legend>
                     <div className="row">
                         {form_inputs.payment_type !== "Bank Transfer" && <div className="col-md-6">
                             <div className="form-group">
-                                <label htmlFor="cheque Nunmber">cheque Number</label>
+                                <label htmlFor="cheque Nunmber">Cheque number</label>
                                 <input name="cheque_number" value={form_inputs.cheque_number} onChange={handleChange} type="text" className="form-control" placeholder="cheque Nunmber" required />
                             </div>
                         </div>}
@@ -238,13 +252,13 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         </div>
                         {form_inputs.payment_type !== "Bank Transfer" && <div className="col-md-12">
                             <div className="form-group">
-                                <label htmlFor="cheque Nunmber">Date on Cheque</label>
+                                <label htmlFor="cheque Nunmber">Date on cheque</label>
                                 <input name="date_on_cheque" value={form_inputs.date_on_cheque} onChange={handleChange} type="date" className="form-control" placeholder="" required />
                             </div>
                         </div>}
                     </div>
                 </fieldset> : null}
-                <fieldset className="border mt-3 p-2">
+                <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment To</legend>
                     <div className="row">
                         <div className="col-md-12">
@@ -255,20 +269,20 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="border mt-3 p-2">
+                <fieldset className="border-form mt-3 p-2">
                     <legend className={styles.details_title}>Payment Details</legend>
                     <div className="row">
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Amount">Amount</label>
                                 <input type="number" value={form_inputs.payment_amount} onChange={handleChange} name="payment_amount" className="form-control" placeholder="Amount" required />
-                                {amountError && <p className="text-danger">Please enter a value not less than 0 or greater than {expectedAmtToBePaid}</p>}
+                                {amountError && <p className="text-danger">Please enter a value not less than 0 or greater than {expectedAmtToBePaid.toFixed(2)}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Currency">Currency</label>
-                                <input type="text" value={details?.offer_detail.currency} className="form-control" placeholder="Currency" readOnly />
+                                <input type="text" value={details?.exchange_rate?.ex_currency || details?.offer_detail.currency} className="form-control" placeholder="Currency" readOnly />
                             </div>
                         </div>
                         <div className="col-md-12">

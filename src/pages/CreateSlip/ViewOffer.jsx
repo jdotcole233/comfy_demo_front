@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useContext } from "react";
 import { Loader } from "../../components";
-import { useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-apollo";
 import { SINGLE_OFFER } from "../../graphql/queries";
 import { AuthContext } from "../../context/AuthContext";
@@ -21,11 +21,12 @@ function ViewOffer() {
     state,
   } = useLocation();
 
-  const { data, loading } = useQuery(SINGLE_OFFER, {
+  const { data, loading, startPolling, stopPolling } = useQuery(SINGLE_OFFER, {
     variables: {
       offer_id: state?.offer_id,
     },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "network-only",
+    pollInterval: 1000,
   });
 
 
@@ -35,9 +36,25 @@ function ViewOffer() {
     }
   }, [state])
 
-  if (loading && !data) {
+
+  const myStartPolling = () => startPolling(1000)
+
+  useEffect(() => {
+    window.addEventListener('focus', myStartPolling);
+    window.addEventListener('blur', stopPolling);
+
+    // Specify how to clean up after this effect:
+    return () => {
+      window.removeEventListener('focus', startPolling);
+      window.removeEventListener('blur', stopPolling);
+    };
+  });
+
+  if (loading) {
     return <Loader />;
   }
+
+  if (!loading && data?.findSingleOffer?.offer_status === "CLOSED") return <Redirect to="/admin/create-slip" />
 
 
   return (

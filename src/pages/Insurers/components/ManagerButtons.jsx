@@ -60,7 +60,7 @@ const ManagerButtons = ({ manager, state }) => {
                     id: manager.insurer_associate_id,
                 }
             }).then(res => {
-                swal("Hurray", "Manager removed successfully", "success");
+                swal("Success", "Manager removed successfully", "success");
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
@@ -94,11 +94,11 @@ const ManagerButtons = ({ manager, state }) => {
                     }
                 }
             }).then(res => {
-                swal("Hurray", "Manager updated successfully", "success");
+                swal("Success", "Manager updated successfully", "success");
                 setViewAssociate(false)
             }).catch(err => {
                 if (err) {
-                    swal("Oh noes!", "The AJAX request failed!", "error");
+                    swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -145,7 +145,7 @@ const ManagerButtons = ({ manager, state }) => {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="first_name">Secondary Phone number</label>
-                                <input name="rep_secondary_phonenumber" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Secondary Phone number" />
+                                <input name="rep_secondary_phonenumber" ref={register({ required: false })} type="text" className="form-control" placeholder="Secondary Phone number" />
                                 {errors.rep_secondary_phonenumber && <p className="text-danger">{errors.rep_secondary_phonenumber.message}</p>}
                             </div>
                         </div>
@@ -159,7 +159,7 @@ const ManagerButtons = ({ manager, state }) => {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="first_name">Position</label>
-                                <select name="position" ref={register({ required: "Required" })} id="" className="form-control" disabled>
+                                <select name="position" ref={register({ required: "Required" })} id="" className="form-control">
                                     <option value="">Position</option>
                                     <option value="Manager">Manager</option>
                                     <option value="Underwriter">Underwriter</option>

@@ -44,12 +44,12 @@ function AddEmployee({ editing, employee, toggle }) {
             createEmployee({
                 variables: { employee: { ...values } }
             }).then(res => {
-                swal("Hurray!!", "Employee account created successfully", 'success');
+                swal("Success", "Employee account created successfully", 'success');
                 toggle()
             }).catch(err => {
                 if (err) {
-                    swal("Whoops!!", "Something went wrong, try again", "error")
-                    console.log(err)
+                    swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
+                    // console.log(err)
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -70,12 +70,12 @@ function AddEmployee({ editing, employee, toggle }) {
             updateEmployee({
                 variables: { employee: { ...values }, employee_id: employee.employee_id }
             }).then(res => {
-                swal("Hurray!!", "Employee account updated successfully", 'success')
+                swal("Success", "Employee account updated successfully", 'success')
                 toggle()
             }).catch(err => {
                 if (err) {
-                    swal("Whoops!!", "Something went wrong, try again", "error")
-                    console.log(err)
+                    swal("Sorry!!", err.message.replace("GraphQL error:", ""), "error");
+                    // console.log(err)
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -135,11 +135,11 @@ function AddEmployee({ editing, employee, toggle }) {
                             <label htmlFor="">Position</label>
                             <select name="employee_position" ref={register({ required: "Required" })} className="form-control" id="">
                                 <option value="">Select position</option>
-                                <option value="Managing Director">Managing Director</option>
+                                <option value="CEO">CEO</option>
+                                <option value="General Manager">General Manager</option>
                                 <option value="Senior Broking Officer">Senior Broking Officer</option>
-                                <option value="Broking Officer">Broking Officer</option>
-                                <option value="Frontline Executive">Frontline Executive</option>
-                                <option value="Finance Officer">Finance Officer</option>
+                                <option value="Finance Executive">Finance Executive</option>
+                                <option value="System Administrator">System Administrator</option>
                             </select>
                             {errors.employee_position && <p className="text-danger">{errors.employee_position.message}</p>}
                         </div>

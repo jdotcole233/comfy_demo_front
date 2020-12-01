@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Insurer from './Insurer'
 import { Drawer, Loader, chunkArray } from '../../components';
 import AddInsurer from './AddInsurer';
@@ -6,8 +6,11 @@ import AddManager from './AddManager';
 import Pagination from 'react-paginate'
 import { useQuery } from 'react-apollo';
 import { INSURERS } from '../../graphql/queries';
+import { create_insurer_access } from '../../layout/adminRoutes';
+import { AuthContext } from '../../context/AuthContext';
 
 function Insurers() {
+    const { state } = useContext(AuthContext)
     const { data, loading } = useQuery(INSURERS, { fetchPolicy: "network-only" });
     const [insurers, setInsurers] = useState([]);
     const [showAddInsurer, setshowAddInsurer] = useState(false);
@@ -115,7 +118,7 @@ function Insurers() {
                         <h3>Insurers List</h3>
                     </div>
                     <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                        <button onClick={() => setshowAddInsurer(!0)} className="btn btn-primary">Add Insurer</button>
+                        {create_insurer_access.includes(state?.user?.position) && <button onClick={() => setshowAddInsurer(!0)} className="btn btn-rounded btn-primary">Add Insurer</button>}
                     </div>
                 </div>
             </div>
@@ -153,10 +156,10 @@ function Insurers() {
 
             {/*Drawer for add Reinsurer */}
             <Drawer width="40%" isvisible={showAddInsurer} toggle={() => setshowAddInsurer(!!0)}>
-                <AddInsurer toggle={() => setshowAddInsurer(!!0)} />
+                <AddInsurer toggle={() => setshowAddInsurer(!!0)} closed={!showAddInsurer} />
             </Drawer>
             <Drawer width="40%" isvisible={showAddManager} toggle={() => setshowAddManager(!!0)}>
-                <AddManager details={selectedInsurer} toggle={() => setshowAddManager(!!0)} />
+                <AddManager closed={showAddManager} details={selectedInsurer} toggle={() => setshowAddManager(!!0)} />
             </Drawer>
         </div>
     )

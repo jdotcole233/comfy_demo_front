@@ -24,7 +24,7 @@ const customStyles = {
     },
   }),
   input: () => ({
-    color: '#fff',
+    color: '#000',
   }),
   option: () => ({
     // background: "#2E3548",
