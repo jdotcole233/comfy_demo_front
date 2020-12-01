@@ -83,11 +83,11 @@ const AssociateListing = ({ data, state, user }) => {
                 },
             })
                 .then((res) => {
-                    swal("Hurray", "Associate removed successfully", "success");
+                    swal("Success", "Associate removed successfully", "success");
                 })
                 .catch((err) => {
                     if (err) {
-                        console.log(err);
+                        // console.log(err);
                         swal("Oh noes!", "The AJAX request failed!", "error");
                     } else {
                         swal.stopLoading();

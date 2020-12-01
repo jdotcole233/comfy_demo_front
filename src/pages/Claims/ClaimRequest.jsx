@@ -10,6 +10,7 @@ import { CLAIM_REQUEST } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { useForm } from 'react-hook-form';
 import { DrawerContext } from '../../components/Drawer';
+// import DropZone from '../../components/DropZone';
 
 const createOption = (label) => ({
     label,
@@ -18,7 +19,7 @@ const createOption = (label) => ({
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function CreateBroadcastEmail({ offer, toggle }) {
+function ClaimRequest({ offer, toggle }) {
     const { closed } = useContext(DrawerContext);
     const { data: employees, loading } = useQuery(EMPLOYEES)
     const [inputvalue, setInputvalue] = useState("")
@@ -49,7 +50,7 @@ function CreateBroadcastEmail({ offer, toggle }) {
         switch (event.key) {
             case 'Enter':
             case 'Tab':
-                console.log(copiedMails);
+                // console.log(copiedMails);
                 setInputvalue("");
                 setCopiedMails([...copiedMails, createOption(inputvalue)])
                 event.preventDefault();
@@ -60,27 +61,10 @@ function CreateBroadcastEmail({ offer, toggle }) {
         setInputvalue(event)
     }
 
-    const validateEmails = emails => {
-        let flag = true;
-        for (let index = 0; index < emails.length; index++) {
-            const element = emails[index];
-            console.log("email" + index, element)
-            if (emailRegex.test(element)) {
-                flag = flag && true;
-                console.log(true);
-            } else {
-                flag = flag && false;
-                console.log(false)
-            }
-        }
+    const validateEmails = emails => emails.every(email => emailRegex.test(email.value))
 
-        return flag;
-    }
 
-    const handleCopiedmailChange = value => {
-        setCopiedMails(value ? value : [])
-        handleEmailChange(value)
-    }
+    const handleCopiedmailChange = value => setCopiedMails(value ? value : [])
 
     const handleEmailChange = emails => {
         const validEmails = emails.length ? validateEmails(emails) : false;
@@ -115,13 +99,13 @@ function CreateBroadcastEmail({ offer, toggle }) {
             sendmail({
                 variables: { data }
             }).then(res => {
-                swal("Hurray!!", "Mail sent successfully", 'success');
+                swal("Success", "Mail sent successfully", 'success');
                 reset()
                 setContent("")
                 toggle();
             }).catch(err => {
                 if (err) {
-                    console.log(err)
+                    // console.log(err)
                     swal("Oh noes!", "The AJAX request failed!", "error");
                 } else {
                     swal.stopLoading();
@@ -133,7 +117,7 @@ function CreateBroadcastEmail({ offer, toggle }) {
     return (
         <>
             <div className={styles.card_header}>
-                <h2 className={styles.card_title}>Claim Request</h2>
+                <h2 className={styles.card_title}>Claim Notification</h2>
                 <Alert variant="danger">
                     <p>This session will send copies of this email to all participants of this offer [<strong>{offer?.offer_detail.policy_number}</strong>]</p>
                     <p>N.B: You can include any number of EMAILS. Press ENTER or TAB key to add more </p>
@@ -150,7 +134,7 @@ function CreateBroadcastEmail({ offer, toggle }) {
                 <div className="form-group row mb-4">
                     <label htmlFor="taskname" className="col-form-label col-lg-2">CC</label>
                     <div className="col-lg-10">
-                    <Selector inputValue={inputvalue} onInputChange={handleInputChange} isMulti value={copiedMails} isLoading={loading} onChange={handleCopiedmailChange} onKeyDown={handleKeyDown} options={selectedableEmail} />
+                        <Selector inputValue={inputvalue} onInputChange={handleInputChange} isMulti value={copiedMails} isLoading={loading} onChange={handleCopiedmailChange} onKeyDown={handleKeyDown} options={selectedableEmail} />
                         <input type="hidden" ref={register({ required: "Required" })} value={copiedMails} onChange={handleEmailChange} name="copied_emails" className="form-control" placeholder="Enter recipients emails separated with commas" />
                         {errors.copied_emails && <p className="text-danger">{errors.copied_emails.message}</p>}
                     </div>
@@ -165,6 +149,7 @@ function CreateBroadcastEmail({ offer, toggle }) {
                         {contentError && <p className="text-danger">Required</p>}
                     </div>
                 </div>
+                
                 <div className="row">
                     <div className="col-form-label col-lg-2"></div>
                     <div className="col-lg-10 d-flex justify-content-end">
@@ -177,5 +162,5 @@ function CreateBroadcastEmail({ offer, toggle }) {
     )
 }
 
-export default CreateBroadcastEmail
+export default ClaimRequest
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 export default ({ data }) => {
     return (
-        <table className="table">
+        <table className="table mt-1 table-bordered border-primary">
             <thead>
                 <tr>
                     <th>GHC</th>

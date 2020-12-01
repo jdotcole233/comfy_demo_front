@@ -1,15 +1,15 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect, useContext } from 'react'
 import styles from './styles/card.module.css'
-import JoditEditor from "jodit-react";
 import { Alert } from 'react-bootstrap'
-import { Selector } from '../../components'
+import { Editor, Selector } from '../../components'
 import { useMutation, useQuery } from 'react-apollo';
 import { EMPLOYEES } from '../../graphql/queries/employees'
 import { SEND_CLAIM_DEBIT_NOTE } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { useForm } from 'react-hook-form';
 import { DrawerContext } from '../../components/Drawer';
+import DropZone from '../../components/DropZone';
 
 const createOption = (label) => ({
     label,
@@ -18,11 +18,12 @@ const createOption = (label) => ({
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
+function SendSingleDebitNote({ offer, toggle, reinsurer_id, share }) {
     const { closed } = useContext(DrawerContext);
     const { data: employees, loading } = useQuery(EMPLOYEES)
     const [inputvalue, setInputvalue] = useState("")
     const [copiedMails, setCopiedMails] = useState([])
+    const [files, setFiles] = useState([]);
     const [selectedableEmail, setSelectedableEmail] = useState([])
     const { register, errors, handleSubmit, setError, clearError, reset } = useForm()
     const [content, setContent] = useState("")
@@ -49,7 +50,7 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
         switch (event.key) {
             case 'Enter':
             case 'Tab':
-                console.log(copiedMails);
+                // console.log(copiedMails);
                 setInputvalue("");
                 setCopiedMails([...copiedMails, createOption(inputvalue)])
                 event.preventDefault();
@@ -60,27 +61,24 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
         setInputvalue(event)
     }
 
-    const validateEmails = emails => {
-        let flag = true;
-        for (let index = 0; index < emails.length; index++) {
-            const element = emails[index];
-            console.log("email" + index, element)
-            if (emailRegex.test(element)) {
-                flag = flag && true;
-                console.log(true);
-            } else {
-                flag = flag && false;
-                console.log(false)
-            }
+    const handleEditorChange = value => {
+        setContent(value)
+        if (content.length < 1) {
+            setContentError(true);
+            return;
         }
 
-        return flag;
+
+        setContentError(false);
     }
+
+    const validateEmails = emails => emails.every(email => emailRegex.test(email.value))
+
 
     const handleCopiedmailChange = value => {
         setCopiedMails(value ? value : [])
-        console.log(value)
-        handleEmailChange(value ? value.map(el => el.value) : [])
+        if (value)
+            handleEmailChange(value)
     }
 
     const handleEmailChange = emails => {
@@ -92,12 +90,14 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
         }
     }
 
-    const handleSubmitSendMail = ({ subject, copied_emails }) => {
+    const handleSubmitSendMail = ({ subject }) => {
         if (content.length < 1) {
             setContentError(true);
             return;
-        } else {
-            setContentError(false);
+        }
+
+        if (!copiedMails.length) {
+            setError("copied_emails", "pattern", "Cc is required")
         }
         const data = {
             offer_id: offer?.offer_id,
@@ -105,7 +105,8 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
             reinsurer_id,
             message_content: content,
             subject,
-            copied_emails: [...copiedMails.map(e => e.label)]
+            copied_emails: [...copiedMails.map(e => e.label)],
+            attachments: [...files]
         };
         swal({
             closeOnClickOutside: false,
@@ -118,13 +119,13 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
             sendmail({
                 variables: { ...data }
             }).then(res => {
-                swal("Hurray!!", "Mail sent successfully", 'success');
+                swal("Success", "Mail sent successfully", 'success');
                 reset()
                 setContent("")
                 toggle();
             }).catch(err => {
                 if (err) {
-                    console.log(err)
+                    // console.log(err)
                     swal("Oh noes!", "The AJAX request failed!", "error");
                 } else {
                     swal.stopLoading();
@@ -146,7 +147,7 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
                 <div className="form-group row mb-4">
                     <label htmlFor="taskname" className="col-form-label col-lg-2">Subject</label>
                     <div className="col-lg-10">
-                        <input id="taskname" ref={register({ required: "Required" })} name="subject" type="text" className="form-control" placeholder="Enter subject" />
+                        <input ref={register({ required: "Required" })} name="subject" type="text" className="form-control" placeholder="Enter subject" />
                         {errors.subject && <p className="text-danger">{errors.subject.message}</p>}
                     </div>
                 </div>
@@ -161,11 +162,17 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
                 <div className="form-group row mb-4">
                     <label className="col-form-label col-lg-2">Message</label>
                     <div className="col-lg-10">
-                        <JoditEditor value={content} onChange={value => setContent(value)} />
+                        <Editor value={content} onChange={handleEditorChange} />
                     </div>
                     <div className="col-md-2"></div>
                     <div className="col-md-10">
                         {contentError && <p className="text-danger">Required</p>}
+                    </div>
+                </div>
+                <div className="form-group row mb-4">
+                    <label className="col-form-label col-lg-2">Attachment(s)</label>
+                    <div className="col-lg-10">
+                        <DropZone closed={closed} onChange={(set) => setFiles(set)} multiple={true} />
                     </div>
                 </div>
                 <div className="row">
@@ -180,5 +187,5 @@ function CreateBroadcastEmail({ offer, toggle, reinsurer_id, share }) {
     )
 }
 
-export default CreateBroadcastEmail
+export default SendSingleDebitNote
 

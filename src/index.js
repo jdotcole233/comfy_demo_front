@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./char.css"
+import 'react-tabs/style/react-tabs.css';
+import 'jodit/build/jodit.min.css';
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";

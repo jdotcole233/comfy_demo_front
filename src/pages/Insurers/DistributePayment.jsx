@@ -1,36 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './styles/ViewInsurerOffer.module.css'
 import swal from 'sweetalert'
 import { useMutation, useQuery } from 'react-apollo';
 import { DISTRIBUTE_PAYMENT } from '../../graphql/mutattions';
 import { INSURER, GET_ISNURER_DEDUCTIONS } from '../../graphql/queries';
 import { Alert } from 'react-bootstrap';
-import { DrawerContext } from '../../components/Drawer';
 
 
 
 
 
 export default function DistributePayment({ data, toggle, insurer_id = 1, showFlag }) {
-    const { closed } = useContext(DrawerContext);
     const [forms, setForms] = useState([])
     const [errors, setErrors] = useState([])
     const [reinsurers, setReinsurers] = useState([])
-    useEffect(() => {
-        if (closed) {
-            setErrors([])
-            setForms([])
-            setReinsurers([])
-        }
-    }, [closed])
+
 
     const getPaymentId = () => {
-        // console.log(data)
-        if (data && data.offer_payment.length > 0) {
-            // console.log(data.offer_payment)
-            return data?.offer_payment[data.offer_payment.length - 1]?.offer_payment_id
+        if (data && data.offer_payment.length) {
+            return data?.offer_payment[0]?.offer_payment_id
         }
         return 0
     }
@@ -51,7 +41,7 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
     useEffect(() => {
         if (deductions) {
             setReinsurers([...JSON.parse(deductions.getOfferparticipantDeductions)])
-            console.log(reinsurers)
+            // console.log(reinsurers)
         }
     }, [deductions])
 
@@ -139,7 +129,7 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
         })
     }
 
-    return (
+    return !deductions ? null : (
         <div>
             <div className={styles.card_header}>
                 <h2 className={styles.card_title}>Distribute Payments</h2>
@@ -148,37 +138,37 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
                 {!showFlag ?
                     <>
                         {forms.length ? forms.map((participant, key) => {
-                            return (
-                                <fieldset className="border p-2 mb-2" key={key}>
+                            return !data?.offer_participant[key].offer_participant_percentage ? null : (
+                                <fieldset className="border-form p-2 mb-2" key={key}>
                                     <legend className={styles.details_title}>{data?.offer_participant[key]?.reinsurer?.re_company_name}</legend>
                                     <div className="row">
                                         <div className="col-md-12">
                                             {data?.offer_participant[key]?.offer_participant_payment?.length ?
-                                                <table className="table">
+                                                <table className="table border border-dark table-bordered">
                                                     <tbody>
                                                         <tr>
                                                             <th>Facultative Premuim</th>
-                                                            <td>{data?.offer_participant[key].participant_fac_premium.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{data?.offer_participant[key].participant_fac_premium?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                             <th>Withholding Tax</th>
-                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.withholding_tax_paid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.withholding_tax_paid?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Participating %</th>
                                                             <td>{data?.offer_participant[key].offer_participant_percentage}</td>
                                                             <th>Brokerage</th>
-                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.brokerage_amount_paid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.brokerage_amount_paid?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>NIC levy</th>
-                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.nic_levy_paid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.nic_levy_paid?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                             <th>Commission taken</th>
-                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.commission_taken.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{reinsurers[key]?.offer_deductions[reinsurers[key]?.offer_deductions.length - 1]?.commission_taken?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                         </tr>
                                                         <tr>
                                                             <th></th>
                                                             <td></td>
                                                             <th>Amount</th>
-                                                            <td>{data?.offer_participant[key].offer_participant_payment[data?.offer_participant[key].offer_participant_payment.length - 1].offer_payment_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                                            <td>{data?.offer_participant[key].offer_participant_payment[data?.offer_participant[key].offer_participant_payment.length - 1].offer_payment_amount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table> : null}

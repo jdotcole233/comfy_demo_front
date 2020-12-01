@@ -5,10 +5,11 @@ import styles from './styles/card.module.css'
 import { Alert } from 'react-bootstrap'
 import { useMutation } from 'react-apollo';
 import { MAKE_CLAIM_ON_OFFER } from '../../graphql/mutattions';
-import { OFFERS } from '../../graphql/queries';
+import { ALLOFFERS, OFFERS } from '../../graphql/queries';
 import swal from 'sweetalert';
 import emptyImage from '../../assets/empty.png'
 import { DrawerContext } from '../../components/Drawer';
+import { Editor } from '../../components';
 
 
 
@@ -17,12 +18,13 @@ const MakeClaim = ({ offer, toggle }) => {
     const [claim_amount, setclaim_amount] = useState(0);
     const [claim_date, setclaim_date] = useState("");
     const [error, setError] = useState(false)
-    const [makeClaim] = useMutation(MAKE_CLAIM_ON_OFFER, { refetchQueries: [{ query: OFFERS, variables: { offer_status: ["CLOSED"] } }] })
+    const [comments, setComments] = useState("")
+    const [makeClaim] = useMutation(MAKE_CLAIM_ON_OFFER, { refetchQueries: [{ query: OFFERS, variables: { offer_status: ["CLOSED"] } }, { query: ALLOFFERS, variables: { offer_status: ["CLOSED"], skip: 0 } }] })
     const amountSpent = offer?.offer_claims.reduce((total, currentClaim) => total + parseFloat(currentClaim.claim_amount), 0)
     const leftAmount = parseFloat(offer?.fac_sum_insured) - amountSpent;
     const handleMakeClain = event => {
         event.preventDefault();
-        const data = { claim_amount, claim_date, offer_id: offer?.offer_id };
+        const data = { claim_amount, claim_date, offer_id: offer?.offer_id, claim_comment: comments };
         swal({
             icon: "warning",
             title: "Are you sure you want to make claim of " + offer?.offer_detail?.currency + " " + claim_amount + "?",
@@ -31,13 +33,13 @@ const MakeClaim = ({ offer, toggle }) => {
             if (!input) throw {};
             makeClaim({ variables: { data } })
                 .then(res => {
-                    swal("Hurray!!", "Claimed made successfully", 'success');
+                    swal("Success", "Claimed made successfully", 'success');
                     setclaim_amount("");
                     setclaim_date("");
                     toggle();
                 }).catch(err => {
                     if (err) {
-                        console.log(err)
+                        // console.log(err)
                         swal("Oh noes!", "The AJAX request failed!", "error");
                     } else {
                         swal.stopLoading();
@@ -85,7 +87,7 @@ const MakeClaim = ({ offer, toggle }) => {
                             <Alert variant="danger">
                                 <strong></strong>
                             </Alert>
-                            <fieldset className="border p-2 mb-2">
+                            <fieldset className="border-form p-2 mb-2">
                                 <legend className={styles.details_title}>Claim Details [{offer?.offer_detail?.policy_number}]</legend>
                                 <table className="table">
                                     <tbody>
@@ -135,25 +137,34 @@ const MakeClaim = ({ offer, toggle }) => {
                             {/* <fieldset className="border p-1"> */}
                             <div className="row">
                                 <form onSubmit={handleMakeClain} className="col-md-12">
-                                    <legend style={{ fontSize: 16 }} className="w-auto">Claim Details</legend>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label htmlFor="">Enter amount to be claimed</label>
-                                                <input type="number" value={claim_amount} onChange={e => setclaim_amount(e.target.value)} className="form-control" placeholder="Claim amount" required />
-                                                {error && <p className="text-danger">{`Claim amount cannot exceed  ${leftAmount}`}</p>}
+                                    <fieldset className="border-form p-2">
+                                        <legend className={styles.details_title}>Claim Details</legend>
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="">Enter amount to be claimed</label>
+                                                    <input type="number" value={claim_amount} onChange={e => setclaim_amount(e.target.value)} className="form-control" placeholder="Claim amount" required />
+                                                    {error && <p className="text-danger">{`Claim amount cannot exceed  ${leftAmount}`}</p>}
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group">
+                                                    <label htmlFor="">Claim date</label>
+                                                    <input type="date" value={claim_date} onChange={e => setclaim_date(e.target.value)} className="form-control" placeholder="Claim amount" required />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group">
+                                                    <label htmlFor="">Comment</label>
+                                                    {/* <textarea hidden required value={comments} id="" cols="30" rows="10"></textarea> */}
+                                                    <Editor value={comments} onChange={val => setComments(val)} />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label htmlFor="">Claim date</label>
-                                                <input type="date" value={claim_date} onChange={e => setclaim_date(e.target.value)} className="form-control" placeholder="Claim amount" required />
-                                            </div>
+                                        <div className="form-group">
+                                            <button type="submit" className="btn btn-primary w-md btn-sm float-right">Make claim</button>
                                         </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <button type="submit" className="btn btn-primary w-md btn-sm float-right">Make claim</button>
-                                    </div>
+                                    </fieldset>
                                 </form>
                             </div>
                             {/* </fieldset> */}

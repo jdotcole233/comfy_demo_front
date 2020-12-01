@@ -3,7 +3,7 @@ import moment from 'moment'
 
 const NotifactionCard = ({ notification, onSelect, deleteNotif }) => {
     return (
-        <div style={{ boxShadow: "2px 1px 7px #000", zIndex: 2, borderRadius: 5 }} className="media my-3 border-1 border p-2" >
+        <div  className="media my-3 border-1 border p-2" >
             <div className="avatar-xs mr-3">
                 <span className="avatar-title bg-primary rounded-circle font-size-16">
                     <i className={`bx bx-${notification.system_notification.notification_type.includes("SYSTEM") ? "cog" : "bell"}`}></i>

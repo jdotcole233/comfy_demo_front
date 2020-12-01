@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import ReInsurer from './Re-Insurer'
 import { Drawer, Loader, chunkArray } from '../../components';
 import AddReInsurer from './AddReInsurer';
@@ -6,6 +6,8 @@ import AddAssociate from './AddAssociate';
 import Pagination from 'react-paginate'
 import { useQuery } from 'react-apollo'
 import { REINSURERS } from '../../graphql/queries';
+import { create_reinsurer_access } from '../../layout/adminRoutes';
+import { AuthContext } from '../../context/AuthContext';
 
 function ReInsurers() {
     const { data, loading } = useQuery(REINSURERS, { fetchPolicy: "network-only" });
@@ -14,6 +16,7 @@ function ReInsurers() {
     const [activePage, setActivePage] = useState(0)
     const [reinsurersInPages, setReinsurersInPages] = useState([])
     const [search, setsearch] = useState("")
+    const { state: ctx } = useContext(AuthContext)
 
 
     const handleSearch = event => {
@@ -89,7 +92,7 @@ function ReInsurers() {
                         <h3>Re-Insurers List</h3>
                     </div>
                     <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                        <button onClick={() => setshowAddReInsurer(!0)} className="btn btn-primary">Add Re-Insurer</button>
+                        {create_reinsurer_access.includes(ctx?.user?.position) && <button onClick={() => setshowAddReInsurer(!0)} className="btn btn-rounded btn-sm btn-primary">Add Re-Insurer</button>}
                     </div>
                 </div>
             </div>
@@ -127,7 +130,7 @@ function ReInsurers() {
             />
             {/*Drawer for add Reinsurer */}
             <Drawer width="40%" isvisible={showAddReInsurer} toggle={() => setshowAddReInsurer(!!0)}>
-                <AddReInsurer toggle={() => setshowAddReInsurer(!!0)} />
+                <AddReInsurer toggle={() => setshowAddReInsurer(!!0)} closed={!showAddReInsurer} />
             </Drawer>
             <Drawer width="40%" isvisible={showAddAssociate} toggle={() => setshowAddAssociate(!!0)}>
                 <AddAssociate details={selectedReinsurer} toggle={() => setshowAddAssociate(!!0)} />

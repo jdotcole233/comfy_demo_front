@@ -9,9 +9,8 @@ import currencies from '../../assets/currencies.json'
 import { CREATE_INPUT_OFFER, CREATE_FLEET_OFFER } from '../../graphql/mutattions';
 import swal from 'sweetalert';
 import { DrawerContext } from '../../components/Drawer'
-import { Selector, Modal, Datatable, CurrencyOption, InsurerOption } from '../../components';
+import { Selector, Modal, Datatable, CurrencyOption, InsurerOption, Editor } from '../../components';
 import { AuthContext } from '../../context/AuthContext';
-import JoditEditor from "jodit-react";
 import { previewTable } from './columns';
 
 
@@ -31,8 +30,12 @@ export const prepVariables = (values, offerDetails, employee_id) => {
         period_of_insurance_to: values.period_of_insurance_to,
         currency: values.currency,
         offer_comment: values.offer_comment || " ",
+        information_comment: values.information_comment || " ",
+        ex_currency: values.ex_currency || " ",
+        ex_rate: values.ex_rate || " ",
         employee_id,
-        offer_details: JSON.stringify(offerDetails)
+        offer_details: JSON.stringify(offerDetails),
+        co_insurance_share: values.co_insurance_share
     }
 
     return variable
@@ -42,6 +45,8 @@ export const prepVariables = (values, offerDetails, employee_id) => {
 export default function InputOffer({ toggle }) {
     const { closed } = useContext(DrawerContext);
     const { state } = useContext(AuthContext);
+    const [nkrol, setNkrol] = useState(false)
+    const [addExchangeRate, setAddExchangeRate] = useState(false)
     const [showPreviewModal, setshowPreviewModal] = useState(false)
     const formRef = useRef()
     const { data } = useQuery(INPUT_OFFER_QUERIES);
@@ -54,8 +59,9 @@ export default function InputOffer({ toggle }) {
     const [fleetData, setFleetData] = useState([])
     const [editData, setEditData] = useState(null)
     const [currency, setCurrency] = useState(null)
+    const [ex_currency, setExCurrency] = useState(null)
     const [updateIndex, setUpdateIndex] = useState(-1)
-    //
+    const [infoContent, setInfoContent] = useState("")
 
     const [createFleetOfferMutation, { loading: creatingFleet }] = useMutation(CREATE_FLEET_OFFER, {
         refetchQueries: [
@@ -77,7 +83,6 @@ export default function InputOffer({ toggle }) {
 
     useEffect(() => {
         if (editData) {
-            console.log(editData.insurer)
             setValue("policy_number", editData?.policy_number)//insurance_company
             setValue("insurer_id", editData?.insurer_id)//insurance_company
             setValue("class_of_business_id", editData?.class_of_business_id)//insurance_company
@@ -96,7 +101,6 @@ export default function InputOffer({ toggle }) {
             setValue("period_of_insurance_from", editData.period_of_insurance_from)
             setValue("period_of_insurance_to", editData.period_of_insurance_to)
             setSelectedInsurer({ label: data?.insurers.find(el => el.insurer_id === editData.insurer_id)?.insurer_company_name })
-            // setClassOfBusiness(JSON.parse(editData.offer_details))
             setCurrency(editData.currency)
         }
     }, [editData])
@@ -131,6 +135,14 @@ export default function InputOffer({ toggle }) {
         }
     }
 
+    const handleExCurrencyChange = value => {
+        setValue("ex_currency", value ? value.value.code : "");
+        setExCurrency(value ? value.value.code : "")
+        if (value) {
+            clearError("ex_currency")
+        }
+    }
+
     const handleInsuranceCompanyChange = value => {
         setValue("insurer_id", value ? value.value.insurer_id : "");
         setSelectedInsurer(value ? value : "")
@@ -144,6 +156,14 @@ export default function InputOffer({ toggle }) {
         setContent(value)
         if (value) {
             clearError("offer_comment")
+        }
+    }
+
+    const handleInfoCommentChange = value => {
+        setValue("information_comment", value)
+        setInfoContent(value)
+        if (value) {
+            clearError("information_comment")
         }
     }
 
@@ -172,7 +192,6 @@ export default function InputOffer({ toggle }) {
         const { value } = e.target;
         const inputs = [...offerDetails];
         inputs[index]["value"] = value
-        console.log(inputs[index])
         setofferDetails(inputs)
     }
 
@@ -185,12 +204,6 @@ export default function InputOffer({ toggle }) {
         }).then(input => {
             if (!input) throw {}
             const _ = [...fleetData]
-            // offerDetails.map(item => {
-            //     delete values[item.keydetail]
-            //     return 0
-            // })
-            console.log(values)
-
             const variable = prepVariables(values, offerDetails, state.user.employee.employee_id)
             _[updateIndex] = variable
             setFleetData(_);
@@ -208,19 +221,12 @@ export default function InputOffer({ toggle }) {
             buttons: ["No", { text: "Yes" }]
         }).then(input => {
             if (!input) {
-                // offerDetails.map(item => {
-                //     delete values[item.keydetail]
-                //     return 0
-                // })
                 const variable = prepVariables(values, offerDetails, state.user.employee.employee_id)
                 setFleetData(prev => [...prev, variable])
                 toggle()
                 setshowPreviewModal(prev => !prev)
             } else {
-                // offerDetails.map(item => {
-                //     delete values[item.keydetail]
-                //     return 0
-                // })
+
                 const variable = prepVariables(values, offerDetails, state.user.employee.employee_id)
                 setFleetData(prev => [...prev, variable])
             }
@@ -242,7 +248,7 @@ export default function InputOffer({ toggle }) {
         }).then(input => {
             if (!input) throw {}
             createFleetOfferMutation({ variables: { data: fleetData } }).then(res => {
-                swal("Hurray", "Facultative offer Created Successfully", "success");
+                swal("Success", "Facultative offer Created Successfully", "success");
                 formRef.current.reset()
                 setSelectedInsurer(null)
                 setshowPreviewModal(false)
@@ -254,7 +260,6 @@ export default function InputOffer({ toggle }) {
                 setIsFleetType(false)
                 setContent("")
                 setFleetData([])
-                // toggle()
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
@@ -282,7 +287,7 @@ export default function InputOffer({ toggle }) {
         }).then(input => {
             if (!input) throw {}
             createOffer({ variables }).then(res => {
-                swal("Hurray", "Facultative offer Created Successfully", "success");
+                swal("Success", "Facultative offer Created Successfully", "success");
                 formRef.current.reset()
                 setSelectedInsurer(null)
                 toggle()
@@ -328,7 +333,7 @@ export default function InputOffer({ toggle }) {
                     </div>
 
                 </div>
-                {classOfBusiness ? (<fieldset className="w-auto p-2 border">
+                {classOfBusiness ? (<fieldset className="w-auto p-2  border-form">
                     <legend className={styles.details_title}>Business class details</legend>
                     <div className="row">
                         {offerDetails.map((cob, key) => (
@@ -342,14 +347,8 @@ export default function InputOffer({ toggle }) {
                         ))}
                     </div>
                 </fieldset>) : null}
-                {/* <fieldset className="w-auto p-2">
-                    {fleetData.map((value, id) => <FormDetails value={value} remove={handleRemoveMotorByIndex} id={id} onChange={(data) => handleFleetDataChange(data, id)} key={id} />)}
-                </fieldset>
-                {isFleetType && <div className="row mt-2 px-2 d-flex justify-content-end">
-                    <button onClick={handleAddMotor} className="btn btn-sm w-md btn-primary" type="button">Add Motor</button>
-                    {fleetData.length > 1 && <button onClick={handleRemoveMotor} id className="btn ml-2 btn-sm w-md btn-danger" type="button">Add Motor</button>}
-                </div>} */}
-                <fieldset className="w-auto p-2 border">
+
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -369,21 +368,21 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Sum Insured</label>
-                                <input ref={register({ required: "Provide sum insured" })} name="sum_insured" type="text" className="form-control" placeholder="Sum Insured" />
+                                <input ref={register({ required: "Provide sum insured" })} min="0" step="any" name="sum_insured" type="number" className="form-control" placeholder="Sum Insured" />
                                 {errors.sum_insured && <p className="text-danger">{errors.sum_insured.message}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Rate (%)</label>
-                                <input name="rate" ref={register({ required: "Provide rate" })} type="text" className="form-control" placeholder="Rate" />
+                                <input name="rate" ref={register({ required: false })} min="0" step="any" type="number" className="form-control" placeholder="Rate" />
                                 {errors.rate && <p className="text-danger">{errors.rate.message}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Premium</label>
-                                <input name="premium" ref={register({ required: "Provide premium" })} type="text" className="form-control" placeholder="Premium" />
+                                <input name="premium" ref={register({ required: "Provide premium" })} min="0" step="any" type="number" className="form-control" placeholder="Premium" />
                                 {errors.premium && <p className="text-danger">{errors.premium.message}</p>}
 
                             </div>
@@ -391,7 +390,7 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Facultative Offer (%)</label>
-                                <input name="facultative_offer" ref={register({ required: "Provide facultative offer" })} type="text" className="form-control" placeholder="Facultative Offer" />
+                                <input name="facultative_offer" min="0" step="any" ref={register({ required: "Provide facultative offer" })} type="number" className="form-control" placeholder="Facultative Offer" />
                                 {errors.facultative_offer && <p className="text-danger">{errors.facultative_offer.message}</p>}
 
                             </div>
@@ -399,18 +398,18 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Commision (%)</label>
-                                <input type="text" ref={register({ required: "Provide commission" })} name="commission" className="form-control" placeholder="Commision" />
+                                <input type="number" min="0" step="any" ref={register({ required: "Provide commission" })} name="commission" className="form-control" placeholder="Commision" />
                                 {errors.commission && <p className="text-danger">{errors.commission.message}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Preliminary Brokerage (%)</label>
-                                <input type="text" ref={register({ required: "Provide preliminary brokerage" })} name="brokerage" className="form-control" placeholder="Preliminary Brokerage" />
+                                <input type="number" min="0" step="any" ref={register({ required: "Provide preliminary brokerage" })} name="brokerage" className="form-control" placeholder="Preliminary Brokerage" />
                                 {errors.brokerage && <p className="text-danger">{errors.brokerage.message}</p>}
                             </div>
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Currency</label>
                                 <Selector
@@ -423,21 +422,55 @@ export default function InputOffer({ toggle }) {
                                 <input ref={register({
                                     required: "Currency is required"
                                 })} type="hidden" name="currency" list="currencies" placeholder="Currency" className="form-control" />
-
-                                {/* <datalist id="currencies">
-                                    <select className="form-control">
-                                        {Object.values(currencies).map((currency, key) => (
-                                            <option key={key} value={country.currencies[0].code} >{country.currencies[0].name}</option>
-
-                                        ))}
-                                    </select>
-                                </datalist> */}
                                 {errors.currency && <p className="text-danger">{errors.currency.message}</p>}
                             </div>
                         </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="Type of goods">Co-Insurance share (%)</label>
+                                <input type="number" min="0" step="any" ref={register({ required: false })} name="co_insurance_share" className="form-control" placeholder="Co-Insurance share" />
+                                {errors.co_insurance_share && <p className="text-danger">{errors.co_insurance_share.message}</p>}
+                            </div>
+                        </div>
+                        <div className="col-md-12">
+                            <div className="form-check">
+                                <input type="checkbox" className="form-check-input" onChange={e => setAddExchangeRate(e.target.checked)} />
+                                <label className="form-check-label" htmlFor="exampleCheck1">Add Exchange rate</label>
+                            </div>
+                        </div>
+                        {addExchangeRate && <div className="col-md-12 mt-2">
+                            <div className="form-group alert alert-danger text-danger w-auto ">
+                                Premium and Deductions on all documents will be affected by this exchange rate value
+                            </div>
+                        </div>}
+                        {addExchangeRate && <>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="Type of goods">Exchange Currency</label>
+                                    <Selector
+                                        value={ex_currency ? { label: Object.values(currencies).find(eel => eel.code === ex_currency)?.name } : ""}
+                                        components={{ Option: CurrencyOption }}
+                                        onChange={handleExCurrencyChange}
+                                        options={[...Object.values(currencies).map(currency => ({
+                                            label: currency.name, value: currency
+                                        }))]} />
+                                    <input ref={register({
+                                        required: addExchangeRate
+                                    })} type="hidden" name="ex_currency" placeholder="Currency" className="form-control" />
+                                    {errors.ex_currency && <p className="text-danger">{errors.ex_currency.message}</p>}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="Type of goods">Exchange rate </label>
+                                    <input type="number" min="0" step="any" ref={register({ required: addExchangeRate })} name="ex_rate" className="form-control" placeholder="Exchange rate" />
+                                    {errors.ex_rate && <p className="text-danger">{errors.ex_rate.message}</p>}
+                                </div>
+                            </div>
+                        </>}
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Period Of Insurance</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -456,18 +489,35 @@ export default function InputOffer({ toggle }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2  border-form">
                     <legend className={styles.details_title}>Comment</legend>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                                <JoditEditor value={content} onChange={handleCommentChange} />
-
+                                <Editor value={content} onChange={handleCommentChange} />
                                 <textarea hidden rows={10} ref={register({ required: false })} name="offer_comment" className="form-control" placeholder="Add Comment" ></textarea>
                             </div>
                         </div>
                     </div>
                 </fieldset>
+                <div className="w-auto p-2">
+                    <div className="form-check">
+                        <input type="checkbox" className="form-check-input" id="exampleCheck1" onChange={e => setNkrol(e.target.checked)} />
+                        <label className="form-check-label" htmlFor="exampleCheck1">Include NKORL information to placing slip</label>
+                    </div>
+                </div>
+                {nkrol && <fieldset className="w-auto p-2  border-form">
+                    <legend className={styles.details_title}>NKORL</legend>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <Editor value={infoContent} onChange={handleInfoCommentChange} />
+                                <textarea hidden rows={10} ref={register({ required: nkrol })} name="information_comment" className="form-control" placeholder="Add Comment" ></textarea>
+                            </div>
+                            {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>}
+                        </div>
+                    </div>
+                </fieldset>}
                 <div className="form-group">
                     <input type="submit" className="btn btn-primary btn-sm form-control my-2" value={editData ? "Update Offer" : isFleetType ? "Add Offer" : "Create Offer"} />
                 </div>

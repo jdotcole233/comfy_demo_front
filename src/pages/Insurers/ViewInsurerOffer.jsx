@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import styles from './styles/ViewInsurerOffer.module.css'
 import { useQuery } from 'react-apollo'
 import { FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries'
+import { Editor } from '../../components';
+
 
 export default function ViewInsurerOffer({ data }) {
     const [details, setDetails] = useState(null)
@@ -12,6 +14,7 @@ export default function ViewInsurerOffer({ data }) {
     useEffect(() => {
         if (data && classOfBusinesses) {
             setDetails(data);
+            console.log(data)
             chooseSelectedBusiness(data.classofbusiness?.business_name)
         }
     }, [data, classOfBusinesses])
@@ -30,7 +33,7 @@ export default function ViewInsurerOffer({ data }) {
         }
     }
 
-    return (
+    return !data ? null : (
         <>
             <div className={styles.card_header}>
                 <h2 className={styles.card_title}>View facultative placement slip</h2>
@@ -40,7 +43,7 @@ export default function ViewInsurerOffer({ data }) {
                     <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="BusinessClass">Insurance Company</label>
-                            <input value={details?.insurer?.insurer_company_name} type="text" name="business_class" className="form-control" list="insurance_companies" placeholder="Insurance company" readOnly/>
+                            <input value={details?.insurer?.insurer_company_name} type="text" name="business_class" className="form-control" list="insurance_companies" placeholder="Insurance company" readOnly />
                             <datalist id="insurance_companies">
                                 <select name="business_class" id="" className="form-control">
                                     <option value="Regency Nem Insurance Ghana Ltd">Regency Nem Insurance Ghana Ltd</option>
@@ -65,7 +68,7 @@ export default function ViewInsurerOffer({ data }) {
                     </div>
 
                 </div>
-                {selectedClassOfBusiness ? <fieldset className="w-auto p-2 border">
+                {selectedClassOfBusiness ? <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Business class details</legend>
                     <div className="row">
                         {JSON.parse(details?.offer_detail.offer_details).map((detail, key) => {
@@ -80,7 +83,7 @@ export default function ViewInsurerOffer({ data }) {
                         })}
                     </div>
                 </fieldset> : null}
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -128,18 +131,52 @@ export default function ViewInsurerOffer({ data }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Brokerage</label>
-                                <input type="text" className="form-control" placeholder="Brokerage" value={details?.brokerage} readOnly/>
+                                <input type="text" className="form-control" placeholder="Brokerage" value={details?.brokerage} readOnly />
                             </div>
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="currency">Currency</label>
                                 <input type="text" value={details?.offer_detail?.currency} className="form-control" readOnly />
                             </div>
                         </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="Type of goods">Co-Insurance Share (%)</label>
+                                <input type="text" className="form-control" placeholder="Co-Insurance Share" value={details?.co_insurance_share} onChange={() => { }} />
+                            </div>
+                        </div>
+                        <div className="col-md-12">
+                            <div className="form-check">
+                                <input type="checkbox" checked={details?.exchange_rate} className="form-check-input"/>
+                                <label className="form-check-label" htmlFor="exampleCheck1">Add Exchange rate</label>
+                            </div>
+                        </div>
+                        {details?.exchange_rate && <div className="col-md-12 mt-2">
+                            <div className="form-group alert alert-danger text-danger w-auto ">
+                                Premium and Deductions on all documents will be affected by this exchange rate value
+                            </div>
+                        </div>}
+                        {details?.exchange_rate && <>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="">Exchange Currency</label>
+                                    <input type="text" value={details?.exchange_rate?.ex_currency} className="form-control" readOnly />
+
+                                    {/* {errors.ex_currency && <p className="text-danger">{errors.ex_currency.message}</p>} */}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="Type of goods">Exchange rate {details?.exchange_rate?.ex_rate} </label>
+                                    <input type="number" min="0" step="0.000001" value={details?.exchange_rate?.ex_rate}  name="ex_rate" className="form-control" placeholder="Exchange rate" />
+                                    {/* {errors.ex_rate && <p className="text-danger">{errors.ex_rate.message}</p>} */}
+                                </div>
+                            </div>
+                        </>}
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Period Of Insurance</legend>
                     <div className="row">
                         <div className="col-md-6">
@@ -156,12 +193,26 @@ export default function ViewInsurerOffer({ data }) {
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
-                    <legend className={styles.details_title}></legend>
+                {details?.offer_detail?.offer_comment && <fieldset className="w-auto p-2 border-form">
+                    <legend className={styles.details_title}>Comment</legend>
                     <div className="form-grpup">
-                        <textarea name="" id="" cols="30" rows="10" value={details?.offer_detail?.offer_comment} className="form-control" readOnly></textarea>
+                        {/* <JoditEditor value={details?.offer_detail?.offer_comment || ""} onChange={() => { }} /> */}
+                        <Editor value={details?.offer_detail?.offer_comment?.toString() || ""} onChange={() => { }} />
+                        {/* <textarea hidden name="" id="" cols="30" rows="10" value={details?.offer_detail?.offer_comment} className="form-control" readOnly></textarea> */}
                     </div>
-                </fieldset>
+                </fieldset>}
+                {details?.offer_detail?.information_comment && <fieldset className="w-auto p-2  border-form">
+                    <legend className={styles.details_title}>NKORL</legend>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <Editor value={details?.offer_detail?.information_comment?.toString()} onChange={() => { }} />
+                                {/* <textarea hidden rows={10} ref={register({ required: nkrol })} value={infoContent} name="information_comment" className="form-control" placeholder="Add Comment" ></textarea> */}
+                                {/* {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>} */}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>}
             </div>
         </>
     )

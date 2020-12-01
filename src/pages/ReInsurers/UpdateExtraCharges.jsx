@@ -68,7 +68,7 @@ function UpdateExtraCharges({ details, toggle }) {
             .catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
-                    console.log(err)
+                    // console.log(err)
                 } else {
                     swal.stopLoading();
                     swal.close();

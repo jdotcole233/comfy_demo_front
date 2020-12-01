@@ -1,28 +1,41 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
-import { Drawer, CurrencyValues, Datatable, Loader } from '../../components'
-import EditInsurer from './AddInsurer'
+import { Drawer, Datatable, Loader, OverViewCard, generateNewCulumns } from '../../components'
+import EditInsurer from './EditInsurer'
 import f_dat, { managersColumn } from './dummy';
 import { useQuery } from 'react-apollo'
-import { INSURER } from '../../graphql/queries'
+import { INSURER, INSURER_OFFERS } from '../../graphql/queries'
 import OfferButtons from './components/Offerbuttons'
 import ManagerButtons from './components/ManagerButtons'
 import BrokerageComponent from './components/BrokerageComponent'
 import Reschedule from './components/Reschedule';
+import OfferListing from '../CreateSlip/OfferListing';
+import { useMemo } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 
 function InsurerDetail() {
+    const { state: ctx } = useContext(AuthContext)
+    // console.log(ctx?.user)
     const history = useHistory();
     const { state } = useLocation()
 
     useEffect(() => {
         if (!state || !state.insurer_id) {
             history.push("/admin/insurers")
-        } 
+        }
     }, [state])
+
+    const { data: insurer_offers, loading: fetching, fetchMore } = useQuery(INSURER_OFFERS, {
+        variables: {
+            id: state?.insurer_id,
+            skip: 0
+        },
+        fetchPolicy: "cache-and-network"
+    })
 
 
     const { data: insurer, loading } = useQuery(INSURER, {
@@ -50,10 +63,10 @@ function InsurerDetail() {
                     cob: offer.classofbusiness.business_name,
                     offer_date: offer.created_at,
                     offer_status: (
-                        <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-soft-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
+                        <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
                     ),
                     payment_status: (
-                        <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-soft-${offer.payment_status === "PARTPAYMENT" ? "primary" : offer.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.payment_status}</span>
+                        <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.payment_status === "PARTPAYMENT" ? "primary" : offer.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.payment_status}</span>
                     ),
                     salary: <OfferButtons insurer={insurer} state={state} offer={offer} />,
                 }
@@ -67,6 +80,28 @@ function InsurerDetail() {
 
 
 
+    const insurers_all_offers = useMemo(() => insurer_offers?.insurer_all_offers?.offers.map((offer, i) => ({
+        name: offer.offer_detail?.policy_number,
+        insured: offer.offer_detail?.insured_by,
+        sum_insured: `${offer?.offer_detail?.currency} ${offer.sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
+        f_sum_insured: `${offer?.offer_detail?.currency} ${offer.fac_sum_insured.toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
+        comission: offer.commission,
+        cob: offer.classofbusiness.business_name,
+        offer_date: offer.created_at,
+        offer_status: (
+            <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.offer_status === "OPEN" ? "primary" : offer.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{offer.offer_status}</span>
+        ),
+        payment_status: (
+            <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${offer.payment_status === "PARTPAYMENT" ? "primary" : offer.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{offer.payment_status}</span>
+        ),
+        salary: <OfferButtons insurer={insurer} state={state} offer={offer} />,
+    })), [insurer_offers, insurer])
+
+
+    const insurers_all_offers_total = useMemo(() => insurer_offers?.insurer_all_offers?.total, [insurer_offers])
+
+
+
     useEffect(() => {
         if (insurer) {
             const list = [];
@@ -75,7 +110,7 @@ function InsurerDetail() {
                     name: `${manager.assoc_first_name} ${manager.assoc_last_name}`,
                     phone: `${manager.assoc_primary_phonenumber}, ${manager.assoc_secondary_phonenumber}`,
                     email: `${manager.assoc_email}`,
-                    actions: <ManagerButtons manager={manager} state={state} />,
+                    actions: ['System Administrator', 'Senior Broking Officer'].includes(ctx?.user?.position) ? <ManagerButtons manager={manager} state={state} /> : null,
                 }
                 list.push(row);
                 return insurer;
@@ -85,16 +120,32 @@ function InsurerDetail() {
     }, [insurer])
 
 
+    const loadMore = (skip) => {
+        fetchMore({
+            variables: {
+                id: state?.insurer_id,
+                skip
+            },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                fetchMoreResult.insurer_all_offers.offers = [
+                    ...prev.insurer_all_offers.offers,
+                    ...fetchMoreResult.insurer_all_offers.offers,
+                ]
+                return fetchMoreResult
+            }
+        })
+    }
 
 
 
-
+    if (loading) return <Loader />
 
 
     return (
         <div className="page-content">
-            {loading && <Loader />}
-            {!loading && insurer && <div className="container-fluid">
+
+            <div className="container-fluid">
 
                 <div className="row">
                     <div className="col-12">
@@ -250,74 +301,41 @@ function InsurerDetail() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-12">
-                                <div className="card mini-stats-wid">
-                                    <div className="card-body">
-                                        <div className="media">
-                                            <div className="media-body">
-                                                <p className="text-muted font-weight-medium">Total Fac. Premium</p>
-                                                <CurrencyValues data={JSON.parse(insurer?.insurer.insurer_overview?.total_fac_premium)} />
-                                            </div>
+                            <OverViewCard title="Total Fac. Premium" value={JSON.parse(insurer?.insurer.insurer_overview?.total_fac_premium)} className="col-md-12" />
+                            <OverViewCard title="Total Brokerage" value={JSON.parse(insurer?.insurer.insurer_overview?.total_brokerage_amt)} className="col-md-12" />
 
-                                            <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
-                                                <span className="avatar-title">
-                                                    <i className="bx bx-money font-size-24"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-12">
-                                <div className="card mini-stats-wid">
-                                    <div className="card-body">
-                                        <div className="media">
-                                            <div className="media-body">
-                                                <p className="text-muted font-weight-medium">Total Brokerage</p>
-                                                <CurrencyValues data={JSON.parse(insurer?.insurer.insurer_overview?.total_brokerage_amt)} />
-                                            </div>
-
-                                            <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
-                                                <span className="avatar-title">
-                                                    <i className="bx bx-money font-size-24"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
                 </div>
-                <div className="row">
-
-                    <BrokerageComponent insurer={insurer} />
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title mb-4">Offers</h4>
-
-                                <Datatable btn hover striped responsive bordered data={rows} columns={f_dat.columns} />
-                            </div>
-                        </div>
-                    </div>
+                <BrokerageComponent insurer={insurer} />
+                <OfferListing
+                    title="Offers"
+                    setInputOffer={1}
+                    fetching={fetching}
+                    handleLoadMore={loadMore}
+                    recent={rows}
+                    all={insurers_all_offers}
+                    columns={f_dat.columns}
+                    allTotal={insurers_all_offers_total}
+                />
+                <div className="">
 
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title mb-4">Managers</h4>
-                                <Datatable btn hover striped responsive bordered data={managers} columns={managersColumn} />
+                                <Datatable btn hover striped responsive bordered data={managers} columns={generateNewCulumns(managersColumn, ['System Administrator', 'Senior Broking Officer'].includes(ctx?.user?.position) ? [] : ["actions"])} />
                             </div>
                         </div>
                     </div>
                 </div>
 
-            </div>}
+            </div>
 
             {/* Edit Insurer */}
             <Drawer width="40%" isvisible={showInsurerProfile} toggle={() => setShowInsurerProfile(!showInsurerProfile)}>
-                <EditInsurer edit={true} data={insurer} toggle={() => setShowInsurerProfile(!showInsurerProfile)} />
+                {showInsurerProfile && <EditInsurer closed={showInsurerProfile} data={insurer} toggle={() => setShowInsurerProfile(!showInsurerProfile)} />}
             </Drawer>
             {/* /end of edit insurer */}
 

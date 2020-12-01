@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import styles from './styles/ViewReinsurerOffer.module.css'
 import { useQuery } from 'react-apollo'
 import { FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries'
+import { Editor } from '../../components';
+
 
 export default function ViewReinsurerOffer({ data }) {
     const [details, setDetails] = useState(null)
@@ -12,6 +14,7 @@ export default function ViewReinsurerOffer({ data }) {
     useEffect(() => {
         if (data && classOfBusinesses) {
             setDetails(data);
+            console.log(data)
             chooseSelectedBusiness(data.reinsurer_offers_only.classofbusiness.business_name)
         }
     }, [data, classOfBusinesses])
@@ -65,7 +68,7 @@ export default function ViewReinsurerOffer({ data }) {
                     </div>
 
                 </div>
-                {selectedClassOfBusiness ? <fieldset className="w-auto p-2 border">
+                {selectedClassOfBusiness ? <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Business class details</legend>
                     <div className="row">
                         {JSON.parse(details?.reinsurer_offers_only.offer_detail.offer_details).map((detail, key) => {
@@ -73,95 +76,135 @@ export default function ViewReinsurerOffer({ data }) {
                                 <div key={key} className="col-md-6">
                                     <div className="form-group">
                                         <label htmlFor="Type of goods">{detail.keydetail}</label>
-                                        <input type="text" onChange={() => {}} className="form-control" value={detail.value} placeholder={detail.keydetail} />
+                                        <input type="text" onChange={() => { }} className="form-control" value={detail.value} placeholder={detail.keydetail} />
                                     </div>
                                 </div>
                             )
                         })}
                     </div>
                 </fieldset> : null}
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Offer Details</legend>
                     <div className="row">
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Policy no.</label>
-                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.policy_number} className="form-control" placeholder="Policy no." onChange={() => {}} />
+                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.policy_number} className="form-control" placeholder="Policy no." onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Insured</label>
-                                <input type="text" className="form-control" value={details?.reinsurer_offers_only.offer_detail.insured_by} placeholder="Insured" onChange={() => {}} />
+                                <input type="text" className="form-control" value={details?.reinsurer_offers_only.offer_detail.insured_by} placeholder="Insured" onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Sum Insured</label>
-                                <input type="text" className="form-control" value={details?.reinsurer_offers_only.sum_insured} placeholder="Sum Insured" onChange={() => {}} />
+                                <input type="text" className="form-control" value={details?.reinsurer_offers_only.sum_insured} placeholder="Sum Insured" onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Rate (%)</label>
-                                <input type="text" className="form-control" placeholder="Rate" value={details?.reinsurer_offers_only.rate} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Rate" value={details?.reinsurer_offers_only.rate} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Premium</label>
-                                <input type="text" className="form-control" placeholder="Premium" value={details?.reinsurer_offers_only.premium} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Premium" value={details?.reinsurer_offers_only.premium} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Facultative Offer (%)</label>
-                                <input type="text" className="form-control" placeholder="Facultative Offer" value={details?.reinsurer_offers_only.facultative_offer} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Facultative Offer" value={details?.reinsurer_offers_only.facultative_offer} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Commision (%)</label>
-                                <input type="text" className="form-control" placeholder="Commision" value={details?.reinsurer_offers_only.commission} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Commision" value={details?.reinsurer_offers_only.commission} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Brokerage (%)</label>
-                                <input type="text" className="form-control" placeholder="Brokerage" value={details?.reinsurer_offers_only.brokerage} onChange={() => {}} />
+                                <input type="text" className="form-control" placeholder="Brokerage" value={details?.reinsurer_offers_only.brokerage} onChange={() => { }} />
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="currency">Currency</label>
+                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.currency} className="form-control" onChange={() => { }} readOnly />
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="Type of goods">Co-Insurance Share (%)</label>
+                                <input type="text" className="form-control" placeholder="Co-Insurance Share" value={details?.reinsurer_offers_only?.co_insurance_share} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-12">
-                            <div className="form-group">
-                                <label htmlFor="currency">Currency</label>
-                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.currency} className="form-control" onChange={() => {}} readOnly />
+                            <div className="form-check">
+                                <input type="checkbox" checked={details?.exchange_rate} className="form-check-input" />
+                                <label className="form-check-label" htmlFor="exampleCheck1">Add Exchange rate</label>
                             </div>
                         </div>
+                        {details?.exchange_rate && <div className="col-md-12 mt-2">
+                            <div className="form-group alert alert-danger text-danger w-auto ">
+                                Premium and Deductions on all documents will be affected by this exchange rate value
+                            </div>
+                        </div>}
+                        {details?.exchange_rate && <>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="">Exchange Currency</label>
+                                    <input type="text" value={details?.exchange_rate?.ex_currency} className="form-control" readOnly />
+
+                                    {/* {errors.ex_currency && <p className="text-danger">{errors.ex_currency.message}</p>} */}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="Type of goods">Exchange rate {details?.exchange_rate?.ex_rate} </label>
+                                    <input type="number" min="0" step="0.000001" value={details?.exchange_rate?.ex_rate} name="ex_rate" className="form-control" placeholder="Exchange rate" />
+                                    {/* {errors.ex_rate && <p className="text-danger">{errors.ex_rate.message}</p>} */}
+                                </div>
+                            </div>
+                        </>}
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
+                <fieldset className="w-auto p-2 border-form">
                     <legend className={styles.details_title}>Period Of Insurance</legend>
                     <div className="row">
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">From</label>
-                                <input type="text" value={details?.reinsurer_offers_only?.offer_detail.period_of_insurance_from} className="form-control" placeholder="From" onChange={() => {}} readOnly />
+                                <input type="text" value={details?.reinsurer_offers_only?.offer_detail.period_of_insurance_from} className="form-control" placeholder="From" onChange={() => { }} readOnly />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">To</label>
-                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.period_of_insurance_to} className="form-control" placeholder="To" onChange={() => {}} readOnly />
+                                <input type="text" value={details?.reinsurer_offers_only.offer_detail.period_of_insurance_to} className="form-control" placeholder="To" onChange={() => { }} readOnly />
                             </div>
                         </div>
                     </div>
                 </fieldset>
-                <fieldset className="w-auto p-2 border">
-                    <legend className={styles.details_title}></legend>
+                {details?.reinsurer_offers_only?.offer_detail?.offer_comment && <fieldset className="w-auto p-2 border-form">
+                    <legend className={styles.details_title}>Comment</legend>
                     <div className="form-grpup">
-                        <textarea name="" id="" cols="30" rows="10" value={details?.reinsurer_offers_only.offer_detail.offer_comment} onChange={() => {}}  className="form-control"></textarea>
+                        <Editor value={details?.reinsurer_offers_only?.offer_detail?.offer_comment || ""} onChange={() => { }} />
                     </div>
-                </fieldset>
+                </fieldset>}
+                {details?.reinsurer_offers_only?.offer_detail?.information_comment && <fieldset className="w-auto p-2 border-form">
+                    <legend className={styles.details_title}>NROL</legend>
+                    <div className="form-grpup">
+                        <Editor value={details?.reinsurer_offers_only?.offer_detail?.information_comment || ""} onChange={() => { }} />
+                    </div>
+                </fieldset>}
             </div>
         </>
     )

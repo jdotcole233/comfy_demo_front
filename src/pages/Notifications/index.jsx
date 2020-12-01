@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import NotificationCard from './NotifactionCard'
 import NOtSelected from '../../assets/not_Selected_notif.gif'
 import EmailComponent from './EmailComponent'
@@ -16,11 +16,13 @@ import { useQuery, useMutation } from "react-apollo";
 import { NOTIFICATIONS } from "../../graphql/queries/notifications";
 import { DELETE_NOTIFICATION, CLEAR_NOTIFICATIONS } from '../../graphql/mutattions/Notifications'
 import { Loader } from '../../components';
+import { AuthContext } from '../../context/AuthContext';
 
 
 
 export default () => {
-    const { state } = useLocation()
+    const { state } = useContext(AuthContext)
+    const { state: notifState } = useLocation()
     const [selectedNotification, setSelectedNotification] = useState(null)
     const [notifications, setNotifications] = useState([]);
     const [paginatorInfo, setPaginatorInfo] = useState(null)
@@ -35,12 +37,12 @@ export default () => {
         ],
     });
     const selectNotification = notification => {
-        console.log(notification)
+        // console.log(notification)
         setSelectedNotification(notification)
     }
     const { data, refetch, loading } = useQuery(NOTIFICATIONS, {
         variables: {
-            id: state?.user?.employee?.employee_id || 1,
+            id: state?.user?.employee?.employee_id,
             page,
             first: 100
         },
@@ -60,10 +62,10 @@ export default () => {
     }, [paginatorInfo])
 
     useEffect(() => {
-        if (state && state.notification) {
-            setSelectedNotification(state.notification)
+        if (notifState && notifState.notification) {
+            setSelectedNotification(notifState.notification)
         }
-    }, [state])
+    }, [notifState])
 
 
     const renderNotification = (selected) => {
@@ -99,7 +101,7 @@ export default () => {
             deleteNotification({ variables: { id } })
                 .then((_res) => {
                     refetch();
-                    swal("Hurray!", "Notification Deleted Successfully", "success");
+                    swal("Success", "Notification Deleted Successfully", "success");
                 })
                 .catch((_err) => {
                     swal(

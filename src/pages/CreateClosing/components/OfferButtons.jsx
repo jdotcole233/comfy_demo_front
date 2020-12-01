@@ -94,7 +94,7 @@ const OfferButtons = ({ offer }) => {
             deleteoffer({
                 variables: { id: offer?.offer_id }
             }).then(res => {
-                swal("Hurray!", "Offer Deleted successfully", "success")
+                swal("Success", "Offer Deleted successfully", "success")
             })
                 .catch(err => {
                     if (err) {
@@ -159,12 +159,13 @@ const OfferButtons = ({ offer }) => {
                     offer_participant_id: selectedReinsurer?.offer_participant_id,
                     offer_id: selectedOffer?.offer_id,
                     percentage,
+                    reopen: true
                 },
             })
                 .then((res) => {
                     swal({
                         icon: "success",
-                        title: "Hurray!",
+                        title: "Success",
                         text: "Offer has been reopened successfully",
                         buttons: ["Stay here", { text: "Go to Reopened offer" }]
                     }).then(input => {
@@ -225,39 +226,38 @@ const OfferButtons = ({ offer }) => {
                 >
                     <Dropdown.Item onClick={() => handlePreviewCoverNote(offer)}>
                         Preview Cover Note
-            </Dropdown.Item>
+                    </Dropdown.Item>
                     <Dropdown.Item onClick={() => handlePreviewDebitNote(offer)}>
                         Preview Debit Note
-            </Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleShowSendMailDrawer(offer)}>
-                        Send
-            </Dropdown.Item>
+                    </Dropdown.Item>
+                    {offer?.approval_status === "APPROVED" &&
+                        <Dropdown.Item onClick={() => handleShowSendMailDrawer(offer)}>
+                            Send
+                        </Dropdown.Item>
+                    }
                 </DropdownButton>
 
-                <button
-                    onClick={() => handleShowPayments(offer)}
-                    className="btn btn-sm w-md btn-info mb-1 mr-1"
-                >
+                <button onClick={() => handleShowPayments(offer)} className="btn btn-sm w-md btn-info mb-1 mr-1">
                     Credit Notes
-          </button>
-                {/* <button onClick={() => (offer)} className="btn btn-sm w-md btn-warning mb-2"></button> */}
-                {["UNPAID"].includes(offer?.payment_status) && (
-                    <DropdownButton
-                        variant="warning"
-                        className="mr-1 mb-1 w-md"
-                        size="sm"
-                        as={ButtonGroup}
-                        id="dropdown-basic-button"
-                        title="Actions"
-                    >
-                        <Dropdown.Item onClick={() => handleReopenOffer(offer)}>
-                            Reopen Offer
-              </Dropdown.Item>
-                        {deleteAccessRoles.includes(user?.position) && <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>
+                </button>
+                <DropdownButton
+                    variant="warning"
+                    className="mr-1 mb-1 w-md"
+                    size="sm"
+                    as={ButtonGroup}
+                    id="dropdown-basic-button"
+                    title="Actions"
+                >
+                    <Dropdown.Item onClick={() => handleReopenOffer(offer)}>
+                        Reopen Offer
+                    </Dropdown.Item>
+                    {(["UNPAID"].includes(offer?.payment_status) && offer?.approval_status === "APPROVED") && deleteAccessRoles.includes(user?.position) &&
+                        <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>
                             Delete Offer
-              </Dropdown.Item>}
-                    </DropdownButton>
-                )}
+                        </Dropdown.Item>
+                    }
+                </DropdownButton>
+
             </>
 
 
@@ -266,7 +266,7 @@ const OfferButtons = ({ offer }) => {
             <Modal size="xl" centered show={showReopenOfferModal} onHide={handleCloseReopenOffer}>
                 <Modal.Header closeButton>
                     Reopen offer
-                    </Modal.Header>
+                </Modal.Header>
                 <Modal.Body>
                     <div className="container ">
                         <div className="col-md-12 alert alert-warning">
@@ -320,7 +320,7 @@ const OfferButtons = ({ offer }) => {
             {/* End of Modal for Reinsurer percentage */}
 
             {/* Preview Cover note */}
-            <Drawer width="50%" isvisible={showCoverNotePreview} toggle={() => setShowCoverNotePreview(!showCoverNotePreview)}>
+            <Drawer width="60%" isvisible={showCoverNotePreview} toggle={() => setShowCoverNotePreview(!showCoverNotePreview)}>
                 <PreviewCoverNote offer={selectedOffer} />
             </Drawer>
             {/* Send debit and credit  Note */}
@@ -353,7 +353,7 @@ const OfferButtons = ({ offer }) => {
                     <div className="row">
                         <div className="col-md-6"></div>
                         <div className="col-md-6 d-flex justify-content-end">
-                            <button onClick={handleDownloadAll} className="btn btn-sm btn-primary w-md">Generate Notes</button>
+                            {selectedOffer?.approval_status === "APPROVED" && <button onClick={handleDownloadAll} className="btn btn-sm btn-primary w-md">Generate Notes</button>}
                         </div>
                     </div>
                     <div className="mt-4" >

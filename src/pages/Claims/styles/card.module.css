@@ -17,9 +17,10 @@
   
   .details_title {
     /* font-weight: lighter; */
-    font-size: small;
+    font-size: large;
     width: auto;
     margin-bottom: 10px;
+    font-variant: small-caps;
   }
   
   

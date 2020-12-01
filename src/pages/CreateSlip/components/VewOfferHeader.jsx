@@ -15,8 +15,7 @@ const VewOfferHeader = ({ data }) => {
                 Status:{" "}
                             <span
                                 style={{ letterSpacing: 5 }}
-                                className={`badge w-md badge-soft-${
-                                    data?.findSingleOffer.offer_status === "OPEN"
+                                className={`badge w-md badge-${data?.findSingleOffer.offer_status === "OPEN"
                                         ? "primary"
                                         : data?.findSingleOffer.offer_status === "CLOSED"
                                             ? "success"

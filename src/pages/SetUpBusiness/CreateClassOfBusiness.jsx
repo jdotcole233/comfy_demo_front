@@ -66,7 +66,7 @@ export default ({ toggle }) => {
             swal({
                 icon: "warning",
                 title: "Are you sure ?",
-                text: `you want to add ${businessname} with  ${business_details.length} detail(s) to Visal-Re System?.`,
+                text: `You want to add ${businessname} with  ${business_details.length} detail(s) to KEK-Re System?.`,
                 buttons: ["No", {
                     text: "Yes",
                     closeModal: false
@@ -81,11 +81,11 @@ export default ({ toggle }) => {
                     setaddintionalInputFields([]);
                     setCount(0)
                     toggle();
-                    swal("Hurray", "Class of Business Created Successfully", "success");
+                    swal("Success", "Class of Business Created Successfully", "success");
                 })
                 .catch(err => {
                     if (err) {
-                        swal("Oh noes!", "The AJAX request failed!", "error");
+                        swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
                         swal.close();

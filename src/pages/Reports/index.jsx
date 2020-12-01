@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 import React from 'react'
-import { CurrencyValues, Selector, Datatable } from '../../components'
+import { CurrencyValues, Selector, Datatable, Loader, InsurerOption, ReinsurerOption } from '../../components'
 import Chart from 'react-apexcharts';
 import { INSURERS, REINSURERS, FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries';
 import { useEffect, useState, useRef } from 'react';
@@ -31,7 +31,7 @@ const groupProps = {
 
 
 function Reports() {
-    const { data: piechartData } = useQuery(REPORT_PIECHART)
+    const { data: piechartData, loading: pageLoading } = useQuery(REPORT_PIECHART)
     const tablesRef = useRef(null)
     const { register, setValue, handleSubmit, errors } = useForm()
     const [insurersData, setInsurersData] = useState([])
@@ -53,9 +53,9 @@ function Reports() {
     const [printData, setPrintData] = useState([])
     const [pieChartLabels, setLabels] = useState([])
     const [pieChartSeries, setSeries] = useState([])
-    const { data: insurers } = useQuery(INSURERS);
-    const { data: reinsurers } = useQuery(REINSURERS);
-    const { data: classOfbusiness } = useQuery(FETCH_CLASS_OF_BUSINESS)
+    const { data: insurers, loading: insurersLoading } = useQuery(INSURERS);
+    const { data: reinsurers, loading: reinsurersLoading } = useQuery(REINSURERS);
+    const { data: classOfbusiness, loading: classOfBusinessLoading } = useQuery(FETCH_CLASS_OF_BUSINESS)
     const [returnedCurrencies, setReturnedCurrencies] = useState([])
     const [totalCurrencies, setTotalCurrencies] = useState([])
     const [formData, setFormData] = useState(null)
@@ -188,40 +188,66 @@ function Reports() {
 
     const handleSuccessFulGeneration = ({ data }) => {
         const incomingReports = JSON.parse(data.reportOnQuery).query_output
-        const resp = JSON.parse(data.reportOnQuery)
-        const printerData = incomingReports.map(report => ({
-            ...report,
-            business_name: report.business_name.replace("Fleet", ""),
-            fac_sum_insured: `${report.currency} ${report.fac_sum_insured}`,
-            fac_premium: `${report.currency} ${report.fac_premium}`,
-            brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
-            offer_date: new Date(report.offer_date).toDateString(),
-        }));
-        const reports = incomingReports.map(report => ({
-            ...report,
-            business_name: report.business_name.replace("Fleet", ""),
-            fac_sum_insured: `${report.currency} ${report.fac_sum_insured}`,
-            fac_premium: `${report.currency} ${report.fac_premium}`,
-            brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
-            offer_date: new Date(report.offer_date).toDateString(),
-            offer_status: (
-                <span style={{ letterSpacing: 3 }} className={`badge badge-soft-${report.offer_status === "OPEN" ? "primary" : report.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{report.offer_status}</span>
-            ),
-            payment_status: (
-                <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-soft-${report.payment_status === "PARTPAYMENT" ? "primary" : report.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{report.payment_status}</span>
-            )
-        }))
-        setPrintData(printerData)
-        setQueryData(reports)
-        setTotalFacPremium(resp.total_fac_premium)
-        setTotalFacSumInsured(resp.total_fac_sum_insured)
-        setTotalCommission(resp.total_commission)
-        setTotalNic(resp.total_nic_levy)
-        setToalBrokerage(resp.total_brokerage);
-        setTotalWithholdingTax(resp.total_withholding_tax)
-        setReturnedCurrencies(resp.currencies)
-        setTotalCurrencies(resp.total_currencies)
-        executeScroll()
+        // console.log(incomingReports)
+        if (!incomingReports.length) {
+            swal({
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                icon: "warning",
+                title: `Whoops!!`,
+                text: "Sorry no data found for this query "
+            }).then(input => {
+                if (!input) throw null;
+                setQueryData(prev => [...incomingReports])
+                setPrintData([])
+                setToalBrokerage({})
+                setTotalCommission({})
+                setTotalFacPremium({})
+                setTotalFacSumInsured({})
+                setTotalCommission({})
+                setTotalNic({})
+                setToalBrokerage({});
+                setTotalWithholdingTax({})
+                setReturnedCurrencies([])
+                setTotalCurrencies([])
+            })
+        } else {
+            const resp = JSON.parse(data.reportOnQuery)
+            const printerData = incomingReports.map(report => ({
+                ...report,
+                business_name: report.business_name.replace("Fleet", ""),
+                fac_sum_insured: `${report.currency} ${report.fac_sum_insured}`,
+                fac_premium: `${report.currency} ${report.fac_premium}`,
+                brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
+                offer_date: new Date(report.offer_date).toDateString(),
+            }));
+            const reports = incomingReports.map(report => ({
+                ...report,
+                business_name: report.business_name.replace("Fleet", ""),
+                fac_sum_insured: `${report.currency} ${report.fac_sum_insured}`,
+                fac_premium: `${report.currency} ${report.fac_premium}`,
+                brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
+                offer_date: new Date(report.offer_date).toDateString(),
+                offer_status: (
+                    <span style={{ letterSpacing: 3 }} className={`badge badge-${report.offer_status === "OPEN" ? "primary" : report.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{report.offer_status}</span>
+                ),
+                payment_status: (
+                    <span style={{ letterSpacing: 5, padding: 3 }} className={`badge badge-${report.payment_status === "PARTPAYMENT" ? "primary" : report.payment_status === "UNPAID" ? "danger" : "success"} font-size-11`}>{report.payment_status}</span>
+                )
+            }))
+            setPrintData(printerData)
+            setQueryData(reports)
+            setTotalFacPremium(resp.total_fac_premium)
+            setTotalFacSumInsured(resp.total_fac_sum_insured)
+            setTotalCommission(resp.total_commission)
+            setTotalNic(resp.total_nic_levy)
+            setToalBrokerage(resp.total_brokerage);
+            setTotalWithholdingTax(resp.total_withholding_tax)
+            setReturnedCurrencies(resp.currencies)
+            setTotalCurrencies(resp.total_currencies)
+            executeScroll()
+        }
+
     }
 
     const generateReport = values => {
@@ -237,45 +263,22 @@ function Reports() {
             convert_to: ""
         }
         setFormData(obj)
+        setQueryData(prev => [])
         const variables = { data: obj }
         generate({ variables }).then(res => handleSuccessFulGeneration(res)).catch(err => { })
     }
 
 
-    const ReinsurerOption = ({ innerProps, isSelected, isDisabled, label, value }) =>
-        !isDisabled && !isSelected ? (
-            <div {...innerProps} className="row p-2">
-                <div className="col-md-8">
-                    <h4>{label}</h4>
-                    <p>{value.re_company_email}</p>
-                </div>
-                <div className="col-md-4 d-flex justify-content-end">
-                    <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
-                        {value.re_abbrv || "NA"}
-                    </span>
-                </div>
-            </div>
-        ) : null;
+   
 
-    const InsurerOption = ({ innerProps, isSelected, isDisabled, label, value }) => {
-        // console.log(isSelected)
-        return !isDisabled && !isSelected ? (
-            <div {...innerProps} className="row p-2">
-                <div className="col-md-8">
-                    <h4>{label}</h4>
-                    <p>{value.insurer_company_email}</p>
-                </div>
-                <div className="col-md-4 d-flex justify-content-end">
-                    <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
-                        {value.insurer_abbrv || "NA"}
-                    </span>
-                </div>
-            </div>
-        ) : null;
-    }
+    const showData = queryData.length ? true : false
+
+
 
     const executeScroll = () => scrollToRef(tablesRef)
 
+
+    if (pageLoading || insurersLoading || reinsurersLoading || classOfBusinessLoading) return <Loader />
 
     return (
         <div className="page-content">
@@ -375,7 +378,7 @@ function Reports() {
                         </form>
                     </div>
                 </div>
-                {queryData.length ? <div className="row">
+                {showData ? <div className="row">
                     <div className="col-md-4">
                         <Anim collapse bottom>
                             <div className="card mini-stats-wid">
@@ -509,8 +512,9 @@ function Reports() {
                         </Anim>
                     </div>
                 </div> : null}
-                {queryData.length ? <div className="card" ref={tablesRef}>
-                    {/* <Anim collapse bottom> */}
+                {showData ? <div className="card" ref={tablesRef}>
+                    {queryData.length}
+
                     <div className="card-body">
                         <p className="text-muted font-weight-medium">Report</p>
                         <div className="row d-flex justify-content-end align-items-center mr-2">
@@ -522,26 +526,13 @@ function Reports() {
                                 totals={totalCurrencies}
                                 type={clientType}
                                 reports={printData} />
-                            {/* <CSVLink
-                                ref={input => { csvRef = input }}
-                                asyncOnClick={true}
-                                filename={`${csvFileName}.csv`}
-                                headers={clientType === "Reinsurer" ? [...reinsurerTable.map(el => el.label)] : [...insurerTable.map(el => el.label)]}
-                                data={[...printData.map(el => Object.values(_.pick(el, clientType === "Reinsurer" ? [...reinsurerTable.map(el => el.field)] : [...insurerTable.map(el => el.field)]))), totalCurrencies]}
-                                className="btn btn-sm w-md btn-success"
-                                target="_blank"
-                            >
-                                
-                                </CSVLink> */}
+
                         </div>
                         <Datatable entries={5} columns={clientType === "Reinsurer" ? reinsurerTable : insurerTable} data={queryData} />
                     </div>
-                    {/* </Anim> */}
                 </div> : null}
 
-                {/* <div style={{ display: "none" }}>
-                    <PrintTable ref={printTablesRef} columns={clientType === "Reinsurer" ? reinsurerTable : insurerTable} data={queryData} />
-                </div> */}
+
             </TransitionGroup>
         </div >
     )
