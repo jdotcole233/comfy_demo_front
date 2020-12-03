@@ -6,7 +6,6 @@ import ConnectionDetector from "../components/ConnectionDetector";
 import Dashboard from "../pages/Dashboard";
 import Zoom from "react-reveal/Reveal";
 import { AuthContext } from "../context/AuthContext";
-import { Offers_Access } from './adminRoutes';
 
 
 const AdminContent = () => {

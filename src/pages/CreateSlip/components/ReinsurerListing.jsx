@@ -213,7 +213,7 @@ const ReinsurerListing = ({ data, state, user }) => {
         const availablePercenatge =
             remainingPercentage + selectedReinsurer.offer_participant_percentage;
         // console.log("Available %", availablePercenatge)
-        if (parseFloat(value) <= parseFloat(availablePercenatge).toFixed(5)) {
+        if (parseFloat(value) <= parseFloat(availablePercenatge)) {
             setPercentage(value);
             setPercentageErrorEntry(false);
         } else {
