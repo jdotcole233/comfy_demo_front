@@ -73,3 +73,31 @@ export const creditNotes = [
     field: 'actions',
   },
 ];
+
+
+export const endorsementColumns = [
+  {
+    label: 'Endorsement #',
+    field: 'index',
+  },
+  {
+    label: 'Sum Insured',
+    field: 'sum_insured',
+  },
+  {
+    label: 'Premium,',
+    field: 'premium',
+  },
+  {
+    label: 'Endorsement Status',
+    field: 'approval_status',
+  },
+  {
+    label: 'Endorsement Date',
+    field: 'created_at',
+  },
+  {
+    label: 'Action',
+    field: 'actions',
+  },
+];

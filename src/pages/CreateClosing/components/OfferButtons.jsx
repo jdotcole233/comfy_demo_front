@@ -8,8 +8,8 @@ import { DELETE_OFFER, ADD_PERCENTAGE } from '../../../graphql/mutattions';
 import { OFFERS } from '../../../graphql/queries';
 import { Modal } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
-import { Drawer, Datatable } from '../../../components'
-import { generateParticipants, calculateFacOffer } from '../actions'
+import { Drawer, Datatable, BottomDrawer } from '../../../components'
+import { generateParticipants, calculateFacOffer, generateEndorsementOffers } from '../actions'
 import { creditNotes } from '../columns';
 import { BASE_URL_LOCAL } from '../../../graphql'
 import PreviewCoverNote from '../PreviewCoverNote'
@@ -19,6 +19,8 @@ import SendCoverNoteMail from '../SendCoverNoteMail'
 import SendClosngSlip from '../SendClosingSlip';
 import { AuthContext } from '../../../context/AuthContext';
 import { deleteAccessRoles } from '../../../layout/adminRoutes';
+import AddEndorsement from './AddEndorsement';
+import { endorsementColumns } from '../columns'
 
 const OfferButtons = ({ offer }) => {
     const { state: { user } } = useContext(AuthContext)
@@ -36,7 +38,10 @@ const OfferButtons = ({ offer }) => {
     const [percentageErrorEntry, setPercentageErrorEntry] = useState(false)
     const [percentage, setPercentage] = useState(0)
     const [fac_offer, setFac_offer] = useState(0)
-    const [test_offer, setTest_offer] = useState(0)
+    const [test_offer, setTest_offer] = useState(0);
+    const [showEndorsement, setShowEndorsement] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
+
 
 
     const [deleteoffer] = useMutation(DELETE_OFFER, {
@@ -79,6 +84,11 @@ const OfferButtons = ({ offer }) => {
     const handleShowUpdateModal = useCallback(reinsurer => {
         setSelectedReinsurer(reinsurer);
         setShowUpdateReinsurerPercentage(true)
+    }, [])
+
+    const openEndorsement = useCallback(() => {
+        setOpenDrawer(true);
+        // setShowEndorsement(prev => !prev);
     }, [])
 
     const handleDeleteOffer = offer => {
@@ -251,6 +261,9 @@ const OfferButtons = ({ offer }) => {
                     <Dropdown.Item onClick={() => handleReopenOffer(offer)}>
                         Reopen Offer
                     </Dropdown.Item>
+                    <Dropdown.Item onClick={() => setShowEndorsement(prev => !prev)}>
+                        Endorsements
+                    </Dropdown.Item>
                     {(["UNPAID"].includes(offer?.payment_status) && offer?.approval_status === "APPROVED") && deleteAccessRoles.includes(user?.position) &&
                         <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>
                             Delete Offer
@@ -341,6 +354,10 @@ const OfferButtons = ({ offer }) => {
                 <PreviewCreditNote offer={selectedOffer} reinsurer={selectedReinsurer} />
             </Drawer>
 
+            <Drawer width="40%" isvisible={openDrawer} toggle={() => setOpenDrawer(prev => !prev)}>
+                <AddEndorsement offer_id={offer?.offer_id} toggle={() => setOpenDrawer(prev => !prev)} />
+            </Drawer>
+
 
             {/* Modal for the generate button */}
 
@@ -368,6 +385,40 @@ const OfferButtons = ({ offer }) => {
             </Modal>
 
             {/* / end of the modal for generate button */}
+
+            <BottomDrawer height="80%" isvisible={showEndorsement} toggle={() => setShowEndorsement(prev => !prev)}>
+                <div className="d-flex  justify-content-between p-4">
+                    <div className="d-flex flex-column w-auto">
+                        <fieldset className="border border-info">
+                            <legend className="w-auto font-size-16 font-weight-bold">Offer Detail</legend>
+                            <table className="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th>Policy Number</th>
+                                        <td>{offer?.offer_detail?.policy_number}</td>
+                                        <th>Ceeding Company</th>
+                                        <td>{offer?.insurer?.insurer_company_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Class of Business</th>
+                                        <td>{offer?.classofbusiness?.business_name}</td>
+
+                                        <th>Insured</th>
+                                        <td>{offer?.offer_detail?.insured_by}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <button onClick={openEndorsement} className="btn btn-sm btn-primary">Add Endorsement</button>
+                    </div>
+                </div>
+
+                <div className="p-3 card">
+                    <Datatable entries={5} data={generateEndorsementOffers({ offer, endorsements: offer?.offer_endorsements || [] })} columns={endorsementColumns} />
+                </div>
+            </BottomDrawer>
 
 
         </div>

@@ -48,9 +48,9 @@ const OfferListing = ({
                                             <a className={`nav-link ${tab === 0 ? "active" : ""}`}>Recent</a>
                                         </span>
                                     </Tab>
-                                    <Tab className="nav-item" selectedClassName="active">
+                                    {/* <Tab className="nav-item" selectedClassName="active">
                                         <a className="nav-link">All</a>
-                                    </Tab>
+                                    </Tab> */}
                                 </TabList>
 
                                 <TabPanel>
