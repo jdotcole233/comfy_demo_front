@@ -9,7 +9,7 @@ import { OFFERS } from '../../../graphql/queries';
 import { Modal } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import { Drawer, Datatable, BottomDrawer } from '../../../components'
-import { generateParticipants, calculateFacOffer, generateEndorsementOffers } from '../actions'
+import { generateParticipants, calculateFacOffer, generateEndorsementOffers, calculateEndorsementSumInsured, calculateEndorsementPremium } from '../actions'
 import { creditNotes } from '../columns';
 import { BASE_URL_LOCAL } from '../../../graphql'
 import PreviewCoverNote from '../PreviewCoverNote'
@@ -387,9 +387,9 @@ const OfferButtons = ({ offer }) => {
             {/* / end of the modal for generate button */}
 
             <BottomDrawer height="80%" isvisible={showEndorsement} toggle={() => setShowEndorsement(prev => !prev)}>
-                <div className="d-flex  justify-content-between p-4">
+                <div className="d-flex mt-3  justify-content-between p-4">
                     <div className="d-flex flex-column w-auto">
-                        <fieldset className="border border-info">
+                        <fieldset style={{ borderColor: "#b8b4b4" }} className="border">
                             <legend className="w-auto font-size-16 font-weight-bold">Offer Detail</legend>
                             <table className="table table-striped">
                                 <tbody>
@@ -406,6 +406,13 @@ const OfferButtons = ({ offer }) => {
                                         <th>Insured</th>
                                         <td>{offer?.offer_detail?.insured_by}</td>
                                     </tr>
+                                    <tr>
+                                        <th>Total Sum Insured</th>
+                                        <td>{calculateEndorsementSumInsured({ offer, endorsements: offer?.offer_endorsements || [] }).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+
+                                        <th>Total Premium</th>
+                                        <td>{calculateEndorsementPremium({ offer, endorsements: offer?.offer_endorsements || [] }).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </fieldset>
@@ -415,8 +422,9 @@ const OfferButtons = ({ offer }) => {
                     </div>
                 </div>
 
-                <div className="p-3 card">
-                    <Datatable entries={5} data={generateEndorsementOffers({ offer, endorsements: offer?.offer_endorsements || [] })} columns={endorsementColumns} />
+                <div className="p-3">
+                    <h4>Endorsements for {offer?.offer_detail?.insured_by}</h4>
+                    <Datatable striped entries={5} data={generateEndorsementOffers({ offer, endorsements: offer?.offer_endorsements || [] })} columns={endorsementColumns} />
                 </div>
             </BottomDrawer>
 

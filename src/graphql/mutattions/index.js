@@ -543,3 +543,86 @@ export const MAKE_COMMENT = gql`
     publishCommentOnDocument(offer_id: $id, document_message: $messages)
   }
 `;
+
+
+export const UPDATE_ENDORSEMENT = gql`
+mutation updateEndorsement(
+  $class_of_business_id: ID!
+  $endorsement_id: ID!
+  $offer_id:ID
+  $offer_endorsement_detail_id: ID
+  $insurer_id: ID!
+  $employee_id: ID!
+  $co_insurance_share: Float
+  $rate: Float
+  $commission: Float!
+  $brokerage: Float!
+  $facultative_offer: Float!
+  $sum_insured: Float!
+  $premium: Float!
+  $policy_number: String
+  $insured_by: String!
+  $period_of_insurance_from: Date!
+  $period_of_insurance_to: Date!
+  $currency: String!
+  $ex_rate: Float
+  $ex_currency: String
+  $offer_comment: String
+  $offer_details: String!
+  $information_comment: String
+) {
+  updateEndorsementOffer(
+    offer_input: {
+      class_of_business_id: $class_of_business_id
+      insurer_id: $insurer_id
+      employee_id: $employee_id
+      rate: $rate
+      commission: $commission
+      brokerage: $brokerage
+      facultative_offer: $facultative_offer
+      sum_insured: $sum_insured
+      premium: $premium
+      policy_number: $policy_number
+      insured_by: $insured_by
+      period_of_insurance_from: $period_of_insurance_from
+      period_of_insurance_to: $period_of_insurance_to
+      currency: $currency
+      ex_rate: $ex_rate
+      ex_currency: $ex_currency
+      offer_comment: $offer_comment
+      offer_details: $offer_details
+      information_comment: $information_comment
+      co_insurance_share: $co_insurance_share
+    }
+    offer_endorsement_detail_id: $offer_endorsement_detail_id
+    offer_endorsement_id: $endorsement_id
+    offer_id:$offer_id
+  )
+}
+
+`
+
+export const DELETE_ENDORSEMENT = gql`
+mutation deleteEndorsement(
+  $offer_endorsement_detail_id: ID
+  $offer_endorsement_id: ID
+) {
+  deleteEndorsementOffer(
+    offer_endorsement_detail_id: $offer_endorsement_detail_id
+    offer_endorsement_id: $offer_endorsement_id
+  )
+}
+`;
+
+export const SEND_CONTRACT_DEBIT = gql`
+mutation sendNote($data: EndorsementEmail) {
+  sendContractChangesAndDebitNote(endorsementInput: $data)
+}
+
+`;
+
+export const SEND_CHANGES_AND_CLOSING_SLIP = gql`
+mutation sendNote($data: EndorsementEmail) {
+  sendContractChangesAndClosingNote(endorsementInput: $data)
+}
+`;

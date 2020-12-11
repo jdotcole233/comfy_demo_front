@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDom from "react-dom";
 import Slide from "react-reveal/Slide";
 import { useWindowDimensions } from "../index";
+import { AiOutlineClose } from 'react-icons/ai'
 
 const BottomDrawer = ({ children, containerStyles = {}, height, isvisible, toggle }) => {
     const { height: R_width } = useWindowDimensions();
@@ -35,6 +36,11 @@ const BottomDrawer = ({ children, containerStyles = {}, height, isvisible, toggl
                 backgroundColor: "#FFFFFF",
                 ...containerStyles,
             }}>
+                <div style={{ position: "fixed", right: 0, left: 0, backgroundColor: "#273B97", display: "flex", justifyContent: "flex-end" }}>
+                    <button onClick={toggle} style={{ backgroundColor: "red", border: 0, color: "white" }}>
+                        <AiOutlineClose color="#fff" size={18} />
+                    </button>
+                </div>
                 {children}
             </div>
         </Slide>

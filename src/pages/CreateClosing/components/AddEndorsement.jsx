@@ -4,9 +4,8 @@ import { useMutation, useQuery } from 'react-apollo';
 import { useForm } from 'react-hook-form';
 import swal from 'sweetalert';
 import { CurrencyOption, Editor, InsurerOption, Loader, Selector } from '../../../components';
-import { DrawerContext } from '../../../components/Drawer';
 import { AuthContext } from '../../../context/AuthContext';
-import { CREATE_ENDORSEMENT, UPDATE_OFFER } from '../../../graphql/mutattions';
+import { CREATE_ENDORSEMENT } from '../../../graphql/mutattions';
 import { INPUT_OFFER_QUERIES, OFFERS, SINGLE_OFFER } from '../../../graphql/queries';
 import { prepVariables } from '../../CreateSlip/InputOffer';
 import styles from '../styles/inputOffer.module.css';
@@ -45,6 +44,7 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
 
     useEffect(() => {
         if (_offer) {
+            // alert("Hello")
             setAddExchangeRate(offer.exchange_rate ? true : false);
             setValue("policy_number", offer.offer_detail?.policy_number)//insurance_company
             setValue("insurer_id", offer.insurer?.insurer_id)//insurance_company
@@ -151,7 +151,7 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
             if (!input) throw null
             updateOffer({ variables }).then(res => {
                 swal("Success", "Facultative offer updated Successfully", "success");
-                formRef.current.reset()
+                // formRef.current.reset()
                 toggle()
             }).catch(err => {
                 if (err) {
@@ -174,7 +174,7 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
             </div>
             <div className={styles.card_body}>
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-12 disablediv">
                         <div className="form-group">
                             <label htmlFor="BusinessClass">Insurance Company</label>
                             <Selector value={{ label: selectedInsurer }} placeholder="Insurance company" onChange={handleInsuranceCompanyChange} components={{ Option: InsurerOption }} options={data ? data.insurers.map(insurer => ({ label: insurer.insurer_company_name, value: insurer })) : []} />
@@ -184,7 +184,7 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
                             {errors.insurer_id && <p className="text-danger">{errors.insurer_id.message}</p>}
                         </div>
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-md-12 disablediv">
                         <div className="form-group">
                             <label htmlFor="BusinessClass">Business Class</label>
                             <Selector value={{ label: selectedBusiness }} onChange={handleClassOfBusinessChange} options={data ? data.classOfBusinesses.map(cob => ({ label: cob.business_name, value: cob })) : []} placeholder="Business Class" />
@@ -249,7 +249,7 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
 
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 disablediv">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Facultative Offer (%)</label>
                                 <input name="facultative_offer" ref={register({ required: "Provide facultative offer" })} type="text" className="form-control" placeholder="Facultative Offer" />
@@ -257,21 +257,21 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
 
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 disablediv">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Commision (%)</label>
                                 <input type="text" ref={register({ required: "Provide commission" })} name="commission" className="form-control" placeholder="Commision" />
                                 {errors.commission && <p className="text-danger">{errors.commission.message}</p>}
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 disablediv">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Preliminary Brokerage (%)</label>
                                 <input type="text" ref={register({ required: "Provide preliminary brokerage" })} name="brokerage" className="form-control" placeholder="Preliminary Brokerage" />
                                 {errors.brokerage && <p className="text-danger">{errors.brokerage.message}</p>}
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 disablediv">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Currency</label>
                                 <Selector value={{ label: Object.values(currencies).find(eel => eel.code === selectedCurrency)?.name }} components={{ Option: CurrencyOption }} onChange={handleCurrencyChange} options={[...Object.values(currencies).map(currency => ({ label: currency.name, value: currency }))]} />
@@ -370,24 +370,6 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
                         </div>
                     </div>
                 </fieldset>}
-                {/* <div className="w-auto p-2">
-                    <div className="form-check">
-                        <input type="checkbox" checked={nkrol} className="form-check-input" id="exampleCheck1" onChange={e => setNkrol(e.target.checked)} />
-                        <label className="form-check-label" htmlFor="exampleCheck1">Include NKORL information to placing slip</label>
-                    </div>
-                </div> */}
-                {/* {nkrol && <fieldset className="w-auto p-2  border-form">
-                    <legend className={styles.details_title}>NKORL</legend>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <Editor value={infoContent} onChange={handleInfoCommentChange} />
-                                <textarea hidden rows={10} ref={register({ required: nkrol })} value={infoContent} name="information_comment" className="form-control" placeholder="Add Comment" ></textarea>
-                                {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>}
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>} */}
                 <div className="form-group">
                     <input type="submit" className="btn btn-primary btn-sm form-control my-2" value="Create Endorsement" />
                 </div>

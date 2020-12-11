@@ -1,28 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useContext, useEffect } from 'react'
-import styles from './styles/inputOffer.module.css'
+import { useMutation, useQuery } from 'react-apollo';
 import { useForm } from 'react-hook-form';
-import { useQuery, useMutation } from 'react-apollo'
-import { INPUT_OFFER_QUERIES, OFFERS, SINGLE_OFFER } from '../../graphql/queries';
-import currencies from '../../assets/currencies.json'
-import { UPDATE_OFFER } from '../../graphql/mutattions';
 import swal from 'sweetalert';
-import { DrawerContext } from '../../components/Drawer'
-import { Selector, InsurerOption, CurrencyOption, Loader, Editor } from '../../components';
-import { AuthContext } from '../../context/AuthContext';
-// import JoditEditor from "jodit-react";
-import { prepVariables } from './InputOffer'
+import { CurrencyOption, Editor, InsurerOption, Loader, Selector } from '../../../components';
+import { AuthContext } from '../../../context/AuthContext';
+import { UPDATE_ENDORSEMENT } from '../../../graphql/mutattions';
+import { GET_SINGLE_ENDORSEMENT, INPUT_OFFER_QUERIES, OFFERS, } from '../../../graphql/queries';
+import { prepVariables } from '../../CreateSlip/InputOffer';
+import styles from '../styles/inputOffer.module.css';
+import currencies from '../../../assets/currencies.json'
 
-
-export default function InputOffer({ offer_id, toggle }) {
+function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
     // const offer = JSON.parse(_offer)
-    const { closed } = useContext(DrawerContext);
     const { state } = useContext(AuthContext);
     const formRef = useRef()
     const { data } = useQuery(INPUT_OFFER_QUERIES);
-    const { register, errors, handleSubmit, reset, setValue, clearError } = useForm()
+    const { register, errors, handleSubmit, setValue, clearError } = useForm()
     const [offer_comment, fillComment] = useState("")
-    const [nkrol, setNkrol] = useState(false)
+    const [nkrol] = useState(false);
 
     const [classOfBusiness, setClassOfBusiness] = useState(null);
     const [offerDetails, setofferDetails] = useState([])
@@ -30,54 +26,55 @@ export default function InputOffer({ offer_id, toggle }) {
     const [selectedBusiness, setSelectedBusiness] = useState("")
     const [selectedCurrency, setSelectedCurrency] = useState("")
     const [selectedExCurrency, setSelectedExCurrency] = useState("")
-    const [infoContent, setInfoContent] = useState("")
+    const [, setInfoContent] = useState("")
     const [addExchangeRate, setAddExchangeRate] = useState(true)
 
-    const { data: _offer, loading } = useQuery(SINGLE_OFFER, {
+    const { data: _offer, loading, error } = useQuery(GET_SINGLE_ENDORSEMENT, {
         variables: {
-            offer_id,
+            id: endorsement_id,
         },
         fetchPolicy: "network-only",
     });
 
-    const [updateOffer] = useMutation(UPDATE_OFFER, {
-        refetchQueries: [{ query: OFFERS, variables: { offer_status: ["OPEN", "PENDING"] } }]
+    const [updateOffer] = useMutation(UPDATE_ENDORSEMENT, {
+        refetchQueries: [{ query: OFFERS, variables: { offer_status: ["CLOSED"] } }]
     });
-    const offer = _offer?.findSingleOffer
+    const endorsement = _offer?.singleEndorsement
 
     useEffect(() => {
         if (_offer) {
+            // alert("Hello")
             setAddExchangeRate(offer.exchange_rate ? true : false);
             setValue("policy_number", offer.offer_detail?.policy_number)//insurance_company
             setValue("insurer_id", offer.insurer?.insurer_id)//insurance_company
             setValue("class_of_business_id", offer.classofbusiness?.class_of_business_id)//insurance_company
             setSelectedBusiness(offer.classofbusiness.business_name)
-            setValue("commission", offer.commission)
-            setValue("brokerage", offer.brokerage)
-            setValue("facultative_offer", offer.facultative_offer);
-            setValue("ex_rate", offer?.exchange_rate?.ex_rate);
-            setValue("sum_insured", offer.sum_insured);
+            setValue("commission", endorsement.commission)
+            setValue("brokerage", endorsement.brokerage)
+            setValue("facultative_offer", endorsement.facultative_offer);
+            setValue("ex_rate", endorsement?.exchange_rate?.ex_rate);
+            setValue("sum_insured", endorsement.sum_insured);
             setValue("co_insurance_share", offer.co_insurance_share);
-            setValue("premium", offer.premium);
-            setValue("rate", offer.rate);
+            setValue("premium", endorsement.premium);
+            setValue("rate", endorsement.rate);
             setValue("insured_by", offer.offer_detail.insured_by);
             setValue("currency", offer.offer_detail.currency);
-            setValue("offer_comment", offer.offer_detail.offer_comment);
-            setofferDetails(JSON.parse(offer.offer_detail.offer_details));
-            setValue("period_of_insurance_from", offer.offer_detail.period_of_insurance_from);
-            setValue("period_of_insurance_to", offer.offer_detail.period_of_insurance_to);
+            // setValue("offer_comment", endorsement.offer_detail.offer_comment);
+            setofferDetails(JSON.parse(endorsement.offer_endorsement_detail.offer_detail));
+            setValue("period_of_insurance_from", endorsement.offer_endorsement_detail.period_of_insurance_from);
+            setValue("period_of_insurance_to", endorsement.offer_endorsement_detail.period_of_insurance_to);
             setSelectedInsurer(offer.insurer.insurer_company_name);
-            setClassOfBusiness(JSON.parse(offer.offer_detail.offer_details));
+            setClassOfBusiness(JSON.parse(endorsement.offer_endorsement_detail.offer_detail));
             setSelectedCurrency(offer.offer_detail.currency);
-            setInfoContent(offer.offer_detail.information_comment?.toString());
-            setValue("information_comment", offer.offer_detail.information_comment?.toString());
-            setNkrol(offer.offer_detail.information_comment ? true : false);
-            fillComment(offer.offer_detail.offer_comment);
+            setInfoContent(endorsement.offer_endorsement_detail.information_comment?.toString());
+            setValue("information_comment", endorsement.offer_endorsement_detail.information_comment?.toString());
+            // setNkrol(endorsement.offer_endorsement_detail.information_comment ? true : false);
+            // fillComment(endorsement.offer_detail.offer_comment);
             setValue("ex_currency", offer.exchange_rate?.ex_currency);
             setSelectedExCurrency(offer.exchange_rate?.ex_currency);
             // alert(parseFloat(offer.exchange_rate?.ex_rate))
         }
-    }, [_offer])
+    }, [_offer]);
 
 
 
@@ -106,26 +103,15 @@ export default function InputOffer({ offer_id, toggle }) {
     }
 
     const handleCommentChange = value => {
-        setValue("offer_comment", value)
+        setValue("offer_comment", value);
         fillComment(value)
         if (value) {
             clearError("offer_comment")
         }
     }
 
-    const handleInfoCommentChange = value => {
-        setValue("information_comment", value)
-        setInfoContent(value)
-        if (value) {
-            clearError("information_comment")
-        }
-    }
 
-    useEffect(() => {
-        if (closed) {
-            reset()
-        }
-    }, [closed, reset])
+
 
 
     const handleClassOfBusinessChange = cob => {
@@ -144,13 +130,16 @@ export default function InputOffer({ offer_id, toggle }) {
 
     const handleCreateOffer = values => {
         const variables = {
+            offer_endorsement_detail_id: endorsement?.offer_endorsement_detail?.offer_endorsement_detail_id,
+            endorsement_id: endorsement?.offer_endorsement_id,
             offer_id: offer?.offer_id,
-            offer_detail_id: offer?.offer_detail?.offer_detail_id,
-            offer_input: prepVariables(values, offerDetails, state.user.employee.employee_id),
+            ...prepVariables(values, offerDetails, state.user.employee.employee_id),
         }
+        console.log(variables);
+        // return;
         swal({
             icon: "warning",
-            title: "Are you sure you want to update offer ?",
+            title: "Are you sure you want to update endorsement ?",
             closeOnClickOutside: false,
             closeOnEsc: false,
             buttons: ["No", {
@@ -162,8 +151,7 @@ export default function InputOffer({ offer_id, toggle }) {
             if (!input) throw null
             updateOffer({ variables }).then(res => {
                 swal("Success", "Facultative offer updated Successfully", "success");
-                formRef.current.reset()
-                toggle()
+                toggle();
             }).catch(err => {
                 if (err) {
                     swal("Oh noes!", "The AJAX request failed!", "error");
@@ -177,15 +165,18 @@ export default function InputOffer({ offer_id, toggle }) {
 
 
 
-    if (loading && !offer) return <Loader />
+    if (loading) return <Loader />
+
+    if (error) return null
+
     return (
         <form onSubmit={handleSubmit(handleCreateOffer)} ref={formRef} >
             <div className={styles.card_header}>
-                <h2 className={styles.card_title}>Create facultative placement slip</h2>
+                <h2 className={styles.card_title}>Edit Endorsement</h2>
             </div>
             <div className={styles.card_body}>
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-12 disablediv">
                         <div className="form-group">
                             <label htmlFor="BusinessClass">Insurance Company</label>
                             <Selector value={{ label: selectedInsurer }} placeholder="Insurance company" onChange={handleInsuranceCompanyChange} components={{ Option: InsurerOption }} options={data ? data.insurers.map(insurer => ({ label: insurer.insurer_company_name, value: insurer })) : []} />
@@ -195,7 +186,7 @@ export default function InputOffer({ offer_id, toggle }) {
                             {errors.insurer_id && <p className="text-danger">{errors.insurer_id.message}</p>}
                         </div>
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-md-12 disablediv">
                         <div className="form-group">
                             <label htmlFor="BusinessClass">Business Class</label>
                             <Selector value={{ label: selectedBusiness }} onChange={handleClassOfBusinessChange} options={data ? data.classOfBusinesses.map(cob => ({ label: cob.business_name, value: cob })) : []} placeholder="Business Class" />
@@ -260,7 +251,7 @@ export default function InputOffer({ offer_id, toggle }) {
 
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 disablediv">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Facultative Offer (%)</label>
                                 <input name="facultative_offer" ref={register({ required: "Provide facultative offer" })} type="text" className="form-control" placeholder="Facultative Offer" />
@@ -268,21 +259,21 @@ export default function InputOffer({ offer_id, toggle }) {
 
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 disablediv">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Commision (%)</label>
                                 <input type="text" ref={register({ required: "Provide commission" })} name="commission" className="form-control" placeholder="Commision" />
                                 {errors.commission && <p className="text-danger">{errors.commission.message}</p>}
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 disablediv">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Preliminary Brokerage (%)</label>
                                 <input type="text" ref={register({ required: "Provide preliminary brokerage" })} name="brokerage" className="form-control" placeholder="Preliminary Brokerage" />
                                 {errors.brokerage && <p className="text-danger">{errors.brokerage.message}</p>}
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 disablediv">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Currency</label>
                                 <Selector value={{ label: Object.values(currencies).find(eel => eel.code === selectedCurrency)?.name }} components={{ Option: CurrencyOption }} onChange={handleCurrencyChange} options={[...Object.values(currencies).map(currency => ({ label: currency.name, value: currency }))]} />
@@ -300,16 +291,11 @@ export default function InputOffer({ offer_id, toggle }) {
                                 {errors.co_insurance_share && <p className="text-danger">{errors.co_insurance_share.message}</p>}
                             </div>
                         </div>
-                        <div className="col-md-12">
-                            <div className="form-check">
-                                <input type="checkbox" checked={addExchangeRate} className="form-check-input" onChange={e => setAddExchangeRate(e.target.checked)} />
-                                <label className="form-check-label" htmlFor="exampleCheck1">Add Exchange rate</label>
-                            </div>
-                        </div>
+
                         {addExchangeRate && <div className="col-md-12 mt-2">
                             <div className="form-group alert alert-danger text-danger w-auto ">
                                 Premium and Deductions on all documents will be affected by this exchange rate value
-                            </div>
+                           </div>
                         </div>}
                         {addExchangeRate && <>
                             <div className="col-md-6">
@@ -344,14 +330,14 @@ export default function InputOffer({ offer_id, toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">From</label>
-                                <input type="date" ref={register({ required: false })} name="period_of_insurance_from" className="form-control" placeholder="From" />
+                                <input type="date" ref={register({ required: "Provide date" })} name="period_of_insurance_from" className="form-control" placeholder="From" />
                                 {errors.from && <p className="text-danger">{errors.from.message}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">To</label>
-                                <input type="date" ref={register({ required: false })} name="period_of_insurance_to" className="form-control" placeholder="To" />
+                                <input type="date" ref={register({ required: "Provide date" })} name="period_of_insurance_to" className="form-control" placeholder="To" />
                                 {errors.to && <p className="text-danger">{errors.to.message}</p>}
                             </div>
                         </div>
@@ -375,34 +361,18 @@ export default function InputOffer({ offer_id, toggle }) {
                         <div className="col-md-12">
                             <div className="form-group">
                                 <Editor value={offer_comment} onChange={handleCommentChange} />
-                                <textarea hidden rows={10} ref={register({ required: nkrol })} value={offer_comment} name="offer_comment" className="form-control" placeholder="Add Comment" ></textarea>
-                                {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>}
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>}
-                <div className="w-auto p-2">
-                    <div className="form-check">
-                        <input type="checkbox" checked={nkrol} className="form-check-input" id="exampleCheck1" onChange={e => setNkrol(e.target.checked)} />
-                        <label className="form-check-label" htmlFor="exampleCheck1">Include NKORL information to placing slip</label>
-                    </div>
-                </div>
-                {nkrol && <fieldset className="w-auto p-2  border-form">
-                    <legend className={styles.details_title}>NKORL</legend>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <Editor value={infoContent} onChange={handleInfoCommentChange} />
-                                <textarea hidden rows={10} ref={register({ required: nkrol })} value={infoContent} name="information_comment" className="form-control" placeholder="Add Comment" ></textarea>
+                                <textarea hidden rows={10} ref={register({ required: nkrol })} onChange={() => { }} value={offer_comment} name="offer_comment" className="form-control" placeholder="Add Comment" ></textarea>
                                 {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>}
                             </div>
                         </div>
                     </div>
                 </fieldset>}
                 <div className="form-group">
-                    <input type="submit" className="btn btn-primary btn-sm form-control my-2" value="update offer" />
+                    <input type="submit" className="btn btn-primary btn-sm form-control my-2" value="Update Endorsement" />
                 </div>
             </div>
         </form>
     )
 }
+
+export default UpdateEndorsementForm

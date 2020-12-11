@@ -10,6 +10,7 @@ import currencies from '../assets/currencies.json'
 
 export { default as Drawer } from './Drawer';
 export { default as BottomDrawer } from "./BottomDrawer";
+export { default as Prompt } from "./Prompt";
 export { default as CurrencyValues } from './CurrencyValues';
 export { default as Dropzone } from './DropZone';
 export { default as Datatable } from './DataTable';

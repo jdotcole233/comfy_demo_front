@@ -13,7 +13,7 @@ const downloadAccess = [
     'System Administrator'
 ]
 
-function EndorsementCreditNote({ offer, reinsurer }) {
+function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
     const { state: ctx } = useContext(AuthContext)
     const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
@@ -23,11 +23,13 @@ function EndorsementCreditNote({ offer, reinsurer }) {
     return (
         <Fragment>
             <div className="row m-2">
-                {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) && <a target="_blank" href={`${BASE_URL_LOCAL}/generate_closing_slip/${btoa(JSON.stringify({
-                    offer_id: offer?.offer_id,
-                    reinsurer_id: reinsurer?.reinsurer_id
-                }))}`} className="btn btn-sm btn-primary w-md">
-                    <i className="bx bxs-file-pdf"></i> Save
+                {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) &&
+                    <a target="_blank" href={`${BASE_URL_LOCAL}/endorsement_closing_note/${btoa(JSON.stringify({
+                        offer_endorsement_id: endorsement?.offer_endorsement_id,
+                        offer_participant_id: reinsurer?.offer_participant_id,
+                        doc_number: index
+                    }))}`} className="btn btn-sm btn-primary w-md">
+                        <i className="bx bxs-file-pdf"></i> Save
             </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid  text-black bg-white">
@@ -35,7 +37,8 @@ function EndorsementCreditNote({ offer, reinsurer }) {
                     <img className="" src={require('../../../assets/banner.png')} alt="kek letter head" />
                     <div className="col-md-12 text-align-center mt-3 mb-3">
                         <h3 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>
-                            FACULTATIVE CLOSING
+                            ENDORSEMENT CLOSING {index}
+
                         </h3>
                     </div>
 
@@ -128,12 +131,12 @@ function EndorsementCreditNote({ offer, reinsurer }) {
                                 <tr className="trial-balance-tr">
                                     <td>100% Premium</td>
                                     <td></td>
-                                    <td>{offer?.premium?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                    <td>{endorsement?.premium?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                 </tr>
                                 <tr className="trial-balance-tr">
                                     <td>Facultative Premium</td>
                                     <td></td>
-                                    <td>{reinsurer?.participant_fac_premium?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                    <td>{reinsurer?.fac_premium?.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                                 </tr>
                                 <tr className="trial-balance-tr">
                                     <td>Less Commission ({reinsurer?.agreed_commission}%)</td>

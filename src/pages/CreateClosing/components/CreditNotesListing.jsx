@@ -6,14 +6,17 @@ import { Datatable, Drawer, Loader } from '../../../components';
 import { GET_ENDORSEMENT_PARTICIPATION } from '../../../graphql/queries';
 import { creditNotes } from '../columns';
 import EndorsementCreditNote from '../EndorsementPreviews/EndorsementCreditNote';
+import ParticipantCoverNote from '../EndorsementPreviews/ParticipantCoverNote';
+import SendNotesFromCreditListing from './SendNotesFromCreditListing';
 
-function CreditNotesListing({ id, offer }) {
+function CreditNotesListing({ id, offer, index, endorsement }) {
     const { loading, data } = useQuery(GET_ENDORSEMENT_PARTICIPATION, {
-        variables: { id },
-        onCompleted: (data) => console.table(data?.readParticipationsForEndorsement)
+        variables: { id }
     })
     const [selectedReinsurer, setSelectedReinsurer] = useState(null);
     const [showCreditNotePreview, setshowCreditNotePreview] = useState(false);
+    const [showContractChangesPreview, setShowContractChangesPreview] = useState(false);
+    const [showSendNoteDrawer, setShowSendNoteDrawer] = useState(false);
 
 
     const participants = useMemo(() => {
@@ -31,7 +34,7 @@ function CreditNotesListing({ id, offer }) {
                                 size="sm"
                                 as={ButtonGroup}
                                 id="dropdown-basic-button"
-                                title="Generate Credit Note"
+                                title="Generate Notes"
                             >
                                 <Dropdown.Item
                                     onClick={() => {
@@ -39,19 +42,23 @@ function CreditNotesListing({ id, offer }) {
                                         setshowCreditNotePreview((s) => !s);
                                     }}
                                 >
-                                    Preview
-            </Dropdown.Item>
-                                {offer?.approval_status === 'APPROVED' && (
-                                    <Dropdown.Item
-                                        onClick={() => {
-                                            setSelectedReinsurer(reinsurer);
-                                            // setViewOffer((s) => !s);
-                                            // setShowSendClosingSlip((s) => !s);
-                                        }}
-                                    >
-                                        Send
+                                    Preview Credit Note
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => {
+                                    setSelectedReinsurer(reinsurer);
+                                    setShowContractChangesPreview(true)
+                                }}>
+                                    Preview Contract Changes
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                    onClick={() => {
+                                        setSelectedReinsurer(reinsurer);
+                                        setShowSendNoteDrawer(true)
+                                    }}
+                                >
+                                    Send
                                     </Dropdown.Item>
-                                )}
+
                             </DropdownButton>
                         </>
                     ),
@@ -64,13 +71,22 @@ function CreditNotesListing({ id, offer }) {
     if (loading) return <Loader />
     return (
         <>
-            <div className="p-3">
+            <div className="p-3 mt-3">
                 <h3>Offer Participants { } </h3>
                 <Datatable entries={5} columns={creditNotes} data={participants} />
             </div>
 
             <Drawer width="50%" isvisible={showCreditNotePreview} toggle={() => setshowCreditNotePreview(false)}>
-                <EndorsementCreditNote offer={offer} reinsurer={selectedReinsurer} />
+                <EndorsementCreditNote endorsement={endorsement} offer={offer} reinsurer={selectedReinsurer} index={index} />
+            </Drawer>
+
+
+            <Drawer width="50%" isvisible={showContractChangesPreview} toggle={() => setShowContractChangesPreview(false)}>
+                <ParticipantCoverNote endorsement={endorsement} offer={offer} reinsurer={selectedReinsurer} index={index} />
+            </Drawer>
+
+            <Drawer width="45%" isvisible={showSendNoteDrawer} toggle={() => setShowSendNoteDrawer(false)}>
+                {showSendNoteDrawer && <SendNotesFromCreditListing toggle={() => setShowSendNoteDrawer(false)} endorsement={endorsement} index={index} reinsurer={selectedReinsurer} />}
             </Drawer>
 
         </>

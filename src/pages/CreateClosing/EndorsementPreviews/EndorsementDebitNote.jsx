@@ -12,7 +12,7 @@ const downloadAccess = ['CEO',
     'System Administrator']
 
 
-function EndorsementDebitNote({ offer, endorsement }) {
+function EndorsementDebitNote({ offer, endorsement, doc_number }) {
     const { state: ctx } = useContext(AuthContext)
     const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
@@ -22,8 +22,12 @@ function EndorsementDebitNote({ offer, endorsement }) {
     return (
         <div>
             <div className="row m-2">
-                {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) && <a target="_blank" href={`${BASE_URL_LOCAL}/generate_debit_slip/${btoa(JSON.stringify({ offer_id: offer?.offer_id }))}`} className="btn btn-sm btn-primary w-md">
-                    <i className="bx bxs-file-pdf"></i> Save
+                {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) &&
+                    <a target="_blank" href={`${BASE_URL_LOCAL}/endorsement_debit_note/${btoa(JSON.stringify({
+                        offer_endorsement_id: endorsement?.offer_endorsement_id,
+                        doc_number
+                    }))}`} className="btn btn-sm btn-primary w-md">
+                        <i className="bx bxs-file-pdf"></i> Save
                 </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid text-black bg-white">

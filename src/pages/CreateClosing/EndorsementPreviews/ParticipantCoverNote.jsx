@@ -11,7 +11,7 @@ const downloadAccess = ['CEO',
     // 'Finance Executive',
     'System Administrator']
 
-function EndorsementCoverNote({ offer, index, endorsement }) {
+function ParticipantCoverNote({ offer, index, endorsement, reinsurer }) {
     const { state: ctx } = useContext(AuthContext)
     const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
@@ -22,11 +22,14 @@ function EndorsementCoverNote({ offer, index, endorsement }) {
     return (
         <div style={{ fontFamily: "Times New Roman" }}>
             <div className="row m-2">
-                {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) && <a target="_blank" href={`${BASE_URL_LOCAL}/contract_changes/${btoa(JSON.stringify({
-                    offer_endorsement_id: endorsement?.offer_endorsement_id,
-                    doc_number: index
-                }))}`} className="btn btn-sm btn-primary w-md">
-                    <i className="bx bxs-file-pdf"></i> Save
+                {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) &&
+                    <a target="_blank" href={`${BASE_URL_LOCAL}/endorsement_contract_change_note/${btoa(JSON.stringify({
+                        offer_endorsement_id: endorsement?.offer_endorsement_id,
+                        doc_number: index,
+                        offer_participant_id: reinsurer?.offer_participant_id
+                    }))}`} className="btn btn-sm btn-primary w-md">
+                        <i className="bx bxs-file-pdf"></i>
+                        Save
                 </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid text-black bg-white">
@@ -109,24 +112,24 @@ function EndorsementCoverNote({ offer, index, endorsement }) {
                         <div className="mt-3 mb-2">
                             <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>Securities:</h3>
                         </div>
-                        {offer?.offer_participant.map((reinsurer, key) => !reinsurer.offer_participant_percentage ? null : (
-                            <div key={key} className="row mb-2">
-                                <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                    <h3 className="dark-text">{reinsurer.reinsurer.re_company_name} :</h3>
-                                </div>
-                                <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                                    <h3 className="dark-text-value">{reinsurer.offer_participant_percentage}% of 100.00%</h3>
-                                </div>
-                            </div>
-                        ))}
+                        {/* {offer?.offer_participant.map((_reinsurer, key) => !_reinsurer.offer_participant_percentage ? null : ( */}
                         <div className="row mb-2">
+                            <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                                <h3 className="dark-text">{reinsurer?.re_company_name} :</h3>
+                            </div>
+                            <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                                <h3 className="dark-text-value">{reinsurer?.offer_participant_percentage}% of 100.00%</h3>
+                            </div>
+                        </div>
+                        {/* // ))} */}
+                        {/* <div className="row mb-2">
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                 <h3 className="dark-text">Total :</h3>
                             </div>
                             <div className="col-md-4 col-4 col-sm-4 col-xs-4 border border-bottom-0 border-left-0 border-right-0 border-dark">
                                 <h3 className="dark-text-value">{offer?.placed_offer}% of 100.00%</h3>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -134,4 +137,4 @@ function EndorsementCoverNote({ offer, index, endorsement }) {
     )
 }
 
-export default EndorsementCoverNote
+export default ParticipantCoverNote

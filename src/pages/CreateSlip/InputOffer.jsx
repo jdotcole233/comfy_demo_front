@@ -476,14 +476,14 @@ export default function InputOffer({ toggle }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">From</label>
-                                <input type="date" ref={register({ required: "Provide date" })} name="period_of_insurance_from" className="form-control" placeholder="From" />
+                                <input type="date" ref={register({ required: false })} name="period_of_insurance_from" className="form-control" placeholder="From" />
                                 {errors.period_of_insurance_from && <p className="text-danger">{errors.period_of_insurance_from.message}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">To</label>
-                                <input type="date" ref={register({ required: "Provide date" })} name="period_of_insurance_to" className="form-control" placeholder="To" />
+                                <input type="date" ref={register({ required: false })} name="period_of_insurance_to" className="form-control" placeholder="To" />
                                 {errors.period_of_insurance_to && <p className="text-danger">{errors.period_of_insurance_to.message}</p>}
                             </div>
                         </div>

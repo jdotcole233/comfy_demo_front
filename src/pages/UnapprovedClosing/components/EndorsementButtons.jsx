@@ -21,7 +21,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import { deleteAccessRoles } from '../../../layout/adminRoutes';
 import OfferApproval from '../OfferApproval';
 
-const OfferButtons = ({ offer }) => {
+const EndorsementButtons = ({ offer, endorsement }) => {
     const { state: { user } } = useContext(AuthContext)
     const history = useHistory()
     const [selectedOffer, setSelectedOffer] = useState(null)
@@ -195,8 +195,8 @@ const OfferButtons = ({ offer }) => {
     }
 
     const { rows, participants, downloadLink } = useMemo(() => generateParticipants({
-        offer: selectedOffer,
-        _participants: selectedOffer?.offer_participant || [],
+        offer: offer,
+        _participants: offer?.offer_participant || [],
         setSelectedReinsurer,
         setShowSendClosingSlip,
         setViewOffer,
@@ -226,7 +226,7 @@ const OfferButtons = ({ offer }) => {
                     id="dropdown-basic-button"
                     title="Generate Notes"
                 >
-                    <Dropdown.Item onClick={() => handlePreviewCoverNote(offer)}>
+                    <Dropdown.Item onClick={() => handlePreviewCoverNote(endorsement)}>
                         Preview Cover Note
             </Dropdown.Item>
                     <Dropdown.Item onClick={() => handlePreviewDebitNote(offer)}>
@@ -321,7 +321,7 @@ const OfferButtons = ({ offer }) => {
 
             {/* Preview Cover note */}
             <Drawer width="50%" isvisible={showCoverNotePreview} toggle={() => setShowCoverNotePreview(!showCoverNotePreview)}>
-                <PreviewCoverNote offer={selectedOffer} />
+                {showCoverNotePreview && <PreviewCoverNote offer={selectedOffer} />}
             </Drawer>
             {/* Send debit and credit  Note */}
             <Drawer width="40%" isvisible={showCoverNoteMail} toggle={() => setshowCoverNoteMail(!showCoverNoteMail)}>
@@ -333,12 +333,12 @@ const OfferButtons = ({ offer }) => {
             </Drawer>
             {/* Preview Debit Note */}
             <Drawer width="50%" isvisible={showDebitNotePreview} toggle={() => setshowDebitNotePreview(!showDebitNotePreview)}>
-                <PreviewDebitNote offer={selectedOffer} />
+                {showDebitNotePreview && <PreviewDebitNote offer={selectedOffer} />}
             </Drawer>
 
             {/* Preview Credit Note */}
             <Drawer width="50%" isvisible={showCreditNotePreview} toggle={() => setshowCreditNotePreview(!showCreditNotePreview)}>
-                <PreviewCreditNote offer={selectedOffer} reinsurer={selectedReinsurer} />
+                {showCreditNotePreview && <PreviewCreditNote offer={selectedOffer} reinsurer={selectedReinsurer} />}
             </Drawer>
 
 
@@ -374,4 +374,4 @@ const OfferButtons = ({ offer }) => {
     )
 }
 
-export default OfferButtons
+export default EndorsementButtons

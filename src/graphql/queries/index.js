@@ -274,6 +274,8 @@ query getOffers(
           fac_premium
           offer_endorsement_detail {
             offer_comment
+            offer_endorsement_detail_id
+            offer_detail
           }
           commission_amount
       }
@@ -896,3 +898,36 @@ query getEndorsementParticipants($id:ID){
   readParticipationsForEndorsement(offer_endorsement_id:$id)
 }
 `;
+
+export const GET_SINGLE_ENDORSEMENT = gql`
+# Write your query or mutation here
+query getSingleEndorsement($id: ID){
+  singleEndorsement(offer_endorsement_id:$id){
+    offer_endorsement_id
+    rate
+    commission
+    brokerage
+    commission_amount
+    facultative_offer
+    co_insurance_share
+    sum_insured
+    fac_sum_insured
+    premium
+    fac_premium
+    endorsement_status
+    approval_status
+    offer_endorsement_detail {
+      offer_detail
+      information_comment
+      offer_comment
+      currency
+      insured_by
+      policy_number
+      period_of_insurance_to
+      period_of_insurance_from
+      policy_number
+      offer_endorsement_detail_id
+    }
+  }
+}
+`

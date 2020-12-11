@@ -71,6 +71,16 @@ export const generateEndorsementOffers = ({ endorsements, offer }) => {
   }))
 }
 
+export const calculateEndorsementSumInsured = ({ offer, endorsements }) => {
+  const endorsementsSumInsured = endorsements.reduce((prev, cur) => prev + parseFloat(cur.sum_insured), 0);
+  return endorsementsSumInsured + parseFloat(offer?.sum_insured);
+}
+
+export const calculateEndorsementPremium = ({ offer, endorsements }) => {
+  const endorsementsSumInsured = endorsements.reduce((prev, cur) => prev + parseFloat(cur.premium), 0);
+  return endorsementsSumInsured + parseFloat(offer?.premium);
+}
+
 export const calculateFacOffer = ({ offer, setFac_offer, setTest_offer }) => {
   if (!offer) return 0;
   const total = offer?.offer_participant?.reduce(
