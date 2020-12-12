@@ -105,7 +105,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                     type: obj.payment_type === "Cheque" ? obj.payment_type + " - " + obj.payment_from.cheque_number + " " : obj.payment_type,
                     bank_name: obj.payment_from.bank_name,
                     beneficiary_bank: obj.payment_to,
-                    payment_amount: payment.payment_amount.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+                    payment_amount: `${obj?.conversion?.currency || selectedOFfer?.offer_detail?.currency} ${payment.payment_amount.toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
                     created_at: payment.created_at,
                     updated_at: payment.updated_at,
                     actions: (
@@ -171,7 +171,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                         'System Administrator',].includes(ctx?.user?.position) && <button onClick={() => handleViewOfferDetails(offer)} className="btn btn-sm btn-primary m-1">View Offer</button>}
                 {['Finance Executive'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" && <button onClick={() => handleViewOfferPayments(offer)} className="btn btn-sm btn-danger m-1">Payments</button>}
                 {['Finance Executive'].includes(ctx?.user?.position) && offer?.offer_status === "CLOSED" &&
-                    <button button onClick={() => handleViewDistributePayments(offer)} className="btn btn-sm btn-success m-1">Distribute Payment</button>
+                    <button onClick={() => handleViewDistributePayments(offer)} className="btn btn-sm btn-success m-1">Distribute Payment</button>
                 }
             </>
 
@@ -206,7 +206,11 @@ const Offerbuttons = ({ offer, state, insurer }) => {
 
             {/* Add payment Drawer */}
             <Drawer width="40%" isvisible={addPaymentDrawer} toggle={() => setAddPaymentDrawer(!addPaymentDrawer)}>
-                <AddPayments details={selectedOFfer} insurer_id={insurer?.insurer.insurer_id} toggle={() => setAddPaymentDrawer(!addPaymentDrawer)} />
+                {addPaymentDrawer && <AddPayments
+                    details={selectedOFfer}
+                    insurer_id={insurer?.insurer.insurer_id}
+                    toggle={() => setAddPaymentDrawer(!addPaymentDrawer)}
+                />}
             </Drawer>
             {/* /end of add payment Drawer */}
 
