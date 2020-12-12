@@ -4,6 +4,7 @@ import "../styles/preview.css"
 import { BASE_URL_LOCAL } from '../../../graphql'
 import { AuthContext } from '../../../context/AuthContext'
 import { getCurrencyFullName } from '../../../components'
+import { useLocation } from 'react-router-dom'
 
 const downloadAccess = [
     'CEO',
@@ -15,15 +16,18 @@ const downloadAccess = [
 
 function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
     const { state: ctx } = useContext(AuthContext)
+    const { pathname } = useLocation()
     const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
     }
+    const __condition = pathname !== "/admin/approve-closing";
     return (
         <Fragment>
             <div className="row m-2">
                 {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) &&
+                    __condition &&
                     <a target="_blank" href={`${BASE_URL_LOCAL}/endorsement_closing_note/${btoa(JSON.stringify({
                         offer_endorsement_id: endorsement?.offer_endorsement_id,
                         offer_participant_id: reinsurer?.offer_participant_id,

@@ -69,7 +69,7 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
             setInfoContent(endorsement.offer_endorsement_detail.information_comment?.toString());
             setValue("information_comment", endorsement.offer_endorsement_detail.information_comment?.toString());
             // setNkrol(endorsement.offer_endorsement_detail.information_comment ? true : false);
-            // fillComment(endorsement.offer_detail.offer_comment);
+            fillComment(endorsement?.offer_endorsement_detail?.offer_comment);
             setValue("ex_currency", offer.exchange_rate?.ex_currency);
             setSelectedExCurrency(offer.exchange_rate?.ex_currency);
             // alert(parseFloat(offer.exchange_rate?.ex_rate))

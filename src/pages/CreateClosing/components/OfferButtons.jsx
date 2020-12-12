@@ -9,7 +9,11 @@ import { OFFERS } from '../../../graphql/queries';
 import { Modal } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import { Drawer, Datatable, BottomDrawer } from '../../../components'
-import { generateParticipants, calculateFacOffer, generateEndorsementOffers, calculateEndorsementSumInsured, calculateEndorsementPremium } from '../actions'
+import {
+    generateParticipants, calculateFacOffer,
+    generateEndorsementOffers,
+    calculateEndorsementPremium
+} from '../actions'
 import { creditNotes } from '../columns';
 import { BASE_URL_LOCAL } from '../../../graphql'
 import PreviewCoverNote from '../PreviewCoverNote'
@@ -407,8 +411,7 @@ const OfferButtons = ({ offer }) => {
                                         <td>{offer?.offer_detail?.insured_by}</td>
                                     </tr>
                                     <tr>
-                                        <th>Total Sum Insured</th>
-                                        <td>{calculateEndorsementSumInsured({ offer, endorsements: offer?.offer_endorsements || [] }).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+
 
                                         <th>Total Premium</th>
                                         <td>{calculateEndorsementPremium({ offer, endorsements: offer?.offer_endorsements || [] }).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>

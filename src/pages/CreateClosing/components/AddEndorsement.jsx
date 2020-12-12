@@ -13,13 +13,12 @@ import currencies from '../../../assets/currencies.json'
 
 
 function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
-    // const offer = JSON.parse(_offer)
     const { state } = useContext(AuthContext);
     const formRef = useRef()
     const { data } = useQuery(INPUT_OFFER_QUERIES);
     const { register, errors, handleSubmit, setValue, clearError } = useForm()
     const [offer_comment, fillComment] = useState("")
-    const [nkrol, setNkrol] = useState(false)
+    const [, setNkrol] = useState(false)
 
     const [classOfBusiness, setClassOfBusiness] = useState(null);
     const [offerDetails, setofferDetails] = useState([])
@@ -132,11 +131,8 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
     const handleCreateOffer = values => {
         const variables = {
             offer_id: offer?.offer_id,
-            // offer_detail_id: offer?.offer_detail?.offer_detail_id,
             ...prepVariables(values, offerDetails, state.user.employee.employee_id),
         }
-        console.log(variables);
-        // return;
         swal({
             icon: "warning",
             title: "Are you sure you want to create endorsement ?",
@@ -151,7 +147,6 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
             if (!input) throw null
             updateOffer({ variables }).then(res => {
                 swal("Success", "Facultative offer updated Successfully", "success");
-                // formRef.current.reset()
                 toggle()
             }).catch(err => {
                 if (err) {
@@ -346,8 +341,8 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
                         </div>
                     </div>
                 </fieldset>
-                {!offer_comment && <fieldset className="w-auto p-2 border-form">
-                    <legend className={styles.details_title}>Comment</legend>
+                <fieldset className="w-auto p-2 border-form">
+                    <legend className={styles.details_title}>Comment </legend>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
@@ -357,19 +352,8 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
                             </div>
                         </div>
                     </div>
-                </fieldset>}
-                {offer_comment && <fieldset className="w-auto p-2  border-form">
-                    <legend className={styles.details_title}>Comment</legend>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <Editor value={offer_comment} onChange={handleCommentChange} />
-                                <textarea hidden rows={10} ref={register({ required: nkrol })} onChange={() => { }} value={offer_comment} name="offer_comment" className="form-control" placeholder="Add Comment" ></textarea>
-                                {errors.information_comment && <p className="text-danger">{errors.information_comment.message}</p>}
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>}
+                </fieldset>
+
                 <div className="form-group">
                     <input type="submit" className="btn btn-primary btn-sm form-control my-2" value="Create Endorsement" />
                 </div>

@@ -14,9 +14,9 @@ const downloadAccess = ['CEO',
 function PreviewCoverNote({ offer }) {
     const { state: ctx } = useContext(AuthContext)
     const showDate = (offer) => {
-        if (!offer?.offer_detail?.period_of_insurance_from) return "TBA"
-        const from = new Date(offer?.offer_detail?.period_of_insurance_from)
-        const to = new Date(offer?.offer_detail?.period_of_insurance_to)
+        if (!offer?.offer_detail?.period_of_insurance_from && !offer?.offer_endorsement_detail?.period_of_insurance_from) return "TBA"
+        const from = new Date(offer?.offer_detail?.period_of_insurance_from || !offer?.offer_endorsement_detail?.period_of_insurance_from)
+        const to = new Date(offer?.offer_detail?.period_of_insurance_to || !offer?.offer_endorsement_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
     }
 
@@ -237,7 +237,7 @@ function PreviewCoverNote({ offer }) {
                         <div className="mt-3 mb-2">
                             <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>SECURITY</h3>
                         </div>
-                        {offer?.offer.offer_participant.map((reinsurer, key) => !reinsurer.offer_participant_percentage ? null : (
+                        {offer?.offer?.offer_participant.map((reinsurer, key) => !reinsurer.offer_participant_percentage ? null : (
                             <div key={key} className="row mb-2">
                                 <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                     <h3 className="dark-text">{reinsurer.reinsurer.re_company_name} :</h3>

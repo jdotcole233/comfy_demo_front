@@ -85,7 +85,7 @@ export const endorsementColumns = [
     field: 'sum_insured',
   },
   {
-    label: 'Premium,',
+    label: 'Premium',
     field: 'premium',
   },
   {

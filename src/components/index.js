@@ -6,6 +6,7 @@ import {
 import { Modal } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import currencies from '../assets/currencies.json'
+import moment from 'moment'
 
 
 export { default as Drawer } from './Drawer';
@@ -135,3 +136,19 @@ export const generateNewCulumns = (list, exclude) =>
 
 
 export const getCurrencyFullName = (currency) => currencies[currency]?.name
+
+function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+    diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+
+const DATE_REFERENCE = moment(getMonday(new Date()));
+const A_WEEK_OLD = DATE_REFERENCE.clone().subtract(7, 'days').startOf('day');
+
+
+export function isWithinAWeek(momentDate) {
+  console.log(moment(momentDate).isAfter(A_WEEK_OLD))
+  return moment(momentDate).isAfter(A_WEEK_OLD);
+}

@@ -4,6 +4,7 @@ import "../styles/preview.css"
 import { BASE_URL_LOCAL } from '../../../graphql'
 import { AuthContext } from '../../../context/AuthContext'
 import { getCurrencyFullName } from '../../../components'
+import { useLocation } from 'react-router-dom'
 
 const downloadAccess = ['CEO',
     'General Manager',
@@ -13,16 +14,21 @@ const downloadAccess = ['CEO',
 
 function ParticipantCoverNote({ offer, index, endorsement, reinsurer }) {
     const { state: ctx } = useContext(AuthContext)
+    const { pathname } = useLocation()
     const showDate = (offer) => {
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
     }
 
+    const __condition = pathname !== "/admin/approve-closing"
+
+
     return (
         <div style={{ fontFamily: "Times New Roman" }}>
             <div className="row m-2">
                 {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) &&
+                    __condition &&
                     <a target="_blank" href={`${BASE_URL_LOCAL}/endorsement_contract_change_note/${btoa(JSON.stringify({
                         offer_endorsement_id: endorsement?.offer_endorsement_id,
                         doc_number: index,
@@ -41,7 +47,7 @@ function ParticipantCoverNote({ offer, index, endorsement, reinsurer }) {
                     </div> */}
 
                     <div className="col-md-12 mt-3 mb-3">
-                        <h4 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>ENDORSEMENT NO. {index}</h4>
+                        <h4 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>ENDORSEMENT {__condition ? "NO." : ""} {index}</h4>
                         <p style={{ textAlign: "center", textDecoration: "underline", fontWeight: "bold" }}>ATTACHING TO AND PERFORMING PART OF FACULTATIVE REINSURANCE</p>
                     </div>
                     <div className="col-md-10 col-sm-12 col-xs-12 ml-md-4">

@@ -53,6 +53,12 @@ export const generateEndorsementOffers = ({ endorsements, offer }) => {
   return endorsements.map((_endorsement, index) => ({
     index: index + 1,
     ..._endorsement,
+    sum_insured: _endorsement.sum_insured.toLocaleString(undefined, {
+      maximumFractionDigits: 2,
+    }),
+    premium: _endorsement.premium.toLocaleString(undefined, {
+      maximumFractionDigits: 2,
+    }),
     approval_status: (
       <span
         style={{ letterSpacing: 3 }}
