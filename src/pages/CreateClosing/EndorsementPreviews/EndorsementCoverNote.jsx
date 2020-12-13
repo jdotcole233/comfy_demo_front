@@ -24,7 +24,7 @@ function EndorsementCoverNote({ offer, index, endorsement }) {
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
     }
 
-    const __condition = pathname !== "/admin/approve-closing"
+    const __condition = pathname !== "/admin/approve-closing";
 
     return (
         <div style={{ fontFamily: "Times New Roman" }}>
