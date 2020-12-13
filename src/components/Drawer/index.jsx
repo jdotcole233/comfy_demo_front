@@ -24,14 +24,16 @@ function Drawer({ children, containerStyles = {}, width, isvisible, toggle }) {
     }
   }, [isvisible]);
 
-  return  ReactDom.createPortal(
+  const zIndex = 0
+
+  return ReactDom.createPortal(
     <DrawerContext.Provider value={{ closed }}>
       <Slide right when={isvisible}>
         <div
           onClick={handleToggle}
           style={{
             display: isvisible ? "block" : "none",
-            zIndex: 3000,
+            zIndex: zIndex + 3000,
             position: "fixed",
             right: 0,
             left: 0,
@@ -42,7 +44,7 @@ function Drawer({ children, containerStyles = {}, width, isvisible, toggle }) {
         />
         <div
           style={{
-            zIndex: 3000,
+            zIndex: zIndex + 3000,
             position: "fixed",
             display: isvisible ? "block" : "none",
             right: 0,

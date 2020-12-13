@@ -1,47 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>KEK Reinsurance Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="KEK Reinsurance Dashboard" name="description" />
+    <meta content="EmmanuelBaidoo" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
 
-<head>
-  <meta charset="utf-8" />
-  <title>KEK Reinsurance Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta content="KEK Reinsurance Dashboard" name="description" />
-  <meta content="EmmanuelBaidoo" name="author" />
-  <!-- App favicon -->
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- Bootstrap Css -->
+    <!-- <link href="%PUBLIC_URL%/assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css" /> -->
+    <link
+      href="%PUBLIC_URL%/assets/css/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Icons Css -->
+    <link
+      href="%PUBLIC_URL%/assets/css/icons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- App Css-->
+    <!-- <link href="%PUBLIC_URL%/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" /> -->
+    <link
+      href="%PUBLIC_URL%/assets/css/app.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
 
-  <!-- Bootstrap Css -->
-  <!-- <link href="%PUBLIC_URL%/assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css" /> -->
-  <link href="%PUBLIC_URL%/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <!-- Icons Css -->
-  <link href="%PUBLIC_URL%/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-  <!-- App Css-->
-  <!-- <link href="%PUBLIC_URL%/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" /> -->
-  <link href="%PUBLIC_URL%/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+  <body data-sidebar="dark">
+    <!-- Begin page -->
+    <div id="root"></div>
 
-</head>
+    <!-- Drawer -->
+    <div id="drawer"></div>
 
-<body data-sidebar="dark">
+    <!-- Bottom Drawer -->
+    <div id="bottom-drawer"></div>
 
-  <!-- Begin page -->
-  <div id="root"></div>
+    <!-- JAVASCRIPT -->
+    <script defer src="%PUBLIC_URL%/assets/libs/jquery/jquery.min.js"></script>
+    <script
+      defer
+      src="%PUBLIC_URL%/assets/libs/bootstrap/js/bootstrap.bundle.min.js"
+    ></script>
+    <script
+      defer
+      src="%PUBLIC_URL%/assets/libs/metismenu/metisMenu.min.js"
+    ></script>
+    <script
+      defer
+      src="%PUBLIC_URL%/assets/libs/simplebar/simplebar.min.js"
+    ></script>
+    <script
+      defer
+      src="%PUBLIC_URL%/assets/libs/node-waves/waves.min.js"
+    ></script>
 
-  <!-- Drawer -->
-  <div id="drawer"></div>
+    <!-- apexcharts -->
+    <script
+      defer
+      src="%PUBLIC_URL%/assets/libs/apexcharts/apexcharts.min.js"
+    ></script>
 
-  <!-- JAVASCRIPT -->
-  <script defer src="%PUBLIC_URL%/assets/libs/jquery/jquery.min.js"></script>
-  <script defer src="%PUBLIC_URL%/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script defer src="%PUBLIC_URL%/assets/libs/metismenu/metisMenu.min.js"></script>
-  <script defer src="%PUBLIC_URL%/assets/libs/simplebar/simplebar.min.js"></script>
-  <script defer src="%PUBLIC_URL%/assets/libs/node-waves/waves.min.js"></script>
-
-  <!-- apexcharts -->
-  <script defer src="%PUBLIC_URL%/assets/libs/apexcharts/apexcharts.min.js"></script>
-
-
-  <!-- App js -->
-  <script defer src="%PUBLIC_URL%/assets/js/app.js"></script>
-</body>
-
+    <!-- App js -->
+    <script defer src="%PUBLIC_URL%/assets/js/app.js"></script>
+  </body>
 </html>

@@ -1,21 +1,51 @@
 /* eslint-disable no-throw-literal */
-import React, { useState, useRef, useEffect, useContext } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from './styles/ViewInsurerOffer.module.css'
 import { Alert } from 'react-bootstrap'
 import { useMutation } from 'react-apollo'
 import { MAKE_PAYMENT_INSURER, UPDATE_PAYMENT_INSURER } from '../../graphql/mutattions'
 import { INSURER, INSURER_OFFERS } from '../../graphql/queries'
 import swal from 'sweetalert'
-import { DrawerContext } from '../../components/Drawer';
 import { useAuth } from '../../context/AuthContext'
+import { CurrencyOption, Selector } from '../../components'
+import currencies from '../../assets/currencies.json'
+
+const prepData = ({ payment, form_inputs, user, details, addExchangeRate, amountToBePaid }) => (
+    {
+        offer_payment_id: payment?.offer_payment_id,
+        offer_id: details?.offer_id,
+        payment_amount: form_inputs.payment_amount,
+        payment_status: parseFloat(amountToBePaid).toFixed(2) === parseFloat(form_inputs.payment_amount).toFixed(2) ? "PAID" : "PARTPAYMENT",
+        payment_details: JSON.stringify({
+            employee_id: user?.employee?.employee_id,
+            payment_type: form_inputs.payment_type,
+            payment_from: {
+                cheque_number: form_inputs.cheque_number ? form_inputs.cheque_number : "N/A",
+                bank_name: form_inputs.bank_name,
+                date_on_cheque: form_inputs.date_on_cheque
+            },
+            payment_to: form_inputs.beneficiary_bank_name,
+            conversion: {
+                rate: form_inputs.exchange_rate,
+                currency: form_inputs.currency,
+                addExchangeRate: addExchangeRate
+            }
+        }),
+        Offer_payment_comment: form_inputs.offer_payment_comment ? form_inputs.offer_payment_comment : "-"
+    }
+)
 
 
+const getSum = (name, details) => details[name] + details?.offer_endorsements?.reduce((prev, curr) =>
+    prev + parseFloat(curr[name]), 0);
 
 export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
-    const { closed } = useContext(DrawerContext);
     const { user } = useAuth()
-    const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0)
-    const [amountError, setAmountError] = useState(false)
+    const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0);
+    const [newExpectedAmount, setNewExpectedAmount] = useState(0);
+    const [amountError, setAmountError] = useState(false);
+    const [addExchangeRate, setAddExchangeRate] = useState(false);
+    const [currency, setCurrency] = useState(null)
     const [form_inputs, setForm_inputs] = useState({
         payment_type: "",
         cheque_number: "",
@@ -23,21 +53,11 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         beneficiary_bank_name: "",
         offer_payment_comment: "",
         payment_amount: "",
-        date_on_cheque: ""
+        date_on_cheque: "",
+        currency: "",
+        exchange_rate: 1.00
     })
-    useEffect(() => {
-        if (closed) {
-            setForm_inputs({
-                payment_type: "",
-                cheque_number: "",
-                bank_name: "",
-                beneficiary_bank_name: "",
-                offer_payment_comment: "",
-                payment_amount: "",
-                date_on_cheque: ""
-            })
-        }
-    }, [closed])
+
     const formRef = useRef()
     const [makePayment] = useMutation(MAKE_PAYMENT_INSURER, {
         refetchQueries: [
@@ -57,18 +77,32 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         if (details) {
             let sumOfPaymentAmounts = 0;
             details.offer_payment.map(payment => {
-                sumOfPaymentAmounts += parseFloat(payment.payment_amount);
+                const _payment_details = JSON.parse(payment.payment_details);
+                const amount_paid = parseFloat(payment.payment_amount) / parseFloat(_payment_details.conversion.rate)
+                sumOfPaymentAmounts += parseFloat(amount_paid);
                 return payment;
             })
-            const paymentThreshold = parseFloat(details?.fac_premium) - parseFloat(details?.commission_amount) - sumOfPaymentAmounts
-            setExpectedAmtToBePaid(paymentThreshold);
+
+            const fac_premium = getSum("fac_premium", details);
+            const commission_amount = getSum("commission_amount", details);
+
+
+            const paymentThreshold = parseFloat(fac_premium) - parseFloat(commission_amount) - sumOfPaymentAmounts
+            setExpectedAmtToBePaid(paymentThreshold > 0 ? paymentThreshold : 0);
         }
-    }, [details])
+    }, [details, form_inputs])
+
+    useEffect(() => {
+        if (expectedAmtToBePaid && addExchangeRate) {
+            setNewExpectedAmount(expectedAmtToBePaid * form_inputs?.exchange_rate)
+        }
+
+    }, [form_inputs, expectedAmtToBePaid, addExchangeRate])
 
     useEffect(() => {
         if (payment && details) {
             const obj = JSON.parse(payment.payment_details);
-            console.log(obj)
+            // alert(payment.payment_details)
             setForm_inputs({
                 payment_amount: payment.payment_amount,
                 cheque_number: obj.payment_from.cheque_number,
@@ -76,15 +110,28 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 beneficiary_bank_name: obj.payment_to,
                 offer_payment_comment: payment.offer_payment_comment,
                 payment_type: obj.payment_type,
-                date_on_cheque: obj.payment_from.date_on_cheque
+                date_on_cheque: obj.payment_from.date_on_cheque,
+                exchange_rate: obj.conversion.rate,
+                currency: obj.conversion.currency,
             })
+            setCurrency(obj.conversion.currency)
+            setAddExchangeRate(obj.conversion.addExchangeRate);
         }
     }, [payment, details])
 
+    const valueToCheckWith = addExchangeRate ? newExpectedAmount : expectedAmtToBePaid;
+
+    useEffect(() => {
+        if (parseFloat(form_inputs.payment_amount) > valueToCheckWith.toFixed(2)) {
+            setAmountError(true)
+        } else {
+            setAmountError(false)
+        }
+    }, [valueToCheckWith, form_inputs])
 
     const handleChange = event => {
         const { name, value } = event.target;
-        if (name === "payment_amount" && (value > expectedAmtToBePaid.toFixed(2) || value < 0)) {
+        if (name === "payment_amount" && (parseFloat(value) > valueToCheckWith.toFixed(2) || value < 0)) {
             setAmountError(true);
         } else {
             setAmountError(false)
@@ -97,23 +144,16 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
 
     const handleMakePayment = event => {
         event.preventDefault()
-        const data = {
 
-            offer_payment_id: payment?.offer_payment_id,
-            offer_id: details?.offer_id,
-            payment_amount: form_inputs.payment_amount,
-            payment_details: JSON.stringify({
-                employee_id: user?.employee?.employee_id,
-                payment_type: form_inputs.payment_type,
-                payment_from: {
-                    cheque_number: form_inputs.cheque_number ? form_inputs.cheque_number : "N/A",
-                    bank_name: form_inputs.bank_name,
-                    date_on_cheque: form_inputs.date_on_cheque
-                },
-                payment_to: form_inputs.beneficiary_bank_name
-            }),
-            Offer_payment_comment: form_inputs.offer_payment_comment
-        }
+        const data = prepData({
+            payment,
+            details,
+            form_inputs,
+            addExchangeRate,
+            user,
+            amountToBePaid: valueToCheckWith
+        })
+
 
         swal({
             closeOnClickOutside: false,
@@ -127,7 +167,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 variables: { data }
             }).then(res => {
                 swal("Sucess", "Payment made Successfully", "success");
-                formRef.current.reset()
+                // formRef.current.reset()
                 setForm_inputs({
                     payment_type: "",
                     cheque_number: "",
@@ -135,7 +175,9 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                     beneficiary_bank_name: "",
                     offer_payment_comment: "",
                     payment_amount: "",
-                    date_on_cheque: ""
+                    date_on_cheque: "",
+                    currency: "",
+                    exchange_rate: 1.00
                 })
                 toggle()
             })
@@ -152,22 +194,14 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
 
     const handleUpdatePayment = event => {
         event.preventDefault()
-        const data = {
-            offer_payment_id: payment?.offer_payment_id,
-            offer_id: details?.offer_id,
-            payment_amount: form_inputs.payment_amount,
-            payment_details: JSON.stringify({
-                employee_id: user?.employee?.employee_id,
-                payment_type: form_inputs.payment_type,
-                payment_from: {
-                    cheque_number: form_inputs.cheque_number ? form_inputs.cheque_number : "N/A",
-                    bank_name: form_inputs.bank_name,
-                    date_on_cheque: form_inputs.date_on_cheque
-                },
-                payment_to: form_inputs.beneficiary_bank_name
-            }),
-            Offer_payment_comment: form_inputs.offer_payment_comment ? form_inputs.offer_payment_comment : "-"
-        }
+        const data = prepData({
+            payment,
+            details,
+            form_inputs,
+            addExchangeRate,
+            user,
+            amountToBePaid: valueToCheckWith
+        })
         swal({
             closeOnClickOutside: false,
             closeOnEsc: false,
@@ -205,6 +239,21 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
 
     }
 
+    const handleCurrencyChange = value => {
+        setCurrency(value ? value.value.code : "")
+        setForm_inputs(prev => ({
+            ...prev,
+            currency: value ? value.value.code : ""
+        }))
+    }
+
+    const handleExchangeRateChange = value => {
+        setForm_inputs(prev => ({
+            ...prev,
+            exchange_rate: value
+        }))
+    }
+
     return (
         <div>
             <div className={styles.card_header}>
@@ -223,9 +272,45 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                     <p>{!edit ? "Make" : "Update"} payment to [{details?.offer_detail.policy_number}]</p>
                     {details?.exchange_rate && <p>This offer was created in {details?.offer_detail.currency}, but with an exchange rate of {details?.exchange_rate?.ex_rate} in {details?.exchange_rate?.ex_currency}</p>}
                     <p><strong>Expected Amount: {details?.exchange_rate?.ex_currency || details?.offer_detail.currency} {expectedAmtToBePaid.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong></p>
+                    {addExchangeRate && form_inputs.currency &&
+                        <p><strong>
+                            New Expected Amount (payable) : {form_inputs.currency} {newExpectedAmount.toFixed(2)}
+                        </strong></p>
+                    }
                 </Alert>
 
                 <div className="row">
+                    <div className="col-md-12">
+                        <div className="form-check mb-3">
+                            <input checked={addExchangeRate} type="checkbox" className="form-check-input" onChange={e => setAddExchangeRate(e.target.checked)} />
+                            <label className="form-check-label" htmlFor="exampleCheck1">Pay in differenct Currency</label>
+                        </div>
+                    </div>
+
+
+                    {addExchangeRate && <div className="col-md-12  ">
+                        <div className="alert alert-info">
+                            <div className="form-group">
+                                <label htmlFor="">Select Currency</label>
+                                <Selector
+                                    value={currency ?
+                                        { label: Object.values(currencies).find(eel => eel.code === currency)?.name }
+                                        : ""
+                                    }
+                                    components={{ Option: CurrencyOption }}
+                                    onChange={handleCurrencyChange}
+                                    options={[...Object.values(currencies).map(currency => ({
+                                        label: currency.name, value: currency
+                                    }))]}
+                                />
+                            </div>
+                            {currency && <div className="form-group">
+                                <label htmlFor="">Rate</label>
+                                <input value={form_inputs.exchange_rate} onChange={e => handleExchangeRateChange(e.target.value)} type="number" step="any" className="form-control" />
+                            </div>}
+                        </div>
+                    </div>}
+
                     <div className="col-md-12">
                         <label htmlFor="paymentype">Payment type</label>
                         <select name="payment_type" value={form_inputs.payment_type} onChange={handleChange} id="" className="form-control" required>
@@ -276,13 +361,15 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                             <div className="form-group">
                                 <label htmlFor="Amount">Amount</label>
                                 <input type="number" value={form_inputs.payment_amount} onChange={handleChange} name="payment_amount" className="form-control" placeholder="Amount" required />
-                                {amountError && <p className="text-danger">Please enter a value not less than 0 or greater than {expectedAmtToBePaid.toFixed(2)}</p>}
+                                {amountError && <p className="text-danger">Please enter a value not less than 0 or greater than {valueToCheckWith.toFixed(2)}</p>}
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Currency">Currency</label>
-                                <input type="text" value={details?.exchange_rate?.ex_currency || details?.offer_detail.currency} className="form-control" placeholder="Currency" readOnly />
+                                {/* {&& <input type="text" value={form_inputs.currency} onChange={() => { }} className="form-control" placeholder="Currency" readOnly />} */}
+                                < input type="text" value={form_inputs.currency || details?.offer_detail.currency || details?.exchange_rate?.ex_currency} onChange={() => { }} className="form-control" placeholder="Currency" readOnly />
+
                             </div>
                         </div>
                         <div className="col-md-12">

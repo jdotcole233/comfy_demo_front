@@ -107,7 +107,7 @@ export default function ViewInsurerOffer({ data }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Rate</label>
-                                <input type="text" className="form-control" placeholder="Rate" value={details?.rate} readOnly />
+                                <input type="text" className="form-control" placeholder="Rate" value={details?.rate || "0.0"} onChange={() => {}} readOnly />
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -143,7 +143,7 @@ export default function ViewInsurerOffer({ data }) {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="Type of goods">Co-Insurance Share (%)</label>
-                                <input type="text" className="form-control" placeholder="Co-Insurance Share" value={details?.co_insurance_share} onChange={() => { }} />
+                                <input type="text" className="form-control" placeholder="Co-Insurance Share" value={details?.co_insurance_share || "0.0"} onChange={() => { }} />
                             </div>
                         </div>
                         <div className="col-md-12">

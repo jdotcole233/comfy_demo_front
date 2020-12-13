@@ -54,6 +54,7 @@
     "react-dropzone": "^11.0.1",
     "react-export-excel": "^0.5.3",
     "react-hook-form": "^5.7.2",
+    "react-icons": "^4.1.0",
     "react-idle-timer": "^4.3.6",
     "react-js-pagination": "^3.0.3",
     "react-notify-toast": "^0.5.1",

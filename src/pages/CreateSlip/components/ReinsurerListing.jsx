@@ -12,7 +12,14 @@ import { REMOVE_REINSURER_FROM_PARTICIPATION, ADD_PERCENTAGE } from '../../../gr
 import { SINGLE_OFFER } from '../../../graphql/queries';
 import swal from 'sweetalert';
 import PlaceOffer from './PlaceOffer';
-import UnplacedOffer from './UnplaceOffer'
+import UnplacedOffer from './UnplaceOffer';
+
+const getLongestPrecision = (value) => {
+    if (Number.isInteger(value))
+        return 4
+    const __ = Number(value).toString().split(".")[1];
+    return __.toString().length;
+}
 
 const ReinsurerListing = ({ data, state, user }) => {
     const [reinsurers, setReinsurers] = useState([]);
@@ -213,7 +220,8 @@ const ReinsurerListing = ({ data, state, user }) => {
         const availablePercenatge =
             remainingPercentage + selectedReinsurer.offer_participant_percentage;
         // console.log("Available %", availablePercenatge)
-        if (parseFloat(value) <= parseFloat(availablePercenatge)) {
+        const _actual_amount = parseFloat(availablePercenatge).toFixed(getLongestPrecision(data?.findSingleOffer?.facultative_offer))
+        if (parseFloat(value) <= _actual_amount) {
             setPercentage(value);
             setPercentageErrorEntry(false);
         } else {
@@ -235,7 +243,7 @@ const ReinsurerListing = ({ data, state, user }) => {
                             <div className="row pl-3 pr-3 d-flex justify-content-between">
                                 <h5 style={{ fontSize: 12, color: "red" }}>
                                     Current Fac. Offer :{" "}
-                                    {showingFacOffer}{" "}%
+                                    {showingFacOffer.toFixed(getLongestPrecision(data?.findSingleOffer?.facultative_offer))}{" "}%
                                 </h5>
 
                                 {data?.findSingleOffer?.placed_offer ? <UnplacedOffer offer={data?.findSingleOffer} remaining={showingFacOffer} /> :

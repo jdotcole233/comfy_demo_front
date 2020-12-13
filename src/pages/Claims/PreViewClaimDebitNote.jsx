@@ -7,6 +7,7 @@ import { BASE_URL_LOCAL } from '../../graphql'
 
 function PreviewClaimDebitNote({ offer, shares, claim }) {
     const showDate = (offer) => {
+        if (!offer?.offer_detail?.period_of_insurance_from) return "TBA"
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
