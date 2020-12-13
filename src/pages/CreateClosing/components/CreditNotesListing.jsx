@@ -50,14 +50,16 @@ function CreditNotesListing({ id, offer, index, endorsement }) {
                                 }}>
                                     Preview Contract Changes
                                 </Dropdown.Item>
-                                <Dropdown.Item
-                                    onClick={() => {
-                                        setSelectedReinsurer(reinsurer);
-                                        setShowSendNoteDrawer(true)
-                                    }}
-                                >
-                                    Send
+                                {endorsement.approval_status === "APPROVED" &&
+                                    <Dropdown.Item
+                                        onClick={() => {
+                                            setSelectedReinsurer(reinsurer);
+                                            setShowSendNoteDrawer(true)
+                                        }}
+                                    >
+                                        Send
                                     </Dropdown.Item>
+                                }
 
                             </DropdownButton>
                         </>

@@ -1,19 +1,17 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useCallback, useMemo } from 'react';
 import { DropdownButton, Dropdown, ButtonGroup } from "react-bootstrap";
-import { useMutation, useQuery } from 'react-apollo'
-import { DELETE_OFFER, ADD_PERCENTAGE } from '../../../graphql/mutattions';
-import { GET_ENDORSEMENT_PARTICIPATION, OFFERS } from '../../../graphql/queries';
-import { Modal } from 'react-bootstrap'
-import { Drawer, Datatable } from '../../../components'
-import { calculateFacOffer, generateEndorsementParticipants } from '../actions'
+import { useQuery } from 'react-apollo';
+import { GET_ENDORSEMENT_PARTICIPATION } from '../../../graphql/queries';
+import { Modal } from 'react-bootstrap';
+import { Drawer, Datatable } from '../../../components';
+import { calculateFacOffer, generateEndorsementParticipants } from '../actions';
 import { creditNotes } from '../../CreateClosing/columns';
-import EndorsementCoverNote from '../../CreateClosing/EndorsementPreviews/EndorsementCoverNote'
-import PreviewDebitNote from '../../CreateClosing/EndorsementPreviews/EndorsementDebitNote'
-import PreviewCreditNote from '../../CreateClosing/EndorsementPreviews/EndorsementCreditNote'
-import ContractChanges from '../../CreateClosing/EndorsementPreviews/ParticipantCoverNote'
-// import SendCoverNoteMail from '../../CreateClosing/SendCoverNoteMail'
+import EndorsementCoverNote from '../../CreateClosing/EndorsementPreviews/EndorsementCoverNote';
+import PreviewDebitNote from '../../CreateClosing/EndorsementPreviews/EndorsementDebitNote';
+import PreviewCreditNote from '../../CreateClosing/EndorsementPreviews/EndorsementCreditNote';
+import ContractChanges from '../../CreateClosing/EndorsementPreviews/ParticipantCoverNote';
 import SendClosngSlip from '../../CreateClosing/SendClosingSlip';
 import EndorsementApproval from '../EndorsementApproval';
 
@@ -23,7 +21,6 @@ const EndorsementButtons = ({ offer, endorsement }) => {
     const [showCoverNoteMail, setshowCoverNoteMail] = useState(false)
     const [showDebitNotePreview, setshowDebitNotePreview] = useState(false)
     const [showCreditNotePreview, setshowCreditNotePreview] = useState(false)
-    const [, setShowReopenOfferModal] = useState(false)
     const [viewOffer, setViewOffer] = useState(false);
     const [selectedReinsurer, setSelectedReinsurer] = useState(null)
     const [showSendClosingSlip, setShowSendClosingSlip] = useState(false)
@@ -40,14 +37,6 @@ const EndorsementButtons = ({ offer, endorsement }) => {
         }
     })
 
-
-    const [deleteoffer] = useMutation(DELETE_OFFER, {
-        refetchQueries: [{ query: OFFERS, variables: { offer_status: ["CLOSED"] } }],
-    });
-
-    const [addPercentage] = useMutation(ADD_PERCENTAGE, {
-        refetchQueries: [{ query: OFFERS, variables: { offer_status: ["CLOSED"] } }],
-    });
 
 
     const handlePreviewCoverNote = useCallback(offer => {
@@ -71,10 +60,6 @@ const EndorsementButtons = ({ offer, endorsement }) => {
         setViewOffer(c => !c);
     }, [])
 
-    const handleCloseReopenOffer = useCallback(() => {
-        setSelectedOffer(null);
-        setShowReopenOfferModal(false)
-    }, [])
 
     const handleShowUpdateModal = useCallback(reinsurer => {
         setSelectedReinsurer(reinsurer);

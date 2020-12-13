@@ -29,7 +29,7 @@ function EndorsementCoverNote({ offer, index, endorsement }) {
     return (
         <div style={{ fontFamily: "Times New Roman" }}>
             <div className="row m-2">
-                {(offer?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) &&
+                {(endorsement?.approval_status === "APPROVED" || downloadAccess.includes(ctx?.user?.position)) &&
                     __condition &&
                     <a target="_blank" href={`${BASE_URL_LOCAL}/contract_changes/${btoa(JSON.stringify({
                         offer_endorsement_id: endorsement?.offer_endorsement_id,

@@ -34,9 +34,11 @@ function EndorsementButtons({ endorsement, index, offer }) {
                 <Dropdown.Item onClick={() => setShowDebitNote(true)}>
                     Endorsement  Debit Note
                 </Dropdown.Item>
-                <Dropdown.Item onClick={() => setShowSendDrawer(true)}>
-                    Send
-                </Dropdown.Item>
+                {endorsement.approval_status === "APPROVED" &&
+                    <Dropdown.Item onClick={() => setShowSendDrawer(true)}>
+                        Send
+                    </Dropdown.Item>
+                }
             </DropdownButton>
 
             <button onClick={() => setShowCreditNotes(true)} className="btn btn-sm w-md btn-info mb-1 mr-1">

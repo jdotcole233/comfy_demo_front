@@ -67,7 +67,7 @@ export const generateEndorsementOffers = ({ endorsements, offer }) => {
           : _endorsement.approval_status === 'APPROVED'
             ? 'success'
             : 'warning'
-          } font-size-11`}
+          } font-size-11`} F
       >
         {_endorsement.approval_status}
       </span>

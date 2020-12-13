@@ -343,8 +343,12 @@ td {
   font-weight: bold;
   justify-self: end;
   color: #F46A6A;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .kek-badge-success {
   background-color: #ffffff;
+  padding-left: 4px;
+  padding-right: 4px;
 }

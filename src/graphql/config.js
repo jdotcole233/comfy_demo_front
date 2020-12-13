@@ -1,4 +1,3 @@
-// export const DOMAIN = "manage.visalreinsurance.com";
 export const PROTOCOL =
   process.env.NODE_ENV === 'development' ? 'http://' : 'https://';
 export const DOMAIN =
