@@ -16,55 +16,54 @@ import SendClosngSlip from '../../CreateClosing/SendClosingSlip';
 import EndorsementApproval from '../EndorsementApproval';
 
 const EndorsementButtons = ({ offer, endorsement }) => {
-    const [selectedOffer, setSelectedOffer] = useState(null)
-    const [showCoverNotePreview, setShowCoverNotePreview] = useState(false)
-    const [showCoverNoteMail, setshowCoverNoteMail] = useState(false)
-    const [showDebitNotePreview, setshowDebitNotePreview] = useState(false)
-    const [showCreditNotePreview, setshowCreditNotePreview] = useState(false)
+    const [selectedOffer, setSelectedOffer] = useState(null);
+    const [showCoverNotePreview, setShowCoverNotePreview] = useState(false);
+    const [showCoverNoteMail, setshowCoverNoteMail] = useState(false);
+    const [showDebitNotePreview, setshowDebitNotePreview] = useState(false);
+    const [showCreditNotePreview, setshowCreditNotePreview] = useState(false);
     const [viewOffer, setViewOffer] = useState(false);
-    const [selectedReinsurer, setSelectedReinsurer] = useState(null)
-    const [showSendClosingSlip, setShowSendClosingSlip] = useState(false)
-    const [, setShowUpdateReinsurerPercentage] = useState(false)
-    const [, setPercentageErrorEntry] = useState(false)
-    const [percentage, setPercentage] = useState(0)
-    const [fac_offer, setFac_offer] = useState(0)
-    const [test_offer, setTest_offer] = useState(0)
-    const [showContractChnages, setShowContractChnages] = useState(false)
+    const [selectedReinsurer, setSelectedReinsurer] = useState(null);
+    const [showSendClosingSlip, setShowSendClosingSlip] = useState(false);
+    const [, setShowUpdateReinsurerPercentage] = useState(false);
+    const [, setPercentageErrorEntry] = useState(false);
+    const [percentage, setPercentage] = useState(0);
+    const [fac_offer, setFac_offer] = useState(0);
+    const [test_offer, setTest_offer] = useState(0);
+    const [showContractChnages, setShowContractChnages] = useState(false);
 
     const { data: _participations } = useQuery(GET_ENDORSEMENT_PARTICIPATION, {
         variables: {
             id: endorsement?.offer_endorsement_id
         }
-    })
+    });
 
 
 
     const handlePreviewCoverNote = useCallback(offer => {
         setSelectedOffer(offer);
         setShowCoverNotePreview(s => !s)
-    }, [])
+    }, []);
     const handlePreviewDebitNote = useCallback(offer => {
         setSelectedOffer(offer);
         setshowDebitNotePreview(!showDebitNotePreview)
-    }, [])
+    }, []);
 
 
     const handleApprovalDrawer = useCallback(offer => {
-        // alert("Hello")
         setSelectedOffer(offer);
         setshowCoverNoteMail(!showCoverNoteMail)
-    }, [])
+    }, []);
 
     const handleShowPayments = useCallback(offer => {
         setSelectedOffer(offer);
         setViewOffer(c => !c);
-    }, [])
+    }, []);
 
 
     const handleShowUpdateModal = useCallback(reinsurer => {
         setSelectedReinsurer(reinsurer);
         setShowUpdateReinsurerPercentage(true)
-    }, [])
+    }, []);
 
 
 
@@ -78,21 +77,21 @@ const EndorsementButtons = ({ offer, endorsement }) => {
             setTest_offer(fac_offer - selectedReinsurer.offer_participant_percentage)
 
         }
-    }, [selectedReinsurer])
+    }, [selectedReinsurer]);
 
     useMemo(() => {
         if (parseFloat(test_offer) + parseFloat(percentage) > fac_offer) {
-            setPercentageErrorEntry(true)
+            setPercentageErrorEntry(true);
         } else {
-            setPercentageErrorEntry(false)
+            setPercentageErrorEntry(false);
         }
-    }, [percentage])
+    }, [percentage]);
 
     useMemo(() => calculateFacOffer({
         offer: selectedOffer,
         setFac_offer,
         setTest_offer
-    }), [selectedOffer])
+    }), [selectedOffer]);
 
 
     const { rows } = useMemo(() => generateEndorsementParticipants({
@@ -106,7 +105,7 @@ const EndorsementButtons = ({ offer, endorsement }) => {
         setshowCreditNotePreview,
         handleShowUpdateModal,
         setShowContractChanges: setShowContractChnages
-    }), [selectedOffer])
+    }), [selectedOffer]);
 
     return (
         <div>
@@ -120,10 +119,10 @@ const EndorsementButtons = ({ offer, endorsement }) => {
                 >
                     <Dropdown.Item onClick={() => handlePreviewCoverNote(endorsement)}>
                         Preview Contract Changes
-            </Dropdown.Item>
+                    </Dropdown.Item>
                     <Dropdown.Item onClick={() => handlePreviewDebitNote(endorsement)}>
                         Preview Debit Note
-            </Dropdown.Item>
+                    </Dropdown.Item>
                 </DropdownButton>
 
                 <button
@@ -131,7 +130,7 @@ const EndorsementButtons = ({ offer, endorsement }) => {
                     className="btn btn-sm w-md btn-info mb-1 mr-1"
                 >
                     Credit Notes
-          </button>
+                </button>
                 <button
                     onClick={() => handleApprovalDrawer(endorsement)}
                     className="btn btn-sm w-md btn-success mb-2 mr-1">
