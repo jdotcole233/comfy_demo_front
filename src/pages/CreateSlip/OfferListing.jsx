@@ -20,10 +20,11 @@ const OfferListing = ({
     const { tab } = useParams()
 
     useEffect(() => {
-        if (tab) {
+        if (typeof tab !== "undefined") {
+            // alert(tab)
             setTab(tab)
         }
-    }, [tab])
+    }, [])
 
     return (
         <div className="row">

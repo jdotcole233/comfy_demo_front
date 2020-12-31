@@ -15,23 +15,25 @@ import Reschedule from './components/Reschedule';
 import OfferListing from '../CreateSlip/OfferListing';
 import { useMemo } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useInsurer } from '../../context/InsurerProvider';
 
 
 function InsurerDetail() {
     const { state: ctx } = useContext(AuthContext)
     // console.log(ctx?.user)
     const history = useHistory();
-    const { state } = useLocation()
+    const { state } = useLocation();
+    const { insurer: _insurer } = useInsurer();
 
     useEffect(() => {
-        if (!state || !state.insurer_id) {
+        if (!_insurer || !_insurer.insurer_id) {
             history.push("/admin/insurers")
         }
-    }, [state])
+    }, [_insurer])
 
     const { data: insurer_offers, loading: fetching, fetchMore } = useQuery(INSURER_OFFERS, {
         variables: {
-            id: state?.insurer_id,
+            id: _insurer?.insurer_id,
             skip: 0
         },
         fetchPolicy: "cache-and-network"
@@ -40,7 +42,7 @@ function InsurerDetail() {
 
     const { data: insurer, loading } = useQuery(INSURER, {
         variables: {
-            id: state?.insurer_id
+            id: _insurer?.insurer_id
         },
         fetchPolicy: "network-only"
     })
@@ -310,6 +312,7 @@ function InsurerDetail() {
                 </div>
                 <BrokerageComponent insurer={insurer} />
                 <OfferListing
+                    path="/admin/insurers-details"
                     title="Offers"
                     setInputOffer={1}
                     fetching={fetching}

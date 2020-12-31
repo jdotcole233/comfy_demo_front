@@ -1,16 +1,19 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useMutation } from 'react-apollo'
 import swal from 'sweetalert'
 import { REMOVE_INSURER } from '../../graphql/mutattions'
 import { INSURERS } from '../../graphql/queries'
 import { AuthContext } from '../../context/AuthContext'
 import { create_insurer_access, delete_insurer_access } from '../../layout/adminRoutes'
+import { useInsurer } from '../../context/InsurerProvider'
 
 function Insurer({ data, openManagerDrawer }) {
     const { state: { user } } = useContext(AuthContext)
+    const { selectInsurer } = useInsurer();
+    const history = useHistory();
     const [removeInsurer] = useMutation(REMOVE_INSURER, {
         variables: {
             id: data.insurer_id
@@ -47,6 +50,14 @@ function Insurer({ data, openManagerDrawer }) {
             });
     }
 
+    const onSelectInsurer = (insurer) => {
+        selectInsurer(insurer, () => {
+            history.push({
+                pathname: "/admin/insurers-details/recent"
+            })
+        });
+    }
+
     return (
         <div className="col-xl-3 col-sm-6">
             <div className="card text-center">
@@ -66,13 +77,10 @@ function Insurer({ data, openManagerDrawer }) {
                                 <a data-toggle="tooltip" data-placement="top" title="Add Manager"><i className="bx bx-user-circle"></i></a>
                             </div>
                         }
-                        <Link className="link-hover flex-fill" to={{
-                            pathname: "/admin/insurers-details",
-                            state: { insurer_id: data.insurer_id }
-
-                        }} data-toggle="tooltip" data-placement="top" title="View">
+                        <div onClick={() => onSelectInsurer(data)} className="link-hover flex-fill"
+                            data-toggle="tooltip" data-placement="top" title="View">
                             <i className="bx bx-pie-chart-alt"></i>
-                        </Link>
+                        </div>
                         {delete_insurer_access.includes(user?.position) &&
                             <div onClick={() => handleDeleteInsurer(data)} data-toggle="tooltip" data-placement="top" title="Delete" className="flex-fill link-hover">
                                 <i className="bx bx-trash-alt"></i>

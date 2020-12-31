@@ -9,7 +9,7 @@ const CreateClosing = lazy(() => import('./pages/CreateClosing'));
 const ReInsurers = lazy(() => import('./pages/ReInsurers'));
 const SetupBusiness = lazy(() => import('./pages/SetUpBusiness'));
 const Insurers = lazy(() => import('./pages/Insurers'));
-const InsurersDetails = lazy(() => import('./pages/Insurers/InsurersDetail'));
+const InsurersDetails = lazy(() => import('./pages/Insurers/InsurerDetailsWrapper'));
 const Reports = lazy(() => import('./pages/Reports'));
 const Employees = lazy(() => import('./pages/Employees'));
 const Claims = lazy(() => import('./pages/Claims'));
@@ -156,7 +156,31 @@ export default [
     ],
   },
   {
+    path: '/claims/:tab',
+    layout: '/admin',
+    component: Claims,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
     path: '/insurers-details',
+    layout: '/admin',
+    component: InsurersDetails,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/insurers-details/:tab',
     layout: '/admin',
     component: InsurersDetails,
     roles: [

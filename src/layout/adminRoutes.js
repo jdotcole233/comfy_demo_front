@@ -58,7 +58,7 @@ const dashboard = [
 
 const offers = [
   {
-    link: '/admin/create-slip',
+    link: '/admin/create-slip/recent',
     name: 'Create Slip',
     roles: [
       'CEO',
@@ -82,7 +82,7 @@ const offers = [
     icon: 'bx bxs-file-plus',
   },
   {
-    link: '/admin/create-closing',
+    link: '/admin/create-closing/recent',
     name: 'Create Closing',
     roles: [
       'CEO',
@@ -134,7 +134,7 @@ const others = [
     icon: 'bx bx-group',
   },
   {
-    link: '/admin/claims',
+    link: '/admin/claims/recent',
     name: 'Claims',
     roles: [
       'CEO',
