@@ -4,7 +4,7 @@ import InputOffer from './InputOffer';
 import { useQuery } from 'react-apollo';
 import { OFFERS, ALLOFFERS } from '../../graphql/queries';
 import OfferButtons from './components/OfferButtons'
-import OfferListing from './OfferListingComponennt';
+import OfferListing from './OfferListing';
 import Header from './Header';
 import OfferOverView from './OfferOverView';
 import { columns } from './columns';
@@ -120,8 +120,8 @@ export default memo(() => {
             <OfferOverView offerOverview={offerOverview} />
 
 
-
             <OfferListing
+                path="/admin/create-slip"
                 recent={offerListing}
                 handleLoadMore={handleLoadMore}
                 all={allOffersData}

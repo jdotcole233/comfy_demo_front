@@ -4,6 +4,7 @@ import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
 import { AuthContext } from '../../context/AuthContext'
 import { getCurrencyFullName } from '../../components'
+import PreviewLogo from '../../components/PreviewLogo'
 
 const downloadAccess = ['CEO',
     'General Manager',
@@ -30,8 +31,9 @@ function PreviewCoverNote({ offer }) {
                 </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid text-black bg-white">
+                <PreviewLogo />
                 <div className="row">
-                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
+
 
                     <div className="col-md-6 col-6">
                         <p style={{ lineHeight: 0 }}>Our Ref: {`${offer?.employee?.emp_abbrv}/KEKRE/${new Date().getFullYear()}`}</p>

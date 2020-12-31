@@ -1,4 +1,4 @@
-import {lazy} from 'react';
+import { lazy } from 'react';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Login = lazy(() => import('./pages/Login'));
@@ -61,6 +61,18 @@ export default [
   },
   {
     path: '/create-slip',
+    layout: '/admin',
+    component: CreateSlip,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/create-slip/:tab',
     layout: '/admin',
     component: CreateSlip,
     roles: [
@@ -181,6 +193,18 @@ export default [
   },
   {
     path: '/create-closing',
+    layout: '/admin',
+    component: CreateClosing,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/create-closing/:tab',
     layout: '/admin',
     component: CreateClosing,
     roles: [

@@ -78,6 +78,7 @@ function ClosingOffer() {
                 <OfferOverView offerOverview={offerOverview} />
 
                 <OfferListing
+                    path="/admin/create-closing"
                     title="Closed Offers"
                     recent={closedOffers}
                     all={allClosedOffers}

@@ -123,8 +123,8 @@ export const CREATE_INPUT_OFFER = gql`
     $premium: Float!
     $policy_number: String
     $insured_by: String!
-    $period_of_insurance_from: Date!
-    $period_of_insurance_to: Date!
+    $period_of_insurance_from: Date
+    $period_of_insurance_to: Date
     $currency: String!
     $ex_rate: Float
     $ex_currency: String
@@ -177,8 +177,8 @@ mutation createEndorsement(
   $premium: Float!
   $policy_number: String
   $insured_by: String!
-  $period_of_insurance_from: Date!
-  $period_of_insurance_to: Date!
+  $period_of_insurance_from: Date
+  $period_of_insurance_to: Date
   $currency: String!
   $ex_rate: Float
   $ex_currency: String

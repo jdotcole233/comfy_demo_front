@@ -1,11 +1,29 @@
 import React from 'react'
-import { Suspense, useContext } from "react"
+import { Suspense, useContext, Fragment } from "react"
 import { Switch, Route, useLocation, Redirect } from "react-router-dom";
+import TopBarProgress from "react-topbar-progress-indicator";
 import routes from "../routes";
 import ConnectionDetector from "../components/ConnectionDetector";
 import Dashboard from "../pages/Dashboard";
 import Zoom from "react-reveal/Reveal";
 import { AuthContext } from "../context/AuthContext";
+
+TopBarProgress.config({
+    barThickness: 10,
+    barColors: {
+        0: "#F03B3B",
+        "1.0": "#F03B3B",
+    },
+    shadowBlur: 5,
+});
+
+const LoadingComponent = (props) => {
+    return (
+        <Fragment>
+            <TopBarProgress />
+        </Fragment>
+    );
+};
 
 
 const AdminContent = () => {
@@ -36,7 +54,7 @@ const AdminContent = () => {
     return (
         <div className="main-content bg-layout">
             {/* Main Content */}
-            <Suspense fallback={<div> loading </div>}>
+            <Suspense fallback={LoadingComponent()}>
                 <ConnectionDetector />
                 <Switch>
                     <Private exact path="/" component={Dashboard} />

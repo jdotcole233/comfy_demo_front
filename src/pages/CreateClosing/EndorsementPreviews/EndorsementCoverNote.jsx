@@ -4,6 +4,7 @@ import "../styles/preview.css"
 import { BASE_URL_LOCAL } from '../../../graphql'
 import { AuthContext } from '../../../context/AuthContext'
 import { getCurrencyFullName } from '../../../components'
+import PreviewLogo from '../../../components/PreviewLogo'
 import { useLocation } from 'react-router-dom'
 
 const downloadAccess = ['CEO',
@@ -39,8 +40,9 @@ function EndorsementCoverNote({ offer, index, endorsement }) {
                 </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid text-black bg-white">
+                <PreviewLogo />
                 <div className="row">
-                    <img className="" src={require('../../../assets/banner.png')} alt="kek letter head" />
+                    {/* <img className="" src={require('../../../assets/banner.png')} alt="kek letter head" /> */}
 
                     {/* <div className="col-md-6 col-6">
                         <p>{new Date().toDateString()}</p>
