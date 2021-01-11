@@ -19,8 +19,8 @@ const CSVComponent = ({ reports, totals, type }) => {
             <ExcelSheet data={reports} name="Brokerage Statement">
                 <ExcelColumn label="Policy # " value="policy_number" />
                 <ExcelColumn
-                    label={type === "Reinsurer" ? "Reinsurer" : "Insurer"}
-                    value={type === "Reinsurer" ? "re_company_name" : "insurer_company_name"} />
+                    label={type === "Reinsurer" ? "Reinsurer" : type === "All" ? "Insurer/Reinsurer" : "Insurer"}
+                    value={type === "Reinsurer" ? "re_company_name" : type === "All" ? "re_company_name" : "insurer_company_name"} />
                 <ExcelColumn label="Insured" value="insured_by" />
                 <ExcelColumn label="Business Name" value="business_name" />
                 <ExcelColumn label="Fac. Sum Insured" value="fac_sum_insured" />

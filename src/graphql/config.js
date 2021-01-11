@@ -2,7 +2,7 @@ export const PROTOCOL =
   process.env.NODE_ENV === 'development' ? 'http://' : 'https://';
 export const DOMAIN =
   process.env.NODE_ENV === 'development'
-    ? 'manage.comfybroker.com'
+    ? '192.168.100.3:8000'
     : 'manage.comfybroker.com';
 export const COOKIE_NAME_AUTH_TOKEN = 'visal_re_auth_token';
 export const PUSHER_KEY = '8fdc449c93173e31d8a2';
