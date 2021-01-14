@@ -14,6 +14,7 @@ const OfferListing = ({
     fetching,
     hideTab,
     allTotal,
+    entries = 10,
     path
 }) => {
     const [_tab, setTab] = useState("recent")
@@ -62,7 +63,7 @@ const OfferListing = ({
                             </div>
                             {tab === "recent" && (
                                 <div>
-                                    <Datatable data={recent} columns={columns} />
+                                    <Datatable data={recent} entries={entries} columns={columns} />
                                 </div>)}
                             {tab === "all" && (
                                 <div>
@@ -74,7 +75,7 @@ const OfferListing = ({
                                             </button>
                                         }
                                     </div>
-                                    <Datatable data={all} columns={columns} />
+                                    <Datatable data={all} entries={entries} columns={columns} />
                                 </div>
                             )}
                         </div>

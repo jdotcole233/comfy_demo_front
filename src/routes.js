@@ -14,7 +14,7 @@ const Reports = lazy(() => import('./pages/Reports'));
 const Employees = lazy(() => import('./pages/Employees'));
 const Claims = lazy(() => import('./pages/Claims'));
 const ReinsurersDetails = lazy(() =>
-  import('./pages/ReInsurers/ReinsurerDetail')
+  import('./pages/ReInsurers/ReinsurerDetailWrapper')
 );
 const Notifications = lazy(() => import('./pages/Notifications'));
 const UnapprovedList = lazy(() => import('./pages/UnapprovedClosing'));
@@ -183,6 +183,18 @@ export default [
     path: '/insurers-details/:tab',
     layout: '/admin',
     component: InsurersDetails,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/re-insurers-detail/:tab',
+    layout: '/admin',
+    component: ReinsurersDetails,
     roles: [
       'CEO',
       'General Manager',
