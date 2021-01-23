@@ -4,6 +4,7 @@ import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
 import { AuthContext } from '../../context/AuthContext'
 import { getCurrencyFullName } from '../../components'
+import PreviewLogo from '../../components/PreviewLogo'
 
 const downloadAccess = ['CEO',
     'General Manager',
@@ -14,10 +15,13 @@ const downloadAccess = ['CEO',
 function PreviewCoverNote({ offer }) {
     const { state: ctx } = useContext(AuthContext)
     const showDate = (offer) => {
-        const from = new Date(offer?.offer_detail?.period_of_insurance_from)
-        const to = new Date(offer?.offer_detail?.period_of_insurance_to)
+        if (!offer?.offer_detail?.period_of_insurance_from && !offer?.offer_endorsement_detail?.period_of_insurance_from) return "TBA"
+        const from = new Date(offer?.offer_detail?.period_of_insurance_from || !offer?.offer_endorsement_detail?.period_of_insurance_from)
+        const to = new Date(offer?.offer_detail?.period_of_insurance_to || !offer?.offer_endorsement_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
     }
+
+    const __details = offer?.offer_detail?.offer_details ? offer?.offer_detail?.offer_details : offer?.offer_endorsement_detail?.offer_detail ? offer?.offer_endorsement_detail?.offer_detail : "[]"
 
     return (
         <Fragment>
@@ -27,8 +31,9 @@ function PreviewCoverNote({ offer }) {
                 </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid text-black bg-white">
+                <PreviewLogo />
                 <div className="row">
-                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
+
 
                     <div className="col-md-6 col-6">
                         <p style={{ lineHeight: 0 }}>Our Ref: {`${offer?.employee?.emp_abbrv}/KEKRE/${new Date().getFullYear()}`}</p>
@@ -77,7 +82,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Insured :</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{offer?.offer_detail.insured_by}</h3>
+                                <h3 className="dark-text-value">{offer?.offer_detail?.insured_by || offer?.offer_endorsement_detail?.insured_by}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -93,7 +98,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Currency:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                <h3 className="dark-text-value">{getCurrencyFullName(offer?.offer_detail.currency)}</h3>
+                                <h3 className="dark-text-value">{getCurrencyFullName(offer?.offer_detail?.currency || offer?.offer_endorsement_detail?.currency)}</h3>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -116,7 +121,7 @@ function PreviewCoverNote({ offer }) {
                         <div className="col-md-10 col-sm-12 ml-md-4">
                             <div className="mt-3 mb-2">
                                 {/* <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>RISK DESCRIPTION</h3> */}
-                                {offer && JSON.parse(offer?.offer_detail.offer_details).map((detail, key) => {
+                                {offer && JSON.parse(__details).map((detail, key) => {
                                     let value = parseFloat(detail.value);
                                     if (isNaN(value)) {
                                         value = detail.value
@@ -195,7 +200,7 @@ function PreviewCoverNote({ offer }) {
                                 <h3 className="dark-text">Information:</h3>
                             </div>
                             <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                                {offer?.offer_detail?.information_comment ? <div className="dark-text-value" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.information_comment }}>
+                                {offer?.offer_detail?.information_comment || offer?.offer_endorsement_detail?.information_comment ? <div className="dark-text-value" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.information_comment || offer?.offer_endorsement_detail?.information_comment }}>
                                 </div> :
                                     <h3 className="dark-text-value">Subject to NKORL as at {new Date().toLocaleDateString()}
                                         {offer?.insurer?.insurer_address?.country !== "Sierra Leone" && `and NIC's NPNC
@@ -225,7 +230,7 @@ function PreviewCoverNote({ offer }) {
 
                     <div className="col-md-10 col-sm-12 ml-md-4">
                         <div className="mt-3 mb-2">
-                            <h5 className="dark-text" dangerouslySetInnerHTML={{ __html: offer?.offer_detail.offer_comment }}></h5>
+                            <h5 className="dark-text" dangerouslySetInnerHTML={{ __html: offer?.offer_detail?.offer_comment || offer?.offer_endorsement_detail?.offer_comment }}></h5>
                         </div>
 
 
@@ -234,7 +239,7 @@ function PreviewCoverNote({ offer }) {
                         <div className="mt-3 mb-2">
                             <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>SECURITY</h3>
                         </div>
-                        {offer?.offer_participant.map((reinsurer, key) => !reinsurer.offer_participant_percentage ? null : (
+                        {offer?.offer?.offer_participant.map((reinsurer, key) => !reinsurer.offer_participant_percentage ? null : (
                             <div key={key} className="row mb-2">
                                 <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                     <h3 className="dark-text">{reinsurer.reinsurer.re_company_name} :</h3>

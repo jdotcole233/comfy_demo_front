@@ -3,26 +3,29 @@ import {
   MDBModalBody as ModalBody,
   MDBModalHeader as ModalHeader,
 } from 'mdbreact';
-import {Modal} from 'react-bootstrap';
-import {useState, useEffect} from 'react';
+import { Modal } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 import currencies from '../assets/currencies.json'
+import moment from 'moment'
 
 
-export {default as Drawer} from './Drawer';
-export {default as CurrencyValues} from './CurrencyValues';
-export {default as Dropzone} from './DropZone';
-export {default as Datatable} from './DataTable';
-export {default as SummerNote} from './SummerNote';
-export {default as Select} from './Selectize';
-export {default as Selector} from './Select';
-export {default as Loader} from './Loader';
-export {default as NoData} from './Nodata';
-export {default as OverViewCard} from './OverViewCard';
-export {default as Editor} from './Editor';
-export {Modal, ModalBody, ModalHeader};
+export { default as Drawer } from './Drawer';
+export { default as BottomDrawer } from "./BottomDrawer";
+export { default as Prompt } from "./Prompt";
+export { default as CurrencyValues } from './CurrencyValues';
+export { default as Dropzone } from './DropZone';
+export { default as Datatable } from './DataTable';
+export { default as SummerNote } from './SummerNote';
+export { default as Select } from './Selectize';
+export { default as Selector } from './Select';
+export { default as Loader } from './Loader';
+export { default as NoData } from './Nodata';
+export { default as OverViewCard } from './OverViewCard';
+export { default as Editor } from './Editor';
+export { Modal, ModalBody, ModalHeader };
 
 function getWindowDimensions() {
-  const {innerWidth: width, innerHeight: height} = window;
+  const { innerWidth: width, innerHeight: height } = window;
   return {
     width,
     height,
@@ -132,4 +135,20 @@ export const generateNewCulumns = (list, exclude) =>
   list.filter((item) => !exclude.includes(item.field));
 
 
-  export const getCurrencyFullName = (currency) => currencies[currency]?.name
+export const getCurrencyFullName = (currency) => currencies[currency]?.name
+
+export function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+    diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+
+
+
+export function isWithinAWeek(momentDate) {
+  const createdAt = moment(momentDate);
+  const today = moment();
+  const difference = today.diff(createdAt, "days");
+  return difference < 8
+}

@@ -48,10 +48,10 @@ const ResetPassword = () => {
                     <div className="card-body pt-0">
                         <div>
                             <a href="index.html">
-                            <div className="avatar-xl profile-user-wid mb-4">
+                                <div className="avatar-xl profile-user-wid mb-4">
                                     <span className="avatar-title rounded-circle bg-white">
                                         <img
-                                            src={require("../../assets/visal-sm-logo.jpeg")}
+                                            src={require("../../assets/visal-sm-logo.png")}
                                             alt=""
                                             // className="rounded-circle"
                                             height="44"

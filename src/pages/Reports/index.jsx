@@ -4,7 +4,7 @@ import { CurrencyValues, Selector, Datatable, Loader, InsurerOption, ReinsurerOp
 import Chart from 'react-apexcharts';
 import { INSURERS, REINSURERS, FETCH_CLASS_OF_BUSINESS } from '../../graphql/queries';
 import { useEffect, useState, useRef } from 'react';
-import { paymentOptions, insurerTable, reinsurerTable, periodStatus, offerStatusOptions } from './options'
+import { paymentOptions, insurerTable, reinsurerTable, allTable, periodStatus, offerStatusOptions } from './options'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQuery } from 'react-apollo'
 import { GENERATE_REPORT, REPORT_PIECHART } from '../../graphql/queries/reports';
@@ -83,8 +83,8 @@ function Reports() {
             styles: { fontSize: 8 },
             showHead: "firstPage",
             rowPageBreak: "avoid",
-            head: [clientType === "Reinsurer" ? [...reinsurerTable.map(el => el.label)] : [...insurerTable.map(el => el.label)]],
-            body: [...printData.map(el => Object.values(_.pick(el, clientType === "Reinsurer" ? [...reinsurerTable.map(el => el.field)] : [...insurerTable.map(el => el.field)])))],
+            head: [clientType === "Reinsurer" ? [...reinsurerTable.map(el => el.label)] : clientType === "All" ? [...allTable.map(el => el.label)] : [...insurerTable.map(el => el.label)]],
+            body: [...printData.map(el => Object.values(_.pick(el, clientType === "Reinsurer" ? [...reinsurerTable.map(el => el.field)] : clientType === "All" ? [...allTable.map(el => el.field)] : [...insurerTable.map(el => el.field)])))],
         })
         // doc.text(`Total of brokerages in various currencies`, 5, 10)
 
@@ -152,6 +152,9 @@ function Reports() {
     const handleChooseClientType = value => {
         setClientType(value ? value.value : "")
         setValue("client_type", value ? value.value : "")
+        if (value.value === "All") {
+            // alert("All Selected")
+        }
     }
 
     const handleChooseFilter = value => {
@@ -218,6 +221,7 @@ function Reports() {
                 business_name: report.business_name.replace("Fleet", ""),
                 fac_sum_insured: `${report.currency} ${report.fac_sum_insured}`,
                 fac_premium: `${report.currency} ${report.fac_premium}`,
+                re_company_name: report.re_company_name || report.insurer_company_name,
                 brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
                 offer_date: new Date(report.offer_date).toDateString(),
             }));
@@ -226,6 +230,7 @@ function Reports() {
                 business_name: report.business_name.replace("Fleet", ""),
                 fac_sum_insured: `${report.currency} ${report.fac_sum_insured}`,
                 fac_premium: `${report.currency} ${report.fac_premium}`,
+                re_company_name: report.re_company_name || report.insurer_company_name,
                 brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
                 offer_date: new Date(report.offer_date).toDateString(),
                 offer_status: (
@@ -255,7 +260,8 @@ function Reports() {
         delete values.client_id
         const obj = {
             ...values,
-            [clientType === "Reinsurer" ? "reinsurer_id" : "insurer_id"]: client_id,
+            reinsurer_id: client_id ? client_id : " ",
+            insurer_id: client_id ? client_id : " ",
             offer_status: [...filters.map(el => el.label)],
             payment_status: [...paymentStatus.map(el => el.label)],
             period_status: [...selectedPeriods.map(el => el.label)],
@@ -269,7 +275,7 @@ function Reports() {
     }
 
 
-   
+
 
     const showData = queryData.length ? true : false
 
@@ -312,18 +318,31 @@ function Reports() {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label htmlFor="classOfBusiness">Client type</label>
-                                    <Selector onChange={handleChooseClientType} placeholder="Select client type" options={[{ label: "Reinsurer", value: "Reinsurer" }, { label: "Insurer", value: "Insurer" }]} />
+                                    <Selector onChange={handleChooseClientType} placeholder="Select client type" options={[{ label: "All", value: "All" }, { label: "Reinsurer", value: "Reinsurer" }, { label: "Insurer", value: "Insurer" }]} />
                                     <input type="hidden" name="client_type" ref={register({ required: "Required" })} />
                                     {errors.client_type && <p className="text-danger">{errors.client_type.message}</p>}
                                 </div>
                             </div>
-                            {clientType && <div className="col-md-12">
+                            {clientType && clientType === "Insurer" && <div className="col-md-12">
 
                                 <div className="form-group">
                                     <label htmlFor="classOfBusiness">{clientType}</label>
-                                    {clientType === "Insurer" ? <Animated isVisible={clientType === "Insurer"} animationIn="fadeInUp"><Selector onChange={handleChooseClient} components={{ Option: InsurerOption }} placeholder="Select insurer" options={insurersData} /></Animated> : null}
+                                    {clientType === "Insurer" ?
+                                        <Animated isVisible={clientType === "Insurer"} animationIn="fadeInUp">
+                                            <Selector onChange={handleChooseClient} components={{ Option: InsurerOption }} placeholder="Select insurer" options={insurersData} />
+                                        </Animated>
+                                        : null}
+                                    <input type="hidden" name="client_id" ref={register({ required: clientType === "Insurer" ? "Required" : false })} />
+                                    {errors.client_id && <p className="text-danger">{errors.client_id.message}</p>}
+                                </div>
+                            </div>}
+                            {clientType && clientType === "Reinsurer" && <div className="col-md-12">
+
+                                <div className="form-group">
+                                    <label htmlFor="classOfBusiness">{clientType}</label>
+
                                     {clientType === "Reinsurer" ? <Selector onChange={handleChooseClient} components={{ Option: ReinsurerOption }} placeholder="Select reinsurer" options={reinsurersData} /> : null}
-                                    <input type="hidden" name="client_id" ref={register({ required: "Required" })} />
+                                    <input type="hidden" name="client_id" ref={register({ required: clientType === "Reinsurer" ? "Required" : false })} />
                                     {errors.client_id && <p className="text-danger">{errors.client_id.message}</p>}
                                 </div>
                             </div>}
@@ -513,7 +532,6 @@ function Reports() {
                     </div>
                 </div> : null}
                 {showData ? <div className="card" ref={tablesRef}>
-                    {queryData.length}
 
                     <div className="card-body">
                         <p className="text-muted font-weight-medium">Report</p>
@@ -528,7 +546,7 @@ function Reports() {
                                 reports={printData} />
 
                         </div>
-                        <Datatable entries={5} columns={clientType === "Reinsurer" ? reinsurerTable : insurerTable} data={queryData} />
+                        <Datatable entries={5} columns={clientType === "Reinsurer" ? reinsurerTable : clientType === "All" ? allTable : insurerTable} data={queryData} />
                     </div>
                 </div> : null}
 

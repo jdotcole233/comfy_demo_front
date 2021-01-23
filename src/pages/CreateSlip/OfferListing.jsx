@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom';
 import { Datatable } from '../../components'
 
 const OfferListing = ({
@@ -12,11 +13,19 @@ const OfferListing = ({
     handleLoadMore,
     fetching,
     hideTab,
-    allTotal
+    allTotal,
+    entries = 10,
+    path
 }) => {
-    const [tab, setTab] = useState(0)
+    const [_tab, setTab] = useState("recent")
+    const { tab } = useParams()
 
-    const handleTabChange = useCallback((el) => setTab(el), [tab])
+    useEffect(() => {
+        if (typeof tab !== "undefined") {
+            // alert(tab)
+            setTab(tab)
+        }
+    }, [])
 
     return (
         <div className="row">
@@ -40,32 +49,33 @@ const OfferListing = ({
                     <div className="card">
                         <div className="card-body">
                             <div className="row mb-3">
-                                {!hideTab && <div className="d-flex w-auto justify-content-between">
-                                    <ul className="nav nav-tabs nav-tabs-custom">
-                                        <li className="nav-item">
-                                            <a onClick={() => handleTabChange(0)} className={`nav-link ${tab === 0 ? "active" : ""}`}>Recent</a>
-                                        </li>
-                                        {/* <li className="nav-item">
-                                            <a onClick={() => handleTabChange(1)} className={`nav-link ${tab === 1 ? "active" : ""}`}>All</a>
-                                        </li> */}
-                                    </ul>
-                                </div>}
+                                {!hideTab &&
+                                    <div className="d-flex w-auto justify-content-between">
+                                        <ul className="nav nav-tabs nav-tabs-custom kek-nav-items-pointer">
+                                            <li className="nav-item ">
+                                                <Link to={path + "/recent"} className={`nav-link ${_tab === "recent" ? "active" : ""}`}>Recent</Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <Link to={path + "/all"} className={`nav-link ${_tab === "all" ? "active" : ""}`}>All</Link>
+                                            </li>
+                                        </ul>
+                                    </div>}
                             </div>
-                            {tab === 0 && (
+                            {tab === "recent" && (
                                 <div>
-                                    <Datatable data={recent} columns={columns} />
+                                    <Datatable data={recent} entries={entries} columns={columns} />
                                 </div>)}
-                            {tab === 1 && (
+                            {tab === "all" && (
                                 <div>
                                     <div className="d-flex w-auto justify-content-end">
                                         {all.length < allTotal &&
                                             <button className="btn btn-primary btn-sm w-md " onClick={() => handleLoadMore(all.length)}>
-                                                {fetching ? "loading ..." : "load More"}
+                                                {fetching ? "Loading 50 ..." : "Load More (50)"}
                                                 {fetching}
                                             </button>
                                         }
                                     </div>
-                                    <Datatable data={all} columns={columns} />
+                                    <Datatable data={all} entries={entries} columns={columns} />
                                 </div>
                             )}
                         </div>

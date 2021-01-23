@@ -114,7 +114,7 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
             }).catch(err => {
                 if (err) {
                     // console.log(err)
-                    swal("Sorry!!!", err.message.replace("GraphQL error:", ""), "error");
+                    swal("Sorry!!!", "Something Happened", "error");
                 } else {
                     swal.stopLoading();
                     swal.close();

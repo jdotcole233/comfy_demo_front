@@ -3,11 +3,13 @@ import React, { Fragment } from 'react'
 import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
 import { getCurrencyFullName } from '../../components'
+import PreviewLogo from '../../components/PreviewLogo'
 
 function PreviewCoverNote({ offer }) {
 
 
     const showDate = (offer) => {
+        if (!offer?.offer_detail?.period_of_insurance_from) return <h1 className="dark-text-value">TBA</h1>
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
         return <h1 className="dark-text-value">{`${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()}`} {" - "} {`${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`}</h1>
@@ -22,8 +24,9 @@ function PreviewCoverNote({ offer }) {
                 </a>
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid  text-black bg-white">
+                <PreviewLogo />
                 <div className="row">
-                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
+                    {/* <img className="" src={require('../../assets/banner.png')} alt="kek letter head" /> */}
                     <div className="col-md-12  mb-3">
                         <h4 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>
                             REINSURANCE PLACING SLIP

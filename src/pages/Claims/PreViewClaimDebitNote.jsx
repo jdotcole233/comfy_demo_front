@@ -2,11 +2,13 @@
 import React, { Fragment } from 'react'
 import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
+import PreviewLogo from '../../components/PreviewLogo'
 
 
 
 function PreviewClaimDebitNote({ offer, shares, claim }) {
     const showDate = (offer) => {
+        if (!offer?.offer_detail?.period_of_insurance_from) return "TBA"
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
@@ -23,6 +25,7 @@ function PreviewClaimDebitNote({ offer, shares, claim }) {
                 </a>
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid p-4 text-black bg-white">
+               <PreviewLogo />
                 <div className="row">
                     <div className="col-md-6 col-6">
 

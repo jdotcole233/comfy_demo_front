@@ -14,7 +14,7 @@ export const Navbar = () => {
                         <Link to="/admin/" className="logo logo-light">
                             <span className="logo-sm">
                                 <img
-                                    src={require("../assets/visal-sm-logo.jpeg")}
+                                    src={require("../assets/visal-sm-logo.png")}
                                     alt=""
                                     height="40"
                                     width="40"

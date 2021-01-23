@@ -1,130 +1,134 @@
-/* eslint-disable no-throw-literal */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
-import swall from 'sweetalert2'
-import { useMutation } from 'react-apollo';
-import { REMOVE_EMPLOYEE, RESET_CREDENTIALS } from '../../graphql/mutattions/employees';
-import { EMPLOYEES } from '../../graphql/queries/employees';
-import swal from 'sweetalert';
-
-export default function Employees({ data, openViewEmployee }) {
+import React, { useState, useEffect } from 'react'
+import Employee from './Employee'
+import { Drawer, Loader, chunkArray, NoData } from '../../components'
+import AddEmployee from './AddEmployee';
+import Pagination from 'react-paginate'
+import { useEmployee } from '../../context/EmployeeProvider';
 
 
-    const [removeEmployee] = useMutation(REMOVE_EMPLOYEE, {
-        variables: { employee_id: data.employee_id },
-        refetchQueries: [{ query: EMPLOYEES }]
-    });
 
-    const [resetEmployeePassword] = useMutation(RESET_CREDENTIALS, {
-        variables: { employee_id: data.employee_id }
-    });
+export default () => {
+    const { employees, loading, length } = useEmployee();
+    const [employeesInPages, setEmployeesInPages] = useState([]);
+    const [activePage, setActivePage] = useState(0);
+    const [search, setSearch] = useState("");
 
-    const handleResetEmployeeCredentials = () => {
-        swal({
-            icon: "warning",
-            title: "Reset Employee Password",
-            text: `This action would reset the employee's password`,
-            buttons: ["No", { text: "Yes", closeModal: false }],
-            closeOnClickOutside: false,
-            closeOnEsc: false
-        }).then(input => {
-            if (!input) throw {}
-            resetEmployeePassword().then(res => swal("Success", "Employee credentials reset successful", "success"))
-                .catch(err => {
-                    if (err) {
-                        swal("Whoops!!", "Somehing went wrong", 'error')
-                    } else {
-                        swal.stopLoading();
-                        swal.close()
-                    }
-                })
-        })
-        // swall.fire({
-        //     icon: "warning",
-        //     allowEscapeKey: false,
-        //     title: "Reset Employee Password",
-        //     text: `This action would reset the employee's password`,
-        //     showCancelButton: true,
-        //     confirmButtonText: "Yes",
-        //     cancelButtonText: "No",
-        //     reverseButtons: true,
-        //     showLoaderOnConfirm: true,
-        //     allowOutsideClick: false,
-        // }).then(input => {
-        //     if (!input.value) throw {}
-        //     return resetEmployeePassword().then(res => res.json())
-        //         .catch(err => new Error(err))
 
-        // }).then(res => swall.fire("Success", "Employee credentials reset successful", "success"))
-        //     .catch(err => swall.fire("Whoops!!", "Something went wrong", "error"));
+
+    const handleChange = event => {
+        const { value } = event.target
+        setSearch(value);
+
+        if (value && activePage <= employeesInPages.length - 1) {
+            const newList = employees.filter(item => {
+                const itemToSearch = value.toLowerCase();
+                const name = `${item.employee_first_name.toLowerCase()}${item.employee_last_name.toLowerCase()}`.toLowerCase()
+                return name.includes(itemToSearch);
+            })
+
+            setEmployeesInPages(chunkArray(newList, 6))
+        } else {
+            setEmployeesInPages(chunkArray(employees, 6))
+        }
     }
 
-    const handleRemoveEmployee = () => {
-        swall.fire({
-            icon: "warning",
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            title: "Delete Employee",
-            text: `This action would completely remove employee details from system`,
-            buttons: ["No", { text: "Yes", closeModal: false }],
-            showCancelButton: true,
-            confirmButtonText: "Yes",
-            cancelButtonText: "No",
-            reverseButtons: true,
-            showLoaderOnConfirm: true,
-            preConfirm: () => {
-                return removeEmployee().then(res => res)
-                    .catch(err => new Error(err))
-            }
-        }).then(input => {
-            if(!input.isConfirmed) return
-            swall.fire("Success", "Employee deleted successfully", "success")
-        }).catch(err => swall.fire("Whoops!!", "Something went wrong", "error"));
+
+    useEffect(() => {
+        if (employees) {
+            const pages = chunkArray(employees, 6);
+            setEmployeesInPages(pages)
+        }
+    }, [employees])
+    const [showAddInsurer, setshowAddInsurer] = useState(false);
+    const [showAddAssociate, setshowAddAssociate] = useState(false)
+    const [selectedEmployee, setselectedEmployee] = useState(null);
+
+    const handleShowEmployee = employee => {
+        setselectedEmployee(employee);
+        setshowAddAssociate(true)
+    }
+
+    const handlePageChange = pageNumber => {
+        setActivePage(pageNumber.selected);
     }
 
     return (
-        <div className="col-xl-4 col-sm-6">
-            <div className="card">
-                <div className="card-body">
+        <>
+            {loading && <Loader />}
+            {!loading && <div className="page-content">
+                <div className="col-xl-12 mt-">
                     <div className="row">
-                        <div className="col-lg-4">
-                            <div className="text-lg-center">
-                                <div className="avatar-lg mr-3 mx-lg-auto mb-4 float-left float-lg-none">
-                                    <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
-                                        {data.emp_abbrv}
-                                    </span>
+                        <div className="col-md-12">
+                            <div className="card mini-stats-wid">
+                                <div className="card-body">
+                                    <div className="media">
+                                        <div className="media-body">
+                                            <p className="text-muted font-weight-medium">Total number of Employees</p>
+                                            <h4 className="mb-0">{length}</h4>
+                                        </div>
+
+                                        <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                            <span className="avatar-title">
+                                                <i className="bx bx-copy-alt font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                {/* <h5 className="mb-1 font-size-15 text-truncate">Marion Burton</h5>
-                                <a href="#" className="text-muted">@Skote</a> */}
                             </div>
                         </div>
 
-                        <div className="col-lg-8">
-                            <div>
-                                {/* <a href="invoices-detail.html" className="d-block text-primary mb-2">Invoice #14251</a> */}
-                                <h5 className="text-truncate">{data.employee_first_name} {data.employee_last_name}</h5>
-                                <p className="text-muted" >{data.user.position}</p>
-                                <h5 className="font-size-14 text-truncate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Amount"><i className="bx bx-envelope mr-1 text-primary"></i> {data.employee_email}</h5>
-                                <h5 className="font-size-14" data-toggle="tooltip" data-placement="top" title="" data-original-title="Due Date"><i className="bx bx-calendar mr-1 text-primary"></i> {data.employee_phonenumber}</h5>
-                            </div>
+                    </div>
+                </div>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <h3>Employees</h3>
+                        </div>
+                        <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
+                            <button onClick={() => setshowAddInsurer(!0)} className="btn btn-rounded btn-sm w-md btn-primary">Add Employee</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 d-flex justify-content-end mt-2">
+                        <div className="col-md-4 mb-2 d-flex justify-content-end">
+                            <input type="text" value={search} onChange={handleChange} placeholder="search" className="form-control" />
                         </div>
                     </div>
 
                 </div>
-                <div className="card-footer bg-transparent border-top">
-                    <div className="contact-links d-flex font-size-20">
-                        <div onClick={() => openViewEmployee(data)} className="flex-fill d-flex  p-1 justify-content-center link-hover" data-toggle="tooltip" data-placement="top" title="View">
-                            <i className="bx bx-show-alt"></i>
-                        </div>
-                        <div onClick={handleResetEmployeeCredentials} className="flex-fill d-flex justify-content-center p-1 link-hover" data-toggle="tooltip" data-placement="top" title="Reset Credentials">
-                            <i className='bx bx-reset'></i>
-                        </div>
-                        <div onClick={handleRemoveEmployee} className="flex-fill d-flex justify-content-center p-1 link-hover" data-toggle="tooltip" data-placement="top" title="Delete">
-                            <i className="bx bx-trash-alt"></i>
-                        </div>
-                    </div>
+
+                <div className="row m-2">
+                    {employeesInPages.length ? employeesInPages[employeesInPages.length <= activePage ? activePage - 1 : activePage].map((el, id) => <Employee key={id} openViewEmployee={handleShowEmployee} data={el} />) : <NoData />}
                 </div>
-            </div>
-        </div>
+
+                <Pagination
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    containerClassName="pagination justify-content-end mr-4"
+                    activeClassName="active"
+                    initialPage={activePage}
+                    pageCount={employeesInPages.length}
+                    itemsCountPerPage={8}
+                    totalItemsCount={length}
+                    pageRangeDisplayed={5}
+                    nextClassName="page-item"
+                    previousClassName="page-item"
+                    nextLinkClassName="page-link"
+                    previousLinkClassName="page-link"
+                    disabledClassName=""
+                    marginPagesDisplayed={5}
+                    onPageChange={handlePageChange}
+                />
+
+                {/* Drawer for adding Employee */}
+                <Drawer width="40%" isvisible={showAddInsurer} toggle={() => setshowAddInsurer(!!0)}>
+                    <AddEmployee toggle={() => setshowAddInsurer(!!0)} />
+                </Drawer>
+                <Drawer width="40%" isvisible={showAddAssociate} toggle={() => setshowAddAssociate(!!0)}>
+                    <AddEmployee editing={showAddAssociate} employee={selectedEmployee} toggle={() => setshowAddAssociate(!!0)} />
+                </Drawer>
+            </div >}
+        </>
     )
 }

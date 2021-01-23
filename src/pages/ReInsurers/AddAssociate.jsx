@@ -8,12 +8,14 @@ import { REINSURERS } from '../../graphql/queries';
 import styles from './styles/ViewReinsurerOffer.module.css'
 import { Alert } from 'react-bootstrap'
 import { DrawerContext } from '../../components/Drawer';
+import { useForm } from 'react-hook-form';
 
 
 
 
 function AddAssociate({ details, toggle }) {
     const { closed } = useContext(DrawerContext);
+    const { register, errors, handleSubmit, reset } = useForm();
     const [formInputs, setFormInputs] = useState({
         first_name: "",
         last_name: "",
@@ -47,25 +49,13 @@ function AddAssociate({ details, toggle }) {
     }, [details])
 
     const [createAssociate] = useMutation(CREATE_ASSOCIATE, {
-        variables: {
-            ...formInputs
-        },
         refetchQueries: [{ query: REINSURERS }]
     })
 
 
-    const handleFormInputChange = e => {
-        const { name, value } = e.target;
-        const newFormInputs = {
-            ...formInputs,
-            [name]: value
-        };
-        setFormInputs(newFormInputs)
-    }
+    const handleAddAssociate = values => {
 
-    const handleAddAssociate = e => {
-        e.preventDefault()
-        console.log()
+
         swal({
             closeOnClickOutside: false,
             closeOnEsc: false,
@@ -79,23 +69,18 @@ function AddAssociate({ details, toggle }) {
         })
             .then(btn => {
                 if (!btn) throw null
-                return createAssociate();
+                return createAssociate({
+                    variables: values
+                });
             })
             .then(json => {
-                setFormInputs({
-                    first_name: "",
-                    last_name: "",
-                    phone_pri: "",
-                    phone_sec: "",
-                    email: "",
-                    position: ""
-                })
+                reset();
                 toggle();
                 swal("Sucess", "Associate added Successfully", "success");
             })
             .catch(err => {
                 if (err) {
-                    swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
+                    swal("Sorry!!", err.message.replace("GraphQL error:", ""), "error");
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -109,7 +94,7 @@ function AddAssociate({ details, toggle }) {
             <div className={styles.card_header}>
                 <h2 className={styles.card_title}>Add Associate</h2>
                 <Alert variant="danger">
-                    <strong></strong>
+                    <strong>{ }</strong>
                 </Alert>
                 <fieldset className="border p-2 mb-2">
                     <legend className={styles.details_title}>Reinsurer Details</legend>
@@ -131,24 +116,28 @@ function AddAssociate({ details, toggle }) {
                     </table>
                 </fieldset>
             </div>
-            <form onSubmit={handleAddAssociate} className={styles.card_body}>
+            <form onSubmit={handleSubmit(handleAddAssociate)} className={styles.card_body}>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="form-group">
                             <label htmlFor="">First Name</label>
-                            <input name="first_name" value={formInputs.first_name} onChange={handleFormInputChange} type="text" className="form-control" placeholder="First Name" required />
+                            <input type="hidden" name="reinsurer_id" ref={register({ required: true })} value={details?.reinsurer_id} />
+                            <input name="first_name" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="First Name" />
+                            {errors.first_name && <p className="text-danger">{errors.first_name.message}</p>}
                         </div>
                     </div>
                     <div className="col-md-6">
                         <div className="form-group">
                             <label htmlFor="">Last Name</label>
-                            <input name="last_name" value={formInputs.last_name} onChange={handleFormInputChange} type="text" className="form-control" placeholder="Last Name" required />
+                            <input name="last_name" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Last Name" />
+                            {errors.last_name && <p className="text-danger">{errors.last_name.message}</p>}
                         </div>
                     </div>
                     <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="">Email</label>
-                            <input name="email" value={formInputs.email} onChange={handleFormInputChange} type="email" className="form-control" placeholder="Email" required />
+                            <input name="email" ref={register({ required: "Required" })} type="email" className="form-control" placeholder="Email" />
+                            {errors.email && <p className="text-danger">{errors.email.message}</p>}
                         </div>
                     </div>
                     <div className="col-md-12">
@@ -161,23 +150,26 @@ function AddAssociate({ details, toggle }) {
                     <div className="col-md-6">
                         <div className="form-group">
                             <label htmlFor="">Primary Phone number</label>
-                            <input name="phone_pri" value={formInputs.phone_pri} onChange={handleFormInputChange} type="text" className="form-control" placeholder="Primary Phone number" required />
+                            <input name="phone_pri" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Primary Phone number" />
+                            {errors.phone_pri && <p className="text-danger">{errors.phone_pri.message}</p>}
                         </div>
                     </div>
                     <div className="col-md-6">
                         <div className="form-group">
                             <label htmlFor="">Secondary Phone number</label>
-                            <input name="phone_sec" value={formInputs.phone_sec} onChange={handleFormInputChange} type="text" className="form-control" placeholder="Secondary Phone number" />
+                            <input name="phone_sec" ref={register({ required: false })} type="text" className="form-control" placeholder="Secondary Phone number" />
+                            {errors.phone_sec && <p className="text-danger">{errors.phone_sec.message}</p>}
                         </div>
                     </div>
                     <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="position">Position</label>
-                            <select className="form-control" name="position" value={formInputs.position} onChange={handleFormInputChange} required>
+                            <select className="form-control" name="position" ref={register({ required: "Required" })}>
                                 <option value="">choose a position</option>
                                 <option value="Manager">Manager</option>
                                 <option value="Underwriter">Underwriter</option>
                             </select>
+                            {errors.position && <p className="text-danger">{errors.position.message}</p>}
                         </div>
                     </div>
                     <div className="col-md-12">

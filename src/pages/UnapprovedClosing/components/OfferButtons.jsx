@@ -196,6 +196,7 @@ const OfferButtons = ({ offer }) => {
 
     const { rows, participants, downloadLink } = useMemo(() => generateParticipants({
         offer: selectedOffer,
+        _participants: selectedOffer?.offer_participant || [],
         setSelectedReinsurer,
         setShowSendClosingSlip,
         setViewOffer,

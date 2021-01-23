@@ -475,6 +475,7 @@ function Claims() {
                     </div>
                 </div>
                 <OfferListing
+                    path="/admin/claims"
                     recent={recent}
                     all={allOffers}
                     fetching={fetching}

@@ -4,6 +4,7 @@ import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
 import { AuthContext } from '../../context/AuthContext'
 import { getCurrencyFullName } from '../../components'
+import PreviewLogo from '../../components/PreviewLogo'
 
 const downloadAccess = [
     'CEO',
@@ -16,6 +17,7 @@ const downloadAccess = [
 function PreviewCoverNote({ offer, reinsurer }) {
     const { state: ctx } = useContext(AuthContext)
     const showDate = (offer) => {
+        if (!offer?.offer_detail?.period_of_insurance_from) return "TBA"
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
@@ -31,8 +33,8 @@ function PreviewCoverNote({ offer, reinsurer }) {
             </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid  text-black bg-white">
+                <PreviewLogo />
                 <div className="row">
-                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
                     <div className="col-md-12 text-align-center mt-3 mb-3">
                         <h3 style={{ textAlign: "center", color: "#000", textDecoration: "underline" }}>
                             FACULTATIVE CLOSING

@@ -4,6 +4,7 @@ import "./styles/preview.css"
 import { BASE_URL_LOCAL } from '../../graphql'
 import { AuthContext } from '../../context/AuthContext'
 import { getCurrencyFullName } from '../../components'
+import PreviewLogo from '../../components/PreviewLogo'
 
 const downloadAccess = ['CEO',
     'General Manager',
@@ -13,8 +14,9 @@ const downloadAccess = ['CEO',
 
 
 function PreviewCoverNote({ offer }) {
-    const { state: ctx } = useContext(AuthContext)
+    const { state: ctx } = useContext(AuthContext);
     const showDate = (offer) => {
+        if (!offer?.offer_detail?.period_of_insurance_from) return "TBA"
         const from = new Date(offer?.offer_detail?.period_of_insurance_from)
         const to = new Date(offer?.offer_detail?.period_of_insurance_to)
         return `${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`
@@ -27,8 +29,9 @@ function PreviewCoverNote({ offer }) {
                 </a>}
             </div>
             <div style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }} className="preview-card container-fluid text-black bg-white">
+                <PreviewLogo />
                 <div className="row">
-                    <img className="" src={require('../../assets/banner.png')} alt="kek letter head" />
+                    {/* <img className="" src={require('../../assets/banner.png')} alt="kek letter head" /> */}
                     <div className="col-md-6">
                         <address>
                             <p style={{ lineHeight: 0 }}>Our Ref: {`${offer?.employee?.emp_abbrv}/KEKRE/${new Date().getFullYear()}`}</p>

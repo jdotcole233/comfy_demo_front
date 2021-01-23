@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Drawer, Datatable, Loader, OverViewCard, generateNewCulumns } from '../../components'
 import EditReinsurer from './EditResinsurer';
 import { associatesColumnns, offersColumns } from './columns'
@@ -14,11 +14,12 @@ import BrokerageComponent from './components/BrokerageComponent'
 import OfferListing from '../CreateSlip/OfferListing';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useReinsurer } from '../../context/ReinsurersProvider';
 
 
 function ReinsurerDetail() {
     const history = useHistory();
-    const { state } = useLocation();
+    const { reinsurer } = useReinsurer()
     const { state: ctx } = useContext(AuthContext)
     const [showInsurerProfile, setShowInsurerProfile] = useState(false);
     const [associates, setAssociates] = useState([]);
@@ -28,20 +29,20 @@ function ReinsurerDetail() {
     const [allTotalValue, setAllTotalValue] = useState(0)
 
     useEffect(() => {
-        if (!state) {
+        if (!reinsurer) {
             history.push("/admin/re-insurers")
         }
-    }, [state])
+    }, [reinsurer])
 
     const { data, loading } = useQuery(REINSURER, {
         variables: {
-            id: state?.reinsurer_id
+            id: reinsurer?.reinsurer_id
         },
         fetchPolicy: "network-only"
     })
     const { data: reinsurer_offers, loading: fetching, fetchMore } = useQuery(REINSURER_OFFERS, {
         variables: {
-            id: state?.reinsurer_id,
+            id: reinsurer?.reinsurer_id,
             skip: 0
         },
         fetchPolicy: "cache-and-network"
@@ -132,7 +133,7 @@ function ReinsurerDetail() {
     const handleLoadMore = (skip) => {
         fetchMore({
             variables: {
-                id: state?.reinsurer_id,
+                id: reinsurer?.reinsurer_id,
                 skip
             },
             updateQuery: (prev, { fetchMoreResult }) => {
@@ -302,10 +303,12 @@ function ReinsurerDetail() {
                 <BrokerageComponent data={data} />
                 <OfferListing
                     title="Offers"
+                    path="/admin/re-insurers-detail"
                     recent={offerListing}
                     all={allOfferListing}
                     allTotal={allTotalValue}
                     setInputOffer={1}
+                    entries={5}
                     columns={offersColumns}
                     fetching={fetching}
                     handleLoadMore={handleLoadMore}
