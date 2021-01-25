@@ -239,7 +239,7 @@ function PreviewCoverNote({ offer }) {
                         <div className="mt-3 mb-2">
                             <h3 style={{ color: "#000", textDecoration: "underline", fontSize: 18 }}>SECURITY</h3>
                         </div>
-                        {offer?.offer?.offer_participant.map((reinsurer, key) => !reinsurer.offer_participant_percentage ? null : (
+                        {offer?.offer_participant.map((reinsurer, key) => !reinsurer.offer_participant_percentage ? null : (
                             <div key={key} className="row mb-2">
                                 <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                                     <h3 className="dark-text">{reinsurer.reinsurer.re_company_name} :</h3>
