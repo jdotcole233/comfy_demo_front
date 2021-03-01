@@ -56,7 +56,6 @@ function ReInsurer({ data, openAssociateModal }) {
             })
         })
     }
-
     return (
         <div className="col-xl-3 col-md-3 col-sm-6">
             <div className="card text-center">
@@ -76,7 +75,8 @@ function ReInsurer({ data, openAssociateModal }) {
                                 <a data-toggle="tooltip" data-placement="top" title="Add Associate"><i className="bx bx-user-circle"></i></a>
                             </div>
                         }
-                        {delete_reinsurer_access.includes(user?.position) && <div onClick={() => handleDeleteReinsurer(data)} className="flex-fill link-hover">
+                        {delete_reinsurer_access.includes(user?.position) &&
+                         <div onClick={() => handleDeleteReinsurer(data)} className="flex-fill link-hover">
                             <i className="bx bx-trash-alt"></i>
                         </div>}
                     </div>

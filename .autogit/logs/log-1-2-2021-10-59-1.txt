@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Mon Mar 01 2021 10:59:01 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* src/pages/ReInsurers/Re-Insurer.jsx
+
+
+Created files:
+* .autogit/logs/log-17-1-2021-17-47-42.txt
+
+
+Deleted files:
+
+
+Renamed files:
