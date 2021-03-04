@@ -234,6 +234,7 @@ function Reports() {
                 re_company_name: report.re_company_name || report.insurer_company_name,
                 brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
                 offer_date: new Date(report.offer_date).toDateString(),
+                period: `${report.period_of_insurance_from}- ${report.period_of_insurance_to}`,
                 offer_status: (
                     <span style={{ letterSpacing: 3 }} className={`badge badge-${report.offer_status === "OPEN" ? "primary" : report.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{report.offer_status}</span>
                 ),
