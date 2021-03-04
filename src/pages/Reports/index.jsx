@@ -25,7 +25,6 @@ const parseReportDate = (from, to) => {
     const _from = moment(from);
     const _to = moment(to);
     const parsedDate = `${_from.format('DD/MM/YYYY')} - ${_to.format('DD/MM/YYYY')}`
-
     return parsedDate;
 }
 
