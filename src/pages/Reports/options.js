@@ -34,6 +34,10 @@ export const insurerTable = [
     field: "business_name",
   },
   {
+    label: "Total Sum Insured",
+    field: "sum_insured",
+  },
+  {
     label: "Fac. Sum Insured",
     field: "fac_sum_insured",
   },
@@ -79,6 +83,10 @@ export const reinsurerTable = [
   {
     label: "Business Name",
     field: "business_name",
+  },
+  {
+    label: "Total Sum Insured",
+    field: "sum_insured",
   },
   {
     label: "Fac. Sum Insured",
@@ -131,6 +139,10 @@ export const allTable = [
   {
     label: "Fac. Sum Insured",
     field: "fac_sum_insured",
+  },
+  {
+    label: "Total Sum Insured",
+    field: "sum_insured",
   },
   {
     label: "Fac. Premium",
