@@ -74,7 +74,7 @@ function Reports() {
     const [generate, { loading }] = useMutation(GENERATE_REPORT)
 
     const printTable = () => {
-        const doc = new jsPDF()
+        const doc = new jsPDF("landscape")
 
         doc.text(`Brokerage Statement as at ${new Date().toLocaleDateString()}`, 5, 10)
         doc.autoTable({
