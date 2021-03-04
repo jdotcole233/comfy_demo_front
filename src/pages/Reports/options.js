@@ -141,6 +141,10 @@ export const allTable = [
     field: "brokerage_amount",
   },
   {
+    label: "Period of Insurance",
+    field: "period",
+  },
+  {
     label: "Offer Status",
     field: "offer_status",
   },
