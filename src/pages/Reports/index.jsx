@@ -219,7 +219,7 @@ function Reports() {
             const printerData = incomingReports.map(report => ({
                 ...report,
                 business_name: report.business_name.replace("Fleet", ""),
-                fac_sum_insured: `${report.currency} ${report.fac_sum_insured?.toLocaleString(undefined,
+                fac_sum_insured: `${report.currency} ${parseFloat(report.fac_sum_insured)?.toLocaleString(undefined,
                     {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
                 fac_premium: `${report.currency} ${report.fac_premium?.toLocaleString(undefined,
                     {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
@@ -232,7 +232,7 @@ function Reports() {
             const reports = incomingReports.map(report => ({
                 ...report,
                 business_name: report.business_name.replace("Fleet", ""),
-                fac_sum_insured: `${report.currency} ${report.fac_sum_insured?.toLocaleString(undefined,
+                fac_sum_insured: `${report.currency} ${parseFloat(report.fac_sum_insured)?.toLocaleString(undefined,
                     {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
                 fac_premium: `${report.currency} ${report.fac_premium?.toLocaleString(undefined,
                     {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
