@@ -235,7 +235,7 @@ function Reports() {
                 brokerage_amount: `${report.currency} ${parseFloat(report.brokerage_amount)?.toLocaleString(undefined,
                     {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
                 offer_date: new Date(report.offer_date).toDateString(),
-                period: `${report.period_of_insurance_from}- ${report.period_of_insurance_to}`,
+                period: parseReportDate(report.period_of_insurance_from,report.period_of_insurance_to),
             }));
             const reports = incomingReports.map(report => ({
                 ...report,
@@ -250,7 +250,7 @@ function Reports() {
                 brokerage_amount: `${report.currency} ${parseFloat(report.brokerage_amount)?.toLocaleString(undefined,
                     {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
                 offer_date: new Date(report.offer_date).toDateString(),
-                period: `${report.period_of_insurance_from}- ${report.period_of_insurance_to}`,
+                period: parseReportDate(report.period_of_insurance_from,report.period_of_insurance_to),
                 offer_status: (
                     <span style={{ letterSpacing: 3 }} className={`badge badge-${report.offer_status === "OPEN" ? "primary" : report.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{report.offer_status}</span>
                 ),
