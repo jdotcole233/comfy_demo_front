@@ -17,10 +17,14 @@ import swal from 'sweetalert';
 import { Animated } from "react-animated-css";
 import Converter from './Components/Converter';
 import CSVComponent from './Components/CSVComponent';
+import moment from 'moment';
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
-
+const parseReportDate = (from, to) => {
+    const _from = moment(from);
+    const parsedDate = `${_from.get('d')}/${_from.get('M')}/${_from.get('year')}`
+}
 
 const groupProps = {
     appear: true,
@@ -59,6 +63,8 @@ function Reports() {
     const [returnedCurrencies, setReturnedCurrencies] = useState([])
     const [totalCurrencies, setTotalCurrencies] = useState([])
     const [formData, setFormData] = useState(null)
+
+    
 
 
     useEffect(() => {
