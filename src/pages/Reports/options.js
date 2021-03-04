@@ -46,6 +46,10 @@ export const insurerTable = [
     field: "brokerage_amount",
   },
   {
+    label: "Period of Insurance",
+    field: "period",
+  },
+  {
     label: "Offer Status",
     field: "offer_status",
   },
@@ -87,6 +91,10 @@ export const reinsurerTable = [
   {
     label: "Brokerage",
     field: "brokerage_amount",
+  },
+  {
+    label: "Period of Insurance",
+    field: "period",
   },
   {
     label: "Offer Status",
