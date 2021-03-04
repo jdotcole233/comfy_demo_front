@@ -27,6 +27,7 @@ const CSVComponent = ({ reports, totals, type }) => {
                 <ExcelColumn label="Fac.Premium" value="fac_premium" />
                 <ExcelColumn label="Brokerage" value="brokerage_amount" />
                 <ExcelColumn label="Offer Status" value="offer_status" />
+                <ExcelColumn label="Period of Insurance" value="period" />
                 <ExcelColumn label="Payment Status" value="payment_status" />
                 <ExcelColumn label="Offer Date" value="offer_date" />
             </ExcelSheet>
