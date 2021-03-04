@@ -24,7 +24,7 @@ const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 const parseReportDate = (from, to) => {
     const _from = moment(from);
     const _to = moment(to);
-    const parsedDate = `${_from.get('d')}/${_from.get('MM')}/${_from.get('year')} - ${_to.get('d')}/${_to.get('MM')}/${_to.get('year')}`
+    const parsedDate = `${_from.get('d')}/${_from.get('m')}/${_from.get('year')} - ${_to.get('d')}/${_to.get('m')}/${_to.get('year')}`
 
     return parsedDate;
 }
