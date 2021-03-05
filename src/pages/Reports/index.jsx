@@ -17,10 +17,16 @@ import swal from 'sweetalert';
 import { Animated } from "react-animated-css";
 import Converter from './Components/Converter';
 import CSVComponent from './Components/CSVComponent';
+import moment from 'moment';
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
-
+const parseReportDate = (from, to) => {
+    const _from = moment(from);
+    const _to = moment(to);
+    const parsedDate = `${_from.format('DD/MM/YYYY')} - ${_to.format('DD/MM/YYYY')}`
+    return parsedDate;
+}
 
 const groupProps = {
     appear: true,
@@ -60,6 +66,8 @@ function Reports() {
     const [totalCurrencies, setTotalCurrencies] = useState([])
     const [formData, setFormData] = useState(null)
 
+    
+
 
     useEffect(() => {
         if (piechartData) {
@@ -74,7 +82,7 @@ function Reports() {
     const [generate, { loading }] = useMutation(GENERATE_REPORT)
 
     const printTable = () => {
-        const doc = new jsPDF()
+        const doc = new jsPDF("landscape")
 
         doc.text(`Brokerage Statement as at ${new Date().toLocaleDateString()}`, 5, 10)
         doc.autoTable({
@@ -219,20 +227,32 @@ function Reports() {
             const printerData = incomingReports.map(report => ({
                 ...report,
                 business_name: report.business_name.replace("Fleet", ""),
-                fac_sum_insured: `${report.currency} ${report.fac_sum_insured}`,
-                fac_premium: `${report.currency} ${report.fac_premium}`,
+                fac_sum_insured: `${report.currency} ${parseFloat(report.fac_sum_insured)?.toLocaleString(undefined,
+                    {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
+                    sum_insured: `${report.currency} ${parseFloat(report.sum_insured)?.toLocaleString(undefined,
+                    {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
+                fac_premium: `${report.currency} ${parseFloat(report.fac_premium)?.toLocaleString(undefined,
+                    {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
                 re_company_name: report.re_company_name || report.insurer_company_name,
-                brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
+                brokerage_amount: `${report.currency} ${parseFloat(report.brokerage_amount)?.toLocaleString(undefined,
+                    {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
                 offer_date: new Date(report.offer_date).toDateString(),
+                period: parseReportDate(report.period_of_insurance_from,report.period_of_insurance_to),
             }));
             const reports = incomingReports.map(report => ({
                 ...report,
                 business_name: report.business_name.replace("Fleet", ""),
-                fac_sum_insured: `${report.currency} ${report.fac_sum_insured}`,
-                fac_premium: `${report.currency} ${report.fac_premium}`,
+                fac_sum_insured: `${report.currency} ${parseFloat(report.fac_sum_insured)?.toLocaleString(undefined,
+                    {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
+                    sum_insured: `${report.currency} ${parseFloat(report.sum_insured)?.toLocaleString(undefined,
+                    {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
+                fac_premium: `${report.currency} ${parseFloat(report.fac_premium)?.toLocaleString(undefined,
+                    {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
                 re_company_name: report.re_company_name || report.insurer_company_name,
-                brokerage_amount: `${report.currency} ${report.brokerage_amount}`,
+                brokerage_amount: `${report.currency} ${parseFloat(report.brokerage_amount)?.toLocaleString(undefined,
+                    {'minimumFractionDigits':2,'maximumFractionDigits':2})}`,
                 offer_date: new Date(report.offer_date).toDateString(),
+                period: parseReportDate(report.period_of_insurance_from,report.period_of_insurance_to),
                 offer_status: (
                     <span style={{ letterSpacing: 3 }} className={`badge badge-${report.offer_status === "OPEN" ? "primary" : report.offer_status === "PENDING" ? "danger" : "success"} font-size-11`}>{report.offer_status}</span>
                 ),
