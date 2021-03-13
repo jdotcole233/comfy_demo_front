@@ -10,6 +10,8 @@ const DistributePaymentForm = ({
   errors,
   handleChange,
 }) => {
+  const currency = data?.offer_detail?.currency;
+
   return (
     <Fragment>
       <fieldset className="border-form p-2 mb-2">
@@ -27,7 +29,7 @@ const DistributePaymentForm = ({
                     <td>
                       {data?.offer_participant[
                         index
-                      ].participant_fac_premium?.toLocaleString(undefined, {
+                      ].participant_fac_premium?.toLocaleString(currency, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
@@ -35,7 +37,7 @@ const DistributePaymentForm = ({
                     <td>
                       {reinsurers[index]?.offer_deductions[
                         reinsurers[index]?.offer_deductions.length - 1
-                      ]?.withholding_tax_paid?.toLocaleString(undefined, {
+                      ]?.withholding_tax_paid?.toLocaleString(currency, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
@@ -52,7 +54,7 @@ const DistributePaymentForm = ({
                     <td>
                       {reinsurers[index]?.offer_deductions[
                         reinsurers[index]?.offer_deductions.length - 1
-                      ]?.brokerage_amount_paid?.toLocaleString(undefined, {
+                      ]?.brokerage_amount_paid?.toLocaleString(currency, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
@@ -62,7 +64,7 @@ const DistributePaymentForm = ({
                     <td>
                       {reinsurers[index]?.offer_deductions[
                         reinsurers[index]?.offer_deductions.length - 1
-                      ]?.nic_levy_paid?.toLocaleString(undefined, {
+                      ]?.nic_levy_paid?.toLocaleString(currency, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
@@ -70,7 +72,7 @@ const DistributePaymentForm = ({
                     <td>
                       {reinsurers[index]?.offer_deductions[
                         reinsurers[index]?.offer_deductions.length - 1
-                      ]?.commission_taken?.toLocaleString(undefined, {
+                      ]?.commission_taken?.toLocaleString(currency, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
@@ -83,7 +85,7 @@ const DistributePaymentForm = ({
                       {data?.offer_participant[index].offer_participant_payment[
                         data?.offer_participant[index].offer_participant_payment
                           .length - 1
-                      ].offer_payment_amount?.toLocaleString(undefined, {
+                      ].offer_payment_amount?.toLocaleString(currency, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
