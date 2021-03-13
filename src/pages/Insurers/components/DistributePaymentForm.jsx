@@ -22,7 +22,7 @@ const DistributePaymentForm = ({
   const rate = paymentDetails?.conversion?.rate;
   //   const offer_participant = data?.offer_participant[index];
 
-  const getActualAmount = (key, currency) => {
+  const getActualAmount = (key, currency = "USD") => {
     return parseFloat(
       reinsurers[index]?.offer_deductions[
         reinsurers[index]?.offer_deductions.length - 1
@@ -107,7 +107,7 @@ const DistributePaymentForm = ({
                       )}
                     </td>
                   </tr>
-                  
+
                   <tr>
                     <th>Participating %</th>
                     <td>
