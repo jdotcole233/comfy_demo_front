@@ -63,9 +63,11 @@ const DistributePaymentForm = ({
           {data?.offer_participant[index]?.reinsurer?.re_company_name}
         </legend>
         {hasConversion && (
-          <div>
-            Offer placed in {currency} but payment made in {conversionCurrency}{" "}
-            at the rate of {rate}
+          <div className="ml-2 text-danger">
+            <i>
+              Offer placed in {currency} but payment made in{" "}
+              {conversionCurrency} at the rate of {rate}
+            </i>
           </div>
         )}
         <div className="row">
