@@ -63,9 +63,9 @@ const Reschedule = ({ remainders, id }) => {
     });
   };
 
-  if (remainders) {
-    return JSON.stringify(remainders);
-  }
+  //   if (remainders) {
+  //     return JSON.stringify(remainders);
+  //   }
 
   return remainders?.length ? (
     <>
@@ -75,7 +75,7 @@ const Reschedule = ({ remainders, id }) => {
           onClick={handleShowRescheduleForm}
           className="btn btn-warning waves-effect waves-light btn-sm"
         >
-          Reschedule
+          Reschedule remainder
         </button>
       )}
       <Modal centered show={showForm} onHide={() => setShowForm((c) => !c)}>
