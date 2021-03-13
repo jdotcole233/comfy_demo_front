@@ -18,7 +18,13 @@ const DistributePaymentForm = ({
   );
 
   const hasConversion = paymentDetails?.conversion?.addExchangeRate;
+  const conversionCurrency = paymentDetails?.conversion?.currency;
   //   const offer_participant = data?.offer_participant[index];
+
+  const convertedAmtPaid =
+    data?.offer_participant[index].offer_participant_payment[
+      data?.offer_participant[index].offer_participant_payment.length - 1
+    ].offer_payment_amount;
 
   return (
     <Fragment>
@@ -119,16 +125,9 @@ const DistributePaymentForm = ({
                       </p>
                       {hasConversion && (
                         <p>
-                          {data?.offer_participant[
-                            index
-                          ].offer_participant_payment[
-                            data?.offer_participant[index]
-                              .offer_participant_payment.length - 1
-                          ].offer_payment_amount?.toLocaleString(undefined, {
+                          {convertedAmtPaid?.toLocaleString(undefined, {
                             style: "currency",
-                            currency: hasConversion
-                              ? paymentDetails?.conversion?.currency
-                              : currency,
+                            currency: conversionCurrency,
                             maximumFractionDigits: 2,
                           })}
                         </p>
