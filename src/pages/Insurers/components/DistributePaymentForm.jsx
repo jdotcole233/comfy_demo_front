@@ -16,6 +16,8 @@ const DistributePaymentForm = ({
   const paymentDetails = JSON.parse(
     data?.offer_payment[size]?.payment_details || ""
   );
+
+  const hasConversion = paymentDetails?.conversion?.addExchangeRate;
   //   const offer_participant = data?.offer_participant[index];
 
   return (
@@ -115,20 +117,22 @@ const DistributePaymentForm = ({
                           maximumFractionDigits: 2,
                         })}
                       </p>
-                      <p>
-                        {data?.offer_participant[
-                          index
-                        ].offer_participant_payment[
-                          data?.offer_participant[index]
-                            .offer_participant_payment.length - 1
-                        ].offer_payment_amount?.toLocaleString(undefined, {
-                          style: "currency",
-                          currency: paymentDetails?.conversion?.addExchangeRate
-                            ? paymentDetails?.conversion?.currency
-                            : currency,
-                          maximumFractionDigits: 2,
-                        })}
-                      </p>
+                      {hasConversion && (
+                        <p>
+                          {data?.offer_participant[
+                            index
+                          ].offer_participant_payment[
+                            data?.offer_participant[index]
+                              .offer_participant_payment.length - 1
+                          ].offer_payment_amount?.toLocaleString(undefined, {
+                            style: "currency",
+                            currency: hasConversion
+                              ? paymentDetails?.conversion?.currency
+                              : currency,
+                            maximumFractionDigits: 2,
+                          })}
+                        </p>
+                      )}
                     </td>
                   </tr>
                 </tbody>
