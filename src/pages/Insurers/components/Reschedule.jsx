@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert";
-import { Modal } from "react-bootstrap";
+import { Modal, Alert } from "react-bootstrap";
 import { useMutation } from "react-apollo";
 import { PostPoneNotification } from "../../../graphql/mutattions/Notifications";
 import { INSURER } from "../../../graphql/queries";
@@ -83,6 +83,7 @@ const Reschedule = ({ remainders, id }) => {
           <Modal.Title>Reschedule Reminder</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Alert variant="danger"></Alert>
           <div className="form">
             <div className="form-group">
               <label htmlFor="postpone_date">Postpone till</label>
