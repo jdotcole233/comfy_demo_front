@@ -118,18 +118,20 @@ export default function DistributePayment({
 
   if (showFlag) {
     return (
-      <Alert variant="danger">
-        <strong>
-          No current payment identified on offer with policy number:{" "}
-          {data?.offer_detail.policy_number}
-        </strong>
-        <p>
-          <em>
-            Payment to be made on {data?.offer_participant.length} reinsurers
-            will be made active once payment is found.
-          </em>
-        </p>
-      </Alert>
+      <div className="h-full bg-primary flex-1">
+        <Alert variant="danger">
+          <strong>
+            No current payment identified on offer with policy number:{" "}
+            {data?.offer_detail.policy_number}
+          </strong>
+          <p>
+            <em>
+              Payment to be made on {data?.offer_participant.length} reinsurers
+              will be made active once payment is found.
+            </em>
+          </p>
+        </Alert>
+      </div>
     );
   }
 
