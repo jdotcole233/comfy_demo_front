@@ -99,7 +99,7 @@ export default function InputOffer({
             if (!input) history.goBack();
             setReinsurer_data([]);
             toggle();
-            history.push("/admin/create-closing");
+            history.push("/admin/create-closing/recent");
           });
         })
         .catch((err) => {
