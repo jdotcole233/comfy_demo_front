@@ -22,9 +22,11 @@ const DistributePaymentForm = ({
   //   const offer_participant = data?.offer_participant[index];
 
   const convertedAmtPaid =
-    data?.offer_participant[index].offer_participant_payment[
-      data?.offer_participant[index].offer_participant_payment.length - 1
-    ].offer_payment_amount;
+    parseFloat(
+      data?.offer_participant[index].offer_participant_payment[
+        data?.offer_participant[index].offer_participant_payment.length - 1
+      ].offer_payment_amount
+    ) * paymentDetails.conversion.rate;
 
   return (
     <Fragment>
