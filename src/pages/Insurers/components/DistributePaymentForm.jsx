@@ -19,7 +19,7 @@ const DistributePaymentForm = ({
 
   const hasConversion = paymentDetails?.conversion?.addExchangeRate;
   const conversionCurrency = paymentDetails?.conversion?.currency || currency;
-  const rate = paymentDetails?.conversion?.rate;
+  const rate = paymentDetails?.conversion?.rate || 1;
   //   const offer_participant = data?.offer_participant[index];
 
   const getActualAmount = (key, currency = "USD") => {
