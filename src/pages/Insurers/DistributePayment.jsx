@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styles from "./styles/ViewInsurerOffer.module.css";
 import swal from "sweetalert";
 import { useMutation, useQuery } from "react-apollo";
@@ -8,6 +8,7 @@ import { DISTRIBUTE_PAYMENT } from "../../graphql/mutattions";
 import { INSURER, GET_ISNURER_DEDUCTIONS } from "../../graphql/queries";
 import { Alert } from "react-bootstrap";
 import DistributePaymentForm from "./components/DistributePaymentForm";
+import { buildPayload } from "./dummy";
 
 export default function DistributePayment({
   data,
@@ -17,7 +18,6 @@ export default function DistributePayment({
 }) {
   const [forms, setForms] = useState([]);
   const [errors, setErrors] = useState([]);
-  const [reinsurers, setReinsurers] = useState([]);
 
   const getPaymentId = () => {
     if (data && data.offer_payment.length) {
@@ -36,10 +36,11 @@ export default function DistributePayment({
     refetchQueries: [{ query: INSURER, variables: { id: insurer_id } }],
   });
 
-  useEffect(() => {
+  const reinsurers = useMemo(() => {
     if (deductions) {
-      setReinsurers([...JSON.parse(deductions.getOfferparticipantDeductions)]);
+      return [...JSON.parse(deductions.getOfferparticipantDeductions)];
     }
+    return [];
   }, [deductions]);
 
   useEffect(() => {
@@ -77,29 +78,11 @@ export default function DistributePayment({
   const handleChange = (key, event) => {
     const { name, value } = event.target;
     const formData = forms;
-
     formData[key][name] = value;
     setForms([...formData]);
   };
 
-  const buildPayload = (data) => {
-    const details = data.map((el) => ({
-      offer_participant_payment_id: el.offer_participant_id,
-      paid_details: JSON.stringify({
-        payment_type: el.payment_type,
-        payment_from: {
-          cheque_number: el.cheque_number ? el.cheque_number : "N/A",
-          bank_name: el.bank_name,
-        },
-        payment_to: el.b_bank_name ? el.b_bank_name : "N/A",
-      }),
-      payment_comment: el.comment || "-",
-    }));
-
-    return details;
-  };
-
-  const handleDistibution = (event) => {
+  const handleDistibution = () => {
     const offer_participants = buildPayload(forms);
     swal({
       closeOnClickOutside: false,
@@ -133,56 +116,54 @@ export default function DistributePayment({
     });
   };
 
+  if (showFlag) {
+    return (
+      <Alert variant="danger">
+        <strong>
+          No current payment identified on offer with policy number:{" "}
+          {data?.offer_detail.policy_number}
+        </strong>
+        <p>
+          <em>
+            Payment to be made on {data?.offer_participant.length} reinsurers
+            will be made active once payment is found.
+          </em>
+        </p>
+      </Alert>
+    );
+  }
+
   return !deductions ? null : (
     <div>
       <div className={styles.card_header}>
         <h2 className={styles.card_title}>Distribute Payments</h2>
       </div>
       <div className={styles.card_body}>
-        {!showFlag ? (
-          <>
-            {forms.length
-              ? forms.map((participant, key) => {
-                  return !data?.offer_participant[key]
-                    .offer_participant_percentage ? null : (
-                    <DistributePaymentForm
-                      key={key}
-                      index={key}
-                      data={data}
-                      reinsurers={reinsurers}
-                      participant={participant}
-                      errors={errors}
-                      handleChange={handleChange}
-                    />
-                  );
-                })
-              : null}
-            {forms.length ? (
-              <div className="form-group d-flex justify-content-end">
-                <button
-                  type="submit"
-                  onClick={handleDistibution}
-                  className="btn btn-sm btn-primary w-md"
-                >
-                  Distribute Payments
-                </button>
-              </div>
-            ) : null}
-          </>
-        ) : (
-          <Alert variant="danger">
-            <strong>
-              No current payment identified on offer with policy number:{" "}
-              {data?.offer_detail.policy_number}
-            </strong>
-            <p>
-              <em>
-                Payment to be made on {data?.offer_participant.length}{" "}
-                reinsurers will be made active once payment is found.
-              </em>
-            </p>
-          </Alert>
-        )}
+        <>
+          {forms.map((participant, key) => {
+            return !data?.offer_participant[key]
+              .offer_participant_percentage ? null : (
+              <DistributePaymentForm
+                key={key}
+                index={key}
+                data={data}
+                reinsurers={reinsurers}
+                participant={participant}
+                errors={errors}
+                handleChange={handleChange}
+              />
+            );
+          })}
+          <div className="form-group d-flex justify-content-end">
+            <button
+              type="submit"
+              onClick={handleDistibution}
+              className="btn btn-sm btn-primary w-md"
+            >
+              Distribute Payments
+            </button>
+          </div>
+        </>
       </div>
     </div>
   );
