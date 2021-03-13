@@ -96,7 +96,7 @@ const DistributePaymentForm = ({
                         )}
                       </p>
                       {hasConversion && (
-                        <p style={{ fontWeight: "bold" }}>
+                        <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
                           {getConvertedAmount(
                             "withholding_tax_paid",
                             currency,
@@ -124,7 +124,7 @@ const DistributePaymentForm = ({
                         )}
                       </p>
                       {hasConversion && (
-                        <p style={{ fontWeight: "bold" }}>
+                        <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
                           {getConvertedAmount(
                             "brokerage_amount_paid",
                             currency,
@@ -141,7 +141,7 @@ const DistributePaymentForm = ({
                         {getActualAmount("nic_levy_paid", conversionCurrency)}
                       </p>
                       {hasConversion && (
-                        <p style={{ fontWeight: "bold" }}>
+                        <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
                           {getConvertedAmount("nic_levy_paid", currency, rate)}
                         </p>
                       )}
@@ -156,7 +156,7 @@ const DistributePaymentForm = ({
                         )}
                       </p>
                       {hasConversion && (
-                        <p style={{ fontWeight: "bold" }}>
+                        <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
                           {getConvertedAmount(
                             "commission_taken",
                             currency,
@@ -184,7 +184,7 @@ const DistributePaymentForm = ({
                         })}
                       </p>
                       {hasConversion && (
-                        <p style={{ fontWeight: "bold" }}>
+                        <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
                           {convertedAmtPaid?.toLocaleString(undefined, {
                             style: "currency",
                             currency: currency,
