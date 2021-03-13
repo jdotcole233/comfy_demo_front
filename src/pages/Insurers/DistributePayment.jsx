@@ -41,7 +41,6 @@ export default function DistributePayment({ data, toggle, insurer_id = 1, showFl
     useEffect(() => {
         if (deductions) {
             setReinsurers([...JSON.parse(deductions.getOfferparticipantDeductions)])
-            // console.log(reinsurers)
         }
     }, [deductions])
 
