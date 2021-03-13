@@ -56,6 +56,7 @@ function ReInsurer({ data, openAssociateModal }) {
             })
         })
     }
+    
     return (
         <div className="col-xl-3 col-md-3 col-sm-6">
             <div className="card text-center">

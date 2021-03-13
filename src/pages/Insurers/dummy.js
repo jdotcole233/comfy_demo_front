@@ -103,3 +103,21 @@ export const managersColumn = [
     field: "actions",
   },
 ];
+
+
+export const buildPayload = (data = []) => {
+  const details = data.map((el) => ({
+    offer_participant_payment_id: el.offer_participant_id,
+    paid_details: JSON.stringify({
+      payment_type: el.payment_type,
+      payment_from: {
+        cheque_number: el.cheque_number ? el.cheque_number : "N/A",
+        bank_name: el.bank_name,
+      },
+      payment_to: el.b_bank_name ? el.b_bank_name : "N/A",
+    }),
+    payment_comment: el.comment || "-",
+  }));
+
+  return details;
+};
