@@ -78,6 +78,15 @@ const DistributePaymentForm = ({
                         currency,
                         maximumFractionDigits: 2,
                       })}
+                      {hasConversion && (
+                        <p>
+                          {getConvertedAmount(
+                            "withholding_tax_paid",
+                            currency,
+                            rate
+                          )}
+                        </p>
+                      )}
                     </td>
                     <th>Withholding Tax</th>
                     <td>
@@ -108,20 +117,57 @@ const DistributePaymentForm = ({
                     </td>
                     <th>Brokerage</th>
                     <td>
-                      {getActualAmount(
-                        "brokerage_amount_paid",
-                        conversionCurrency
+                      <p>
+                        {getActualAmount(
+                          "brokerage_amount_paid",
+                          conversionCurrency
+                        )}
+                      </p>
+                      {hasConversion && (
+                        <p>
+                          {getConvertedAmount(
+                            "withholding_tax_paid",
+                            currency,
+                            rate
+                          )}
+                        </p>
                       )}
                     </td>
                   </tr>
                   <tr>
                     <th>NIC levy</th>
                     <td>
-                      {getActualAmount("nic_levy_paid", conversionCurrency)}
+                      <p>
+                        {getActualAmount("nic_levy_paid", conversionCurrency)}
+                      </p>
+                      {hasConversion && (
+                        <p>
+                          {getConvertedAmount(
+                            "withholding_tax_paid",
+                            currency,
+                            rate
+                          )}
+                        </p>
+                      )}
                     </td>
                     <th>Commission taken</th>
                     <td>
-                      {getActualAmount("commission_taken", conversionCurrency)}
+                      <p>
+                        {" "}
+                        {getActualAmount(
+                          "commission_taken",
+                          conversionCurrency
+                        )}
+                      </p>
+                      {hasConversion && (
+                        <p>
+                          {getConvertedAmount(
+                            "withholding_tax_paid",
+                            currency,
+                            rate
+                          )}
+                        </p>
+                      )}
                     </td>
                   </tr>
                   <tr>
