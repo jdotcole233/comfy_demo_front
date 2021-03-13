@@ -80,13 +80,10 @@ const DistributePaymentForm = ({
                     </td>
                     <th>Brokerage</th>
                     <td>
-                      {reinsurers[index]?.offer_deductions[
-                        reinsurers[index]?.offer_deductions.length - 1
-                      ]?.brokerage_amount_paid?.toLocaleString(undefined, {
-                        style: "currency",
-                        currency,
-                        maximumFractionDigits: 2,
-                      })}
+                      {getConvertedAmount(
+                        "brokerage_amount_paid",
+                        conversionCurrency
+                      )}
                     </td>
                   </tr>
                   <tr>
