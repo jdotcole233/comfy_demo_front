@@ -11,8 +11,11 @@ const DistributePaymentForm = ({
   handleChange,
 }) => {
   const currency = data?.offer_detail?.currency;
-        console.log(data)
-  const paymentDetails = JSON.parse(data?.offer_payment?.payment_details || "");
+  console.log(data);
+  const size = data?.offer_payment?.length - 1 || 0;
+  const paymentDetails = JSON.parse(
+    data?.offer_payment[size]?.payment_details || ""
+  );
   //   const offer_participant = data?.offer_participant[index];
 
   return (
