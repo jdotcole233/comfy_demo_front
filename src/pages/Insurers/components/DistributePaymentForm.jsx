@@ -2,7 +2,6 @@ import React from "react";
 import { Fragment } from "react";
 import styles from "../styles/ViewInsurerOffer.module.css";
 
-
 const DistributePaymentForm = ({
   index,
   data,
