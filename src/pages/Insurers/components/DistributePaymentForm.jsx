@@ -81,19 +81,20 @@ const DistributePaymentForm = ({
                     </td>
                     <th>Withholding Tax</th>
                     <td>
-                      {getActualAmount(
-                        "withholding_tax_paid",
-                        conversionCurrency
-                      )}
-
+                      <p>
+                        {getActualAmount(
+                          "withholding_tax_paid",
+                          conversionCurrency
+                        )}
+                      </p>
                       {hasConversion && (
-                        <span>
+                        <p>
                           {getConvertedAmount(
                             "withholding_tax_paid",
                             currency,
                             rate
                           )}
-                        </span>
+                        </p>
                       )}
                     </td>
                   </tr>
