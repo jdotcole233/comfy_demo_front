@@ -29,7 +29,8 @@ const DistributePaymentForm = ({
                     <td>
                       {data?.offer_participant[
                         index
-                      ].participant_fac_premium?.toLocaleString("currency", {
+                      ].participant_fac_premium?.toLocaleString(undefined, {
+                        style: "currency",
                         currency,
                         maximumFractionDigits: 2,
                       })}
@@ -38,7 +39,8 @@ const DistributePaymentForm = ({
                     <td>
                       {reinsurers[index]?.offer_deductions[
                         reinsurers[index]?.offer_deductions.length - 1
-                      ]?.withholding_tax_paid?.toLocaleString("currency", {
+                      ]?.withholding_tax_paid?.toLocaleString(undefined, {
+                        style: "currency",
                         currency,
                         maximumFractionDigits: 2,
                       })}
@@ -56,7 +58,8 @@ const DistributePaymentForm = ({
                     <td>
                       {reinsurers[index]?.offer_deductions[
                         reinsurers[index]?.offer_deductions.length - 1
-                      ]?.brokerage_amount_paid?.toLocaleString("currency", {
+                      ]?.brokerage_amount_paid?.toLocaleString(undefined, {
+                        style: "currency",
                         currency,
                         maximumFractionDigits: 2,
                       })}
@@ -67,7 +70,8 @@ const DistributePaymentForm = ({
                     <td>
                       {reinsurers[index]?.offer_deductions[
                         reinsurers[index]?.offer_deductions.length - 1
-                      ]?.nic_levy_paid?.toLocaleString("currency", {
+                      ]?.nic_levy_paid?.toLocaleString(undefined, {
+                        style: "currency",
                         currency,
                         maximumFractionDigits: 2,
                       })}
@@ -76,7 +80,8 @@ const DistributePaymentForm = ({
                     <td>
                       {reinsurers[index]?.offer_deductions[
                         reinsurers[index]?.offer_deductions.length - 1
-                      ]?.commission_taken?.toLocaleString("currency", {
+                      ]?.commission_taken?.toLocaleString(undefined, {
+                        style: "currency",
                         currency,
                         maximumFractionDigits: 2,
                       })}
@@ -90,7 +95,8 @@ const DistributePaymentForm = ({
                       {data?.offer_participant[index].offer_participant_payment[
                         data?.offer_participant[index].offer_participant_payment
                           .length - 1
-                      ].offer_payment_amount?.toLocaleString("currency", {
+                      ].offer_payment_amount?.toLocaleString(undefined, {
+                        style: "currency",
                         currency,
                         maximumFractionDigits: 2,
                       })}
