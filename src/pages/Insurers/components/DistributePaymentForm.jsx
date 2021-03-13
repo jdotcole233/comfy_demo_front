@@ -22,9 +22,11 @@ const DistributePaymentForm = ({
   //   const offer_participant = data?.offer_participant[index];
 
   const getConvertedAmount = (key, currency) => {
-    return reinsurers[index]?.offer_deductions[
-      reinsurers[index]?.offer_deductions.length - 1
-    ][key]?.toLocaleString(undefined, {
+    return parseFloat(
+      reinsurers[index]?.offer_deductions[
+        reinsurers[index]?.offer_deductions.length - 1
+      ][key]
+    )?.toLocaleString(undefined, {
       style: "currency",
       currency,
       maximumFractionDigits: 2,
@@ -89,23 +91,14 @@ const DistributePaymentForm = ({
                   <tr>
                     <th>NIC levy</th>
                     <td>
-                      {reinsurers[index]?.offer_deductions[
-                        reinsurers[index]?.offer_deductions.length - 1
-                      ]?.nic_levy_paid?.toLocaleString(undefined, {
-                        style: "currency",
-                        currency,
-                        maximumFractionDigits: 2,
-                      })}
+                      {getConvertedAmount("nic_levy_paid", conversionCurrency)}
                     </td>
                     <th>Commission taken</th>
                     <td>
-                      {reinsurers[index]?.offer_deductions[
-                        reinsurers[index]?.offer_deductions.length - 1
-                      ]?.commission_taken?.toLocaleString(undefined, {
-                        style: "currency",
-                        currency,
-                        maximumFractionDigits: 2,
-                      })}
+                      {getConvertedAmount(
+                        "commission_taken",
+                        conversionCurrency
+                      )}
                     </td>
                   </tr>
                   <tr>
