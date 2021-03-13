@@ -9,6 +9,7 @@ import { INSURER, GET_ISNURER_DEDUCTIONS } from "../../graphql/queries";
 import { Alert } from "react-bootstrap";
 import DistributePaymentForm from "./components/DistributePaymentForm";
 import { buildPayload } from "./dummy";
+import { Loader } from "../../components";
 
 export default function DistributePayment({
   data,
@@ -25,7 +26,7 @@ export default function DistributePayment({
     }
     return 0;
   };
-  const { data: deductions } = useQuery(GET_ISNURER_DEDUCTIONS, {
+  const { data: deductions, loading } = useQuery(GET_ISNURER_DEDUCTIONS, {
     variables: {
       id: insurer_id,
       offer_id: data?.offer_id || "1",
@@ -133,6 +134,14 @@ export default function DistributePayment({
         </Alert>
       </div>
     );
+  }
+
+  if(loading) {
+      return (
+          <div className="pt-4">
+              <Loader />
+          </div>
+      )
   }
 
   return !deductions ? null : (
