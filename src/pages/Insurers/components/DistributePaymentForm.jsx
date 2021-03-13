@@ -11,12 +11,14 @@ const DistributePaymentForm = ({
   handleChange,
 }) => {
   const currency = data?.offer_detail?.currency;
-
-//   const offer_participant = data?.offer_participant[index];
+        console.log(data)
+  const paymentDetails = JSON.parse(data?.offer_payment?.payment_details || "");
+  //   const offer_participant = data?.offer_participant[index];
 
   return (
     <Fragment>
       <fieldset className="border-form p-2 mb-2">
+        {JSON.stringify(paymentDetails)}
         <legend className={styles.details_title}>
           {data?.offer_participant[index]?.reinsurer?.re_company_name}
         </legend>
