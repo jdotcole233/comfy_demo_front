@@ -57,7 +57,7 @@ const Reschedule = ({ remainders, id }) => {
     return remainders?.length ?
         <>
             {/* use postpone till in value to either show or not show button */}
-            {remainders[0].postponed_till && <button onClick={handleShowRescheduleForm} className="btn btn-warning waves-effect waves-light btn-sm">Reschedule</button>}
+            {!remainders[0].postponed_till && <button onClick={handleShowRescheduleForm} className="btn btn-warning waves-effect waves-light btn-sm">Reschedule</button>}
             <Modal centered show={showForm} onHide={() => setShowForm(c => !c)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Reschedule Reminder</Modal.Title>
