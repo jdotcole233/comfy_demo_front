@@ -136,15 +136,15 @@ export default function DistributePayment({
     );
   }
 
-  if(loading) {
-      return (
-          <div className="pt-4">
-              <Loader />
-          </div>
-      )
+  if (loading) {
+    return (
+      <div className="pt-4">
+        <Loader />
+      </div>
+    );
   }
 
-  return !deductions ? null : (
+  return (
     <div>
       <div className={styles.card_header}>
         <h2 className={styles.card_title}>Distribute Payments</h2>
