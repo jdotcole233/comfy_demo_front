@@ -85,8 +85,8 @@ const Reschedule = ({ remainders, id }) => {
         <Modal.Body>
           <Alert variant="danger">
             Select a new date to be reminded on{" "}
-            <span className="font-weight-bold">CLOSED</span> and
-            UNPAID/PARTPAYMENT offers.
+            <i className="font-weight-bold">CLOSED</i> and {" "}
+            <i className="font-weight-bold">UNPAID/PARTPAYMENT</i> offers.
           </Alert>
           <div className="form">
             <div className="form-group">
