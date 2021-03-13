@@ -101,16 +101,34 @@ const DistributePaymentForm = ({
                     <td></td>
                     <th>Amount</th>
                     <td>
-                      {data?.offer_participant[index].offer_participant_payment[
-                        data?.offer_participant[index].offer_participant_payment
-                          .length - 1
-                      ].offer_payment_amount?.toLocaleString(undefined, {
-                        style: "currency",
-                        currency: paymentDetails?.conversion?.addExchangeRate
-                          ? paymentDetails?.conversion?.currency
-                          : currency,
-                        maximumFractionDigits: 2,
-                      })}
+                      <p>
+                        {data?.offer_participant[
+                          index
+                        ].offer_participant_payment[
+                          data?.offer_participant[index]
+                            .offer_participant_payment.length - 1
+                        ].offer_payment_amount?.toLocaleString(undefined, {
+                          style: "currency",
+                          currency: paymentDetails?.conversion?.addExchangeRate
+                            ? paymentDetails?.conversion?.currency
+                            : currency,
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
+                      <p>
+                        {data?.offer_participant[
+                          index
+                        ].offer_participant_payment[
+                          data?.offer_participant[index]
+                            .offer_participant_payment.length - 1
+                        ].offer_payment_amount?.toLocaleString(undefined, {
+                          style: "currency",
+                          currency: paymentDetails?.conversion?.addExchangeRate
+                            ? paymentDetails?.conversion?.currency
+                            : currency,
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
                     </td>
                   </tr>
                 </tbody>
