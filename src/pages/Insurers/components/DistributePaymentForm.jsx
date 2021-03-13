@@ -21,7 +21,6 @@ const DistributePaymentForm = ({
   return (
     <Fragment>
       <fieldset className="border-form p-2 mb-2">
-        {JSON.stringify(paymentDetails)}
         <legend className={styles.details_title}>
           {data?.offer_participant[index]?.reinsurer?.re_company_name}
         </legend>
@@ -48,7 +47,9 @@ const DistributePaymentForm = ({
                         reinsurers[index]?.offer_deductions.length - 1
                       ]?.withholding_tax_paid?.toLocaleString(undefined, {
                         style: "currency",
-                        currency,
+                        currency: paymentDetails?.conversion?.addExchangeRate
+                          ? paymentDetails?.conversion?.currency
+                          : currency,
                         maximumFractionDigits: 2,
                       })}
                     </td>
