@@ -26,7 +26,7 @@ const DistributePaymentForm = ({
       data?.offer_participant[index].offer_participant_payment[
         data?.offer_participant[index].offer_participant_payment.length - 1
       ].offer_payment_amount
-    ) * paymentDetails.conversion.rate;
+    ) / paymentDetails.conversion.rate;
 
   return (
     <Fragment>
