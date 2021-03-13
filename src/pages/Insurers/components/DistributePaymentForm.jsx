@@ -96,7 +96,7 @@ const DistributePaymentForm = ({
                         )}
                       </p>
                       {hasConversion && (
-                        <p>
+                        <p className="text-bold">
                           {getConvertedAmount(
                             "withholding_tax_paid",
                             currency,
