@@ -12,6 +12,8 @@ const DistributePaymentForm = ({
 }) => {
   const currency = data?.offer_detail?.currency;
 
+//   const offer_participant = data?.offer_participant[index];
+
   return (
     <Fragment>
       <fieldset className="border-form p-2 mb-2">
