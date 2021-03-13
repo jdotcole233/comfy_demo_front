@@ -19,13 +19,28 @@ const DistributePaymentForm = ({
 
   const hasConversion = paymentDetails?.conversion?.addExchangeRate;
   const conversionCurrency = paymentDetails?.conversion?.currency;
+  const rate = paymentDetails?.conversion?.rate;
   //   const offer_participant = data?.offer_participant[index];
 
-  const getConvertedAmount = (key, currency) => {
+  const getActualAmount = (key, currency) => {
     return parseFloat(
       reinsurers[index]?.offer_deductions[
         reinsurers[index]?.offer_deductions.length - 1
       ][key]
+    )?.toLocaleString(undefined, {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 2,
+    });
+  };
+
+  const getConvertedAmount = (key, currency, rate) => {
+    return (
+      parseFloat(
+        reinsurers[index]?.offer_deductions[
+          reinsurers[index]?.offer_deductions.length - 1
+        ][key]
+      ) / rate
     )?.toLocaleString(undefined, {
       style: "currency",
       currency,
@@ -43,7 +58,7 @@ const DistributePaymentForm = ({
   return (
     <Fragment>
       <fieldset className="border-form p-2 mb-2">
-        {JSON.stringify(paymentDetails)}
+        {/* {JSON.stringify(paymentDetails)} */}
         <legend className={styles.details_title}>
           {data?.offer_participant[index]?.reinsurer?.re_company_name}
         </legend>
@@ -66,9 +81,20 @@ const DistributePaymentForm = ({
                     </td>
                     <th>Withholding Tax</th>
                     <td>
-                      {getConvertedAmount(
-                        "withholding_tax_paid",
-                        conversionCurrency
+                      <p>
+                        {getActualAmount(
+                          "withholding_tax_paid",
+                          conversionCurrency
+                        )}
+                      </p>
+                      {hasConversion && (
+                        <p>
+                          {getConvertedAmount(
+                            "withholding_tax_paid",
+                            currency,
+                            rate
+                          )}
+                        </p>
                       )}
                     </td>
                   </tr>
@@ -82,7 +108,7 @@ const DistributePaymentForm = ({
                     </td>
                     <th>Brokerage</th>
                     <td>
-                      {getConvertedAmount(
+                      {getActualAmount(
                         "brokerage_amount_paid",
                         conversionCurrency
                       )}
@@ -91,14 +117,11 @@ const DistributePaymentForm = ({
                   <tr>
                     <th>NIC levy</th>
                     <td>
-                      {getConvertedAmount("nic_levy_paid", conversionCurrency)}
+                      {getActualAmount("nic_levy_paid", conversionCurrency)}
                     </td>
                     <th>Commission taken</th>
                     <td>
-                      {getConvertedAmount(
-                        "commission_taken",
-                        conversionCurrency
-                      )}
+                      {getActualAmount("commission_taken", conversionCurrency)}
                     </td>
                   </tr>
                   <tr>
