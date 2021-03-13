@@ -119,9 +119,7 @@ const DistributePaymentForm = ({
                             .offer_participant_payment.length - 1
                         ].offer_payment_amount?.toLocaleString(undefined, {
                           style: "currency",
-                          currency: paymentDetails?.conversion?.addExchangeRate
-                            ? paymentDetails?.conversion?.currency
-                            : currency,
+                          currency: conversionCurrency,
                           maximumFractionDigits: 2,
                         })}
                       </p>
@@ -129,7 +127,7 @@ const DistributePaymentForm = ({
                         <p>
                           {convertedAmtPaid?.toLocaleString(undefined, {
                             style: "currency",
-                            currency: conversionCurrency,
+                            currency: currency,
                             maximumFractionDigits: 2,
                           })}
                         </p>
