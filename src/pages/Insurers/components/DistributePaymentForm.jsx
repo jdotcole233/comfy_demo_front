@@ -21,6 +21,7 @@ const DistributePaymentForm = ({
   return (
     <Fragment>
       <fieldset className="border-form p-2 mb-2">
+        {JSON.stringify(paymentDetails)}
         <legend className={styles.details_title}>
           {data?.offer_participant[index]?.reinsurer?.re_company_name}
         </legend>
