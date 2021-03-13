@@ -118,7 +118,7 @@ export default function DistributePayment({
 
   if (showFlag) {
     return (
-      <div className="h-full bg-primary flex-1">
+      <div className="mh-100 h-full bg-primary flex-1">
         <Alert variant="danger">
           <strong>
             No current payment identified on offer with policy number:{" "}
