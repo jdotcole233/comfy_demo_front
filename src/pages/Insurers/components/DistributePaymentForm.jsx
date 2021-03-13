@@ -126,7 +126,7 @@ const DistributePaymentForm = ({
                       {hasConversion && (
                         <p>
                           {getConvertedAmount(
-                            "withholding_tax_paid",
+                            "brokerage_amount_paid",
                             currency,
                             rate
                           )}
@@ -142,11 +142,7 @@ const DistributePaymentForm = ({
                       </p>
                       {hasConversion && (
                         <p>
-                          {getConvertedAmount(
-                            "withholding_tax_paid",
-                            currency,
-                            rate
-                          )}
+                          {getConvertedAmount("nic_levy_paid", currency, rate)}
                         </p>
                       )}
                     </td>
@@ -162,7 +158,7 @@ const DistributePaymentForm = ({
                       {hasConversion && (
                         <p>
                           {getConvertedAmount(
-                            "withholding_tax_paid",
+                            "commission_taken",
                             currency,
                             rate
                           )}
