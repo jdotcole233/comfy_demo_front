@@ -66,7 +66,7 @@ const DistributePaymentForm = ({
           <div className="col-md-12">
             {data?.offer_participant[index]?.offer_participant_payment
               ?.length ? (
-              <table className="table border border-danger table-bordered">
+              <table className="table border border-dark table-bordered">
                 <tbody>
                   <tr>
                     <th>Facultative Premuim</th>
