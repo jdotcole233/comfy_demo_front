@@ -21,6 +21,16 @@ const DistributePaymentForm = ({
   const conversionCurrency = paymentDetails?.conversion?.currency;
   //   const offer_participant = data?.offer_participant[index];
 
+  const getConvertedAmount = (key, currency) => {
+    return reinsurers[index]?.offer_deductions[
+      reinsurers[index]?.offer_deductions.length - 1
+    ][key]?.toLocaleString(undefined, {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 2,
+    });
+  };
+
   const convertedAmtPaid =
     parseFloat(
       data?.offer_participant[index].offer_participant_payment[
@@ -54,15 +64,10 @@ const DistributePaymentForm = ({
                     </td>
                     <th>Withholding Tax</th>
                     <td>
-                      {reinsurers[index]?.offer_deductions[
-                        reinsurers[index]?.offer_deductions.length - 1
-                      ]?.withholding_tax_paid?.toLocaleString(undefined, {
-                        style: "currency",
-                        currency: paymentDetails?.conversion?.addExchangeRate
-                          ? paymentDetails?.conversion?.currency
-                          : currency,
-                        maximumFractionDigits: 2,
-                      })}
+                      {getConvertedAmount(
+                        "withholding_tax_paid",
+                        conversionCurrency
+                      )}
                     </td>
                   </tr>
                   <tr>
