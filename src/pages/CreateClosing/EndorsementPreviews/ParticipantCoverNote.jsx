@@ -9,7 +9,7 @@ import PreviewLogo from '../../../components/PreviewLogo'
 
 const downloadAccess = ['CEO',
     'General Manager',
-    // 'Senior Broking Officer',
+    'Senior Broking Officer',
     // 'Finance Executive',
     'System Administrator']
 

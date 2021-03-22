@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom'
 
 const downloadAccess = ['CEO',
     'General Manager',
-    // 'Senior Broking Officer',
+    'Senior Broking Officer',
     // 'Finance Executive',
     'System Administrator']
 
