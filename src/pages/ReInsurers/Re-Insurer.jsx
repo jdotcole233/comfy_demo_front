@@ -69,7 +69,7 @@ function ReInsurer({ data, openAssociateModal }) {
                     <h5 className="font-size-15"><a href="#" className="text-dark">{data.re_company_name}</a></h5>
                 </div>
                 <div className="card-footer bg-transparent border-top">
-                    <div  className="contact-links d-flex font-size-20">
+                    <div className="contact-links d-flex font-size-20">
                         <a onClick={() => onSelectReinsurer(data)} className="flex-fill link-hover" data-toggle="tooltip" data-placement="top" title="View"><i className="bx bx-pie-chart-alt"></i></a>
                         {create_reinsurer_access.includes(user?.position) &&
                             <div className="flex-fill link-hover" onClick={() => openAssociateModal(data, !0)}>
