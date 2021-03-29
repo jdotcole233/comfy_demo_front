@@ -45,7 +45,7 @@ export const CREATE_REINSURER = gql`
   mutation createReinsurer(
     $re_company_name: String!
     $re_company_email: String!
-    $re_company_website: String!
+    $re_company_website: String
     $street: String!
     $suburb: String!
     $region: String!
@@ -299,7 +299,7 @@ export const CREATE_INSURER = gql`
   mutation createInsurer(
     $insurer_company_name: String!
     $insurer_company_email: String!
-    $insurer_company_website: String!
+    $insurer_company_website: String
     $street: String!
     $suburb: String!
     $region: String!

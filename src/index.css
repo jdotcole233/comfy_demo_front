@@ -82,6 +82,10 @@ code {
   display: table;
 }
 
+.border-dark {
+  border: 1px solid black;
+}
+
 /* Style images */
 .chat-pill .abbrv {
   background-color: #80ff80;

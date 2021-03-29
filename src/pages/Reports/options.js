@@ -34,6 +34,10 @@ export const insurerTable = [
     field: "business_name",
   },
   {
+    label: "Total Sum Insured",
+    field: "sum_insured",
+  },
+  {
     label: "Fac. Sum Insured",
     field: "fac_sum_insured",
   },
@@ -44,6 +48,10 @@ export const insurerTable = [
   {
     label: "Brokerage",
     field: "brokerage_amount",
+  },
+  {
+    label: "Period of Insurance",
+    field: "period",
   },
   {
     label: "Offer Status",
@@ -77,6 +85,10 @@ export const reinsurerTable = [
     field: "business_name",
   },
   {
+    label: "Total Sum Insured",
+    field: "sum_insured",
+  },
+  {
     label: "Fac. Sum Insured",
     field: "fac_sum_insured",
   },
@@ -87,6 +99,10 @@ export const reinsurerTable = [
   {
     label: "Brokerage",
     field: "brokerage_amount",
+  },
+  {
+    label: "Period of Insurance",
+    field: "period",
   },
   {
     label: "Offer Status",
@@ -125,12 +141,20 @@ export const allTable = [
     field: "fac_sum_insured",
   },
   {
+    label: "Total Sum Insured",
+    field: "sum_insured",
+  },
+  {
     label: "Fac. Premium",
     field: "fac_premium",
   },
   {
     label: "Brokerage",
     field: "brokerage_amount",
+  },
+  {
+    label: "Period of Insurance",
+    field: "period",
   },
   {
     label: "Offer Status",
