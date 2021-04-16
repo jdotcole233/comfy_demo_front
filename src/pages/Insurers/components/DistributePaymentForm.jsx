@@ -186,9 +186,10 @@ const DistributePaymentForm = ({
                       </p>
                       {hasConversion && (
                         <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
+                          {currency}{" "}
                           {convertedAmtPaid?.toLocaleString(undefined, {
-                            style: "currency",
-                            currency: currency,
+                            // style: "currency",
+                            // currency: currency,
                             maximumFractionDigits: 2,
                           })}
                         </p>
