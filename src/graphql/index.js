@@ -20,6 +20,8 @@ const httpLink = createUploadLink({
   uri: BASE_URL_LOCAL + '/graphql',
 });
 
+console.log(DOMAIN, COOKIE_NAME_AUTH_TOKEN, PROTOCOL, BASE_URL_LOCAL);
+
 const cache = new InMemoryCache();
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {

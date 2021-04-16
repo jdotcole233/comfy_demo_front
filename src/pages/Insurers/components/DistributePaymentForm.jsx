@@ -23,29 +23,29 @@ const DistributePaymentForm = ({
   //   const offer_participant = data?.offer_participant[index];
 
   const getActualAmount = (key, currency = "USD") => {
-    return parseFloat(
+    return `${currency} ${parseFloat(
       reinsurers[index]?.offer_deductions[
         reinsurers[index]?.offer_deductions.length - 1
       ][key]
     )?.toLocaleString(undefined, {
-      style: "currency",
-      currency,
+      // style: "currency",
+      // currency,
       maximumFractionDigits: 2,
-    });
+    })}`;
   };
 
   const getConvertedAmount = (key, currency, rate) => {
-    return (
+    return `${currency} ${(
       parseFloat(
         reinsurers[index]?.offer_deductions[
           reinsurers[index]?.offer_deductions.length - 1
         ][key]
       ) / rate
     )?.toLocaleString(undefined, {
-      style: "currency",
-      currency,
+      // style: "currency",
+      // currency,
       maximumFractionDigits: 2,
-    });
+    })}`;
   };
 
   const convertedAmtPaid =
@@ -79,11 +79,12 @@ const DistributePaymentForm = ({
                   <tr>
                     <th>Facultative Premuim</th>
                     <td>
+                      {currency}{" "}
                       {data?.offer_participant[
                         index
                       ].participant_fac_premium?.toLocaleString(undefined, {
-                        style: "currency",
-                        currency,
+                        // style: "currency",
+                        // currency,
                         maximumFractionDigits: 2,
                       })}
                     </td>
@@ -185,9 +186,10 @@ const DistributePaymentForm = ({
                       </p>
                       {hasConversion && (
                         <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
+                          {currency}{" "}
                           {convertedAmtPaid?.toLocaleString(undefined, {
-                            style: "currency",
-                            currency: currency,
+                            // style: "currency",
+                            // currency: currency,
                             maximumFractionDigits: 2,
                           })}
                         </p>
