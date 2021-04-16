@@ -2,7 +2,7 @@ export const PROTOCOL =
   process.env.NODE_ENV === 'development' ? 'https://' : 'https://';
 export const DOMAIN =
   process.env.NODE_ENV === 'development'
-    ? 'manage.kekrebrokerapp.com'
+    ? 'manage.comfybroker.com'
     : 'manage.kekrebrokerapp.com';
 export const COOKIE_NAME_AUTH_TOKEN = 'visalre_re_auth_token';
 export const PUSHER_KEY = '8fdc449c93173e31d8a2';
