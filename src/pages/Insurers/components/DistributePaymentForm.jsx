@@ -35,17 +35,17 @@ const DistributePaymentForm = ({
   };
 
   const getConvertedAmount = (key, currency, rate) => {
-    return (
+    return `${currency} ${(
       parseFloat(
         reinsurers[index]?.offer_deductions[
           reinsurers[index]?.offer_deductions.length - 1
         ][key]
       ) / rate
     )?.toLocaleString(undefined, {
-      style: "currency",
-      currency,
+      // style: "currency",
+      // currency,
       maximumFractionDigits: 2,
-    });
+    })}`;
   };
 
   const convertedAmtPaid =
