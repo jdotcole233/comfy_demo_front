@@ -23,15 +23,15 @@ const DistributePaymentForm = ({
   //   const offer_participant = data?.offer_participant[index];
 
   const getActualAmount = (key, currency = "USD") => {
-    return parseFloat(
+    return `${currency} ${parseFloat(
       reinsurers[index]?.offer_deductions[
         reinsurers[index]?.offer_deductions.length - 1
       ][key]
     )?.toLocaleString(undefined, {
-      style: "currency",
-      currency,
+      // style: "currency",
+      // currency,
       maximumFractionDigits: 2,
-    });
+    })}`;
   };
 
   const getConvertedAmount = (key, currency, rate) => {
@@ -83,7 +83,7 @@ const DistributePaymentForm = ({
                       {data?.offer_participant[
                         index
                       ].participant_fac_premium?.toLocaleString(undefined, {
-                        style: "currency",
+                        // style: "currency",
                         // currency,
                         maximumFractionDigits: 2,
                       })}
