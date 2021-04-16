@@ -79,11 +79,12 @@ const DistributePaymentForm = ({
                   <tr>
                     <th>Facultative Premuim</th>
                     <td>
+                      {currency}{" "}
                       {data?.offer_participant[
                         index
                       ].participant_fac_premium?.toLocaleString(undefined, {
                         style: "currency",
-                        currency,
+                        // currency,
                         maximumFractionDigits: 2,
                       })}
                     </td>
