@@ -92,7 +92,8 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     ],
   });
 
-  const hasEndorsement = details?.offer_endorsements?.pop();
+  const hasEndorsement =
+    details?.offer_endorsements[details?.offer_endorsements?.length - 1];
   useEffect(() => {
     if (details) {
       let sumOfPaymentAmounts = 0;
