@@ -347,7 +347,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 Found {details?.offer_endorsements?.length} endorsement
               </h2>
             </div>
-            <table className="table table-borderless table-condensed">
+            <table className="table table-condensed">
               <tbody>
                 <tr className="bg-warning text-white">
                   <td>Original Offer</td>
