@@ -311,7 +311,17 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 <tr>
                   <td>{eID + 1}</td>
                   <td>{end.created_at}</td>
-                  <td>{end.fac_premium}</td>
+                  <td
+                    className={`${
+                      String(end.fac_premium).charAt(0) === "-"
+                        ? "text-danger"
+                        : String(end.fac_premium).charAt(0) === "+"
+                        ? "text-success"
+                        : ""
+                    }`}
+                  >
+                    end.fac_premium
+                  </td>
                 </tr>
               ))}
             </tbody>
