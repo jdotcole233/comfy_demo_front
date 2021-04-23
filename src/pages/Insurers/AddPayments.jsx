@@ -348,6 +348,13 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
               </h2>
             </div>
             <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Offer type</th>
+                  <th>Date created</th>
+                  <th>Fac. Premium</th>
+                </tr>
+              </thead>
               <tbody>
                 <tr className="bg-warning text-white">
                   <td>Original Offer</td>
