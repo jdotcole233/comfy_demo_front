@@ -7,6 +7,7 @@ import EndorsementCoverNote from "../EndorsementPreviews/EndorsementCoverNote";
 import EndorsementDebitNote from "../EndorsementPreviews/EndorsementDebitNote";
 import CreditNotesListing from "./CreditNotesListing";
 import DeleteEndorsement from "./DeleteEndorsement";
+import SendContractChanges from "./SendContractChanges";
 import SendEndorsementNotes from "./SendEndorsementNotes";
 import UpdateEndorsement from "./UpdateEndorsement";
 
@@ -19,6 +20,7 @@ function EndorsementButtons({ endorsement, index, offer }) {
   const [showCreditNotes, setShowCreditNotes] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [showSendDrawer, setShowSendDrawer] = useState(false);
+  const [showSendContractChanges, setShowSendContractChanges] = useState(false);
   return (
     <>
       <DropdownButton
@@ -32,7 +34,9 @@ function EndorsementButtons({ endorsement, index, offer }) {
         <Dropdown.Item onClick={() => setShowCoverNote(true)}>
           Preview
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => {}}>Send</Dropdown.Item>
+        <Dropdown.Item onClick={() => setShowSendContractChanges(true)}>
+          Send
+        </Dropdown.Item>
       </DropdownButton>
       <DropdownButton
         className="mr-1 mb-1 w-md"
@@ -136,6 +140,21 @@ function EndorsementButtons({ endorsement, index, offer }) {
         {showSendDrawer && (
           <SendEndorsementNotes
             toggle={() => setShowSendDrawer(false)}
+            doc_number={index}
+            endorsement={endorsement}
+            insurer={offer?.offer_detail?.insured_by}
+          />
+        )}
+      </Drawer>
+
+      <Drawer
+        width="45%"
+        isvisible={showSendContractChanges}
+        toggle={() => setShowSendContractChanges(false)}
+      >
+        {showSendContractChanges && (
+          <SendContractChanges
+            toggle={() => setShowSendContractChanges(false)}
             doc_number={index}
             endorsement={endorsement}
             insurer={offer?.offer_detail?.insured_by}
