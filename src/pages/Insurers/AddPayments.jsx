@@ -358,7 +358,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
               <tbody>
                 <tr className="bg-warning text-white">
                   <td>Original Offer</td>
-                  <td>{details?.created_at}</td>
+                  <td>{new Date(details?.created_at).toDateString()}</td>
                   <td
                     className={`${
                       String(details?.fac_premium).charAt(0) === "-"
