@@ -75,7 +75,7 @@ function InsurerDetail() {
           } ${offer.fac_sum_insured.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           })}`,
-          endorsements: offer?.endorsements?.length ? (
+          endorsements: offer?.offer_endorsements?.length ? (
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,22 @@ function InsurerDetail() {
               </svg>
             </span>
           ) : (
-            <span></span>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="font-size-16 text-danger"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </span>
           ),
           comission: offer.commission,
           cob: offer.classofbusiness.business_name,
