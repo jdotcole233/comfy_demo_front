@@ -299,13 +299,13 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
       >
         <div className="">
           <table className="table">
-            <thead>
+            {/* <thead>
               <tr>
                 <th>Endorsement #</th>
                 <th>Endorsement date</th>
                 <th>Facultative premium</th>
               </tr>
-            </thead>
+            </thead> */}
             <tbody>
               {details?.offer_endorsements?.map((end, eID) => (
                 <tr>
@@ -320,7 +320,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         : ""
                     }`}
                   >
-                    end.fac_premium
+                    {end.fac_premium}
                   </td>
                 </tr>
               ))}
