@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.3.15",
     "@ckeditor/ckeditor5-build-classic": "^22.0.0",
     "@ckeditor/ckeditor5-react": "^2.1.0",
     "@svgr/webpack": "^5.4.0",
@@ -28,7 +29,7 @@
     "draft-js": "^0.11.5",
     "evergreen-ui": "^4.24.0",
     "file-saver": "^2.0.2",
-    "graphql": "^15.0.0",
+    "graphql": "^15.5.0",
     "graphql-tag": "^2.10.3",
     "jodit-react": "^1.0.42",
     "jquery": "^3.4.1",
