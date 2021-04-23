@@ -301,46 +301,6 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         }}
         className={styles.card_body}
       >
-        {hasEndorsement && (
-          <div className="alert alert-info">
-            <table className="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>Original Offer</td>
-                  <td>{details?.created_at}</td>
-                  <td
-                    className={`${
-                      String(details?.fac_premium).charAt(0) === "-"
-                        ? "text-danger"
-                        : String(details?.fac_premium).charAt(0) === "+"
-                        ? "text-success"
-                        : ""
-                    }`}
-                  >
-                    {details?.fac_premium}
-                  </td>
-                </tr>
-                {details?.offer_endorsements?.map((end, eID) => (
-                  <tr>
-                    <td>Endorsement {eID + 1}</td>
-                    <td>{end.created_at}</td>
-                    <td
-                      className={`${
-                        String(end.fac_premium).charAt(0) === "-"
-                          ? "text-danger"
-                          : String(end.fac_premium).charAt(0) === "+"
-                          ? "text-success"
-                          : ""
-                      }`}
-                    >
-                      {end.fac_premium}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
         <Alert variant="danger">
           <p>
             The amount to be added to this offer will be distributed evenly to
@@ -379,6 +339,48 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             </p>
           )}
         </Alert>
+
+        {hasEndorsement && (
+          <div className="alert alert-info">
+            <table className="table table-borderless">
+              <tbody>
+                <tr>
+                  <td>Original Offer</td>
+                  <td>{details?.created_at}</td>
+                  <td
+                    className={`${
+                      String(details?.fac_premium).charAt(0) === "-"
+                        ? "text-danger"
+                        : String(details?.fac_premium).charAt(0) === "+"
+                        ? "text-success"
+                        : ""
+                    }`}
+                  >
+                    {details?.fac_premium}
+                  </td>
+                </tr>
+                {details?.offer_endorsements?.map((end, eID) => (
+                  <tr>
+                    <td>Endorsement {eID + 1}</td>
+                    <td>{end.created_at}</td>
+                    <td
+                      className={`${
+                        String(end.fac_premium).charAt(0) === "-"
+                          ? "text-danger"
+                          : String(end.fac_premium).charAt(0) === "+"
+                          ? "text-success"
+                          : ""
+                      }`}
+                    >
+                      {end.offer_endorsement_detail?.currency}{" "}
+                      {end.fac_premium}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         <div className="row">
           <div className="col-md-12">
