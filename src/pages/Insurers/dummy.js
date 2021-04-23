@@ -37,7 +37,7 @@ export default {
       sort: "asc",
     },
     {
-      label: "End",
+      label: "END",
       field: "endorsements",
       sort: "asc",
     },
