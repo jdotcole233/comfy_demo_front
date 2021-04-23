@@ -719,6 +719,7 @@ export const INSURER = gql`
           fac_premium
           offer_endorsement_detail {
             offer_comment
+            currency
             offer_endorsement_detail_id
             offer_detail
           }
