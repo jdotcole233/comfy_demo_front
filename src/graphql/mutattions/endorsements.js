@@ -15,3 +15,6 @@ mutation approveEndorseement(
   )
 }
 `;
+
+
+export const SEND_ENDORSEMENT_CONTRACT_CHANGES = gql``
