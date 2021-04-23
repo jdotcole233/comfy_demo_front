@@ -368,8 +368,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         : ""
                     }`}
                   >
-                    {details?.offer_detail?.currency} {" "}
-                    {details?.fac_premium}
+                    {details?.offer_detail?.currency} {details?.fac_premium}
                   </td>
                 </tr>
                 {details?.offer_endorsements?.map((end, eID) => (
@@ -380,8 +379,6 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                       className={`${
                         String(end.fac_premium).charAt(0) === "-"
                           ? "text-danger"
-                          : String(end.fac_premium).charAt(0) === "+"
-                          ? "text-success"
                           : ""
                       }`}
                     >
