@@ -12,6 +12,7 @@ import swal from "sweetalert";
 import { useAuth } from "../../context/AuthContext";
 import { CurrencyOption, Selector } from "../../components";
 import currencies from "../../assets/currencies.json";
+import plural from "pluralize";
 
 const prepData = ({
   payment,
@@ -344,7 +345,12 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
           <div className="alert alert-info">
             <div className="row">
               <h2 className="font-size-16">
-                Found {details?.offer_endorsements?.length} endorsement
+                Found{" "}
+                {plural(
+                  "endorsement",
+                  details?.offer_endorsements?.length,
+                  true
+                )}
               </h2>
             </div>
             <table className="table table-condensed">
