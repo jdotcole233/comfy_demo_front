@@ -11,6 +11,7 @@ import client from "./graphql";
 import AuthProvider from "./context/AuthContext";
 import { ToastProvider } from "react-toast-notifications";
 
+
 const Renderer = () => (
   <ApolloProvider client={client}>
     <ToastProvider autoDismiss placement="bottom-center">
