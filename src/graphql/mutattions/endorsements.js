@@ -19,6 +19,6 @@ mutation approveEndorseement(
 
 export const SEND_ENDORSEMENT_CONTRACT_CHANGES = gql`
 mutation sendContractChanges($endorsementInput: EndorsementEmail) {
-  sendContractChangesAndClosingNote(endorsementInput: $endorsementInput)
+  sendContractChanges(endorsementInput: $endorsementInput)
 }
 `
