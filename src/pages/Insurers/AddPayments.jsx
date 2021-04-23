@@ -343,11 +343,13 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         {hasEndorsement && (
           <div className="alert alert-info">
             <div className="row">
-              <h2>Found {details?.offer_endorsements?.length} endorsement</h2>
+              <h2 className="font-size-16">
+                Found {details?.offer_endorsements?.length} endorsement
+              </h2>
             </div>
             <table className="table table-borderless">
               <tbody>
-                <tr>
+                <tr className="bg-secondary">
                   <td>Original Offer</td>
                   <td>{details?.created_at}</td>
                   <td
