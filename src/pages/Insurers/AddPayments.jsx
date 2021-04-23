@@ -298,7 +298,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         className={styles.card_body}
       >
         <div className="alert alert-info">
-          <table className="table">
+          <table className="table table-borderless">
             {/* <thead>
               <tr>
                 <th>Endorsement #</th>
