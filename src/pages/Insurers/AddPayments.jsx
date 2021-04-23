@@ -92,6 +92,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     ],
   });
 
+  const hasEndorsement = details?.offer_endorsements?.pop();
   useEffect(() => {
     if (details) {
       let sumOfPaymentAmounts = 0;
@@ -106,14 +107,16 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
 
       const fac_premium = getSum("fac_premium", details);
       const commission_amount = getSum("commission_amount", details);
-
-      const paymentThreshold =
-        parseFloat(fac_premium) -
-        parseFloat(commission_amount) -
-        sumOfPaymentAmounts;
+      const paymentThreshold = hasEndorsement
+        ? parseFloat(hasEndorsement?.fac_premium) -
+          parseFloat(hasEndorsement?.commission_amount) -
+          sumOfPaymentAmounts
+        : parseFloat(fac_premium) -
+          parseFloat(commission_amount) -
+          sumOfPaymentAmounts;
       setExpectedAmtToBePaid(paymentThreshold > 0 ? paymentThreshold : 0);
     }
-  }, [details, form_inputs]);
+  }, [details, form_inputs, hasEndorsement]);
 
   useEffect(() => {
     if (expectedAmtToBePaid && addExchangeRate) {
@@ -297,51 +300,46 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         }}
         className={styles.card_body}
       >
-        <div className="alert alert-info">
-          <table className="table table-borderless">
-            {/* <thead>
-              <tr>
-                <th>Endorsement #</th>
-                <th>Endorsement date</th>
-                <th>Facultative premium</th>
-              </tr>
-            </thead> */}
-            <tbody>
-              <tr>
-                <td>Original Offer</td>
-                <td>{details?.created_at}</td>
-                <td
-                  className={`${
-                    String(details?.fac_premium).charAt(0) === "-"
-                      ? "text-danger"
-                      : String(details?.fac_premium).charAt(0) === "+"
-                      ? "text-success"
-                      : ""
-                  }`}
-                >
-                  {details?.fac_premium}
-                </td>
-              </tr>
-              {details?.offer_endorsements?.map((end, eID) => (
+        {hasEndorsement && (
+          <div className="alert alert-info">
+            <table className="table table-borderless">
+              <tbody>
                 <tr>
-                  <td>Endorsement {eID + 1}</td>
-                  <td>{end.created_at}</td>
+                  <td>Original Offer</td>
+                  <td>{details?.created_at}</td>
                   <td
                     className={`${
-                      String(end.fac_premium).charAt(0) === "-"
+                      String(details?.fac_premium).charAt(0) === "-"
                         ? "text-danger"
-                        : String(end.fac_premium).charAt(0) === "+"
+                        : String(details?.fac_premium).charAt(0) === "+"
                         ? "text-success"
                         : ""
                     }`}
                   >
-                    {end.fac_premium}
+                    {details?.fac_premium}
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                {details?.offer_endorsements?.map((end, eID) => (
+                  <tr>
+                    <td>Endorsement {eID + 1}</td>
+                    <td>{end.created_at}</td>
+                    <td
+                      className={`${
+                        String(end.fac_premium).charAt(0) === "-"
+                          ? "text-danger"
+                          : String(end.fac_premium).charAt(0) === "+"
+                          ? "text-success"
+                          : ""
+                      }`}
+                    >
+                      {end.fac_premium}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
         <Alert variant="danger">
           <p>
             The amount to be added to this offer will be distributed evenly to
