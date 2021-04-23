@@ -41,7 +41,7 @@ function EndorsementButtons({ endorsement, index, offer }) {
         id="dropdown-basic-button"
         title="Generate Notes"
       >
-        <Dropdown.Item onClick={() => {}}>
+        <Dropdown.Item onClick={() => setShowCoverNote(true)}>
           Endorsement Cover Note{" "}
         </Dropdown.Item>
         <Dropdown.Item onClick={() => setShowDebitNote(true)}>
