@@ -342,6 +342,9 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
 
         {hasEndorsement && (
           <div className="alert alert-info">
+            <div className="row">
+              <h2>Found {details?.offer_endorsements?.length} endorsement</h2>
+            </div>
             <table className="table table-borderless">
               <tbody>
                 <tr>
@@ -372,8 +375,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                           : ""
                       }`}
                     >
-                      {end.offer_endorsement_detail?.currency}{" "}
-                      {end.fac_premium}
+                      {end.offer_endorsement_detail?.currency} {end.fac_premium}
                     </td>
                   </tr>
                 ))}
