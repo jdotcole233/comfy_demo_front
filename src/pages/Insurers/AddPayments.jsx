@@ -368,13 +368,14 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         : ""
                     }`}
                   >
+                    {details?.offer_detail?.currency} {" "}
                     {details?.fac_premium}
                   </td>
                 </tr>
                 {details?.offer_endorsements?.map((end, eID) => (
                   <tr>
                     <td>Endorsement {eID + 1}</td>
-                    <td>{end.created_at}</td>
+                    <td>{new Date(end.created_at).toDateString()}</td>
                     <td
                       className={`${
                         String(end.fac_premium).charAt(0) === "-"
