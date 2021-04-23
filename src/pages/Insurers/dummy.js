@@ -37,6 +37,11 @@ export default {
       sort: "asc",
     },
     {
+      label: "End",
+      field: "endorsements",
+      sort: "asc",
+    },
+    {
       label: "Payment Status",
       field: "payment_status",
       sort: "asc",
