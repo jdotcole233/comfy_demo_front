@@ -306,6 +306,15 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 <th>Facultative premium</th>
               </tr>
             </thead>
+            <tbody>
+              {details?.offer_endorsements?.map((end, eID) => (
+                <tr>
+                  <td>{eID + 1}</td>
+                  <td>{end.created_at}</td>
+                  <td>{end.fac_premium}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
         <Alert variant="danger">
