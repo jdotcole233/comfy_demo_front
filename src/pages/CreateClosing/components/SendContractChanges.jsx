@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { Alert } from "react-bootstrap";
 import { DrawerContext } from "../../../components/Drawer";
 import { EMPLOYEES } from "../../../graphql/queries/employees";
+import { SEND_ENDORSEMENT_CONTRACT_CHANGES } from "../../../graphql/mutattions/endorsements";
 
 const createOption = (label) => ({
   label,
@@ -36,7 +37,7 @@ function SendContractChanges({ insurer, doc_number, toggle, endorsement }) {
   // const [emails, setEmails] = useState("")
   const { data: employees, loading } = useQuery(EMPLOYEES);
 
-  const [sendmail] = useMutation(SEND_CONTRACT_DEBIT);
+  const [sendmail] = useMutation(SEND_ENDORSEMENT_CONTRACT_CHANGES);
 
   useEffect(() => {
     if (employees) {
@@ -52,7 +53,6 @@ function SendContractChanges({ insurer, doc_number, toggle, endorsement }) {
     if (closed) {
       reset();
       setContent("");
-      // setEmails("");
     }
   }, [closed, reset]);
 
