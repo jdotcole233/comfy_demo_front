@@ -11,7 +11,6 @@ import { creditNotes } from "../../CreateClosing/columns";
 import EndorsementCoverNote from "../../CreateClosing/EndorsementPreviews/EndorsementCoverNote";
 import PreviewDebitNote from "../../CreateClosing/EndorsementPreviews/EndorsementDebitNote";
 import PreviewCreditNote from "../../CreateClosing/EndorsementPreviews/EndorsementCreditNote";
-import ContractChanges from "../../CreateClosing/EndorsementPreviews/ParticipantCoverNote";
 import SendClosngSlip from "../../CreateClosing/SendClosingSlip";
 import EndorsementApproval from "../EndorsementApproval";
 
