@@ -114,7 +114,7 @@ const EndorsementButtons = ({ offer, endorsement }) => {
           title="Generate Notes"
         >
           <Dropdown.Item onClick={() => handlePreviewCoverNote(endorsement)}>
-            Preview Contract Changes
+            Preview Cover Note
           </Dropdown.Item>
           <Dropdown.Item onClick={() => handlePreviewDebitNote(endorsement)}>
             Preview Debit Note
