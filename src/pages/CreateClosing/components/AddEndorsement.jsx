@@ -355,6 +355,9 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
                 )}
               </div>
             </div>
+            <div className="col-md-12">
+              <p className="text-danger">Hello</p>
+            </div>
             <div className="col-md-6">
               <div className="form-group">
                 <label htmlFor="Type of goods">Premium</label>
