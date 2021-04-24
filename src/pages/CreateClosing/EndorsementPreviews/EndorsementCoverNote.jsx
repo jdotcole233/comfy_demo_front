@@ -40,7 +40,7 @@ function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
             href={`${BASE_URL_LOCAL}/contract_changes/${btoa(
               JSON.stringify({
                 offer_endorsement_id: endorsement?.offer_endorsement_id,
-                doc_number: index,
+                doc_number: index || -1,
               })
             )}`}
             className="btn btn-sm btn-primary w-md"

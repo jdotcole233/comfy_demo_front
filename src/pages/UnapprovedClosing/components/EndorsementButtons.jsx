@@ -180,7 +180,7 @@ const EndorsementButtons = ({ offer, endorsement }) => {
         toggle={() => setShowContractChnages(false)}
       >
         {showContractChnages && (
-          <ContractChanges
+          <EndorsementCoverNote
             offer={selectedOffer?.offer}
             endorsement={selectedOffer}
             reinsurer={selectedReinsurer}
