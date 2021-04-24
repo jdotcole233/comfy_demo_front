@@ -169,14 +169,14 @@ const MakeClaim = ({ offer, toggle }) => {
                     <td>{new Date(offer?.created_at).toDateString()}</td>
                     <td
                       className={`${
-                        String(offer?.fac_premium).charAt(0) === "-"
+                        String(offer?.fac_sum_insured).charAt(0) === "-"
                           ? "text-danger"
-                          : String(offer?.fac_premium).charAt(0) === "+"
+                          : String(offer?.fac_sum_insured).charAt(0) === "+"
                           ? "text-success"
                           : ""
                       }`}
                     >
-                      {offer?.offer_detail?.currency} {offer?.fac_premium}
+                      {offer?.offer_detail?.currency} {offer?.fac_sum_insured}
                     </td>
                   </tr>
                   {offer?.offer_endorsements?.map((end, eID) => (
@@ -185,14 +185,14 @@ const MakeClaim = ({ offer, toggle }) => {
                       <td>{new Date(end.created_at).toDateString()}</td>
                       <td
                         className={`${
-                          String(end.fac_premium).charAt(0) === "-"
+                          String(end.fac_sum_insured).charAt(0) === "-"
                             ? "text-danger"
                             : ""
                         }`}
                       >
                         {end.offer_endorsement_detail?.currency ||
                           offer?.offer_detail?.currency}{" "}
-                        {end.fac_premium}
+                        {end.fac_sum_insured}
                       </td>
                     </tr>
                   ))}
