@@ -359,6 +359,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                   <th>Offer type</th>
                   <th>Date created</th>
                   <th>Fac. Premium</th>
+                  <th>Commission</th>
                 </tr>
               </thead>
               <tbody>
@@ -389,6 +390,15 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                       }`}
                     >
                       {end.offer_endorsement_detail?.currency} {end.fac_premium}
+                    </td>
+                    <td
+                      className={`${
+                        String(end.fac_premium).charAt(0) === "-"
+                          ? "text-danger"
+                          : ""
+                      }`}
+                    >
+                      {end.offer_endorsement_detail?.currency} {end.commission_amount}
                     </td>
                   </tr>
                 ))}
