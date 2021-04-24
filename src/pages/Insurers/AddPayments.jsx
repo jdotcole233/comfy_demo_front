@@ -626,7 +626,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             </div>
           </div>
         </fieldset>
-        <div className="row">
+        <div className="row mt-2">
           <div className="col-md-12">
             <div className="form-check mb-3">
               <input
