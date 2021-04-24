@@ -50,9 +50,9 @@ const DistributePaymentForm = ({
 
   const convertedAmtPaid =
     parseFloat(
-      data?.offer_participant[index].offer_participant_payment[
-        data?.offer_participant[index].offer_participant_payment.length - 1
-      ].offer_payment_amount
+      data?.offer_participant[index]?.offer_participant_payment[
+        data?.offer_participant[index]?.offer_participant_payment?.length - 1
+      ]?.offer_payment_amount || "100.00"
     ) / paymentDetails.conversion.rate;
 
   return (
