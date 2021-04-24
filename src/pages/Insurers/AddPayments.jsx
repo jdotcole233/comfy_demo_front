@@ -65,6 +65,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
   const [newExpectedAmount, setNewExpectedAmount] = useState(0);
   const [amountError, setAmountError] = useState(false);
   const [addExchangeRate, setAddExchangeRate] = useState(false);
+  const [auto_payment_receipt, setAuto_payment_receipt] = useState(false);
   const [currency, setCurrency] = useState(null);
   const [form_inputs, setForm_inputs] = useState({
     payment_type: "",
@@ -386,7 +387,8 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                         : ""
                     }`}
                   >
-                    {details?.offer_detail?.currency} {details?.commission_amount}
+                    {details?.offer_detail?.currency}{" "}
+                    {details?.commission_amount}
                   </td>
                 </tr>
                 {details?.offer_endorsements?.map((end, eID) => (
@@ -409,7 +411,8 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                           : ""
                       }`}
                     >
-                      {end.offer_endorsement_detail?.currency} {end.commission_amount}
+                      {end.offer_endorsement_detail?.currency}{" "}
+                      {end.commission_amount}
                     </td>
                   </tr>
                 ))}
@@ -623,6 +626,21 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             </div>
           </div>
         </fieldset>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="form-check mb-3">
+              <input
+                checked={auto_payment_receipt}
+                type="checkbox"
+                className="form-check-input"
+                onChange={(e) => setAuto_payment_receipt(e.target.checked)}
+              />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                Auto send receipt
+              </label>
+            </div>
+          </div>
+        </div>
         <div className="for-group py-2">
           <input
             type="submit"
