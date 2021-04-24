@@ -605,7 +605,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                   value={
                     form_inputs.currency ||
                     details?.offer_detail.currency ||
-                    details?.exchange_rate?.ex_currency
+                    details?.exchange_rate?.ex_currency || ""
                   }
                   onChange={() => console.log("")}
                   className="form-control"
