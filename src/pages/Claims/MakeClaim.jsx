@@ -124,7 +124,9 @@ const MakeClaim = ({ offer, toggle }) => {
                   <tr>
                     <td>Facultative Sum Insured</td>
                     <td>
-                      {offer?.offer_detail?.currency}{" "}
+                      {hasEndorsement
+                        ? hasEndorsement?.offer_endorsement_detail?.currency
+                        : offer?.offer_detail?.currency}{" "}
                       {hasEndorsement
                         ? hasEndorsement?.fac_sum_insured.toLocaleString(
                             undefined,
@@ -183,7 +185,10 @@ const MakeClaim = ({ offer, toggle }) => {
                           : ""
                       }`}
                     >
-                      {offer?.offer_detail?.currency} {offer?.fac_sum_insured}
+                      {offer?.offer_detail?.currency}{" "}
+                      {offer?.fac_sum_insured?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   </tr>
                   {offer?.offer_endorsements?.map((end, eID) => (
@@ -199,7 +204,9 @@ const MakeClaim = ({ offer, toggle }) => {
                       >
                         {end.offer_endorsement_detail?.currency ||
                           offer?.offer_detail?.currency}{" "}
-                        {end.fac_sum_insured}
+                        {end.fac_sum_insured?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                     </tr>
                   ))}
