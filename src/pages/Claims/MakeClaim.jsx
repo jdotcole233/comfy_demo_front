@@ -125,9 +125,16 @@ const MakeClaim = ({ offer, toggle }) => {
                     <td>Facultative Sum Insured</td>
                     <td>
                       {offer?.offer_detail?.currency}{" "}
-                      {offer?.fac_sum_insured.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })}{" "}
+                      {hasEndorsement
+                        ? hasEndorsement?.fac_sum_insured.toLocaleString(
+                            undefined,
+                            {
+                              maximumFractionDigits: 2,
+                            }
+                          )
+                        : offer?.fac_sum_insured.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}{" "}
                     </td>
                   </tr>
                   <tr>
