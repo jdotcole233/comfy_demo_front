@@ -29,7 +29,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
 
 
     const [removePayment] = useMutation(REMOVE_PAYMENT, {
-        refetchQueries: [{ query: INSURER, variables: { id: insurer?.insurer_id } }]
+        refetchQueries: [{ query: INSURER, variables: { id: insurer?.insurer?.insurer_id } }]
     });
 
 
@@ -198,8 +198,6 @@ const Offerbuttons = ({ offer, state, insurer }) => {
                                 setAddPaymentDrawer(!addPaymentDrawer)
                             }} className="btn btn-sm w-md btn-primary">Add Payment</button> : null}
                     </div>
-                    {JSON.stringify(insurer)}
-                    {JSON.stringify(state)}
                     <Datatable entries={5} columns={paymentsColumns} data={payments} />
                 </Modal.Body>
             </Modal>
