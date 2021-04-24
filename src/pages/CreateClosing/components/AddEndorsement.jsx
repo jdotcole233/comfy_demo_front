@@ -35,6 +35,8 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
   const [selectedBusiness, setSelectedBusiness] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("");
   const [selectedExCurrency, setSelectedExCurrency] = useState("");
+  const [sum_insured_alert, setSum_insured_alert] = useState(false);
+  const [premium_alert, setPremium_alert] = useState(false);
   const [, setInfoContent] = useState("");
   const [addExchangeRate, setAddExchangeRate] = useState(true);
 
@@ -323,13 +325,17 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
               </div>
             </div>
             <div className="col-md-12">
-              <p className="text-danger">
-                Enter a valid value
-                <i>(postive for addition or negative for deduction)</i> for the
-                sum insured being the difference particular to this endorsement.{" "}
-                <br />{" "}
-                <b>NB: Do not enter the whole value but just the difference</b>
-              </p>
+              {sum_insured_alert && (
+                <p className="text-danger">
+                  Enter a valid value
+                  <i>(postive for addition or negative for deduction)</i> for
+                  the sum insured being the difference particular to this
+                  endorsement. <br />{" "}
+                  <b>
+                    NB: Do not enter the whole value but just the difference
+                  </b>
+                </p>
+              )}
             </div>
             <div className="col-md-6">
               <div className="form-group">
@@ -340,6 +346,8 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
                   type="text"
                   className="form-control"
                   placeholder="Sum Insured"
+                  onFocus={(e) => setSum_insured_alert(true)}
+                  onFocusOut={(e) => setSum_insured_alert(false)}
                 />
                 {errors.sum_insured && (
                   <p className="text-danger">{errors.sum_insured.message}</p>
