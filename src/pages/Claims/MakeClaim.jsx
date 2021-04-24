@@ -160,8 +160,7 @@ const MakeClaim = ({ offer, toggle }) => {
                   <tr>
                     <th>Offer type</th>
                     <th>Date created</th>
-                    <th>Fac. Premium</th>
-                    <th>Commission</th>
+                    <th>Fac. Sum Insured</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -179,17 +178,6 @@ const MakeClaim = ({ offer, toggle }) => {
                     >
                       {offer?.offer_detail?.currency} {offer?.fac_premium}
                     </td>
-                    <td
-                      className={`${
-                        String(offer?.fac_premium).charAt(0) === "-"
-                          ? "text-danger"
-                          : String(offer?.fac_premium).charAt(0) === "+"
-                          ? "text-success"
-                          : ""
-                      }`}
-                    >
-                      {offer?.offer_detail?.currency} {offer?.commission_amount}
-                    </td>
                   </tr>
                   {offer?.offer_endorsements?.map((end, eID) => (
                     <tr key={eID}>
@@ -204,16 +192,6 @@ const MakeClaim = ({ offer, toggle }) => {
                       >
                         {end.offer_endorsement_detail?.currency}{" "}
                         {end.fac_premium}
-                      </td>
-                      <td
-                        className={`${
-                          String(end.fac_premium).charAt(0) === "-"
-                            ? "text-danger"
-                            : ""
-                        }`}
-                      >
-                        {end.offer_endorsement_detail?.currency}{" "}
-                        {end.commission_amount}
                       </td>
                     </tr>
                   ))}
