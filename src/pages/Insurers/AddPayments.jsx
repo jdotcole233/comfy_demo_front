@@ -596,24 +596,30 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 )}
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label htmlFor="Currency">Currency</label>
-                {/* {&& <input type="text" value={form_inputs.currency} onChange={() => { }} className="form-control" placeholder="Currency" readOnly />} */}
-                <input
-                  type="text"
-                  value={
-                    form_inputs.currency ||
-                    details?.offer_detail.currency ||
-                    details?.exchange_rate?.ex_currency || " "
-                  }
-                  onChange={() => console.log("")}
-                  className="form-control"
-                  placeholder="Currency"
-                  readOnly
-                />
+            {(form_inputs.currency ||
+              details?.offer_detail.currency ||
+              details?.exchange_rate?.ex_currency) && (
+              <div className="col-md-6">
+                <div className="form-group">
+                  <label htmlFor="Currency">Currency</label>
+                  {/* {&& <input type="text" value={form_inputs.currency} onChange={() => { }} className="form-control" placeholder="Currency" readOnly />} */}
+                  <input
+                    type="text"
+                    value={
+                      form_inputs.currency ||
+                      details?.offer_detail.currency ||
+                      details?.exchange_rate?.ex_currency ||
+                      ""
+                    }
+                    onChange={() => console.log("")}
+                    className="form-control"
+                    placeholder="Currency"
+                    readOnly
+                  />
+                </div>
               </div>
-            </div>
+            )}
+
             <div className="col-md-12">
               <div className="form-group">
                 <label htmlFor="Comment">Comment</label>
