@@ -21,10 +21,12 @@ const prepData = ({
   details,
   addExchangeRate,
   amountToBePaid,
+  auto_payment_receipt,
 }) => ({
   offer_payment_id: payment?.offer_payment_id,
   offer_id: details?.offer_id,
   payment_amount: form_inputs.payment_amount,
+  auto_payment_receipt,
   payment_status:
     parseFloat(amountToBePaid).toFixed(2) ===
     parseFloat(form_inputs.payment_amount).toFixed(2)
@@ -185,6 +187,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
       addExchangeRate,
       user,
       amountToBePaid: valueToCheckWith,
+      auto_payment_receipt,
     });
 
     swal({
@@ -234,6 +237,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
       addExchangeRate,
       user,
       amountToBePaid: valueToCheckWith,
+      auto_payment_receipt,
     });
     swal({
       closeOnClickOutside: false,
