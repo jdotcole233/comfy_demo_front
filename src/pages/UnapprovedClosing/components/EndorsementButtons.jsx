@@ -197,6 +197,7 @@ const EndorsementButtons = ({ offer, endorsement }) => {
         {showDebitNotePreview && (
           <PreviewDebitNote
             offer={selectedOffer?.offer}
+            doc_number={-1}
             endorsement={selectedOffer}
           />
         )}
