@@ -347,7 +347,7 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
                   className="form-control"
                   placeholder="Sum Insured"
                   onFocus={(e) => setSum_insured_alert(true)}
-                  onFocusOut={(e) => setSum_insured_alert(false)}
+                  onBlur={(e) => setSum_insured_alert(false)}
                 />
                 {errors.sum_insured && (
                   <p className="text-danger">{errors.sum_insured.message}</p>
@@ -370,13 +370,17 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
               </div>
             </div>
             <div className="col-md-12">
-              <p className="text-danger">
-                Enter a valid value
-                <i>(postive for addition or negative for deduction)</i> for the
-                premium being the difference particular to this endorsement.{" "}
-                <br />{" "}
-                <b>NB: Do not enter the whole value but just the difference</b>
-              </p>
+              {premium_alert && (
+                <p className="text-danger">
+                  Enter a valid value
+                  <i>(postive for addition or negative for deduction)</i> for
+                  the premium being the difference particular to this
+                  endorsement. <br />{" "}
+                  <b>
+                    NB: Do not enter the whole value but just the difference
+                  </b>
+                </p>
+              )}
             </div>
             <div className="col-md-6">
               <div className="form-group">
@@ -387,6 +391,8 @@ function AddEndorsement({ setShowEndorsement, offer_id, toggle }) {
                   type="text"
                   className="form-control"
                   placeholder="Premium"
+                  onFocus={(e) => setPremium_alert(true)}
+                  onBlur={(e) => setPremium_alert(false)}
                 />
                 {errors.premium && (
                   <p className="text-danger">{errors.premium.message}</p>
