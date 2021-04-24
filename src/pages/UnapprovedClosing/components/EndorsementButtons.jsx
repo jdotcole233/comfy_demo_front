@@ -184,6 +184,7 @@ const EndorsementButtons = ({ offer, endorsement }) => {
             offer={selectedOffer?.offer}
             endorsement={selectedOffer}
             reinsurer={selectedReinsurer}
+            index={"Preview"}
           />
         )}
       </Drawer>
