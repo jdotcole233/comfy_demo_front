@@ -396,7 +396,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                   </td>
                 </tr>
                 {details?.offer_endorsements?.map((end, eID) => (
-                  <tr>
+                  <tr key={eID}>
                     <td>Endorsement {eID + 1}</td>
                     <td>{new Date(end.created_at).toDateString()}</td>
                     <td
@@ -607,7 +607,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                     details?.offer_detail.currency ||
                     details?.exchange_rate?.ex_currency
                   }
-                  onChange={() => {}}
+                  onChange={() => console.log("")}
                   className="form-control"
                   placeholder="Currency"
                   readOnly
