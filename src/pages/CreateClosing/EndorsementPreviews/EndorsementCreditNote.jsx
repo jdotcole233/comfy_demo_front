@@ -27,27 +27,24 @@ function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
       to.getMonth() + 1
     }/${to.getFullYear()}`;
   };
-  const __condition = pathname !== "/admin/approve-closing";
   return (
     <Fragment>
       <div className="row m-2">
-        {endorsement?.approval_status === "APPROVED" &&
-          downloadAccess.includes(ctx?.user?.position) &&
-          __condition && (
-            <a
-              target="_blank"
-              href={`${BASE_URL_LOCAL}/endorsement_closing_note/${btoa(
-                JSON.stringify({
-                  offer_endorsement_id: endorsement?.offer_endorsement_id,
-                  offer_participant_id: reinsurer?.offer_participant_id,
-                  doc_number: index || -1,
-                })
-              )}`}
-              className="btn btn-sm btn-primary w-md"
-            >
-              <i className="bx bxs-file-pdf"></i> Save
-            </a>
-          )}
+        {downloadAccess.includes(ctx?.user?.position) && (
+          <a
+            target="_blank"
+            href={`${BASE_URL_LOCAL}/endorsement_closing_note/${btoa(
+              JSON.stringify({
+                offer_endorsement_id: endorsement?.offer_endorsement_id,
+                offer_participant_id: reinsurer?.offer_participant_id,
+                doc_number: index || -1,
+              })
+            )}`}
+            className="btn btn-sm btn-primary w-md"
+          >
+            <i className="bx bxs-file-pdf"></i> Save
+          </a>
+        )}
       </div>
       <div
         style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }}

@@ -4,7 +4,6 @@ import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import { AuthContext } from "../../../context/AuthContext";
 import { getCurrencyFullName } from "../../../components";
-import { useLocation } from "react-router-dom";
 import PreviewLogo from "../../../components/PreviewLogo";
 
 const downloadAccess = [
@@ -17,7 +16,6 @@ const downloadAccess = [
 
 function EndorsementDebitNote({ offer, endorsement, doc_number }) {
   const { state: ctx } = useContext(AuthContext);
-  const { pathname } = useLocation();
   const showDate = (offer) => {
     const from = new Date(offer?.offer_detail?.period_of_insurance_from);
     const to = new Date(offer?.offer_detail?.period_of_insurance_to);
@@ -27,8 +25,6 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
       to.getMonth() + 1
     }/${to.getFullYear()}`;
   };
-
-  const __condition = pathname !== "/admin/approve-closing";
 
   return (
     <div>
