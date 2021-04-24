@@ -190,7 +190,8 @@ const MakeClaim = ({ offer, toggle }) => {
                             : ""
                         }`}
                       >
-                        {end.offer_endorsement_detail?.currency}{" "}
+                        {end.offer_endorsement_detail?.currency ||
+                          offer?.offer_detail?.currency}{" "}
                         {end.fac_premium}
                       </td>
                     </tr>
