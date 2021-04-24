@@ -29,7 +29,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
 
 
     const [removePayment] = useMutation(REMOVE_PAYMENT, {
-        refetchQueries: [{ query: INSURER, variables: { id: state?.insurer_id } }]
+        refetchQueries: [{ query: INSURER, variables: { id: insurer?.insurer_id } }]
     });
 
 
