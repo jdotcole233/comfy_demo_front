@@ -53,7 +53,7 @@ const DistributePaymentForm = ({
       data?.offer_participant[index]?.offer_participant_payment[
         data?.offer_participant[index]?.offer_participant_payment?.length - 1
       ]?.offer_payment_amount || "100.00"
-    ) / paymentDetails.conversion.rate;
+    ) / paymentDetails?.conversion?.rate || 1;
 
   return (
     <Fragment>

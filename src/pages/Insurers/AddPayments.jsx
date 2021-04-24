@@ -26,7 +26,7 @@ const prepData = ({
   offer_payment_id: payment?.offer_payment_id,
   offer_id: details?.offer_id,
   payment_amount: form_inputs.payment_amount,
-  // auto_payment_receipt,
+  auto_payment_receipt,
   payment_status:
     parseFloat(amountToBePaid).toFixed(2) ===
     parseFloat(form_inputs.payment_amount).toFixed(2)
