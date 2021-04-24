@@ -34,7 +34,7 @@ function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       <div className="row m-2">
-        {downloadAccess.includes(ctx?.user?.position) && __condition && (
+        {downloadAccess.includes(ctx?.user?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/contract_changes/${btoa(
@@ -55,7 +55,6 @@ function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
       >
         <PreviewLogo />
         <div className="row">
-
           <div className="col-md-12 mt-3 mb-3">
             <h4
               style={{
