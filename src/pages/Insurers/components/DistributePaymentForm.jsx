@@ -11,10 +11,10 @@ const DistributePaymentForm = ({
   handleChange,
 }) => {
   const currency = data?.offer_detail?.currency;
-  console.log(data);
+  // console.log(data);
   const size = data?.offer_payment?.length - 1 || 0;
   const paymentDetails = JSON.parse(
-    data?.offer_payment[size]?.payment_details || ""
+    data?.offer_payment[size]?.payment_details || "{}"
   );
 
   const hasConversion = paymentDetails?.conversion?.addExchangeRate;
