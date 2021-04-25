@@ -30,9 +30,9 @@ function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
   };
   const __condition = pathname !== "/admin/approve-closing";
   const access =
-    endorsement.approval_status === "APPROVED" && __condition
-      ? downloadAccessA
-      : downloadAccess;
+    endorsement.approval_status !== "APPROVED" && __condition
+      ? downloadAccess
+      : downloadAccessA;
 
   return (
     <Fragment>

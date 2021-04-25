@@ -38,9 +38,9 @@ function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
 
   const __condition = pathname !== "/admin/approve-closing";
   const access =
-    endorsement.approval_status === "APPROVED"
-      ? downloadAccessA
-      : downloadAccess;
+    endorsement.approval_status !== "APPROVED" && __condition
+      ? downloadAccess
+      : downloadAccessA;
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       <div className="row m-2">
