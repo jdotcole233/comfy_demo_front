@@ -11,9 +11,10 @@ const downloadAccess = [
   "CEO",
   "General Manager",
   "Senior Broking Officer",
-  // 'Finance Executive',
   "System Administrator",
 ];
+
+const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
 function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
   const { state: ctx } = useContext(AuthContext);
@@ -27,10 +28,16 @@ function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
       to.getMonth() + 1
     }/${to.getFullYear()}`;
   };
+  const __condition = pathname !== "/admin/approve-closing";
+  const access =
+    endorsement.approval_status !== "APPROVED" && __condition
+      ? downloadAccess
+      : downloadAccessA;
+
   return (
     <Fragment>
       <div className="row m-2">
-        {downloadAccess.includes(ctx?.user?.position) && (
+        {access.includes(ctx?.user?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/endorsement_closing_note/${btoa(

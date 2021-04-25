@@ -11,9 +11,10 @@ const downloadAccess = [
   "CEO",
   "General Manager",
   "Senior Broking Officer",
-  // 'Finance Executive',
   "System Administrator",
 ];
+
+const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
 function ParticipantCoverNote({ offer, index, endorsement, reinsurer }) {
   const { state: ctx } = useContext(AuthContext);
@@ -29,28 +30,30 @@ function ParticipantCoverNote({ offer, index, endorsement, reinsurer }) {
   };
 
   const __condition = pathname !== "/admin/approve-closing";
+  const access =
+    endorsement.approval_status !== "APPROVED" && __condition
+      ? downloadAccess
+      : downloadAccessA;
 
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       <div className="row m-2">
-        {endorsement?.approval_status === "APPROVED" &&
-          downloadAccess.includes(ctx?.user?.position) &&
-          __condition && (
-            <a
-              target="_blank"
-              href={`${BASE_URL_LOCAL}/endorsement_contract_change_note/${btoa(
-                JSON.stringify({
-                  offer_endorsement_id: endorsement?.offer_endorsement_id,
-                  doc_number: index,
-                  offer_participant_id: reinsurer?.offer_participant_id,
-                })
-              )}`}
-              className="btn btn-sm btn-primary w-md"
-            >
-              <i className="bx bxs-file-pdf"></i>
-              Save
-            </a>
-          )}
+        {access.includes(ctx?.user?.position) && (
+          <a
+            target="_blank"
+            href={`${BASE_URL_LOCAL}/endorsement_contract_change_note/${btoa(
+              JSON.stringify({
+                offer_endorsement_id: endorsement?.offer_endorsement_id,
+                doc_number: index,
+                offer_participant_id: reinsurer?.offer_participant_id,
+              })
+            )}`}
+            className="btn btn-sm btn-primary w-md"
+          >
+            <i className="bx bxs-file-pdf"></i>
+            Save
+          </a>
+        )}
       </div>
       <div
         style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }}

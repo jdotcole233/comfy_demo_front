@@ -4,7 +4,6 @@ import React, { useState, useContext, useEffect } from "react";
 import styles from "../styles/inputOffer.module.css";
 import { useMutation, useQuery } from "react-apollo";
 import { Editor, Selector } from "../../../components";
-import { SEND_CONTRACT_DEBIT } from "../../../graphql/mutattions";
 import swal from "sweetalert";
 import { useForm } from "react-hook-form";
 import { Alert } from "react-bootstrap";

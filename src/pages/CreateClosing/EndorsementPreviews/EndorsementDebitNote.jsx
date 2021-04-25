@@ -5,17 +5,20 @@ import { BASE_URL_LOCAL } from "../../../graphql";
 import { AuthContext } from "../../../context/AuthContext";
 import { getCurrencyFullName } from "../../../components";
 import PreviewLogo from "../../../components/PreviewLogo";
+import { useLocation } from "react-router";
 
 const downloadAccess = [
   "CEO",
   "General Manager",
   "Senior Broking Officer",
-  // 'Finance Executive',
   "System Administrator",
 ];
 
+const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
+
 function EndorsementDebitNote({ offer, endorsement, doc_number }) {
   const { state: ctx } = useContext(AuthContext);
+  const { pathname } = useLocation();
   const showDate = (offer) => {
     const from = new Date(offer?.offer_detail?.period_of_insurance_from);
     const to = new Date(offer?.offer_detail?.period_of_insurance_to);
@@ -26,10 +29,16 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
     }/${to.getFullYear()}`;
   };
 
+  const __condition = pathname !== "/admin/approve-closing";
+  const access =
+    endorsement.approval_status !== "APPROVED" && __condition
+      ? downloadAccess
+      : downloadAccessA;
+
   return (
     <div>
       <div className="row m-2">
-        {downloadAccess.includes(ctx?.user?.position) && (
+        {access.includes(ctx?.user?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/endorsement_debit_note/${btoa(

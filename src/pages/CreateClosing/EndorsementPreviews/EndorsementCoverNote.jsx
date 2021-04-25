@@ -11,9 +11,10 @@ const downloadAccess = [
   "CEO",
   "General Manager",
   "Senior Broking Officer",
-  // 'Finance Executive',
   "System Administrator",
 ];
+
+const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
 function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
   const { pathname } = useLocation();
@@ -30,11 +31,14 @@ function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
   };
 
   const __condition = pathname !== "/admin/approve-closing";
-
+  const access =
+    endorsement.approval_status !== "APPROVED" && __condition
+      ? downloadAccess
+      : downloadAccessA;
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       <div className="row m-2">
-        {downloadAccess.includes(ctx?.user?.position) && (
+        {access.includes(ctx?.user?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/contract_changes/${btoa(
