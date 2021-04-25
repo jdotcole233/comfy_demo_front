@@ -16,7 +16,7 @@ const downloadAccess = [
 
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
-function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
+function EndorsementCoverNote({ offer, index, endorsement, cc = false }) {
   const { pathname } = useLocation();
 
   const { state: ctx } = useContext(AuthContext);
