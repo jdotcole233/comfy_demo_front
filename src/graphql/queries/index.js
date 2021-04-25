@@ -272,10 +272,12 @@ query getOffers(
           facultative_offer
           offer_endorsement_id
           fac_premium
+          fac_sum_insured
           offer_endorsement_detail {
             offer_comment
             offer_endorsement_detail_id
             offer_detail
+            currency
           }
           commission_amount
       }
@@ -416,10 +418,12 @@ query getOffers(
         facultative_offer
         offer_endorsement_id
         fac_premium
+        fac_sum_insured
         offer_endorsement_detail {
           offer_comment
           offer_endorsement_detail_id
           offer_detail
+          currency
         }
         commission_amount
       }
@@ -719,6 +723,7 @@ export const INSURER = gql`
           fac_premium
           offer_endorsement_detail {
             offer_comment
+            currency
             offer_endorsement_detail_id
             offer_detail
           }

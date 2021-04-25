@@ -11,10 +11,10 @@ const DistributePaymentForm = ({
   handleChange,
 }) => {
   const currency = data?.offer_detail?.currency;
-  console.log(data);
+  // console.log(data);
   const size = data?.offer_payment?.length - 1 || 0;
   const paymentDetails = JSON.parse(
-    data?.offer_payment[size]?.payment_details || ""
+    data?.offer_payment[size]?.payment_details || "{}"
   );
 
   const hasConversion = paymentDetails?.conversion?.addExchangeRate;
@@ -50,10 +50,10 @@ const DistributePaymentForm = ({
 
   const convertedAmtPaid =
     parseFloat(
-      data?.offer_participant[index].offer_participant_payment[
-        data?.offer_participant[index].offer_participant_payment.length - 1
-      ].offer_payment_amount
-    ) / paymentDetails.conversion.rate;
+      data?.offer_participant[index]?.offer_participant_payment[
+        data?.offer_participant[index]?.offer_participant_payment?.length - 1
+      ]?.offer_payment_amount || "100.00"
+    ) / paymentDetails?.conversion?.rate || 1;
 
   return (
     <Fragment>
