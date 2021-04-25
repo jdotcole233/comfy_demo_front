@@ -31,10 +31,11 @@ function EndorsementCoverNote({ offer, index, endorsement, cc = false }) {
   };
 
   const __condition = pathname !== "/admin/approve-closing";
-  const access =
-    endorsement.approval_status === "APPROVED" && __condition
-      ? downloadAccess
-      : downloadAccessA;
+  const access = cc
+    ? downloadAccess
+    : endorsement.approval_status === "APPROVED" && __condition
+    ? downloadAccess
+    : downloadAccessA;
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       <div className="row m-2">
