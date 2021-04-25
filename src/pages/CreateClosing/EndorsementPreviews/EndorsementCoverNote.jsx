@@ -10,6 +10,13 @@ import { useLocation } from "react-router-dom";
 const downloadAccess = [
   "CEO",
   "General Manager",
+  // 'Finance Executive',
+  "System Administrator",
+];
+
+const downloadAccessA = [
+  "CEO",
+  "General Manager",
   "Senior Broking Officer",
   // 'Finance Executive',
   "System Administrator",
