@@ -7,14 +7,14 @@ import { getCurrencyFullName } from "../../../components";
 import PreviewLogo from "../../../components/PreviewLogo";
 import { useLocation } from "react-router";
 
-const downloadAccess = ["CEO", "General Manager", "System Administrator"];
-
-const downloadAccessA = [
+const downloadAccess = [
   "CEO",
   "General Manager",
   "Senior Broking Officer",
   "System Administrator",
 ];
+
+const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
 function EndorsementDebitNote({ offer, endorsement, doc_number }) {
   const { state: ctx } = useContext(AuthContext);
