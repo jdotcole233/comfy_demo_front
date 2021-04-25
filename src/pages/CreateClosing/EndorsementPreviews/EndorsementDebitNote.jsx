@@ -31,9 +31,9 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
 
   const __condition = pathname !== "/admin/approve-closing";
   const access =
-    endorsement.approval_status === "APPROVED" && __condition
-      ? downloadAccessA
-      : downloadAccess;
+    endorsement.approval_status !== "APPROVED" && __condition
+      ? downloadAccess
+      : downloadAccessA;
 
   return (
     <div>
