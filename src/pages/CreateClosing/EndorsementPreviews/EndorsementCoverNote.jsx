@@ -38,7 +38,7 @@ function EndorsementCoverNote({ offer, index, endorsement, cc = false }) {
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       <div className="row m-2">
-        {access.includes(ctx?.user?.position) && (
+        {cc && access.includes(ctx?.user?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/contract_changes/${btoa(

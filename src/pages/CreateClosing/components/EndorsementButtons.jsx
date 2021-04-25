@@ -100,6 +100,7 @@ function EndorsementButtons({ endorsement, index, offer }) {
           index={index}
           offer={offer}
           endorsement={endorsement}
+          cc={true}
         />
       </Drawer>
 
