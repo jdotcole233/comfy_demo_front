@@ -7,11 +7,12 @@ import { getCurrencyFullName } from "../../../components";
 import { useLocation } from "react-router-dom";
 import PreviewLogo from "../../../components/PreviewLogo";
 
-const downloadAccess = [
+const downloadAccess = ["CEO", "General Manager", "System Administrator"];
+
+const downloadAccessA = [
   "CEO",
   "General Manager",
   "Senior Broking Officer",
-  // 'Finance Executive',
   "System Administrator",
 ];
 
@@ -27,10 +28,16 @@ function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
       to.getMonth() + 1
     }/${to.getFullYear()}`;
   };
+  const __condition = pathname !== "/admin/approve-closing";
+  const access =
+    endorsement.approval_status === "APPROVED" && __condition
+      ? downloadAccessA
+      : downloadAccess;
+
   return (
     <Fragment>
       <div className="row m-2">
-        {downloadAccess.includes(ctx?.user?.position) && (
+        {access.includes(ctx?.user?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/endorsement_closing_note/${btoa(
