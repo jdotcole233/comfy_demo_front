@@ -32,7 +32,7 @@ function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
 
   const __condition = pathname !== "/admin/approve-closing";
   const access =
-    endorsement.approval_status !== "APPROVED" && __condition
+    endorsement.approval_status === "APPROVED" && __condition
       ? downloadAccess
       : downloadAccessA;
   return (
