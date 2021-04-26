@@ -16,7 +16,13 @@ const downloadAccess = [
 
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
-function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
+function EndorsementCreditNote({
+  offer,
+  reinsurer,
+  index,
+  endorsement,
+  cc = false,
+}) {
   const { state: ctx } = useContext(AuthContext);
   const { pathname } = useLocation();
   const showDate = (offer) => {
@@ -28,9 +34,9 @@ function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
       to.getMonth() + 1
     }/${to.getFullYear()}`;
   };
-  const __condition = pathname !== "/admin/approve-closing";
+  // const __condition = pathname !== "/admin/approve-closing";
   const access =
-    endorsement.approval_status === "APPROVED" && __condition
+    endorsement.approval_status === "APPROVED"
       ? downloadAccess
       : downloadAccessA;
 
