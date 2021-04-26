@@ -33,14 +33,14 @@ function EndorsementCoverNote({ offer, index, endorsement, cc = false }) {
   const __condition = pathname !== "/admin/approve-closing";
   const access = cc
     ? downloadAccess
-    : endorsement.approval_status !== "APPROVED"
+    : endorsement.approval_status === "APPROVED" || __condition
     ? downloadAccessA
     : downloadAccess;
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       {cc ? " TRUE" : "FALSE"}
       <div className="row m-2">
-        {cc && access.includes(ctx?.user?.position) && (
+        {access.includes(ctx?.user?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/contract_changes/${btoa(
