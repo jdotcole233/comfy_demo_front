@@ -140,6 +140,9 @@ function SendContractChanges({ insurer, doc_number, toggle, endorsement }) {
             N.B: You can include any number of EMAILS. Press ENTER or TAB key to
             add more{" "}
           </p>
+          <p>
+            
+          </p>
         </Alert>
       </div>
       <form
