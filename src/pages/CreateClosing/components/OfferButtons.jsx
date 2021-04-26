@@ -504,7 +504,7 @@ const OfferButtons = ({ offer }) => {
                     <td>
                       {offer?.offer_endorsements[
                         offer?.offer_endorsements?.length - 1
-                      ]?.toLocaleString(undefined, {
+                      ]?.premium?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
