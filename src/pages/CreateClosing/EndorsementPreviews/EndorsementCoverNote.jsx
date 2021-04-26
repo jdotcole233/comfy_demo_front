@@ -34,8 +34,8 @@ function EndorsementCoverNote({ offer, index, endorsement, cc = false }) {
   const access = cc
     ? downloadAccess
     : endorsement.approval_status === "APPROVED" || __condition
-    ? downloadAccess
-    : downloadAccessA;
+    ? downloadAccessA
+    : downloadAccess;
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       <div className="row m-2">
