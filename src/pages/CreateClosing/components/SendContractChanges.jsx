@@ -134,15 +134,18 @@ function SendContractChanges({ insurer, doc_number, toggle, endorsement }) {
         <h2 className={styles.card_title}>Send Endorsement Contract Changes</h2>
         <Alert variant="danger">
           <p>
-            This session will send a copy of Endorsement Contract Changes to all assoicates participating on this offer as attachment
+            This session will send a copy of Endorsement Contract Changes to all
+            assoicates participating on this offer as attachment.{" "}
+            <b>
+              i.e. each PDF document attached to this email will contain only
+              the reinsurer's participation
+            </b>
           </p>
           <p>
             N.B: You can include any number of EMAILS. Press ENTER or TAB key to
             add more{" "}
           </p>
-          <p>
-            
-          </p>
+          <p></p>
         </Alert>
       </div>
       <form
