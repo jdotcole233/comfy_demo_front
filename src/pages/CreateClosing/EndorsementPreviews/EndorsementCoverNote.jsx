@@ -38,7 +38,7 @@ function EndorsementCoverNote({ offer, index, endorsement, cc = false }) {
     : downloadAccessA;
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
-      {cc ? " TRUE" : "FALSE"}
+      {/* {cc ? " TRUE" : "FALSE"} */}
       <div className="row m-2">
         {access.includes(ctx?.user?.position) && (
           <a
