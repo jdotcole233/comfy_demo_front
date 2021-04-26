@@ -47,6 +47,7 @@ function EndorsementCoverNote({ offer, index, endorsement, cc = false }) {
               JSON.stringify({
                 offer_endorsement_id: endorsement?.offer_endorsement_id,
                 doc_number: index || -1,
+                type: cc ? "Cover" : "Contract",
               })
             )}`}
             className="btn btn-sm btn-primary w-md"
