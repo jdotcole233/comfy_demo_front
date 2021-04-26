@@ -19,6 +19,7 @@ function EndorsementButtons({ endorsement, index, offer }) {
   const [showDebitNote, setShowDebitNote] = useState(false);
   const [showCreditNotes, setShowCreditNotes] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+  const [showContractChanges, setShowContractChanges] = useState(false);
   const [showSendDrawer, setShowSendDrawer] = useState(false);
   const [showSendContractChanges, setShowSendContractChanges] = useState(false);
   return (
@@ -31,7 +32,7 @@ function EndorsementButtons({ endorsement, index, offer }) {
         id="dropdown-basic-button"
         title="Contract Changes"
       >
-        <Dropdown.Item onClick={() => setShowCoverNote(true)}>
+        <Dropdown.Item onClick={() => setShowContractChanges(true)}>
           Preview
         </Dropdown.Item>
         <Dropdown.Item onClick={() => setShowSendContractChanges(true)}>
@@ -100,6 +101,21 @@ function EndorsementButtons({ endorsement, index, offer }) {
           index={index}
           offer={offer}
           endorsement={endorsement}
+          cc={false}
+        />
+      </Drawer>
+
+      {/* Endorsement Contract Changes */}
+      <Drawer
+        width="50%"
+        isvisible={showContractChanges}
+        toggle={() => setShowContractChanges(false)}
+      >
+        <EndorsementCoverNote
+          index={index}
+          offer={offer}
+          endorsement={endorsement}
+          cc={true}
         />
       </Drawer>
 

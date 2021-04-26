@@ -16,7 +16,7 @@ const downloadAccess = [
 
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
-function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
+function EndorsementCoverNote({ offer, index, endorsement, cc = false }) {
   const { pathname } = useLocation();
 
   const { state: ctx } = useContext(AuthContext);
@@ -31,12 +31,14 @@ function EndorsementCoverNote({ offer, index, endorsement, sign = false }) {
   };
 
   const __condition = pathname !== "/admin/approve-closing";
-  const access =
-    endorsement.approval_status !== "APPROVED" && __condition
-      ? downloadAccess
-      : downloadAccessA;
+  const access = cc
+    ? downloadAccess
+    : endorsement.approval_status === "APPROVED"
+    ? downloadAccess
+    : downloadAccessA;
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
+      {/* {cc ? " TRUE" : "FALSE"} */}
       <div className="row m-2">
         {access.includes(ctx?.user?.position) && (
           <a

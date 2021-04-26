@@ -4,7 +4,7 @@ import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import { AuthContext } from "../../../context/AuthContext";
 import { getCurrencyFullName } from "../../../components";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import PreviewLogo from "../../../components/PreviewLogo";
 
 const downloadAccess = [
@@ -16,9 +16,15 @@ const downloadAccess = [
 
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
-function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
+function EndorsementCreditNote({
+  offer,
+  reinsurer,
+  index,
+  endorsement,
+  cc = false,
+}) {
   const { state: ctx } = useContext(AuthContext);
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   const showDate = (offer) => {
     const from = new Date(offer?.offer_detail?.period_of_insurance_from);
     const to = new Date(offer?.offer_detail?.period_of_insurance_to);
@@ -28,9 +34,9 @@ function EndorsementCreditNote({ offer, reinsurer, index, endorsement }) {
       to.getMonth() + 1
     }/${to.getFullYear()}`;
   };
-  const __condition = pathname !== "/admin/approve-closing";
+  // const __condition = pathname !== "/admin/approve-closing";
   const access =
-    endorsement.approval_status !== "APPROVED" && __condition
+    endorsement.approval_status === "APPROVED"
       ? downloadAccess
       : downloadAccessA;
 
