@@ -43,7 +43,6 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
 
     useEffect(() => {
         if (_offer) {
-            // alert("Hello")
             setAddExchangeRate(offer.exchange_rate ? true : false);
             setValue("policy_number", offer.offer_detail?.policy_number)//insurance_company
             setValue("insurer_id", offer.insurer?.insurer_id)//insurance_company
