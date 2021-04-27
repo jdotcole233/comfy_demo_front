@@ -46,6 +46,7 @@ function ParticipantCoverNote({ offer, index, endorsement, reinsurer }) {
                 offer_endorsement_id: endorsement?.offer_endorsement_id,
                 doc_number: index,
                 offer_participant_id: reinsurer?.offer_participant_id,
+                type: "Contract",
               })
             )}`}
             className="btn btn-sm btn-primary w-md"
