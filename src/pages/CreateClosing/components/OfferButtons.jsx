@@ -506,7 +506,10 @@ const OfferButtons = ({ offer }) => {
                         offer?.offer_endorsements?.length - 1
                       ]?.premium?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
-                      })}
+                      }) ||
+                        offer?.premium?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                     </td>
                   </tr>
                 </tbody>
