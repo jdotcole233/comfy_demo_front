@@ -14,11 +14,16 @@ const downloadAccess = [
   "System Administrator",
 ];
 
-const handleSpecialCase = (offer, endorsement_id) => {};
+const handleSpecialCase = (offer, endorsement_id) => {
+  return offer?.offer_endorsements?.findIndex(
+    (el) => el.offer_endorsement_id === endorsement_id
+  );
+};
 
 const getValues = (offer, size, key = "premium", endorsement_id) => {
   if (!offer) return 0.0;
-  if (size < 0) return 0.0; // special case for unapproved endorsement
+  if (size < 0)
+    return getValues(offer, handleSpecialCase(offer, endorsement_id) + 1); // special case for unapproved endorsement
   if (size === 1)
     return (
       parseFloat(offer.offer_endorsements[0][key]) - parseFloat(offer[key])
