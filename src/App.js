@@ -19,10 +19,10 @@ function App() {
     }
   }, []);
 
-  const onGranted = () => {};
-  const onDenied = () => {};
+  const onGranted = () => { };
+  const onDenied = () => { };
 
-  
+
   return (
     <>
       <Detector />
