@@ -62,7 +62,7 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
         "class_of_business_id",
         _offer.classofbusiness?.class_of_business_id
       ); //insurance_company
-      setSelectedBusiness(_offer.classofbusiness.business_name);
+      setSelectedBusiness(_offer?.classofbusiness?.business_name);
       setValue("commission", endorsement.commission);
       setValue("brokerage", endorsement.brokerage);
       setValue("facultative_offer", endorsement.facultative_offer);
@@ -71,8 +71,8 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
       setValue("co_insurance_share", _offer.co_insurance_share);
       setValue("premium", endorsement.premium);
       setValue("rate", endorsement.rate);
-      setValue("insured_by", _offer.offer_detail.insured_by);
-      setValue("currency", _offer.offer_detail.currency);
+      setValue("insured_by", _offer?.offer_detail?.insured_by);
+      setValue("currency", _offer?.offer_detail?.currency);
       // setValue("offer_comment", endorsement.offer_detail.offer_comment);
       setofferDetails(
         JSON.parse(endorsement.offer_endorsement_detail.offer_detail)
@@ -85,7 +85,7 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
         "period_of_insurance_to",
         endorsement.offer_endorsement_detail.period_of_insurance_to
       );
-      setSelectedInsurer(_offer.insurer.insurer_company_name);
+      setSelectedInsurer(_offer?.insurer?.insurer_company_name);
       setClassOfBusiness(
         JSON.parse(endorsement.offer_endorsement_detail.offer_detail)
       );
