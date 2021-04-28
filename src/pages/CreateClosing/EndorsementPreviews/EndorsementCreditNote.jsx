@@ -14,6 +14,20 @@ const downloadAccess = [
   "System Administrator",
 ];
 
+const getValues = (offer, size, key = "premium") => {
+  if (!offer) return 0.0;
+  if (size < 0) return 0.0; // special case for unapproved endorsement
+  if (size === 1)
+    return (
+      parseFloat(offer.offer_endorsements[0][key]) - parseFloat(offer[key])
+    );
+
+  return (
+    parseFloat(offer?.offer_endorsements[size - 1][key]) -
+    parseFloat(offer?.offer_endorsements[size - 2][key])
+  );
+};
+
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
 function EndorsementCreditNote({
@@ -189,7 +203,7 @@ function EndorsementCreditNote({
                   <td>100% Premium</td>
                   <td></td>
                   <td>
-                    {endorsement?.premium?.toLocaleString(undefined, {
+                    {getValues(offer, index)?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     })}
                   </td>
@@ -198,9 +212,12 @@ function EndorsementCreditNote({
                   <td>Facultative Premium</td>
                   <td></td>
                   <td>
-                    {reinsurer?.fac_premium?.toLocaleString(undefined, {
-                      maximumFractionDigits: 2,
-                    })}
+                    {getValues(offer, index, "fac_premium")?.toLocaleString(
+                      undefined,
+                      {
+                        maximumFractionDigits: 2,
+                      }
+                    )}
                   </td>
                 </tr>
                 <tr className="trial-balance-tr">
