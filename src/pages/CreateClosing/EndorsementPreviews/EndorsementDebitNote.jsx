@@ -14,9 +14,15 @@ const downloadAccess = [
   "System Administrator",
 ];
 
-const getValues = (offer, size, key = "premium") => {
+const handleSpecialCase = (offer, endorsement_id) => {
+  return offer?.offer_endorsements?.findIndex(
+    (el) => el.offer_endorsement_id === endorsement_id
+  );
+};
+
+const getValues = (offer, size, key = "premium", endorsement_id) => {
   if (!offer) return 0.0;
-  if (size < 0) return 0.0; // special case for unapproved endorsement
+  if (size < 0) getValues(offer, handleSpecialCase(offer, endorsement_id) + 1); // special case for unapproved endorsement
   if (size === 1)
     return (
       parseFloat(offer.offer_endorsements[0][key]) - parseFloat(offer[key])
@@ -200,7 +206,12 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.exchange_rate?.ex_currency}{" "}
-                  {getValues(offer, doc_number).toLocaleString(undefined, {
+                  {getValues(
+                    offer,
+                    doc_number,
+                    "premium",
+                    endorsement?.offer_endorsement_id
+                  ).toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
                 </h3>
@@ -233,12 +244,14 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.exchange_rate?.ex_currency}{" "}
-                  {getValues(offer, doc_number, "fac_premium").toLocaleString(
-                    undefined,
-                    {
-                      maximumFractionDigits: 2,
-                    }
-                  )}
+                  {getValues(
+                    offer,
+                    doc_number,
+                    "fac_premium",
+                    endorsement?.offer_endorsement_id
+                  ).toLocaleString(undefined, {
+                    maximumFractionDigits: 2,
+                  })}
                 </h3>
               </div>
             </div>
@@ -260,7 +273,8 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
                   {getValues(
                     offer,
                     doc_number,
-                    "commission_amount"
+                    "commission_amount",
+                    endorsement?.offer_endorsement_id
                   ).toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
@@ -280,9 +294,21 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
                 >
                   {offer?.exchange_rate?.ex_currency}{" "}
                   {(
-                    parseFloat(getValues(offer, doc_number, "fac_premium")) -
                     parseFloat(
-                      getValues(offer, doc_number, "commission_amount")
+                      getValues(
+                        offer,
+                        doc_number,
+                        "fac_premium",
+                        endorsement?.offer_endorsement_id
+                      )
+                    ) -
+                    parseFloat(
+                      getValues(
+                        offer,
+                        doc_number,
+                        "commission_amount",
+                        endorsement?.offer_endorsement_id
+                      )
                     )
                   ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </h3>
