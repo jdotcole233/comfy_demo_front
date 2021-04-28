@@ -51,6 +51,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
 
   return (
     <div>
+      {doc_number}
       <div className="row m-2">
         {access.includes(ctx?.user?.position) && (
           <a
@@ -203,7 +204,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.exchange_rate?.ex_currency}{" "}
-                  {getPremium(offer).toLocaleString(undefined, {
+                  {getPremium(offer, doc_number).toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
                 </h3>
