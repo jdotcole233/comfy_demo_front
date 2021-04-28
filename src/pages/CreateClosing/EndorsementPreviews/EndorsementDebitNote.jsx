@@ -14,19 +14,19 @@ const downloadAccess = [
   "System Administrator",
 ];
 
-const getPremium = (offer, index) => {
+const getPremium = (offer, size) => {
   if (!offer) return 0.0;
-  if (index < 0) return 0.0;
-  if (index <= 1)
+  if (size < 0) return 0.0;
+  if (size <= 1)
     return (
       parseFloat(offer.offer_endorsements[0]?.premium) -
       parseFloat(offer?.premium)
     );
 
   return (
-    parseFloat(offer?.offer_endorsements[index]?.premium) -
+    parseFloat(offer?.offer_endorsements[size]?.premium) -
     parseFloat(
-      offer?.offer_endorsements[offer?.offer_endorsements[index - 1]]?.premium
+      offer?.offer_endorsements[offer?.offer_endorsements[size - 1]]?.premium
     )
   );
 };
@@ -203,8 +203,8 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               </div>
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
-                  {offer?.exchange_rate?.ex_currency} {doc_number - 1}
-                  {getPremium(offer, doc_number - 1).toLocaleString(undefined, {
+                  {offer?.exchange_rate?.ex_currency}{" "}
+                  {getPremium(offer, doc_number).toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
                 </h3>
