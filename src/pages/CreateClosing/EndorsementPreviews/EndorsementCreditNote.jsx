@@ -66,6 +66,10 @@ function EndorsementCreditNote({
     (parseFloat(reinsurer?.agreed_brokerage) / 100) *
     getValues(offer, index, "fac_premium");
 
+  const nic_levy =
+    (parseFloat(reinsurer?.nic_levy) / 100) *
+    getValues(offer, index, "fac_premium");
+
   return (
     <Fragment>
       <div className="row m-2">
@@ -244,11 +248,7 @@ function EndorsementCreditNote({
                 <tr className="trial-balance-tr">
                   <td>Brokerage ({reinsurer?.agreed_brokerage_percentage}%)</td>
                   <td>
-                    {(
-                      (parseFloat(reinsurer?.agreed_brokerage_percentage) /
-                        100) *
-                      getValues(offer, index, "fac_premium")
-                    )?.toLocaleString(undefined, {
+                    {brokerage?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     })}
                   </td>
@@ -257,10 +257,7 @@ function EndorsementCreditNote({
                 <tr className="trial-balance-tr">
                   <td>NIC Levy ({reinsurer?.nic_levy}%)</td>
                   <td>
-                    {(
-                      (parseFloat(reinsurer?.nic_levy) / 100) *
-                      getValues(offer, index, "fac_premium")
-                    )?.toLocaleString(undefined, {
+                    {nic_levy?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     }) || "NIL"}
                   </td>
@@ -269,10 +266,7 @@ function EndorsementCreditNote({
                 <tr className="trial-balance-tr">
                   <td>Withholding Tax ({reinsurer?.withholding_tax}%)</td>
                   <td>
-                    {(
-                      (parseFloat(reinsurer?.withholding_tax) / 100) *
-                      getValues(offer, index, "fac_premium")
-                    )?.toLocaleString(undefined, {
+                    {withholding_tax?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     }) || "NIL"}
                   </td>
