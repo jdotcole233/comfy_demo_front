@@ -54,6 +54,18 @@ function EndorsementCreditNote({
       ? downloadAccess
       : downloadAccessA;
 
+  const commission =
+    (parseFloat(reinsurer?.agreed_commission) / 100) *
+    getValues(offer, index, "fac_premium");
+
+  const withholding_tax =
+    (parseFloat(reinsurer?.withholding_tax) / 100) *
+    getValues(offer, index, "fac_premium");
+
+  const brokerage =
+    (parseFloat(reinsurer?.agreed_brokerage) / 100) *
+    getValues(offer, index, "fac_premium");
+
   return (
     <Fragment>
       <div className="row m-2">
@@ -223,10 +235,7 @@ function EndorsementCreditNote({
                 <tr className="trial-balance-tr">
                   <td>Less Commission ({reinsurer?.agreed_commission}%)</td>
                   <td>
-                    {(
-                      (parseFloat(reinsurer?.agreed_commission) / 100) *
-                      getValues(offer, index, "fac_premium")
-                    )?.toLocaleString(undefined, {
+                    {commission?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     }) || "NIL"}
                   </td>
