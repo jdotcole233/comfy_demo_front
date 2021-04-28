@@ -16,7 +16,7 @@ const downloadAccess = [
 
 const getPremium = (offer, index) => {
   if (!offer) return 0.0;
-  if (!offer.offer_endorsements.length < 2)
+  if (index < 1)
     return (
       parseFloat(offer.offer_endorsements[0]?.premium) -
       parseFloat(offer?.premium)
@@ -24,14 +24,10 @@ const getPremium = (offer, index) => {
 
   return index < 0
     ? 0.0
-    : parseFloat(
-        offer?.offer_endorsements[offer?.offer_endorsements?.length - 1]
-          ?.premium
-      ) -
+    : parseFloat(offer?.offer_endorsements[index]?.premium) -
         parseFloat(
-          offer?.offer_endorsements[
-            offer?.offer_endorsements[offer?.offer_endorsements?.length - 2]
-          ]?.premium
+          offer?.offer_endorsements[offer?.offer_endorsements[index - 1]]
+            ?.premium
         );
 };
 
