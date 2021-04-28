@@ -54,25 +54,23 @@ function EndorsementCreditNote({
       ? downloadAccess
       : downloadAccessA;
 
+  const fac_premium =
+    (parseFloat(reinsurer?.offer_participant_percentage) / 100) *
+    getValues(offer, index);
+
   const commission =
-    (parseFloat(reinsurer?.agreed_commission) / 100) *
-    getValues(offer, index, "fac_premium");
+    (parseFloat(reinsurer?.agreed_commission) / 100) * fac_premium;
 
   const withholding_tax =
-    (parseFloat(reinsurer?.withholding_tax) / 100) *
-    getValues(offer, index, "fac_premium");
+    (parseFloat(reinsurer?.withholding_tax) / 100) * fac_premium;
 
   const brokerage =
-    (parseFloat(reinsurer?.agreed_brokerage_percentage) / 100) *
-    getValues(offer, index, "fac_premium");
+    (parseFloat(reinsurer?.agreed_brokerage_percentage) / 100) * fac_premium;
 
-  const nic_levy =
-    (parseFloat(reinsurer?.nic_levy) / 100) *
-    getValues(offer, index, "fac_premium");
+  const nic_levy = (parseFloat(reinsurer?.nic_levy) / 100) * fac_premium;
 
   const amt_due =
-    getValues(offer, index, "fac_premium") -
-    (commission + withholding_tax + brokerage + nic_levy);
+    fac_premium - (commission + withholding_tax + brokerage + nic_levy);
 
   return (
     <Fragment>
@@ -232,10 +230,7 @@ function EndorsementCreditNote({
                   <td>Facultative Premium</td>
                   <td></td>
                   <td>
-                    {(
-                      parseFloat(reinsurer?.offer_participant_percentage) *
-                      getValues(offer, index)
-                    )?.toLocaleString(undefined, {
+                    {fac_premium?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     })}
                   </td>
