@@ -14,6 +14,11 @@ const downloadAccess = [
   "System Administrator",
 ];
 
+const getPremium = (offer) => {
+  if (!offer) return 0.0;
+  if (!offer.offer_endorsements.length) return offer?.premium;
+};
+
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
 
 function EndorsementDebitNote({ offer, endorsement, doc_number }) {
