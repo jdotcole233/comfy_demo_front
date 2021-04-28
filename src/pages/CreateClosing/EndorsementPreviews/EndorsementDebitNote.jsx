@@ -257,7 +257,11 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.exchange_rate?.ex_currency}{" "}
-                  {endorsement?.commission_amount.toLocaleString(undefined, {
+                  {getPremium(
+                    offer,
+                    doc_number,
+                    "commission_amount"
+                  ).toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
                 </h3>
