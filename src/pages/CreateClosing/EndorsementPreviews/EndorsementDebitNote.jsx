@@ -14,7 +14,7 @@ const downloadAccess = [
   "System Administrator",
 ];
 
-const getPremium = (offer, size, key = "premium") => {
+const getValues = (offer, size, key = "premium") => {
   if (!offer) return 0.0;
   if (size < 0) return 0.0; // special case for unapproved endorsement
   if (size === 1)
@@ -200,7 +200,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.exchange_rate?.ex_currency}{" "}
-                  {getPremium(offer, doc_number).toLocaleString(undefined, {
+                  {getValues(offer, doc_number).toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
                 </h3>
@@ -233,7 +233,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.exchange_rate?.ex_currency}{" "}
-                  {getPremium(offer, doc_number, "fac_premium").toLocaleString(
+                  {getValues(offer, doc_number, "fac_premium").toLocaleString(
                     undefined,
                     {
                       maximumFractionDigits: 2,
@@ -257,7 +257,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.exchange_rate?.ex_currency}{" "}
-                  {getPremium(
+                  {getValues(
                     offer,
                     doc_number,
                     "commission_amount"
@@ -280,9 +280,9 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
                 >
                   {offer?.exchange_rate?.ex_currency}{" "}
                   {(
-                    parseFloat(getPremium(offer, doc_number, "fac_premium")) -
+                    parseFloat(getValues(offer, doc_number, "fac_premium")) -
                     parseFloat(
-                      getPremium(offer, doc_number, "commission_amount")
+                      getValues(offer, doc_number, "commission_amount")
                     )
                   ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </h3>
