@@ -54,6 +54,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
 
   return (
     <div>
+      {doc_number}
       <div className="row m-2">
         {access.includes(ctx?.user?.position) && (
           <a
