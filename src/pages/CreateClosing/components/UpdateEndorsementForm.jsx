@@ -56,7 +56,7 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
   useEffect(() => {
     if (_offer) {
       setAddExchangeRate(_offer.exchange_rate ? true : false);
-      setValue("policy_number", _offer.offer_detail?.policy_number); //insurance_company
+      setValue("policy_number", _offer.offer_endorsement_detail?.policy_number); //insurance_company
       setValue("insurer_id", _offer.insurer?.insurer_id); //insurance_company
       setValue(
         "class_of_business_id",
@@ -71,8 +71,8 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
       setValue("co_insurance_share", _offer.co_insurance_share);
       setValue("premium", endorsement.premium);
       setValue("rate", endorsement.rate);
-      setValue("insured_by", _offer?.offer_detail?.insured_by);
-      setValue("currency", _offer?.offer_detail?.currency);
+      setValue("insured_by", _offer?.offer_endorsement_detail?.insured_by);
+      setValue("currency", _offer?.offer_endorsement_detail?.currency);
       // setValue("offer_comment", endorsement.offer_detail.offer_comment);
       setofferDetails(
         JSON.parse(endorsement.offer_endorsement_detail.offer_detail)
@@ -107,7 +107,7 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
 
   const handleCurrencyChange = (value) => {
     setValue("currency", value ? value.value.code : "");
-    setSelectedCurrency(value ? value.value.code : offer.offer_detail.currency);
+    setSelectedCurrency(value ? value.value.code : offer.offer_endorsement_detail.currency);
     if (value) {
       clearError("currency");
     }
@@ -150,7 +150,7 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
     setofferDetails(
       cob
         ? JSON.parse(cob.value.business_details)
-        : JSON.parse(offer.offer_detail.offer_details)
+        : JSON.parse(_offer.offer_endorsement_detail.offer_details)
     );
   };
 
