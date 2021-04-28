@@ -48,7 +48,6 @@ function EndorsementCreditNote({
       to.getMonth() + 1
     }/${to.getFullYear()}`;
   };
-  // const __condition = pathname !== "/admin/approve-closing";
   const access =
     endorsement.approval_status === "APPROVED"
       ? downloadAccess
