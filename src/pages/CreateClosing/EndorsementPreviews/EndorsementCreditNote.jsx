@@ -260,10 +260,12 @@ function EndorsementCreditNote({
                 <tr className="trial-balance-tr">
                   <td>Withholding Tax ({reinsurer?.withholding_tax}%)</td>
                   <td>
-                    {reinsurer?.withholding_tax_amount?.toLocaleString(
-                      undefined,
-                      { maximumFractionDigits: 2 }
-                    ) || "NIL"}
+                    {(
+                      (parseFloat(reinsurer?.withholding_tax) / 100) *
+                      getValues(offer, index, "fac_premium")
+                    )?.toLocaleString(undefined, {
+                      maximumFractionDigits: 2,
+                    }) || "NIL"}
                   </td>
                   <td></td>
                 </tr>
