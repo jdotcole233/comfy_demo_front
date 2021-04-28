@@ -232,12 +232,12 @@ function EndorsementCreditNote({
                   <td>Facultative Premium</td>
                   <td></td>
                   <td>
-                    {getValues(offer, index, "fac_premium")?.toLocaleString(
-                      undefined,
-                      {
-                        maximumFractionDigits: 2,
-                      }
-                    )}
+                    {(
+                      parseFloat(reinsurer?.offer_participant_percentage) *
+                      getValues(offer, index)
+                    )?.toLocaleString(undefined, {
+                      maximumFractionDigits: 2,
+                    })}
                   </td>
                 </tr>
                 <tr className="trial-balance-tr">
