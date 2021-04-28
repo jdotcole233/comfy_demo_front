@@ -56,7 +56,6 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
 
   return (
     <div>
-      {handleSpecialCase(offer, endorsement?.offer_endorsement_id)}
       <div className="row m-2">
         {access.includes(ctx?.user?.position) && (
           <a
@@ -64,7 +63,9 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
             href={`${BASE_URL_LOCAL}/endorsement_debit_note/${btoa(
               JSON.stringify({
                 offer_endorsement_id: endorsement?.offer_endorsement_id,
-                doc_number,
+                doc_number:
+                  handleSpecialCase(offer, endorsement?.offer_endorsement_id) +
+                  1,
               })
             )}`}
             className="btn btn-sm btn-primary w-md"

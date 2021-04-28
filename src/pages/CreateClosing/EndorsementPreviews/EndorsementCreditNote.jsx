@@ -112,7 +112,8 @@ function EndorsementCreditNote({
                 textDecoration: "underline",
               }}
             >
-              ENDORSEMENT CLOSING {index}
+              ENDORSEMENT CLOSING{" "}
+              {handleSpecialCase(offer, endorsement?.offer_endorsement_id) + 1}
             </h3>
           </div>
 
