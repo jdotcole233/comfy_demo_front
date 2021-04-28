@@ -54,25 +54,28 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
   const endorsement = _offer?.singleEndorsement;
 
   useEffect(() => {
-    if (_offer) {
-      setAddExchangeRate(_offer.exchange_rate ? true : false);
-      setValue("policy_number", _offer.offer_endorsement_detail?.policy_number); //insurance_company
-      setValue("insurer_id", _offer.insurer?.insurer_id); //insurance_company
+    if (_offer && endorsement) {
+      setAddExchangeRate(endorsement.exchange_rate ? true : false);
+      setValue(
+        "policy_number",
+        endorsement.offer_endorsement_detail?.policy_number
+      ); //insurance_company
+      setValue("insurer_id", endorsement.insurer?.insurer_id); //insurance_company
       setValue(
         "class_of_business_id",
-        _offer.classofbusiness?.class_of_business_id
+        endorsement.classofbusiness?.class_of_business_id
       ); //insurance_company
-      setSelectedBusiness(_offer?.classofbusiness?.business_name);
+      setSelectedBusiness(endorsement?.classofbusiness?.business_name);
       setValue("commission", endorsement.commission);
       setValue("brokerage", endorsement.brokerage);
       setValue("facultative_offer", endorsement.facultative_offer);
       setValue("ex_rate", endorsement?.exchange_rate?.ex_rate);
       setValue("sum_insured", endorsement.sum_insured);
-      setValue("co_insurance_share", _offer.co_insurance_share);
+      setValue("co_insurance_share", endorsement.co_insurance_share);
       setValue("premium", endorsement.premium);
       setValue("rate", endorsement.rate);
-      setValue("insured_by", _offer?.offer_endorsement_detail?.insured_by);
-      setValue("currency", _offer?.offer_endorsement_detail?.currency);
+      setValue("insured_by", endorsement?.offer_endorsement_detail?.insured_by);
+      setValue("currency", endorsement?.offer_endorsement_detail?.currency);
       // setValue("offer_comment", endorsement.offer_detail.offer_comment);
       setofferDetails(
         JSON.parse(endorsement.offer_endorsement_detail.offer_detail)
@@ -85,11 +88,11 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
         "period_of_insurance_to",
         endorsement.offer_endorsement_detail.period_of_insurance_to
       );
-      setSelectedInsurer(_offer?.insurer?.insurer_company_name);
+      setSelectedInsurer(endorsement?.insurer?.insurer_company_name);
       setClassOfBusiness(
         JSON.parse(endorsement?.offer_endorsement_detail?.offer_detail)
       );
-      setSelectedCurrency(_offer?.offer_endorsement_detail?.currency);
+      setSelectedCurrency(endorsement?.offer_endorsement_detail?.currency);
       setInfoContent(
         endorsement?.offer_endorsement_detail.information_comment?.toString()
       );
@@ -99,15 +102,17 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
       );
       // setNkrol(endorsement.offer_endorsement_detail.information_comment ? true : false);
       fillComment(endorsement?.offer_endorsement_detail?.offer_comment);
-      setValue("ex_currency", _offer?.exchange_rate?.ex_currency);
-      setSelectedExCurrency(_offer.exchange_rate?.ex_currency);
+      setValue("ex_currency", endorsement?.exchange_rate?.ex_currency);
+      setSelectedExCurrency(endorsement.exchange_rate?.ex_currency);
       // alert(parseFloat(offer.exchange_rate?.ex_rate))
     }
-  }, [_offer]);
+  }, [_offer, endorsement]);
 
   const handleCurrencyChange = (value) => {
     setValue("currency", value ? value.value.code : "");
-    setSelectedCurrency(value ? value.value.code : offer.offer_endorsement_detail.currency);
+    setSelectedCurrency(
+      value ? value.value.code : offer.offer_endorsement_detail.currency
+    );
     if (value) {
       clearError("currency");
     }
