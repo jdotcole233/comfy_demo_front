@@ -91,15 +91,15 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
       );
       setSelectedCurrency(_offer?.offer_detail?.currency);
       setInfoContent(
-        endorsement.offer_endorsement_detail.information_comment?.toString()
+        endorsement?.offer_endorsement_detail.information_comment?.toString()
       );
       setValue(
         "information_comment",
-        endorsement.offer_endorsement_detail.information_comment?.toString()
+        endorsement?.offer_endorsement_detail.information_comment?.toString()
       );
       // setNkrol(endorsement.offer_endorsement_detail.information_comment ? true : false);
       fillComment(endorsement?.offer_endorsement_detail?.offer_comment);
-      setValue("ex_currency", _offer.exchange_rate?.ex_currency);
+      setValue("ex_currency", _offer?.exchange_rate?.ex_currency);
       setSelectedExCurrency(_offer.exchange_rate?.ex_currency);
       // alert(parseFloat(offer.exchange_rate?.ex_rate))
     }
