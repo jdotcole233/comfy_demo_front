@@ -23,7 +23,7 @@ const handleSpecialCase = (offer, endorsement_id) => {
 const getValues = (offer, size, key = "premium", endorsement_id) => {
   if (!offer) return 0.0;
   if (size < 0)
-    return getValues(offer, handleSpecialCase(offer, endorsement_id) + 1); // special case for unapproved endorsement
+    return getValues(offer, handleSpecialCase(offer, endorsement_id) + 1, key); // special case for unapproved endorsement
   if (size === 1)
     return (
       parseFloat(offer.offer_endorsements[size - 1][key]) -
@@ -56,12 +56,6 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
 
   return (
     <div>
-      {getValues(
-        offer,
-        doc_number,
-        "commission_amount",
-        endorsement?.offer_endorsement_id
-      )}
       <div className="row m-2">
         {access.includes(ctx?.user?.position) && (
           <a
