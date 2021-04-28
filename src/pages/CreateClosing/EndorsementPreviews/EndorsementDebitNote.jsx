@@ -25,9 +25,7 @@ const getPremium = (offer, size) => {
 
   return (
     parseFloat(offer?.offer_endorsements[size - 1]?.premium) -
-    parseFloat(
-      offer?.offer_endorsements[offer?.offer_endorsements[size - 2]]?.premium
-    )
+    parseFloat(offer?.offer_endorsements[size - 2]?.premium)
   );
 };
 
