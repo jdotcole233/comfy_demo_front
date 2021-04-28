@@ -62,7 +62,7 @@ function EndorsementCreditNote({
 
   const fac_premium =
     (parseFloat(reinsurer?.offer_participant_percentage) / 100) *
-    getValues(offer, index);
+    getValues(offer, index, "premium", endorsement?.offer_endorsement_id);
 
   const commission =
     (parseFloat(reinsurer?.agreed_commission) / 100) * fac_premium;
@@ -227,7 +227,12 @@ function EndorsementCreditNote({
                   <td>100% Premium</td>
                   <td></td>
                   <td>
-                    {getValues(offer, index)?.toLocaleString(undefined, {
+                    {getValues(
+                      offer,
+                      index,
+                      "premium",
+                      endorsement?.offer_endorsement_id
+                    )?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     })}
                   </td>
