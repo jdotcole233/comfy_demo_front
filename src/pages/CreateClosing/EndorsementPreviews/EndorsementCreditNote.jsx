@@ -235,7 +235,11 @@ function EndorsementCreditNote({
                 <tr className="trial-balance-tr">
                   <td>Brokerage ({reinsurer?.agreed_brokerage_percentage}%)</td>
                   <td>
-                    {reinsurer?.brokerage_amount?.toLocaleString(undefined, {
+                    {(
+                      (parseFloat(reinsurer?.agreed_brokerage_percentage) /
+                        100) *
+                      getValues(offer, index, "fac_premium")
+                    )?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     })}
                   </td>
