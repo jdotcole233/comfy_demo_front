@@ -87,9 +87,9 @@ function UpdateEndorsementForm({ endorsement_id, toggle, offer }) {
       );
       setSelectedInsurer(_offer?.insurer?.insurer_company_name);
       setClassOfBusiness(
-        JSON.parse(endorsement.offer_endorsement_detail.offer_detail)
+        JSON.parse(endorsement?.offer_endorsement_detail?.offer_detail)
       );
-      setSelectedCurrency(_offer.offer_detail.currency);
+      setSelectedCurrency(_offer?.offer_detail?.currency);
       setInfoContent(
         endorsement.offer_endorsement_detail.information_comment?.toString()
       );
