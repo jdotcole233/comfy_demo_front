@@ -25,7 +25,8 @@ const getValues = (offer, size, key = "premium", endorsement_id) => {
   if (size < 0) getValues(offer, handleSpecialCase(offer, endorsement_id) + 1); // special case for unapproved endorsement
   if (size <= 1)
     return (
-      parseFloat(offer.offer_endorsements[0][key]) - parseFloat(offer[key])
+      parseFloat(offer.offer_endorsements[size - 1][key]) -
+      parseFloat(offer[key])
     );
 
   return (
