@@ -14,18 +14,17 @@ const downloadAccess = [
   "System Administrator",
 ];
 
-const getPremium = (offer, size) => {
+const getPremium = (offer, size, key = "premium") => {
   if (!offer) return 0.0;
   if (size < 0) return 0.0; // special case for unapproved endorsement
   if (size === 1)
     return (
-      parseFloat(offer.offer_endorsements[0]?.premium) -
-      parseFloat(offer?.premium)
+      parseFloat(offer.offer_endorsements[0][key]) - parseFloat(offer[key])
     );
 
   return (
-    parseFloat(offer?.offer_endorsements[size - 1]?.premium) -
-    parseFloat(offer?.offer_endorsements[size - 2]?.premium)
+    parseFloat(offer?.offer_endorsements[size - 1][key]) -
+    parseFloat(offer?.offer_endorsements[size - 2][key])
   );
 };
 
