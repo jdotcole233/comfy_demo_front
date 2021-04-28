@@ -280,8 +280,10 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
                 >
                   {offer?.exchange_rate?.ex_currency}{" "}
                   {(
-                    parseFloat(endorsement?.fac_premium) -
-                    parseFloat(endorsement?.commission_amount)
+                    parseFloat(getPremium(offer, doc_number, "fac_premium")) -
+                    parseFloat(
+                      getPremium(offer, doc_number, "commission_amount")
+                    )
                   ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </h3>
               </div>
