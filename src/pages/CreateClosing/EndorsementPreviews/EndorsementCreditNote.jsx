@@ -223,7 +223,10 @@ function EndorsementCreditNote({
                 <tr className="trial-balance-tr">
                   <td>Less Commission ({reinsurer?.agreed_commission}%)</td>
                   <td>
-                    {reinsurer?.commission_amount?.toLocaleString(undefined, {
+                    {(
+                      (parseFloat(reinsurer?.agreed_commission) / 100) *
+                      getValues(offer, index, "fac_premium")
+                    )?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     }) || "NIL"}
                   </td>
