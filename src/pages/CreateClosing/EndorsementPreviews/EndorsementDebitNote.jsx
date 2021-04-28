@@ -15,9 +15,9 @@ const downloadAccess = [
 ];
 
 const getPremium = (offer, index) => {
+  alert(index);
   if (!offer) return 0.0;
   if (index < 0) return 0.0;
-
   if (index <= 1)
     return (
       parseFloat(offer.offer_endorsements[0]?.premium) -
