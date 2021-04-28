@@ -28,10 +28,7 @@ const getValues = (offer, size, key = "premium", endorsement_id) => {
       parseFloat(offer.offer_endorsements[0][key]) - parseFloat(offer[key])
     );
 
-  return (
-    parseFloat(offer?.offer_endorsements[size - 1][key]) -
-    parseFloat(offer?.offer_endorsements[size - 2][key])
-  );
+  return 12.0;
 };
 
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
@@ -54,7 +51,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
 
   return (
     <div>
-      {doc_number}
+      {endorsement?.offer_endorsement_id}
       <div className="row m-2">
         {access.includes(ctx?.user?.position) && (
           <a
