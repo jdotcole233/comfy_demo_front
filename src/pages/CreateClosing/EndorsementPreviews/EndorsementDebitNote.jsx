@@ -16,17 +16,17 @@ const downloadAccess = [
 
 const getPremium = (offer, size) => {
   if (!offer) return 0.0;
-  if (size < 0) return 0.0;
-  if (size <= 1)
+  if (size < 0) return 0.0; // special case for unapproved endorsement
+  if (size === 1)
     return (
       parseFloat(offer.offer_endorsements[0]?.premium) -
       parseFloat(offer?.premium)
     );
 
   return (
-    parseFloat(offer?.offer_endorsements[size]?.premium) -
+    parseFloat(offer?.offer_endorsements[size - 1]?.premium) -
     parseFloat(
-      offer?.offer_endorsements[offer?.offer_endorsements[size - 1]]?.premium
+      offer?.offer_endorsements[offer?.offer_endorsements[size - 2]]?.premium
     )
   );
 };
