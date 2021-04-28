@@ -144,6 +144,7 @@ const EndorsementButtons = ({ offer, endorsement }) => {
           <EndorsementCoverNote
             offer={selectedOffer?.offer}
             endorsement={selectedOffer}
+            index={-1}
           />
         )}
       </Drawer>
