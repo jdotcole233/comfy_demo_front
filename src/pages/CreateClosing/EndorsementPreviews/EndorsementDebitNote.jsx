@@ -14,7 +14,7 @@ const downloadAccess = [
   "System Administrator",
 ];
 
-const getPremium = (offer) => {
+const getPremium = (offer, index) => {
   if (!offer) return 0.0;
   if (!offer.offer_endorsements.length < 2)
     return (
