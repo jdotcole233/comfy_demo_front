@@ -16,19 +16,20 @@ const downloadAccess = [
 
 const getPremium = (offer, index) => {
   if (!offer) return 0.0;
+  if (index < 0) return 0.0;
+
   if (index <= 1)
     return (
       parseFloat(offer.offer_endorsements[0]?.premium) -
       parseFloat(offer?.premium)
     );
 
-  return index < 0
-    ? 0.0
-    : parseFloat(offer?.offer_endorsements[index]?.premium) -
-        parseFloat(
-          offer?.offer_endorsements[offer?.offer_endorsements[index - 1]]
-            ?.premium
-        );
+  return (
+    parseFloat(offer?.offer_endorsements[index]?.premium) -
+    parseFloat(
+      offer?.offer_endorsements[offer?.offer_endorsements[index - 1]]?.premium
+    )
+  );
 };
 
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
