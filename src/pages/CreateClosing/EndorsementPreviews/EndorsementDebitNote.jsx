@@ -28,7 +28,10 @@ const getValues = (offer, size, key = "premium", endorsement_id) => {
       parseFloat(offer.offer_endorsements[0][key]) - parseFloat(offer[key])
     );
 
-  return 12.0;
+  return (
+    parseFloat(offer?.offer_endorsements[size - 1][key]) -
+    parseFloat(offer?.offer_endorsements[size - 2][key])
+  );
 };
 
 const downloadAccessA = ["CEO", "General Manager", "System Administrator"];
