@@ -248,7 +248,10 @@ function EndorsementCreditNote({
                 <tr className="trial-balance-tr">
                   <td>NIC Levy ({reinsurer?.nic_levy}%)</td>
                   <td>
-                    {reinsurer?.nic_levy_amount?.toLocaleString(undefined, {
+                    {(
+                      (parseFloat(reinsurer?.nic_levy) / 100) *
+                      getValues(offer, index, "fac_premium")
+                    )?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     }) || "NIL"}
                   </td>
