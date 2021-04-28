@@ -14,7 +14,7 @@ const downloadAccess = [
   "System Administrator",
 ];
 
-const getValues = (offer, size, key = "premium") => {
+const getValues = (offer, size, key = "premium", endorsement_id) => {
   if (!offer) return 0.0;
   if (size < 0) return 0.0; // special case for unapproved endorsement
   if (size === 1)
