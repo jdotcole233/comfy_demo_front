@@ -63,12 +63,16 @@ function EndorsementCreditNote({
     getValues(offer, index, "fac_premium");
 
   const brokerage =
-    (parseFloat(reinsurer?.agreed_brokerage) / 100) *
+    (parseFloat(reinsurer?.agreed_brokerage_percentage) / 100) *
     getValues(offer, index, "fac_premium");
 
   const nic_levy =
     (parseFloat(reinsurer?.nic_levy) / 100) *
     getValues(offer, index, "fac_premium");
+
+  const amt_due =
+    getValues(offer, index, "fac_premium") -
+    (commission + withholding_tax + brokerage + nic_levy);
 
   return (
     <Fragment>
@@ -276,7 +280,7 @@ function EndorsementCreditNote({
                   <td>Balance Due to Reinsurers</td>
                   <td></td>
                   <td>
-                    {reinsurer?.offer_amount?.toLocaleString(undefined, {
+                    {amt_due?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     })}
                   </td>
@@ -297,7 +301,7 @@ function EndorsementCreditNote({
                   <td className="balance">
                     {offer?.exchange_rate?.ex_currency ||
                       offer?.offer_detail.currency}{" "}
-                    {reinsurer?.offer_amount?.toLocaleString(undefined, {
+                    {amt_due?.toLocaleString(undefined, {
                       maximumFractionDigits: 2,
                     })}
                   </td>
