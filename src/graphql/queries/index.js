@@ -975,6 +975,18 @@ query getSingleEndorsement($id: ID){
     fac_premium
     endorsement_status
     approval_status
+    insurer {
+      insurer_id
+      insurer_company_email
+      insurer_company_name
+      insurer_address {
+        insurer_address_id
+        region
+        country
+        street
+        suburb
+      }
+    }
     offer_endorsement_detail {
       offer_detail
       information_comment
