@@ -118,7 +118,8 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
                 textDecoration: "underline",
               }}
             >
-              ENDORSEMENT DEBIT NOTE
+              ENDORSEMENT DEBIT NOTE{" "}
+              {handleSpecialCase(offer, endorsement?.offer_endorsement_id) + 1}
             </h3>
           </div>
           <div className="col-md-10 col-12 col-sm-12 col-xs-12 ml-4">
