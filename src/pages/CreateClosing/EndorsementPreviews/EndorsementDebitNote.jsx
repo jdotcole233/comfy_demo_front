@@ -15,7 +15,6 @@ const downloadAccess = [
 ];
 
 const getPremium = (offer, index) => {
-  alert(index);
   if (!offer) return 0.0;
   if (index < 0) return 0.0;
   if (index <= 1)
@@ -204,7 +203,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               </div>
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
-                  {offer?.exchange_rate?.ex_currency}{" "}
+                  {offer?.exchange_rate?.ex_currency} {doc_number - 1}
                   {getPremium(offer, doc_number - 1).toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
