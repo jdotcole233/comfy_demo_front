@@ -70,6 +70,7 @@ function InsurerDetail() {
         }, 0.0);
         const row = {
           name: offer.offer_detail?.policy_number,
+          currency: offer?.offer_detail?.currency,
           outstanding: (expected - payments_made).toLocaleString(undefined, {
             maximumFractionDigits: 2,
           }),
@@ -77,14 +78,10 @@ function InsurerDetail() {
             maximumFractionDigits: 2,
           }),
           insured: offer.offer_detail?.insured_by,
-          sum_insured: `${
-            offer?.offer_detail?.currency
-          } ${offer.sum_insured.toLocaleString(undefined, {
+          sum_insured: ` ${offer.sum_insured.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           })}`,
-          f_sum_insured: `${
-            offer?.offer_detail?.currency
-          } ${offer.fac_sum_insured.toLocaleString(undefined, {
+          f_sum_insured: ` ${offer.fac_sum_insured.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           })}`,
           endorsements: offer?.offer_endorsements?.length ? (

@@ -17,6 +17,11 @@ export default {
       sort: "asc",
     },
     {
+      label: "Currency",
+      field: "currency",
+      sort: "asc",
+    },
+    {
       label: "Sum Insured",
       field: "sum_insured",
       sort: "asc",
