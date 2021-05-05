@@ -316,26 +316,29 @@ function Reports() {
       const printerData = incomingReports.map((report) => ({
         ...report,
         business_name: report.business_name.replace("Fleet", ""),
-        fac_sum_insured: `${report.currency} ${parseFloat(
-          report.fac_sum_insured
-        )?.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`,
-        sum_insured: `${report.currency} ${parseFloat(
-          report.sum_insured
-        )?.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`,
-        fac_premium: `${report.currency} ${parseFloat(
-          report.fac_premium
-        )?.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`,
+        fac_sum_insured: ` ${parseFloat(report.fac_sum_insured)?.toLocaleString(
+          undefined,
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }
+        )}`,
+        sum_insured: ` ${parseFloat(report.sum_insured)?.toLocaleString(
+          undefined,
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }
+        )}`,
+        fac_premium: ` ${parseFloat(report.fac_premium)?.toLocaleString(
+          undefined,
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }
+        )}`,
         re_company_name: report.re_company_name || report.insurer_company_name,
-        brokerage_amount: `${report.currency} ${parseFloat(
+        brokerage_amount: ` ${parseFloat(
           report.brokerage_amount
         )?.toLocaleString(undefined, {
           minimumFractionDigits: 2,
@@ -350,26 +353,29 @@ function Reports() {
       const reports = incomingReports.map((report) => ({
         ...report,
         business_name: report.business_name.replace("Fleet", ""),
-        fac_sum_insured: `${report.currency} ${parseFloat(
-          report.fac_sum_insured
-        )?.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`,
-        sum_insured: `${report.currency} ${parseFloat(
-          report.sum_insured
-        )?.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`,
-        fac_premium: `${report.currency} ${parseFloat(
-          report.fac_premium
-        )?.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}`,
+        fac_sum_insured: ` ${parseFloat(report.fac_sum_insured)?.toLocaleString(
+          undefined,
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }
+        )}`,
+        sum_insured: ` ${parseFloat(report.sum_insured)?.toLocaleString(
+          undefined,
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }
+        )}`,
+        fac_premium: ` ${parseFloat(report.fac_premium)?.toLocaleString(
+          undefined,
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }
+        )}`,
         re_company_name: report.re_company_name || report.insurer_company_name,
-        brokerage_amount: `${report.currency} ${parseFloat(
+        brokerage_amount: ` ${parseFloat(
           report.brokerage_amount
         )?.toLocaleString(undefined, {
           minimumFractionDigits: 2,
