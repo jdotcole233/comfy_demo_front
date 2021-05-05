@@ -428,6 +428,9 @@ function Reports() {
     delete values.client_id;
     const obj = {
       ...values,
+      business_id: classOfBusiness.some((el) => el.label === "All")
+        ? null
+        : [...classOfBusiness.map((el) => el.value.class_of_business_id)],
       reinsurer_id: client_id ? client_id : " ",
       insurer_id: client_id ? client_id : " ",
       offer_status: [...filters.map((el) => el.label)],
@@ -493,7 +496,7 @@ function Reports() {
               />
             </div>
             <form onSubmit={handleSubmit(generateReport)} className="row">
-            {/* @TODO: BReak this into components */}
+              {/* @TODO: BReak this into components */}
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="classOfBusiness">Class of business</label>
