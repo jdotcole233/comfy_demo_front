@@ -54,6 +54,10 @@ export const insurerTable = [
     field: "period",
   },
   {
+    label: "Placed Share",
+    field: "placed_offer",
+  },
+  {
     label: "Offer Status",
     field: "offer_status",
   },
@@ -103,6 +107,10 @@ export const reinsurerTable = [
   {
     label: "Period of Insurance",
     field: "period",
+  },
+  {
+    label: "Placed Share",
+    field: "placed_offer",
   },
   {
     label: "Offer Status",
@@ -155,6 +163,10 @@ export const allTable = [
   {
     label: "Period of Insurance",
     field: "period",
+  },
+  {
+    label: "Placed Share",
+    field: "placed_offer",
   },
   {
     label: "Offer Status",
