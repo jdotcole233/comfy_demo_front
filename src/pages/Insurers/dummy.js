@@ -32,6 +32,16 @@ export default {
       sort: "asc",
     },
     {
+      label: "Expected premium",
+      field: "expected_premium",
+      sort: "asc",
+    },
+    {
+      label: "Outstanding premium",
+      field: "outstanding",
+      sort: "asc",
+    },
+    {
       label: "Offer Status",
       field: "offer_status",
       sort: "asc",
