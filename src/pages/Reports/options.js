@@ -54,6 +54,14 @@ export const insurerTable = [
     field: "brokerage_amount",
   },
   {
+    label: "Premium due KEK",
+    field: "expected_amount",
+  },
+  {
+    label: "Outstanding premium",
+    field: "outstanding_amount",
+  },
+  {
     label: "Period of Insurance",
     field: "period",
   },
@@ -72,6 +80,10 @@ export const insurerTable = [
   {
     label: "Offer Date",
     field: "offer_date",
+  },
+  {
+    label: "Closed Date",
+    field: "closed_date",
   },
 ];
 
@@ -113,6 +125,14 @@ export const reinsurerTable = [
     field: "brokerage_amount",
   },
   {
+    label: "Premium due KEK",
+    field: "expected_amount",
+  },
+  {
+    label: "Outstanding premium",
+    field: "outstanding_amount",
+  },
+  {
     label: "Period of Insurance",
     field: "period",
   },
@@ -131,6 +151,10 @@ export const reinsurerTable = [
   {
     label: "Offer Date",
     field: "offer_date",
+  },
+  {
+    label: "Closed Date",
+    field: "closed_date",
   },
 ];
 
@@ -173,6 +197,14 @@ export const allTable = [
     field: "brokerage_amount",
   },
   {
+    label: "Premium due KEK",
+    field: "expected_amount",
+  },
+  {
+    label: "Outstanding premium",
+    field: "outstanding_amount",
+  },
+  {
     label: "Period of Insurance",
     field: "period",
   },
@@ -191,5 +223,9 @@ export const allTable = [
   {
     label: "Offer Date",
     field: "offer_date",
+  },
+  {
+    label: "Closed Date",
+    field: "closed_date",
   },
 ];
