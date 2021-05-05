@@ -62,7 +62,7 @@ function InsurerDetail() {
     const list = [];
     if (insurer) {
       insurer.insurer.offers.map((offer, i) => {
-        console.log(offer);
+        console.log(offer.fac_premium - offer.comission_amount);
         const expected =
           parseFloat(offer.fac_premium) - parseFloat(offer.comission_amount);
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
