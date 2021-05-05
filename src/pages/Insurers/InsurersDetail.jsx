@@ -62,17 +62,20 @@ function InsurerDetail() {
     const list = [];
     if (insurer) {
       insurer.insurer.offers.map((offer, i) => {
-        console.log(offer.fac_premium - offer.comission_amount);
         const expected =
-          parseFloat(offer.fac_premium) - parseFloat(offer.comission_amount);
+          parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
           const payment_value = currVal.payment_amount || 0;
           return prev + payment_value;
         }, 0.0);
         const row = {
           name: offer.offer_detail?.policy_number,
-          outstanding: expected - payments_made,
-          expected_premium: expected,
+          outstanding: (expected - payments_made).toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          }),
+          expected_premium: expected.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          }),
           insured: offer.offer_detail?.insured_by,
           sum_insured: `${
             offer?.offer_detail?.currency
