@@ -525,7 +525,7 @@ function Reports() {
                     placeholder="Select client type"
                     options={[
                       { label: "All", value: "All" },
-                      { label: "Reinsurer", value: "Reinsurer" },
+                      { label: "Retrocedent", value: "Reinsurer" },
                       { label: "Insurer", value: "Insurer" },
                     ]}
                   />
