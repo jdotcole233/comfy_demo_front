@@ -345,6 +345,7 @@ function Reports() {
           maximumFractionDigits: 2,
         })}`,
         offer_date: new Date(report.offer_date).toDateString(),
+        closed_date: new Date(report.closed_date).toDateString(),
         period: parseReportDate(
           report.period_of_insurance_from,
           report.period_of_insurance_to
@@ -382,6 +383,7 @@ function Reports() {
           maximumFractionDigits: 2,
         })}`,
         offer_date: new Date(report.offer_date).toDateString(),
+        closed_date: new Date(report.closed_date).toDateString(),
         period: parseReportDate(
           report.period_of_insurance_from,
           report.period_of_insurance_to
