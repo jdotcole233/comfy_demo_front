@@ -36,16 +36,17 @@ function InsurerDetail() {
     }
   }, [_insurer]);
 
-  const { data: insurer_offers, loading: fetching, fetchMore } = useQuery(
-    INSURER_OFFERS,
-    {
-      variables: {
-        id: _insurer?.insurer_id,
-        skip: 0,
-      },
-      fetchPolicy: "cache-and-network",
-    }
-  );
+  const {
+    data: insurer_offers,
+    loading: fetching,
+    fetchMore,
+  } = useQuery(INSURER_OFFERS, {
+    variables: {
+      id: _insurer?.insurer_id,
+      skip: 0,
+    },
+    fetchPolicy: "cache-and-network",
+  });
 
   const { data: insurer, loading } = useQuery(INSURER, {
     variables: {
