@@ -303,12 +303,14 @@ function InsurerDetail() {
         ];
         return fetchMoreResult;
       },
-    });
+    })
+      .then((res) => {})
+      .catch((err) => {});
   };
 
   if (loading) return <Loader />;
 
-  if(error) return null
+  if (error) return null;
 
   return (
     <div className="page-content">
