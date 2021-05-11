@@ -305,7 +305,9 @@ function InsurerDetail() {
       },
     })
       .then((res) => {})
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   if (loading) return <Loader />;
