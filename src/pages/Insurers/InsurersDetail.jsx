@@ -162,9 +162,9 @@ function InsurerDetail() {
     setRows(list);
   }, [insurer]);
 
-  const insurers_all_offers = useMemo(
-    () =>
-      insurer_offers?.insurer_all_offers?.offers.map((offer, i) => {
+  const insurers_all_offers = useMemo(() => {
+    if (insurer_offers) {
+      return insurer_offers?.insurer_all_offers?.offers.map((offer, i) => {
         const expected =
           parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
@@ -257,9 +257,10 @@ function InsurerDetail() {
             <OfferButtons insurer={insurer} state={state} offer={offer} />
           ),
         };
-      }),
-    [insurer_offers, insurer]
-  );
+      });
+    }
+    return [];
+  }, [insurer_offers, insurer]);
 
   const insurers_all_offers_total = useMemo(
     () => insurer_offers?.insurer_all_offers?.total,
