@@ -815,6 +815,7 @@ export const INSURER_OFFERS = gql`
         offer_id
         offer_status
         sum_insured
+        co_insurance_share
         rate
         fac_sum_insured
         premium
