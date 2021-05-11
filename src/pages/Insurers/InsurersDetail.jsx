@@ -40,6 +40,7 @@ function InsurerDetail() {
     data: insurer_offers,
     loading: fetching,
     fetchMore,
+    error,
   } = useQuery(INSURER_OFFERS, {
     variables: {
       id: _insurer?.insurer_id,
@@ -306,6 +307,8 @@ function InsurerDetail() {
   };
 
   if (loading) return <Loader />;
+
+  if(error) return null
 
   return (
     <div className="page-content">
