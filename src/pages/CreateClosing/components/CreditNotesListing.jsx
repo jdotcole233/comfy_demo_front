@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState } from "react";
 import { useQuery } from "react-apollo";
 import { ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
 import { Datatable, Drawer, Loader } from "../../../components";
+import { BASE_URL_LOCAL } from "../../../graphql";
 import { GET_ENDORSEMENT_PARTICIPATION } from "../../../graphql/queries";
 import { creditNotes } from "../columns";
 import EndorsementCreditNote, {
@@ -91,6 +93,22 @@ function CreditNotesListing({ id, offer, index, endorsement }) {
                     </Dropdown.Item>
                   )}
                 </DropdownButton>
+
+                {reinsurer?.reinsurer_address?.country !== "Ghana" && (
+                  <a
+                    target="_blank"
+                    href={`${BASE_URL_LOCAL}/nic_form_endorsement/${btoa(
+                      JSON.stringify({
+                        offer_id: offer?.offer_id,
+                        reinsurer_id: reinsurer?.reinsurer_id,
+                        endorsement_id: endorsement?.offer_endorsement_id,
+                      })
+                    )}`}
+                    className="btn btn-sm ml-1 btn-warning w-md"
+                  >
+                    Transfer schedule
+                  </a>
+                )}
               </>
             ),
           };
