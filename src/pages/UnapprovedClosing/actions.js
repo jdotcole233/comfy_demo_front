@@ -142,12 +142,12 @@ export const generateEndorsementParticipants = ({
                 JSON.stringify({
                   offer_id: offer?.offer_id,
                   reinsurer_id: reinsurer?.reinsurer?.reinsurer_id,
-                  endorsement_id: endorsement?.endorsement_id,
+                  endorsement_id: endorsement?.offer_endorsement_id,
                 })
               )}`}
               className="btn btn-sm ml-1 btn-warning w-md"
             >
-              Transfer schedule {endorsement?.endorsement_id}
+              Transfer schedule {endorsement?.offer_endorsement_id}
             </a>
           )}
         </Fragment>
