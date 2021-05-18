@@ -141,7 +141,7 @@ export const generateEndorsementParticipants = ({
               href={`${BASE_URL_LOCAL}/nic_form_endorsement/${btoa(
                 JSON.stringify({
                   offer_id: offer?.offer_id,
-                  reinsurer_id: reinsurer?.reinsurer?.reinsurer_id,
+                  reinsurer_id: reinsurer?.reinsurer_id,
                   endorsement_id: endorsement?.offer_endorsement_id,
                 })
               )}`}
