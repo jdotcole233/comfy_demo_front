@@ -147,7 +147,7 @@ export const generateEndorsementParticipants = ({
               )}`}
               className="btn btn-sm ml-1 btn-warning w-md"
             >
-              Transfer schedule
+              Transfer schedule {endorsement?.endorsement_id}
             </a>
           )}
         </Fragment>
