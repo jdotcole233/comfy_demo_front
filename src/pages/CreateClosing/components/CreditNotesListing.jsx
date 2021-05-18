@@ -51,7 +51,7 @@ function CreditNotesListing({ id, offer, index, endorsement }) {
             ...reinsurer,
             amount: `${
               offer.offer_detail.currency
-            } ${amt_due.toFixed(2)}`,
+            } ${nic_levy.toFixed(2)}`,
             actions: (
               <>
                 <DropdownButton
