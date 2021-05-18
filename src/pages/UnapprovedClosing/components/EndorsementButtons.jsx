@@ -89,6 +89,7 @@ const EndorsementButtons = ({ offer, endorsement }) => {
     () =>
       generateEndorsementParticipants({
         offer: offer,
+        endorsement,
         _participants: _participations?.readParticipationsForEndorsement
           ? JSON.parse(_participations?.readParticipationsForEndorsement)
           : [],
