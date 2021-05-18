@@ -1,13 +1,13 @@
-/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState } from "react";
 import { useQuery } from "react-apollo";
 import { ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
 import { Datatable, Drawer, Loader } from "../../../components";
-import { BASE_URL_LOCAL } from "../../../graphql";
 import { GET_ENDORSEMENT_PARTICIPATION } from "../../../graphql/queries";
 import { creditNotes } from "../columns";
-import EndorsementCreditNote from "../EndorsementPreviews/EndorsementCreditNote";
+import EndorsementCreditNote, {
+  getValues,
+} from "../EndorsementPreviews/EndorsementCreditNote";
 import ParticipantCoverNote from "../EndorsementPreviews/ParticipantCoverNote";
 import SendNotesFromCreditListing from "./SendNotesFromCreditListing";
 
@@ -27,66 +27,74 @@ function CreditNotesListing({ id, offer, index, endorsement }) {
 
       return _data
         .filter((el) => el.offer_participant_percentage !== 0)
-        .map((reinsurer) => ({
-          ...reinsurer,
-          amount: `${
-            offer.offer_detail.currency
-          } ${reinsurer.offer_amount.toFixed(2)}`,
-          actions: (
-            <>
-              <DropdownButton
-                variant="danger"
-                size="sm"
-                as={ButtonGroup}
-                id="dropdown-basic-button"
-                title="Generate Notes"
-              >
-                <Dropdown.Item
-                  onClick={() => {
-                    setSelectedReinsurer(reinsurer);
-                    setshowCreditNotePreview((s) => !s);
-                  }}
+        .map((reinsurer) => {
+          const fac_premium =
+            (parseFloat(reinsurer?.offer_participant_percentage) / 100) *
+            getValues(
+              offer,
+              index,
+              "premium",
+              endorsement?.offer_endorsement_id
+            );
+
+          const commission =
+            (parseFloat(reinsurer?.agreed_commission) / 100) * fac_premium;
+
+          const withholding_tax =
+            (parseFloat(reinsurer?.withholding_tax) / 100) * fac_premium;
+
+          const brokerage =
+            (parseFloat(reinsurer?.agreed_brokerage_percentage) / 100) *
+            fac_premium;
+
+          const nic_levy =
+            (parseFloat(reinsurer?.nic_levy) / 100) * fac_premium;
+
+          const amt_due =
+            fac_premium - (commission + withholding_tax + brokerage + nic_levy);
+          return {
+            ...reinsurer,
+            amount: `${offer.offer_detail.currency} ${amt_due.toFixed(2)}`,
+            actions: (
+              <>
+                <DropdownButton
+                  variant="danger"
+                  size="sm"
+                  as={ButtonGroup}
+                  id="dropdown-basic-button"
+                  title="Generate Notes"
                 >
-                  Preview Credit Note
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => {
-                    setSelectedReinsurer(reinsurer);
-                    setShowContractChangesPreview(true);
-                  }}
-                >
-                  Preview Contract Changes
-                </Dropdown.Item>
-                {endorsement.approval_status === "APPROVED" && (
                   <Dropdown.Item
                     onClick={() => {
                       setSelectedReinsurer(reinsurer);
-                      setShowSendNoteDrawer(true);
+                      setshowCreditNotePreview((s) => !s);
                     }}
                   >
-                    Send
+                    Preview Credit Note
                   </Dropdown.Item>
-                )}
-              </DropdownButton>
-
-              {reinsurer?.reinsurer_address?.country !== "Ghana" && (
-                <a
-                  target="_blank"
-                  href={`${BASE_URL_LOCAL}/nic_form_endorsement/${btoa(
-                    JSON.stringify({
-                      offer_id: offer?.offer_id,
-                      reinsurer_id: reinsurer?.reinsurer_id,
-                      endorsement_id: endorsement?.offer_endorsement_id,
-                    })
-                  )}`}
-                  className="btn btn-sm ml-1 btn-warning w-md"
-                >
-                  Transfer schedule
-                </a>
-              )}
-            </>
-          ),
-        }));
+                  <Dropdown.Item
+                    onClick={() => {
+                      setSelectedReinsurer(reinsurer);
+                      setShowContractChangesPreview(true);
+                    }}
+                  >
+                    Preview Contract Changes
+                  </Dropdown.Item>
+                  {endorsement.approval_status === "APPROVED" && (
+                    <Dropdown.Item
+                      onClick={() => {
+                        setSelectedReinsurer(reinsurer);
+                        setShowSendNoteDrawer(true);
+                      }}
+                    >
+                      Send
+                    </Dropdown.Item>
+                  )}
+                </DropdownButton>
+              </>
+            ),
+          };
+        });
     }
     return [];
   }, [data]);
