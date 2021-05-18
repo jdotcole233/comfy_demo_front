@@ -107,72 +107,72 @@ export const generateEndorsementParticipants = ({
   if (!offer) return { rows: [], participants: [], downloadLink: '' };
   const rows = _participants
     .filter((el) => el.offer_participant_percentage !== 0)
-    .map((reinsurer) => ({
-      ...reinsurer,
-      ...reinsurer.reinsurer,
-      amount: () => {
-        const fac_premium =
-          (parseFloat(reinsurer?.offer_participant_percentage) / 100) *
-          getValues(offer, -1, "premium", endorsement?.offer_endorsement_id);
+    .map((reinsurer) => {
+      const fac_premium =
+        (parseFloat(reinsurer?.offer_participant_percentage) / 100) *
+        getValues(offer, -1, "premium", endorsement?.offer_endorsement_id);
 
-        const commission =
-          (parseFloat(reinsurer?.agreed_commission) / 100) * fac_premium;
+      const commission =
+        (parseFloat(reinsurer?.agreed_commission) / 100) * fac_premium;
 
-        const withholding_tax =
-          (parseFloat(reinsurer?.withholding_tax) / 100) * fac_premium;
+      const withholding_tax =
+        (parseFloat(reinsurer?.withholding_tax) / 100) * fac_premium;
 
-        const brokerage =
-          (parseFloat(reinsurer?.agreed_brokerage_percentage) / 100) * fac_premium;
+      const brokerage =
+        (parseFloat(reinsurer?.agreed_brokerage_percentage) / 100) * fac_premium;
 
-        const nic_levy = (parseFloat(reinsurer?.nic_levy) / 100) * fac_premium;
+      const nic_levy = (parseFloat(reinsurer?.nic_levy) / 100) * fac_premium;
 
-        const amt_due =
-          fac_premium - (commission + withholding_tax + brokerage + nic_levy);
-        return `${offer?.offer_detail?.currency || offer?.offer_endorsement_detail?.currency} ${parseFloat(amt_due).toFixed(2)}`
-      },
-      actions: (
-        <Fragment>
-          <DropdownButton
-            variant="danger"
-            size="sm"
-            as={ButtonGroup}
-            id="dropdown-basic-button"
-            title="Generate Notes"
-          >
-            <Dropdown.Item
-              onClick={() => {
-                setSelectedReinsurer(reinsurer);
-                setshowCreditNotePreview((s) => !s);
-              }}
+      const amt_due =
+        fac_premium - (commission + withholding_tax + brokerage + nic_levy);
+      return {
+        ...reinsurer,
+        ...reinsurer.reinsurer,
+        amount: `${offer?.offer_detail?.currency || offer?.offer_endorsement_detail?.currency} ${parseFloat(amt_due).toFixed(2)}`,
+        actions: (
+          <Fragment>
+            <DropdownButton
+              variant="danger"
+              size="sm"
+              as={ButtonGroup}
+              id="dropdown-basic-button"
+              title="Generate Notes"
             >
-              Preview Credit Note
+              <Dropdown.Item
+                onClick={() => {
+                  setSelectedReinsurer(reinsurer);
+                  setshowCreditNotePreview((s) => !s);
+                }}
+              >
+                Preview Credit Note
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => {
-              setSelectedReinsurer(reinsurer);
-              setShowContractChanges(true)
-            }}>
-              Preview Contract Changes
+              <Dropdown.Item onClick={() => {
+                setSelectedReinsurer(reinsurer);
+                setShowContractChanges(true)
+              }}>
+                Preview Contract Changes
               </Dropdown.Item>
 
-          </DropdownButton>
-          {reinsurer?.reinsurer?.reinsurer_address?.country !== 'Ghana' && (
-            <a
-              target="_blank"
-              href={`${BASE_URL_LOCAL}/nic_form_endorsement/${btoa(
-                JSON.stringify({
-                  offer_id: offer?.offer_id,
-                  reinsurer_id: reinsurer?.reinsurer_id,
-                  endorsement_id: endorsement?.offer_endorsement_id,
-                })
-              )}`}
-              className="btn btn-sm ml-1 btn-warning w-md"
-            >
-              Transfer schedule
-            </a>
-          )}
-        </Fragment>
-      ),
-    }));
+            </DropdownButton>
+            {reinsurer?.reinsurer?.reinsurer_address?.country !== 'Ghana' && (
+              <a
+                target="_blank"
+                href={`${BASE_URL_LOCAL}/nic_form_endorsement/${btoa(
+                  JSON.stringify({
+                    offer_id: offer?.offer_id,
+                    reinsurer_id: reinsurer?.reinsurer_id,
+                    endorsement_id: endorsement?.offer_endorsement_id,
+                  })
+                )}`}
+                className="btn btn-sm ml-1 btn-warning w-md"
+              >
+                Transfer schedule
+              </a>
+            )}
+          </Fragment>
+        ),
+      }
+    });
   const participants = _participants.map((reinsurer) => ({
     ...reinsurer,
     ...reinsurer.reinsurer,
