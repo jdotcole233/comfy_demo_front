@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react';
 import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { BASE_URL_LOCAL } from '../../graphql';
+import { getValues } from '../CreateClosing/EndorsementPreviews/EndorsementCreditNote';
 
 export const calculateFacOffer = ({ offer, setFac_offer, setTest_offer }) => {
   if (!offer) return 0;
@@ -109,7 +110,26 @@ export const generateEndorsementParticipants = ({
     .map((reinsurer) => ({
       ...reinsurer,
       ...reinsurer.reinsurer,
-      amount: `${offer?.offer_detail?.currency || offer?.offer_endorsement_detail?.currency} ${parseFloat(reinsurer.offer_amount).toFixed(2)}`,
+      amount: () => {
+        const fac_premium =
+          (parseFloat(reinsurer?.offer_participant_percentage) / 100) *
+          getValues(offer, -1, "premium", endorsement?.offer_endorsement_id);
+
+        const commission =
+          (parseFloat(reinsurer?.agreed_commission) / 100) * fac_premium;
+
+        const withholding_tax =
+          (parseFloat(reinsurer?.withholding_tax) / 100) * fac_premium;
+
+        const brokerage =
+          (parseFloat(reinsurer?.agreed_brokerage_percentage) / 100) * fac_premium;
+
+        const nic_levy = (parseFloat(reinsurer?.nic_levy) / 100) * fac_premium;
+
+        const amt_due =
+          fac_premium - (commission + withholding_tax + brokerage + nic_levy);
+        return `${offer?.offer_detail?.currency || offer?.offer_endorsement_detail?.currency} ${parseFloat(amt_due).toFixed(2)}`
+      },
       actions: (
         <Fragment>
           <DropdownButton
