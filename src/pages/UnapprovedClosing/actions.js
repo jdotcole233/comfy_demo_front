@@ -137,7 +137,7 @@ export const generateEndorsementParticipants = ({
           {reinsurer?.reinsurer?.reinsurer_address?.country !== 'Ghana' && (
             <a
               target="_blank"
-              href={`${BASE_URL_LOCAL}/nic_form/${btoa(
+              href={`${BASE_URL_LOCAL}/nic_form_endorsement/${btoa(
                 JSON.stringify({
                   offer_id: offer?.offer_id,
                   reinsurer_id: reinsurer?.reinsurer?.reinsurer_id,
