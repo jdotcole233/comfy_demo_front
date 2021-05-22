@@ -61,6 +61,7 @@ export default function InputOffer({ toggle }) {
   const formRef = useRef();
   const { data } = useQuery(INPUT_OFFER_QUERIES);
   const [selectedInsurer, setSelectedInsurer] = useState(null);
+  const [selectedReinsurer, setSelectedReinsurer] = useState(null);
   const { register, errors, handleSubmit, reset, setValue, clearError, watch } =
     useForm();
   payment_typeRef.current = watch("payment_type", "");
@@ -174,6 +175,14 @@ export default function InputOffer({ toggle }) {
     setSelectedInsurer(value ? value : "");
     if (value) {
       clearError("insurer_id");
+    }
+  };
+
+  const handleRetrocedentChange = (value) => {
+    setValue("reinsurer_id", value ? value.value.reinsurer_id : "");
+    setSelectedReinsurer(value ? value : "");
+    if (value) {
+      clearError("reinsurer_id");
     }
   };
 
@@ -391,9 +400,9 @@ export default function InputOffer({ toggle }) {
               <div className="form-group">
                 <label htmlFor="BusinessClass">Retrocedent</label>
                 <Selector
-                  value={selectedInsurer}
+                  value={selectedReinsurer}
                   placeholder="Retrocedent"
-                  onChange={handleInsuranceCompanyChange}
+                  onChange={handleRetrocedentChange}
                   components={{ Option: ReinsurerOption }}
                   options={
                     data
