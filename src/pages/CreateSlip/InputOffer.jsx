@@ -422,13 +422,13 @@ export default function InputOffer({ toggle }) {
                 />
                 <input
                   ref={register({
-                    required: "Insurance company is required",
+                    required: "Retrocedent is required",
                   })}
                   type="hidden"
                   name="reinsurer_id"
                 />
-                {errors.insurer_id && (
-                  <p className="text-danger">{errors.insurer_id.message}</p>
+                {errors.reinsurer_id && (
+                  <p className="text-danger">{errors.reinsurer_id.message}</p>
                 )}
               </div>
             </div>
@@ -455,7 +455,9 @@ export default function InputOffer({ toggle }) {
               />
               <input
                 ref={register({
-                  required: "Insurance company is required",
+                  required: `${
+                    createFR ? "Reinsured" : "Insurance Company"
+                  } is required`,
                 })}
                 type="hidden"
                 name="insurer_id"
