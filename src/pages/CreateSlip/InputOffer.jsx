@@ -351,6 +351,8 @@ export default function InputOffer({ toggle }) {
           swal("Success", "Facultative offer Created Successfully", "success");
           formRef.current.reset();
           setSelectedInsurer(null);
+          setSelectedReinsurer(null);
+          setCreateFR(false);
           toggle();
         })
         .catch((err) => {
