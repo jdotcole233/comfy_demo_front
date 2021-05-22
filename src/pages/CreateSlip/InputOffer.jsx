@@ -349,6 +349,8 @@ export default function InputOffer({ toggle }) {
   useEffect(() => {
     if (payment_typeRef.current === "instalment") {
       setShowInstallmentDropdown(true);
+    } else {
+      setShowInstallmentDropdown(false);
     }
   }, [payment_typeRef.current, setShowInstallmentDropdown]);
 
