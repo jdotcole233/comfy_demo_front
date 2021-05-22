@@ -661,13 +661,16 @@ export default function InputOffer({ toggle }) {
                 <select
                   className="form-control"
                   name="payment_type"
-                  ref={register({ required: false })}
+                  ref={register({ required: "Required" })}
                   id=""
                 >
                   <option value="">Select</option>
                   <option value="infull">Payable in full</option>
                   <option value="instalment">Instalment</option>
                 </select>
+                {errors.payment_type && (
+                  <p className="text-danger">{errors.payment_type.message}</p>
+                )}
               </div>
             </div>
 
@@ -676,12 +679,17 @@ export default function InputOffer({ toggle }) {
               <div className="col-md-12 mb-3">
                 <label htmlFor="">No. of instalments</label>
                 <input
-                  ref={register({ required: true })}
+                  ref={register({ required: "Required" })}
                   type="number"
                   name="no_of_installments"
                   min={1}
                   className="form-control"
                 />
+                {errors.no_of_installments && (
+                  <p className="text-danger">
+                    {errors.no_of_installments.message}
+                  </p>
+                )}
               </div>
             )}
 
