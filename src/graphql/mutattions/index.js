@@ -113,6 +113,7 @@ export const CREATE_INPUT_OFFER = gql`
   mutation inputOffer(
     $class_of_business_id: ID!
     $insurer_id: ID!
+    $reinsurer_id: ID
     $employee_id: ID!
     $co_insurance_share: Float
     $rate: Float
@@ -130,13 +131,16 @@ export const CREATE_INPUT_OFFER = gql`
     $ex_currency: String
     $offer_comment: String
     $offer_details: String!
+    $payment_type: Payment_type
     $information_comment: String
   ) {
     createInputOffer(
       offer_input: {
         class_of_business_id: $class_of_business_id
         insurer_id: $insurer_id
+        reinsurer_id: $reinsurer_id
         employee_id: $employee_id
+        payment_type: $payment_type
         rate: $rate
         commission: $commission
         brokerage: $brokerage
