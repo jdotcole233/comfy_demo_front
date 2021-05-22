@@ -371,6 +371,18 @@ export default function InputOffer({ toggle }) {
       <div className={styles.card_body}>
         <div className="row">
           <div className="col-md-12">
+            <div className="form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                onChange={(e) => setAddExchangeRate(e.target.checked)}
+              />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                Create offer for retrocedent
+              </label>
+            </div>
+          </div>
+          <div className="col-md-12">
             <div className="form-group">
               <label htmlFor="BusinessClass">Insurance Company</label>
               <Selector
