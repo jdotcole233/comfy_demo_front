@@ -28,6 +28,7 @@ export const prepVariables = (values, offerDetails, employee_id) => {
   const variable = {
     class_of_business_id: values.class_of_business_id,
     insurer_id: values.insurer_id,
+    reinsurer_id: values.reinsurer_id,
     rate: values.rate,
     commission: values.commission,
     brokerage: values.brokerage,
