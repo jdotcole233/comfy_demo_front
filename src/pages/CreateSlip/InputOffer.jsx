@@ -670,7 +670,15 @@ export default function InputOffer({ toggle }) {
                 </select>
               </div>
             </div>
-            {showInstallmentDropdown && <p>Hello</p>}
+
+            {/* When instalment is selected  */}
+            {showInstallmentDropdown && (
+              <div className="col-md-12">
+                <label htmlFor="">No. of instalments</label>
+                <input type="number" min={0} className="form-control" />
+              </div>
+            )}
+
             <div className="col-md-12">
               <div className="form-check">
                 <input
