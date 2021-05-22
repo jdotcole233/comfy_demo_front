@@ -104,7 +104,7 @@ export default function InputOffer({ offer_id, toggle }) {
       setValue("ex_currency", offer.exchange_rate?.ex_currency);
       setSelectedExCurrency(offer.exchange_rate?.ex_currency);
       // alert(parseFloat(offer.exchange_rate?.ex_rate))
-      setCreateFR(offer?.reinsurer_id ? true : false);
+      setCreateFR(offer?.offer_retrocedent ? true : false);
     }
   }, [_offer]);
 
