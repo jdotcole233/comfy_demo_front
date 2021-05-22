@@ -649,8 +649,8 @@ export default function InputOffer({ toggle }) {
                 <label htmlFor="Payment Type">Payment Type</label>
                 <select className="form-control" name="payment_type" id="">
                     <option value="">Select</option>
-                    <option value="">Payable in full</option>
-                    <option value="">Instalment</option>
+                    <option value="infull">Payable in full</option>
+                    <option value="instalment">Instalment</option>
                 </select>
               </div>
             </div>
