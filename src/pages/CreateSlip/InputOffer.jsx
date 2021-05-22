@@ -388,7 +388,7 @@ export default function InputOffer({ toggle }) {
           {createFR && (
             <div className="col-md-12">
               <div className="form-group">
-                <label htmlFor="BusinessClass">Insurance Company</label>
+                <label htmlFor="BusinessClass">Retrocedent</label>
                 <Selector
                   value={selectedInsurer}
                   placeholder="Insurance company"
