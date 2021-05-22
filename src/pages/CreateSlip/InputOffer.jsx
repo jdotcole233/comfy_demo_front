@@ -52,6 +52,7 @@ export const prepVariables = (values, offerDetails, employee_id) => {
 
 export default function InputOffer({ toggle }) {
   const { closed } = useContext(DrawerContext);
+  const payment_typeRef = useRef({});
   const { state } = useContext(AuthContext);
   const [nkrol, setNkrol] = useState(false);
   const [addExchangeRate, setAddExchangeRate] = useState(false);
@@ -59,8 +60,9 @@ export default function InputOffer({ toggle }) {
   const formRef = useRef();
   const { data } = useQuery(INPUT_OFFER_QUERIES);
   const [selectedInsurer, setSelectedInsurer] = useState(null);
-  const { register, errors, handleSubmit, reset, setValue, clearError } =
+  const { register, errors, handleSubmit, reset, setValue, clearError, watch } =
     useForm();
+  payment_typeRef.current = watch("payment_type", "");
   const [classOfBusiness, setClassOfBusiness] = useState(null);
   const [offerDetails, setofferDetails] = useState([]);
   const [content, setContent] = useState("");
@@ -71,6 +73,7 @@ export default function InputOffer({ toggle }) {
   const [ex_currency, setExCurrency] = useState(null);
   const [updateIndex, setUpdateIndex] = useState(-1);
   const [infoContent, setInfoContent] = useState("");
+  const [showInstallmentDropdown, setShowInstallmentDropdown] = useState(false);
 
   const [createFleetOfferMutation, { loading: creatingFleet }] = useMutation(
     CREATE_FLEET_OFFER,
@@ -342,6 +345,12 @@ export default function InputOffer({ toggle }) {
         });
     });
   };
+
+  useEffect(() => {
+    if (payment_typeRef.current === "instalments") {
+      setShowInstallmentDropdown(true);
+    }
+  }, [payment_typeRef.current, setShowInstallmentDropdown]);
 
   return (
     <form
