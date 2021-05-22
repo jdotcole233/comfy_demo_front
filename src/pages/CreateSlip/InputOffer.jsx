@@ -391,7 +391,7 @@ export default function InputOffer({ toggle }) {
                 <label htmlFor="BusinessClass">Retrocedent</label>
                 <Selector
                   value={selectedInsurer}
-                  placeholder="Insurance company"
+                  placeholder="Retrocedent"
                   onChange={handleInsuranceCompanyChange}
                   components={{ Option: InsurerOption }}
                   options={
@@ -419,10 +419,12 @@ export default function InputOffer({ toggle }) {
 
           <div className="col-md-12">
             <div className="form-group">
-              <label htmlFor="BusinessClass">Insurance Company</label>
+              <label htmlFor="BusinessClass">
+                {createFR ? "Reinsured" : "Insurance Company"}
+              </label>
               <Selector
                 value={selectedInsurer}
-                placeholder="Insurance company"
+                placeholder={createFR ? "Reinsured" : "Insurance Company"}
                 onChange={handleInsuranceCompanyChange}
                 components={{ Option: InsurerOption }}
                 options={
