@@ -384,6 +384,39 @@ export default function InputOffer({ toggle }) {
               </label>
             </div>
           </div>
+          {/* Retrocedent listing on condition */}
+          {createFR && (
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="BusinessClass">Insurance Company</label>
+                <Selector
+                  value={selectedInsurer}
+                  placeholder="Insurance company"
+                  onChange={handleInsuranceCompanyChange}
+                  components={{ Option: InsurerOption }}
+                  options={
+                    data
+                      ? data.insurers.map((insurer) => ({
+                          label: insurer.insurer_company_name,
+                          value: insurer,
+                        }))
+                      : []
+                  }
+                />
+                <input
+                  ref={register({
+                    required: "Insurance company is required",
+                  })}
+                  type="hidden"
+                  name="insurer_id"
+                />
+                {errors.insurer_id && (
+                  <p className="text-danger">{errors.insurer_id.message}</p>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="col-md-12">
             <div className="form-group">
               <label htmlFor="BusinessClass">Insurance Company</label>
