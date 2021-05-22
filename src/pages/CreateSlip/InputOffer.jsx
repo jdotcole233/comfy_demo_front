@@ -425,7 +425,7 @@ export default function InputOffer({ toggle }) {
                     required: "Insurance company is required",
                   })}
                   type="hidden"
-                  name="insurer_id"
+                  name="reinsurer_id"
                 />
                 {errors.insurer_id && (
                   <p className="text-danger">{errors.insurer_id.message}</p>
