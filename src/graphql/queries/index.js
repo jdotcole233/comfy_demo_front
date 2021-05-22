@@ -526,7 +526,7 @@ export const SINGLE_OFFER = gql`
       offer_id
       rate
       commission
-      reinsurer_id
+      # reinsurer_id
       co_insurance_share
       commission_amount
       brokerage
