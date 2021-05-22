@@ -347,7 +347,7 @@ export default function InputOffer({ toggle }) {
   };
 
   useEffect(() => {
-    if (payment_typeRef.current === "instalments") {
+    if (payment_typeRef.current === "instalment") {
       setShowInstallmentDropdown(true);
     }
   }, [payment_typeRef.current, setShowInstallmentDropdown]);
@@ -668,6 +668,7 @@ export default function InputOffer({ toggle }) {
                 </select>
               </div>
             </div>
+            {showInstallmentDropdown && <p>Hello</p>}
             <div className="col-md-12">
               <div className="form-check">
                 <input
