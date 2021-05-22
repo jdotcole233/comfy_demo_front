@@ -46,6 +46,10 @@ export const prepVariables = (values, offerDetails, employee_id) => {
     employee_id,
     offer_details: JSON.stringify(offerDetails),
     co_insurance_share: values.co_insurance_share,
+    payment_type: {
+      [values.payment_type]:
+        values.payment_type === "payable_in_full" ? "" : "",
+    },
   };
 
   return variable;
@@ -723,8 +727,7 @@ export default function InputOffer({ toggle }) {
                   ref={register({ required: "Required" })}
                   id=""
                 >
-                  <option value="">Select</option>
-                  <option value="infull">Payable in full</option>
+                  <option value="payable_in_full">Payable in full</option>
                   <option value="instalment">Instalment</option>
                 </select>
                 {errors.payment_type && (
