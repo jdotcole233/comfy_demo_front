@@ -650,7 +650,7 @@ export default function InputOffer({ toggle }) {
                 <select className="form-control" name="payment_type" id="">
                     <option value="">Select</option>
                     <option value="">Payable in full</option>
-                    <option value="">Payable in instalments</option>
+                    <option value="">Instalment</option>
                 </select>
               </div>
             </div>
