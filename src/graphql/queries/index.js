@@ -490,6 +490,12 @@ export const INPUT_OFFER_QUERIES = gql`
       insurer_company_email
       insurer_abbrv
     }
+    reinsurers {
+      reinsurer_id
+      re_company_email
+      re_company_name
+      re_abbrv
+    }
     classOfBusinesses {
       class_of_business_id
       business_name

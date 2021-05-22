@@ -19,6 +19,7 @@ import {
   CurrencyOption,
   InsurerOption,
   Editor,
+  ReinsurerOption,
 } from "../../components";
 import { AuthContext } from "../../context/AuthContext";
 import { previewTable } from "./columns";
@@ -393,12 +394,12 @@ export default function InputOffer({ toggle }) {
                   value={selectedInsurer}
                   placeholder="Retrocedent"
                   onChange={handleInsuranceCompanyChange}
-                  components={{ Option: InsurerOption }}
+                  components={{ Option: ReinsurerOption }}
                   options={
                     data
-                      ? data.insurers.map((insurer) => ({
-                          label: insurer.insurer_company_name,
-                          value: insurer,
+                      ? data.reinsurers.map((reinsurer) => ({
+                          label: reinsurer.re_company_name,
+                          value: reinsurer,
                         }))
                       : []
                   }
