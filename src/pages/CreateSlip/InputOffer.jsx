@@ -48,7 +48,9 @@ export const prepVariables = (values, offerDetails, employee_id) => {
     co_insurance_share: values.co_insurance_share,
     payment_type: {
       [values.payment_type]:
-        values.payment_type === "payable_in_full" ? "" : "",
+        values.payment_type === "payable_in_full"
+          ? "Facultative Premium payable in full at inception"
+          : values.no_of_installments,
     },
   };
 
