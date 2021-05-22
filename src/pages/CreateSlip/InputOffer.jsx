@@ -74,6 +74,7 @@ export default function InputOffer({ toggle }) {
   const [updateIndex, setUpdateIndex] = useState(-1);
   const [infoContent, setInfoContent] = useState("");
   const [showInstallmentDropdown, setShowInstallmentDropdown] = useState(false);
+  const [createFR, setCreateFR] = useState(false);
 
   const [createFleetOfferMutation, { loading: creatingFleet }] = useMutation(
     CREATE_FLEET_OFFER,
@@ -370,12 +371,13 @@ export default function InputOffer({ toggle }) {
       </div>
       <div className={styles.card_body}>
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12 mb-3">
             <div className="form-check">
               <input
                 type="checkbox"
                 className="form-check-input"
-                onChange={(e) => setAddExchangeRate(e.target.checked)}
+                onChange={(e) => setCreateFR(e.target.checked)}
+                value={createFR}
               />
               <label className="form-check-label" htmlFor="exampleCheck1">
                 Create offer for retrocedent
