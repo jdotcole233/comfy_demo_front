@@ -675,7 +675,13 @@ export default function InputOffer({ toggle }) {
             {showInstallmentDropdown && (
               <div className="col-md-12 mb-3">
                 <label htmlFor="">No. of instalments</label>
-                <input type="number" min={1} className="form-control" />
+                <input
+                  ref={register({ required: true })}
+                  type="number"
+                  name="no_of_installments"
+                  min={1}
+                  className="form-control"
+                />
               </div>
             )}
 
