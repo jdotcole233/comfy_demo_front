@@ -10,8 +10,8 @@ export const generateClosingOffers = ({ arr }) => {
   if (!arr) return [];
   const list = [];
   arr.offers.map((offer) => {
-    const payment_type_key = Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0]
-    const payment_type_values = Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
+    const payment_type_key = offer?.offer_detail?.payment_type ? Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0] : "NA"
+    const payment_type_values = offer?.offer_detail?.payment_type ? Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0] : "NA"
     const row = {
       policy_number: offer.offer_detail?.policy_number,
       payment_type: offer?.offer_detail?.payment_type ?
