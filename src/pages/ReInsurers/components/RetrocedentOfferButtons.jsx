@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useState } from "react";
 import { Drawer } from "../../../components";
 import { AuthContext } from "../../../context/AuthContext";
-import ViewReinsurerOffer from "../ViewReinsurerOffer";
+import ViewInsurerOffer from "../../Insurers/ViewInsurerOffer";
 
 const RetrocedentOfferButtons = ({
   offer,
@@ -41,7 +41,7 @@ const RetrocedentOfferButtons = ({
         isvisible={viewOffer}
         toggle={() => setViewOffer(!viewOffer)}
       >
-        <ViewReinsurerOffer data={offer} />
+        <ViewInsurerOffer data={offer} />
       </Drawer>
     </div>
   );
