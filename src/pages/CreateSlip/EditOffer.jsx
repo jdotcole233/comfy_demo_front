@@ -196,7 +196,6 @@ export default function InputOffer({ offer_id, toggle }) {
 
   useEffect(() => {
     if (offer && !instalment_typeRef.current && showInstallmentDropdown) {
-      // alert(Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]);
       setValue(
         "no_of_installments",
         Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
