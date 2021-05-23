@@ -1,17 +1,17 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useRef, useEffect } from "react";
-import styles from "./styles/ViewInsurerOffer.module.css";
+import styles from "./../../styles/ViewInsurerOffer.module.css";
 import { Alert } from "react-bootstrap";
 import { useMutation } from "react-apollo";
 import {
   MAKE_PAYMENT_INSURER,
   UPDATE_PAYMENT_INSURER,
-} from "../../graphql/mutattions";
-import { INSURER, INSURER_OFFERS } from "../../graphql/queries";
+} from "../../../../graphql/mutattions";
+import { INSURER, INSURER_OFFERS } from "../../../../graphql/queries";
 import swal from "sweetalert";
-import { useAuth } from "../../context/AuthContext";
-import { CurrencyOption, Selector } from "../../components";
-import currencies from "../../assets/currencies.json";
+import { useAuth } from "../../../../context/AuthContext";
+import { CurrencyOption, Selector } from "../../../../components";
+import currencies from "../../../../assets/currencies.json";
 import plural from "pluralize";
 
 const prepData = ({
@@ -61,7 +61,13 @@ const getSum = (name, details) =>
     0
   );
 
-export const AddPayments = ({ details, edit, reinsurer_id, toggle, payment }) => {
+export const AddPayments = ({
+  details,
+  edit,
+  reinsurer_id,
+  toggle,
+  payment,
+}) => {
   const { user } = useAuth();
   const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0);
   const [newExpectedAmount, setNewExpectedAmount] = useState(0);
