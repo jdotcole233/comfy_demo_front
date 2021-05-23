@@ -34,6 +34,7 @@ export default function InputOffer({ offer_id, toggle }) {
   const { register, errors, handleSubmit, reset, setValue, clearError, watch } =
     useForm();
   payment_typeRef.current = watch("payment_type", "");
+  payment_typeRef.current = watch("payment_type", "");
   const [offer_comment, fillComment] = useState("");
   const [nkrol, setNkrol] = useState(false);
 
@@ -115,7 +116,7 @@ export default function InputOffer({ offer_id, toggle }) {
       // alert(parseFloat(offer.exchange_rate?.ex_rate))
       setCreateFR(offer?.offer_retrocedent ? true : false);
       setValue(
-        "no_of_instalments",
+        "no_of_installments",
         Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
       );
     }
