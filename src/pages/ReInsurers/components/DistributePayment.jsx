@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect, useMemo } from "react";
-import styles from "./styles/ViewInsurerOffer.module.css";
+import styles from "../styles/ViewInsurerOffer.module.css";
 import swal from "sweetalert";
 import { useMutation, useQuery } from "react-apollo";
-import { DISTRIBUTE_PAYMENT } from "../../graphql/mutattions";
-import { INSURER, GET_ISNURER_DEDUCTIONS } from "../../graphql/queries";
 import { Alert } from "react-bootstrap";
-import { buildPayload } from "./dummy";
-import { Loader } from "../../components";
+
 import DistributePaymentForm from "../../Insurers/components/DistributePaymentForm";
+import { GET_ISNURER_DEDUCTIONS } from "../../../graphql/queries";
+import { DISTRIBUTE_PAYMENT } from "../../../graphql/mutattions";
+import { buildPayload } from "../../Insurers/dummy";
+import { Loader } from "../../../components";
 
 export default function DistributePayment({
   data,
@@ -34,7 +35,7 @@ export default function DistributePayment({
     },
   });
   const [distribute] = useMutation(DISTRIBUTE_PAYMENT, {
-    refetchQueries: [{ query: INSURER, variables: { id: insurer_id } }],
+    // refetchQueries: [{ query: INSURER, variables: { id: insurer_id } }],
   });
 
   const reinsurers = useMemo(() => {
