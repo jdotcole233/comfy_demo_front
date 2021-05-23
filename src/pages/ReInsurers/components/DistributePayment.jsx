@@ -148,7 +148,7 @@ export default function DistributePayment({
 
   if (forms.length < 1) {
     return (
-      <div className="h-full d-flex flex-col align-items-center justify-content-center w-full">
+      <div className="h-full d-flex flex-column align-items-center justify-content-center w-full">
         <NoParticipant />
         <h1>No participant selected for this offer yet</h1>
       </div>
