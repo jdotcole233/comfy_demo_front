@@ -65,6 +65,9 @@ export default function InputOffer({ offer_id, toggle }) {
 
   useEffect(() => {
     if (_offer) {
+      const selectedPayment_type = Object.keys(
+        offer?.offer_detail?.payment_type
+      )[0];
       setAddExchangeRate(offer.exchange_rate ? true : false);
       setValue("policy_number", offer.offer_detail?.policy_number); //insurance_company
       setValue("insurer_id", offer.insurer?.insurer_id); //insurance_company
@@ -84,6 +87,7 @@ export default function InputOffer({ offer_id, toggle }) {
       setValue("insured_by", offer.offer_detail.insured_by);
       setValue("currency", offer.offer_detail.currency);
       setValue("offer_comment", offer.offer_detail.offer_comment);
+      setValue("payment_type", selectedPayment_type);
       setofferDetails(JSON.parse(offer.offer_detail.offer_details));
       setValue(
         "period_of_insurance_from",
