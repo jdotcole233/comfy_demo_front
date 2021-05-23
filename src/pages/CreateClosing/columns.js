@@ -40,6 +40,11 @@ export const columns = [
     sort: 'asc',
   },
   {
+    label: 'Payment type',
+    field: 'payment_type',
+    sort: 'asc',
+  },
+  {
     label: 'Offer Date',
     field: 'offer_date',
     sort: 'asc',
