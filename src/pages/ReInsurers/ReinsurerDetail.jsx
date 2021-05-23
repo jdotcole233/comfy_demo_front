@@ -313,6 +313,15 @@ function ReinsurerDetail() {
                     fetching={fetching}
                     handleLoadMore={handleLoadMore}
                 />
+
+                {/* Sections for Offers brought in by Reinsurers company */}
+
+
+
+
+
+
+
                 <div className="">
                     <div className="col-md-12">
                         <div className="card">
