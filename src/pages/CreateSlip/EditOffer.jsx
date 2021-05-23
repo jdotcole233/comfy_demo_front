@@ -258,7 +258,7 @@ export default function InputOffer({ offer_id, toggle }) {
               <div className="form-group">
                 <label htmlFor="BusinessClass">Retrocedent</label>
                 <Selector
-                  value={selectedReinsurer}
+                  value={{ label: selectedReinsurer }}
                   placeholder="Retrocedent"
                   onChange={handleRetrocedentChange}
                   components={{ Option: ReinsurerOption }}
