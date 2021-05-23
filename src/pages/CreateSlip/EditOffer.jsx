@@ -195,7 +195,7 @@ export default function InputOffer({ offer_id, toggle }) {
 
   useEffect(() => {
     if (offer && !instalment_typeRef.current && showInstallmentDropdown) {
-      alert(Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]);
+      // alert(Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]);
       setValue(
         "no_of_installments",
         Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
@@ -270,7 +270,6 @@ export default function InputOffer({ offer_id, toggle }) {
     <form onSubmit={handleSubmit(handleCreateOffer)} ref={formRef}>
       <div className={styles.card_header}>
         <h2 className={styles.card_title}>Create facultative placement slip</h2>
-        <p>{Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]}</p>
       </div>
       <div className={styles.card_body}>
         <div className="row">
