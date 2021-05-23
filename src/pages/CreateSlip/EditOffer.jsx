@@ -284,7 +284,7 @@ export default function InputOffer({ offer_id, toggle }) {
       </div>
       <div className={styles.card_body}>
         <div className="row">
-          <div className="col-md-12 mb-3">
+          <div className="col-md-12">
             <div className="form-check">
               <input
                 type="checkbox"
