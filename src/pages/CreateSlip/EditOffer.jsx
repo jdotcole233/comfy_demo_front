@@ -296,6 +296,14 @@ export default function InputOffer({ offer_id, toggle }) {
                 Create offer for retrocedent
               </label>
             </div>
+            {createFR && (
+              <div className="alert alert-danger">
+                <span>
+                  Uncehcking this option would mean that the Reinsured wouldn't
+                  be a retrocedent anymore{" "}
+                </span>
+              </div>
+            )}
           </div>
           {/* Retrocedent listing on condition */}
           {createFR && (
