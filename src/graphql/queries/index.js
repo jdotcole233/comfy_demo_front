@@ -157,6 +157,14 @@ export const REINSURER = gql`
           facultative_offer
           commission
           co_insurance_share
+          offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
           fac_sum_insured
           sum_insured
           created_at
@@ -183,6 +191,7 @@ export const REINSURER = gql`
             offer_comment
             information_comment
             offer_details
+            payment_type
           }
         }
       }
