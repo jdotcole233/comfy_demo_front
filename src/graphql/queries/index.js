@@ -770,12 +770,6 @@ export const INSURER = gql`
           payment_details
           payment_amount
           offer_payment_comment
-          # offer_deduction_payment {
-          #   offer_deduction_payment_id
-          # }
-          # offer_participant_payment {
-          #   offer_participant_id
-          # }
           created_at
           updated_at
         }
