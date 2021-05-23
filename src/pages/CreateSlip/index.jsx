@@ -9,6 +9,13 @@ import Header from "./Header";
 import OfferOverView from "./OfferOverView";
 import { columns } from "./columns";
 
+const ReinsuredComponent = ({ name }) => (
+  <>
+    {name}
+    <span className="text-danger font-size-16">*</span>
+  </>
+);
+
 export default memo(() => {
   const [inputOffer, setInputOffer] = useState(false);
   const [offerListing, setOfferListing] = useState([]);
@@ -120,9 +127,13 @@ export default memo(() => {
             offer.sum_insured.toLocaleString(undefined, {
               maximumFractionDigits: 2,
             }),
-          insurance_company: offer?.offer_retrocedent
-            ? offer?.offer_retrocedent?.reinsurer?.re_company_name
-            : offer.insurer.insurer_company_name,
+          insurance_company: offer?.offer_retrocedent ? (
+            <ReinsuredComponent
+              name={offer?.offer_retrocedent?.reinsurer?.re_company_name}
+            />
+          ) : (
+            offer.insurer.insurer_company_name
+          ),
           rate: offer.rate,
           offer_status: (
             <span
