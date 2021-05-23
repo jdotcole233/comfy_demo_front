@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useContext, useState } from "react";
 import { Datatable, Drawer } from "../../../components";
 import { AuthContext } from "../../../context/AuthContext";
@@ -6,6 +6,9 @@ import ViewInsurerOffer from "../../Insurers/ViewInsurerOffer";
 import { Modal } from "react-bootstrap";
 import { paymentsColumns } from "../../Insurers/dummy";
 import DistributePayment from "./DistributePayment";
+import swal from "sweetalert";
+import { useMutation } from "@apollo/client";
+import { REMOVE_PAYMENT } from "../../../graphql/mutattions";
 
 const RetrocedentOfferButtons = ({
   offer,
@@ -19,9 +22,13 @@ const RetrocedentOfferButtons = ({
   const [distributePaymentsDrawer, setDistributePaymentsDrawer] =
     useState(false);
   const [showBtn, setShowBtn] = useState(false);
+  const [payment, setPayment] = useState(null);
+  const [updatepaymentDrawer, setUpdatepaymentDrawer] = useState(false);
   const finance = true;
   // ["Finance Executive"].includes(ctx?.user?.position) &&
   // offer?.offer_status === "CLOSED";
+
+  const [removePayment] = useMutation(REMOVE_PAYMENT, {});
 
   useEffect(() => {
     if (offer) {
@@ -43,6 +50,98 @@ const RetrocedentOfferButtons = ({
         }
       }
     }
+  }, [offer]);
+
+  const handleShowEditpaymentDrawer = (payment) => {
+    setPayment(payment);
+    setPaymentsModal(!paymentsModal);
+    setUpdatepaymentDrawer(!updatepaymentDrawer);
+  };
+
+  const handleRemovePayment = (payment) => {
+    setPaymentsModal(false);
+    swal({
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      icon: "warning",
+      title: "Are you sure you want to remove payment?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+
+      buttons: ["No", { text: "Yes", closeModal: false }],
+    }).then((input) => {
+      if (!input) {
+        setPaymentsModal(true);
+        return;
+      }
+      removePayment({
+        variables: {
+          id: payment.offer_payment_id,
+        },
+      })
+        .then((res) => {
+          swal("Success", "Payment record removed successfully", "success");
+        })
+        .catch((err) => {
+          if (err) {
+            swal("Oh noes!", "The AJAX request failed!", "error");
+          } else {
+            swal.stopLoading();
+            swal.close();
+          }
+        });
+    });
+  };
+
+  const payments = useMemo(() => {
+    if (offer)
+      return offer.map((payment) => {
+        const obj = JSON.parse(payment.payment_details);
+        return {
+          type:
+            obj.payment_type === "Cheque"
+              ? obj.payment_type + " - " + obj.payment_from.cheque_number + " "
+              : obj.payment_type,
+          bank_name: obj.payment_from.bank_name,
+          beneficiary_bank: obj.payment_to,
+          payment_amount: `${
+            obj?.conversion?.currency || offer?.offer_detail?.currency
+          } ${payment.payment_amount.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          })}`,
+          created_at: payment.created_at,
+          updated_at: payment.updated_at,
+          actions: (
+            <button>
+              <button
+                onClick={() => handleShowEditpaymentDrawer(payment)}
+                className="btn btn-sm w-md btn-info mr-1"
+              >
+                View
+              </button>
+              <button
+                onClick={() => handleRemovePayment(payment)}
+                className="btn btn-sm w-md btn-danger mr-1"
+              >
+                Remove
+              </button>
+              {/* <button
+                onClick={() => handlePaymentSchedule(payment, key)}
+                className="btn btn-sm btn-success w-md mt-1 mr-1"
+              >
+                Payment Schedule
+              </button> */}
+              {/* <button
+                onClick={() => handleGenerateReceipt(payment)}
+                className="btn btn-sm btn-warning w-md mt-1"
+              >
+                Generate Receipt
+              </button> */}
+            </button>
+          ),
+        };
+      });
   }, [offer]);
 
   return (
