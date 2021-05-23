@@ -19,6 +19,8 @@ export const AddPayments = ({
   skip = 0,
 }) => {
   const { closed } = useContext(DrawerContext);
+  console.log(details);
+  console.log(reinsurer_id);
   const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0);
   const [amountError, setAmountError] = useState(false);
   const [currency, setCurrency] = useState("");
