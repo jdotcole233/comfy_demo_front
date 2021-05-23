@@ -21,6 +21,7 @@ import OfferListing from "../CreateSlip/OfferListing";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useReinsurer } from "../../context/ReinsurersProvider";
+import RetrocedentOfferButtons from "./components/RetrocedentOfferButtons";
 
 function ReinsurerDetail() {
   const history = useHistory();
@@ -244,7 +245,7 @@ function ReinsurerDetail() {
           ),
           offer_date: offer.created_at,
           insured: offer.offer_detail.insured_by,
-          actions: <OfferButtons data={data} offer={offer} />,
+          actions: <RetrocedentOfferButtons data={data} offer={offer} />,
         };
         return row;
       });
