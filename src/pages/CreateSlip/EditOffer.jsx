@@ -141,7 +141,11 @@ export default function InputOffer({ offer_id, toggle }) {
 
   const handleRetrocedentChange = (value) => {
     setValue("reinsurer_id", value ? value.value.reinsurer_id : "");
-    setSelectedReinsurer(value ? value : "");
+    setSelectedReinsurer(
+      value
+        ? value.value.re_company_name
+        : offer?.offer_retrocedent?.reinsurer?.re_company_name
+    );
     if (value) {
       clearError("reinsurer_id");
     }
