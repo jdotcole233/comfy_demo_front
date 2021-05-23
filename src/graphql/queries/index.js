@@ -546,6 +546,9 @@ export const SINGLE_OFFER = gql`
           re_company_name
           re_company_website
         }
+        offer {
+          offer_id
+        }
       }
       document_messages {
         offersoffer_id
