@@ -4,14 +4,16 @@ import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { BASE_URL_LOCAL } from '../../graphql';
 import EndorsementButtons from './components/EndorsementButtons';
 import OfferButtons from './components/OfferButtons';
+import _ from 'lodash';
+
 export const generateClosingOffers = ({ arr }) => {
   if (!arr) return [];
   const list = [];
   arr.offers.map((offer) => {
     const row = {
       policy_number: offer.offer_detail?.policy_number,
-      payment_type: (offer?.offer_detail?.payment_type ? _.upperFirst(Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0].split("_").join(" ")) : "NA",
-        insured: offer.offer_detail?.insured_by,
+      payment_type: offer?.offer_detail?.payment_type ? _.upperFirst(Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0].split("_").join(" ")) : "NA",
+      insured: offer.offer_detail?.insured_by,
       sum_insured:
         offer.offer_detail?.currency +
         ' ' +
