@@ -45,6 +45,28 @@ export default function ViewInsurerOffer({ data }) {
         <div className="row">
           <div className="col-md-12">
             <div className="form-group">
+              <label htmlFor="BusinessClass">Retrocedent</label>
+              <input
+                value={details?.offer_retrocedent?.reinsurer?.re_company_name}
+                type="text"
+                name="business_class"
+                className="form-control"
+                list="insurance_companies"
+                placeholder="Insurance company"
+                readOnly
+              />
+              <datalist id="insurance_companies">
+                <select name="business_class" id="" className="form-control">
+                  <option value="Regency Nem Insurance Ghana Ltd">
+                    Regency Nem Insurance Ghana Ltd
+                  </option>
+                  <option value="Marine Cargo">Marine Cargo</option>
+                </select>
+              </datalist>
+            </div>
+          </div>
+          <div className="col-md-12">
+            <div className="form-group">
               <label htmlFor="BusinessClass">Insurance Company</label>
               <input
                 value={details?.insurer?.insurer_company_name}
