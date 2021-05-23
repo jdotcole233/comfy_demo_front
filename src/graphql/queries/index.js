@@ -243,7 +243,14 @@ query getOffers(
         ex_currency
         ex_rate
       }
-      
+      offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
       offer_detail {
         offer_detail_id
         offersoffer_id
