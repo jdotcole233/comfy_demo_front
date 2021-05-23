@@ -1,6 +1,8 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { Drawer } from "../../../components";
 import { AuthContext } from "../../../context/AuthContext";
+import ViewReinsurerOffer from "../ViewReinsurerOffer";
 
 const RetrocedentOfferButtons = ({
   offer,
@@ -9,10 +11,14 @@ const RetrocedentOfferButtons = ({
   type = "recent",
 }) => {
   const { state: ctx } = useContext(AuthContext);
+  const [viewOffer, setViewOffer] = useState(false);
   return (
     <div>
       <>
-        <button onClick={() => {}} className="btn btn-sm btn-primary m-1">
+        <button
+          onClick={() => setViewOffer(true)}
+          className="btn btn-sm btn-primary m-1"
+        >
           View Offer
         </button>
         {["Finance Executive"].includes(ctx?.user?.position) &&
@@ -28,6 +34,15 @@ const RetrocedentOfferButtons = ({
             </button>
           )}
       </>
+
+      {/* View Offer Drawer */}
+      <Drawer
+        width="40%"
+        isvisible={viewOffer}
+        toggle={() => setViewOffer(!viewOffer)}
+      >
+        <ViewReinsurerOffer data={offer} />
+      </Drawer>
     </div>
   );
 };
