@@ -145,6 +145,10 @@ export default function DistributePayment({
     );
   }
 
+  if (forms.length < 1) {
+    return <div>NO Participants on this offer yet</div>;
+  }
+
   return (
     <div>
       <div className={styles.card_header}>
