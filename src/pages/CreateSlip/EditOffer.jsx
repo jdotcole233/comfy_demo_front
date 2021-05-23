@@ -194,14 +194,14 @@ export default function InputOffer({ offer_id, toggle }) {
   }, [payment_typeRef.current, setShowInstallmentDropdown]);
 
   useEffect(() => {
-    if (offer && !instalment_typeRef.current) {
-      alert("Hello")
+    if (offer && !instalment_typeRef.current && showInstallmentDropdown) {
+      alert(Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]);
       setValue(
         "no_of_installments",
         Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
       );
     }
-  }, [instalment_typeRef.current, offer]);
+  }, [instalment_typeRef.current, offer, showInstallmentDropdown]);
 
   const handleClassOfBusinessChange = (cob) => {
     setValue("class_of_business_id", cob ? cob.value.class_of_business_id : "");
