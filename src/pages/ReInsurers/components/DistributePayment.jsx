@@ -7,9 +7,9 @@ import { useMutation, useQuery } from "react-apollo";
 import { DISTRIBUTE_PAYMENT } from "../../graphql/mutattions";
 import { INSURER, GET_ISNURER_DEDUCTIONS } from "../../graphql/queries";
 import { Alert } from "react-bootstrap";
-import DistributePaymentForm from "./components/DistributePaymentForm";
 import { buildPayload } from "./dummy";
 import { Loader } from "../../components";
+import DistributePaymentForm from "../../Insurers/components/DistributePaymentForm";
 
 export default function DistributePayment({
   data,
