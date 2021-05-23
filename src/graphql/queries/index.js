@@ -93,6 +93,99 @@ export const REINSURER = gql`
         region
         country
       }
+       offer_retrocedents{
+          offer {
+        created_at
+        offer_id
+        offer_status
+        sum_insured
+        co_insurance_share
+        rate
+        fac_sum_insured
+        premium
+        fac_premium
+        brokerage
+        facultative_offer
+        payment_status
+        commission
+        commission_amount
+        offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
+        offer_endorsements {
+        sum_insured
+          premium
+          approval_status
+          created_at
+          updated_at
+          facultative_offer
+          offer_endorsement_id
+          fac_premium
+          offer_endorsement_detail {
+            offer_comment
+            currency
+            offer_endorsement_detail_id
+            offer_detail
+          }
+          commission_amount
+      }
+        offer_participant {
+          offer_participant_id
+          participant_fac_premium
+          offer_participant_percentage
+          reinsurer {
+            re_company_name
+          }
+
+          offer_participant_payment {
+            offer_participant_payment_id
+            offer_payment_amount
+            paid_details
+            offer_deduction_charge {
+              offer_deduction_payment_id
+              nic_levy_paid
+              withholding_tax_paid
+              brokerage_amount_paid
+              commission_taken
+            }
+          }
+        }
+        offer_payment {
+          offer_payment_id
+          payment_details
+          payment_amount
+          offer_payment_comment
+          created_at
+          updated_at
+        }
+        classofbusiness {
+          business_name
+        }
+        exchange_rate {
+          ex_rate
+          ex_currency
+        }
+        offer_detail {
+          offer_details
+          policy_number
+          period_of_insurance_from
+          period_of_insurance_to
+          offer_comment
+          information_comment
+          payment_type
+          insured_by
+          currency
+        }
+        insurer {
+          insurer_company_name
+        }
+      }
+        }
 
       reinsurer_overview {
         brokerage_chart
@@ -148,6 +241,7 @@ export const REINSURER = gql`
             commission_taken
           }
         }
+       
         reinsurer_offers_only {
           offer_id
           rate
@@ -197,7 +291,8 @@ export const REINSURER = gql`
       }
     }
   }
-`;
+
+`
 
 export const OFFERS = gql`
 query getOffers(
