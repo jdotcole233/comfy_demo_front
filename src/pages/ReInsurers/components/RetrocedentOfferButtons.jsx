@@ -91,10 +91,10 @@ const RetrocedentOfferButtons = ({
   return (
     <div>
       <>
-        
+        <button onClick={() => {}} className="btn btn-sm btn-danger m-1">
+          Payments
+        </button>
       </>
-
-
     </div>
   );
 };
