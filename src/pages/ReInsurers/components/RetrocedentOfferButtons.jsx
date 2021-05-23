@@ -115,34 +115,34 @@ const RetrocedentOfferButtons = ({
           })}`,
           created_at: payment.created_at,
           updated_at: payment.updated_at,
-          //   actions: (
-          //     <button>
-          //       <button
-          //         onClick={() => handleShowEditpaymentDrawer(payment)}
-          //         className="btn btn-sm w-md btn-info mr-1"
-          //       >
-          //         View
-          //       </button>
-          //       <button
-          //         onClick={() => handleRemovePayment(payment)}
-          //         className="btn btn-sm w-md btn-danger mr-1"
-          //       >
-          //         Remove
-          //       </button>
-          //       {/* <button
-          //         onClick={() => handlePaymentSchedule(payment, key)}
-          //         className="btn btn-sm btn-success w-md mt-1 mr-1"
-          //       >
-          //         Payment Schedule
-          //       </button> */}
-          //       {/* <button
-          //         onClick={() => handleGenerateReceipt(payment)}
-          //         className="btn btn-sm btn-warning w-md mt-1"
-          //       >
-          //         Generate Receipt
-          //       </button> */}
-          //     </button>
-          //   ),
+          actions: (
+            <>
+              <button
+                onClick={() => handleShowEditpaymentDrawer(payment)}
+                className="btn btn-sm w-md btn-info mr-1"
+              >
+                View
+              </button>
+              <button
+                onClick={() => handleRemovePayment(payment)}
+                className="btn btn-sm w-md btn-danger mr-1"
+              >
+                Remove
+              </button>
+              {/* <button
+                onClick={() => handlePaymentSchedule(payment, key)}
+                className="btn btn-sm btn-success w-md mt-1 mr-1"
+              >
+                Payment Schedule
+              </button> */}
+              {/* <button
+                onClick={() => handleGenerateReceipt(payment)}
+                className="btn btn-sm btn-warning w-md mt-1"
+              >
+                Generate Receipt
+              </button> */}
+            </>
+          ),
         };
       });
     return [];
@@ -200,8 +200,7 @@ const RetrocedentOfferButtons = ({
       >
         <Modal.Header closeButton>Payments history</Modal.Header>
         <Modal.Body>
-          {JSON.stringify(payments)}
-          <Datatable columns={paymentsColumns} data={[]} />
+          <Datatable columns={paymentsColumns} data={payments} />
         </Modal.Body>
       </Modal>
 
