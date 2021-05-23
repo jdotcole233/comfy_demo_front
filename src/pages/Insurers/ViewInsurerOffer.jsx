@@ -297,6 +297,27 @@ export default function ViewInsurerOffer({ data }) {
                 </select>
               </div>
             </div>
+
+            {details?.offer_detail?.payment_type &&
+              Object.keys(
+                JSON.parse(details?.offer_detail?.payment_type)
+              )[0] === "instalment" && (
+                <div className="col-md-12 mb-3">
+                  <label htmlFor="">No. of instalments</label>
+                  <input
+                    type="number"
+                    name="no_of_installments"
+                    value={
+                      Object.values(
+                        JSON.parse(details?.offer_detail?.payment_type)
+                      )[0]
+                    }
+                    min={1}
+                    className="form-control"
+                  />
+                </div>
+              )}
+
             <div className="col-md-12">
               <div className="form-check">
                 <input
