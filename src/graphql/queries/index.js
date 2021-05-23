@@ -645,6 +645,14 @@ export const DASHBOARD = gql`
         facultative_offer
         sum_insured
         fac_sum_insured
+        offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
         premium
         fac_premium
         offer_status
@@ -656,6 +664,7 @@ export const DASHBOARD = gql`
           insured_by
           period_of_insurance_from
           period_of_insurance_to
+          payment_type
           currency
           offer_comment
           information_comment
