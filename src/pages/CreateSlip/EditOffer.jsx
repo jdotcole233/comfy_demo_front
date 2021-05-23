@@ -92,6 +92,9 @@ export default function InputOffer({ offer_id, toggle }) {
         offer.offer_detail.period_of_insurance_to
       );
       setSelectedInsurer(offer.insurer.insurer_company_name);
+      setSelectedReinsurer(
+        offer?.offer_retrocedent?.reinsurer?.re_company_name
+      );
       setClassOfBusiness(JSON.parse(offer.offer_detail.offer_details));
       setSelectedCurrency(offer.offer_detail.currency);
       setInfoContent(offer.offer_detail.information_comment?.toString());
