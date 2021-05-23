@@ -72,22 +72,6 @@ const RetrocedentOfferButtons = ({
     setUpdatepaymentDrawer(!0);
   };
 
-  const handleViewOfferDetails = (offer) => {
-    setSelectedOffer(offer);
-    setViewOffer(!viewOffer);
-  };
-
-  const handleViewExtraCharges = (offer) => {
-    console.log(offer);
-    setSelectedOffer(offer);
-    setShowExtraChargesDrawer(!showExtraChargesDrawer);
-  };
-
-  const handleShowPayments = (offer) => {
-    setSelectedOffer(offer);
-    setPaymentsModal(!paymentsModal);
-  };
-
   return (
     <div>
       <>
