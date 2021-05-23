@@ -8,6 +8,7 @@ import {
   generateNewCulumns,
   Loader,
   OverViewCard,
+  ReinsuredComponent,
 } from "../../components";
 import { useQuery } from "react-apollo";
 import { DASHBOARD } from "../../graphql/queries";
@@ -46,9 +47,13 @@ const Dashboard = () => {
             offer.sum_insured.toLocaleString(undefined, {
               maximumFractionDigits: 2,
             }),
-          insurance_company: offer?.offer_retrocedent
-            ? offer?.offer_retrocedent?.reinsurer?.re_company_name
-            : offer.insurer.insurer_company_name,
+          insurance_company: offer?.offer_retrocedent ? (
+            <ReinsuredComponent
+              name={offer?.offer_retrocedent?.reinsurer?.re_company_name}
+            />
+          ) : (
+            offer.insurer.insurer_company_name
+          ),
           rate: offer.rate,
           offer_status: (
             <span
