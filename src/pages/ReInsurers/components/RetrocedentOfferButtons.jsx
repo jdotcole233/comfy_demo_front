@@ -12,6 +12,9 @@ const RetrocedentOfferButtons = ({
   return (
     <div>
       <>
+        <button onClick={() => {}} className="btn btn-sm btn-primary m-1">
+          View Offer
+        </button>
         {["Finance Executive"].includes(ctx?.user?.position) &&
           offer?.offer_status === "CLOSED" && (
             <button onClick={() => {}} className="btn btn-sm btn-danger m-1">
