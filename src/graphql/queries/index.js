@@ -243,6 +243,7 @@ query getOffers(
         ex_currency
         ex_rate
       }
+      
       offer_detail {
         offer_detail_id
         offersoffer_id
@@ -250,6 +251,7 @@ query getOffers(
         insured_by
         period_of_insurance_to
         period_of_insurance_from
+        payment_type
         currency
         offer_comment
         information_comment
