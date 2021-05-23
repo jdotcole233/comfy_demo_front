@@ -540,14 +540,11 @@ export const SINGLE_OFFER = gql`
       payment_status
       claim_status
       offer_retrocedent {
-        reinsurer_re {
+        reinsurer {
           reinsurer_id
           re_company_email
           re_company_name
           re_company_website
-        }
-        offer {
-          offer_id
         }
       }
       document_messages {
