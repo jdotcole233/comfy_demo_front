@@ -231,6 +231,21 @@ const RetrocedentOfferButtons = ({
           />
         )}
       </Drawer>
+
+      {/* Add payment Drawer */}
+      <Drawer
+        width="40%"
+        isvisible={updatepaymentDrawer}
+        toggle={() => setUpdatepaymentDrawer(!updatepaymentDrawer)}
+      >
+        <AddPayments
+          edit={true}
+          details={offer}
+          insurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
+          payment={payment}
+          toggle={() => setUpdatepaymentDrawer(!updatepaymentDrawer)}
+        />
+      </Drawer>
     </div>
   );
 };
