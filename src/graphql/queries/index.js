@@ -796,6 +796,7 @@ export const INSURER = gql`
           period_of_insurance_to
           offer_comment
           information_comment
+          payment_type
           insured_by
           currency
         }

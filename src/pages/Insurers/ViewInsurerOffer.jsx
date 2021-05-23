@@ -281,11 +281,10 @@ export default function ViewInsurerOffer({ data }) {
               <div className="form-group">
                 <label htmlFor="Payment Type">Payment Type</label>
                 <p>
-                  {details?.offer_detail?.payment_type
-                    ? Object.keys(
-                        JSON.parse(details?.offer_detail?.payment_type)
-                      )[0]
-                    : "instalment"}
+                  {details?.offer_detail?.payment_type &&
+                    Object.keys(
+                      JSON.parse(details?.offer_detail?.payment_type)
+                    )[0]}
                 </p>
                 <select
                   className="form-control"
