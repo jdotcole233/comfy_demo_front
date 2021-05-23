@@ -189,6 +189,12 @@ export default function InputOffer({ offer_id, toggle }) {
   }, [closed, reset]);
 
   useEffect(() => {
+    if (!createFR) {
+      setValue("reinsurer_id", "");
+    }
+  }, [createFR]);
+
+  useEffect(() => {
     if (payment_typeRef.current === "instalment") {
       setShowInstallmentDropdown(true);
     } else {
