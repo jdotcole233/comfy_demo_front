@@ -7,7 +7,7 @@ import { Modal } from "react-bootstrap";
 import { paymentsColumns } from "../../Insurers/dummy";
 import DistributePayment from "./DistributePayment";
 import swal from "sweetalert";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "react-apollo";
 import { REMOVE_PAYMENT } from "../../../graphql/mutattions";
 
 const RetrocedentOfferButtons = ({
