@@ -69,7 +69,7 @@ export default function InputOffer({ offer_id, toggle }) {
     if (offer) {
       const selectedPayment_type = Object.keys(
         JSON.parse(offer?.offer_detail?.payment_type)
-      )[0];
+      )?.[0];
       setAddExchangeRate(offer.exchange_rate ? true : false);
       setValue("policy_number", offer.offer_detail?.policy_number); //insurance_company
       setValue("insurer_id", offer.insurer?.insurer_id); //insurance_company
