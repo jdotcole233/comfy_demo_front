@@ -27,6 +27,7 @@ import { prepVariables } from "./InputOffer";
 export default function InputOffer({ offer_id, toggle }) {
   // const offer = JSON.parse(_offer)
   const payment_typeRef = useRef({});
+  const instalment_typeRef = useRef({});
   const { closed } = useContext(DrawerContext);
   const { state } = useContext(AuthContext);
   const formRef = useRef();
@@ -34,7 +35,7 @@ export default function InputOffer({ offer_id, toggle }) {
   const { register, errors, handleSubmit, reset, setValue, clearError, watch } =
     useForm();
   payment_typeRef.current = watch("payment_type", "");
-  payment_typeRef.current = watch("payment_type", "");
+  instalment_typeRef.current = watch("no_of_installments", "");
   const [offer_comment, fillComment] = useState("");
   const [nkrol, setNkrol] = useState(false);
 
@@ -191,6 +192,15 @@ export default function InputOffer({ offer_id, toggle }) {
       setShowInstallmentDropdown(false);
     }
   }, [payment_typeRef.current, setShowInstallmentDropdown]);
+
+  useEffect(() => {
+    if (offer && !instalment_typeRef.current) {
+      setValue(
+        "no_of_installments",
+        Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
+      );
+    }
+  }, [instalment_typeRef.current, offer]);
 
   const handleClassOfBusinessChange = (cob) => {
     setValue("class_of_business_id", cob ? cob.value.class_of_business_id : "");
