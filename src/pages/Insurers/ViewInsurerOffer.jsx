@@ -285,10 +285,10 @@ export default function ViewInsurerOffer({ data }) {
                   name="payment_type"
                   value={
                     details?.offer_detail?.payment_type
-                      ? Object.values(
+                      ? Object.keys(
                           JSON.parse(details?.offer_detail?.payment_type)
                         )[0]
-                      : "payable_in_full"
+                      : "instalment"
                   }
                   id=""
                 >
