@@ -7,7 +7,6 @@ import { Modal } from "react-bootstrap";
 import { AddPayments } from "../AddPayment";
 import { paymentsColumns } from "../columns";
 import { AuthContext } from "../../../context/AuthContext";
-import ViewInsurerOffer from "../../Insurers/ViewInsurerOffer";
 
 const OfferButtons = ({ offer, data, skip = 0, type = "recent" }) => {
   const [paymentsModal, setPaymentsModal] = useState(false);
@@ -132,7 +131,7 @@ const OfferButtons = ({ offer, data, skip = 0, type = "recent" }) => {
         isvisible={viewOffer}
         toggle={() => setViewOffer(!viewOffer)}
       >
-        <ViewInsurerOffer data={selectedOffer} />
+        <ViewReinsurerOffer data={selectedOffer} />
       </Drawer>
 
       {/* Update Extra charges Drawer */}
