@@ -290,7 +290,7 @@ export default function InputOffer({ offer_id, toggle }) {
                 type="checkbox"
                 className="form-check-input"
                 onChange={(e) => setCreateFR(e.target.checked)}
-                value={createFR}
+                checked={createFR}
               />
               <label className="form-check-label" htmlFor="exampleCheck1">
                 Create offer for retrocedent

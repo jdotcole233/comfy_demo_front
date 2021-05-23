@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo, useMemo } from "react";
-import { Drawer, Loader } from "../../components";
+import { Drawer, Loader, ReinsuredComponent } from "../../components";
 import InputOffer from "./InputOffer";
 import { useQuery } from "react-apollo";
 import { OFFERS, ALLOFFERS } from "../../graphql/queries";
@@ -8,13 +8,6 @@ import OfferListing from "./OfferListing";
 import Header from "./Header";
 import OfferOverView from "./OfferOverView";
 import { columns } from "./columns";
-
-const ReinsuredComponent = ({ name }) => (
-  <>
-    {name}
-    <span className="text-danger font-size-16 font-weight-bold">*</span>
-  </>
-);
 
 export default memo(() => {
   const [inputOffer, setInputOffer] = useState(false);
