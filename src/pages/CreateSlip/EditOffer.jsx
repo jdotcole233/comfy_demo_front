@@ -116,9 +116,7 @@ export default function InputOffer({ offer_id, toggle }) {
       setCreateFR(offer?.offer_retrocedent ? true : false);
       setValue(
         "no_of_instalments",
-        selectedPayment_type === "instalment"
-          ? JSON.parse(offer?.offer_detail?.payment_type)["instalment"]
-          : 1
+        Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
       );
     }
   }, [offer]);
