@@ -63,7 +63,10 @@ const RetrocedentOfferButtons = ({
           </button>
         )}
         {finance && (
-          <button onClick={() => {}} className="btn btn-sm btn-success m-1">
+          <button
+            onClick={() => setDistributePaymentsDrawer(true)}
+            className="btn btn-sm btn-success m-1"
+          >
             Distribute Payment
           </button>
         )}
@@ -97,7 +100,7 @@ const RetrocedentOfferButtons = ({
       >
         <DistributePayment
           data={offer}
-          showFlag={showBtn ?? true}
+          showFlag={showBtn}
           insurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
           toggle={() => setDistributePaymentsDrawer(!distributePaymentsDrawer)}
         />

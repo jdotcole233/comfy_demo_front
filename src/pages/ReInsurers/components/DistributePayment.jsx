@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect, useMemo } from "react";
-import styles from "../styles/ViewInsurerOffer.module.css";
+import styles from "../styles/ViewReinsurerOffer.module.css";
 import swal from "sweetalert";
 import { useMutation, useQuery } from "react-apollo";
 import { Alert } from "react-bootstrap";
