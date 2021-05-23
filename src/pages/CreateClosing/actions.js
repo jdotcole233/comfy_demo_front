@@ -5,6 +5,7 @@ import { BASE_URL_LOCAL } from '../../graphql';
 import EndorsementButtons from './components/EndorsementButtons';
 import OfferButtons from './components/OfferButtons';
 import _ from 'lodash';
+import { ReinsuredComponent } from '../../components';
 
 export const generateClosingOffers = ({ arr }) => {
   if (!arr) return [];
@@ -24,7 +25,13 @@ export const generateClosingOffers = ({ arr }) => {
         offer.sum_insured.toLocaleString(undefined, {
           maximumFractionDigits: 2,
         }),
-      insurance_company: offer.insurer.insurer_company_name,
+      insurance_company: offer?.offer_retrocedent ? (
+        <ReinsuredComponent
+          name={offer?.offer_retrocedent?.reinsurer?.re_company_name}
+        />
+      ) : (
+        offer.insurer.insurer_company_name
+      ),
       premium:
         offer.offer_detail?.currency +
         ' ' +
