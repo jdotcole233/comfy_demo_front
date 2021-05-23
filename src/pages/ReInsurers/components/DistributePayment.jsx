@@ -11,6 +11,7 @@ import { GET_ISNURER_DEDUCTIONS } from "../../../graphql/queries";
 import { DISTRIBUTE_PAYMENT } from "../../../graphql/mutattions";
 import { buildPayload } from "../../Insurers/dummy";
 import { Loader } from "../../../components";
+import NoParticipant from "../../../components/NoParticipant";
 
 export default function DistributePayment({
   data,
@@ -146,7 +147,11 @@ export default function DistributePayment({
   }
 
   if (forms.length < 1) {
-    return <div>NO Participants on this offer yet</div>;
+    return (
+      <div>
+        <NoParticipant />
+      </div>
+    );
   }
 
   return (
