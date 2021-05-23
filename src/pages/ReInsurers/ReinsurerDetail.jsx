@@ -463,6 +463,18 @@ function ReinsurerDetail() {
         />
 
         {/* Sections for Offers brought in by Reinsurers company */}
+        <OfferListing
+          title="Retrocedent offers"
+          path="/admin/re-insurers-detail"
+          recent={broughtInOffers}
+          all={broughtInOffers}
+          allTotal={allTotalValue}
+          setInputOffer={1}
+          entries={5}
+          columns={offersColumns}
+          fetching={fetching}
+          handleLoadMore={handleLoadMore}
+        />
 
         <div className="">
           <div className="col-md-12">
