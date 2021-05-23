@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useContext, useState } from "react";
 import { Datatable, Drawer } from "../../../components";
 import { AuthContext } from "../../../context/AuthContext";
@@ -9,6 +10,7 @@ import DistributePayment from "./DistributePayment";
 import swal from "sweetalert";
 import { useMutation } from "react-apollo";
 import { REMOVE_PAYMENT } from "../../../graphql/mutattions";
+import { AddPayments } from "./payment/Add";
 
 const RetrocedentOfferButtons = ({
   offer,
@@ -24,6 +26,7 @@ const RetrocedentOfferButtons = ({
   const [showBtn, setShowBtn] = useState(false);
   const [payment, setPayment] = useState(null);
   const [updatepaymentDrawer, setUpdatepaymentDrawer] = useState(false);
+  const [addPaymentDrawer, setAddPaymentDrawer] = useState(false);
   const finance = true;
   // ["Finance Executive"].includes(ctx?.user?.position) &&
   // offer?.offer_status === "CLOSED";
@@ -52,13 +55,13 @@ const RetrocedentOfferButtons = ({
     }
   }, [offer]);
 
-  const handleShowEditpaymentDrawer = (payment) => {
+  const handleShowEditpaymentDrawer = useCallback((payment) => {
     setPayment(payment);
     setPaymentsModal(!paymentsModal);
     setUpdatepaymentDrawer(!updatepaymentDrawer);
-  };
+  }, []);
 
-  const handleRemovePayment = (payment) => {
+  const handleRemovePayment = useCallback((payment) => {
     setPaymentsModal(false);
     swal({
       closeOnClickOutside: false,
@@ -92,7 +95,7 @@ const RetrocedentOfferButtons = ({
           }
         });
     });
-  };
+  }, []);
 
   const payments = useMemo(() => {
     if (offer)
@@ -162,6 +165,14 @@ const RetrocedentOfferButtons = ({
             Payments
           </button>
         )}
+        {payments.length < 1 && (
+          <button
+            onClick={() => setPaymentsModal(true)}
+            className="btn btn-sm btn-danger m-1"
+          >
+            Make payment
+          </button>
+        )}
         {finance && (
           <button
             onClick={() => setDistributePaymentsDrawer(true)}
@@ -204,6 +215,21 @@ const RetrocedentOfferButtons = ({
           insurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
           toggle={() => setDistributePaymentsDrawer(!distributePaymentsDrawer)}
         />
+      </Drawer>
+
+      {/* Add payment Drawer */}
+      <Drawer
+        width="40%"
+        isvisible={addPaymentDrawer}
+        toggle={() => setAddPaymentDrawer(!addPaymentDrawer)}
+      >
+        {addPaymentDrawer && (
+          <AddPayments
+            details={offer}
+            insurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
+            toggle={() => setAddPaymentDrawer(!addPaymentDrawer)}
+          />
+        )}
       </Drawer>
     </div>
   );
