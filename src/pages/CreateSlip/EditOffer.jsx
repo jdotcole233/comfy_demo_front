@@ -66,8 +66,8 @@ export default function InputOffer({ offer_id, toggle }) {
   useEffect(() => {
     if (offer) {
       const selectedPayment_type = Object.keys(
-        offer?.offer_detail?.payment_type
-      )?.[0];
+        JSON.parse(offer?.offer_detail?.payment_type)
+      )[0];
       setAddExchangeRate(offer.exchange_rate ? true : false);
       setValue("policy_number", offer.offer_detail?.policy_number); //insurance_company
       setValue("insurer_id", offer.insurer?.insurer_id); //insurance_company
@@ -254,7 +254,7 @@ export default function InputOffer({ offer_id, toggle }) {
     <form onSubmit={handleSubmit(handleCreateOffer)} ref={formRef}>
       <div className={styles.card_header}>
         <h2 className={styles.card_title}>Create facultative placement slip</h2>
-        <p>{Object.keys(offer?.offer_detail?.payment_type)?.[0]}</p>
+        <p>{Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0]}</p>
       </div>
       <div className={styles.card_body}>
         <div className="row">
