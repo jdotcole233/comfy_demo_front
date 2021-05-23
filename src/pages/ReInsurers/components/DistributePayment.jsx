@@ -148,7 +148,7 @@ export default function DistributePayment({
 
   if (forms.length < 1) {
     return (
-      <div>
+      <div className="h-full w-full">
         <NoParticipant />
       </div>
     );

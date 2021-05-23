@@ -4,8 +4,8 @@ function NoParticipant() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="998.95"
-      height="833.99"
+      width="600.95"
+      height="600.99"
       data-name="Layer 1"
       viewBox="0 0 998.95 833.99"
     >
