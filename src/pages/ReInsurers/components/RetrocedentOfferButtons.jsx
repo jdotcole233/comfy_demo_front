@@ -96,7 +96,7 @@ const RetrocedentOfferButtons = ({
 
   const payments = useMemo(() => {
     if (offer)
-      return offer.map((payment) => {
+      return offer.offer_payment.map((payment) => {
         const obj = JSON.parse(payment.payment_details);
         return {
           type:
@@ -142,7 +142,7 @@ const RetrocedentOfferButtons = ({
           ),
         };
       });
-  }, [offer]);
+  }, [handleRemovePayment, handleShowEditpaymentDrawer, offer]);
 
   return (
     <div>
