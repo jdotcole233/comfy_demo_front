@@ -472,7 +472,9 @@ function ReinsurerDetail() {
           allTotal={allTotalValue}
           setInputOffer={1}
           entries={5}
-          columns={offersColumns}
+          columns={offersColumns.filter(
+            (el) => el.field !== "participating_percentage"
+          )}
           fetching={fetching}
           handleLoadMore={handleLoadMore}
         />
