@@ -278,6 +278,26 @@ export default function ViewInsurerOffer({ data }) {
               </div>
             </div>
             <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="Payment Type">Payment Type</label>
+                <select
+                  className="form-control"
+                  name="payment_type"
+                  value={
+                    details?.offer_detail?.payment_type
+                      ? Object.values(
+                          JSON.parse(details?.offer_detail?.payment_type)
+                        )[0]
+                      : "payable_in_full"
+                  }
+                  id=""
+                >
+                  <option value="payable_in_full">Payable in full</option>
+                  <option value="instalment">Instalment</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-md-12">
               <div className="form-check">
                 <input
                   type="checkbox"
