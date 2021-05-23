@@ -571,6 +571,7 @@ export const SINGLE_OFFER = gql`
         offer_comment
         information_comment
         offer_details
+        payment_type
       }
       offer_participant {
         offer_participant_id
