@@ -142,6 +142,7 @@ const RetrocedentOfferButtons = ({
           ),
         };
       });
+    return [];
   }, [handleRemovePayment, handleShowEditpaymentDrawer, offer]);
 
   return (
@@ -153,7 +154,7 @@ const RetrocedentOfferButtons = ({
         >
           View Offer
         </button>
-        {finance && (
+        {finance && payments.length > 0 && (
           <button
             onClick={() => setPaymentsModal(true)}
             className="btn btn-sm btn-danger m-1"
