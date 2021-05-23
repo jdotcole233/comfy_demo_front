@@ -26,12 +26,14 @@ import { prepVariables } from "./InputOffer";
 
 export default function InputOffer({ offer_id, toggle }) {
   // const offer = JSON.parse(_offer)
+  const payment_typeRef = useRef({});
   const { closed } = useContext(DrawerContext);
   const { state } = useContext(AuthContext);
   const formRef = useRef();
   const { data } = useQuery(INPUT_OFFER_QUERIES);
-  const { register, errors, handleSubmit, reset, setValue, clearError } =
+  const { register, errors, handleSubmit, reset, setValue, clearError, watch } =
     useForm();
+  payment_typeRef.current = watch("payment_type", "");
   const [offer_comment, fillComment] = useState("");
   const [nkrol, setNkrol] = useState(false);
 
@@ -172,6 +174,14 @@ export default function InputOffer({ offer_id, toggle }) {
       reset();
     }
   }, [closed, reset]);
+
+  useEffect(() => {
+    if (payment_typeRef.current === "instalment") {
+      setShowInstallmentDropdown(true);
+    } else {
+      setShowInstallmentDropdown(false);
+    }
+  }, [payment_typeRef.current, setShowInstallmentDropdown]);
 
   const handleClassOfBusinessChange = (cob) => {
     setValue("class_of_business_id", cob ? cob.value.class_of_business_id : "");
