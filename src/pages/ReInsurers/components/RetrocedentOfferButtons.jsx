@@ -167,7 +167,7 @@ const RetrocedentOfferButtons = ({
         )}
         {payments.length < 1 && (
           <button
-            onClick={() => setPaymentsModal(true)}
+            onClick={() => setAddPaymentDrawer(true)}
             className="btn btn-sm btn-danger m-1"
           >
             Make payment
