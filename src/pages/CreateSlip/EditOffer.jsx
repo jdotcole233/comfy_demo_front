@@ -74,6 +74,10 @@ export default function InputOffer({ offer_id, toggle }) {
       setValue("policy_number", offer.offer_detail?.policy_number); //insurance_company
       setValue("insurer_id", offer.insurer?.insurer_id); //insurance_company
       setValue(
+        "reinsurer_id",
+        offer?.offer_retrocedent?.reinsurer?.reinsurer_id
+      ); //insurance_company
+      setValue(
         "class_of_business_id",
         offer.classofbusiness?.class_of_business_id
       ); //insurance_company
