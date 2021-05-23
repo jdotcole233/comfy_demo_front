@@ -7,7 +7,7 @@ import {
   MAKE_PAYMENT_INSURER,
   UPDATE_PAYMENT_INSURER,
 } from "../../../../graphql/mutattions";
-import { INSURER, INSURER_OFFERS } from "../../../../graphql/queries";
+import { REINSURER, REINSURER_OFFERS } from "../../../../graphql/queries";
 import swal from "sweetalert";
 import { useAuth } from "../../../../context/AuthContext";
 import { CurrencyOption, Selector } from "../../../../components";
@@ -90,15 +90,15 @@ export const AddPayments = ({
   const formRef = useRef();
   const [makePayment] = useMutation(MAKE_PAYMENT_INSURER, {
     refetchQueries: [
-      { query: INSURER, variables: { id: reinsurer_id } },
-      { query: INSURER_OFFERS, variables: { id: reinsurer_id, skip: 0 } },
+      { query: REINSURER, variables: { id: reinsurer_id } },
+      { query: REINSURER_OFFERS, variables: { id: reinsurer_id, skip: 0 } },
     ],
   });
 
   const [updatePayment] = useMutation(UPDATE_PAYMENT_INSURER, {
     refetchQueries: [
-      { query: INSURER, variables: { id: reinsurer_id } },
-      { query: INSURER_OFFERS, variables: { id: reinsurer_id, skip: 0 } },
+      { query: REINSURER, variables: { id: reinsurer_id } },
+      { query: REINSURER_OFFERS, variables: { id: reinsurer_id, skip: 0 } },
     ],
   });
 
