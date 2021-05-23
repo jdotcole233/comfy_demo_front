@@ -1,10 +1,10 @@
 import React from "react";
 
 const ReinsuredComponent = ({ name }) => (
-  <>
+  <span>
     {name}
-    <span className="text-danger font-size-16 font-weight-bold">*</span>
-  </>
+    <sup className="text-danger  font-weight-bold">Retro</sup>
+  </span>
 );
 
 export default ReinsuredComponent;
