@@ -557,6 +557,23 @@ export default function InputOffer({ offer_id, toggle }) {
               </div>
             </div>
             <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="Payment Type">Payment Type</label>
+                <select
+                  className="form-control"
+                  name="payment_type"
+                  ref={register({ required: "Required" })}
+                  id=""
+                >
+                  <option value="payable_in_full">Payable in full</option>
+                  <option value="instalment">Instalment</option>
+                </select>
+                {errors.payment_type && (
+                  <p className="text-danger">{errors.payment_type.message}</p>
+                )}
+              </div>
+            </div>
+            <div className="col-md-12">
               <div className="form-check">
                 <input
                   type="checkbox"
