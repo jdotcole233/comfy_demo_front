@@ -23,7 +23,7 @@ const RetrocedentOfferButtons = ({
   const [paymentsModal, setPaymentsModal] = useState(false);
   const [distributePaymentsDrawer, setDistributePaymentsDrawer] =
     useState(false);
-  const [showBtn, setShowBtn] = useState(false);
+  const [showBtn, setShowBtn] = useState(!0);
   const [payment, setPayment] = useState(null);
   const [updatepaymentDrawer, setUpdatepaymentDrawer] = useState(false);
   const [addPaymentDrawer, setAddPaymentDrawer] = useState(false);
@@ -39,7 +39,7 @@ const RetrocedentOfferButtons = ({
     if (offer) {
       //if offer payment szie is > 0
       if (offer.offer_participant.length > 0) {
-        setShowBtn(true);
+        setShowBtn(!0);
         //if offer payment last index of payment details is == null
         if (offer.offer_participant[0].offer_participant_payment.length > 0) {
           if (
@@ -48,9 +48,9 @@ const RetrocedentOfferButtons = ({
                 .offer_participant_payment.length - 1
             ].paid_details === ""
           ) {
-            setShowBtn(false);
+            setShowBtn(!!0);
           } else {
-            setShowBtn(true);
+            setShowBtn(!0);
           }
         }
       }
