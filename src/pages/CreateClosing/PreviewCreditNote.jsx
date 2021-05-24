@@ -27,6 +27,14 @@ function PreviewCoverNote({ offer, reinsurer }) {
       to.getMonth() + 1
     }/${to.getFullYear()}`;
   };
+
+  const payment_type_key = offer?.offer_detail?.payment_type
+    ? Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0]
+    : "NA";
+  const payment_type_values = offer?.offer_detail?.payment_type
+    ? Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
+    : "NA";
+
   return (
     <Fragment>
       <div className="row m-2">
@@ -155,13 +163,9 @@ function PreviewCoverNote({ offer, reinsurer }) {
               <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.offer_detail?.payment_type
-                    ? _.upperFirst(
-                        Object.keys(
-                          JSON.parse(offer?.offer_detail?.payment_type)
-                        )[0]
-                          .split("_")
-                          .join(" ")
-                      )
+                    ? payment_type_key === "instalment"
+                      ? `${payment_type_values} Instalments `
+                      : _.upperFirst(payment_type_key.split("_").join(" "))
                     : "NA"}
                 </h3>
               </div>
