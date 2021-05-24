@@ -15,8 +15,8 @@ const OfferDetails = ({ data }) => {
   const [viewComments, setViewComments] = useState(false);
   const info = data?.findSingleOffer;
   const reinsured = info?.offer_retrocedent
-    ? info?.insurer.insurer_company_name
-    : info?.offer_retrocedent?.reinsurer?.re_company_name;
+    ? info?.offer_retrocedent?.reinsurer?.re_company_name
+    : info?.insurer.insurer_company_name;
   return (
     <Fragment>
       <div className="col-xl-4">
