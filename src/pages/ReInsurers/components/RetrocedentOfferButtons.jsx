@@ -214,7 +214,7 @@ const RetrocedentOfferButtons = ({
         <DistributePayment
           data={offer}
           showFlag={showBtn}
-          insurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
+          insurer_id={offer?.insurer?.insurer_id}
           toggle={() => setDistributePaymentsDrawer(!distributePaymentsDrawer)}
         />
       </Drawer>

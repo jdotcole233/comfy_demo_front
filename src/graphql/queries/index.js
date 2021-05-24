@@ -182,6 +182,7 @@ export const REINSURER = gql`
           currency
         }
         insurer {
+          insurer_id
           insurer_company_name
         }
       }
