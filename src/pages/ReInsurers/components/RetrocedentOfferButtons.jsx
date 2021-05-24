@@ -40,7 +40,10 @@ const RetrocedentOfferButtons = ({
       },
       {
         query: REINSURER_OFFERS,
-        variables: { id: offer?.offer_retrocedent?.reinsurer?.reinsurer_id },
+        variables: {
+          id: offer?.offer_retrocedent?.reinsurer?.reinsurer_id,
+          skip: 0,
+        },
       },
     ],
   });
