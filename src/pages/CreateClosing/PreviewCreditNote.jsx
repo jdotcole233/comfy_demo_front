@@ -5,7 +5,7 @@ import { BASE_URL_LOCAL } from "../../graphql";
 import { AuthContext } from "../../context/AuthContext";
 import { getCurrencyFullName } from "../../components";
 import PreviewLogo from "../../components/PreviewLogo";
-import _ from 'lodash'
+import _ from "lodash";
 
 const downloadAccess = [
   "CEO",
@@ -155,7 +155,7 @@ function PreviewCoverNote({ offer, reinsurer }) {
               <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.offer_detail?.payment_type
-                    ? _.update(
+                    ? _.upperFirst(
                         Object.keys(
                           JSON.parse(offer?.offer_detail?.payment_type)
                         )[0]
