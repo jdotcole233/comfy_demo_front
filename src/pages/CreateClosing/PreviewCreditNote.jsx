@@ -165,7 +165,7 @@ function PreviewCoverNote({ offer, reinsurer }) {
                   {offer?.offer_detail?.payment_type
                     ? payment_type_key === "instalment"
                       ? `${payment_type_values} Instalments `
-                      : _.upperFirst(payment_type_key.split("_").join(" "))
+                      : _.upperFirst(payment_type_values)
                     : "NA"}
                 </h3>
               </div>
