@@ -228,7 +228,7 @@ const RetrocedentOfferButtons = ({
         {addPaymentDrawer && (
           <AddPayments
             details={offer}
-            insurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
+            reinsurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
             toggle={() => setAddPaymentDrawer(!addPaymentDrawer)}
           />
         )}
@@ -243,7 +243,7 @@ const RetrocedentOfferButtons = ({
         <AddPayments
           edit={true}
           details={offer}
-          insurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
+          reinsurer_id={offer?.offer_retrocedent?.reinsurer?.reinsurer_id}
           payment={payment}
           toggle={() => setUpdatepaymentDrawer(!updatepaymentDrawer)}
         />
