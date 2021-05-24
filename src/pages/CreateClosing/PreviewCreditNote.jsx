@@ -156,20 +156,21 @@ function PreviewCoverNote({ offer, reinsurer }) {
                 <h3 className="dark-text-value">{showDate(offer)}</h3>
               </div>
             </div>
-            <div className="row mb-2">
-              <div className="col-md-4 col-4 col-sm-4 col-xs-4">
-                <h3 className="dark-text">Payment type:</h3>
+            {offer?.offer_detail?.payment_type ? (
+              <div className="row mb-2">
+                <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                  <h3 className="dark-text">Payment type:</h3>
+                </div>
+                <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                  <h3 className="dark-text-value">
+                    {payment_type_key === "instalment"
+                      ? `${payment_type_values}{" "}
+                    Instalments `
+                      : _.upperFirst(payment_type_values)}
+                  </h3>
+                </div>
               </div>
-              <div className="col-md-8 col-8 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {offer?.offer_detail?.payment_type
-                    ? payment_type_key === "instalment"
-                      ? `${payment_type_values} Instalments `
-                      : _.upperFirst(payment_type_values)
-                    : "NA"}
-                </h3>
-              </div>
-            </div>
+            ) : null}
             <div className="row mb-2">
               <div className="col-md-4 col-4 col-sm-4 col-xs-4">
                 <h3 className="dark-text">Currency:</h3>
