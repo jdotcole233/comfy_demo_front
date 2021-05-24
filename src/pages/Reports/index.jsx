@@ -58,9 +58,8 @@ const groupProps = {
 };
 
 function Reports() {
-  const { data: piechartData, loading: pageLoading } = useQuery(
-    REPORT_PIECHART
-  );
+  const { data: piechartData, loading: pageLoading } =
+    useQuery(REPORT_PIECHART);
   const tablesRef = useRef(null);
   const { register, setValue, handleSubmit, errors } = useForm();
   const [insurersData, setInsurersData] = useState([]);
