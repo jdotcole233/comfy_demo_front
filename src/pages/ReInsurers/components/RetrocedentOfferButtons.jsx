@@ -39,7 +39,7 @@ const RetrocedentOfferButtons = ({
     if (offer) {
       //if offer payment szie is > 0
       if (offer.offer_participant.length > 0) {
-        setShowBtn(!0);
+        setShowBtn(true);
         //if offer payment last index of payment details is == null
         if (offer.offer_participant[0].offer_participant_payment.length > 0) {
           if (
@@ -48,9 +48,9 @@ const RetrocedentOfferButtons = ({
                 .offer_participant_payment.length - 1
             ].paid_details === ""
           ) {
-            setShowBtn(!!0);
+            setShowBtn(false);
           } else {
-            setShowBtn(!0);
+            setShowBtn(true);
           }
         }
       }
