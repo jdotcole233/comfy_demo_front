@@ -33,6 +33,8 @@ const RetrocedentOfferButtons = ({
 
   const [removePayment] = useMutation(REMOVE_PAYMENT, {});
 
+  // console.log(offer);
+
   useEffect(() => {
     if (offer) {
       //if offer payment szie is > 0
