@@ -11,6 +11,7 @@ import swal from "sweetalert";
 import { useMutation } from "react-apollo";
 import { REMOVE_PAYMENT } from "../../../graphql/mutattions";
 import { AddPayments } from "./payment/Add";
+import { REINSURER, REINSURER_OFFERS } from "../../../graphql/queries";
 
 const RetrocedentOfferButtons = ({
   offer,
@@ -31,7 +32,18 @@ const RetrocedentOfferButtons = ({
   // ["Finance Executive"].includes(ctx?.user?.position) &&
   // offer?.offer_status === "CLOSED";
 
-  const [removePayment] = useMutation(REMOVE_PAYMENT, {});
+  const [removePayment] = useMutation(REMOVE_PAYMENT, {
+    refetchQueries: [
+      {
+        query: REINSURER,
+        variables: { id: offer?.offer_retrocedent?.reinsurer?.reinsurer_id },
+      },
+      {
+        query: REINSURER_OFFERS,
+        variables: { id: offer?.offer_retrocedent?.reinsurer?.reinsurer_id },
+      },
+    ],
+  });
 
   // console.log(offer);
 
