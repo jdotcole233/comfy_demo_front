@@ -217,6 +217,20 @@ const RetrocedentOfferButtons = ({
       >
         <Modal.Header closeButton>Payments history</Modal.Header>
         <Modal.Body>
+          <div className="row">
+            <div className="col-md-6"></div>
+            <div className="col-md-6 d-flex justify-content-end">
+              <button
+                onClick={() => {
+                  setPaymentsModal(false);
+                  setAddPaymentDrawer(true);
+                }}
+                className="btn btn-info btn-square btn-sm w-md"
+              >
+                Add payment
+              </button>
+            </div>
+          </div>
           <Datatable columns={paymentsColumns} data={payments} />
         </Modal.Body>
       </Modal>
