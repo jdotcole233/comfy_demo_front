@@ -23,6 +23,8 @@ import { useMemo } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useInsurer } from "../../context/InsurerProvider";
 
+const retrocedentFilter = (offer) => offer.offer_retrocedents !== null;
+
 function InsurerDetail() {
   const { state: ctx } = useContext(AuthContext);
   // console.log(ctx?.user)
@@ -63,7 +65,7 @@ function InsurerDetail() {
   useEffect(() => {
     const list = [];
     if (insurer) {
-      insurer.insurer.offers.map((offer, i) => {
+      insurer.insurer.offers.filter(retrocedentFilter).map((offer, i) => {
         const expected =
           parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
