@@ -48,7 +48,8 @@ export default function DistributePayment({
 
   useEffect(() => {
     if (data) {
-      const newForms = data.offer_participant.map((part) => {
+      const newForms = data.offer_participant.map((part, index) => {
+        console.log("PAert", index);
         const row = {
           offer_participant_id: part.offer_participant_payment.length
             ? part.offer_participant_payment[
@@ -119,24 +120,24 @@ export default function DistributePayment({
     });
   };
 
-  if (showFlag) {
-    return (
-      <div>
-        <Alert variant="danger">
-          <strong>
-            No current payment identified on offer with policy number:{" "}
-            {data?.offer_detail.policy_number}
-          </strong>
-          <p>
-            <em>
-              Payment to be made on {data?.offer_participant.length} reinsurers
-              will be made active once payment is found.
-            </em>
-          </p>
-        </Alert>
-      </div>
-    );
-  }
+  // if (showFlag) {
+  //   return (
+  //     <div>
+  //       <Alert variant="danger">
+  //         <strong>
+  //           No current payment identified on offer with policy number:{" "}
+  //           {data?.offer_detail.policy_number}
+  //         </strong>
+  //         <p>
+  //           <em>
+  //             Payment to be made on {data?.offer_participant.length} reinsurers
+  //             will be made active once payment is found.
+  //           </em>
+  //         </p>
+  //       </Alert>
+  //     </div>
+  //   );
+  // }
 
   if (loading) {
     return (
