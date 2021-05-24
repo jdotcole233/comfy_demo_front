@@ -967,6 +967,14 @@ export const INSURER_OFFERS = gql`
         payment_status
         commission
         commission_amount
+        offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
         offer_participant {
           offer_participant_id
           participant_fac_premium
