@@ -4,7 +4,12 @@ import Header from "./Header";
 import { columns, _columns } from "./columns";
 import { useQuery } from "react-apollo";
 import { OFFERS } from "../../graphql/queries";
-import { Datatable, isWithinAWeek, Loader, ReinsuredComponent } from "../../components";
+import {
+  Datatable,
+  isWithinAWeek,
+  Loader,
+  ReinsuredComponent,
+} from "../../components";
 import OfferButtons from "./components/OfferButtons";
 import { ENDORSEMENTS } from "../../graphql/queries/endorsements";
 import EndorsementButtons from "./components/EndorsementButtons";
@@ -37,13 +42,13 @@ const UnApproved = () => {
           offer.sum_insured.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           }),
-          insurance_company: offer?.offer_retrocedent ? (
-            <ReinsuredComponent
-              name={offer?.offer_retrocedent?.reinsurer?.re_company_name}
-            />
-          ) : (
-            offer.insurer.insurer_company_name
-          ),
+        insurance_company: offer?.offer_retrocedent ? (
+          <ReinsuredComponent
+            name={offer?.offer_retrocedent?.reinsurer?.re_company_name}
+          />
+        ) : (
+          offer.insurer.insurer_company_name
+        ),
         premium:
           offer.offer_endorsement_detail?.currency +
           " " +
@@ -95,7 +100,13 @@ const UnApproved = () => {
             offer.sum_insured.toLocaleString(undefined, {
               maximumFractionDigits: 2,
             }),
-          insurance_company: offer.insurer.insurer_company_name,
+          insurance_company: offer?.offer_retrocedent ? (
+            <ReinsuredComponent
+              name={offer?.offer_retrocedent?.reinsurer?.re_company_name}
+            />
+          ) : (
+            offer.insurer.insurer_company_name
+          ),
           premium:
             offer.offer_detail?.currency +
             " " +
