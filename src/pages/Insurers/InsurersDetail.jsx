@@ -22,8 +22,9 @@ import OfferListing from "../CreateSlip/OfferListing";
 import { useMemo } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useInsurer } from "../../context/InsurerProvider";
+import _ from "lodash";
 
-const retrocedentFilter = (offer) => offer && offer.offer_retrocedent !== null;
+const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
 function InsurerDetail() {
   const { state: ctx } = useContext(AuthContext);
