@@ -28,9 +28,9 @@ const RetrocedentOfferButtons = ({
   const [payment, setPayment] = useState(null);
   const [updatepaymentDrawer, setUpdatepaymentDrawer] = useState(false);
   const [addPaymentDrawer, setAddPaymentDrawer] = useState(false);
-  const finance = true;
-  // ["Finance Executive"].includes(ctx?.user?.position) &&
-  // offer?.offer_status === "CLOSED";
+  const finance =
+    ["Finance Executive"].includes(ctx?.user?.position) &&
+    offer?.offer_status === "CLOSED";
 
   const [removePayment] = useMutation(REMOVE_PAYMENT, {
     refetchQueries: [

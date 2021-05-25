@@ -9,4 +9,4 @@ export const COOKIE_NAME_AUTH = 'kek_re_auth';
 export const PUSHER_KEY = '8fdc449c93173e31d8a2';
 export const PUSHER_CLUSTER = 'eu';
 export const CHANNEL = 'a2VrcmUtcHJpdmF0ZS1jaGFubmVs';
-export const EVENT = 'a2VrcmUtcHJpdmF0ZS1jaGFubmVs-event'; 
+export const EVENT = 'a2VrcmUtcHJpdmF0ZS1jaGFubmVs-event';
