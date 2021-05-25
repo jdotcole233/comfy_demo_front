@@ -43,6 +43,30 @@ export default function ViewInsurerOffer({ data }) {
       </div>
       <div className={styles.card_body}>
         <div className="row">
+          {details?.offer_retrocedent && (
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="BusinessClass">Retrocedent</label>
+                <input
+                  value={details?.offer_retrocedent?.reinsurer?.re_company_name}
+                  type="text"
+                  name="business_class"
+                  className="form-control"
+                  list="insurance_companies"
+                  placeholder="Insurance company"
+                  readOnly
+                />
+                <datalist id="insurance_companies">
+                  <select name="business_class" id="" className="form-control">
+                    <option value="Regency Nem Insurance Ghana Ltd">
+                      Regency Nem Insurance Ghana Ltd
+                    </option>
+                    <option value="Marine Cargo">Marine Cargo</option>
+                  </select>
+                </datalist>
+              </div>
+            </div>
+          )}
           <div className="col-md-12">
             <div className="form-group">
               <label htmlFor="BusinessClass">Insurance Company</label>
@@ -253,6 +277,47 @@ export default function ViewInsurerOffer({ data }) {
                 />
               </div>
             </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="Payment Type">Payment Type</label>
+                <select
+                  className="form-control"
+                  name="payment_type"
+                  value={
+                    details?.offer_detail?.payment_type
+                      ? Object.keys(
+                          JSON.parse(details?.offer_detail?.payment_type)
+                        )[0]
+                      : "payable_in_full"
+                  }
+                  id=""
+                >
+                  <option value="payable_in_full">Payable in full</option>
+                  <option value="instalment">Instalment</option>
+                </select>
+              </div>
+            </div>
+
+            {details?.offer_detail?.payment_type &&
+              Object.keys(
+                JSON.parse(details?.offer_detail?.payment_type)
+              )[0] === "instalment" && (
+                <div className="col-md-12 mb-3">
+                  <label htmlFor="">No. of instalments</label>
+                  <input
+                    type="number"
+                    name="no_of_installments"
+                    value={
+                      Object.values(
+                        JSON.parse(details?.offer_detail?.payment_type)
+                      )[0]
+                    }
+                    min={1}
+                    className="form-control"
+                  />
+                </div>
+              )}
+
             <div className="col-md-12">
               <div className="form-check">
                 <input

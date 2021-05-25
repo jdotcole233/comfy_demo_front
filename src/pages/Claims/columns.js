@@ -6,7 +6,7 @@ export const columns = [
     width: 100
   },
   {
-    label: "Insurance Company",
+    label: "Reinsured",
     field: "insurance_company",
     sort: "asc",
     width: 80

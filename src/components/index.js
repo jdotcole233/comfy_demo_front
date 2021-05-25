@@ -22,6 +22,7 @@ export { default as Loader } from './Loader';
 export { default as NoData } from './Nodata';
 export { default as OverViewCard } from './OverViewCard';
 export { default as Editor } from './Editor';
+export { default as ReinsuredComponent } from './ReinsuredComponent';
 export { Modal, ModalBody, ModalHeader };
 
 function getWindowDimensions() {
