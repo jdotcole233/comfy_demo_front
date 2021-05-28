@@ -5,7 +5,7 @@ export const columns = [
     sort: 'asc',
   },
   {
-    label: 'Insurance Company',
+    label: 'Reinsured',
     field: 'insurance_company',
     sort: 'asc',
   },
@@ -53,7 +53,7 @@ export const _columns = [
     sort: 'asc',
   },
   {
-    label: 'Insurance Company',
+    label: 'Reinsured',
     field: 'insurance_company',
     sort: 'asc',
   },

@@ -93,6 +93,100 @@ export const REINSURER = gql`
         region
         country
       }
+       offer_retrocedents{
+          offer {
+        created_at
+        offer_id
+        offer_status
+        sum_insured
+        co_insurance_share
+        rate
+        fac_sum_insured
+        premium
+        fac_premium
+        brokerage
+        facultative_offer
+        payment_status
+        commission
+        commission_amount
+        offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
+        offer_endorsements {
+        sum_insured
+          premium
+          approval_status
+          created_at
+          updated_at
+          facultative_offer
+          offer_endorsement_id
+          fac_premium
+          offer_endorsement_detail {
+            offer_comment
+            currency
+            offer_endorsement_detail_id
+            offer_detail
+          }
+          commission_amount
+      }
+        offer_participant {
+          offer_participant_id
+          participant_fac_premium
+          offer_participant_percentage
+          reinsurer {
+            re_company_name
+          }
+
+          offer_participant_payment {
+            offer_participant_payment_id
+            offer_payment_amount
+            paid_details
+            offer_deduction_charge {
+              offer_deduction_payment_id
+              nic_levy_paid
+              withholding_tax_paid
+              brokerage_amount_paid
+              commission_taken
+            }
+          }
+        }
+        offer_payment {
+          offer_payment_id
+          payment_details
+          payment_amount
+          offer_payment_comment
+          created_at
+          updated_at
+        }
+        classofbusiness {
+          business_name
+        }
+        exchange_rate {
+          ex_rate
+          ex_currency
+        }
+        offer_detail {
+          offer_details
+          policy_number
+          period_of_insurance_from
+          period_of_insurance_to
+          offer_comment
+          information_comment
+          payment_type
+          insured_by
+          currency
+        }
+        insurer {
+          insurer_id
+          insurer_company_name
+        }
+      }
+        }
 
       reinsurer_overview {
         brokerage_chart
@@ -148,6 +242,7 @@ export const REINSURER = gql`
             commission_taken
           }
         }
+       
         reinsurer_offers_only {
           offer_id
           rate
@@ -157,6 +252,14 @@ export const REINSURER = gql`
           facultative_offer
           commission
           co_insurance_share
+          offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
           fac_sum_insured
           sum_insured
           created_at
@@ -183,12 +286,14 @@ export const REINSURER = gql`
             offer_comment
             information_comment
             offer_details
+            payment_type
           }
         }
       }
     }
   }
-`;
+
+`
 
 export const OFFERS = gql`
 query getOffers(
@@ -234,6 +339,14 @@ query getOffers(
         ex_currency
         ex_rate
       }
+      offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
       offer_detail {
         offer_detail_id
         offersoffer_id
@@ -241,6 +354,7 @@ query getOffers(
         insured_by
         period_of_insurance_to
         period_of_insurance_from
+        payment_type
         currency
         offer_comment
         information_comment
@@ -490,6 +604,12 @@ export const INPUT_OFFER_QUERIES = gql`
       insurer_company_email
       insurer_abbrv
     }
+    reinsurers {
+      reinsurer_id
+      re_company_email
+      re_company_name
+      re_abbrv
+    }
     classOfBusinesses {
       class_of_business_id
       business_name
@@ -520,6 +640,7 @@ export const SINGLE_OFFER = gql`
       offer_id
       rate
       commission
+      # reinsurer_id
       co_insurance_share
       commission_amount
       brokerage
@@ -532,6 +653,14 @@ export const SINGLE_OFFER = gql`
       offer_status
       payment_status
       claim_status
+      offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
       document_messages {
         offersoffer_id
         document_message
@@ -556,6 +685,7 @@ export const SINGLE_OFFER = gql`
         offer_comment
         information_comment
         offer_details
+        payment_type 
       }
       offer_participant {
         offer_participant_id
@@ -620,6 +750,14 @@ export const DASHBOARD = gql`
         facultative_offer
         sum_insured
         fac_sum_insured
+        offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
         premium
         fac_premium
         offer_status
@@ -631,6 +769,7 @@ export const DASHBOARD = gql`
           insured_by
           period_of_insurance_from
           period_of_insurance_to
+          payment_type
           currency
           offer_comment
           information_comment
@@ -712,6 +851,14 @@ export const INSURER = gql`
         payment_status
         commission
         commission_amount
+        offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
         offer_endorsements {
         sum_insured
           premium
@@ -755,12 +902,6 @@ export const INSURER = gql`
           payment_details
           payment_amount
           offer_payment_comment
-          # offer_deduction_payment {
-          #   offer_deduction_payment_id
-          # }
-          # offer_participant_payment {
-          #   offer_participant_id
-          # }
           created_at
           updated_at
         }
@@ -778,6 +919,7 @@ export const INSURER = gql`
           period_of_insurance_to
           offer_comment
           information_comment
+          payment_type
           insured_by
           currency
         }
@@ -825,6 +967,14 @@ export const INSURER_OFFERS = gql`
         payment_status
         commission
         commission_amount
+        offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
         offer_participant {
           offer_participant_id
           participant_fac_premium

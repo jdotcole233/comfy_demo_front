@@ -172,7 +172,9 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
               </div>
               <div className="col-md-6 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
-                  {offer?.insurer.insurer_company_name}
+                  {offer?.offer_retrocedent
+                    ? offer?.offer_retrocedent?.reinsurer?.re_company_name
+                    : offer?.insurer.insurer_company_name}
                 </h3>
               </div>
             </div>

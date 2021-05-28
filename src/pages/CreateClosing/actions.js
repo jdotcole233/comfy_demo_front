@@ -4,12 +4,20 @@ import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { BASE_URL_LOCAL } from '../../graphql';
 import EndorsementButtons from './components/EndorsementButtons';
 import OfferButtons from './components/OfferButtons';
+import _ from 'lodash';
+import { ReinsuredComponent } from '../../components';
+
 export const generateClosingOffers = ({ arr }) => {
   if (!arr) return [];
   const list = [];
   arr.offers.map((offer) => {
+    const payment_type_key = offer?.offer_detail?.payment_type ? Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0] : "NA"
+    const payment_type_values = offer?.offer_detail?.payment_type ? Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0] : "NA"
     const row = {
       policy_number: offer.offer_detail?.policy_number,
+      payment_type: offer?.offer_detail?.payment_type ?
+        payment_type_key === "instalment" ? `Instalment ${payment_type_values}` : _.upperFirst(payment_type_key.split("_").join(" "))
+        : "NA",
       insured: offer.offer_detail?.insured_by,
       sum_insured:
         offer.offer_detail?.currency +
@@ -17,7 +25,13 @@ export const generateClosingOffers = ({ arr }) => {
         offer.sum_insured.toLocaleString(undefined, {
           maximumFractionDigits: 2,
         }),
-      insurance_company: offer.insurer.insurer_company_name,
+      insurance_company: offer?.offer_retrocedent ? (
+        <ReinsuredComponent
+          name={offer?.offer_retrocedent?.reinsurer?.re_company_name}
+        />
+      ) : (
+        offer.insurer.insurer_company_name
+      ),
       premium:
         offer.offer_detail?.currency +
         ' ' +

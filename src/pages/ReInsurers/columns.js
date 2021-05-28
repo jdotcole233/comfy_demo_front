@@ -27,7 +27,7 @@ export const offersColumns = [
     field: "policy_no",
   },
   {
-    label: "Company",
+    label: "Reinsured",
     field: "company",
   },
   {
@@ -73,33 +73,35 @@ export const offersColumns = [
 ];
 
 
+
+
 export const paymentsColumns = [
   {
-    label:"Payment Type",
-    field:"type"
+    label: "Payment Type",
+    field: "type"
   },
   {
-    label:"Bank Name",
-    field:"bank_name"
+    label: "Bank Name",
+    field: "bank_name"
   },
   {
-    label:"Beneficiary Bank Name",
-    field:"beneficiary_bank"
+    label: "Beneficiary Bank Name",
+    field: "beneficiary_bank"
   },
   {
-    label:"Payment Amt",
-    field:"payment_amount"
+    label: "Payment Amt",
+    field: "payment_amount"
   },
   {
-    label:"Payment Date",
-    field:"created_at"
+    label: "Payment Date",
+    field: "created_at"
   },
   {
-    label:"Last Payment Upate",
-    field:"updated_at"
+    label: "Last Payment Upate",
+    field: "updated_at"
   },
   {
-    label:"Actions",
-    field:"actions"
+    label: "Actions",
+    field: "actions"
   },
 ]
