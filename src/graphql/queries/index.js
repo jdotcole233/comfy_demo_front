@@ -975,6 +975,23 @@ export const INSURER_OFFERS = gql`
           re_company_website
         }
       }
+        offer_endorsements {
+        sum_insured
+          premium
+          approval_status
+          created_at
+          updated_at
+          facultative_offer
+          offer_endorsement_id
+          fac_premium
+          offer_endorsement_detail {
+            offer_comment
+            currency
+            offer_endorsement_detail_id
+            offer_detail
+          }
+          commission_amount
+      }
         offer_participant {
           offer_participant_id
           participant_fac_premium
@@ -1007,6 +1024,10 @@ export const INSURER_OFFERS = gql`
         classofbusiness {
           business_name
         }
+        exchange_rate {
+          ex_rate
+          ex_currency
+        }
         offer_detail {
           offer_details
           policy_number
@@ -1014,6 +1035,7 @@ export const INSURER_OFFERS = gql`
           period_of_insurance_to
           offer_comment
           information_comment
+          payment_type
           insured_by
           currency
         }
