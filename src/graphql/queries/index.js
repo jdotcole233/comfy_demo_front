@@ -494,6 +494,14 @@ query getOffers(
         ex_currency
         ex_rate
       }
+      offer_retrocedent {
+        reinsurer {
+          reinsurer_id
+          re_company_email
+          re_company_name
+          re_company_website
+        }
+      }
       offer_detail {
         offer_detail_id
         offersoffer_id
@@ -501,6 +509,7 @@ query getOffers(
         insured_by
         period_of_insurance_to
         period_of_insurance_from
+        payment_type
         currency
         offer_comment
         information_comment
@@ -525,21 +534,21 @@ query getOffers(
       }
       offer_endorsements {
         sum_insured
-        premium
-        approval_status
-        created_at
-        updated_at
-        facultative_offer
-        offer_endorsement_id
-        fac_premium
-        fac_sum_insured
-        offer_endorsement_detail {
-          offer_comment
-          offer_endorsement_detail_id
-          offer_detail
-          currency
-        }
-        commission_amount
+          premium
+          approval_status
+          created_at
+          updated_at
+          facultative_offer
+          offer_endorsement_id
+          fac_premium
+          fac_sum_insured
+          offer_endorsement_detail {
+            offer_comment
+            offer_endorsement_detail_id
+            offer_detail
+            currency
+          }
+          commission_amount
       }
       offer_participant {
         offer_participant_id
