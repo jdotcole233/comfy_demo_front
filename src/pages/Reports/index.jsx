@@ -532,7 +532,8 @@ function Reports() {
                     placeholder="Select client type"
                     options={[
                       { label: "All", value: "All" },
-                      { label: "Retrocedent", value: "Reinsurer" },
+                      { label: "Retrocedent", value: "Retrocedent" },
+                      { label: "Reinsurer", value: "Reinsurer" },
                       { label: "Insurer", value: "Insurer" },
                     ]}
                   />
@@ -576,33 +577,37 @@ function Reports() {
                   </div>
                 </div>
               )}
-              {clientType && clientType === "Reinsurer" && (
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label htmlFor="classOfBusiness">{clientType}</label>
+              {clientType &&
+                (clientType === "Reinsurer" ||
+                  clientType === "Retrocedent") && (
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label htmlFor="classOfBusiness">{clientType}</label>
 
-                    {clientType === "Reinsurer" ? (
-                      <Selector
-                        onChange={handleChooseClient}
-                        components={{ Option: ReinsurerOption }}
-                        placeholder="Select reinsurer"
-                        options={reinsurersData}
+                      {clientType === "Reinsurer" ? (
+                        <Selector
+                          onChange={handleChooseClient}
+                          components={{ Option: ReinsurerOption }}
+                          placeholder="Select reinsurer"
+                          options={reinsurersData}
+                        />
+                      ) : null}
+                      <input
+                        type="hidden"
+                        name="client_id"
+                        ref={register({
+                          required:
+                            clientType === "Reinsurer" ? "Required" : false,
+                        })}
                       />
-                    ) : null}
-                    <input
-                      type="hidden"
-                      name="client_id"
-                      ref={register({
-                        required:
-                          clientType === "Reinsurer" ? "Required" : false,
-                      })}
-                    />
-                    {errors.client_id && (
-                      <p className="text-danger">{errors.client_id.message}</p>
-                    )}
+                      {errors.client_id && (
+                        <p className="text-danger">
+                          {errors.client_id.message}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="classOfBusiness">From</label>
