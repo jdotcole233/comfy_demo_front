@@ -105,7 +105,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         const _payment_details = JSON.parse(payment.payment_details);
         const amount_paid =
           parseFloat(payment.payment_amount) /
-          parseFloat(_payment_details.conversion.rate);
+          parseFloat(_payment_details?.conversion?.rate ?? "1");
         sumOfPaymentAmounts += parseFloat(amount_paid);
         return payment;
       });
