@@ -100,7 +100,7 @@ const OfferListing = ({
                         className="btn btn-primary btn-sm w-md "
                         onClick={() => handleLoadMore(all.length)}
                       >
-                        {fetching ? "Loading 50 ..." : "Load More (50)"}
+                        {fetching ? "Loading more ..." : "Load More"}
                         {fetching}
                       </button>
                     )}

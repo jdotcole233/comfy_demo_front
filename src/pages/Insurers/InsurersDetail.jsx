@@ -300,7 +300,7 @@ function InsurerDetail() {
   const loadMore = (skip) => {
     fetchMore({
       variables: {
-        id: state?.insurer_id,
+        id: _insurer?.insurer_id,
         skip,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
