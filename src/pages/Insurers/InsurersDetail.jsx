@@ -91,16 +91,10 @@ function InsurerDetail() {
         const row = {
           name: offer.offer_detail?.policy_number,
           currency: offer?.offer_detail?.currency,
-          outstanding: (expected - payments_made).toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-          }),
-          expected_premium: expected.toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-          }),
+          outstanding: toMoney(expected - payments_made),
+          expected_premium: toMoney(expected),
           insured: offer.offer_detail?.insured_by,
-          sum_insured: ` ${offer.sum_insured.toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-          })}`,
+          sum_insured: ` ${toMoney(offer.sum_insured)}`,
           f_sum_insured: ` ${offer.fac_sum_insured.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           })}`,
