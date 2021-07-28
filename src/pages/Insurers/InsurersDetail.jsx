@@ -131,7 +131,7 @@ function InsurerDetail() {
               </svg>
             </span>
           ),
-          comission: offer.commission,
+          comission: toMoney(offer.commission),
           cob: offer.classofbusiness.business_name,
           offer_date: offer.created_at,
           offer_status: (
@@ -197,12 +197,8 @@ function InsurerDetail() {
             outstanding: toMoney(expected - payments_made),
             expected_premium: toMoney(expected),
             insured: offer.offer_detail?.insured_by,
-            sum_insured: ` ${offer.sum_insured.toLocaleString(undefined, {
-              maximumFractionDigits: 2,
-            })}`,
-            f_sum_insured: ` ${offer.fac_sum_insured.toLocaleString(undefined, {
-              maximumFractionDigits: 2,
-            })}`,
+            sum_insured: ` ${toMoney(offer.sum_insured)}`,
+            f_sum_insured: ` ${toMoney(offer.fac_sum_insured)}`,
             endorsements: offer?.offer_endorsements?.length ? (
               <span>
                 <svg
