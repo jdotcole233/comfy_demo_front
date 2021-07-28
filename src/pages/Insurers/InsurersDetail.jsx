@@ -26,6 +26,16 @@ import _ from "lodash";
 
 const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
+const getParticipantsCommission = (arr = []) => {
+  const amount = arr.reduce((prev, curr) => {
+    return curr.offer_participant_payment?.reduce((iprev, icurr) => {
+      return icurr?.offer_deduction_charge?.commission_taken + iprev;
+    }, 0);
+  }, 0);
+
+  return amount;
+};
+
 function InsurerDetail() {
   const { state: ctx } = useContext(AuthContext);
   // console.log(ctx?.user)
@@ -67,8 +77,12 @@ function InsurerDetail() {
     const list = [];
     if (insurer) {
       insurer.insurer.offers.filter(retrocedentFilter).map((offer, i) => {
+        console.log(getParticipantsCommission(offer?.offer_participant));
         const expected =
-          parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
+          parseFloat(offer.fac_premium) -
+          parseFloat(
+            offer?.reinsurer_offer_extra_charge?.agreed_commission_amount
+          );
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
           const payment_value = currVal.payment_amount || 0;
           return prev + payment_value;
@@ -171,8 +185,12 @@ function InsurerDetail() {
       return insurer_offers?.insurer_all_offers?.offers
         .filter(retrocedentFilter)
         .map((offer, i) => {
+          // TODO: use offer extra charges to compute the commission being subtracted from the fac_premium
           const expected =
-            parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
+            parseFloat(offer.fac_premium) -
+            parseFloat(
+              offer?.reinsurer_offer_extra_charge?.agreed_commission_amount
+            );
           const payments_made = offer?.offer_payment?.reduce(
             (prev, currVal) => {
               const payment_value = currVal.payment_amount || 0;
