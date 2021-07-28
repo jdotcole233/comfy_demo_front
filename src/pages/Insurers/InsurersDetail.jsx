@@ -9,6 +9,7 @@ import {
   Loader,
   OverViewCard,
   generateNewCulumns,
+  toMoney,
 } from "../../components";
 import EditInsurer from "./EditInsurer";
 import f_dat, { managersColumn } from "./dummy";
@@ -201,12 +202,8 @@ function InsurerDetail() {
           return {
             name: offer.offer_detail?.policy_number,
             currency: offer?.offer_detail?.currency,
-            outstanding: (expected - payments_made).toLocaleString(undefined, {
-              maximumFractionDigits: 2,
-            }),
-            expected_premium: expected.toLocaleString(undefined, {
-              maximumFractionDigits: 2,
-            }),
+            outstanding: toMoney(expected - payments_made),
+            expected_premium: toMoney(expected),
             insured: offer.offer_detail?.insured_by,
             sum_insured: ` ${offer.sum_insured.toLocaleString(undefined, {
               maximumFractionDigits: 2,
