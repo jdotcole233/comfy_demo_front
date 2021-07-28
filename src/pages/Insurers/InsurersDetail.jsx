@@ -95,9 +95,7 @@ function InsurerDetail() {
           expected_premium: toMoney(expected),
           insured: offer.offer_detail?.insured_by,
           sum_insured: ` ${toMoney(offer.sum_insured)}`,
-          f_sum_insured: ` ${offer.fac_sum_insured.toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-          })}`,
+          f_sum_insured: ` ${toMoney(offer.fac_sum_insured)}`,
           endorsements: offer?.offer_endorsements?.length ? (
             <span>
               <svg
