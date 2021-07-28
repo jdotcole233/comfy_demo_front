@@ -153,3 +153,8 @@ export function isWithinAWeek(momentDate) {
   const difference = today.diff(createdAt, "days");
   return difference < 8
 }
+
+
+export const toMoney = value => value ? parseFloat(value).toLocaleString(undefined, {
+  maximumFractionDigits: 2,
+}) : "0.00"
