@@ -234,7 +234,7 @@ function InsurerDetail() {
                 </svg>
               </span>
             ),
-            comission: offer.commission,
+            comission: toMoney(offer.commission),
             cob: offer.classofbusiness.business_name,
             offer_date: offer.created_at,
             offer_status: (
