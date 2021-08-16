@@ -239,24 +239,18 @@ const InsurerDetailOffers = ({
   );
 
   return type === "Fac" ? (
-    <div className="col-md-12">
-      <div className="">
-        <div className="">
-          <h4 className="card-title mb-4">Offers</h4>
-
-          <OfferListing
-            path="/admin/insurers-details"
-            title="Offers"
-            setInputOffer={1}
-            fetching={fetching}
-            handleLoadMore={loadMore}
-            recent={offers}
-            all={insurers_all_offers}
-            columns={f_dat.columns}
-            allTotal={insurers_all_offers_total}
-          />
-        </div>
-      </div>
+    <div className="">
+      <OfferListing
+        path="/admin/insurers-details"
+        title="Offers"
+        setInputOffer={1}
+        fetching={fetching}
+        handleLoadMore={loadMore}
+        recent={offers}
+        all={insurers_all_offers}
+        columns={f_dat.columns}
+        allTotal={insurers_all_offers_total}
+      />
     </div>
   ) : null;
 };
