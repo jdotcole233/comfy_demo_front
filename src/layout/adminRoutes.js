@@ -237,6 +237,8 @@ const Offers_Access = [
   'Senior Broking Officer',
   'System Administrator',
 ];
+
+const treaty_Access = ['CEO', 'Senior Broking Officer', 'System Administrator'];
 const clients_Access = [
   'CEO',
   'General Manager',
@@ -270,4 +272,5 @@ export {
   create_reinsurer_access,
   delete_reinsurer_access,
   edit_reinsurer_access,
+  treaty_Access
 };
