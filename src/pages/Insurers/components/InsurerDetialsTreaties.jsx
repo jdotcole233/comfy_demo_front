@@ -11,7 +11,7 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
 
   const treaties = useMemo(() => {
     const list = [];
-    if (insurer) {
+    if (insurer && insurer.treaties) {
       insurer.treaties.map((treaty) => {
         const row = {
           ...treaty,
