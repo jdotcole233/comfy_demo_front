@@ -24,7 +24,7 @@ export { default as OverViewCard } from './OverViewCard';
 export { default as Input } from './Input';
 export { default as PageHeader } from './PageTitle';
 export { default as TreatyClaimsButtons } from './TreatyClaimsButtons';
-
+export { default as ErrorMessage } from './ErrorMessage';
 export { default as Editor } from './Editor';
 export { default as ReinsuredComponent } from './ReinsuredComponent';
 export { Modal, ModalBody, ModalHeader };
