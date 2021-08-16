@@ -372,15 +372,6 @@ function InsurerDetail() {
                   <li className="breadcrumb-item active">Profile</li>
                 </ol>
               </div>
-
-              <div className="page-title-right">
-                <ol className="breadcrumb m-0">
-                  <li className="breadcrumb-item">
-                    <Link to="/admin/insurers">Insurers</Link>
-                  </li>
-                  <li className="breadcrumb-item active">Profile</li>
-                </ol>
-              </div>
             </div>
           </div>
         </div>
