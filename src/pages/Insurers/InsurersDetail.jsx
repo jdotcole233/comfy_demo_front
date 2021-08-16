@@ -567,9 +567,9 @@ function InsurerDetail() {
             </div>
           </div>
         </div>
-        <BrokerageComponent insurer={insurer} />
+        <BrokerageComponent insurer={insurer.insurer} />
         <InsurerDetailOffers
-          insurer={insurer}
+          insurer={insurer.insurer}
           insurer_offers={insurer_offers}
           loadMore={loadMore}
           fetching={fetching}
