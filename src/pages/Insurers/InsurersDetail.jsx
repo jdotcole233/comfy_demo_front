@@ -25,6 +25,7 @@ import { useInsurer } from "../../context/InsurerProvider";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { CHANGE_INSURER_PAGE_TYPE } from "../../redux/types/InsurerTypes";
+import InsurerDetailOffers from "./components/InsurerDetailOffers";
 
 const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
@@ -562,6 +563,7 @@ function InsurerDetail() {
           </div>
         </div>
         <BrokerageComponent insurer={insurer} />
+        <InsurerDetailOffers insurer={insurer} />
         <OfferListing
           path="/admin/insurers-details"
           title="Offers"
