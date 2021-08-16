@@ -10,16 +10,25 @@ import { ApolloProvider } from "react-apollo";
 import client from "./graphql";
 import AuthProvider from "./context/AuthContext";
 import { ToastProvider } from "react-toast-notifications";
-
+import { Provider } from 'react-redux';
+import { persistor, store } from "./redux/store";
+import { PersistGate } from 'redux-persist/integration/react'
+import AppProvider from "./providers/AppProvider";
 
 const Renderer = () => (
-  <ApolloProvider client={client}>
-    <ToastProvider autoDismiss placement="bottom-center">
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </ToastProvider>
-  </ApolloProvider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <ApolloProvider client={client}>
+        <ToastProvider autoDismiss placement="bottom-center">
+          <AuthProvider>
+            <AppProvider value={{ granted: false }}>
+              <App />
+            </AppProvider>
+          </AuthProvider>
+        </ToastProvider>
+      </ApolloProvider>
+    </PersistGate>
+  </Provider>
 );
 
 ReactDOM.render(<Renderer />, document.getElementById("root"));
