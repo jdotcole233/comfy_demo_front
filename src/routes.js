@@ -232,6 +232,30 @@ export default [
     ],
   },
   {
+    path: "/treaty-programs",
+    layout: "/admin",
+    component: TreatyPrograms,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: "/treaty-claims",
+    layout: "/admin",
+    component: TreatyClaims,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
     path: '/create-closing',
     layout: '/admin',
     component: CreateClosing,
