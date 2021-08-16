@@ -563,7 +563,7 @@ function InsurerDetail() {
           </div>
         </div>
         <BrokerageComponent insurer={insurer} />
-        <InsurerDetailOffers insurer={insurer} />
+        {/* <InsurerDetailOffers insurer={insurer} /> */}
         <OfferListing
           path="/admin/insurers-details"
           title="Offers"
