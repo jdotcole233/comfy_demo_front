@@ -141,3 +141,45 @@ export const buildPayload = (data = []) => {
 
   return details;
 };
+
+
+export const treatyColumns = [
+  {
+    label: "Ref#",
+    field: "treaty_reference",
+  },
+  {
+    label: "Treaty Program",
+    field: "treaty_program",
+  },
+  {
+    label: "Program Type",
+    field: "program_type",
+  },
+  {
+    label: "Employee",
+    field: "employee",
+  },
+  {
+    label: "Period",
+    field: "period",
+  },
+  {
+    label: "Currency",
+    field: "currency",
+  },
+  {
+    label: "Payment Status",
+    field: "treaty_payment_status",
+  },
+  {
+    label: "Actions",
+    field: "actions",
+  },
+];
+
+
+export const programTypeOptions = [
+  { label: "Proportional", value: "PROPORTIONAL" },
+  { label: "Nonproportional", value: "NONPROPORTIONAL" },
+]
