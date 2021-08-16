@@ -373,6 +373,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
 
   return (
     <form onSubmit={_form.handleSubmit(onSubmitTreatyForm)}>
+      {JSON.stringify(insurer.insurer)}
       <div className={styles.card_header}>
         <h2 className={styles.card_title}>Create Treaty</h2>
         <Alert variant="danger">
