@@ -171,6 +171,21 @@ const others = [
   },
 ];
 
+export const treaty = [
+  {
+    link: '/admin/treaty-programs',
+    name: 'Treaty Programs',
+    roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
+    icon: 'bx bx-collection',
+  },
+  {
+    link: '/admin/treaty-claims',
+    name: 'Treaty Claims',
+    roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
+    icon: 'bx bx-receipt',
+  },
+]
+
 export const deleteAccessRoles = [
   'General Manager',
   'CEO',
