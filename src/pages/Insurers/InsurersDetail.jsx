@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { CHANGE_INSURER_PAGE_TYPE } from "../../redux/types/InsurerTypes";
 import InsurerDetailOffers from "./components/InsurerDetailOffers";
+import InsurerDetialsTreaties from "./components/InsurerDetialsTreaties";
 
 const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
@@ -58,7 +59,11 @@ function InsurerDetail() {
     fetchPolicy: "cache-and-network",
   });
 
-  const { data: insurer, loading } = useQuery(INSURER, {
+  const {
+    data: insurer,
+    loading,
+    refetch,
+  } = useQuery(INSURER, {
     variables: {
       id: _insurer?.insurer_id,
     },
@@ -569,17 +574,9 @@ function InsurerDetail() {
           loadMore={loadMore}
           fetching={fetching}
         />
-        <OfferListing
-          path="/admin/insurers-details"
-          title="Offers"
-          setInputOffer={1}
-          fetching={fetching}
-          handleLoadMore={loadMore}
-          recent={rows}
-          all={insurers_all_offers}
-          columns={f_dat.columns}
-          allTotal={insurers_all_offers_total}
-        />
+
+        <InsurerDetialsTreaties insurer={insurer} refetch={refetch} />
+
         <div className="">
           <div className="col-md-12">
             <div className="card">
