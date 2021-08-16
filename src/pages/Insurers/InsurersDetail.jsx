@@ -383,7 +383,7 @@ function InsurerDetail() {
                       <div className="row">
                         <div className="col-6">
                           <h5 className="font-size-15">
-                            {insurer?.insurer.offers.length}
+                            {insurer?.insurer?.offers?.length}
                           </h5>
                           <p className="text-muted mb-0">Offers</p>
                         </div>
