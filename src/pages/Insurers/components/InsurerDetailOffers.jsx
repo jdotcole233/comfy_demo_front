@@ -3,35 +3,79 @@ import { useSelector } from "react-redux";
 import OfferButtons from "./Offerbuttons";
 import f_dat from "../dummy";
 import { Datatable } from "../../../components";
-import { useInsurerProps } from "../providers/InsurerProvider";
+// import { useInsurerProps } from "../providers/InsurerProvider";
 
-const InsurerDetailOffers = () => {
+const InsurerDetailOffers = ({ insurer }) => {
   const { type } = useSelector((state) => state.insurer);
-  const { insurer } = useInsurerProps();
+  // const { insurer } = useInsurerProps();
   const offers = useMemo(() => {
     const list = [];
     if (insurer) {
       insurer.offers.map((offer, i) => {
+        const expected =
+          parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
+        const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
+          const payment_value = currVal.payment_amount || 0;
+          return prev + payment_value;
+        }, 0.0);
         const row = {
           name: offer.offer_detail?.policy_number,
+          currency: offer?.offer_detail?.currency,
+          outstanding: (expected - payments_made).toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          }),
+          expected_premium: expected.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          }),
           insured: offer.offer_detail?.insured_by,
-          sum_insured: `${
-            offer?.offer_detail?.currency
-          } ${offer.sum_insured.toLocaleString(undefined, {
+          sum_insured: ` ${offer.sum_insured.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           })}`,
-          f_sum_insured: `${
-            offer?.offer_detail?.currency
-          } ${offer.fac_sum_insured.toLocaleString(undefined, {
+          f_sum_insured: ` ${offer.fac_sum_insured.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           })}`,
+          endorsements: offer?.offer_endorsements?.length ? (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="font-size-16 text-success"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </span>
+          ) : (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="font-size-16 text-danger"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </span>
+          ),
           comission: offer.commission,
           cob: offer.classofbusiness.business_name,
           offer_date: offer.created_at,
           offer_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-soft-${
+              className={`badge badge-${
                 offer.offer_status === "OPEN"
                   ? "primary"
                   : offer.offer_status === "PENDING"
@@ -45,7 +89,7 @@ const InsurerDetailOffers = () => {
           payment_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-soft-${
+              className={`badge badge-${
                 offer.payment_status === "PARTPAYMENT"
                   ? "primary"
                   : offer.payment_status === "UNPAID"
@@ -56,7 +100,13 @@ const InsurerDetailOffers = () => {
               {offer.payment_status}
             </span>
           ),
-          salary: <OfferButtons insurer={insurer} offer={offer} />,
+          salary: (
+            <OfferButtons
+              insurer={insurer}
+              state={{ insurer_id: insurer.insurer_id }}
+              offer={offer}
+            />
+          ),
         };
         list.push(row);
         return offer;
