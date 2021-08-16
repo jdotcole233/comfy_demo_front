@@ -567,15 +567,15 @@ function InsurerDetail() {
             </div>
           </div>
         </div>
-        <BrokerageComponent insurer={insurer.insurer} />
+        <BrokerageComponent insurer={insurer} />
         <InsurerDetailOffers
-          insurer={insurer.insurer}
+          insurer={insurer}
           insurer_offers={insurer_offers}
           loadMore={loadMore}
           fetching={fetching}
         />
 
-        <InsurerDetialsTreaties insurer={insurer} refetch={refetch} />
+        <InsurerDetialsTreaties insurer={insurer.insurer} refetch={refetch} />
 
         <div className="">
           <div className="col-md-12">
