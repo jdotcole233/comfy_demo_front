@@ -240,8 +240,8 @@ const InsurerDetailOffers = ({
 
   return type === "Fac" ? (
     <div className="col-md-12">
-      <div className="card">
-        <div className="card-body">
+      <div className="">
+        <div className="">
           <h4 className="card-title mb-4">Offers</h4>
 
           <OfferListing
