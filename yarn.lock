@@ -15019,6 +15019,11 @@ react-select@^3.1.0:
     react-input-autosize "^2.2.2"
     react-transition-group "^4.3.0"
 
+react-step-wizard@^5.3.9:
+  version "5.3.9"
+  resolved "https://registry.yarnpkg.com/react-step-wizard/-/react-step-wizard-5.3.9.tgz#6034679e47200d20842d89c113ea2eb1ea906716"
+  integrity sha512-CJdWckYHAYZOD8E8p38EiFpyIJoknouroyFy6AV3YzTcCMyiyivzLMxruUZUUoKqriZH70Ik9wadBCoGSVzW0Q==
+
 react-summernote@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/react-summernote/-/react-summernote-2.0.2.tgz#7be8ff8f38c286ffb0d6d99a1ef5360b027d30a8"
