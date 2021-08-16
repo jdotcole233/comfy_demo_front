@@ -7,16 +7,22 @@ import {
   Offers_Access,
   clients_Access,
   others_Access,
+  treaty_Access,
+  treaty,
 } from "./adminRoutes";
 import { Link, useLocation } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import { useSelector } from "react-redux";
+import { Fragment } from "react";
 
 const SideBar = () => {
-  const { state } = useContext(AuthContext);
+  const { user } = useAuth();
+  const { granted } = useSelector((state) => state.app);
+
   const { pathname } = useLocation();
   const showSideBarLinks = (routes, badge) => {
     return routes.map((el, key) =>
-      el.roles.includes(state?.user?.position) ? (
+      el.roles.includes(user?.position) ? (
         <li key={key}>
           <Link
             to={el.link}
@@ -46,18 +52,25 @@ const SideBar = () => {
         <div style={{ backgroundColor: "#273B97" }} id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
             {showSideBarLinks(dashboard)}
-            {Offers_Access.includes(state?.user?.position) && (
+            {Offers_Access.includes(user?.position) && (
               <li className="menu-title">Offers</li>
             )}
             {showSideBarLinks(offers)}
-            {clients_Access.includes(state?.user?.position) && (
+            {clients_Access.includes(user?.position) && (
               <li className="menu-title">Clients</li>
             )}
             {showSideBarLinks(clients)}
-            {others_Access.includes(state?.user?.position) && (
+            {others_Access.includes(user?.position) && (
               <li className="menu-title">others</li>
             )}
             {showSideBarLinks(others)}
+
+            {granted && treaty_Access.includes(user?.position) && (
+              <Fragment>
+                <li className="menu-title">treaty</li>
+                {showSideBarLinks(treaty)}
+              </Fragment>
+            )}
           </ul>
         </div>
       </div>
