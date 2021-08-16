@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import OfferButtons from "./Offerbuttons";
 import f_dat from "../dummy";
 import { Datatable } from "../../../components";
+import _ from "lodash";
+
 // import { useInsurerProps } from "../providers/InsurerProvider";
+const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
 const InsurerDetailOffers = ({ insurer }) => {
   const { type } = useSelector((state) => state.insurer);
@@ -11,7 +14,7 @@ const InsurerDetailOffers = ({ insurer }) => {
   const offers = useMemo(() => {
     const list = [];
     if (insurer) {
-      insurer.offers.map((offer, i) => {
+      insurer.insurer.offers.filter(retrocedentFilter).map((offer, i) => {
         const expected =
           parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
