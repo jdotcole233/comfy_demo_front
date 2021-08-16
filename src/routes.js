@@ -22,6 +22,10 @@ const UnapprovedList = lazy(() => import('./pages/UnapprovedClosing'));
 const Profile = lazy(() => import('./pages/profile'));
 const Settings = lazy(() => import('./pages/Settings'));
 
+const TreatyPrograms = lazy(() => import('./pages/TreatyPrograms'))
+// const TreatyProgramsOverview = lazy(() => import('./pages/Insurers/ViewTreatyWrapper'));
+const TreatyClaims = lazy(() => import("./pages/TreatyClaims"))
+
 export default [
   {
     path: '/',
