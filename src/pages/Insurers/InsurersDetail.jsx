@@ -351,7 +351,7 @@ function InsurerDetail() {
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
               <h4 className="mb-0 font-size-18">Inusrer Details</h4>
-              {JSON.stringify(insurer)}
+              {JSON.stringify(_insurer)}
 
               <div className="page-title-right row">
                 {granted && (
