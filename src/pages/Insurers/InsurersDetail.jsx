@@ -344,7 +344,7 @@ function InsurerDetail() {
 
   // if (error) return null;
 
-  console.log(insurer);
+  // console.log(insurer);
 
   if (!insurer) return <div className="page-content">No data found</div>;
 
