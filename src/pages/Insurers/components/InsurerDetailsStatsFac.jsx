@@ -4,7 +4,6 @@ import { useInsurerProps } from "../providers/InsurerProvider";
 
 const InsurerDetailsStatsFac = ({ insurer }) => {
   const type = useSelector((state) => state.insurer.type);
-  // const { insurer } = useInsurerProps();
   return type !== "Fac" ? null : (
     <div className="row">
       <div className="col-md-4">
@@ -14,7 +13,7 @@ const InsurerDetailsStatsFac = ({ insurer }) => {
               <div className="media-body">
                 <p className="text-muted font-weight-medium">Closed Offers</p>
                 <h4 className="mb-0">
-                  {insurer?.insurer_overview?.total_closed}
+                  {insurer?.insurer_overview?.total_closed ?? 0}
                 </h4>
               </div>
 
@@ -34,7 +33,7 @@ const InsurerDetailsStatsFac = ({ insurer }) => {
               <div className="media-body">
                 <p className="text-muted font-weight-medium">Pending Offers</p>
                 <h4 className="mb-0">
-                  {insurer?.insurer_overview?.total_pending}
+                  {insurer?.insurer_overview?.total_pending ?? 0}
                 </h4>
               </div>
 
