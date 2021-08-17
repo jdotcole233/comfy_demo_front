@@ -27,6 +27,8 @@ import _ from "lodash";
 import { CHANGE_INSURER_PAGE_TYPE } from "../../redux/types/InsurerTypes";
 import InsurerDetailOffers from "./components/InsurerDetailOffers";
 import InsurerDetialsTreaties from "./components/InsurerDetialsTreaties";
+import InsurerDetailsStatsFac from "./components/InsurerDetailsStatsFac";
+import InsurerDetailsStatsTreaty from "./components/InsurerDetailsStatsTreaty";
 
 const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
@@ -565,6 +567,8 @@ function InsurerDetail() {
                 className="col-md-12"
               />
             </div>
+            <InsurerDetailsStatsFac insurer={insurer} />
+            <InsurerDetailsStatsTreaty insurer={insurer} />
           </div>
         </div>
         <BrokerageComponent insurer={insurer} />
