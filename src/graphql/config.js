@@ -1,5 +1,5 @@
 export const PROTOCOL =
-  process.env.NODE_ENV === 'development' ? 'https://' : 'https://';
+  process.env.NODE_ENV === 'development' ? 'http://' : 'https://';
 export const DOMAIN =
   process.env.NODE_ENV === 'development'
     ? '192.168.100.8:8000'
