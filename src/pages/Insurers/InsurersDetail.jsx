@@ -487,12 +487,12 @@ function InsurerDetail() {
           </div>
 
           <div className="col-xl-8">
-            <div className="col-xl-8">
-              <InsurerDetailsStatsFac insurer={insurer} />
-              <InsurerDetailsStatsTreaty insurer={insurer} />
-              <InsurerStatsFac insurer={insurer?.insurer} />
-              <InsurerStatsTreaty insurer={insurer?.insurer} />
-            </div>
+            {/* <div className="col-xl-8"> */}
+            <InsurerDetailsStatsFac insurer={insurer} />
+            <InsurerDetailsStatsTreaty insurer={insurer} />
+            <InsurerStatsFac insurer={insurer?.insurer} />
+            <InsurerStatsTreaty insurer={insurer?.insurer} />
+            {/* </div> */}
           </div>
         </div>
         <BrokerageComponent insurer={insurer} />
