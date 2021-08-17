@@ -40,7 +40,7 @@ import AdjustmentStatement from "./AdjustmentStatement";
 
 const ViewTreaty = () => {
   const { user } = useAuth();
-  const { treaty } = useInsurer();
+  // const { treaty } = useInsurer();
   const { state } = useLocation();
   const history = useHistory();
   const [showCreateList, setshowCreateList] = useState(false);
@@ -130,7 +130,7 @@ const ViewTreaty = () => {
           }
           return {
             ...participant,
-            currency: treaty?.currency,
+            currency: data?.treaty?.currency,
             company_name: participant?.reinsurer?.re_company_name,
             company_email: participant?.reinsurer?.re_company_email,
             layer_number: participant?.layer_number,
