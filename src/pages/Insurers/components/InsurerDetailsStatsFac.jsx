@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useInsurerProps } from "../providers/InsurerProvider";
 
 const InsurerDetailsStatsFac = ({ insurer }) => {
   const type = useSelector((state) => state.insurer.type);
