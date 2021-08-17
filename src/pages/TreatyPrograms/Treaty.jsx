@@ -50,7 +50,7 @@ const Treaty = ({ treaty }) => {
               <h4>{treaty?.treaty_name}</h4>
               <span
                 style={{ cursor: "pointer" }}
-                className="text-white"
+                className=""
                 onClick={navigateToDetails}
               >
                 {treaty?.insurer?.insurer_company_name}
