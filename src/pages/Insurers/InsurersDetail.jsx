@@ -344,6 +344,8 @@ function InsurerDetail() {
 
   if (error) return null;
 
+  if (!insurer) return <div>No data found</div>;
+
   return (
     <div className="page-content">
       <div className="container-fluid">
