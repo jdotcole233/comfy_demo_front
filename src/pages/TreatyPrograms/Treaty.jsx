@@ -27,7 +27,7 @@ const Treaty = ({ treaty }) => {
       payload: insurer_id,
     });
     history.push({
-      pathname: "/admin/insurers-details",
+      pathname: "/admin/insurers-details/recent",
       state: { insurer_id: insurer_id },
     });
   };
