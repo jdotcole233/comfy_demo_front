@@ -490,7 +490,7 @@ function InsurerDetail() {
 
           <div className="col-xl-8">
             <InsurerDetailsStatsFac insurer={insurer} />
-            <InsurerDetailsStatsTreaty insurer={insurer?.insurer} />
+            <InsurerDetailsStatsTreaty insurer={insurer} />
             <InsurerStatsFac insurer={insurer?.insurer} />
             <InsurerStatsTreaty insurer={insurer?.insurer} />
           </div>
