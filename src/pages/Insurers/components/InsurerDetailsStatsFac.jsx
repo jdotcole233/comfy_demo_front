@@ -6,6 +6,7 @@ const InsurerDetailsStatsFac = ({ insurer }) => {
   const type = useSelector((state) => state.insurer.type);
   return type !== "Fac" ? null : (
     <div className="row">
+      {JSON.stringify(insurer)}
       <div className="col-md-4">
         <div className="card mini-stats-wid">
           <div className="card-body">
