@@ -431,7 +431,7 @@ const ViewTreaty = () => {
           m_and_d_premium: money(parseFloat(_limit.m_and_d_premium)),
           actions: (
             <EditLayer
-              _layers={JSON.parse(treaty?.layer_limit || "[]")}
+              _layers={JSON.parse(data?.treaty?.layer_limit || "[]")}
               treaty={data?.treaty}
               percentage={remainingPercentages[`${index + 1}`]}
               index={index + 1}
