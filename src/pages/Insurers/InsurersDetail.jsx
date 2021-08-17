@@ -342,7 +342,7 @@ function InsurerDetail() {
 
   if (loading) return <Loader />;
 
-  if (error) return null;
+  // if (error) return null;
 
   if (!insurer) return <div>No data found</div>;
 
