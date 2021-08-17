@@ -44,7 +44,7 @@ const InsurerStatsFac = ({ insurer }) => {
                   </p>
                   <CurrencyValues
                     data={JSON.parse(
-                      insurer?.insurer_overview?.total_brokerage_amt
+                      insurer?.insurer_overview?.total_brokerage_amt ?? "{}"
                     )}
                   />
                 </div>
