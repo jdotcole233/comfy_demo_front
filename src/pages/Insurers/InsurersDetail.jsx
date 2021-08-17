@@ -501,7 +501,7 @@ function InsurerDetail() {
           fetching={fetching}
         />
 
-        <InsurerDetialsTreaties insurer={insurer.insurer} refetch={refetch} />
+        <InsurerDetialsTreaties insurer={insurer?.insurer} refetch={refetch} />
 
         <div className="">
           <div className="col-md-12">
