@@ -4,6 +4,9 @@ import { CurrencyValues } from "../../../components";
 
 const InsurerStatsFac = ({ insurer }) => {
   const type = useSelector((state) => state.insurer.type);
+
+  return null;
+
   return type !== "Fac" ? null : (
     <Fragment>
       <div className="row">
