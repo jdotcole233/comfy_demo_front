@@ -53,7 +53,7 @@ const InsurerDetailsStatsFac = () => {
             <div className="media">
               <div className="media-body">
                 <p className="text-muted font-weight-medium">Unpaid Offers</p>
-                <h4 className="mb-0">
+                <h4 className="mb-0 text-primary">
                   {insurer?.insurer_overview?.total_unpaid}
                 </h4>
               </div>
