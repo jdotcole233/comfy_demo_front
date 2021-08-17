@@ -23,7 +23,7 @@ const Profile = lazy(() => import('./pages/profile'));
 const Settings = lazy(() => import('./pages/Settings'));
 
 const TreatyPrograms = lazy(() => import('./pages/TreatyPrograms'))
-// const TreatyProgramsOverview = lazy(() => import('./pages/Insurers/ViewTreatyWrapper'));
+const TreatyProgramsOverview = lazy(() => import('./pages/Insurers/ViewTreatyWrapper'));
 const TreatyClaims = lazy(() => import("./pages/TreatyClaims"))
 
 export default [
@@ -247,6 +247,18 @@ export default [
     path: "/treaty-claims",
     layout: "/admin",
     component: TreatyClaims,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: "/treaty-programs/overview",
+    layout: "/admin",
+    component: TreatyProgramsOverview,
     roles: [
       'CEO',
       'General Manager',

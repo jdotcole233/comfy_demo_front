@@ -123,7 +123,7 @@ function EffectedWithListing({
                     fontSize: 12,
                     color:
                       remainingPercentage[currentIndex] > 0
-                        ? "#58FFC5"
+                        ? "#DB5461"
                         : "#F46A6A",
                   }}
                 >
@@ -154,7 +154,7 @@ function EffectedWithListing({
                       // Colors
                       pathColor:
                         remainingPercentage[currentIndex] > 0
-                          ? "#58FFC5"
+                          ? "#DB5461"
                           : "#F46A6A",
                       textColor: "#F46A6A",
                       trailColor: "#d6d6d6",
@@ -167,7 +167,7 @@ function EffectedWithListing({
                         marginTop: -5,
                         color:
                           remainingPercentage[currentIndex] > 0
-                            ? "#58FFC5"
+                            ? "#DB5461"
                             : "#F46A6A",
                       }}
                     >

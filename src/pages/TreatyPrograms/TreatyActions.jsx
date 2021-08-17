@@ -28,7 +28,7 @@ const TreatyActions = ({ treaty }) => {
 
   return (
     <Fragment>
-      <div className="d-flex font-size-20 text-white">
+      <div className="d-flex font-size-20">
         {/* <Link to="/admin/treaty-programs/overview" data-toggle="tooltip" data-placement="top" title="Open Treaty" className="flex-fill text-white link-hover p-1 d-flex justify-content-center align-items-center">
                     <VscOpenPreview size={18} />
                 </Link> */}

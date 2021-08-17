@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { TagSection } from "../components/VersionBox";
 import { AuthContext } from "../context/AuthContext";
 import NotifcIcon from "./NotifcIcon";
 
@@ -43,6 +44,10 @@ export const Navbar = () => {
         </div>
 
         <div className="d-flex">
+          <div className="d-flex justify-content-center align-items-center">
+            <TagSection>Premium</TagSection>
+          </div>
+
           <div className="dropdown d-none d-lg-inline-block ml-1">
             <button
               type="button"

@@ -212,11 +212,11 @@ export default function CreateBroadcastList({ treaty_id, toggle, treaty }) {
   );
 }
 
-const RepCard = ({ rep, remove, id }) => {
+const RepCard = ({ rep, remove }) => {
   return (
-    <div className={styles.repCard}>
-      <div>
-        <h6 style={{ fontWeight: "lighter" }}>{rep}</h6>
+    <div className="d-flex bg-primary justify-content-between align-items-center mb-2">
+      <div className="bg-soft-primary d-flex align-items-center pl-3">
+        <h6 style={{ fontWeight: "bold", color: "#fff" }}>{rep}</h6>
       </div>
       <div
         style={{

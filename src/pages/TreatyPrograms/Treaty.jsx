@@ -40,7 +40,7 @@ const Treaty = ({ treaty }) => {
             <div
               className={`col-md-2 d-flex justify-content-center align-items-center ${
                 treaty?.treaty_type === "PROPORTIONAL"
-                  ? "text-success"
+                  ? "text-primary"
                   : "text-warning"
               }`}
             >
@@ -59,7 +59,7 @@ const Treaty = ({ treaty }) => {
               <span
                 style={{ letterSpacing: 5, padding: 3, fontSize: 8 }}
                 className={`badge badge-soft-${
-                  treaty?.treaty_type === "PROPORTIONAL" ? "success" : "warning"
+                  treaty?.treaty_type === "PROPORTIONAL" ? "primary" : "warning"
                 } font-size-11 mb-2`}
               >
                 {treaty.treaty_type}
