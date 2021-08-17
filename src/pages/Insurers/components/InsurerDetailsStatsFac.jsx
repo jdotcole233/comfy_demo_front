@@ -13,7 +13,7 @@ const InsurerDetailsStatsFac = ({ insurer }) => {
                 <p className="text-muted font-weight-medium">Closed Offers</p>
                 <h4 className="mb-0">
                   {insurer?.insurer_overview?.total_closed ?? 0}
-                  {JSON.stringify(insurer)}
+                  {/* {JSON.stringify(insurer)} */}
                 </h4>
               </div>
 
