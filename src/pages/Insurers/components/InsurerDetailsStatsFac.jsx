@@ -2,9 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useInsurerProps } from "../providers/InsurerProvider";
 
-const InsurerDetailsStatsFac = () => {
+const InsurerDetailsStatsFac = ({ insurer }) => {
   const type = useSelector((state) => state.insurer.type);
-  const { insurer } = useInsurerProps();
+  // const { insurer } = useInsurerProps();
   return type !== "Fac" ? null : (
     <div className="row">
       <div className="col-md-4">
