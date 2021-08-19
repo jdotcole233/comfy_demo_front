@@ -22,6 +22,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useReinsurer } from "../../context/ReinsurersProvider";
 import RetrocedentOfferButtons from "./components/RetrocedentOfferButtons";
+import { useDispatch, useSelector } from "react-redux";
 
 function ReinsurerDetail() {
   const history = useHistory();
@@ -33,6 +34,8 @@ function ReinsurerDetail() {
   const [allOfferListing, setAllOfferListing] = useState([]);
   const [overview, setOverview] = useState(null);
   const [allTotalValue, setAllTotalValue] = useState(0);
+  const granted = useSelector((state) => state.app.granted);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!reinsurer) {
@@ -272,6 +275,13 @@ function ReinsurerDetail() {
     });
   };
 
+  const changePageType = (_type) => {
+    dispatch({
+      type: CHANGE_REINSURER_PAGE_TYPE,
+      payload: _type,
+    });
+  };
+
   if (loading) return <Loader />;
 
   return (
@@ -282,7 +292,29 @@ function ReinsurerDetail() {
             <div className="page-title-box d-flex align-items-center justify-content-between">
               <h4 className="mb-0 font-size-18">Re-inusrer Deatil</h4>
 
-              <div className="page-title-right">
+              <div className="page-title-right row">
+                {granted && (
+                  <div className="btn-group mr-4">
+                    <div
+                      onClick={() => changePageType("Fac")}
+                      className={`btn ${
+                        type !== "Fac" ? "btn-secondary" : "btn-primary"
+                      } w-lg btn-sm`}
+                    >
+                      <span className="bx bx-archive-in mr-4"></span>
+                      Facultative
+                    </div>
+                    <div
+                      onClick={() => changePageType("Treaty")}
+                      className={`btn ${
+                        type !== "Treaty" ? "btn-secondary" : "btn-primary"
+                      } w-lg btn-sm`}
+                    >
+                      <span className="bx bx-receipt mr-4"></span>
+                      Treaty
+                    </div>
+                  </div>
+                )}
                 <ol className="breadcrumb m-0">
                   <li className="breadcrumb-item">
                     <Link to="/admin/re-insurers">Re-Insurers</Link>
