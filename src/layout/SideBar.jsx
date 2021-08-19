@@ -98,7 +98,7 @@ const SideBar = () => {
       </div>
 
       <Modal
-        size="lg"
+        // size="lg"
         centered
         onHide={() => setShowVersion(false)}
         show={showVersion}
