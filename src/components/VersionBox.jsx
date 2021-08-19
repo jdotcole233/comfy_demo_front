@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { version } from "../../package.json";
-import Logo from "../assets/visal-logo-sm.png";
+import Logo from "../assets/visal-sm-logo.png";
 
 const Card = styled.div`
   display: flex;
@@ -72,12 +72,7 @@ const VersionBox = () => {
           }}
           className="avatar-title logo-img-bg rounded-circle bg-white"
         >
-          {/* <img
-            src={require("../assets/visal-sm-logo.png")}
-            alt="KEK RE BROKER APP"
-            height="120"
-            width="120"
-          /> */}
+          <img src={Logo} alt="KEK RE BROKER APP" height="120" width="120" />
         </span>
       </LogoSide>
       <div className="d-flex flex-column pt-5 pb-4 align-items-center justify-content-center">
