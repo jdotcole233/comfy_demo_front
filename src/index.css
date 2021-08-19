@@ -344,7 +344,7 @@ td {
   font-size: 0.8em;
   font-weight: bold;
   justify-self: end;
-  color: #F46A6A;
+  color: #f46a6a;
   padding-left: 4px;
   padding-right: 4px;
 }
@@ -366,4 +366,8 @@ td {
 
 .kek-nav-items-pointer {
   cursor: pointer;
+}
+
+.logo-img-bg {
+  background-image: url("/img/visal-logo-sm.png");
 }
