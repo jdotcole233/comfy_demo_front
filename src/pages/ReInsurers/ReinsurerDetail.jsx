@@ -389,7 +389,7 @@ function ReinsurerDetail() {
           </Fragment>
         )}
         <ReinsurerDetailsAssociateListing reinsurer={data?.reinsurer} />
-        <div className="">
+        {/* <div className="">
           <div className="col-md-12">
             <div className="card">
               <div className="card-body">
@@ -413,7 +413,7 @@ function ReinsurerDetail() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Edit Reinsurer */}
