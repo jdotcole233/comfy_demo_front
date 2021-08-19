@@ -56,12 +56,15 @@ const VersionBox = () => {
     <Card className="">
       <Tagline>Premium</Tagline>
       <LogoSide>
-        <span className="avatar-title rounded-circle bg-white">
+        <span
+          style={{ border: "1px solid black" }}
+          className="avatar-title rounded-circle bg-white"
+        >
           <img
             src={require("../assets/visal-sm-logo.png")}
             alt="KEK RE BROKER APP"
             height="80"
-            width="100"
+            width="80"
           />
         </span>
       </LogoSide>
