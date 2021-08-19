@@ -134,7 +134,7 @@ const OfferButtons = ({ offer }) => {
       {/* Generate Slip Drawer */}
       <Drawer
         isvisible={generateSlip}
-        width="60%"
+        width="50%"
         toggle={() => setGenerateSlip(!generateSlip)}
       >
         <GenerateSlip offer={offer} />
