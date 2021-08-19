@@ -38,7 +38,7 @@ export const Tagline = styled.div`
   letter-spacing: 2px;
   top: 10px;
   right: 10px;
-  padding: 4px;
+  padding: 2px;
   border-radius: 5px;
 `;
 
