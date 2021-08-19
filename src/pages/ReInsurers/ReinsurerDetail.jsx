@@ -25,6 +25,7 @@ import RetrocedentOfferButtons from "./components/RetrocedentOfferButtons";
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_REINSURER_PAGE_TYPE } from "../../redux/types/ReinsurerTypes";
 import ReinsurerDetailWelcome from "./components/ReinsurerDetailWelcome";
+import ReinsurerDetailOtherInfo from "./components/ReinsurerDetailOtherInfo";
 
 function ReinsurerDetail() {
   const history = useHistory();
@@ -336,6 +337,7 @@ function ReinsurerDetail() {
               reinsurer={data?.reinsurer}
               overview={overview}
             />
+            <ReinsurerDetailOtherInfo reinsurer={data?.reinsurer} />
             <div className="card overflow-hidden">
               <div className="bg-soft-primary">
                 <div className="row">
