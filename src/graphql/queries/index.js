@@ -188,6 +188,108 @@ export const REINSURER = gql`
       }
         }
 
+        treaty_participations {
+      treaty_participation_id
+      treaty_participation_percentage
+      treaty {
+        treaty_id
+        treaty_reference
+        currency
+        layer_limit
+        treaty_details
+        treaty_payment_status
+        treaty_program {
+          treaty_name
+          treaty_type
+          treaty_program_id
+        }
+        employee {
+          employee_last_name
+          employee_first_name
+        }
+        treaty_deduction {
+          treaty_associate_deduction_id
+          commission
+          withholding_tax
+          nic_levy
+          treaty_period_to
+          treaty_period_from
+          brokerage
+        }
+        treaty_np_payments {
+          created_at
+          updated_at
+          uuid
+          treaty_payment_details
+          treaty_payment_comment
+          treaty_payment_amount
+          treaty_n_p_payment_id
+          # Participants Payments
+          treaty_participant_payment {
+            treaty_participants_payment_id
+            treaty_participationstreaty_participation_id
+            treaty_np_paymentstreaty_np_payment_id
+            # treaty_participation {
+            #   treaty_participation_id
+            # }
+            nic_levy_paid
+            withholding_tax_paid
+            participant_payment_amount
+            brokerage_paid
+            commission_paid
+          }
+        }
+
+        treaty_p_payments {
+          created_at
+          updated_at
+          treaty_p_payment_id
+          treaty_payment_details
+          treaty_payment_comment
+          treaty_accountstreaty_account_id
+          treaty_payment_amount
+          treaty_participant_payment {
+            treaty_participants_payment_id
+            treaty_participationstreaty_participation_id
+            treaty_p_paymentstreaty_p_payment_id
+            nic_levy_paid
+            withholding_tax_paid
+            participant_payment_amount
+            brokerage_paid
+            commission_paid
+          }
+        }
+        treaty_accounts {
+          treaty_account_id
+          claim_settled
+          account_periods
+          gross_premium
+          treaty_account_deduction {
+            commission_amount
+            nic_levy_amount
+            brokerage_amount
+            withholding_tax_amount
+          }
+        }
+      }
+      treaty_participant_payments {
+        treaty_participants_payment_id
+        treaty_participationstreaty_participation_id
+        treaty_p_paymentstreaty_p_payment_id
+        treaty_np_paymentstreaty_np_payment_id
+        participant_payment_status
+        participant_payment_details
+        nic_levy_paid
+        withholding_tax_paid
+        participant_payment_amount
+        surpulus_uuid
+        brokerage_paid
+        commission_paid
+        created_at
+        updated_at
+      }
+    }
+
       reinsurer_overview {
         brokerage_chart
         total_paid
