@@ -3,15 +3,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useMemo } from "react";
 import { Link, useHistory } from "react-router-dom";
-import {
-  Drawer,
-  Datatable,
-  Loader,
-  OverViewCard,
-  generateNewCulumns,
-} from "../../components";
+import { Drawer, Loader } from "../../components";
 import EditReinsurer from "./EditResinsurer";
-import { associatesColumnns, offersColumns } from "./columns";
+import { offersColumns } from "./columns";
 import { useQuery } from "react-apollo";
 import { REINSURER, REINSURER_OFFERS } from "../../graphql/queries";
 import OfferButtons from "./components/OfferButtons";
@@ -29,7 +23,6 @@ import ReinsurerDetailOtherInfo from "./components/ReinsurerDetailOtherInfo";
 import ReinsurerDetailsFacStats from "./components/ReinsurerDetailsFacStats";
 import ReinsurerDetailsTreatyStats from "./components/ReinsurerDetailsTreatyStats";
 import ReinsurerDetailTreaties from "./components/ReinsurerDetailTreaties";
-import ReinsurersDetailOffers from "./components/ReinsurersDetailOffers";
 import { Fragment } from "react";
 import ReinsurerDetailsAssociateListing from "./components/ReinsurerDetailsAssociateListing";
 
@@ -38,14 +31,14 @@ function ReinsurerDetail() {
   const { reinsurer } = useReinsurer();
   const { state: ctx } = useContext(AuthContext);
   const [showInsurerProfile, setShowInsurerProfile] = useState(false);
-  const [associates, setAssociates] = useState([]);
+  const [, setAssociates] = useState([]);
   const [offerListing, setOfferListing] = useState([]);
   const [allOfferListing, setAllOfferListing] = useState([]);
   const [overview, setOverview] = useState(null);
   const [allTotalValue, setAllTotalValue] = useState(0);
   const granted = useSelector((state) => state.app.granted);
   const dispatch = useDispatch();
-  const { reinsurer_id, type } = useSelector((state) => state.reinsurer);
+  const { type } = useSelector((state) => state.reinsurer);
 
   useEffect(() => {
     if (!reinsurer) {
