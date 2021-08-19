@@ -66,7 +66,7 @@ const ReinsurerDetailWelcome = ({
               <div className="mt-4">
                 <a
                   onClick={() => setShowInsurerProfile((prev) => !prev)}
-                  className="btn btn-primary waves-effect waves-light btn-sm"
+                  className="btn btn-primary text-white waves-effect waves-light btn-sm"
                 >
                   View Profile <i className="mdi mdi-arrow-right ml-1"></i>
                 </a>
