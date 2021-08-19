@@ -68,7 +68,7 @@ const VersionBox = () => {
             objectFit: "contain",
             // backgrroundImage: `url(${require("../assets/visal-sm-logo.png")}`,
           }}
-          className="avatar-title rounded-circle bg-white"
+          className="avatar-title logo-img-bg rounded-circle bg-white"
         >
           {/* <img
             src={require("../assets/visal-sm-logo.png")}
