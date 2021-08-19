@@ -66,7 +66,7 @@ const VersionBox = () => {
         </span>
       </LogoSide>
       <div className="d-flex flex-column pt-5 pb-4 align-items-center justify-content-center">
-        <Appname>KEK Re Broker System</Appname>
+        <Appname>KEK RE BROKER SYSTEM</Appname>
         <OtherText>version: {version}</OtherText>
         <OtherText>
           Protected By: Positive SSL, BitNinja, Advance DDoS Protecttion
