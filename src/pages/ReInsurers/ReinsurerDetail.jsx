@@ -28,6 +28,8 @@ import ReinsurerDetailWelcome from "./components/ReinsurerDetailWelcome";
 import ReinsurerDetailOtherInfo from "./components/ReinsurerDetailOtherInfo";
 import ReinsurerDetailsFacStats from "./components/ReinsurerDetailsFacStats";
 import ReinsurerDetailsTreatyStats from "./components/ReinsurerDetailsTreatyStats";
+import ReinsurerDetailTreaties from "./components/ReinsurerDetailTreaties";
+import ReinsurersDetailOffers from "./components/ReinsurersDetailOffers";
 
 function ReinsurerDetail() {
   const history = useHistory();
@@ -347,7 +349,11 @@ function ReinsurerDetail() {
             <ReinsurerDetailsTreatyStats overview={overview} />
           </div>
         </div>
-        <BrokerageComponent data={data} />
+        <div className="row">
+          <BrokerageComponent data={data} />
+          <ReinsurerDetailTreaties reinsurer={data?.reinsurer} />
+          <ReinsurersDetailOffers reinsurer={data?.reinsurer} />
+        </div>
         <OfferListing
           title="Offers"
           path="/admin/re-insurers-detail"
