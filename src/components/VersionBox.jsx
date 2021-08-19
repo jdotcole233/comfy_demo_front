@@ -61,7 +61,7 @@ const VersionBox = () => {
       <LogoSide>
         <span
           style={{
-            border: "1px solid black",
+            border: "1px solid #878a88",
             padding: 10,
             overflow: "hidden",
             height: 120,
