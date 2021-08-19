@@ -389,31 +389,7 @@ function ReinsurerDetail() {
           </Fragment>
         )}
         <ReinsurerDetailsAssociateListing reinsurer={data?.reinsurer} />
-        {/* <div className="">
-          <div className="col-md-12">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title mb-4">Associates</h4>
-                <Datatable
-                  btn
-                  hover
-                  striped
-                  responsive
-                  bordered
-                  columns={generateNewCulumns(
-                    associatesColumnns,
-                    ["System Administrator", "Senior Broking Officer"].includes(
-                      ctx?.user?.position
-                    )
-                      ? []
-                      : ["actions"]
-                  )}
-                  data={associates}
-                />
-              </div>
-            </div>
-          </div>
-        </div> */}
+        {/*  */}
       </div>
 
       {/* Edit Reinsurer */}
