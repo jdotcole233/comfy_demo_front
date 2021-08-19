@@ -55,9 +55,9 @@ const ReinsurerDetailTreaties = ({ reinsurer }) => {
 
   return type === "Treaty" ? (
     <div className="col-md-12">
+      <h4 className=" mb-4">Treaties</h4>
       <div className="card">
         <div className="card-body">
-          <h4 className="card-title mb-4">Treaties</h4>
           <Datatable data={treaties} entries={5} columns={treatyColumns} />
         </div>
       </div>
