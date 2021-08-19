@@ -31,6 +31,7 @@ import ReinsurerDetailsTreatyStats from "./components/ReinsurerDetailsTreatyStat
 import ReinsurerDetailTreaties from "./components/ReinsurerDetailTreaties";
 import ReinsurersDetailOffers from "./components/ReinsurersDetailOffers";
 import { Fragment } from "react";
+import ReinsurerDetailsAssociateListing from "./components/ReinsurerDetailsAssociateListing";
 
 function ReinsurerDetail() {
   const history = useHistory();
@@ -387,7 +388,7 @@ function ReinsurerDetail() {
             />
           </Fragment>
         )}
-
+        <ReinsurerDetailsAssociateListing reinsurer={data?.reinsurer} />
         <div className="">
           <div className="col-md-12">
             <div className="card">
