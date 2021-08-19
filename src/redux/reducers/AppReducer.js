@@ -1,7 +1,7 @@
 import { UPDATE_ACCESS_CONTROL } from '../types/SubscriptionTypes'
 
 const initialState = {
-    granted: true
+    granted: false
 }
 
 export default (state = initialState, action) => {
