@@ -10,7 +10,7 @@ const ReinsurerDetailTreaties = ({ reinsurer }) => {
 
   const treaties = useMemo(() => {
     const list = [];
-    if (reinsurer) {
+    if (reinsurer && reinsurer.treaty_participations) {
       reinsurer.treaty_participations.map(
         ({ treaty, treaty_participant_payments }, i) => {
           const row = {

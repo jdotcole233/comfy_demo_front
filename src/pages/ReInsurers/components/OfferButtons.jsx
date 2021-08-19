@@ -179,9 +179,7 @@ const OfferButtons = ({ offer, data, skip = 0, type = "recent" }) => {
           details={selectedOffer}
           skip={skip}
           reinsurer_id={
-            type === "recent"
-              ? data?.reinsurer.reinsurer_id
-              : data?.reinsurer_id
+            type === "recent" ? data?.reinsurer_id : data?.reinsurer_id
           }
           payment={payment}
           toggle={() => setUpdatepaymentDrawer(!updatepaymentDrawer)}
