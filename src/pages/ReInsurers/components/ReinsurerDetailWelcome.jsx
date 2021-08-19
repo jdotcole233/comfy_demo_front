@@ -2,8 +2,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const ReinsurerDetailWelcome = ({ setShowInsurerProfile, overview }) => {
-  const { reinsurer, type } = useSelector((state) => state.reinsurer);
+const ReinsurerDetailWelcome = ({
+  setShowInsurerProfile,
+  overview,
+  reinsurer,
+}) => {
+  const { type } = useSelector((state) => state.reinsurer);
   const isFac = type === "Fac";
   return (
     <div className="card overflow-hidden">
