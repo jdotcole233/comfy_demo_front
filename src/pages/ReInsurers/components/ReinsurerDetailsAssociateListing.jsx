@@ -1,11 +1,13 @@
 import React, { Fragment, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Datatable } from "../../../components";
+import { Datatable, generateNewCulumns } from "../../../components";
+import { useAuth } from "../../../context/AuthContext";
 import { associatesColumnns } from "../columns";
 import AssociateButtons from "./AssociateButtons";
 
 const ReinsurerDetailsAssociateListing = ({ reinsurer }) => {
   //   const reinsurer = useSelector((state) => state.reinsurer.reinsurer);
+  const { user } = useAuth();
   const associates = useMemo(() => {
     if (reinsurer) {
       const list = [];
@@ -31,7 +33,17 @@ const ReinsurerDetailsAssociateListing = ({ reinsurer }) => {
         <div className="card">
           <div className="card-body">
             <h4 className="card-title mb-4">Associates</h4>
-            <Datatable columns={associatesColumnns} data={associates} />
+            <Datatable
+              columns={generateNewCulumns(
+                associatesColumnns,
+                ["System Administrator", "Senior Broking Officer"].includes(
+                  user?.position
+                )
+                  ? []
+                  : ["actions"]
+              )}
+              data={associates}
+            />
           </div>
         </div>
       </div>
