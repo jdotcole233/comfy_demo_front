@@ -23,6 +23,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useReinsurer } from "../../context/ReinsurersProvider";
 import RetrocedentOfferButtons from "./components/RetrocedentOfferButtons";
 import { useDispatch, useSelector } from "react-redux";
+import { CHANGE_REINSURER_PAGE_TYPE } from "../../redux/types/ReinsurerTypes";
 
 function ReinsurerDetail() {
   const history = useHistory();
@@ -36,6 +37,7 @@ function ReinsurerDetail() {
   const [allTotalValue, setAllTotalValue] = useState(0);
   const granted = useSelector((state) => state.app.granted);
   const dispatch = useDispatch();
+  const { reinsurer_id, type } = useSelector((state) => state.reinsurer);
 
   useEffect(() => {
     if (!reinsurer) {
