@@ -354,7 +354,7 @@ function ReinsurerDetail() {
           <ReinsurerDetailTreaties reinsurer={data?.reinsurer} />
           <ReinsurersDetailOffers reinsurer={data?.reinsurer} />
         </div>
-        <OfferListing
+        {/* <OfferListing
           title="Offers"
           path="/admin/re-insurers-detail"
           recent={offerListing}
@@ -365,7 +365,7 @@ function ReinsurerDetail() {
           columns={offersColumns}
           fetching={fetching}
           handleLoadMore={handleLoadMore}
-        />
+        /> */}
 
         {/* Sections for Offers brought in by Reinsurers company */}
         <OfferListing
