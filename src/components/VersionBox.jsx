@@ -58,15 +58,20 @@ const VersionBox = () => {
       <Tagline>Premium</Tagline>
       <LogoSide>
         <span
-          style={{ border: "1px solid black", padding: 10, overflow: "hidden" }}
+          style={{
+            border: "1px solid black",
+            padding: 10,
+            overflow: "hidden",
+            backgrroundImage: require("../assets/visal-sm-logo.png"),
+          }}
           className="avatar-title rounded-circle bg-white"
         >
-          <img
+          {/* <img
             src={require("../assets/visal-sm-logo.png")}
             alt="KEK RE BROKER APP"
             height="120"
             width="120"
-          />
+          /> */}
         </span>
       </LogoSide>
       <div className="d-flex flex-column pt-5 pb-4 align-items-center justify-content-center">
