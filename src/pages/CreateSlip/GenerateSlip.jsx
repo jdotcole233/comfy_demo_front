@@ -33,7 +33,7 @@ function PreviewCoverNote({ offer }) {
         </a>
       </div>
       <div
-        style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }}
+        style={{ boxShadow: "1px 2px 2px 5px #f2f2f2", overflowX: "scroll" }}
         className="preview-card container-fluid  text-black bg-white"
       >
         <PreviewLogo />
