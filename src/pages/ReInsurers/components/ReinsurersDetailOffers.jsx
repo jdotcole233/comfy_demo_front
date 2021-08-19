@@ -67,7 +67,7 @@ const ReinsurersDetailOffers = ({ reinsurer }) => {
 
   return type === "Fac" ? (
     <div className="col-md-12">
-      <h4 className="card-title mb-4">Offers</h4>
+      <h4 className="mb-4">Offers</h4>
       <div className="card">
         <div className="card-body">
           <Datatable data={offers} entries={5} columns={offersColumns} />
