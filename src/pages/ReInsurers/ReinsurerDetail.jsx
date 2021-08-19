@@ -30,6 +30,7 @@ import ReinsurerDetailsFacStats from "./components/ReinsurerDetailsFacStats";
 import ReinsurerDetailsTreatyStats from "./components/ReinsurerDetailsTreatyStats";
 import ReinsurerDetailTreaties from "./components/ReinsurerDetailTreaties";
 import ReinsurersDetailOffers from "./components/ReinsurersDetailOffers";
+import { Fragment } from "react";
 
 function ReinsurerDetail() {
   const history = useHistory();
@@ -352,36 +353,40 @@ function ReinsurerDetail() {
         <div className="row">
           <BrokerageComponent data={data} />
           <ReinsurerDetailTreaties reinsurer={data?.reinsurer} />
-          <ReinsurersDetailOffers reinsurer={data?.reinsurer} />
+          {/* <ReinsurersDetailOffers reinsurer={data?.reinsurer} /> */}
         </div>
-        {/* <OfferListing
-          title="Offers"
-          path="/admin/re-insurers-detail"
-          recent={offerListing}
-          all={allOfferListing}
-          allTotal={allTotalValue}
-          setInputOffer={1}
-          entries={5}
-          columns={offersColumns}
-          fetching={fetching}
-          handleLoadMore={handleLoadMore}
-        /> */}
+        {type === "Fac" && (
+          <Fragment>
+            <OfferListing
+              title="Offers"
+              path="/admin/re-insurers-detail"
+              recent={offerListing}
+              all={allOfferListing}
+              allTotal={allTotalValue}
+              setInputOffer={1}
+              entries={5}
+              columns={offersColumns}
+              fetching={fetching}
+              handleLoadMore={handleLoadMore}
+            />
 
-        {/* Sections for Offers brought in by Reinsurers company */}
-        <OfferListing
-          title="Retrocedent offers"
-          path="/admin/re-insurers-detail"
-          recent={broughtInOffers}
-          all={broughtInOffers}
-          allTotal={allTotalValue}
-          setInputOffer={1}
-          entries={5}
-          columns={offersColumns.filter(
-            (el) => el.field !== "participating_percentage"
-          )}
-          fetching={fetching}
-          handleLoadMore={handleLoadMore}
-        />
+            {/* Sections for Offers brought in by Reinsurers company */}
+            <OfferListing
+              title="Retrocedent offers"
+              path="/admin/re-insurers-detail"
+              recent={broughtInOffers}
+              all={broughtInOffers}
+              allTotal={allTotalValue}
+              setInputOffer={1}
+              entries={5}
+              columns={offersColumns.filter(
+                (el) => el.field !== "participating_percentage"
+              )}
+              fetching={fetching}
+              handleLoadMore={handleLoadMore}
+            />
+          </Fragment>
+        )}
 
         <div className="">
           <div className="col-md-12">
