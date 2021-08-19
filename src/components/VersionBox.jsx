@@ -62,7 +62,7 @@ const VersionBox = () => {
             border: "1px solid black",
             padding: 10,
             overflow: "hidden",
-            backgrroundImage: require("../assets/visal-sm-logo.png"),
+            backgrroundImage: `url(${require("../assets/visal-sm-logo.png")}`,
           }}
           className="avatar-title rounded-circle bg-white"
         >
