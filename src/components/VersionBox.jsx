@@ -4,7 +4,7 @@ import { version } from "../../package.json";
 const Card = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 75px 0px 25px 0px
+  padding: 75px 15px 25px 15px
   width: 500px
   justify-content: center;
   align-items: center;
@@ -16,7 +16,7 @@ const LogoSide = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 200px;
+  // width: 200px;
 `;
 
 const Appname = styled.div`
@@ -63,8 +63,8 @@ const VersionBox = () => {
           <img
             src={require("../assets/visal-sm-logo.png")}
             alt="KEK RE BROKER APP"
-            height="80"
-            width="80"
+            height="120"
+            width="120"
           />
         </span>
       </LogoSide>
