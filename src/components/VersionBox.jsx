@@ -16,7 +16,6 @@ const LogoSide = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 40%;
 `;
 
 const Appname = styled.div`
