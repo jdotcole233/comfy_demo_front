@@ -26,7 +26,7 @@ const Appname = styled.div`
 `;
 
 const OtherText = styled.h2`
-  font-size: 1.5em;
+  font-size: 1.2em;
   text-align: center;
   font-weight: bold;
 `;
@@ -71,7 +71,9 @@ const VersionBox = () => {
         <OtherText>
           Protected By: Positive SSL, BitNinja, Advance DDoS Protecttion
         </OtherText>
-        <OtherText>Developed By: Comfy Technology</OtherText>
+        <div className="mt-4">
+          <OtherText>Developed By: Comfy Technology</OtherText>
+        </div>
       </div>
     </Card>
   );
