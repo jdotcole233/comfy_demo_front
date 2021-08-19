@@ -26,6 +26,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_REINSURER_PAGE_TYPE } from "../../redux/types/ReinsurerTypes";
 import ReinsurerDetailWelcome from "./components/ReinsurerDetailWelcome";
 import ReinsurerDetailOtherInfo from "./components/ReinsurerDetailOtherInfo";
+import ReinsurerDetailsFacStats from "./components/ReinsurerDetailsFacStats";
+import ReinsurerDetailsTreatyStats from "./components/ReinsurerDetailsTreatyStats";
 
 function ReinsurerDetail() {
   const history = useHistory();
@@ -341,6 +343,8 @@ function ReinsurerDetail() {
           </div>
 
           <div className="col-xl-8">
+            <ReinsurerDetailsFacStats overview={overview} />
+            <ReinsurerDetailsTreatyStats overview={overview} />
             <div className="row">
               <div className="col-md-6">
                 <div className="card mini-stats-wid">
