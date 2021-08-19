@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { version } from "../../package.json";
+import Logo from "../assets/visal-logo-sm.png";
+
 const Card = styled.div`
   display: flex;
   flex-direction: row;
@@ -66,7 +68,7 @@ const VersionBox = () => {
             width: 120,
             backgroundPosition: "center",
             objectFit: "contain",
-            // backgrroundImage: `url(${require("../assets/visal-sm-logo.png")}`,
+            backgrroundImage: `url(${Logo})`,
           }}
           className="avatar-title logo-img-bg rounded-circle bg-white"
         >
