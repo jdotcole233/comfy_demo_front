@@ -16,6 +16,7 @@ const LogoSide = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  padding: 0px 15px;
   // width: 200px;
 `;
 
@@ -57,7 +58,7 @@ const VersionBox = () => {
       <Tagline>Premium</Tagline>
       <LogoSide>
         <span
-          style={{ border: "1px solid black" }}
+          style={{ border: "1px solid black", padding: 10, overflow: "hidden" }}
           className="avatar-title rounded-circle bg-white"
         >
           <img
