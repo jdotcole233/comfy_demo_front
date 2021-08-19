@@ -300,6 +300,16 @@ export const REINSURER = gql`
         total_brokerage_amt
         total_nic_tax
         total_withholding_tax
+        treaties_overview {
+      total_treaties
+      total_proportional
+      total_nonproportional
+      total_unpaid_treaties
+      total_paid_treaties
+      total_partpayment_treaties
+      total_brokerage_amt
+      brokerage_chart
+    }
       }
 
       reinsurer_representatives {
