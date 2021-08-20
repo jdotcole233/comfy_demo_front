@@ -3,6 +3,7 @@ import React from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
 import { money } from "./CreditNote";
+import PreviewLogo from '../../../components/PreviewLogo'
 
 //TODO: net amount calculation
 
@@ -69,6 +70,7 @@ const LayerDebitNote = ({
               Date: {moment().format("DD MMMM YYYY")}
             </p>
           </div>
+          <PreviewLogo />
           <div className="col-md-12">
             <address>
               {insurer?.insurer_company_name}, <br />

@@ -3,6 +3,7 @@ import React from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
 import { money } from "./CreditNote";
+import PreviewLogo from '../../../components/PreviewLogo'
 
 const netAmount = (amountForOrder, nic, wth, brokerage) =>
   amountForOrder - (parseFloat(nic) + parseFloat(wth) + parseFloat(brokerage));
@@ -77,6 +78,7 @@ const LayerDebitNote = ({
               Date: {moment().format("DD MMMM YYYY")}
             </p>
           </div>
+          <PreviewLogo />
           <div className="col-md-12">
             <address>
               {reinsurer?.reinsurer?.re_company_name}, <br />

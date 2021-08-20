@@ -3,6 +3,8 @@ import React, { Fragment } from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import { money } from "../../../utils";
 import "../styles/preview.css";
+import PreviewLogo from '../../../components/PreviewLogo'
+
 const TreatyPortfolioStatement = ({
   reinsurer = {},
   treaty = {},
@@ -65,6 +67,7 @@ const TreatyPortfolioStatement = ({
               alt="company name"
             />
           </div>
+          <PreviewLogo />
           <div className="col-md-12 mt-3 mb-3">
             <h3
               style={{
