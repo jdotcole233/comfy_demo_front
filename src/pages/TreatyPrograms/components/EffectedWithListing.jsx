@@ -171,7 +171,7 @@ function EffectedWithListing({
                             : "#F46A6A",
                       }}
                     >
-                      <strong> Offer</strong>
+                      <strong>Quota</strong>
                     </div>
                   </CircularProgressbarWithChildren>
                 </div>
