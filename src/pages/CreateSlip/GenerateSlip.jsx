@@ -38,7 +38,6 @@ function PreviewCoverNote({ offer }) {
       >
         <PreviewLogo />
         <div className="row">
-          {/* <img className="" src={require('../../assets/banner.png')} alt="kek letter head" /> */}
           <div className="col-md-12  mb-3">
             <h4
               style={{
