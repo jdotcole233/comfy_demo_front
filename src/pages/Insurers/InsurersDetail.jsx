@@ -45,10 +45,10 @@ function InsurerDetail() {
   const { insurer: _insurer } = useInsurer();
 
   useEffect(() => {
-    if (!_insurer || !_insurer.insurer_id) {
+    if (!state || !state.insurer_id) {
       history.push("/admin/insurers");
     }
-  }, [_insurer]);
+  }, [state]);
 
   const {
     data: insurer_offers,
@@ -57,7 +57,7 @@ function InsurerDetail() {
     error,
   } = useQuery(INSURER_OFFERS, {
     variables: {
-      id: _insurer?.insurer_id,
+      id: state?.insurer_id,
       skip: 0,
     },
     fetchPolicy: "cache-and-network",
@@ -69,7 +69,7 @@ function InsurerDetail() {
     refetch,
   } = useQuery(INSURER, {
     variables: {
-      id: _insurer?.insurer_id,
+      id: state?.insurer_id,
     },
     fetchPolicy: "network-only",
   });

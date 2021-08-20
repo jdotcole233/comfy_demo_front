@@ -53,7 +53,8 @@ function Insurer({ data, openManagerDrawer }) {
     const onSelectInsurer = (insurer) => {
         selectInsurer(insurer, () => {
             history.push({
-                pathname: "/admin/insurers-details/recent"
+                pathname: "/admin/insurers-details/recent",
+                state: { insurer_id: data.insurer_id },
             })
         });
     }

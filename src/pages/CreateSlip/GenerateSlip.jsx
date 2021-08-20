@@ -36,8 +36,8 @@ function PreviewCoverNote({ offer }) {
         style={{ boxShadow: "1px 2px 2px 5px #f2f2f2", overflowX: "scroll" }}
         className="preview-card container-fluid  text-black bg-white"
       >
-        <PreviewLogo />
         <div className="row">
+            <PreviewLogo />
           <div className="col-md-12  mb-3">
             <h4
               style={{

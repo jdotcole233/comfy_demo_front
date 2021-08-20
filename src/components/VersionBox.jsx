@@ -72,7 +72,7 @@ const VersionBox = () => {
           }}
           className="avatar-title logo-img-bg rounded-circle bg-white"
         >
-          <img src={Logo} alt="KEK RE BROKER APP" height="120" width="120" />
+          <img style={{objectFit:"contain"}} src={Logo} alt="KEK RE BROKER APP" height="120" width="120" />
         </span>
       </LogoSide>
       <div className="d-flex flex-column pt-5 pb-4 align-items-center justify-content-center">
