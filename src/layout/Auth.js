@@ -2,6 +2,7 @@ import React, {Suspense} from 'react';
 import routes from '../routes';
 import {Switch, Route} from 'react-router-dom';
 import ConnectionDetector from '../components/ConnectionDetector';
+import { version } from '../../package.json'
 
 export default () => {
   const getRoutes = (routes) => {
@@ -26,6 +27,7 @@ export default () => {
         <Suspense fallback={<div>Loading</div>}>
           <Switch>{getRoutes(routes)}</Switch>
         </Suspense>
+        <p className="text-center">current version: {version}</p>
       </div>
     </div>
   );
