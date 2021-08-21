@@ -42,17 +42,7 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
   const [showEdit, setShowEdit] = useState(false);
   const [surplusCommissions, setSurplusCommissions] = useState([]);
   const { handleSubmit, register, errors, reset, setValue, clearError } =
-    useForm({
-      defaultValues: {
-        treatiestreaty_id: treaty_id,
-        claim_settled: note?.claim_settled,
-        account_year: note?.account_year,
-        cash_loss: note?.cash_loss,
-        account_periods: note?.account_periods,
-        ex_rate: JSON.parse(note.exchange_rate)?.rate,
-        ex_currency: JSON.parse(note.exchange_rate)?.currency,
-      },
-    });
+    useForm();
 
   useEffect(() => {
     if (note) {
@@ -271,268 +261,284 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
         toggle={() => setShowEdit((prev) => !prev)}
         width="40%"
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="alert alert-warning">
-            <p>
-              This session will allow you to update quarterly statement for{" "}
-              <b>{treaty?.treaty_program?.treaty_name}</b> with reference number{" "}
-              <b>{treaty?.treaty_reference}</b> and period{" "}
-              <b>
-                {new Date(
-                  treaty?.treaty_deduction?.treaty_period_from
-                ).toDateString()}{" "}
-                to{" "}
-                {new Date(
-                  treaty?.treaty_deduction?.treaty_period_to
-                ).toDateString()}
-              </b>
-            </p>
-            <span>
-              <b>NOTE:</b>
+        {showEdit && (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="alert alert-warning">
               <p>
-                Account year is dependent on the year the quarter statement is
-                being filed{" "}
+                This session will allow you to update quarterly statement for{" "}
+                <b>{treaty?.treaty_program?.treaty_name}</b> with reference
+                number <b>{treaty?.treaty_reference}</b> and period{" "}
+                <b>
+                  {new Date(
+                    treaty?.treaty_deduction?.treaty_period_from
+                  ).toDateString()}{" "}
+                  to{" "}
+                  {new Date(
+                    treaty?.treaty_deduction?.treaty_period_to
+                  ).toDateString()}
+                </b>
               </p>
-            </span>
-          </div>
-          <div className="row">
-            <div className="col-md-6">
-              <div className="form-group">
-                <label htmlFor="">Quarter</label>
-                <select
-                  name="account_periods"
-                  ref={register({ required: "Select Quater" })}
-                  id="account_periods"
-                  className="form-control"
-                >
-                  <option value="">Select quarter</option>
-                  {generateNewOptions(notes).map((note, key) => (
-                    <option key={key} value={note.value}>
-                      {note.label}
-                    </option>
-                  ))}
-                </select>
+              <span>
+                <b>NOTE:</b>
+                <p>
+                  Account year is dependent on the year the quarter statement is
+                  being filed{" "}
+                </p>
+              </span>
+            </div>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="form-group">
+                  <label htmlFor="">Quarter</label>
+                  <select
+                    name="account_periods"
+                    ref={register({ required: "Select Quater" })}
+                    id="account_periods"
+                    defaultValue={note?.account_periods}
+                    className="form-control"
+                  >
+                    <option value="">Select quarter</option>
+                    {generateNewOptions(notes).map((note, key) => (
+                      <option key={key} value={note.value}>
+                        {note.label}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    name="treatiestreaty_id"
+                    ref={register({ required: "Required" })}
+                    type="hidden"
+                    // value={treaty?.treaty_id}
+                    value={treaty_id}
+                    placeholder="Gross Premium"
+                  />
+                  {errors.account_periods && (
+                    <p className="text-danger">
+                      {errors.account_periods.message}
+                    </p>
+                  )}
+                </div>
                 <input
                   name="treatiestreaty_id"
-                  ref={register({ required: "Required" })}
+                  ref={register({ required: "treatiestreaty_id Required" })}
                   type="hidden"
                   value={treaty_id}
                   placeholder="Gross Premium"
                 />
+                {/* <input
+                name="account_deduction_id"
+                ref={register({ required: "account_deduction_id Required" })}
+                type="hidden"
+                placeholder="Gross Premium"
+              /> */}
+                <input
+                  name="participant_deduction_id"
+                  ref={register({ required: false })}
+                  type="hidden"
+                  placeholder="Gross Premium"
+                  value={0}
+                />
+                {errors.treatiestreaty_id && (
+                  <p className="text-danger">
+                    {errors.treatiestreaty_id.message}
+                  </p>
+                )}
+                {/* {errors.account_deduction_id && (
+                <p className="text-danger">
+                {errors.account_deduction_id.message}
+                </p>
+              )} */}
+                {errors.participant_deduction_id && (
+                  <p className="text-danger">
+                    {errors.participant_deduction_id.message}
+                  </p>
+                )}
                 {errors.account_periods && (
                   <p className="text-danger">
                     {errors.account_periods.message}
                   </p>
                 )}
               </div>
-              <input
-                name="treatiestreaty_id"
-                ref={register({ required: "treatiestreaty_id Required" })}
-                type="hidden"
-                value={treaty_id}
-                placeholder="Gross Premium"
-              />
-              {/* <input
-                name="account_deduction_id"
-                ref={register({ required: "account_deduction_id Required" })}
-                type="hidden"
-                placeholder="Gross Premium"
-              /> */}
-              <input
-                name="participant_deduction_id"
-                ref={register({ required: false })}
-                type="hidden"
-                placeholder="Gross Premium"
-                value={0}
-              />
-              {errors.treatiestreaty_id && (
-                <p className="text-danger">
-                  {errors.treatiestreaty_id.message}
-                </p>
-              )}
-              {/* {errors.account_deduction_id && (
-                <p className="text-danger">
-                  {errors.account_deduction_id.message}
-                </p>
-              )} */}
-              {errors.participant_deduction_id && (
-                <p className="text-danger">
-                  {errors.participant_deduction_id.message}
-                </p>
-              )}
-              {errors.account_periods && (
-                <p className="text-danger">{errors.account_periods.message}</p>
-              )}
-            </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label htmlFor="Claim Settled">Claim Settled</label>
-                <input
-                  name="claim_settled"
-                  ref={register({ required: "Required" })}
-                  type="number"
-                  className="form-control"
-                  placeholder="Claim Settled"
-                />
-                {errors.claim_settled && (
-                  <p className="text-danger">{errors.claim_settled.message}</p>
-                )}
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label htmlFor="Gross Premium">Account year</label>
-                <input
-                  name="account_year"
-                  ref={register({ required: "Required" })}
-                  type="text"
-                  className="form-control"
-                  placeholder="Account year"
-                />
-                {errors.account_year && (
-                  <p className="text-danger">{errors.account_year.message}</p>
-                )}
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label htmlFor="Gross Premium">Cash loss</label>
-                <input
-                  name="cash_loss"
-                  ref={register({ required: "Required" })}
-                  type="number"
-                  className="form-control"
-                  placeholder="Cash loss"
-                />
-                {errors.cash_loss && (
-                  <p className="text-danger">{errors.cash_loss.message}</p>
-                )}
-              </div>
-            </div>
-            <div className="col-md-12 mx-3">
-              <div className="form-group ml-2">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  onChange={(e) => setAddExchangeRate(e.target.checked)}
-                />
-                <label className="form-check-label" htmlFor="exampleCheck1">
-                  Add Exchange rate
-                </label>
-              </div>
-            </div>
-          </div>
-
-          {addExchangeRate && (
-            <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="Type of goods">Exchange Currency</label>
-                  <Selector
-                    value={
-                      ex_currency
-                        ? {
-                            label: Object.values(currencies).find(
-                              (eel) => eel.code === ex_currency
-                            )?.name,
-                          }
-                        : ""
-                    }
-                    components={{ Option: CurrencyOption }}
-                    onChange={handleExCurrencyChange}
-                    options={[
-                      ...Object.values(currencies).map((currency) => ({
-                        label: currency.name,
-                        value: currency,
-                      })),
-                    ]}
-                  />
+                  <label htmlFor="Claim Settled">Claim Settled</label>
+                  {/* {note?.claim_settled} */}
                   <input
-                    ref={register({
-                      required: addExchangeRate ? "Required" : false,
-                    })}
-                    type="hidden"
-                    name="ex_currency"
-                    placeholder="Currency"
-                    className="form-control"
-                  />
-                  {errors.ex_currency && (
-                    <p className="text-danger">{errors.ex_currency.message}</p>
-                  )}
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="Type of goods">Exchange rate </label>
-                  <input
+                    name="claim_settled"
+                    ref={register({ required: "Required" })}
                     type="number"
-                    min="0"
-                    step="any"
-                    ref={register({ required: addExchangeRate })}
-                    name="ex_rate"
+                    defaultValue={note?.claim_settled}
                     className="form-control"
-                    placeholder="Exchange rate"
+                    placeholder="Claim Settled"
                   />
-                  {errors.ex_rate && (
-                    <p className="text-danger">{errors.ex_rate.message}</p>
+                  {errors.claim_settled && (
+                    <p className="text-danger">
+                      {errors.claim_settled.message}
+                    </p>
                   )}
                 </div>
               </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <label htmlFor="Gross Premium">Account year</label>
+                  <input
+                    name="account_year"
+                    ref={register({ required: "Required" })}
+                    type="text"
+                    defaultValue={note?.account_year}
+                    className="form-control"
+                    placeholder="Account year"
+                  />
+                  {errors.account_year && (
+                    <p className="text-danger">{errors.account_year.message}</p>
+                  )}
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <label htmlFor="Gross Premium">Cash loss</label>
+                  <input
+                    name="cash_loss"
+                    ref={register({ required: "Required" })}
+                    type="number"
+                    defaultValue={note?.cash_loss}
+                    className="form-control"
+                    placeholder="Cash loss"
+                  />
+                  {errors.cash_loss && (
+                    <p className="text-danger">{errors.cash_loss.message}</p>
+                  )}
+                </div>
+              </div>
+              <div className="col-md-12 mx-3">
+                <div className="form-group ml-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={(e) => setAddExchangeRate(e.target.checked)}
+                  />
+                  <label className="form-check-label" htmlFor="exampleCheck1">
+                    Add Exchange rate
+                  </label>
+                </div>
+              </div>
             </div>
-          )}
 
-          <div className="row">
-            {surplusCommissions.map((surplus, surplusId) => (
-              <div
-                className={`col-md-${
-                  surplusId + 1 >= surpluses.length && surplusId % 2 === 0
-                    ? "12"
-                    : "6"
-                }`}
-              >
-                <fieldset className="border w-auto p-2 mb-2">
-                  <legend className="font-size-13">
-                    Surplus {surplusId + 1}
-                  </legend>
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="form-group">
-                        <label htmlFor="Gross Premium">
-                          Gross Premium - commission{" "}
-                          {surpluses[surplusId]?.commission}%
-                        </label>
-                        <input
-                          name={`gross_premium_${surplusId}`}
-                          type="number"
-                          className="form-control"
-                          placeholder="Gross Premium"
-                          ref={register({ required: "Required" })}
-                          value={surplus.gross_premium}
-                          onChange={(e) =>
-                            onGrossPremiumChange(surplusId, surplus, e)
-                          }
-                        />
-                        {errors[`gross_premium_${surplusId}`] && (
-                          <p className="text-danger">
-                            {errors[`gross_premium_${surplusId}`].message}
-                          </p>
-                        )}
+            {addExchangeRate && (
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label htmlFor="Type of goods">Exchange Currency</label>
+                    <Selector
+                      value={
+                        ex_currency
+                          ? {
+                              label: Object.values(currencies).find(
+                                (eel) => eel.code === ex_currency
+                              )?.name,
+                            }
+                          : ""
+                      }
+                      components={{ Option: CurrencyOption }}
+                      onChange={handleExCurrencyChange}
+                      options={[
+                        ...Object.values(currencies).map((currency) => ({
+                          label: currency.name,
+                          value: currency,
+                        })),
+                      ]}
+                    />
+                    <input
+                      ref={register({
+                        required: addExchangeRate ? "Required" : false,
+                      })}
+                      type="hidden"
+                      name="ex_currency"
+                      defaultValue={JSON.parse(note.exchange_rate)?.currency}
+                      placeholder="Currency"
+                      className="form-control"
+                    />
+                    {errors.ex_currency && (
+                      <p className="text-danger">
+                        {errors.ex_currency.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label htmlFor="Type of goods">Exchange rate </label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="any"
+                      ref={register({ required: addExchangeRate })}
+                      name="ex_rate"
+                      defaultValue={JSON.parse(note.exchange_rate)?.rate}
+                      className="form-control"
+                      placeholder="Exchange rate"
+                    />
+                    {errors.ex_rate && (
+                      <p className="text-danger">{errors.ex_rate.message}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="row">
+              {surplusCommissions.map((surplus, surplusId) => (
+                <div
+                  className={`col-md-${
+                    surplusId + 1 >= surpluses.length && surplusId % 2 === 0
+                      ? "12"
+                      : "6"
+                  }`}
+                >
+                  <fieldset className="border w-auto p-2 mb-2">
+                    <legend className="font-size-13">
+                      Surplus {surplusId + 1}
+                    </legend>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="form-group">
+                          <label htmlFor="Gross Premium">
+                            Gross Premium - commission{" "}
+                            {surpluses[surplusId]?.commission}%
+                          </label>
+                          <input
+                            name={`gross_premium_${surplusId}`}
+                            type="number"
+                            className="form-control"
+                            placeholder="Gross Premium"
+                            ref={register({ required: "Required" })}
+                            value={surplus.gross_premium}
+                            onChange={(e) =>
+                              onGrossPremiumChange(surplusId, surplus, e)
+                            }
+                          />
+                          {errors[`gross_premium_${surplusId}`] && (
+                            <p className="text-danger">
+                              {errors[`gross_premium_${surplusId}`].message}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </fieldset>
-              </div>
-            ))}
-          </div>
+                  </fieldset>
+                </div>
+              ))}
+            </div>
 
-          <div className="form-group">
-            <input
-              className="form-control btn btn-primary"
-              type="submit"
-              value={`Update quarter`}
-            />
-          </div>
-        </form>
+            <div className="form-group">
+              <input
+                className="form-control btn btn-primary"
+                type="submit"
+                value={`Update quarter`}
+              />
+            </div>
+          </form>
+        )}
       </Drawer>
     </>
   );

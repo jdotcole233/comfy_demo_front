@@ -62,6 +62,7 @@ const ViewTreaty = () => {
 
   const { data, loading } = useQuery(TREATY, {
     variables: { treaty_id: state?.treaty_id },
+    fetchPolicy: "network-only",
   });
 
   const isProp = data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
