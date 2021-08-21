@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { Document, Page } from "react-pdf
+import { Document, Page } from "react-pdf";
 
-
-
-const PDFDocument = ({pdf}) => {
-    const [numPages, setNumPages] = useState(null);
+const PDFDocument = ({ pdf }) => {
+  const [numPages, setNumPages] = useState(null);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
 
- return (
+  return (
     <Document
       file={pdf}
       options={{ workerSrc: "/pdf.worker.js" }}
@@ -21,7 +19,6 @@ const PDFDocument = ({pdf}) => {
       ))}
     </Document>
   );
-}
-
+};
 
 export default PDFDocument;

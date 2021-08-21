@@ -20,6 +20,7 @@ import {
   MANUAL_CREATE_CLAIM,
   TREATY_CLAIMS,
 } from "../../graphql/queries/treaty";
+import { useTreatyClaimsProps } from "./Providers/TreatyClaimsProvider";
 
 const MakeClaimForm = ({ details, setShow }) => {
   /**
@@ -35,10 +36,14 @@ const MakeClaimForm = ({ details, setShow }) => {
    *
    *
    */
-  const [claims, setClaims] = useLocalStorage(
-    `treaty-${details?.treaty_id}`,
-    []
-  );
+
+  const { claims: arr } = useTreatyClaimsProps();
+  const [claims, setClaims] = useState(arr);
+  // const [claims, setClaims] = useLocalStorage(
+  //   `treaty-${details?.treaty_id}`,
+  //   arr
+  // );
+
   const [editable, setEditable] = useState(false);
   const [showList, setShowList] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -157,7 +162,7 @@ const MakeClaimForm = ({ details, setShow }) => {
 
   const previewData = useMemo(() => {
     if (claims && claims.length > 0) {
-      return claims.map((el, key) => ({
+      return claims?.map((el, key) => ({
         ...el,
         actions: (
           <>
