@@ -3,7 +3,7 @@ import React from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
 import { money } from "./CreditNote";
-import PreviewLogo from '../../../components/PreviewLogo'
+import PreviewLogo from "../../../components/PreviewLogo";
 
 //TODO: net amount calculation
 
@@ -67,164 +67,57 @@ const LayerDebitNote = ({
           </div>
           <div className="col-md-12">
             <address>
+              Our Reference: {treaty?.treaty_reference} <br /> <br />
+              {moment().format("DD MMMM YYYY")} <br />
+              The Managing Director <br />
               {insurer?.insurer_company_name}, <br />
               {insurer?.insurer_address.suburb} <br />
               {insurer?.insurer_address.region} <br />
-              {insurer?.insurer_address.country}. <br />
+              {insurer?.insurer_address.country}. <br /> <br />
+              Dear sir
             </address>
           </div>
           <div className="col-md-6"></div>
-          <div
-            className="col-md-6"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <address>
-              Our Reference: {treaty?.treaty_reference} <br />
-              {/* Contact: {insurer?.insurer_address.suburb}  <br /> */}
-              Tel: 0265375693/0558459447 <br />
-              Email: samsali@visalre.com <br />
-            </address>
-          </div>
-          <div className="col-md-12">
-            <div className="reference">
-              <div className="reference-header">
-                <p
-                  style={{ color: "#000", fontWeight: "bold" }}
-                  className="text-bold"
-                >
-                  REINSURED
-                </p>
-              </div>
-              <div className="reference-value">
-                <p style={{ color: "#000" }}>
-                  : {insurer?.insurer_company_name}{" "}
-                </p>
-              </div>
-            </div>
-            <div className="reference">
-              <div className="reference-header">
-                <p
-                  style={{ color: "#000", fontWeight: "bold" }}
-                  className="text-bold"
-                >
-                  TYPE
-                </p>
-              </div>
-              <div className="reference-value">
-                <p style={{ color: "#000" }}>
-                  : {""} {treaty?.treaty_program?.treaty_name}
-                </p>
-              </div>
-            </div>
-            <div className="reference">
-              <div className="reference-header">
-                <p
-                  style={{ color: "#000", fontWeight: "bold" }}
-                  className="text-bold"
-                >
-                  LIMIT
-                </p>
-              </div>
-              <div className="reference-value">
-                <p style={{ color: "#000" }}>
-                  : {""}
-                  {money(parseFloat(layer?.limit))}
-                </p>
-              </div>
-            </div>
-            <div className="reference">
-              <div className="reference-header">
-                <p
-                  style={{ color: "#000", fontWeight: "bold" }}
-                  className="text-bold"
-                >
-                  PERIOD
-                </p>
-              </div>
-              <div className="reference-value">
-                <p style={{ color: "#000" }}>
-                  : {""}{" "}
-                  {moment(treaty?.treaty_deduction?.treaty_period_from).format(
-                    "Do MMMM, YYYY"
-                  )}{" "}
-                  to{" "}
-                  {moment(treaty?.treaty_deduction?.treaty_period_to).format(
-                    "Do MMMM, YYYY"
-                  )}
-                </p>
-              </div>
-            </div>
-            <div className="reference">
-              <div className="reference-header">
-                <p
-                  style={{ color: "#000", fontWeight: "bold" }}
-                  className="text-bold"
-                >
-                  Layer
-                </p>
-              </div>
-              <div className="reference-value">
-                <p style={{ color: "#000" }}>
-                  : {""} {index}
-                </p>
-              </div>
-            </div>
-          </div>
+
           <div className="col-md-12 mt-3 mb-3">
-            <h3 style={{ textAlign: "center", color: "#000", fontSize: 18 }}>
+            <h3
+              style={{
+                textAlign: "center",
+                color: "#000",
+                fontSize: 18,
+                textDecoration: "underline",
+                fontWeight: "bolder",
+              }}
+            >
               Debit Note
             </h3>
           </div>
-          <div className="col-md-10 col-sm-12 debit-center col-xs-12 ml-md-4 px-8">
-            <div style={{ color: "#000" }} className="row ">
-              <div className="col-md-8 col-6 col-sm-4 col-4 col-xs-4">
-                <h3 className="dark-text-1">CURRENCY:</h3>
-              </div>
-              <div className="col-md-4 col-6 col-sm-8 col-8 col-xs-8">
-                <h3 className="dark-text-value-1">{treaty?.currency}</h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-8 col-6 col-sm-4 col-4 col-xs-4">
-                <h3 className="dark-text-1">100% AMOUNT:</h3>
-              </div>
-              <div className="col-md-4 col-6 col-sm-8 col-8 col-xs-8">
-                <h3 className="dark-text-value-1">
-                  {money(parseFloat(layer?.m_and_d_premium))}
-                </h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-8 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text-1">AMOUNT FOR ORDER:</h3>
-              </div>
-              <div className="col-md-4 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value-1">{money(amountForOrder)}</h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-8 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text-1">DEDUCTIONS:</h3>
-              </div>
-              <div className="col-md-4 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value-1">NIL</h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-8 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text-1">NET AMOUNT DUE:</h3>
-              </div>
-              <div className="col-md-4 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-1">{money(amountForOrder)}</h3>
-              </div>
-            </div>
+          <div className="col-md-12 mr-4 ml-4">
+            <Row label="REINSURED" value={insurer?.insurer_company_name} />
+            <Row label="TYPE" value={treaty?.treaty_program?.treaty_name} />
+            <Row label="LIMIT" value={money(parseFloat(layer?.limit))} />
+            <Row
+              label="PERIOD"
+              value={`${moment(
+                treaty?.treaty_deduction?.treaty_period_from
+              ).format("Do MMMM, YYYY")}${" "}
+                  to${" "}
+                  ${moment(treaty?.treaty_deduction?.treaty_period_to).format(
+                    "Do MMMM, YYYY"
+                  )}`}
+            />
+            <Row label="Layer" value={index} />
+            <Row label="CURRENCY" value={treaty?.currency} />
+            <Row
+              label="100% AMOUNT"
+              value={money(parseFloat(layer?.m_and_d_premium))}
+            />
+            <Row label="AMOUNT FOR ORDER" value={money(amountForOrder)} />
+            <Row label="DEDUCTIONS" value="NIL" />
+            <Row label="NET AMOUNT DUE" value={money(amountForOrder)} />
           </div>
-          <div className="col-md-12">
+
+          <div className="col-md-12 mr-4 ml-3">
             <table
               style={{ color: "#000", lineHeight: 0 }}
               className="table table-borderless"
@@ -258,3 +151,20 @@ const LayerDebitNote = ({
 };
 
 export default LayerDebitNote;
+
+export const Row = ({ label, value }) => {
+  return (
+    <div className="reference">
+      <div className="reference-header">
+        <p style={{ color: "#000", fontWeight: "bold" }} className="text-bold">
+          {label}
+        </p>
+      </div>
+      <div className="reference-value">
+        <p style={{ color: "#000" }}>
+          : {""} {value}
+        </p>
+      </div>
+    </div>
+  );
+};

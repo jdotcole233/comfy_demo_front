@@ -6,7 +6,7 @@ const NonProportionalStatements = ({ treaty, reinsurer, layer }) => {
   const layers = JSON.parse(treaty?.layer_limit || "[]");
   const [statement, setStatement] = useState("initialState");
 
-  const adjustment_created = treaty?.treaty_np_detail?.adjustment_created
+  const adjustment_created = treaty?.treaty_np_detail?.adjustment_created;
 
   return (
     <div className="container-fluid">
@@ -21,7 +21,9 @@ const NonProportionalStatements = ({ treaty, reinsurer, layer }) => {
           >
             <option value="">Select ...</option>
             <option value="Credit Note">Credit Note</option>
-            {adjustment_created && <option value="Adjustment Statement">Adjustment Statement</option>}
+            {adjustment_created && (
+              <option value="Adjustment Statement">Adjustment Statement</option>
+            )}
           </select>
         </div>
       </div>
