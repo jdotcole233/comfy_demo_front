@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
 import { getFlexibleName } from "../../Insurers/components/Note";
-import PreviewLogo from '../../../components/PreviewLogo'
+import PreviewLogo from "../../../components/PreviewLogo";
 
 const cashBalance = (grossPremium, commission, nic, wth) => {
   const result =
@@ -34,29 +34,47 @@ const TreatyStatement = ({
   note = {},
   treaty = {},
   reinsurer = {},
+  share = {},
   isFleet,
   ...props
 }) => {
   // const deduction = note?.treaty_account_deduction
-  const share = getShare(
-    note?.treaty_participant_deduction,
-    reinsurer?.treaty_participation_id,
-    surplus?.surpulus_uuid
-  );
+  // const [share, setShare] = useState(() =>
+  //   getShare(
+  //     note?.treaty_participant_deduction,
+  //     reinsurer?.treaty_participation_id,
+  //     surplus?.surpulus_uuid
+  //   )
+  // );
+
+  // useEffect(() => {
+  //   if (note && note.treaty_participant_deduction && surplus && reinsurer) {
+  //     console.log("note", note);
+  //     const _ = getShare(
+  //       note?.treaty_participant_deduction,
+  //       reinsurer?.treaty_participation_id,
+  //       surplus?.surpulus_uuid
+  //     );
+  //     setShare(_);
+  //   }
+  // }, [note, reinsurer, surplus]);
 
   const cashBal = cashBalance(
-    surplus?.gross_premium,
-    share?.brokerage_amount,
-    surplus?.commission_amount,
-    note?.claim_settled
+    surplus?.gross_premium ?? 0,
+    share?.brokerage_amount ?? 0,
+    surplus?.commission_amount ?? 0,
+    note?.claim_settled ?? 0
   );
-  const finalAmmount =
-    parseFloat(share?.treaty_participation_share) -
-    (parseFloat(share?.nic_levy_amount) +
-      parseFloat(share?.withholding_tax_amount));
+  // console.log("share", share);
+  const finalAmmount = share
+    ? parseFloat(share?.treaty_participation_share) -
+      (parseFloat(share?.nic_levy_amount) +
+        parseFloat(share?.withholding_tax_amount))
+    : 0;
 
   return (
     <>
+      {JSON.stringify(share)}
       <div className="row m-2">
         <a
           target="_blank"
@@ -205,7 +223,7 @@ const TreatyStatement = ({
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
-                  {money(share?.brokerage_amount)}
+                  {money(share?.brokerage_amount ?? 0)}
                 </h3>
               </div>
             </div>
@@ -239,7 +257,7 @@ const TreatyStatement = ({
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
-                  {money(Math.abs(share?.treaty_participation_share))}
+                  {money(share?.treaty_participation_share ?? 0)}
                 </h3>
               </div>
             </div>
