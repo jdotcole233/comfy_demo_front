@@ -39,7 +39,8 @@ const AdjustmentStatementPreview = ({ reinsurer, treaty }) => {
             <img
               width={100}
               height={100}
-              src={require("../../../assets/logo.png")}
+              style={{objectFit: "contain"}}
+              src={require("../../../assets/banner.png")}
               alt="company name"
             />
           </div>

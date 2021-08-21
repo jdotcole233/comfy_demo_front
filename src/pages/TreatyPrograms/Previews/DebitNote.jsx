@@ -58,6 +58,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
               >{`${props.currentStep}/${props.totalSteps}`}</h3>
             )}
           </div>
+          <PreviewLogo />
           <div
             className="col-md-6 col-6"
             style={{
@@ -66,14 +67,8 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
               alignItems: "center",
             }}
           >
-            <img
-              width={100}
-              height={100}
-              src={require("../../../assets/logo.png")}
-              alt="company name"
-            />
+            
           </div>
-          <PreviewLogo />
           <div className="col-md-12 mt-3 mb-3">
             <h3
               style={{

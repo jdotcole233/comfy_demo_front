@@ -51,26 +51,20 @@ const LayerDebitNote = ({
       <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6"></div>
+          <PreviewLogo />
           <div
-            className="col-md-6 col-6"
+            className="col-md-12 col-12"
             style={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
             }}
           >
-            <img
-              width={100}
-              height={100}
-              src={require("../../../assets/logo.png")}
-              alt="company name"
-            />
             <p style={{ color: "#000" }}>
               Date: {moment().format("DD MMMM YYYY")}
             </p>
           </div>
-          <PreviewLogo />
           <div className="col-md-12">
             <address>
               {insurer?.insurer_company_name}, <br />
