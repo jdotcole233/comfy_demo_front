@@ -54,9 +54,10 @@ const ViewTreaty = () => {
   const [showSendDocs, setShowSendDocs] = useState(false);
 
   useEffect(() => {
-    if (state && !state.treaty_id) {
-      history.push("/admin/insurers");
+    if (!state) {
+      history.replace("/admin/insurers");
     }
+    console.log("State ID", state?.treaty_id);
   }, [state]);
 
   const { data, loading } = useQuery(TREATY, {
