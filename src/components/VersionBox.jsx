@@ -32,6 +32,7 @@ const OtherText = styled.h2`
   font-size: 1.2em;
   text-align: center;
   font-weight: bold;
+  margin: 0px 12px;
 `;
 
 export const Tagline = styled.div`
@@ -61,7 +62,7 @@ const VersionBox = () => {
       <LogoSide>
         <span
           style={{
-            border: "1px solid #878a88",
+            border: "0.5px solid #cfcdcc",
             padding: 10,
             overflow: "hidden",
             height: 120,
