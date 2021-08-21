@@ -21,6 +21,7 @@ const NonProportionalStatements = ({ treaty, reinsurer, layer }) => {
           >
             <option value="">Select ...</option>
             <option value="Credit Note">Credit Note</option>
+            {/* Shows only when the adjustment statement has been submitted successfully */}
             {adjustment_created && (
               <option value="Adjustment Statement">Adjustment Statement</option>
             )}
