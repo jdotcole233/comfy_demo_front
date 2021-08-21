@@ -4,6 +4,7 @@ import "./styles/preview.css";
 import { BASE_URL_LOCAL } from "../../graphql";
 import { getCurrencyFullName } from "../../components";
 import PreviewLogo from "../../components/PreviewLogo";
+import PDFDocument from "../../components/PDFDocument";
 
 function PreviewCoverNote({ offer }) {
   const showDate = (offer) => {
@@ -21,6 +22,11 @@ function PreviewCoverNote({ offer }) {
 
   return (
     <Fragment>
+      <PDFDocument
+        pdf={`${BASE_URL_LOCAL}/generate_placing_slip/${btoa(
+          JSON.stringify({ offer_id: offer?.offer_id })
+        )}`}
+      />
       <div className="row m-2 ">
         <a
           target="_blank"
@@ -37,7 +43,7 @@ function PreviewCoverNote({ offer }) {
         className="preview-card container-fluid  text-black bg-white"
       >
         <div className="row">
-            <PreviewLogo />
+          <PreviewLogo />
           <div className="col-md-12  mb-3">
             <h4
               style={{
