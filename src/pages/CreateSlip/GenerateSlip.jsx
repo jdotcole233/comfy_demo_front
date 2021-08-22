@@ -4,7 +4,7 @@ import "./styles/preview.css";
 import { BASE_URL_LOCAL } from "../../graphql";
 import { getCurrencyFullName } from "../../components";
 import PreviewLogo from "../../components/PreviewLogo";
-import PDFDocument from "../../components/PDFDocument";
+// import PDFDocument from "../../components/PDFDocument";
 
 function PreviewCoverNote({ offer }) {
   const showDate = (offer) => {
@@ -22,11 +22,11 @@ function PreviewCoverNote({ offer }) {
 
   return (
     <Fragment>
-      <PDFDocument
+      {/* <PDFDocument
         pdf={`${BASE_URL_LOCAL}/generate_placing_slip/${btoa(
           JSON.stringify({ offer_id: offer?.offer_id })
         )}`}
-      />
+      /> */}
       <div className="row m-2 ">
         <a
           target="_blank"
@@ -80,10 +80,10 @@ function PreviewCoverNote({ offer }) {
               </div>
             </div>
             <div className="row mb-2">
-              <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+              <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text">Reinsured:</h3>
               </div>
-              <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+              <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
                   {offer?.insurer.insurer_company_name}
                 </h3>
@@ -91,10 +91,10 @@ function PreviewCoverNote({ offer }) {
             </div>
             {offer?.offer_retrocedent && (
               <div className="row mb-2">
-                <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                   <h3 className="dark-text">Retrocedent:</h3>
                 </div>
-                <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                <div className="col-md-5 col-8 col-sm-8 col-xs-8">
                   <h3 className="dark-text-value">
                     {offer?.offer_retrocedent?.reinsurer?.re_company_name}
                   </h3>
