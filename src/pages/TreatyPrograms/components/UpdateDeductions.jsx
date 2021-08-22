@@ -49,8 +49,9 @@ function UpdateDeductions({
         participant_id: reinsurer?.treaty_participation_id,
         participating_percentage: reinsurer?.treaty_participation_percentage,
         treaty_participant_deduction_id:
-          reinsurer?.treaty_participant_deductions
-            ?.treaty_participant_deduction_id,
+          reinsurer?.treaty_participant_deductions?.map(
+            (el) => el.treaty_participant_deduction_id
+          ),
       }));
 
       setValues(__);
