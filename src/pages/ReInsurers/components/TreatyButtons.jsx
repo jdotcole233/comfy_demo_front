@@ -35,7 +35,7 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
         })
         ?.map((payment) => {
           const obj = JSON.parse(payment.participant_payment_details || "{}");
-          console.log(payment);
+          // console.log(payment);
           return {
             ...payment,
             type:

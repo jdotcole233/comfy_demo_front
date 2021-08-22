@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import OfferButtons from "./Offerbuttons";
 import f_dat from "../dummy";
-import { Datatable } from "../../../components";
 import _ from "lodash";
 import OfferListing from "../../CreateSlip/OfferListing";
 

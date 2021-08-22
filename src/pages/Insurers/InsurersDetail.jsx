@@ -7,19 +7,15 @@ import {
   Drawer,
   Datatable,
   Loader,
-  OverViewCard,
   generateNewCulumns,
 } from "../../components";
 import EditInsurer from "./EditInsurer";
-import f_dat, { managersColumn } from "./dummy";
+import { managersColumn } from "./dummy";
 import { useQuery } from "react-apollo";
 import { INSURER, INSURER_OFFERS } from "../../graphql/queries";
 import OfferButtons from "./components/Offerbuttons";
 import ManagerButtons from "./components/ManagerButtons";
 import BrokerageComponent from "./components/BrokerageComponent";
-import Reschedule from "./components/Reschedule";
-import OfferListing from "../CreateSlip/OfferListing";
-import { useMemo } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useInsurer } from "../../context/InsurerProvider";
 import { useDispatch, useSelector } from "react-redux";
@@ -77,7 +73,7 @@ function InsurerDetail() {
   });
 
   const [showInsurerProfile, setShowInsurerProfile] = useState(false);
-  const [rows, setRows] = useState([]);
+  const [, setRows] = useState([]);
   const [managers, setManagers] = useState([]);
 
   useEffect(() => {

@@ -12,7 +12,6 @@ import {
 } from "../../components";
 import { Select } from "../../components/Input";
 import { useForm } from "react-hook-form";
-import useLocalStorage from "../../hooks";
 import swal from "sweetalert";
 import { makeClaimPreview } from "./columns";
 import { useMutation } from "react-apollo";

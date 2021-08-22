@@ -15,7 +15,7 @@ import { INSURER } from "../../../graphql/queries";
 import styled from "styled-components";
 import { money } from "../../../utils";
 import { AiOutlineFileProtect } from "react-icons/ai";
-import _, { set } from "lodash";
+import _ from "lodash";
 import { mergeTwoArrays } from "../../TreatyPrograms/TreatyDebitNotes";
 import { cashBalance } from "../../TreatyPrograms/Previews/DebitNote";
 import currencies from "../../../assets/currencies.json";

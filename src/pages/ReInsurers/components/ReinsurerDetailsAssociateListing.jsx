@@ -1,5 +1,4 @@
 import React, { Fragment, useMemo } from "react";
-import { useSelector } from "react-redux";
 import { Datatable, generateNewCulumns } from "../../../components";
 import { useAuth } from "../../../context/AuthContext";
 import { associatesColumnns } from "../columns";

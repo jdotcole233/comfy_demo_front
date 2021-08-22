@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 const ReinsurerDetailOtherInfo = ({ reinsurer }) => {
   //   const reinsurer = useSelector((state) => state.reinsurer.reinsurer);

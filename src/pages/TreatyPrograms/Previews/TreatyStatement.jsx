@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useMemo, useState, useEffect } from "react";
+import React from "react";
 import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
@@ -14,17 +14,17 @@ const cashBalance = (grossPremium, commission, nic, wth) => {
   return result;
 };
 
-const getShare = (shares, participant_id, uuid) => {
-  const share = shares.find(
-    (el) =>
-      el.treaty_participationstreaty_participation_id === participant_id &&
-      el.uuid === uuid
-  );
-  if (share) {
-    return share;
-  }
-  return null;
-};
+// const getShare = (shares, participant_id, uuid) => {
+//   const share = shares.find(
+//     (el) =>
+//       el.treaty_participationstreaty_participation_id === participant_id &&
+//       el.uuid === uuid
+//   );
+//   if (share) {
+//     return share;
+//   }
+//   return null;
+// };
 
 const money = (value) =>
   value?.toLocaleString(undefined, { maximumFractionDigits: 2 });

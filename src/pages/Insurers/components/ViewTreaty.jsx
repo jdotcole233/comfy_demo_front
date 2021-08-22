@@ -33,7 +33,6 @@ import EffectedWithListing from "../../TreatyPrograms/components/EffectedWithLis
 import EffectedWithListingAssociates from "../../TreatyPrograms/components/EffectedWithListingAssociates";
 import _ from "lodash";
 import SendReinsurerDocuments from "./SendReinsurerDocuments";
-import { useInsurer } from "../../../context/InsurerProvider";
 import AddPErcentageModal from "./AddPErcentageModal";
 import SurplusListing from "./SurplusListing";
 import AdjustmentStatement from "./AdjustmentStatement";

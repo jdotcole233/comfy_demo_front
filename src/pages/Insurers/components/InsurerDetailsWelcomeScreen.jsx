@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import { Drawer } from "../../../components";
 import AddInsurer from "../AddInsurer";
-import { useInsurerProps } from "../providers/InsurerProvider";
 import Reschedule from "./Reschedule";
 
 const InsurerDetailsWelcomeScreen = ({ insurer }) => {
