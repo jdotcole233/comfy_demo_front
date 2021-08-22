@@ -142,6 +142,10 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
       closeOnClickOutside: false,
       closeOnEsc: false,
       icon: "warning",
+      text:
+        note?.treaty_p_payments?.length > 0
+          ? `${note?.treaty_p_payments?.length} payment(s) have been detected on this Quarter, Deleting it would remove all said payments. Do you want to proceed ?`
+          : ``,
       title: `Are you sure you want to delete this quarter?`,
       buttons: [
         "No",
@@ -188,6 +192,7 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
   return (
     <>
       <div className="col-md-3 ">
+        {/* {JSON.stringify(note)} */}
         <div className="card">
           <div
             style={{

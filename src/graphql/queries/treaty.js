@@ -282,6 +282,10 @@ query treaty($treaty_id: ID) {
         surpulus_uuid
         # Copied
       }
+
+      treaty_p_payments {
+        treaty_p_payment_id
+      }
       
       treaty_participant_deduction {
         treaty_participation_share
