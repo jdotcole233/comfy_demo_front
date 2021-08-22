@@ -4,7 +4,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useMutation } from "react-apollo";
 import swal from "sweetalert";
-import { Selector } from "../../../components";
+import { Selector, CurrencyOption } from "../../../components";
 import {
   MAKE_PROPORTIONAL_PAYMENT,
   UPDATE_PROPORTIONAL_TREATY_PAYMENT,
@@ -15,9 +15,10 @@ import { INSURER } from "../../../graphql/queries";
 import styled from "styled-components";
 import { money } from "../../../utils";
 import { AiOutlineFileProtect } from "react-icons/ai";
-import _ from "lodash";
+import _, { set } from "lodash";
 import { mergeTwoArrays } from "../../TreatyPrograms/TreatyDebitNotes";
 import { cashBalance } from "../../TreatyPrograms/Previews/DebitNote";
+import currencies from "../../../assets/currencies.json";
 
 const expectedAmount = ({
   treaty_account_deduction = [],
@@ -53,6 +54,10 @@ function ProportionalPaymentForm({
   const [selectdQuarter, setSelectdQuarter] = useState(null);
   const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0);
   const [amountError, setAmountError] = useState(false);
+  const [addExchangeRate, setAddExchangeRate] = useState(false);
+  const [newExpectedAmount, setNewExpectedAmount] = useState(0);
+
+  const [currency, setCurrency] = useState(null);
   const [form_inputs, setForm_inputs] = useState({
     payment_type: "",
     cheque_number: "",
@@ -78,7 +83,7 @@ function ProportionalPaymentForm({
             id: quarter?.treaty_account_id,
             expectedAmountToPay: expectedAmount({ ...treaty, ...quarter }),
             ...quarter,
-            outgoing_payment_staus: _.first(
+            outgoing_payment_staus: _.last(
               JSON.parse(treaty?.layer_limit ?? "[]")
             ).outgoing_payment_staus,
             surpluses: JSON.parse(treaty?.layer_limit ?? "[]")
@@ -86,6 +91,8 @@ function ProportionalPaymentForm({
               .join(","),
           },
         });
+        setAddExchangeRate(paymentDetails?.conversion?.addExchangeRate);
+        setCurrency(paymentDetails?.conversion?.currency);
         setForm_inputs({
           payment_type: paymentDetails.payment_type,
           cheque_number: paymentDetails.payment_from.cheque_number,
@@ -95,6 +102,8 @@ function ProportionalPaymentForm({
           payment_amount: edit.treaty_payment_amount,
           date_on_cheque: paymentDetails.payment_from.date_on_cheque,
           treaty_account_id: paymentDetails.uuid,
+          currency: paymentDetails?.conversion?.currency,
+          exchange_rate: parseFloat(paymentDetails?.conversion?.rate),
         });
       }
     }
@@ -131,10 +140,8 @@ function ProportionalPaymentForm({
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (
-      name === "payment_amount" &&
-      (value > expectedAmtToBePaid || value < 0)
-    ) {
+    const amt = addExchangeRate ? newExpectedAmount : expectedAmtToBePaid;
+    if (name === "payment_amount" && (value > amt || value < 0)) {
       setAmountError(true);
     } else {
       setAmountError(false);
@@ -147,10 +154,23 @@ function ProportionalPaymentForm({
 
   useEffect(() => {
     if (selectdQuarter) {
-      const sumOfPastPayments = payments.reduce(
-        (prev, curr) => prev + parseFloat(curr.treaty_payment_amount),
-        0
-      );
+      const sumOfPastPayments = payments.reduce((prev, curr) => {
+        // console.log("Cuerret", curr);
+        const details = JSON.parse(curr.treaty_payment_details);
+        const { conversion } = details;
+        if (edit.treaty_p_payment_id === curr.treaty_p_payment_id) {
+          console.log("Current", curr, edit);
+          return prev;
+        }
+        if (conversion && conversion.addExchangeRate) {
+          return (
+            prev +
+            parseFloat(curr.treaty_payment_amount) / parseFloat(conversion.rate)
+          );
+        }
+
+        return prev + parseFloat(curr.treaty_payment_amount);
+      }, 0);
       console.log(
         "Sum of payments",
         selectdQuarter?.value?.expectedAmountToPay
@@ -163,16 +183,16 @@ function ProportionalPaymentForm({
         ...prev,
         treaty_account_id: selectdQuarter.value.id,
       }));
-      if (
-        parseFloat(form_inputs.payment_amount) >
-        parseFloat(selectdQuarter?.value?.expectedAmountToPay)
-      ) {
+
+      const amt = addExchangeRate ? newExpectedAmount : _expected;
+
+      if (parseFloat(form_inputs.payment_amount) > parseFloat(amt)) {
         setAmountError(true);
       } else {
         setAmountError(false);
       }
     }
-  }, [selectdQuarter]);
+  }, [selectdQuarter, newExpectedAmount, addExchangeRate, edit]);
 
   const handleMakePayment = (event) => {
     event.preventDefault();
@@ -192,6 +212,11 @@ function ProportionalPaymentForm({
             : "N/A",
         },
         payment_to: form_inputs.beneficiary_bank_name,
+        conversion: {
+          rate: form_inputs.exchange_rate,
+          currency: form_inputs.currency,
+          addExchangeRate: addExchangeRate,
+        },
       }),
       payment_status:
         form_inputs.payment_amount === 0
@@ -240,6 +265,11 @@ function ProportionalPaymentForm({
             : "N/A",
         },
         payment_to: form_inputs.beneficiary_bank_name,
+        conversion: {
+          rate: form_inputs.exchange_rate,
+          currency: form_inputs.currency,
+          addExchangeRate: addExchangeRate,
+        },
       }),
       payment_status:
         form_inputs.payment_amount === 0
@@ -269,6 +299,27 @@ function ProportionalPaymentForm({
     });
   };
 
+  const handleExchangeRateChange = (value) => {
+    setForm_inputs((prev) => ({
+      ...prev,
+      exchange_rate: value,
+    }));
+  };
+
+  const handleCurrencyChange = (value) => {
+    setCurrency(value ? value.value.code : "");
+    setForm_inputs((prev) => ({
+      ...prev,
+      currency: value ? value.value.code : "",
+    }));
+  };
+
+  useEffect(() => {
+    if (expectedAmtToBePaid && addExchangeRate) {
+      setNewExpectedAmount(expectedAmtToBePaid * form_inputs?.exchange_rate);
+    }
+  }, [form_inputs, expectedAmtToBePaid, addExchangeRate]);
+
   return (
     <form
       onSubmit={(e) => {
@@ -294,6 +345,10 @@ function ProportionalPaymentForm({
         <SurplusBreakDown
           surplus={{ ...selectdQuarter?.value, ...selectdQuarter }}
           expectedAmtToPaid={expectedAmtToBePaid}
+          newExpectedAmount={newExpectedAmount}
+          addExchangeRate={addExchangeRate}
+          form_inputs={form_inputs}
+          currency={treaty?.currency}
         />
       )}
 
@@ -301,6 +356,61 @@ function ProportionalPaymentForm({
       {selectdQuarter && (
         <Fragment>
           <div className="row">
+            <div className="col-md-12">
+              <div className="form-check mb-3">
+                <input
+                  checked={addExchangeRate}
+                  type="checkbox"
+                  className="form-check-input"
+                  onChange={(e) => setAddExchangeRate(e.target.checked)}
+                />
+                <label className="form-check-label" htmlFor="exampleCheck1">
+                  Pay in differenct Currency
+                </label>
+              </div>
+            </div>
+            {addExchangeRate && (
+              <div className="col-md-12  ">
+                <div className="alert alert-info">
+                  <div className="form-group">
+                    <label htmlFor="">Select Currency</label>
+                    <Selector
+                      value={
+                        currency
+                          ? {
+                              label: Object.values(currencies).find(
+                                (eel) => eel.code === currency
+                              )?.name,
+                            }
+                          : ""
+                      }
+                      components={{ Option: CurrencyOption }}
+                      onChange={handleCurrencyChange}
+                      options={[
+                        ...Object.values(currencies).map((currency) => ({
+                          label: currency.name,
+                          value: currency,
+                        })),
+                      ]}
+                    />
+                  </div>
+                  {currency && (
+                    <div className="form-group">
+                      <label htmlFor="">Rate</label>
+                      <input
+                        value={form_inputs.exchange_rate}
+                        onChange={(e) =>
+                          handleExchangeRateChange(e.target.value)
+                        }
+                        type="number"
+                        step="any"
+                        className="form-control"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
             <div className="col-md-12">
               <label htmlFor="paymentype">Payment type</label>
               <select
@@ -413,7 +523,9 @@ function ProportionalPaymentForm({
                   {amountError && (
                     <p className="text-danger">
                       Please enter a value not less than 0 or greater than{" "}
-                      {expectedAmtToBePaid}
+                      {addExchangeRate
+                        ? newExpectedAmount
+                        : expectedAmtToBePaid}
                     </p>
                   )}
                 </div>
@@ -423,7 +535,7 @@ function ProportionalPaymentForm({
                   <label htmlFor="Currency">Currency</label>
                   <input
                     type="text"
-                    value={treaty?.currency}
+                    value={form_inputs?.currency ?? treaty?.currency}
                     className="form-control"
                     placeholder="Currency"
                     readOnly
@@ -469,7 +581,14 @@ const Text = styled.p`
   color: #a83236;
 `;
 
-const SurplusBreakDown = ({ surplus, expectedAmtToPaid }) => {
+const SurplusBreakDown = ({
+  surplus,
+  expectedAmtToPaid,
+  form_inputs,
+  addExchangeRate,
+  newExpectedAmount,
+  currency,
+}) => {
   return (
     <div className="alert mx-1 row  justify-content-center container alert-warning">
       <div className="col-md-2">
@@ -499,9 +618,23 @@ const SurplusBreakDown = ({ surplus, expectedAmtToPaid }) => {
                 <Text>Expected amount to pay </Text>
               </td>
               <td>
-                <Text>{money(expectedAmtToPaid)}</Text>
+                <Text>
+                  {currency} {money(expectedAmtToPaid)}
+                </Text>
               </td>
             </tr>
+            {addExchangeRate && form_inputs?.currency && (
+              <tr>
+                <td>
+                  <Text>New Expected Amount (payable) </Text>
+                </td>
+                <td>
+                  <Text>
+                    {form_inputs?.currency} {money(newExpectedAmount)}
+                  </Text>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
