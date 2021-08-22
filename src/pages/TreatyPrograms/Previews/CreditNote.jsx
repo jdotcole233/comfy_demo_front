@@ -4,7 +4,7 @@ import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
 import { getFlexibleName } from "../../Insurers/components/Note";
-import PreviewLogo from '../../../components/PreviewLogo'
+import PreviewLogo from "../../../components/PreviewLogo";
 
 const cashBalance = (grossPremium, commission, nic, wth) => {
   const result =
@@ -90,9 +90,7 @@ const CreditNote = ({
               justifyContent: "flex-end",
               alignItems: "flex-end",
             }}
-          >
-            
-          </div>
+          ></div>
           <div className="col-md-12 mt-3 mb-3">
             <h3
               style={{

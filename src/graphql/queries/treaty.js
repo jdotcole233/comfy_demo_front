@@ -330,6 +330,7 @@ query treaty($treaty_id: ID) {
         }
       treaty_participant_deductions {
           treaty_accountstreaty_account_id
+          treaty_participant_deduction_id
           uuid
           brokerage
           commission

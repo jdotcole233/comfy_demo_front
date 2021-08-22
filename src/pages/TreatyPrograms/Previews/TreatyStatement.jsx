@@ -14,17 +14,17 @@ const cashBalance = (grossPremium, commission, nic, wth) => {
   return result;
 };
 
-// const getShare = (shares, participant_id, uuid) => {
-//   const share = shares.find(
-//     (el) =>
-//       el.treaty_participationstreaty_participation_id === participant_id &&
-//       el.uuid === uuid
-//   );
-//   if (share) {
-//     return share;
-//   }
-//   return null;
-// };
+const getShare = (shares, participant_id, uuid) => {
+  const share = shares.find(
+    (el) =>
+      el.treaty_participationstreaty_participation_id === participant_id &&
+      el.uuid === uuid
+  );
+  if (share) {
+    return share;
+  }
+  return null;
+};
 
 const money = (value) =>
   value?.toLocaleString(undefined, { maximumFractionDigits: 2 });
@@ -34,47 +34,31 @@ const TreatyStatement = ({
   note = {},
   treaty = {},
   reinsurer = {},
-  share = {},
+  // share = {},
   isFleet,
   ...props
 }) => {
-  // const deduction = note?.treaty_account_deduction
-  // const [share, setShare] = useState(() =>
-  //   getShare(
-  //     note?.treaty_participant_deduction,
-  //     reinsurer?.treaty_participation_id,
-  //     surplus?.surpulus_uuid
-  //   )
-  // );
-
-  // useEffect(() => {
-  //   if (note && note.treaty_participant_deduction && surplus && reinsurer) {
-  //     console.log("note", note);
-  //     const _ = getShare(
-  //       note?.treaty_participant_deduction,
-  //       reinsurer?.treaty_participation_id,
-  //       surplus?.surpulus_uuid
-  //     );
-  //     setShare(_);
-  //   }
-  // }, [note, reinsurer, surplus]);
+  const share = getShare(
+    note?.treaty_participant_deduction,
+    reinsurer?.treaty_participation_id,
+    surplus?.surpulus_uuid
+  );
 
   const cashBal = cashBalance(
-    surplus?.gross_premium ?? 0,
-    share?.brokerage_amount ?? 0,
-    surplus?.commission_amount ?? 0,
-    note?.claim_settled ?? 0
+    surplus?.gross_premium,
+    share?.brokerage_amount,
+    share?.commission_amount,
+    note?.claim_settled
   );
-  // console.log("share", share);
-  const finalAmmount = share
-    ? parseFloat(share?.treaty_participation_share) -
-      (parseFloat(share?.nic_levy_amount) +
-        parseFloat(share?.withholding_tax_amount))
-    : 0;
+
+  const finalAmmount =
+    parseFloat(share?.treaty_participation_share) -
+    (parseFloat(share?.nic_levy_amount) +
+      parseFloat(share?.withholding_tax_amount));
 
   return (
     <>
-      {JSON.stringify(share)}
+      {/* {JSON.stringify(share)} */}
       <div className="row m-2">
         <a
           target="_blank"

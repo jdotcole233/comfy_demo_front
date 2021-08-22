@@ -2,13 +2,15 @@ import React from "react";
 import Note from "../Insurers/components/Note";
 
 export const mergeTwoArrays = (limits, surpluses) => {
-  return [
+  console.table(limits);
+  const data = [
     ...surpluses.map((el, id) => ({
       ...el,
       commission: limits.find((ll) => ll.surpulus_uuid === el.surpulus_uuid)
         ?.commission,
     })),
   ];
+  return data;
 };
 
 const TreatyDebitNotes = ({ notes, treaty_id, treaty, isProp }) => {

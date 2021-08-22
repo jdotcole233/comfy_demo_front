@@ -56,7 +56,7 @@ const Statements = ({ treaty, reinsurer }) => {
               >
                 <option value="">Select ...</option>
                 {treaty?.treaty_accounts?.map((note, key) => (
-                  <option value={note?.treaty_account_id}>
+                  <option key={key} value={note?.treaty_account_id}>
                     {getFlexibleName(note?.account_periods)}
                   </option>
                 ))}

@@ -48,6 +48,9 @@ function UpdateDeductions({
         name: reinsurer.company_name,
         participant_id: reinsurer?.treaty_participation_id,
         participating_percentage: reinsurer?.treaty_participation_percentage,
+        treaty_participant_deduction_id:
+          reinsurer?.treaty_participant_deductions
+            ?.treaty_participant_deduction_id,
       }));
 
       setValues(__);
@@ -76,7 +79,12 @@ function UpdateDeductions({
       .filter((el) => el.participating_percentage)
       .map((el) => ({
         participant_id: el.participant_id,
-        deductions: _.omit(el, ["participant_id", "name"]),
+        treaty_participant_deduction_id: el.treaty_participant_deduction_id,
+        deductions: _.omit(el, [
+          "participant_id",
+          "name",
+          "treaty_participant_deduction_id",
+        ]),
       }));
     const account_ids = treaty_accounts.map((el) => el?.treaty_account_id);
     const isProp = type === "PROPORTIONAL";
