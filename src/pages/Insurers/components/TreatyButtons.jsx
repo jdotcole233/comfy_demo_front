@@ -265,7 +265,7 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
           />
         ) : null}
 
-        {allParticipantsActive && (
+        {isProp && treaty?.treaty_accounts?.length > 0 && (
           <DropdownButton
             className="mr-1"
             variant="warning"
@@ -274,9 +274,40 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
             id="dropdown-basic-button"
             title={isProp ? "Payments" : "M&D Payments"}
           >
-            <Dropdown.Item onClick={togglePayments}>
-              View Payments
-            </Dropdown.Item>
+            {treaty?.treaty_p_payments.length > 0 && (
+              <Dropdown.Item onClick={togglePayments}>
+                View Payments
+              </Dropdown.Item>
+            )}
+
+            {showBtn && treaty?.treaty_payment_status !== "PAID" && (
+              <Dropdown.Item onClick={() => setShowAddPayment(true)}>
+                Make Payments
+              </Dropdown.Item>
+            )}
+            {!showBtn && (
+              <Dropdown.Item onClick={toggleDistributePayments}>
+                Distribute Payment
+              </Dropdown.Item>
+            )}
+          </DropdownButton>
+        )}
+
+        {!isProp && allParticipantsActive && (
+          <DropdownButton
+            className="mr-1"
+            variant="warning"
+            size="sm"
+            as={ButtonGroup}
+            id="dropdown-basic-button"
+            title={isProp ? "Payments" : "M&D Payments"}
+          >
+            {!isProp && treaty?.treaty_np_payments.length > 0 ? (
+              <Dropdown.Item onClick={togglePayments}>
+                View Payments
+              </Dropdown.Item>
+            ) : null}
+
             {showBtn && treaty?.treaty_payment_status !== "PAID" && (
               <Dropdown.Item onClick={() => setShowAddPayment(true)}>
                 Make Payments

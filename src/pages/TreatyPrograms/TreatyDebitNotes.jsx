@@ -2,7 +2,7 @@ import React from "react";
 import Note from "../Insurers/components/Note";
 
 export const mergeTwoArrays = (limits, surpluses) => {
-  console.table(limits);
+  // console.table(limits);
   const data = [
     ...surpluses.map((el, id) => ({
       ...el,
