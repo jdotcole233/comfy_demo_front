@@ -20,7 +20,12 @@ const toothStyles = {
   alignItems: "center",
 };
 
-const InsurerSendTreatyDebitNote = ({ isvisible, setDone, treaty }) => {
+const InsurerSendTreatyDebitNote = ({
+  isvisible,
+  setDone,
+  treaty,
+  selectedNotes,
+}) => {
   //   const { treaty } = useInsurer();
   const [showMailSender, setShowMailSender] = useState(false);
 
@@ -29,12 +34,12 @@ const InsurerSendTreatyDebitNote = ({ isvisible, setDone, treaty }) => {
     setShowMailSender(false);
   };
 
-  return (
+  return !isvisible ? null : (
     <Fragment>
       <Slide right when={isvisible}>
         <div className="insurer-debit-note-anim bg-warning" style={toothStyles}>
           <div style={{ lineHeight: 0, color: "#fff" }}>
-            Send selected Debit Note(s) ?
+            Send selected Debit Note(s) ? {selectedNotes?.length}
           </div>
           <div>
             <button

@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useQuery } from 'react-apollo';
+import { useQuery, useLazyQuery } from 'react-apollo';
 import { INSURERS } from '../graphql/queries';
 import useLocalStorage from '../hooks';
 import _ from 'lodash';
 import InsurerSendTreatyDebitNote from '../pages/Insurers/components/InsurerSendTreatyDebitNote';
-import { useLazyQuery } from '@apollo/client';
+// import { useLazyQuery } from '@apollo/client';
 import { TREATY } from '../graphql/queries/treaty';
 
 
@@ -35,7 +35,7 @@ export function InsurerProvider({ children }) {
 
     const treaty = useMemo(() => {
         if (treatyData) {
-            setTreaty(treaty.treaty_id);
+            setTreaty(treaty_id);
             return treatyData.treaty
         }
         return null
@@ -75,7 +75,7 @@ export function InsurerProvider({ children }) {
     return (
         <InsurerContext.Provider value={{ insurers, loading, associates, selectInsurer, insurer, chooseNote, clearNotes, selectedNotes }}>
             {children}
-            <InsurerSendTreatyDebitNote setDone={clearNotes} treaty={treaty} isvisible={selectedNotes.length > 0} />
+            <InsurerSendTreatyDebitNote setDone={clearNotes} treaty={treaty} selectedNotes={selectedNotes} isvisible={selectedNotes && selectedNotes.length > 0} />
         </InsurerContext.Provider>
     )
 }

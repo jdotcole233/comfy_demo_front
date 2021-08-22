@@ -104,7 +104,6 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
     ],
     onCompleted: () => {
       refetch().then(({ data: { insurer } }) => {
-        // console.log("Helloooooooooooooooooooooooooooooooo", insurer);
         dispatch({
           type: GET_INSURER,
           payload: insurer,
@@ -377,7 +376,16 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       <div className={styles.card_header}>
         <h2 className={styles.card_title}>Create Treaty</h2>
         <Alert variant="danger">
-          {/* <p>Deductions will be set for the full period of this treaty program. It will affect all computations on {treaty?.treaty_name}  </p> */}
+          <p>
+            Fill out the treaty form below to create either a Proportional or
+            Non-Proportional treaty.
+          </p>
+          <p>
+            {" "}
+            N.B. Deductions are set for a treaty period. Make sure the clock on
+            your personal pc is up to date to allow the system to auto-fill
+            treaty deductions (if pre-filled).
+          </p>
         </Alert>
         <fieldset className="border p-2 mb-2">
           <legend className={styles.details_title}>Insurer Description</legend>

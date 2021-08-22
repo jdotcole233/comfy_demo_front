@@ -2,8 +2,8 @@ import React from "react";
 // import { useSelector } from "react-redux";
 import { useInsurerProps } from "../providers/InsurerProvider";
 
-const InsurerDetailsOtherInfo = () => {
-  const { insurer } = useInsurerProps();
+const InsurerDetailsOtherInfo = ({ insurer }) => {
+  // const { insurer } = useInsurerProps();
   return (
     <div className="card">
       <div className="card-body">

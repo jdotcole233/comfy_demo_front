@@ -31,6 +31,8 @@ import InsurerDetailsStatsFac from "./components/InsurerDetailsStatsFac";
 import InsurerDetailsStatsTreaty from "./components/InsurerDetailsStatsTreaty";
 import InsurerStatsFac from "./subComponents/InsurerStatsFac";
 import InsurerStatsTreaty from "./subComponents/InsurerStatsTreaty";
+import InsurerDetailsWelcomeScreen from "./components/InsurerDetailsWelcomeScreen";
+import InsurerDetailsOtherInfo from "./components/InsurerDetailsOtherInfo";
 
 const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
@@ -390,102 +392,8 @@ function InsurerDetail() {
 
         <div className="row">
           <div className="col-xl-4">
-            <div className="card overflow-hidden">
-              <div className="bg-soft-primary">
-                <div className="row">
-                  <div className="col-7">
-                    <div className="text-primary p-3">
-                      <h5 className="text-primary">Welcome Back !</h5>
-                      <p>It will seem like simplified</p>
-                    </div>
-                  </div>
-                  <div className="col-5 align-self-end">
-                    <img
-                      src="/assets/images/profile-img.png"
-                      alt=""
-                      className="img-fluid"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="card-body pt-0">
-                <div className="row">
-                  <div className="col-sm-4">
-                    <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                      <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
-                        {insurer?.insurer.insurer_abbrv}
-                      </span>
-                    </div>
-                    <h5 className="font-size-15 text-truncate">
-                      {insurer?.insurer.insurer_company_name}
-                    </h5>
-                  </div>
-
-                  <div className="col-sm-8">
-                    <div className="pt-4">
-                      <div className="row">
-                        <div className="col-6">
-                          <h5 className="font-size-15">
-                            {insurer?.insurer.offers.length}
-                          </h5>
-                          <p className="text-muted mb-0">Offers</p>
-                        </div>
-                        <div className="col-6">
-                          <h5 className="font-size-15">
-                            {insurer?.insurer.insurer_overview?.total_paid}
-                          </h5>
-                          <p className="text-muted mb-0">Paid</p>
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <button
-                          onClick={() =>
-                            setShowInsurerProfile(!showInsurerProfile)
-                          }
-                          className="btn btn-primary waves-effect waves-light btn-sm mr-1"
-                        >
-                          View Profile{" "}
-                          <i className="mdi mdi-arrow-right ml-1"></i>
-                        </button>
-                        <Reschedule
-                          id={state?.insurer_id}
-                          remainders={insurer?.insurer.remainders}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title mb-4">Other Information</h4>
-
-                <div className="table-responsive">
-                  <table className="table table-nowrap mb-0">
-                    <tbody>
-                      <tr>
-                        <th scope="row">Region:</th>
-                        <td>{insurer?.insurer.insurer_address.region}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">City :</th>
-                        <td>{insurer?.insurer.insurer_address.suburb}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">E-mail :</th>
-                        <td>{insurer?.insurer.insurer_company_email}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Website :</th>
-                        <td>{insurer?.insurer.insurer_company_website}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+            <InsurerDetailsWelcomeScreen insurer={insurer?.insurer} />
+            <InsurerDetailsOtherInfo insurer={insurer?.insurer} />
           </div>
 
           <div className="col-xl-8">

@@ -5,15 +5,16 @@ import AddInsurer from "../AddInsurer";
 import { useInsurerProps } from "../providers/InsurerProvider";
 import Reschedule from "./Reschedule";
 
-const InsurerDetailsWelcomeScreen = () => {
+const InsurerDetailsWelcomeScreen = ({ insurer }) => {
   const [showInsurerProfile, setShowInsurerProfile] = useState(false);
   const { type } = useSelector((state) => state.insurer);
-  const { insurer } = useInsurerProps();
+  // const { insurer } = useInsurerProps();
 
   const isFac = type === "Fac";
 
   return (
     <Fragment>
+      {/* {JSON.stringify(insurer)} */}
       <div className="card overflow-hidden">
         <div className="bg-soft-primary">
           <div className="row">
