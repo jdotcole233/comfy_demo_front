@@ -15,10 +15,12 @@ const cashBalance = (grossPremium, commission, nic, wth) => {
 };
 
 const getShare = (shares, participant_id, uuid) => {
+  // console.log("shares", shares);
+  console.log("participant_id", participant_id);
+  console.log("uuid", uuid);
   const share = shares.find(
     (el) =>
-      el.treaty_participationstreaty_participation_id === participant_id &&
-      el.uuid === uuid
+      el.treaty_accountstreaty_account_id === participant_id && el.uuid === uuid
   );
   if (share) {
     return share;
@@ -39,10 +41,11 @@ const TreatyStatement = ({
   ...props
 }) => {
   const share = getShare(
-    note?.treaty_participant_deduction,
-    reinsurer?.treaty_participation_id,
+    reinsurer?.treaty_participant_deductions,
+    note?.treaty_account_id,
     surplus?.surpulus_uuid
   );
+  // console.log("Share", share);
 
   const cashBal = cashBalance(
     surplus?.gross_premium,
@@ -91,12 +94,7 @@ const TreatyStatement = ({
               alignItems: "center",
             }}
           >
-            <img
-              width={100}
-              height={100}
-              src={require("../../../assets/logo.png")}
-              alt="company name"
-            />
+            {/*  */}
           </div>
           <PreviewLogo />
           <div className="col-md-12 mt-3 mb-3">
@@ -190,7 +188,7 @@ const TreatyStatement = ({
             </div>
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">Commission {surplus.commission}%:</h3>
+                <h3 className="dark-text">Commission {share.commission}%:</h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
@@ -201,9 +199,7 @@ const TreatyStatement = ({
 
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">
-                  Brokerage {treaty?.treaty_deduction.brokerage}%:
-                </h3>
+                <h3 className="dark-text">Brokerage {share?.brokerage}%:</h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
@@ -248,7 +244,7 @@ const TreatyStatement = ({
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-xs-4">
                 <h3 className="dark-text">
-                  NIC Contribution {treaty?.treaty_deduction.nic_levy}%:
+                  NIC Contribution {share?.nic_levy}%:
                 </h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
@@ -260,7 +256,7 @@ const TreatyStatement = ({
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-xs-4">
                 <h3 className="dark-text">
-                  Withholding Tax {treaty?.treaty_deduction.withholding_tax}%:
+                  Withholding Tax {share?.withholding_tax}%:
                 </h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">

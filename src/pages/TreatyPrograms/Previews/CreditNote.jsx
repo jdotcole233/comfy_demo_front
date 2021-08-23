@@ -16,8 +16,7 @@ const cashBalance = (grossPremium, commission, nic, wth) => {
 const getShare = (shares, participant_id, uuid) => {
   const share = shares.find(
     (el) =>
-      el.treaty_participationstreaty_participation_id === participant_id &&
-      el.uuid === uuid
+      el.treaty_accountstreaty_account_id === participant_id && el.uuid === uuid
   );
   if (share) {
     return share;
@@ -38,10 +37,11 @@ const CreditNote = ({
 }) => {
   // const deduction = note?.treaty_account_deduction
   const share = getShare(
-    note?.treaty_participant_deduction,
-    reinsurer?.treaty_participation_id,
+    reinsurer?.treaty_participant_deductions,
+    note?.treaty_account_id,
     surplus?.surpulus_uuid
   );
+  // console.log("Share", share);
 
   const cashBal = cashBalance(
     surplus?.gross_premium,
@@ -182,9 +182,7 @@ const CreditNote = ({
             </div>
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">
-                  Commission {treaty?.treaty_deduction.commission}%:
-                </h3>
+                <h3 className="dark-text">Commission {share?.commission}%:</h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
@@ -195,9 +193,7 @@ const CreditNote = ({
 
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">
-                  Brokerage {treaty?.treaty_deduction.brokerage}%:
-                </h3>
+                <h3 className="dark-text">Brokerage {share?.brokerage}%:</h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
@@ -242,7 +238,7 @@ const CreditNote = ({
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-xs-4">
                 <h3 className="dark-text">
-                  NIC Contribution {treaty?.treaty_deduction.nic_levy}%:
+                  NIC Contribution {share?.nic_levy}%:
                 </h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
@@ -254,7 +250,7 @@ const CreditNote = ({
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-xs-4">
                 <h3 className="dark-text">
-                  Withholding Tax {treaty?.treaty_deduction.withholding_tax}%:
+                  Withholding Tax {share?.withholding_tax}%:
                 </h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
