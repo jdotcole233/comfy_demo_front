@@ -4,7 +4,7 @@ export default [
         field: "device_ip",
     },
     {
-        label: "Device",
+        label: "User Agent",
         field: "device_type",
         width: 200
     },
@@ -26,14 +26,14 @@ export default [
 export const columns = [
     {
         label: "Employee",
-        field: "device_ip",
+        field: "employee",
     },
     {
         label: "Device IP",
         field: "device_ip",
     },
     {
-        label: "Device",
+        label: "User Agent",
         field: "device_type",
         width: 200
     },

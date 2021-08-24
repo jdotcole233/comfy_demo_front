@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import swall from "sweetalert2";
 import { useMutation } from "react-apollo";
 import {
@@ -12,6 +12,7 @@ import swal from "sweetalert";
 import { useState } from "react";
 import { Datatable, Modal } from "../../components";
 import columns from "./columns";
+import _ from "lodash";
 
 export default function Employees({ data, openViewEmployee }) {
   const [showLOgs, setShowLOgs] = useState(false);
@@ -76,6 +77,53 @@ export default function Employees({ data, openViewEmployee }) {
       .catch((err) => swall.fire("Whoops!!", "Something went wrong", "error"));
   };
 
+  const ips = data.log_activities.map(
+    (el) => _.pick(el, ["device_ip"]).device_ip
+  );
+  const mostFrequest = ips
+    .sort(
+      (a, b) =>
+        ips.filter((v) => v === a).length - ips.filter((v) => v === b).length
+    )
+    .pop();
+
+  const logs = useMemo(() => {
+    if (data) {
+      return data.log_activities?.map((log, logIndex) => {
+        return {
+          ...log,
+          device_ip: (
+            <span
+              className={`${
+                logIndex + 1 < data.log_activities.length &&
+                mostFrequest === log.device_ip
+                  ? "bg-success"
+                  : "bg-danger"
+              } text-white p-2`}
+            >
+              {log.device_ip}
+            </span>
+          ),
+          created_at: (
+            <span
+              className={`${
+                logIndex + 1 < data.log_activities.length &&
+                mostFrequest === log.device_ip
+                  ? "bg-success"
+                  : "bg-danger"
+              } text-white p-2`}
+            >
+              {new Date(log.created_at).toLocaleString()}
+            </span>
+          ),
+        };
+      });
+    }
+    return [];
+  }, [data]);
+
+  const groupedIps = _.groupBy(data.log_activities, "device_ip");
+
   return (
     <Fragment>
       <div className="col-xl-4 col-sm-6">
@@ -125,6 +173,7 @@ export default function Employees({ data, openViewEmployee }) {
               </div>
             </div>
           </div>
+          {/* {JSON.stringify(Object.keys(groupedIps))} */}
           <div className="card-footer bg-transparent border-top">
             <div className="contact-links d-flex font-size-20">
               <div
@@ -176,12 +225,41 @@ export default function Employees({ data, openViewEmployee }) {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            Activity Logs for {data.employee_first_name}{" "}
-            {data.employee_last_name}
+            Access Logs for {data.employee_first_name} {data.employee_last_name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Datatable columns={columns} data={data ? data.log_activities : []} />
+          <div className="row mb-4">
+            <div className="col-md-12">
+              <span className="p-2 badge-success text-white badge badge-pill">
+                Frequently Logged location{" "}
+                {groupedIps[mostFrequest]?.length ?? 0}
+              </span>
+              <span className="p-2 badge-danger text-white ml-2 badge badge-pill">
+                Less Frequent logged Location{" "}
+                {Object.keys(groupedIps).reduce(
+                  (a, b) => a + groupedIps[b].length,
+                  0
+                )
+                  ? Object.keys(groupedIps).reduce(
+                      (a, b) => a + groupedIps[b].length,
+                      0
+                    ) - groupedIps[mostFrequest]?.length
+                  : 0}
+              </span>
+            </div>
+            <div className="col-md-12 p-3">
+              <span>Total Logs: {data.log_activities?.length}</span>
+            </div>
+            {/* {Object.keys(groupedIps).map((el) => (
+              <div className="col-md-12">
+                <span>
+                  {el}: {groupedIps[el].length}
+                </span>
+              </div>
+            ))} */}
+          </div>
+          <Datatable entries={5} columns={columns} data={logs} />
         </Modal.Body>
       </Modal>
     </Fragment>

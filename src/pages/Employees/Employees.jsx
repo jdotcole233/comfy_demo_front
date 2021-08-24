@@ -82,10 +82,10 @@ export default () => {
             <div className="row">
               <div className="col-md-6">
                 <h3>Employees</h3>
-                <EmployeesActivityLogs />
+                <EmployeesActivityLogs employees={employees} />
               </div>
               <div
-                className="col-md-6"
+                className="col-md-6 d-flex align-items-center"
                 style={{ display: "flex", justifyContent: "flex-end" }}
               >
                 <button

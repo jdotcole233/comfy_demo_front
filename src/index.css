@@ -382,3 +382,7 @@ td {
   margin-right: 5px;
   width: 50%;
 }
+
+.pointer {
+  cursor: pointer;
+}
