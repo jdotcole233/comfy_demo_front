@@ -5,7 +5,7 @@ import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
 import { getFlexibleName } from "../../Insurers/components/Note";
 import { toPosition } from "../../../utils";
-import PreviewLogo from '../../../components/PreviewLogo'
+import PreviewLogo from "../../../components/PreviewLogo";
 
 export const cashBalance = (
   grossPremium,
@@ -66,9 +66,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            
-          </div>
+          ></div>
           <div className="col-md-12 mt-3 mb-3">
             <h3
               style={{

@@ -120,7 +120,7 @@ export default function Employees({ data, openViewEmployee }) {
       });
     }
     return [];
-  }, [data]);
+  }, [data, mostFrequest]);
 
   const groupedIps = _.groupBy(data.log_activities, "device_ip");
 

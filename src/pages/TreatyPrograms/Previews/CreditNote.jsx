@@ -35,13 +35,11 @@ const CreditNote = ({
   isFleet,
   ...props
 }) => {
-  // const deduction = note?.treaty_account_deduction
   const share = getShare(
     reinsurer?.treaty_participant_deductions,
     note?.treaty_account_id,
     surplus?.surpulus_uuid
   );
-  // console.log("Share", share);
 
   const cashBal = cashBalance(
     surplus?.gross_premium,
