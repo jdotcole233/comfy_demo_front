@@ -59,6 +59,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             )}
           </div>
           <PreviewLogo />
+          {JSON.stringify(surplus)}
           <div
             className="col-md-6 col-6"
             style={{
