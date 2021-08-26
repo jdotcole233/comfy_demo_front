@@ -363,17 +363,18 @@ const ViewTreaty = () => {
           : 0);
     } else {
       availablePercenatge =
-        100 -
         remainingPercentages[`${currentLayer}`] -
         (selectedReinsurer.treaty_participation_percentage
           ? parseFloat(selectedReinsurer.treaty_participation_percentage)
           : 0);
+      availablePercenatge = 100 - availablePercenatge;
     }
+    // console.log(availablePercenatge);
     if (parseFloat(value) <= parseFloat(availablePercenatge).toFixed(5)) {
       setPercentage(value);
       setPercentageErrorEntry(false);
     } else {
-      setPercentage("");
+      setPercentage(selectedReinsurer?.treaty_participation_percentag);
       setPercentageErrorEntry(true);
     }
     // setPercentage(value);
@@ -472,6 +473,15 @@ const ViewTreaty = () => {
     return [];
   }, [data]);
 
+  const allowAdjustment = useMemo(() => {
+    if (data && data.treaty && data.treaty.treaty_participants?.length > 0) {
+      return data?.treaty?.treaty_participants?.every(
+        (el) => el.treaty_participation_percentage
+      );
+    }
+    return false;
+  }, [data]);
+
   if (loading) {
     return <Loader />;
   }
@@ -517,7 +527,9 @@ const ViewTreaty = () => {
           </div>
           <div className="col-xl-8">
             <div className="row d-flex align-items-stretch">
-              <div className="col-md-6">
+              <div
+                className={`col-md-${isProp && !allowAdjustment ? "12" : "6"}`}
+              >
                 <div className="card mini-stats-wid">
                   <div className="card-body">
                     <div className="media">
@@ -537,7 +549,9 @@ const ViewTreaty = () => {
                   </div>
                 </div>
               </div>
-              {!isProp && <AdjustmentStatement {...data?.treaty} />}
+              {!isProp && allowAdjustment && (
+                <AdjustmentStatement {...data?.treaty} />
+              )}
               <AddQuarter
                 isProp={isProp}
                 remainingPercentage={remainingPercentages[`${currentLayer}`]}

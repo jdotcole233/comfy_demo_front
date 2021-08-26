@@ -1,6 +1,5 @@
 /* eslint-disable no-throw-literal */
 import JoditEditor from "jodit-react";
-import { includes } from "lodash-es";
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "react-apollo";
 import { Alert } from "react-bootstrap";

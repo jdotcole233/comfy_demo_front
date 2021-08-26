@@ -6,7 +6,7 @@ import _ from "lodash";
 const EmployeesActivityLogs = ({ employees = [] }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const mixedEmployees = () => {};
+  // const mixedEmployees = () => {};
 
   const logs = useMemo(() => {
     if (employees) {
