@@ -39,7 +39,7 @@ const InsurerSendTreatyDebitNote = ({
       <Slide right when={isvisible}>
         <div className="insurer-debit-note-anim bg-warning" style={toothStyles}>
           <div style={{ lineHeight: 0, color: "#fff" }}>
-            Send selected Debit Note(s) ? {selectedNotes?.length}
+            Send selected Debit Note(s) ?
           </div>
           <div>
             <button
@@ -60,6 +60,7 @@ const InsurerSendTreatyDebitNote = ({
           <SendSelectedDebitNotes
             treaty_id={treaty?.treaty_id}
             toggle={handleClose}
+            treaty={treaty}
           />
         )}
       </Drawer>

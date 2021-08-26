@@ -149,7 +149,7 @@ const NewTreaty = (props) => {
           <input
             name="name"
             value={treaty_name}
-            onChange={(e) => setTreaty_name(e.target.value)}
+            onChange={(e) => setTreaty_name(e.target.value.trim())}
             type="text"
             className="form-control"
             placeholder="Treaty Name"

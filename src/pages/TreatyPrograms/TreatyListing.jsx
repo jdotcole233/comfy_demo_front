@@ -37,7 +37,7 @@ const TreatyListing = () => {
       </div>
       <div className="mt-3 row d-flex">
         {pages[activePage]?.map((_, index) => (
-          <Treaty treaty={_} />
+          <Treaty key={index} treaty={_} />
         ))}
       </div>
       <Pagination

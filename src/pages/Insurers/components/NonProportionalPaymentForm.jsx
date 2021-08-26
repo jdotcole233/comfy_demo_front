@@ -52,6 +52,7 @@ function NonProportionalPaymentForm({
   const [amountError, setAmountError] = useState(false);
   const [addExchangeRate, setAddExchangeRate] = useState(false);
   const [newExpectedAmount, setNewExpectedAmount] = useState(0);
+  const [auto_payment_receipt, setAuto_payment_receipt] = useState(false);
 
   const [currency, setCurrency] = useState(null);
   const [form_inputs, setForm_inputs] = useState({
@@ -138,6 +139,7 @@ function NonProportionalPaymentForm({
     const amt = addExchangeRate ? newExpectedAmount : expectedAmtToBePaid;
     const data = {
       payment_amount: form_inputs.payment_amount,
+      auto_payment_receipt: auto_payment_receipt,
       installment_type: form_inputs.installment_type,
       uuid: form_inputs.treaty_account_id,
       treaty_id: treaty?.treaty_id,
@@ -192,6 +194,7 @@ function NonProportionalPaymentForm({
     const data = {
       payment_id: edit?.treaty_n_p_payment_id,
       payment_amount: form_inputs.payment_amount,
+      auto_payment_receipt: auto_payment_receipt,
       installment_type: form_inputs.installment_type,
       uuid: form_inputs.treaty_account_id,
       treaty_id: treaty?.treaty_id,
@@ -558,6 +561,21 @@ function NonProportionalPaymentForm({
               </div>
             </div>
           </fieldset>
+          <div className="row mt-2">
+            <div className="col-md-12">
+              <div className="form-check mb-3">
+                <input
+                  checked={auto_payment_receipt}
+                  type="checkbox"
+                  className="form-check-input"
+                  onChange={(e) => setAuto_payment_receipt(e.target.checked)}
+                />
+                <label className="form-check-label" htmlFor="exampleCheck1">
+                  Auto send receipt
+                </label>
+              </div>
+            </div>
+          </div>
         </Fragment>
       )}
       {selectdQuarter && (

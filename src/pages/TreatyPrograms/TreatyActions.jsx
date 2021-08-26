@@ -78,7 +78,7 @@ const TreatyActions = ({ treaty }) => {
         toggle={() => setDeletePrompt((prev) => !prev)}
       >
         <DeleteTreaty
-          onClose={() => setDeletePrompt((prev) => !prev)}
+          onClose={() => setDeletePrompt(false)}
           id={treaty?.treaty_program_id}
         />
       </Prompt>

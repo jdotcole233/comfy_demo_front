@@ -12,7 +12,7 @@ const DeleteTreaty = ({ onClose, id }) => {
   const onRemove = () => {
     remove()
       .then((res) => {
-        onclose();
+        onClose && onClose();
       })
       .catch((err) => {});
   };

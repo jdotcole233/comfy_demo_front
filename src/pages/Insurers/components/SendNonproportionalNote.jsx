@@ -37,6 +37,7 @@ function SendNonproportionalNote({
   const [inputvalue, setInputvalue] = useState("");
   const [copiedMails, setCopiedMails] = useState([]);
   const [selectedableEmail, setSelectedableEmail] = useState([]);
+  const { data: treaty } = useQuery(TREATY, { variables: { treaty_id } });
   const [include_attachment] = useState(false);
   const { data: employees, loading } = useQuery(EMPLOYEES);
 
@@ -141,10 +142,9 @@ function SendNonproportionalNote({
       </div>
 
       <Alert variant="danger">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-        mollitia numquam veniam ipsum ab eveniet dolore animi, in optio aut esse
-        unde quidem. Tempora facere ipsam reiciendis fugiat, possimus
-        distinctio!
+        This session will send Copies of Limit layer {layer} Debit Notes along
+        with any attachments to {treaty?.treaty?.treaty_to_associates?.length}{" "}
+        associates {treaty?.treaty?.insurer?.insurer_company_name}
       </Alert>
 
       <form

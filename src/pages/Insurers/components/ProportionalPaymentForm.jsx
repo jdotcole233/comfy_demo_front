@@ -56,6 +56,7 @@ function ProportionalPaymentForm({
   const [amountError, setAmountError] = useState(false);
   const [addExchangeRate, setAddExchangeRate] = useState(false);
   const [newExpectedAmount, setNewExpectedAmount] = useState(0);
+  const [auto_payment_receipt, setAuto_payment_receipt] = useState(false);
 
   const [currency, setCurrency] = useState(null);
   const [form_inputs, setForm_inputs] = useState({
@@ -198,6 +199,7 @@ function ProportionalPaymentForm({
     event.preventDefault();
     const input = {
       payment_amount: form_inputs.payment_amount,
+      auto_payment_receipt,
       treaty_account_id: form_inputs.treaty_account_id,
       treaty_id: treaty?.treaty_id,
       payment_details: JSON.stringify({
@@ -557,6 +559,21 @@ function ProportionalPaymentForm({
               </div>
             </div>
           </fieldset>
+          <div className="row mt-2">
+            <div className="col-md-12">
+              <div className="form-check mb-3">
+                <input
+                  checked={auto_payment_receipt}
+                  type="checkbox"
+                  className="form-check-input"
+                  onChange={(e) => setAuto_payment_receipt(e.target.checked)}
+                />
+                <label className="form-check-label" htmlFor="exampleCheck1">
+                  Auto send receipt
+                </label>
+              </div>
+            </div>
+          </div>
         </Fragment>
       )}
       {selectdQuarter && (

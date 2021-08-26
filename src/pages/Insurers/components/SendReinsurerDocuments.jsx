@@ -216,7 +216,15 @@ const SendReinsurerDocuments = ({
           </h2>
         </div>
       </div>
-      <div className="alert alert-danger p-2"></div>
+      {!isProp && (
+        <div className="alert alert-danger p-2">
+          <p>
+            This session will send Copy of Credit Notes along with any
+            attachments to {treaty?.treaty_to_associates?.length} associates{" "}
+            {reinsurer?.reinsurer?.re_company_name}
+          </p>
+        </div>
+      )}
       {isProp && (
         <div className="card">
           <div className="card-body">
@@ -234,6 +242,7 @@ const SendReinsurerDocuments = ({
                     onChange={(e) => chooseDoc(e.target.value)}
                     className="form-control"
                     name="statement_type"
+                    ref={register({ required: "Required" })}
                     id="statement_type"
                   >
                     <option value="">Select ...</option>
@@ -246,6 +255,11 @@ const SendReinsurerDocuments = ({
                       </option>
                     )}
                   </select>
+                  {errors.statement_type && (
+                    <p className="text-danger">
+                      {errors.statement_type.message}
+                    </p>
+                  )}
                 </div>
               </div>
               {docType[0] !== "Portfolio Statement" && (
@@ -256,7 +270,8 @@ const SendReinsurerDocuments = ({
                       //   disabled={docType.includes("0") || docType.includes("1")}
                       onChange={(e) => chooseNote(e.target.value)}
                       className="form-control"
-                      name="statement_type"
+                      ref={register({ required: "Required" })}
+                      name="quarter"
                       id="statement_type"
                     >
                       <option value="">Select ...</option>
@@ -267,6 +282,9 @@ const SendReinsurerDocuments = ({
                         </option>
                       ))}
                     </select>
+                    {errors.quarter && (
+                      <p className="text-danger">{errors.quarter.message}</p>
+                    )}
                   </div>
                 </div>
               )}

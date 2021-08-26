@@ -1,5 +1,6 @@
 /* eslint-disable no-throw-literal */
 import JoditEditor from "jodit-react";
+import { includes } from "lodash-es";
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "react-apollo";
 import { Alert } from "react-bootstrap";
@@ -16,8 +17,9 @@ import {
   createOption,
 } from "../../CreateSlip/CreateBroadcastEmail";
 import styles from "../styles/ViewInsurerOffer.module.css";
+import { getFlexibleName } from "./Note";
 
-export default function SendNote({ treaty_id, toggle }) {
+export default function SendNote({ treaty, toggle }) {
   const { register, errors, handleSubmit, setError, clearError, reset } =
     useForm();
   const { state } = useLocation();
@@ -34,6 +36,9 @@ export default function SendNote({ treaty_id, toggle }) {
   const [copiedMails, setCopiedMails] = useState([]);
   const [selectedableEmail, setSelectedableEmail] = useState([]);
   const { data: employees, loading } = useQuery(EMPLOYEES);
+  const { data: treatyData } = useQuery(TREATY, {
+    variables: { treaty_id: state?.treaty_id },
+  });
 
   useEffect(() => {
     if (employees) {
@@ -135,17 +140,31 @@ export default function SendNote({ treaty_id, toggle }) {
     }
   };
 
+  const printAccountName = (account) => {
+    if (selectedNotes.includes(account?.treaty_account_id)) {
+      return getFlexibleName(account.account_periods);
+    }
+    return null;
+  };
+
   return (
     <div>
       <div className={styles.card_header}>
-        <h2 className={styles.card_title}>Send Debit Note(s)</h2>
+        <h2 className={styles.card_title}>Proportional Debit Note Compose</h2>
       </div>
-      <Alert variant="danger"></Alert>
+      <Alert variant="danger">
+        This session will send Copies of{" "}
+        {treatyData.treaty?.treaty_accounts?.map((el) => printAccountName(el))}{" "}
+        Debit Note(s) along with any attachments to{" "}
+        {treatyData?.treaty?.treaty_to_associates?.length} associates{" "}
+        {treatyData?.treaty?.insurer?.insurer_company_name}
+      </Alert>
       {/* Mail Side */}
       <form
         onSubmit={handleSubmit(handleSubmitSendMail)}
         className={styles.card_body}
       >
+        {/* {JSON.stringify(treatyData.treaty?.treaty_accounts)} */}
         <div className="form-group row mb-4">
           <label htmlFor="taskname" className="col-form-label col-lg-2">
             Subject
