@@ -9,10 +9,11 @@
 /coverage
 
 #development
-/config/
+/config
 
 # production
 /build
+/src/graphql/config.js
 
 # misc
 .DS_Store

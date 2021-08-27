@@ -1,15 +1,16 @@
 import React from "react";
 import SettingsCard from "./components/SettingsCard";
-import { clients, dashboard, offers, others } from "./../../layout/adminRoutes";
+import { clients, offers, others } from "./../../layout/adminRoutes";
 
-const AllocateSettings = () => {
-  const routes = [...dashboard, ...offers, ...clients, ...others];
-
+const AllocateSettings = ({ role }) => {
+  const routes = [...offers, ...clients, ...others];
+  // const privileges = JSON.parse(role?.privileges ?? "[]");
   return (
     <div>
       {routes.map(({ name, icon, functionalities }, id) => (
         <SettingsCard
           functionalities={functionalities}
+          // active={privileges.includes(name)}
           icon={icon}
           name={name}
           key={id}

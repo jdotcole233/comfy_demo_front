@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Loader } from "components";
+import { USER_ROLES } from "graphql/queries/settings";
 import React from "react";
+import { useQuery } from "react-apollo";
 import AddRole from "./components/AddRole";
 import PagePermissionItem from "./components/PagePermissionItem";
 import PagePermissionsHead from "./components/PagePermissionsHead";
@@ -7,6 +10,15 @@ import TestSms from "./components/TestSms";
 import UpdateCurrencyCharges from "./components/UpdateCurrencyCharges";
 
 const Settings = () => {
+  const { data: roles, loading } = useQuery(USER_ROLES);
+
+  if (loading)
+    return (
+      <div className="page-content">
+        <Loader />
+      </div>
+    );
+
   return (
     <div className="page-content">
       <div className="container-fluid">
@@ -67,11 +79,10 @@ const Settings = () => {
               <h3>Roles</h3>
             </div>
             <div
-              className="col-md-6"
+              className="col-md-6 d-flex align-items-center"
               style={{ display: "flex", justifyContent: "flex-end" }}
             >
               <AddRole />
-              {/* <UpdateCurrencyCharges /> */}
             </div>
           </div>
         </div>
@@ -81,11 +92,13 @@ const Settings = () => {
             <table className="project-list-table table-nowrap table-centered table-borderless table">
               <PagePermissionsHead />
               <tbody>
-                <PagePermissionItem name="CEO" />
-                <PagePermissionItem name="General Manager" />
-                <PagePermissionItem name="Senior Broking Officer" />
-                <PagePermissionItem name="Finance Executive" />
-                <PagePermissionItem name="System Administrator" />
+                {roles?.user_roles?.map((role, key) => (
+                  <PagePermissionItem
+                    key={key}
+                    name={role.position}
+                    role={role}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
