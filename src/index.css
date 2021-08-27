@@ -157,12 +157,6 @@ td {
   text-overflow: ellipsis;
 }
 
-<<<<<<< HEAD
-
-.cursor-pointer{
-  cursor: pointer;
-}
-=======
 .invert-stepper {
   display: flex;
   flex-direction: column-reverse;
@@ -392,4 +386,3 @@ td {
 .pointer {
   cursor: pointer;
 }
->>>>>>> feature/treaty
