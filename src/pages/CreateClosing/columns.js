@@ -5,7 +5,7 @@ export const columns = [
     sort: 'asc',
   },
   {
-    label: 'Insurance Company',
+    label: 'Reinsured',
     field: 'insurance_company',
     sort: 'asc',
   },
@@ -40,6 +40,11 @@ export const columns = [
     sort: 'asc',
   },
   {
+    label: 'Payment type',
+    field: 'payment_type',
+    sort: 'asc',
+  },
+  {
     label: 'Offer Date',
     field: 'offer_date',
     sort: 'asc',
@@ -67,6 +72,34 @@ export const creditNotes = [
   {
     label: 'Participant %',
     field: 'offer_participant_percentage',
+  },
+  {
+    label: 'Action',
+    field: 'actions',
+  },
+];
+
+
+export const endorsementColumns = [
+  {
+    label: 'Endorsement #',
+    field: 'index',
+  },
+  {
+    label: 'Sum Insured',
+    field: 'sum_insured',
+  },
+  {
+    label: 'Premium',
+    field: 'premium',
+  },
+  {
+    label: 'Endorsement Status',
+    field: 'approval_status',
+  },
+  {
+    label: 'Endorsement Date',
+    field: 'created_at',
   },
   {
     label: 'Action',

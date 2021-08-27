@@ -48,7 +48,7 @@ function AddEmployee({ editing, employee, toggle }) {
                 toggle()
             }).catch(err => {
                 if (err) {
-                    swal("Whoops!!", "Something went wrong, try again", "error")
+                    swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     // console.log(err)
                 } else {
                     swal.stopLoading();
@@ -74,7 +74,7 @@ function AddEmployee({ editing, employee, toggle }) {
                 toggle()
             }).catch(err => {
                 if (err) {
-                    swal("Whoops!!", "Something went wrong, try again", "error")
+                    swal("Sorry!!", err.message.replace("GraphQL error:", ""), "error");
                     // console.log(err)
                 } else {
                     swal.stopLoading();

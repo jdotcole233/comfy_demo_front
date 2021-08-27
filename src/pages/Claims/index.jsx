@@ -205,7 +205,7 @@ function Claims() {
 
     const handleSendSingleClaimDebitNote = data => {
         setSelectedShare(data);
-        console.log(selectedOffer)
+        // console.log(selectedOffer)
         setShowClaimsModal(false);
         setViewDistribution(false)
         setShowSingleClaimSendBox(!showSingleClaimSendBox)
@@ -475,6 +475,7 @@ function Claims() {
                     </div>
                 </div>
                 <OfferListing
+                    path="/admin/claims"
                     recent={recent}
                     all={allOffers}
                     fetching={fetching}

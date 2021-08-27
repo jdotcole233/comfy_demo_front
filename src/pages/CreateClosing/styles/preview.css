@@ -1,8 +1,13 @@
 .preview-card {
   display: flex;
+  flex-direction: column;
   padding: 50px;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.date-text {
+  font-size: smaller;
 }
 
 .preview-card-head {
@@ -14,7 +19,7 @@
 }
 
 address {
-  font-size: larger;
+  font-size: small;
   color: #000000;
 }
 
@@ -26,12 +31,14 @@ address {
 
 .dark-text {
   color: #000000;
-  font-size: medium;
+  font-size: larger;
+  font-weight: bolder;
 }
 
 .dark-text-value {
   color: #000000;
   font-size: medium;
+  /* font-weight: bold; */
 }
 
 .trial-balance-tr > td {

@@ -379,12 +379,12 @@
   },
   "GHS": {
     "symbol": "GH₵",
-    "name": "Ghanaian Cedi",
+    "name": "Ghana Cedi",
     "symbol_native": "GH₵",
     "decimal_digits": 2,
     "rounding": 0,
     "code": "GHS",
-    "name_plural": "Ghanaian cedis"
+    "name_plural": "Ghana cedis"
   },
   "GNF": {
     "symbol": "FG",

@@ -25,14 +25,14 @@ const CommentChatBox = ({ onChange, comments, userComments, height = 400 }) => {
         <div style={{ width: "100%", backgroundColor: "#fff", height: height * 1.2, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div style={{ height, overflowY: "scroll" }} ref={chatBoxRef} className="border-form p-2">
                 {
-                    comments.map((comment, id) => <Pill comment={comment} key={id} />)
+                    comments?.map((comment, id) => <Pill comment={comment} key={id} />)
                 }
                 {userComments.map((comment, id) => <NewMessagePill comment={comment} key={id} />
                 )}
             </div>
             <div className="">
                 <div className="input-group mb-3">
-                    <textarea value={comment} onChange={e => setComment(e.target.value)} class="form-control" aria-label="With textarea"></textarea>
+                    <textarea value={comment} onChange={e => setComment(e.target.value)} className="form-control" aria-label="With textarea"></textarea>
                     <div className="input-group-append">
                         <button onClick={() => handleOnchange(comment)} className="btn btn-success" type="button">COMMENT</button>
                     </div>

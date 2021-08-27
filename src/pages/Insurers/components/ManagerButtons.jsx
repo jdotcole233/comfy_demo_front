@@ -98,7 +98,7 @@ const ManagerButtons = ({ manager, state }) => {
                 setViewAssociate(false)
             }).catch(err => {
                 if (err) {
-                    swal("Oh noes!", "The AJAX request failed!", "error");
+                    swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -145,7 +145,7 @@ const ManagerButtons = ({ manager, state }) => {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label htmlFor="first_name">Secondary Phone number</label>
-                                <input name="rep_secondary_phonenumber" ref={register({ required: "Required" })} type="text" className="form-control" placeholder="Secondary Phone number" />
+                                <input name="rep_secondary_phonenumber" ref={register({ required: false })} type="text" className="form-control" placeholder="Secondary Phone number" />
                                 {errors.rep_secondary_phonenumber && <p className="text-danger">{errors.rep_secondary_phonenumber.message}</p>}
                             </div>
                         </div>

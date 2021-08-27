@@ -50,7 +50,7 @@ function SendSingleDebitNote({ offer, toggle, reinsurer_id, share }) {
         switch (event.key) {
             case 'Enter':
             case 'Tab':
-                console.log(copiedMails);
+                // console.log(copiedMails);
                 setInputvalue("");
                 setCopiedMails([...copiedMails, createOption(inputvalue)])
                 event.preventDefault();

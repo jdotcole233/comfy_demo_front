@@ -59,7 +59,7 @@ const dashboard = [
 
 const offers = [
   {
-    link: '/admin/create-slip',
+    link: '/admin/create-slip/recent',
     name: 'Create Slip',
     roles: [
       'CEO',
@@ -99,7 +99,7 @@ const offers = [
     ],
   },
   {
-    link: '/admin/create-closing',
+    link: '/admin/create-closing/recent',
     name: 'Create Closing',
     roles: [
       'CEO',
@@ -171,7 +171,7 @@ const others = [
     roles: [
       // 'CEO',
       // 'General Manager',
-      // 'Senior Broking Officer',
+      'Senior Broking Officer',
       // 'Finance Executive',
       'System Administrator',
     ],
@@ -184,7 +184,7 @@ const others = [
     ],
   },
   {
-    link: '/admin/claims',
+    link: '/admin/claims/recent',
     name: 'Claims',
     roles: [
       'CEO',
@@ -229,6 +229,21 @@ const others = [
     functionalities: ['View Offer'],
   },
 ];
+
+export const treaty = [
+  {
+    link: '/admin/treaty-programs',
+    name: 'Treaty Programs',
+    roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
+    icon: 'bx bx-collection',
+  },
+  {
+    link: '/admin/treaty-claims',
+    name: 'Treaty Claims',
+    roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
+    icon: 'bx bx-receipt',
+  },
+]
 
 export const deleteAccessRoles = [
   'General Manager',
@@ -281,6 +296,8 @@ const Offers_Access = [
   'Senior Broking Officer',
   'System Administrator',
 ];
+
+const treaty_Access = ['CEO', 'Senior Broking Officer', 'System Administrator'];
 const clients_Access = [
   'CEO',
   'General Manager',
@@ -314,4 +331,5 @@ export {
   create_reinsurer_access,
   delete_reinsurer_access,
   edit_reinsurer_access,
+  treaty_Access
 };

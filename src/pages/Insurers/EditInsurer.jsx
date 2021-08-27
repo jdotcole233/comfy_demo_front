@@ -15,7 +15,7 @@ import { edit_insurer_access } from '../../layout/adminRoutes'
 
 function EditInsurer({ toggle, data, closed }) {
     const { state: { user } } = useContext(AuthContext)
-    const { register, errors, handleSubmit, reset, setValue } = useForm()
+    const { register, errors, handleSubmit, reset, setValue } = useForm();
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
@@ -81,7 +81,7 @@ function EditInsurer({ toggle, data, closed }) {
                 .catch(err => {
                     if (err) {
                         // console.log(err)
-                        swal("Oh noes!", "The AJAX request failed!", "error");
+                        swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
                         swal.close();

@@ -30,7 +30,6 @@ function AddManager({ details, toggle, closed }) {
 
     useEffect(() => {
         if (details) {
-            console.log(details)
             setValue("insurer_id", details.insurer_id)
         }
     }, [details])
@@ -43,7 +42,6 @@ function AddManager({ details, toggle, closed }) {
 
 
     const handleAddManager = values => {
-        console.log(values)
         swal({
             closeOnClickOutside: false,
             closeOnEsc: false,
@@ -66,7 +64,7 @@ function AddManager({ details, toggle, closed }) {
                     .catch(err => {
                         if (err) {
                             // console.log(err)
-                            swal("Oh noes!", "The AJAX request failed!", "error");
+                            swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                         } else {
                             swal.stopLoading();
                             swal.close();
@@ -163,6 +161,7 @@ function AddManager({ details, toggle, closed }) {
                             <select className="form-control" name="position" ref={register({ required: "Required" })} >
                                 <option value="">choose a position</option>
                                 <option value="Manager">Manager</option>
+                                <option value="Under Writer">Under Writer</option>
                             </select>
                             {errors.email && <p className="text-danger">{errors.email.message}</p>}
                         </div>

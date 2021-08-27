@@ -27,7 +27,7 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
     const [copiedMails, setCopiedMails] = useState([])
     const [selectedableEmail, setSelectedableEmail] = useState([])
     const [content, setContent] = useState("")
-    const [emails, setEmails] = useState("")
+    // const [emails, setEmails] = useState("")
     const { data: employees, loading } = useQuery(EMPLOYEES)
 
     const [sendmail] = useMutation(SEND_CLOSING_SLIP);
@@ -44,7 +44,7 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
         if (closed) {
             reset();
             setContent("");
-            setEmails("");
+            // setEmails("");
         }
     }, [closed, reset])
 
@@ -90,7 +90,7 @@ function CreateBroadcastEmail({ reisnsurer, offer, toggle }) {
             offer_id: offer?.offer_id,
             message_content: content,
             subject,
-            copied_emails: emails.length ? [...copiedMails.map(e => e.label)] : [],
+            copied_emails: [...copiedMails.map(e => e.label)],
         };
         swal({
             closeOnClickOutside: false,

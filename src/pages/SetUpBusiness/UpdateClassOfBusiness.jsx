@@ -27,8 +27,8 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
     useEffect(() => {
         if (classOfBusiness) {
             setSelectedClassOfBusiness(classOfBusiness?.singleClassOfBusiness);
-            setaddintionalInputFields([...JSON.parse(classOfBusiness?.singleClassOfBusiness.business_details || "[]")])
-            setBusinessname(classOfBusiness?.singleClassOfBusiness.business_name || "")
+            setaddintionalInputFields([...JSON.parse(classOfBusiness?.singleClassOfBusiness?.business_details || "[]")])
+            setBusinessname(classOfBusiness?.singleClassOfBusiness?.business_name || "")
         }
     }, [classOfBusiness])
 
@@ -90,7 +90,7 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
                 })
                 .catch(err => {
                     if (err) {
-                        swal("Oh noes!", "The AJAX request failed!", "error");
+                        swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
                     } else {
                         swal.stopLoading();
                         swal.close();
@@ -179,7 +179,7 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
                     </div>
                 </div>
                 <div className="form-group">
-                    <button disabled={!businessname.length || !addintionalInputFields.length} onClick={handleUpdateBusinesss} className="btn btn-primary btn-sm w-md">Update Business</button>
+                    <button disabled={!businessname.length} onClick={handleUpdateBusinesss} className="btn btn-primary btn-sm w-md">Update Business</button>
                 </div>
             </div> : null}
         </>

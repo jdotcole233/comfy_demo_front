@@ -1,8 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: Roboto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;
@@ -14,8 +12,13 @@ body {
   width: 0;
 }
 
+figure .table {
+  overflow-x: scroll;
+  width: 50%;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -72,9 +75,13 @@ code {
 
 /* Clear floats */
 .chat-pill::after {
-  content: '';
+  content: "";
   clear: both;
   display: table;
+}
+
+.border-dark {
+  border: 1px solid black;
 }
 
 /* Style images */
@@ -150,7 +157,239 @@ td {
   text-overflow: ellipsis;
 }
 
+<<<<<<< HEAD
 
 .cursor-pointer{
   cursor: pointer;
 }
+=======
+.invert-stepper {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.spinner {
+  /* margin: 100px auto; */
+  width: 50px;
+  /* height: 40px; */
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: #ffffff;
+  height: 10px;
+  width: 6px;
+  display: inline-block;
+
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    -webkit-transform: scaleY(1);
+  }
+}
+
+@keyframes sk-stretchdelay {
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
+  }
+}
+
+.disablediv {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.bg-gray {
+  background-color: #2a7cf7;
+  padding: 10px;
+  color: white;
+  border-radius: 3px;
+  flex: 1;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bg-gray-active {
+  background-color: white;
+  padding: 10px;
+  color: #2a7cf7;
+  border-radius: 3px;
+  flex: 1;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.highlight-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  font-variant: small-caps;
+}
+
+.round-circle {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.round-circle-active {
+  height: 30px;
+  width: 30px;
+  background-color: #23de6b;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.bg-gray:hover {
+  background-color: white;
+  color: #2a7cf7;
+}
+
+.bg-gray-active:hover {
+  background-color: #2a7cf7;
+  color: white;
+}
+
+.bg-gray:hover .round-circle {
+  background-color: #2a7cf7;
+}
+
+.bg-gray .selected {
+  background-color: white;
+}
+
+.kek-tab {
+  background-color: #ffffff;
+  color: #2d93ee;
+  padding: 5px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: medium;
+  /* width: 50px; */
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.kek-tab-active {
+  background-color: #2d93ee;
+  color: #ffffff;
+  padding: 5px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: medium;
+  /* width: 150px; */
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.kek-tab:hover {
+  background-color: #2d93ee;
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.kek-badge {
+  padding: 2px;
+  margin-left: 12px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  font-weight: bold;
+  justify-self: end;
+  color: #f46a6a;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.kek-badge-success {
+  background-color: #ffffff;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.preview-header-style {
+  display: flex;
+  width: "inherit";
+  margin-bottom: 10px;
+  justify-content: flex-end;
+  padding-right: 20px;
+  /* background-color: #0033cc; */
+}
+
+.kek-nav-items-pointer {
+  cursor: pointer;
+}
+
+/* .logo-img-bg {
+  background-image: url("/img/visal-logo-sm.png");
+} */
+
+.reference {
+  display: flex;
+  line-height: 10px;
+  padding: 10px;
+}
+
+.reference-header {
+  margin-right: 5px;
+  width: 50%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+>>>>>>> feature/treaty

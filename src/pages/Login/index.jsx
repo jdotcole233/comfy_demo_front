@@ -61,7 +61,7 @@ const Login = () => {
                                 <div className="avatar-xl profile-user-wid mb-4">
                                     <span className="avatar-title rounded-circle bg-white">
                                         <img
-                                            src={require("../../assets/visal-sm-logo.jpeg")}
+                                            src={require("../../assets/visal-sm-logo.png")}
                                             alt=""
                                             // className="rounded-circle"
                                             height="44"
@@ -122,6 +122,9 @@ const Login = () => {
                             </form>
                         </div>
                     </div>
+                </div>
+                <div className="d-flex justify-content-center">
+                    <img src={require('../../assets/ssl-banner.png')} alt="" />
                 </div>
             </div>
         </div>

@@ -50,7 +50,7 @@ function ClaimRequest({ offer, toggle }) {
         switch (event.key) {
             case 'Enter':
             case 'Tab':
-                console.log(copiedMails);
+                // console.log(copiedMails);
                 setInputvalue("");
                 setCopiedMails([...copiedMails, createOption(inputvalue)])
                 event.preventDefault();
@@ -61,27 +61,10 @@ function ClaimRequest({ offer, toggle }) {
         setInputvalue(event)
     }
 
-    const validateEmails = emails => {
-        let flag = true;
-        for (let index = 0; index < emails.length; index++) {
-            const element = emails[index];
-            console.log("email" + index, element)
-            if (emailRegex.test(element)) {
-                flag = flag && true;
-                console.log(true);
-            } else {
-                flag = flag && false;
-                console.log(false)
-            }
-        }
+    const validateEmails = emails => emails.every(email => emailRegex.test(email.value))
 
-        return flag;
-    }
 
-    const handleCopiedmailChange = value => {
-        setCopiedMails(value ? value : [])
-        handleEmailChange(value)
-    }
+    const handleCopiedmailChange = value => setCopiedMails(value ? value : [])
 
     const handleEmailChange = emails => {
         const validEmails = emails.length ? validateEmails(emails) : false;

@@ -30,7 +30,6 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
 
     useEffect(() => {
         if (data) {
-            console.log(data)
             const options_v = buildSelectRows(data.reinsurers);
             setOptions(options_v)
         }
@@ -42,7 +41,6 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
         setBroadcastList(new_reps);
         const associate = options.find(option => option.label === rep);
         const new_repData = [...repData.filter(repData => repData.reinsurer_representative_id !== associate.value.reinsurer_representative_id)];
-        console.log(new_repData)
         setRepData(new_repData)
     }
 
@@ -116,7 +114,7 @@ export default function CreateBroadcastList({ offer_id, toggle }) {
             }).catch(err => {
                 if (err) {
                     // console.log(err)
-                    swal("Oh noes!", "The AJAX request failed!", "error");
+                    swal("Sorry!!!", "Something Happened", "error");
                 } else {
                     swal.stopLoading();
                     swal.close();

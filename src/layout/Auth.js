@@ -1,7 +1,8 @@
-import React, {Suspense} from 'react';
+import React, { Suspense } from 'react';
 import routes from '../routes';
-import {Switch, Route} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import ConnectionDetector from '../components/ConnectionDetector';
+// import { version } from '../../package.json'
 
 export default () => {
   const getRoutes = (routes) => {
@@ -18,7 +19,7 @@ export default () => {
   };
   return (
     <div
-      style={{height: '100vh', margin: 0}}
+      style={{ height: '100vh', margin: 0 }}
       className="account-pages  pt-sm-5"
     >
       <ConnectionDetector />
@@ -26,6 +27,7 @@ export default () => {
         <Suspense fallback={<div>Loading</div>}>
           <Switch>{getRoutes(routes)}</Switch>
         </Suspense>
+        {/* <p className="text-center">Version: {version}</p> */}
       </div>
     </div>
   );

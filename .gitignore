@@ -4,9 +4,12 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.autogit
 # testing
 /coverage
+
+#development
+/config/
 
 # production
 /build
