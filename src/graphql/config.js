@@ -2,7 +2,7 @@ export const PROTOCOL =
   process.env.NODE_ENV === 'development' ? 'http://' : 'https://';
 export const DOMAIN =
   process.env.NODE_ENV === 'development'
-    ? '7da1-41-210-15-166.ngrok.io'
+    ? '4f6e-41-210-10-74.ngrok.io'
     : 'manage.kekrebrokerapp.com';
 export const COOKIE_NAME_AUTH_TOKEN = 'kek_re_auth_token';
 export const COOKIE_NAME_AUTH = 'kek_re_auth';
