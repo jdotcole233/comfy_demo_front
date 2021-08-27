@@ -2,6 +2,7 @@
 import React, { useMemo } from "react";
 import { BASE_URL_LOCAL } from "../../graphql";
 import { money } from "../../utils";
+import PreviewLogo from "components/PreviewLogo";
 import "./styles/TreatyClams.css";
 // const showDate = (offer) => {
 //     const from = new Date(offer?.offer_detail?.period_of_insurance_from)
@@ -68,79 +69,48 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
               style={{ color: "#000" }}
             >{`${props.currentStep}/${props.totalSteps}`}</h3>
           </div>
-          <div
-            className="col-md-10 col-6"
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <img
-              width={100}
-              height={100}
-              src={require("../../assets/logo.png")}
-              alt="company name"
-            />
-          </div>
+          <PreviewLogo />
           <div
             style={{ display: "flex", justifyContent: "flex-end" }}
             className="col-md-2 col-6"
           >
-            <address style={{ color: "#000" }}>
+            {/* <address style={{ color: "#000" }}>
               1 <sup>st</sup> Floor OmniBsic Building, <br />
               Plot 48, 49 Boundary Road East Legon. <br />
               Contact: info@visalre.com/0554859447/0265375693
               <br />
-            </address>
+            </address> */}
           </div>
         </div>
-        <div className="p-2 border">
+        <div className="p-2">
+          <Row
+            label="REINSURER"
+            value={participant?.reinsurer?.re_company_name}
+          />
+
           <div className="row">
-            <div className="col-md-8 t_t_h">REINSURER</div>
-            <div className="col-md-4 t_t_v">
-              {participant?.reinsurer?.re_company_name}
+            <div className="col-md-12 t_t_h">
+              SURPULUS TREATY CLAIM DEBIT NOTE NUMBER :{" "}
+              {participant?.treaty?.treaty_reference}
             </div>
           </div>
 
-          <div className="d-flex align-items-center t_t_h_H justify-content-center">
-            DEBIT NOTE REF: {participant?.treaty?.treaty_reference}
-          </div>
-
-          <div className="row mb-2">
-            <div className="col-md-8 t_t_h">REINSURED</div>
-            <div className="col-md-4 t_t_v">
-              {participant?.treaty?.insurer?.insurer_company_name}
-            </div>
-          </div>
-          <div className="row mb-2">
-            <div className="col-md-8 t_t_h">TREATY</div>
-            <div className="col-md-4 t_t_v">
-              {participant?.treaty?.treaty_program?.treaty_name}
-            </div>
-          </div>
-          <div className="row mb-2">
-            <div className="col-md-8 t_t_h">INSURED</div>
-            <div className="col-md-4 t_t_v">{claim?.insured_name}</div>
-          </div>
-          <div className="pt-4"></div>
-          <div className="row mb-2">
-            <div className="col-md-8 t_t_h">CURRENCY</div>
-            <div className="col-md-4 t_t_v">
-              {participant?.treaty?.currency}
-            </div>
-          </div>
-          <div className="row mb-2">
-            <div className="col-md-8 t_t_h">DATE OF LOSS</div>
-            <div className="col-md-4 t_t_v">{claim?.date_of_loss}</div>
-          </div>
-          <div className="row mb-2">
-            <div className="col-md-8 t_t_h">CLAIM NUMBER</div>
-            <div className="col-md-4 t_t_v">{claim?.claim_number}</div>
-          </div>
-          <div className="row mb-2">
-            <div className="col-md-8 t_t_h">LAYER</div>
-            <div className="col-md-4 t_t_v">{claim?.layer_number}</div>
-          </div>
+          <Row
+            label="REINSURED"
+            value={participant?.treaty?.insurer?.insurer_company_name}
+          />
+          <Row label="INSURED" value={claim?.insured_name} />
+          <Row
+            label="COVER"
+            value={participant?.treaty?.treaty_program?.treaty_name}
+          />
+          <Row label="DATE OF LOSS" value={claim?.date_of_loss} />
+          <Row label="CURRENCY" value={participant?.treaty?.currency} />
+          <Row label="LAYER" value={claim?.layer_number} />
+          {/* <Row label="CLAIM NUMBER" value={claim?.claim_number} /> */}
         </div>
 
-        <div className="p-4">
+        <div className="p-2">
           <h5 className="t_t_h_H">
             the claim was apportioned and settled as follows:
           </h5>
@@ -153,17 +123,16 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
             <div className="col-md-5 t_t_v">{money(parseFloat(limit))}</div>
           </div>
           <div className="row mb-2">
-            <div className="col-md-7 t_t_h">Claim paid</div>
+            <div className="col-md-7 t_t_h">
+              {participant?.treaty?.insurer?.insurer_company_name}
+            </div>
             <div className="col-md-5 t_t_v">
-              {money(parseFloat(claim?.claim_paid))}
+              {money(
+                parseFloat(claim?.claim_paid) - parseFloat(balDueReinsurers)
+              )}
             </div>
           </div>
-          <div className="row mb-2">
-            <div className="col-md-7 t_t_h">Claim Liability</div>
-            <div className="col-md-5 t_t_v">
-              {money(claim?.expected_deductible) || "N/A"}
-            </div>
-          </div>
+
           <div className="row mb-2">
             <div className="col-md-7 t_t_h">Balance Due From Reinsurers</div>
             <div className="col-md-5 t_t_v">
@@ -171,20 +140,19 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
               {isNaN(balDueReinsurers) ? "N/A" : money(balDueReinsurers)}
             </div>
           </div>
-
-          <div>
-            <table className="table table-bordered">
-              <tbody className="t_t_v">
-                <tr>
-                  <td>Your Participation</td>
-                  <td>{participant?.treaty_participation_percentage}%</td>
-                </tr>
-                <tr>
-                  <td>Balance Due from you</td>
-                  <td>{money(balDueYou)}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="row mb-2">
+            <div className="col-md-7 t_t_h">Your Participation</div>
+            <div className="col-md-5 t_t_v">
+              {/* Claim paid - Claim Liability */}
+              {participant?.treaty_participation_percentage}%
+            </div>
+          </div>
+          <div className="row mb-2">
+            <div className="col-md-7 t_t_h">Balance Due from you</div>
+            <div className="col-md-5 t_t_v">
+              {/* Claim paid - Claim Liability */}
+              {money(balDueYou)}
+            </div>
           </div>
         </div>
       </div>
@@ -193,3 +161,12 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
 };
 
 export default PreviewNoteSlip;
+
+const Row = ({ label, value }) => {
+  return (
+    <div className="row mt-2 mb-2">
+      <div className="col-md-6 t_t_h">{label}</div>
+      <div className="col-md-6 t_t_v">{value}</div>
+    </div>
+  );
+};

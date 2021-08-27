@@ -20,6 +20,7 @@ import {
   TREATY_CLAIMS,
 } from "../../graphql/queries/treaty";
 import { useTreatyClaimsProps } from "./Providers/TreatyClaimsProvider";
+import useLocalStorage from "hooks";
 
 const MakeClaimForm = ({ details, setShow }) => {
   /**
@@ -36,12 +37,11 @@ const MakeClaimForm = ({ details, setShow }) => {
    *
    */
 
-  const { claims: arr } = useTreatyClaimsProps();
-  const [claims, setClaims] = useState(arr);
-  // const [claims, setClaims] = useLocalStorage(
-  //   `treaty-${details?.treaty_id}`,
-  //   arr
-  // );
+  // const { claims: arr } = useTreatyClaimsProps();
+  const [claims, setClaims] = useLocalStorage(
+    `treaty-${details?.treaty_id}`,
+    []
+  );
 
   const [editable, setEditable] = useState(false);
   const [showList, setShowList] = useState(false);
