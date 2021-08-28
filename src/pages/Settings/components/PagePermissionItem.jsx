@@ -13,39 +13,39 @@ const PagePermissionItem = ({ name, role }) => {
     <Fragment>
       <tr>
         <td>
-          <h5 class="text-truncate font-size-14">
-            <a class="text-dark" href="/projects-list">
+          <h5 className="text-truncate font-size-14">
+            <a className="text-dark" href="/projects-list">
               {name}
             </a>
           </h5>
-          <p class="text-muted mb-0">It will be as simple as Occidental</p>
+          <p className="text-muted mb-0">It will be as simple as Occidental</p>
         </td>
 
         <td>
-          <div class="dropdown">
+          <div className="dropdown">
             <button
               onClick={() => setShowEditModal(role)}
               aria-haspopup="true"
-              class="card-drop btn"
+              className="card-drop btn"
               aria-expanded="false"
             >
-              <i class="bx bx-edit font-size-18"></i>
+              <i className="bx bx-edit font-size-18"></i>
             </button>
             <button
               onClick={handleToggleDrawer}
               aria-haspopup="true"
-              class="card-drop btn"
+              className="card-drop btn"
               aria-expanded="false"
             >
-              <i class="mdi mdi-account-cog-outline font-size-18"></i>
+              <i className="mdi mdi-account-cog-outline font-size-18"></i>
             </button>
             <button
               onClick={null}
               aria-haspopup="true"
-              class="card-drop btn"
+              className="card-drop btn"
               aria-expanded="false"
             >
-              <i class="bx bx-trash text-danger font-size-18"></i>
+              <i className="bx bx-trash text-danger font-size-18"></i>
             </button>
           </div>
         </td>
@@ -60,7 +60,7 @@ const PagePermissionItem = ({ name, role }) => {
       </Modal>
 
       <Drawer isvisible={showDrawer} toggle={handleToggleDrawer} width="40%">
-        <AllocateSettings role={role} />
+        <AllocateSettings role={role} setShow={setShowDrawer} />
       </Drawer>
     </Fragment>
   );

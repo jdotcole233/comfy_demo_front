@@ -121,7 +121,8 @@ const SendReinsurerDocuments = ({
       },
       limit: parseFloat(layers.limit.split(",").join("")),
       m_and_d_premium: parseFloat(layers.m_and_d_premium.split(",").join("")),
-      total_participation_percentage: 100 - total_participation_percentage,
+      total_participation_percentage:
+        reinsurer?.treaty_participation_percentage,
       installment_type: parseInt(layers.installment_type),
       layer,
       participant_id: reinsurer?.treaty_participation_id,

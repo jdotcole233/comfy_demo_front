@@ -116,10 +116,19 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
           </div>
           <div className="row mb-2">
             <div className="col-md-7 t_t_h">
+              {participant?.treaty?.insurer?.insurer_company_name} Claim
+              liability
+            </div>
+            <div className="col-md-5 t_t_v">
+              {money(parseFloat(claim?.claim_paid))}
+            </div>
+          </div>
+          <div className="row mb-2">
+            <div className="col-md-7 t_t_h">
               {participant?.treaty?.insurer?.insurer_company_name} Deductible
             </div>
             <div className="col-md-5 t_t_v">
-              {money(parseFloat(claim?.claim?.expected_deductible))}
+              ({money(parseFloat(claim?.expected_deductible))})
             </div>
           </div>
 

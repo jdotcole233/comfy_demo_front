@@ -180,6 +180,7 @@ const ClaimsListing = ({ claims = [], treaty, setShow }) => {
           toggleAddpayment={() => setShowAddPayment(false)}
           treaty={treaty}
           insurer={insurer}
+          layer_number={currentIndex}
           claim={showAddPayment}
         />
       </Drawer>

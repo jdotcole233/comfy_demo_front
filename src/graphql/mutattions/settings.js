@@ -8,6 +8,6 @@ mutation createUserRole($position: String,$privileges:String) {
 `
 
 export const UPDATE_USER_ROLE = gql`
-mutation updateUserRole($position: String,$privileges:String) {
-  updateUserRole(position: $position,privileges:$privileges)
+mutation updateUserRole($position: String,$privileges:String,$user_role_id:ID) {
+  updateUserRole(position: $position,privileges:$privileges,user_role_id:$user_role_id)
 }`

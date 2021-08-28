@@ -196,7 +196,11 @@ function EffectedWithListing({
               <div className="mt-4">
                 <Datatable
                   columns={reinsurersColumns}
-                  data={isNonProp ? data[`${currentIndex}`] : reinsurers}
+                  data={
+                    isNonProp
+                      ? _.uniqBy(data[`${currentIndex}`], "reinsurer_id")
+                      : reinsurers
+                  }
                 />
               </div>
             </div>

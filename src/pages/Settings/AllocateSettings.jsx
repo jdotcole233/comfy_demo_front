@@ -6,15 +6,18 @@ import { UPDATE_USER_ROLE } from "graphql/mutattions/settings";
 import { USER_ROLES } from "graphql/queries/settings";
 import swal from "sweetalert";
 
-const AllocateSettings = ({ role }) => {
+const AllocateSettings = ({ role, setShow }) => {
   const routes = [...offers, ...clients, ...others];
-  const [priviledges, setPriviledges] = useState([]);
+  const [priviledges, setPriviledges] = useState(() => {
+    return JSON.parse(atob(role?.privileges) ?? "[]");
+  });
   const [update] = useMutation(UPDATE_USER_ROLE, {
     refetchQueries: [{ query: USER_ROLES }],
   });
 
   // const privileges = JSON.parse(atob(role?.privileges) ?? "[]");
   // console.log(privileges);4
+  // TODO: list functionalities for each role when clicked
 
   const handleSubmit = () => {
     swal({
@@ -33,6 +36,7 @@ const AllocateSettings = ({ role }) => {
         })
           .then((res) => {
             swal("Success!", "Privileges updated!", "success");
+            setShow && setShow(false);
             swal.stopLoading();
             swal.close();
           })

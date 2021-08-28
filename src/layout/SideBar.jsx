@@ -38,7 +38,7 @@ const SideBar = () => {
           >
             <i className={`${el.icon} text-white`}></i>
             {badge && (
-              <span class="badge badge-pill badge-success float-right">
+              <span className="badge badge-pill badge-success float-right">
                 New
               </span>
             )}

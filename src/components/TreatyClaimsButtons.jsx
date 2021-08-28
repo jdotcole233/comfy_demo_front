@@ -310,6 +310,7 @@ const TreatyClaimsButtons = ({ treaty }) => {
           <ClaimRequestForm
             participant={selectedParticipant}
             claims={selectedParticipant?.treaty_claims}
+            offer={treaty}
           />
         )}
       </Drawer>

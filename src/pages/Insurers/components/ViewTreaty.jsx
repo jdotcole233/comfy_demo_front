@@ -131,6 +131,7 @@ const ViewTreaty = () => {
           }
           return {
             ...participant,
+            ...participant.reinsurer,
             currency: data?.treaty?.currency,
             company_name: participant?.reinsurer?.re_company_name,
             company_email: participant?.reinsurer?.re_company_email,

@@ -18,6 +18,7 @@ function AddReceiveablePaymentForm({
   edit,
   toggleAddpayment,
   insurer,
+  layer_number,
 }) {
   const [selectdQuarter, setSelectdQuarter] = useState(null);
   const [selectedReinsurer, setSelectedReinsurer] = useState([]);
@@ -25,16 +26,16 @@ function AddReceiveablePaymentForm({
   const [treaty_account_id, setTreaty_account_id] = useState(undefined);
 
   useEffect(() => {
-    if (claim) {
-      // console.log("treaty", treaty);
-      // console.log("claim", claim);
+    if (layer_number) {
+      console.log("claim", layer_number);
       const layer = JSON.parse(treaty?.layer_limit || "[]").find(
-        (_, id) => id + 1 === claim?.layer_nmuber
+        (_, id) => id + 1 === layer_number
       );
       if (layer) {
         const layerIndex = JSON.parse(treaty?.layer_limit || "[]").findIndex(
-          (_, id) => id + 1 === claim?.layer_nmuber
+          (_, id) => id + 1 === layer_number
         );
+        console.log("treaty", layer);
         setSelectdQuarter({
           label: `Layer ${layerIndex + 1}`,
           value: layer,
@@ -196,6 +197,11 @@ function AddReceiveablePaymentForm({
               </div>
               <div className="col-md-12">
                 <p>
+                  Claim paid : <b>{claim?.claim_paid}</b>
+                </p>
+              </div>
+              <div className="col-md-12">
+                <p>
                   Deductible :{" "}
                   <b>{money(parseFloat(selectdQuarter?.value?.deductible))}</b>
                 </p>
@@ -205,6 +211,7 @@ function AddReceiveablePaymentForm({
                   Currency : <b>{treaty?.currency}</b>
                 </p>
               </div>
+
               <div className="col-md-12">
                 <p>
                   All payments should/must not exceed an amount of{" "}

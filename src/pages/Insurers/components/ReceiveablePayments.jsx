@@ -2,9 +2,7 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 
-import { Drawer, BottomDrawer } from "../../../components";
-
-import AddReceiveablePaymentForm from "./AddReceiveablePaymentForm";
+import { BottomDrawer } from "../../../components";
 import ClaimsListing from "./ClaimsListing";
 import EditReceivablePaymentForReinsurer from "./EditReceivablePaymentForReinsurer";
 
@@ -15,7 +13,6 @@ const ReceiveablePayments = ({
   refetch,
 }) => {
   const [showModal, setShowModal] = useState(false);
-  const [showMakePaymentDrawer, setShowMakePaymentDrawer] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
 
   return isProp ? null : (
@@ -26,19 +23,6 @@ const ReceiveablePayments = ({
       >
         Claim payments
       </button>
-      {/* <DropdownButton
-        className="mr-1"
-        variant="danger"
-        size="sm"
-        as={ButtonGroup}
-        id="dropdown-basic-button"
-        title=""
-      >
-        <Dropdown.Item>View Payments</Dropdown.Item>
-        <Dropdown.Item onClick={() => setShowMakePaymentDrawer(true)}>
-          Make Payments
-        </Dropdown.Item>
-      </DropdownButton> */}
 
       <Modal
         centered
@@ -52,19 +36,6 @@ const ReceiveablePayments = ({
           insurer_id={insurer?.insurer_id}
         />
       </Modal>
-
-      <Drawer
-        isvisible={showMakePaymentDrawer}
-        toggle={() => setShowMakePaymentDrawer(false)}
-        width="40%"
-      >
-        <AddReceiveablePaymentForm
-          toggleAddpayment={() => setShowMakePaymentDrawer(false)}
-          treaty={treaty}
-          insurer={insurer}
-          // claim={}
-        />
-      </Drawer>
 
       <BottomDrawer
         height="90%"

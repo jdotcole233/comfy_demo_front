@@ -6,8 +6,8 @@ import { useQuery } from "react-apollo";
 import AddRole from "./components/AddRole";
 import PagePermissionItem from "./components/PagePermissionItem";
 import PagePermissionsHead from "./components/PagePermissionsHead";
-import TestSms from "./components/TestSms";
-import UpdateCurrencyCharges from "./components/UpdateCurrencyCharges";
+// import TestSms from "./components/TestSms";
+// import UpdateCurrencyCharges from "./components/UpdateCurrencyCharges";
 
 const Settings = () => {
   const { data: roles, loading } = useQuery(USER_ROLES);
@@ -39,9 +39,9 @@ const Settings = () => {
           </div>
         </div>
         {/* Content Begins here */}
-        <div className="container-fluid">
+        {/* <div className="container-fluid">
           <div className="row mb-2">
-            <div className="col-md-6">{/* <h3></h3> */}</div>
+            <div className="col-md-6"></div>
             <div
               className="col-md-6"
               style={{ display: "flex", justifyContent: "flex-end" }}
@@ -50,9 +50,9 @@ const Settings = () => {
               <UpdateCurrencyCharges />
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="card mb-3">
+        {/* <div className="card mb-3">
           <div className="card-body">
             <div className="row">
               <div className="col-md-6">
@@ -71,7 +71,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="container-fluid">
           <div className="row mb-2">

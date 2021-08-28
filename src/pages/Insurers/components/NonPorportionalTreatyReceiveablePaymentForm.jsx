@@ -79,17 +79,20 @@ const NonPorportionalTreatyReceiveablePaymentForm = ({
       >
         <div className="d-flex align-items-center">
           <div className="ml-2">
-            <i style={{ fontSize: 32 }} class="bx bx-buildings"></i>
+            <i style={{ fontSize: 32 }} className="bx bx-buildings"></i>
           </div>
           <div className="col-md-12 d-flex align-items-start flex-column">
             <span>
-              {reinsurer?.reinsurer?.re_company_name} {expectedAmtToBePaid}
+              {reinsurer?.reinsurer?.re_company_name}{" "}
+              <span className="font-weight-bold">
+                {treaty?.currency} {money(paymentShare)}
+              </span>
             </span>
             <div>
               {!paid ? (
                 <span className="badge w-auto mr-2 px-2 font-size-13 mt-2 badge-soft-success">
-                  {reinsurer?.treaty_participation_percentage}% of{" "}
-                  {money(remaining)} = {money(paymentShare) ?? "NA"}
+                  {reinsurer?.treaty_participation_percentage}%
+                  {/* {money(remaining)} */}
                 </span>
               ) : null}
               <span
@@ -115,10 +118,10 @@ const NonPorportionalTreatyReceiveablePaymentForm = ({
             <i
               onClick={() => setHide((prev) => !prev)}
               style={{ fontSize: 32, cursor: "pointer" }}
-              class={`bx bx-chevron-${hide ? "down" : "up"}`}
+              className={`bx bx-chevron-${hide ? "down" : "up"}`}
             ></i>
           ) : null}
-          {/* <i class='bx -up'></i> */}
+          {/* <i className='bx -up'></i> */}
         </div>
       </div>
       {paid ? null : hide ? null : (
@@ -272,7 +275,6 @@ const NonPorportionalTreatyReceiveablePaymentForm = ({
                     cols="30"
                     rows="10"
                     className="form-control"
-                    required
                   ></textarea>
                 </div>
               </div>
