@@ -84,6 +84,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
         treaty?.treaty_program?.treaty_program_id
       );
       _form.setValue("currency", treaty?.currency);
+      _form.setValue("treaty_reference", treaty?.treaty_reference);
       setCurrency(treaty?.currency);
       setTreatyDetials(JSON.parse(treaty?.treaty_details));
       setOldInsurerId({
@@ -368,6 +369,24 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             </tbody>
           </table>
         </fieldset>
+      </div>
+
+      <div className="row mb-2">
+        <div className="col-md-12">
+          <label htmlFor="Treaty Program">Treaty Ref#</label>
+          <input
+            type="text"
+            placeholder="Treaty Ref#"
+            className="form-control"
+            name="treaty_reference"
+            ref={_form.register({ required: false })}
+          />
+          {_form.errors.treaty_reference && (
+            <p className="text-danger">
+              {_form.errors.treaty_reference.message}
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="row mb-2">
