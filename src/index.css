@@ -386,3 +386,11 @@ td {
 .pointer {
   cursor: pointer;
 }
+
+.h-6 {
+  height: 1.4rem;
+  /* color: gray; */
+}
+.w-6 {
+  /* width: 6rem; */
+}
