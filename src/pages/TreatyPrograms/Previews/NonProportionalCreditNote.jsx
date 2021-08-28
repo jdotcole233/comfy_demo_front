@@ -5,6 +5,7 @@ import moment from "moment";
 import { money } from "./CreditNote";
 import PreviewLogo from "../../../components/PreviewLogo";
 import { Row } from "./LayerDebitNote";
+import _ from "lodash";
 
 const netAmount = (amountForOrder, nic, wth, brokerage) =>
   amountForOrder - (parseFloat(nic) + parseFloat(wth) + parseFloat(brokerage));
@@ -19,7 +20,11 @@ const LayerDebitNote = ({
   const amountForOrder =
     ((reinsurer?.treaty_participation_percentage || 0) / 100) *
     parseFloat(layer?.m_and_d_premium);
-  const deduction = reinsurer?.treaty_participant_deductions;
+  const modifiedDeduction =
+    reinsurer?.treaty_participant_deductions?.length > 0;
+  const deduction = modifiedDeduction
+    ? _.first(reinsurer?.treaty_participant_deductions)
+    : treaty?.deduction;
   const _netAmount = netAmount(
     amountForOrder,
     deduction?.nic_levy_amount,

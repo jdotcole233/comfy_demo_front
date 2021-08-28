@@ -2,11 +2,15 @@
 import React, { Fragment } from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import { money, mult, toLayerPosition } from "../../../utils";
+import _ from "lodash";
 
 const AdjustmentStatementPreview = ({ reinsurer, treaty }) => {
   const details = treaty?.treaty_np_detail;
   const layers = JSON.parse(treaty?.layer_limit ?? "[]");
-  const deduction = treaty?.treaty_deduction;
+  const modifiedDeduction = reinsurer?.treaty_participant_deductions.length > 0;
+  const deduction = modifiedDeduction
+    ? _.first(reinsurer?.treaty_participant_deductions)
+    : treaty?.deduction;
   let sumOfAdditionalPremiumDue = 0;
   return (
     <Fragment>
@@ -39,7 +43,7 @@ const AdjustmentStatementPreview = ({ reinsurer, treaty }) => {
             <img
               width={100}
               height={100}
-              style={{objectFit: "contain"}}
+              style={{ objectFit: "contain" }}
               src={require("../../../assets/banner.png")}
               alt="company name"
             />

@@ -13,7 +13,6 @@ import swal from "sweetalert";
 
 const containsSomething = (value) => {
   let __ = "" + value;
-  // console.log(__)
   return __.length > 0;
 };
 

@@ -14,7 +14,6 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
   const limit = useMemo(() => {
     if (participant && participant.treaty) {
       const __limit = JSON.parse(participant?.treaty?.layer_limit || "[]");
-      // console.log("Limit", participant?.treaty?.layer_limit);
       const _actualLimit = __limit[parseInt(claim?.layer_number) - 1];
       return _actualLimit?.limit;
     }
@@ -28,6 +27,7 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
     : balDueReinsurers > parseFloat(limit)
     ? parseFloat(limit)
     : balDueReinsurers;
+
   const balDueYou =
     (parseFloat(participant?.treaty_participation_percentage) / 100) *
     multiplier;
@@ -73,14 +73,7 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
           <div
             style={{ display: "flex", justifyContent: "flex-end" }}
             className="col-md-2 col-6"
-          >
-            {/* <address style={{ color: "#000" }}>
-              1 <sup>st</sup> Floor OmniBsic Building, <br />
-              Plot 48, 49 Boundary Road East Legon. <br />
-              Contact: info@visalre.com/0554859447/0265375693
-              <br />
-            </address> */}
-          </div>
+          ></div>
         </div>
         <div className="p-2">
           <Row
@@ -107,7 +100,6 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
           <Row label="DATE OF LOSS" value={claim?.date_of_loss} />
           <Row label="CURRENCY" value={participant?.treaty?.currency} />
           <Row label="LAYER" value={claim?.layer_number} />
-          {/* <Row label="CLAIM NUMBER" value={claim?.claim_number} /> */}
         </div>
 
         <div className="p-2">
@@ -124,35 +116,28 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
           </div>
           <div className="row mb-2">
             <div className="col-md-7 t_t_h">
-              {participant?.treaty?.insurer?.insurer_company_name}
+              {participant?.treaty?.insurer?.insurer_company_name} Deductible
             </div>
             <div className="col-md-5 t_t_v">
-              {money(
-                parseFloat(claim?.claim_paid) - parseFloat(balDueReinsurers)
-              )}
+              {money(parseFloat(claim?.claim?.expected_deductible))}
             </div>
           </div>
 
           <div className="row mb-2">
             <div className="col-md-7 t_t_h">Balance Due From Reinsurers</div>
             <div className="col-md-5 t_t_v">
-              {/* Claim paid - Claim Liability */}
               {isNaN(balDueReinsurers) ? "N/A" : money(balDueReinsurers)}
             </div>
           </div>
           <div className="row mb-2">
             <div className="col-md-7 t_t_h">Your Participation</div>
             <div className="col-md-5 t_t_v">
-              {/* Claim paid - Claim Liability */}
               {participant?.treaty_participation_percentage}%
             </div>
           </div>
           <div className="row mb-2">
             <div className="col-md-7 t_t_h">Balance Due from you</div>
-            <div className="col-md-5 t_t_v">
-              {/* Claim paid - Claim Liability */}
-              {money(balDueYou)}
-            </div>
+            <div className="col-md-5 t_t_v">{money(balDueYou)}</div>
           </div>
         </div>
       </div>
