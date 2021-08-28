@@ -25,12 +25,32 @@ function AddReceiveablePaymentForm({
   const [treaty_account_id, setTreaty_account_id] = useState(undefined);
 
   useEffect(() => {
+    if (claim) {
+      // console.log("treaty", treaty);
+      // console.log("claim", claim);
+      const layer = JSON.parse(treaty?.layer_limit || "[]").find(
+        (_, id) => id + 1 === claim?.layer_nmuber
+      );
+      if (layer) {
+        const layerIndex = JSON.parse(treaty?.layer_limit || "[]").findIndex(
+          (_, id) => id + 1 === claim?.layer_nmuber
+        );
+        setSelectdQuarter({
+          label: `Layer ${layerIndex + 1}`,
+          value: layer,
+        });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (edit) {
       const paymentDetails = JSON.parse(edit.treaty_payment_details);
 
       const layer = JSON.parse(treaty?.layer_limit || "[]").find(
         (el) => el.uuid === edit.uuid
       );
+      console.log(layer);
       if (layer) {
         const layerIndex = JSON.parse(treaty?.layer_limit || "[]").findIndex(
           (el) => el.uuid === edit.uuid
@@ -110,7 +130,7 @@ function AddReceiveablePaymentForm({
     treaty?.treaty_participants?.map((reinsurer) => ({
       label: reinsurer?.reinsurer?.re_company_name,
       value: reinsurer,
-      uuid: reinsurer?.treaty_participant_deductions?.uuid,
+      uuid: _.last(reinsurer?.treaty_participant_deductions)?.uuid,
     })) || [];
 
   const _fig = parseInt(selectdQuarter?.value?.installment_type);
@@ -133,6 +153,7 @@ function AddReceiveablePaymentForm({
 
   const actualPayments = _.groupBy(claim?.receivable_payments, "uuid");
   const _reinsurers = _.groupBy(reinsurers, "uuid");
+  // console.log("_reinsurers", _reinsurers);
 
   const _payments = actualPayments[`${selectdQuarter?.uuid}`] || [];
 

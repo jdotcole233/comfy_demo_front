@@ -19,7 +19,7 @@ import {
   MANUAL_CREATE_CLAIM,
   TREATY_CLAIMS,
 } from "../../graphql/queries/treaty";
-import { useTreatyClaimsProps } from "./Providers/TreatyClaimsProvider";
+// import { useTreatyClaimsProps } from "./Providers/TreatyClaimsProvider";
 import useLocalStorage from "hooks";
 
 const MakeClaimForm = ({ details, setShow }) => {
@@ -90,7 +90,7 @@ const MakeClaimForm = ({ details, setShow }) => {
     swal({
       icon: "warning",
       title: "Abort this process ?",
-      text: "This action would clear all entered data",
+      text: "This action will clear all entered data",
       buttons: ["No", { text: "Yes" }],
     }).then((input) => {
       if (!input) throw null;
@@ -107,7 +107,7 @@ const MakeClaimForm = ({ details, setShow }) => {
       swal({
         icon: "warning",
         title: "Add More Claims ?",
-        text: "This action would allow you add additional Claim data",
+        text: "This action will allow you add additional Claim data",
         buttons: ["No", { text: "Yes" }],
       }).then((input) => {
         if (!input) {
@@ -150,7 +150,7 @@ const MakeClaimForm = ({ details, setShow }) => {
     swal({
       icon: "warning",
       title: "Remove claim ?",
-      text: "This action would remove this claim from the list",
+      text: "This action will remove this claim from the list",
       buttons: ["No", { text: "Yes" }],
     }).then((input) => {
       if (!input) throw null;
@@ -188,7 +188,7 @@ const MakeClaimForm = ({ details, setShow }) => {
     swal({
       icon: "warning",
       title: "Proceed to create Claims ?",
-      text: "This action would process this information and added as claims(s) to this treaty",
+      text: "This action will process this information and added as claims(s) to this treaty",
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;
@@ -352,7 +352,7 @@ const MakeClaimForm = ({ details, setShow }) => {
           <Editor value={content} onChange={onCommentChange} />
           <input
             type="hidden"
-            ref={register({ required: "Required" })}
+            ref={register({ required: false })}
             name="treaty_comment"
           />
           <div className="mt-2">

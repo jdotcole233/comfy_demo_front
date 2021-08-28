@@ -1,7 +1,8 @@
+/* eslint-disable array-callback-return */
 import React, { useMemo, useState } from "react";
 import { Datatable, Modal } from "../../../components";
 import { columns } from "../columns";
-import _ from "lodash";
+// import _ from "lodash";
 
 const formArray = (arr = []) => {
   const newArr = [];

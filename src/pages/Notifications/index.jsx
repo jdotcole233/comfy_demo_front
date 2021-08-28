@@ -117,7 +117,7 @@ export default () => {
     swal({
       icon: "warning",
       title: "Delete Notification ?",
-      text: "This action would delete this notification",
+      text: "This action will delete this notification",
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw {};

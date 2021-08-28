@@ -70,7 +70,7 @@ const NonPorportionalTreatyReceiveablePaymentForm = ({
     <Fragment>
       <div className="row mb-3">
         {/* {JSON.stringify(reinsurer?.treaty_participation_percentage)} */}
-        {paymentShare} {reinsurerPayments}
+        {/* {paymentShare} {reinsurerPayments} */}
       </div>
       <div
         className={`column mb-2 d-flex bg-soft-${

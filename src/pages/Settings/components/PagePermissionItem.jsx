@@ -1,18 +1,17 @@
 import React, { Fragment, useState } from "react";
-import { Drawer } from "../../../components";
+import { Drawer, Modal } from "../../../components";
 import AllocateSettings from "../AllocateSettings";
+// import AddRole from "./AddRole";
+import { AddRoleForm } from "./AddRole";
 
 const PagePermissionItem = ({ name, role }) => {
   const [showDrawer, setShowDrawer] = useState(false);
-
+  const [showEditModal, setShowEditModal] = useState(undefined);
   const handleToggleDrawer = () => setShowDrawer((prev) => !prev);
 
   return (
     <Fragment>
       <tr>
-        {/* <td>
-
-                </td> */}
         <td>
           <h5 class="text-truncate font-size-14">
             <a class="text-dark" href="/projects-list">
@@ -24,6 +23,14 @@ const PagePermissionItem = ({ name, role }) => {
 
         <td>
           <div class="dropdown">
+            <button
+              onClick={() => setShowEditModal(role)}
+              aria-haspopup="true"
+              class="card-drop btn"
+              aria-expanded="false"
+            >
+              <i class="bx bx-edit font-size-18"></i>
+            </button>
             <button
               onClick={handleToggleDrawer}
               aria-haspopup="true"
@@ -43,6 +50,14 @@ const PagePermissionItem = ({ name, role }) => {
           </div>
         </td>
       </tr>
+
+      <Modal
+        centered
+        show={showEditModal}
+        onHide={() => setShowEditModal(undefined)}
+      >
+        <AddRoleForm role={role} setShow={setShowEditModal} />
+      </Modal>
 
       <Drawer isvisible={showDrawer} toggle={handleToggleDrawer} width="40%">
         <AllocateSettings role={role} />

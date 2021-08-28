@@ -41,7 +41,7 @@ const AutomateMakeTreatyClaimForm = ({ treaty, setShow }) => {
     swal({
       icon: "warning",
       title: "Proceed to create Claims ?",
-      text: "This action would process this information and added as claims(s) to this treaty",
+      text: "This action will process this information and added as claims(s) to this treaty",
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;

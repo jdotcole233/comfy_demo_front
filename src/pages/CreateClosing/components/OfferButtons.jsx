@@ -166,7 +166,7 @@ const OfferButtons = ({ offer }) => {
       closeOnEsc: false,
       icon: "warning",
       title: `Update ${selectedReinsurer?.reinsurer?.re_company_name}'s percentage ?`,
-      text: "This action would update the initial assigned percentage",
+      text: "This action will update the initial assigned percentage",
       buttons: [
         "No",
         {

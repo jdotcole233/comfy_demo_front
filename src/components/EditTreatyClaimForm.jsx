@@ -67,7 +67,7 @@ const EditTreatyClaimForm = ({ data, setShow, treaty }) => {
     swal({
       icon: "warning",
       title: "Update claim ?",
-      text: "This action would update the selected claim",
+      text: "This action will update the selected claim",
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;

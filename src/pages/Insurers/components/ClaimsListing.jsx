@@ -17,7 +17,7 @@ import { REMOVE_RECEIVABLE_PAYMENT } from "../../../graphql/queries/treaty";
 // import { useDispatch } from "react-redux";
 import { useMutation } from "react-apollo";
 
-const ClaimsListing = ({ claims = [], treaty }) => {
+const ClaimsListing = ({ claims = [], treaty, setShow }) => {
   // const dispatch = useDispatch();
   const { insurer } = useInsurerProps();
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -27,16 +27,9 @@ const ClaimsListing = ({ claims = [], treaty }) => {
     refetchQueries: [
       { query: INSURER, variables: { id: insurer?.insurer_id } },
     ],
-    // onCompleted: (data) => {
-    //   console.log(data);
-    //   refetch().then(({ data: { insurer } }) => {
-    //     dispatch({
-    //       type: GET_INSURER,
-    //       payload: insurer,
-    //     });
-    //   });
-    // },
   });
+
+  // console.log("claims", claims);
 
   const _claims = useMemo(() => {
     if (claims) {
@@ -52,7 +45,10 @@ const ClaimsListing = ({ claims = [], treaty }) => {
             </button>
 
             <button
-              onClick={() => setShowPayments(el)}
+              onClick={() => {
+                setShowPayments(el);
+                setShow(false);
+              }}
               className="btn btn-sm btn-primary btn-square ml-1"
             >
               View Payments
@@ -62,7 +58,7 @@ const ClaimsListing = ({ claims = [], treaty }) => {
       }));
     }
     return [];
-  }, [claims]);
+  }, [claims, setShow]);
 
   const handleRemovePayment = useCallback(
     (payment) => {

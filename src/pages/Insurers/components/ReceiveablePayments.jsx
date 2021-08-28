@@ -62,6 +62,7 @@ const ReceiveablePayments = ({
           toggleAddpayment={() => setShowMakePaymentDrawer(false)}
           treaty={treaty}
           insurer={insurer}
+          // claim={}
         />
       </Drawer>
 
@@ -70,7 +71,11 @@ const ReceiveablePayments = ({
         isvisible={showModal}
         toggle={() => setShowModal(false)}
       >
-        <ClaimsListing claims={treaty?.treaty_claims} treaty={treaty} />
+        <ClaimsListing
+          setShow={setShowModal}
+          claims={treaty?.treaty_claims}
+          treaty={treaty}
+        />
       </BottomDrawer>
     </>
   );

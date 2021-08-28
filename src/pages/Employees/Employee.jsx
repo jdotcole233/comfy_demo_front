@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useMemo } from "react";
-import swall from "sweetalert2";
+// import swall from "sweetalert2";
 import { useMutation } from "react-apollo";
 import {
   REMOVE_EMPLOYEE,
@@ -29,7 +29,7 @@ export default function Employees({ data, openViewEmployee }) {
     swal({
       icon: "warning",
       title: "Reset Employee Password",
-      text: `This action would reset the employee's password`,
+      text: `This action will reset the employee's password`,
       buttons: ["No", { text: "Yes", closeModal: false }],
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -56,7 +56,7 @@ export default function Employees({ data, openViewEmployee }) {
     //   allowOutsideClick: false,
     //   allowEscapeKey: false,
     //   title: "Delete Employee",
-    //   text: `This action would completely remove employee details from system`,
+    //   text: `This action will completely remove employee details from system`,
     //   buttons: ["No", { text: "Yes", closeModal: false }],
     //   showCancelButton: true,
     //   confirmButtonText: "Yes",
@@ -80,7 +80,7 @@ export default function Employees({ data, openViewEmployee }) {
       closeOnEsc: false,
       icon: "warning",
       title: "Delete Employee",
-      text: `This action would completely remove employee details from system`,
+      text: `This action will completely remove employee details from system`,
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;

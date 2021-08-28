@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Fragment } from "react";
 import {} from "../../../components";
-import SingleFunctionality from "./SingleFunctionality";
+// import SingleFunctionality from "./SingleFunctionality";
 
 const SettingsCard = ({
   active,
   name,
   functionalities,
   icon = "bx bx-home",
+  setPrivileges,
 }) => {
   const [state, setState] = useState(false);
   //   const [showFunctionalities, setShowFunctionalities] = useState(true);
@@ -35,6 +36,16 @@ const SettingsCard = ({
   //     // alert(JSON.stringify(funcs))
   //     setSelectedFuntions(funcs);
   //   };
+
+  const chooseThis = () => {
+    setPrivileges && setPrivileges((prev) => [...prev, name]);
+    setState(true);
+  };
+
+  const unChooseThis = () => {
+    setPrivileges && setPrivileges((prev) => prev.filter((el) => el !== name));
+    setState(false);
+  };
 
   return (
     <Fragment>
@@ -68,7 +79,7 @@ const SettingsCard = ({
           </div>
           <div
             className="col-md-2 d-flex row align-items-center justify-content-end"
-            onClick={() => setState((prev) => !prev)}
+            onClick={state ? unChooseThis : chooseThis}
           >
             {state && (
               <span

@@ -144,7 +144,7 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
       icon: "warning",
       text:
         note?.treaty_p_payments?.length > 0
-          ? `${note?.treaty_p_payments?.length} payment(s) have been detected on this Quarter, Deleting it would remove all said payments. Do you want to proceed ?`
+          ? `${note?.treaty_p_payments?.length} payment(s) have been detected on this Quarter, Deleting it will remove all said payments. Do you want to proceed ?`
           : ``,
       title: `Are you sure you want to delete this quarter?`,
       buttons: [

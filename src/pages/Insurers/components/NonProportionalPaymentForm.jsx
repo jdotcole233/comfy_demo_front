@@ -154,7 +154,10 @@ function NonProportionalPaymentForm({
             ? form_inputs.date_on_cheque
             : "N/A",
         },
-        payment_to: form_inputs.beneficiary_bank_name,
+        payment_to:
+          form_inputs.payment_type === "Bank Transfer"
+            ? form_inputs.beneficiary_bank_name
+            : "",
         conversion: {
           rate: form_inputs.exchange_rate,
           currency: form_inputs.currency,
@@ -209,7 +212,10 @@ function NonProportionalPaymentForm({
             ? form_inputs.date_on_cheque
             : "N/A",
         },
-        payment_to: form_inputs.beneficiary_bank_name,
+        payment_to:
+          form_inputs.payment_type === "Bank Transfer"
+            ? form_inputs.beneficiary_bank_name
+            : "",
         conversion: {
           rate: form_inputs.exchange_rate,
           currency: form_inputs.currency,
@@ -555,7 +561,6 @@ function NonProportionalPaymentForm({
                     cols="30"
                     rows="10"
                     className="form-control"
-                    required
                   ></textarea>
                 </div>
               </div>

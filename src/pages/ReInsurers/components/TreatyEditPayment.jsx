@@ -71,7 +71,7 @@ const TreatyEditPayment = ({ payment, treaty, setShow }) => {
     swal({
       icon: "warning",
       title: "Update payment ?",
-      text: "This action would update the selected payment",
+      text: "This action will update the selected payment",
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;

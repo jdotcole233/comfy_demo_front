@@ -37,8 +37,8 @@ const TreatyClaimsButtons = ({ treaty }) => {
 
   const showNotes = (participant) => {
     setSelectedParticipant(participant);
-    setViewParticipants((prev) => !prev);
-    setViewNotes((prev) => !prev);
+    setViewParticipants(true);
+    setViewNotes(true);
   };
 
   const openClaimRequest = (Participant) => {
@@ -134,8 +134,8 @@ const TreatyClaimsButtons = ({ treaty }) => {
   const onClickDeleteBUtton = (id) => {
     swal({
       icon: "warning",
-      title: "Upload claim ?",
-      text: "This action would upload your provided excel file, process it and add the content as claims to this treaty",
+      title: "Delete claim ?",
+      text: "This action will delete the said claim",
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;
