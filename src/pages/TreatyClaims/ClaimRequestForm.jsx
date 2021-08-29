@@ -27,8 +27,7 @@ function ClaimRequest({ offer, toggle, claims, participant }) {
   const [inputvalue, setInputvalue] = useState("");
   const [copiedMails, setCopiedMails] = useState([]);
   const [selectedableEmail, setSelectedableEmail] = useState([]);
-  const { register, errors, handleSubmit, setError, clearError, reset } =
-    useForm();
+  const { register, errors, handleSubmit, setError, reset } = useForm();
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
   const [sendSingle, setSendSingle] = useState(false);
