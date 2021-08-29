@@ -92,7 +92,7 @@ export default memo(({ children }) => {
 
   console.log(state)
 
-  const privileges = state ? JSON.parse(atob(state?.user?.user_role?.privileges)) : [];
+  const privileges = state && state?.user ? JSON.parse(atob(state?.user?.user_role?.privileges)) : [];
 
   return (
     <IdleTimer timeout={TIMEOUT} onIdle={warn}>
