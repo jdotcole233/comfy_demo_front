@@ -726,7 +726,7 @@ function Reports() {
                     disabled={true}
                     className="btn btn-primary btn-sm btn-block waves-effect waves-light"
                   >
-                    <i class="bx bx-hourglass bx-spin mr-2"></i>
+                    <i className="bx bx-hourglass bx-spin mr-2"></i>
                     Generating query...
                   </button>
                 )}

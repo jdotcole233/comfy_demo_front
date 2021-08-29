@@ -123,6 +123,9 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
+                <div className="d-flex justify-content-center">
+                    <img src={require('../../assets/ssl-banner.png')} alt="" />
+                </div>
             </div>
         </div>
 

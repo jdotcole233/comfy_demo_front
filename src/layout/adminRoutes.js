@@ -53,6 +53,7 @@ const dashboard = [
       'Finance Executive',
       'System Administrator',
     ],
+    functionalities: ['View Details', 'Preview Offer'],
   },
 ];
 
@@ -68,6 +69,13 @@ const offers = [
       'System Administrator',
     ],
     icon: 'bx bxs-file-plus',
+    functionalities: [
+      'Create Slip',
+      'View Offer',
+      'Edit Offer',
+      'Delete Offer',
+      'View Comments',
+    ],
   },
   {
     link: '/admin/approve-closing',
@@ -80,6 +88,15 @@ const offers = [
       'System Administrator',
     ],
     icon: 'bx bxs-file-plus',
+    functionalities: [
+      'Preview Cover Notes',
+      'Preview Debit Note',
+      'Credit Notes',
+      'Generate Credit Note',
+      'Approve',
+      'Reopen Offer',
+      'Delete offer',
+    ],
   },
   {
     link: '/admin/create-closing/recent',
@@ -92,6 +109,14 @@ const offers = [
       'System Administrator',
     ],
     icon: 'bx bx-lock-alt',
+    functionalities: [
+      'Preview Cover Note',
+      'Preview Debit Note',
+      'Send Cover and Debit Notes',
+      'Credit Notes',
+      'Preview Credit Note',
+      'Send Credit Note',
+    ],
   },
 ];
 const clients = [
@@ -106,6 +131,17 @@ const clients = [
       'System Administrator',
     ],
     icon: 'bx bx-group',
+    functionalities: [
+      'Create Insurer',
+      'Add Manager',
+      'View Insurer',
+      'Delete Insurer',
+      'View Insurer Offer',
+      'Distribute Payment',
+      'View Payments',
+      'Edit Insurer Manager',
+      'Delete Insurer Manager',
+    ],
   },
   {
     link: '/admin/re-insurers',
@@ -118,6 +154,14 @@ const clients = [
       'System Administrator',
     ],
     icon: 'bx bx-group',
+    functionalities: [
+      'Create Reinsurer',
+      'Add Associate',
+      'View Reinsurer',
+      'Delete Reinsurer',
+      'View Reinsurer Offer Details',
+      'View Reinsurer Offer Deductions',
+    ],
   },
 ];
 const others = [
@@ -132,6 +176,12 @@ const others = [
       'System Administrator',
     ],
     icon: 'bx bx-group',
+    functionalities: [
+      'Create Business',
+      'View Business',
+      'Update Business',
+      'Delete Business',
+    ],
   },
   {
     link: '/admin/claims/recent',
@@ -144,6 +194,7 @@ const others = [
       'System Administrator',
     ],
     icon: 'bx bx-receipt',
+    functionalities: ['View Offer'],
   },
   {
     link: '/admin/employees',
@@ -156,6 +207,13 @@ const others = [
       'System Administrator',
     ],
     icon: 'bx bx-id-card',
+    functionalities: [
+      'Create Employee',
+      'View Employee',
+      'Update Employee',
+      'Reset Employee Credentials',
+      'Delete Employee',
+    ],
   },
   {
     link: '/admin/reports',
@@ -168,8 +226,24 @@ const others = [
       'System Administrator',
     ],
     icon: 'bx bx-box',
+    functionalities: ['View Offer'],
   },
 ];
+
+export const treaty = [
+  {
+    link: '/admin/treaty-programs',
+    name: 'Treaty Programs',
+    roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
+    icon: 'bx bx-collection',
+  },
+  {
+    link: '/admin/treaty-claims',
+    name: 'Treaty Claims',
+    roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
+    icon: 'bx bx-receipt',
+  },
+]
 
 export const deleteAccessRoles = [
   'General Manager',
@@ -222,6 +296,8 @@ const Offers_Access = [
   'Senior Broking Officer',
   'System Administrator',
 ];
+
+const treaty_Access = ['CEO', 'Senior Broking Officer', 'System Administrator'];
 const clients_Access = [
   'CEO',
   'General Manager',
@@ -255,4 +331,5 @@ export {
   create_reinsurer_access,
   delete_reinsurer_access,
   edit_reinsurer_access,
+  treaty_Access
 };
