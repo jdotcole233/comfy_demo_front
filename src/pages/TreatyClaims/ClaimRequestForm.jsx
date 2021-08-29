@@ -5,20 +5,21 @@ import { Alert } from "react-bootstrap";
 import { Selector, Editor } from "../../components";
 import { useMutation, useQuery } from "react-apollo";
 import { EMPLOYEES } from "../../graphql/queries/employees";
-import { CLAIM_REQUEST } from "../../graphql/mutattions";
+// import { CLAIM_REQUEST } from "../../graphql/mutattions";
 import swal from "sweetalert";
 import { useForm } from "react-hook-form";
 import { DrawerContext } from "../../components/Drawer";
 import DropZone from "../../components/DropZone";
 import { Select } from "../../components/Input";
 import { validateEmails } from "pages/CreateSlip/CreateBroadcastEmail";
+import { SEND_TREATY_CLAIM_DEBIT_NOTE } from "graphql/queries/treaty";
 
 const createOption = (label) => ({
   label,
   value: label,
 });
 
-const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
+// const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
 function ClaimRequest({ offer, toggle, claims, participant }) {
   const { closed } = useContext(DrawerContext);
@@ -29,16 +30,17 @@ function ClaimRequest({ offer, toggle, claims, participant }) {
   const { register, errors, handleSubmit, setError, clearError, reset } =
     useForm();
   const [content, setContent] = useState("");
-  const [, setFiles] = useState([]);
+  const [files, setFiles] = useState([]);
   const [sendSingle, setSendSingle] = useState(false);
   const [contentError, setContentError] = useState(false);
-  const [sendmail] = useMutation(CLAIM_REQUEST);
+  const [documentPage, setDocumentPage] = useState(-1);
+  const [sendmail] = useMutation(SEND_TREATY_CLAIM_DEBIT_NOTE);
 
   const pages = useMemo(() => {
     if (claims) {
       return claims.map((claim, key) => ({
         label: `Document ${key + 1}`,
-        value: claim?.treaty_claim_id,
+        value: key + 1,
       }));
     }
     return [];
@@ -94,16 +96,19 @@ function ClaimRequest({ offer, toggle, claims, participant }) {
       setError("copied_emails", "pattern", "Provide valid mails");
       return;
     }
-    const data = {
-      offer_id: offer?.offer_id,
-      message_content: content,
-      subject,
-      copied_emails: [...copiedMails.map((e) => e.label)],
-    };
-    // TODO: handle sending the form well
+
     const formedData = {
-      single_document: 0,
+      single_document: sendSingle ? 1 : 0,
       treaty_id: offer?.treaty_id,
+      treaty_participant_id: participant?.treaty_participant_id,
+      reinsurer_id: participant?.reinsurer?.reinsurer_id,
+      paged: documentPage,
+      email_component: {
+        email_content: content,
+        subject,
+        copied_email: [...copiedMails.map((e) => e.label)],
+        attachments: [...files],
+      },
     };
     swal({
       closeOnClickOutside: false,
@@ -114,7 +119,7 @@ function ClaimRequest({ offer, toggle, claims, participant }) {
     }).then((input) => {
       if (!input) throw null;
       sendmail({
-        variables: { data },
+        variables: formedData,
       })
         .then((res) => {
           swal("Hurray!!", "Mail sent successfully", "success");
@@ -177,7 +182,10 @@ function ClaimRequest({ offer, toggle, claims, participant }) {
               <label className="" htmlFor=""></label>
             </div>
             <div className="col-md-10 ">
-              <Select options={pages} />
+              <Select
+                options={pages}
+                onChange={(e) => setDocumentPage(e.target.value)}
+              />
             </div>
           </div>
         )}

@@ -5,8 +5,6 @@ import moment from "moment";
 import { money } from "./CreditNote";
 import PreviewLogo from "../../../components/PreviewLogo";
 
-//TODO: net amount calculation
-
 const LayerDebitNote = ({
   layer,
   treaty,
