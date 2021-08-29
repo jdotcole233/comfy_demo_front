@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Drawer, Modal } from "../../../components";
+import { Drawer, Modal, ModalHeader } from "../../../components";
 import AllocateSettings from "../AllocateSettings";
 // import AddRole from "./AddRole";
 import { AddRoleForm } from "./AddRole";
@@ -28,6 +28,7 @@ const PagePermissionItem = ({ name, role }) => {
               aria-haspopup="true"
               className="card-drop btn"
               aria-expanded="false"
+              title="Edit role title"
             >
               <i className="bx bx-edit font-size-18"></i>
             </button>
@@ -36,17 +37,18 @@ const PagePermissionItem = ({ name, role }) => {
               aria-haspopup="true"
               className="card-drop btn"
               aria-expanded="false"
+              title="Configure role"
             >
               <i className="mdi mdi-account-cog-outline font-size-18"></i>
             </button>
-            <button
+            {/* <button
               onClick={null}
               aria-haspopup="true"
               className="card-drop btn"
               aria-expanded="false"
             >
               <i className="bx bx-trash text-danger font-size-18"></i>
-            </button>
+            </button> */}
           </div>
         </td>
       </tr>
@@ -56,6 +58,7 @@ const PagePermissionItem = ({ name, role }) => {
         show={showEditModal}
         onHide={() => setShowEditModal(undefined)}
       >
+        <ModalHeader closeButton>Update Role</ModalHeader>
         <AddRoleForm role={role} setShow={setShowEditModal} />
       </Modal>
 

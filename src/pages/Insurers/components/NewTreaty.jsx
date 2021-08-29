@@ -114,6 +114,21 @@ const NewTreaty = (props) => {
     });
   };
 
+  useEffect(() => {
+    if (treaty_type && treaty_type.value === "PROPORTIONAL") {
+      setaddintionalInputFields([
+        {
+          keydetail: "currency",
+          value: "",
+        },
+      ]);
+    } else {
+      setaddintionalInputFields([]);
+    }
+  }, [treaty_type]);
+
+  const counter = treaty_type && treaty_type.value === "PROPORTIONAL" ? 1 : 0;
+
   return (
     <div className="">
       <div className={styles.card_header}>
@@ -149,7 +164,7 @@ const NewTreaty = (props) => {
           <input
             name="name"
             value={treaty_name}
-            onChange={(e) => setTreaty_name(e.target.value.trim())}
+            onChange={(e) => setTreaty_name(e.target.value)}
             type="text"
             className="form-control"
             placeholder="Treaty Name"
@@ -162,7 +177,7 @@ const NewTreaty = (props) => {
               <button onClick={handleAddInput} className="btn btn-primary mr-2">
                 +
               </button>
-              {addintionalInputFields.length ? (
+              {addintionalInputFields.length > counter ? (
                 <button onClick={handleRemoveInput} className="btn btn-danger">
                   -
                 </button>
@@ -184,9 +199,19 @@ const NewTreaty = (props) => {
                     type="text"
                     className="form-control"
                     placeholder={`Detail ${key + 1}`}
+                    readOnly={
+                      treaty_type &&
+                      treaty_type.value === "PROPORTIONAL" &&
+                      el.keydetail === "currency"
+                    }
                   />
                   <div className="input-group-prepend">
                     <button
+                      disabled={
+                        treaty_type &&
+                        treaty_type.value === "PROPORTIONAL" &&
+                        el.keydetail === "currency"
+                      }
                       onClick={() => handleRemoveParticularInput(key)}
                       className="btn btn-danger"
                       type="button"
@@ -204,7 +229,7 @@ const NewTreaty = (props) => {
           <button
             onClick={createTreatyProgram}
             disabled={
-              !treaty_name ||
+              !treaty_name.trim() ||
               !treaty_type ||
               !insurer ||
               !hasOptionsAndNotEmpty(addintionalInputFields)

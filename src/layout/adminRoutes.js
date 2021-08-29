@@ -57,6 +57,35 @@ const dashboard = [
   },
 ];
 
+const menus = [
+  {
+    link: '/admin/',
+    name: 'Settings',
+    icon: 'bx bx-home-circle',
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+    functionalities: ['Create role', 'Edit role', 'Configure role'],
+  },
+  {
+    link: '/admin/',
+    name: 'Profile',
+    icon: 'bx bx-home-circle',
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+    functionalities: ['View profile', 'Change password', 'View activities'],
+  },
+];
+
 const offers = [
   {
     link: '/admin/create-slip/recent',
@@ -331,5 +360,6 @@ export {
   create_reinsurer_access,
   delete_reinsurer_access,
   edit_reinsurer_access,
-  treaty_Access
+  treaty_Access,
+  menus
 };

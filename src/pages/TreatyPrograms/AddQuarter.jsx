@@ -226,6 +226,7 @@ const AddQuarter = ({
                     name="claim_settled"
                     ref={register({ required: "Required" })}
                     type="number"
+                    step="any"
                     className="form-control"
                     placeholder="Claim Settled"
                   />
@@ -259,6 +260,7 @@ const AddQuarter = ({
                     ref={register({ required: "Required" })}
                     type="number"
                     className="form-control"
+                    step="any"
                     placeholder="Cash loss"
                   />
                   {errors.cash_loss && (
@@ -363,6 +365,7 @@ const AddQuarter = ({
                           <input
                             name={`gross_premium_${surplusId}`}
                             type="number"
+                            step="any"
                             className="form-control"
                             placeholder="Gross Premium"
                             ref={register({ required: "Required" })}

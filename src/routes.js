@@ -30,6 +30,7 @@ export default [
   {
     path: '/',
     layout: '/admin',
+    name: "Dashboard",
     component: Dashboard,
     roles: [
       'CEO',
@@ -42,6 +43,7 @@ export default [
   {
     path: '/notifications',
     layout: '/admin',
+    name: "Notifications",
     component: Notifications,
     roles: [
       'CEO',
@@ -54,6 +56,7 @@ export default [
   {
     path: '/profile',
     layout: '/admin',
+    name: "Profile",
     component: Profile,
     roles: [
       'CEO',
@@ -66,6 +69,7 @@ export default [
   {
     path: '/create-slip',
     layout: '/admin',
+    name: "Create Slip",
     component: CreateSlip,
     roles: [
       'CEO',
@@ -78,6 +82,7 @@ export default [
   {
     path: '/create-slip/:tab',
     layout: '/admin',
+    name: "Create Slip",
     component: CreateSlip,
     roles: [
       'CEO',
@@ -90,6 +95,7 @@ export default [
   {
     path: '/approve-closing',
     layout: '/admin',
+    name: 'Unapproved Closings',
     component: UnapprovedList,
     roles: [
       'CEO',
@@ -102,6 +108,7 @@ export default [
   {
     path: '/re-insurers',
     layout: '/admin',
+    name: 'Re-insurers',
     component: ReInsurers,
     roles: [
       'CEO',
@@ -114,6 +121,7 @@ export default [
   {
     path: '/insurers',
     layout: '/admin',
+    name: 'Insurers',
     component: Insurers,
     roles: [
       'CEO',
@@ -127,6 +135,7 @@ export default [
     path: '/employees',
     layout: '/admin',
     component: Employees,
+    name: 'Employees',
     roles: [
       'CEO',
       'General Manager',
@@ -139,6 +148,7 @@ export default [
     path: '/reports',
     layout: '/admin',
     component: Reports,
+    name: 'Reports',
     roles: [
       'CEO',
       'General Manager',
@@ -163,6 +173,7 @@ export default [
     path: '/claims/:tab',
     layout: '/admin',
     component: Claims,
+    name: 'Claims',
     roles: [
       'CEO',
       'General Manager',
@@ -174,6 +185,7 @@ export default [
   {
     path: '/insurers-details',
     layout: '/admin',
+    name: 'Insurers',
     component: InsurersDetails,
     roles: [
       'CEO',
@@ -186,6 +198,7 @@ export default [
   {
     path: '/insurers-details/:tab',
     layout: '/admin',
+    name: 'Insurers',
     component: InsurersDetails,
     roles: [
       'CEO',
@@ -198,6 +211,7 @@ export default [
   {
     path: '/re-insurers-detail/:tab',
     layout: '/admin',
+    name: 'Re-insurers',
     component: ReinsurersDetails,
     roles: [
       'CEO',
@@ -210,6 +224,7 @@ export default [
   {
     path: '/re-insurers-detail',
     layout: '/admin',
+    name: 'Re-insurers',
     component: ReinsurersDetails,
     roles: [
       'CEO',
@@ -223,6 +238,7 @@ export default [
     path: '/setup-business',
     layout: '/admin',
     component: SetupBusiness,
+    name: 'Setup Business',
     roles: [
       // 'CEO',
       // 'General Manager',
@@ -234,6 +250,7 @@ export default [
   {
     path: "/treaty-programs",
     layout: "/admin",
+    name: 'Treaty Programs',
     component: TreatyPrograms,
     roles: [
       'CEO',
@@ -246,6 +263,7 @@ export default [
   {
     path: "/treaty-claims",
     layout: "/admin",
+    name: 'Treaty Claims',
     component: TreatyClaims,
     roles: [
       'CEO',
@@ -258,6 +276,7 @@ export default [
   {
     path: "/treaty-programs/overview",
     layout: "/admin",
+    name: 'Treaty Programs',
     component: TreatyProgramsOverview,
     roles: [
       'CEO',
@@ -270,6 +289,7 @@ export default [
   {
     path: '/create-closing',
     layout: '/admin',
+    name: 'Create Closing',
     component: CreateClosing,
     roles: [
       'CEO',
@@ -282,6 +302,7 @@ export default [
   {
     path: '/create-closing/:tab',
     layout: '/admin',
+    name: 'Create Closing',
     component: CreateClosing,
     roles: [
       'CEO',
@@ -294,6 +315,7 @@ export default [
   {
     path: '/view-offer',
     layout: '/admin',
+    name: 'Create Slip',
     component: ViewOffer,
     roles: [
       'CEO',
@@ -306,6 +328,7 @@ export default [
   {
     path: '/settings',
     layout: '/admin',
+    name: 'Settings',
     component: Settings,
     roles: [
       'CEO',
