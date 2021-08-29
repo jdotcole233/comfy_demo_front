@@ -13,6 +13,12 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
     const list = [];
     if (insurer && insurer.treaties) {
       insurer.treaties.map((treaty) => {
+        const currency =
+          treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
+            ? JSON.parse(treaty?.treaty_details ?? "[]").find(
+                (el) => el.keydetail.toLowerCase() === "currency"
+              )?.value
+            : treaty?.currency;
         const row = {
           ...treaty,
           employee: `${treaty?.employee?.employee_first_name} ${treaty?.employee?.employee_last_name}`,
@@ -23,6 +29,7 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
           ).format("DD-MMM, YY")}`,
           treaty_program: treaty.treaty_program?.treaty_name,
           program_type: treaty.treaty_program?.treaty_type,
+          currency: currency,
           treaty_payment_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}

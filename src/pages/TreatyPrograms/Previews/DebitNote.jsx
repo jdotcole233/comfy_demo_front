@@ -34,6 +34,13 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
 
   const note_details = JSON.parse(note?.exchange_rate || "{}");
 
+  const currency =
+    treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
+      ? JSON.parse(treaty?.treaty_details ?? "[]").find(
+          (el) => el.keydetail.toLowerCase() === "currency"
+        )?.value
+      : treaty?.currency;
+
   return (
     <>
       <div className="row m-2">
@@ -146,7 +153,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
-                  {note_details?.currency || treaty?.currency}
+                  {note_details?.currency || currency}
                 </h3>
               </div>
             </div>

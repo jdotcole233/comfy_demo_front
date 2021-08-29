@@ -992,6 +992,7 @@ export const INSURER = gql`
       treaty_program_id
       treaty_name
       treaty_type
+      treaty_details
     }
     treaty_proportional_detail {
       treaty_proportional_detail_id
