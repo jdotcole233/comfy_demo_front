@@ -37,11 +37,11 @@ export function useCookies(key, initialvalue) {
 
 const PREFIX = "kek-system-vitals-";
 
-export default function useLocalStorage(key, initialvalue = "") {
+export default function useLocalStorage(key, initialvalue) {
     const prefixedKey = PREFIX + key;
     const [value, setValue] = useState(() => {
-        const jsonValue = localStorage.getItem(prefixedKey);
-        if (jsonValue != null) return JSON.parse(JSON.stringify(jsonValue))
+        const jsonValue = window.localStorage.getItem(prefixedKey);
+        if (jsonValue != null) return JSON.parse(jsonValue)
         if (typeof initialvalue === "function") {
             return initialvalue();
         } else {
@@ -50,7 +50,9 @@ export default function useLocalStorage(key, initialvalue = "") {
     })
 
     useEffect(() => {
-        localStorage.setItem(prefixedKey, JSON.stringify(value))
+
+        window.localStorage.setItem(prefixedKey, JSON.stringify(value))
+
     }, [prefixedKey, value]);
 
     return [value, setValue]

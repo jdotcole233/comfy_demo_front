@@ -3,15 +3,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useMemo } from "react";
 import { Link, useHistory } from "react-router-dom";
-import {
-  Drawer,
-  Datatable,
-  Loader,
-  OverViewCard,
-  generateNewCulumns,
-} from "../../components";
+import { Drawer, Loader } from "../../components";
 import EditReinsurer from "./EditResinsurer";
-import { associatesColumnns, offersColumns } from "./columns";
+import { offersColumns } from "./columns";
 import { useQuery } from "react-apollo";
 import { REINSURER, REINSURER_OFFERS } from "../../graphql/queries";
 import OfferButtons from "./components/OfferButtons";
@@ -22,17 +16,29 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useReinsurer } from "../../context/ReinsurersProvider";
 import RetrocedentOfferButtons from "./components/RetrocedentOfferButtons";
+import { useDispatch, useSelector } from "react-redux";
+import { CHANGE_REINSURER_PAGE_TYPE } from "../../redux/types/ReinsurerTypes";
+import ReinsurerDetailWelcome from "./components/ReinsurerDetailWelcome";
+import ReinsurerDetailOtherInfo from "./components/ReinsurerDetailOtherInfo";
+import ReinsurerDetailsFacStats from "./components/ReinsurerDetailsFacStats";
+import ReinsurerDetailsTreatyStats from "./components/ReinsurerDetailsTreatyStats";
+import ReinsurerDetailTreaties from "./components/ReinsurerDetailTreaties";
+import { Fragment } from "react";
+import ReinsurerDetailsAssociateListing from "./components/ReinsurerDetailsAssociateListing";
 
 function ReinsurerDetail() {
   const history = useHistory();
   const { reinsurer } = useReinsurer();
   const { state: ctx } = useContext(AuthContext);
   const [showInsurerProfile, setShowInsurerProfile] = useState(false);
-  const [associates, setAssociates] = useState([]);
+  const [, setAssociates] = useState([]);
   const [offerListing, setOfferListing] = useState([]);
   const [allOfferListing, setAllOfferListing] = useState([]);
   const [overview, setOverview] = useState(null);
   const [allTotalValue, setAllTotalValue] = useState(0);
+  const granted = useSelector((state) => state.app.granted);
+  const dispatch = useDispatch();
+  const { type } = useSelector((state) => state.reinsurer);
 
   useEffect(() => {
     if (!reinsurer) {
@@ -272,6 +278,13 @@ function ReinsurerDetail() {
     });
   };
 
+  const changePageType = (_type) => {
+    dispatch({
+      type: CHANGE_REINSURER_PAGE_TYPE,
+      payload: _type,
+    });
+  };
+
   if (loading) return <Loader />;
 
   return (
@@ -282,7 +295,29 @@ function ReinsurerDetail() {
             <div className="page-title-box d-flex align-items-center justify-content-between">
               <h4 className="mb-0 font-size-18">Re-inusrer Deatil</h4>
 
-              <div className="page-title-right">
+              <div className="page-title-right row">
+                {granted && (
+                  <div className="btn-group mr-4">
+                    <div
+                      onClick={() => changePageType("Fac")}
+                      className={`btn ${
+                        type !== "Fac" ? "btn-secondary" : "btn-primary"
+                      } w-lg btn-sm`}
+                    >
+                      <span className="bx bx-archive-in mr-4"></span>
+                      Facultative
+                    </div>
+                    <div
+                      onClick={() => changePageType("Treaty")}
+                      className={`btn ${
+                        type !== "Treaty" ? "btn-secondary" : "btn-primary"
+                      } w-lg btn-sm`}
+                    >
+                      <span className="bx bx-receipt mr-4"></span>
+                      Treaty
+                    </div>
+                  </div>
+                )}
                 <ol className="breadcrumb m-0">
                   <li className="breadcrumb-item">
                     <Link to="/admin/re-insurers">Re-Insurers</Link>
@@ -296,214 +331,58 @@ function ReinsurerDetail() {
 
         <div className="row">
           <div className="col-xl-4">
-            <div className="card overflow-hidden">
-              <div className="bg-soft-primary">
-                <div className="row">
-                  <div className="col-7">
-                    <div className="text-primary p-3">
-                      <h5 className="text-primary">Welcome Back !</h5>
-                      <p>It will seem like simplified</p>
-                    </div>
-                  </div>
-                  <div className="col-5 align-self-end">
-                    <img
-                      src="/assets/images/profile-img.png"
-                      alt=""
-                      className="img-fluid"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="card-body pt-0">
-                <div className="row">
-                  <div className="col-sm-4">
-                    <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                      <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
-                        {data?.reinsurer.re_abbrv}
-                      </span>
-                    </div>
-                    <h5 className="font-size-15 text-truncate">
-                      {data?.reinsurer.re_company_name}
-                    </h5>
-                  </div>
-
-                  <div className="col-sm-8">
-                    <div className="pt-4">
-                      <div className="row">
-                        <div className="col-6">
-                          <h5 className="font-size-15">
-                            {overview?.total_paid}
-                          </h5>
-                          <p className="text-muted mb-0">Paid</p>
-                        </div>
-                        <div className="col-6">
-                          <h5 className="font-size-15">
-                            {overview?.total_unpaid}
-                          </h5>
-                          <p className="text-muted mb-0">Unpaid</p>
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <a
-                          onClick={() =>
-                            setShowInsurerProfile(!showInsurerProfile)
-                          }
-                          className="btn btn-primary text-white waves-effect waves-light btn-sm"
-                        >
-                          View Profile{" "}
-                          <i className="mdi mdi-arrow-right ml-1"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title mb-4">Other Information</h4>
-
-                <div className="table-responsive">
-                  <table className="table table-nowrap mb-0">
-                    <tbody>
-                      <tr>
-                        <th scope="row">Region:</th>
-                        <td>{data?.reinsurer.reinsurer_address.region}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">City :</th>
-                        <td>{data?.reinsurer.reinsurer_address.suburb}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">E-mail :</th>
-                        <td>{data?.reinsurer.re_company_email}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Website :</th>
-                        <td>{data?.reinsurer.re_company_website}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+            <ReinsurerDetailWelcome
+              setShowInsurerProfile={setShowInsurerProfile}
+              reinsurer={data?.reinsurer}
+              overview={overview}
+            />
+            <ReinsurerDetailOtherInfo reinsurer={data?.reinsurer} />
           </div>
 
           <div className="col-xl-8">
-            <div className="row">
-              <div className="col-md-6">
-                <div className="card mini-stats-wid">
-                  <div className="card-body">
-                    <div className="media">
-                      <div className="media-body">
-                        <p className="text-muted font-weight-medium">
-                          Closed Offers
-                        </p>
-                        <h4 className="mb-0">{overview?.total_closed}</h4>
-                      </div>
-
-                      <div className="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary">
-                        <span className="avatar-title">
-                          <i className="bx bx-check-circle font-size-24"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="card mini-stats-wid">
-                  <div className="card-body">
-                    <div className="media">
-                      <div className="media-body">
-                        <p className="text-muted font-weight-medium">
-                          Pending Offers
-                        </p>
-                        <h4 className="mb-0">{overview?.total_pending}</h4>
-                      </div>
-
-                      <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
-                        <span className="avatar-title">
-                          <i className="bx bx-hourglass font-size-24"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <OverViewCard
-                title="Total Revenue"
-                value={JSON.parse(overview?.total_fac_premium || null)}
-                className="col-md-12"
-              />
-              <OverViewCard
-                title="Total Withholding Tax"
-                value={JSON.parse(overview?.total_withholding_tax || null)}
-              />
-              <OverViewCard
-                title="Total NIC Levy"
-                value={JSON.parse(overview?.total_nic_tax || null)}
-              />
-            </div>
+            <ReinsurerDetailsFacStats overview={overview} />
+            <ReinsurerDetailsTreatyStats overview={overview} />
           </div>
         </div>
-        <BrokerageComponent data={data} />
-        <OfferListing
-          title="Offers"
-          path="/admin/re-insurers-detail"
-          recent={offerListing}
-          all={allOfferListing}
-          allTotal={allTotalValue}
-          setInputOffer={1}
-          entries={5}
-          columns={offersColumns}
-          fetching={fetching}
-          handleLoadMore={handleLoadMore}
-        />
-
-        {/* Sections for Offers brought in by Reinsurers company */}
-        <OfferListing
-          title="Retrocedent offers"
-          path="/admin/re-insurers-detail"
-          recent={broughtInOffers}
-          all={broughtInOffers}
-          allTotal={allTotalValue}
-          setInputOffer={1}
-          entries={5}
-          columns={offersColumns.filter(
-            (el) => el.field !== "participating_percentage"
-          )}
-          fetching={fetching}
-          handleLoadMore={handleLoadMore}
-        />
-
-        <div className="">
-          <div className="col-md-12">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title mb-4">Associates</h4>
-                <Datatable
-                  btn
-                  hover
-                  striped
-                  responsive
-                  bordered
-                  columns={generateNewCulumns(
-                    associatesColumnns,
-                    ["System Administrator", "Senior Broking Officer"].includes(
-                      ctx?.user?.position
-                    )
-                      ? []
-                      : ["actions"]
-                  )}
-                  data={associates}
-                />
-              </div>
-            </div>
-          </div>
+        <div className="row">
+          <BrokerageComponent data={data} />
+          <ReinsurerDetailTreaties reinsurer={data?.reinsurer} />
+          {/* <ReinsurersDetailOffers reinsurer={data?.reinsurer} /> */}
         </div>
+        {type === "Fac" && (
+          <Fragment>
+            <OfferListing
+              title="Offers"
+              path="/admin/re-insurers-detail"
+              recent={offerListing}
+              all={allOfferListing}
+              allTotal={allTotalValue}
+              setInputOffer={1}
+              entries={5}
+              columns={offersColumns}
+              fetching={fetching}
+              handleLoadMore={handleLoadMore}
+            />
+
+            {/* Sections for Offers brought in by Reinsurers company */}
+            <OfferListing
+              title="Retrocedent offers"
+              path="/admin/re-insurers-detail"
+              recent={broughtInOffers}
+              all={broughtInOffers}
+              allTotal={allTotalValue}
+              setInputOffer={1}
+              entries={5}
+              columns={offersColumns.filter(
+                (el) => el.field !== "participating_percentage"
+              )}
+              fetching={fetching}
+              handleLoadMore={handleLoadMore}
+            />
+          </Fragment>
+        )}
+        <ReinsurerDetailsAssociateListing reinsurer={data?.reinsurer} />
+        {/*  */}
       </div>
 
       {/* Edit Reinsurer */}

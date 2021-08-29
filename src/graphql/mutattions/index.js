@@ -472,6 +472,27 @@ export const CLAIM_REQUEST = gql`
   }
 `;
 
+export const SEND_TREATY_CLAIM_DEBIT_NOTE = gql`
+mutation sendTreatyClaimDebitNote(
+  $single_document: Int
+  $treaty_id: ID
+  $treaty_participant_id: ID
+  $reinsurer_id: ID
+  $paged: Int
+  $email_component: EmailComponent
+) {
+  sendTreatyClaimDebitNote(
+    single_document: $single_document
+    treaty_id: $treaty_id
+    treaty_participant_id: $treaty_participant_id
+    reinsurer_id: $reinsurer_id
+    paged: $paged
+    email_component: $email_component
+  )
+}
+
+`
+
 export const REMOVE_CLAIM_AMOUNT = gql`
   mutation removeClaimAmount($id: ID!, $offer_id: ID!) {
     deleteClaimAmount(offer_claim_id: $id, offer_id: $offer_id)

@@ -85,17 +85,27 @@ function PreviewClaimDebitNote({ offer, shares, claim }) {
             </div>
 
             <div className="row mb-2">
-              <div className="col-md-6 col-4 col-sm-4 col-xs-4">
-                <h3 className="dark-text">REINSURED:</h3>
+              <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                <h3 className="dark-text">Reinsured:</h3>
               </div>
-              <div className="col-md-6 col-8 col-sm-8 col-xs-8">
+              <div className="col-md-8 col-8 col-sm-8 col-xs-8">
                 <h3 className="dark-text-value">
-                  {offer?.offer_retrocedent
-                    ? offer?.offer_retrocedent?.reinsurer?.re_company_name?.toUpperCase()
-                    : offer?.insurer.insurer_company_name?.toUpperCase()}
+                  {offer?.insurer.insurer_company_name}
                 </h3>
               </div>
             </div>
+            {offer?.offer_retrocedent && (
+              <div className="row mb-2">
+                <div className="col-md-4 col-4 col-sm-4 col-xs-4">
+                  <h3 className="dark-text">Retrocedent:</h3>
+                </div>
+                <div className="col-md-8 col-8 col-sm-8 col-xs-8">
+                  <h3 className="dark-text-value">
+                    {offer?.offer_retrocedent?.reinsurer?.re_company_name}
+                  </h3>
+                </div>
+              </div>
+            )}
             <div className="row mb-2">
               <div className="col-md-6 col-4 col-sm-4 col-xs-4">
                 <h3 className="dark-text">INSURED :</h3>

@@ -8,32 +8,35 @@ import Pusher from "pusher-js";
 import Push from "push.js";
 import { NOTIFICATIONS } from "../graphql/queries/notifications";
 import { useHistory, Link } from "react-router-dom";
-import { PUSHER_KEY, PUSHER_CLUSTER, CHANNEL, EVENT } from '../graphql/config'
+import { PUSHER_KEY, PUSHER_CLUSTER, CHANNEL, EVENT } from "../graphql/config";
 
-let all_notifs = []
-
-
+let all_notifs = [];
 
 const NotifcIcon = ({ state }) => {
   const [notifications, setNotifications] = useState([]);
   const history = useHistory();
-  const [total, settotal] = useState(0)
+  const [total, settotal] = useState(0);
 
   const { data } = useQuery(NOTIFICATIONS, {
-    variables: { id: state?.user?.employee?.employee_id || 1, page: 1, first: 100 },
+    variables: {
+      id: state?.user?.employee?.employee_id || 1,
+      page: 1,
+      first: 100,
+    },
     fetchPolicy: "cache-first",
   });
 
-
   useEffect(() => {
     if (data) {
-      setNotifications(data.readSystemNotifications?.employee_notification.data || []);
-      settotal(data.readSystemNotifications?.employee_notification.paginatorInfo.total)
-      all_notifs = data.readSystemNotifications?.employee_notification.data
+      setNotifications(
+        data.readSystemNotifications?.employee_notification.data || []
+      );
+      settotal(
+        data.readSystemNotifications?.employee_notification.paginatorInfo.total
+      );
+      all_notifs = data.readSystemNotifications?.employee_notification.data;
     }
   }, [data]);
-
-
 
   React.useEffect(() => {
     var pusher = new Pusher(PUSHER_KEY, {
@@ -49,7 +52,7 @@ const NotifcIcon = ({ state }) => {
         },
       };
       setNotifications([newNotif, ...all_notifs]);
-      all_notifs = [newNotif, ...all_notifs]
+      all_notifs = [newNotif, ...all_notifs];
       if (
         JSON.parse(notif.system_data).owner_id !=
         state.user.employee.employee_id
@@ -70,8 +73,8 @@ const NotifcIcon = ({ state }) => {
     });
     return () => {
       pusher.unbind_all();
-      pusher.unsubscribe(CHANNEL)
-    }
+      pusher.unsubscribe(CHANNEL);
+    };
   }, []);
 
   return (
@@ -96,7 +99,7 @@ const NotifcIcon = ({ state }) => {
         <div className="p-3">
           <div className="row align-items-center">
             <div className="col">
-              <h6 className="m-0">Notifications</h6>
+              <h6 className="m-0">System logs</h6>
             </div>
             <div className="col-auto">
               <a className="small"> Clear All</a>

@@ -40,10 +40,8 @@ const OfferButtons = ({ offer }) => {
   const [viewOffer, setViewOffer] = useState(false);
   const [selectedReinsurer, setSelectedReinsurer] = useState(null);
   const [showSendClosingSlip, setShowSendClosingSlip] = useState(false);
-  const [
-    showUpdateReinsurerPercentage,
-    setShowUpdateReinsurerPercentage,
-  ] = useState(false);
+  const [showUpdateReinsurerPercentage, setShowUpdateReinsurerPercentage] =
+    useState(false);
   const [percentageErrorEntry, setPercentageErrorEntry] = useState(false);
   const [percentage, setPercentage] = useState(0);
   const [fac_offer, setFac_offer] = useState(0);
@@ -168,7 +166,7 @@ const OfferButtons = ({ offer }) => {
       closeOnEsc: false,
       icon: "warning",
       title: `Update ${selectedReinsurer?.reinsurer?.re_company_name}'s percentage ?`,
-      text: "This action would update the initial assigned percentage",
+      text: "This action will update the initial assigned percentage",
       buttons: [
         "No",
         {
@@ -371,7 +369,7 @@ const OfferButtons = ({ offer }) => {
 
       {/* Preview Cover note */}
       <Drawer
-        width="60%"
+        width="50%"
         isvisible={showCoverNotePreview}
         toggle={() => setShowCoverNotePreview(!showCoverNotePreview)}
       >

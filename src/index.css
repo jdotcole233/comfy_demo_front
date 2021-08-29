@@ -344,7 +344,7 @@ td {
   font-size: 0.8em;
   font-weight: bold;
   justify-self: end;
-  color: #F46A6A;
+  color: #f46a6a;
   padding-left: 4px;
   padding-right: 4px;
 }
@@ -357,7 +357,7 @@ td {
 
 .preview-header-style {
   display: flex;
-  width: "100%";
+  width: "inherit";
   margin-bottom: 10px;
   justify-content: flex-end;
   padding-right: 20px;
@@ -366,4 +366,31 @@ td {
 
 .kek-nav-items-pointer {
   cursor: pointer;
+}
+
+/* .logo-img-bg {
+  background-image: url("/img/visal-logo-sm.png");
+} */
+
+.reference {
+  display: flex;
+  line-height: 10px;
+  padding: 10px;
+}
+
+.reference-header {
+  margin-right: 5px;
+  width: 50%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.h-6 {
+  height: 1.4rem;
+  /* color: gray; */
+}
+.w-6 {
+  /* width: 6rem; */
 }
