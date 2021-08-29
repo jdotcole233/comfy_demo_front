@@ -13,6 +13,7 @@ import { useAuth } from "../../context/AuthContext";
 import { CurrencyOption, Selector } from "../../components";
 import currencies from "../../assets/currencies.json";
 import plural from "pluralize";
+import _ from "lodash";
 
 const prepData = ({
   payment,
@@ -96,8 +97,7 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
     ],
   });
 
-  const hasEndorsement =
-    details?.offer_endorsements[details?.offer_endorsements?.length - 1];
+  const hasEndorsement = _.last(details?.offer_endorsements);
 
   useEffect(() => {
     if (details) {

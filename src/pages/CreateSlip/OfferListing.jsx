@@ -15,6 +15,7 @@ const OfferListing = ({
   hideTab,
   allTotal,
   entries = 10,
+  insurer_id,
   path,
 }) => {
   const [_tab, setTab] = useState("recent");
@@ -61,7 +62,10 @@ const OfferListing = ({
                     <ul className="nav nav-tabs nav-tabs-custom kek-nav-items-pointer">
                       <li className="nav-item ">
                         <Link
-                          to={path + "/recent"}
+                          to={{
+                            pathname: path + "/recent",
+                            state: { insurer_id },
+                          }}
                           className={`nav-link ${
                             _tab === "recent" ? "active" : ""
                           }`}
@@ -71,7 +75,10 @@ const OfferListing = ({
                       </li>
                       <li className="nav-item">
                         <Link
-                          to={path + "/all"}
+                          to={{
+                            pathname: path + "/all",
+                            state: { insurer_id },
+                          }}
                           className={`nav-link ${
                             _tab === "all" ? "active" : ""
                           }`}

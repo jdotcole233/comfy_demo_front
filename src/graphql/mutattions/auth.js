@@ -11,6 +11,11 @@ export const LOGIN = gql`
         user_id
         position
         first_time_signin
+        user_role {
+          user_role_id
+          position
+          privileges 
+        }
         employee {
           emp_abbrv
           employee_id
