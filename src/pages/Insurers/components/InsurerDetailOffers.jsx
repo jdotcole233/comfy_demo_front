@@ -2,11 +2,11 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import OfferButtons from "./Offerbuttons";
 import f_dat from "../dummy";
-import _ from "lodash";
+// import _ from "lodash";
 import OfferListing from "../../CreateSlip/OfferListing";
 
 // import { useInsurerProps } from "../providers/InsurerProvider";
-const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
+// const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
 const InsurerDetailOffers = ({
   insurer,
