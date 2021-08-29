@@ -206,6 +206,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
 
   useEffect(() => {
     if (selectedProgram) {
+      setDeductionCreated(true);
       setTreatyDetials(
         JSON.parse(selectedProgram.value.treaty_details || "[]")
       );
@@ -653,6 +654,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                     type="text"
                     className="form-control"
                     placeholder={cob.keydetail}
+                    required
                   />
                   {_form.errors[`${cob.keydetail}`] && (
                     <p className="text-danger">

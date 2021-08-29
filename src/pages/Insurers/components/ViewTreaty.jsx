@@ -553,14 +553,16 @@ const ViewTreaty = () => {
               {!isProp && allowAdjustment && (
                 <AdjustmentStatement {...data?.treaty} />
               )}
-              <AddQuarter
-                isProp={isProp}
-                remainingPercentage={remainingPercentages[`${currentLayer}`]}
-                treaty_id={data?.treaty?.treaty_id}
-                notes={data?.treaty?.treaty_accounts}
-                surpluses={JSON.parse(data?.treaty?.layer_limit ?? "[]")}
-                treaty={data?.treaty}
-              />
+              {allowAdjustment && (
+                <AddQuarter
+                  isProp={isProp}
+                  remainingPercentage={remainingPercentages[`${currentLayer}`]}
+                  treaty_id={data?.treaty?.treaty_id}
+                  notes={data?.treaty?.treaty_accounts}
+                  surpluses={JSON.parse(data?.treaty?.layer_limit ?? "[]")}
+                  treaty={data?.treaty}
+                />
+              )}
             </div>
             <TreatyDebitNotes
               treaty={data?.treaty}

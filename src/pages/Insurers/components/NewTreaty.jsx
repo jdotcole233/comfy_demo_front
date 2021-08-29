@@ -57,6 +57,7 @@ const NewTreaty = (props) => {
     const newInput = {
       keydetail: "",
       value: "",
+      required: true,
     };
     setCount(detailCount + 1);
     setaddintionalInputFields([...addintionalInputFields, newInput]);
@@ -78,6 +79,12 @@ const NewTreaty = (props) => {
     const { value } = e.target;
     const inputs = [...addintionalInputFields];
     inputs[index]["keydetail"] = value;
+    setaddintionalInputFields(inputs);
+  };
+
+  const tick = (checked, key) => {
+    const inputs = [...addintionalInputFields];
+    inputs[key]["required"] = checked;
     setaddintionalInputFields(inputs);
   };
 
@@ -120,6 +127,7 @@ const NewTreaty = (props) => {
         {
           keydetail: "currency",
           value: "",
+          required: true,
         },
       ]);
     } else {
@@ -191,8 +199,8 @@ const NewTreaty = (props) => {
         <div className="form-group">
           <div className="row">
             {addintionalInputFields.map((el, key) => (
-              <div className="col-md-6">
-                <div className="input-group mb-3">
+              <div className="col-md-6 mb-3">
+                <div className="input-group">
                   <input
                     value={el.keydetail}
                     onChange={(e) => handleInputChange(e, key)}
@@ -220,6 +228,17 @@ const NewTreaty = (props) => {
                     </button>
                   </div>
                 </div>
+                {/* <div className="form-check mb-3">
+                  <input
+                    checked={el.required}
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={(e) => tick(e.target.checked, key)}
+                  />
+                  <label className="form-check-label" htmlFor="exampleCheck1">
+                    Required
+                  </label>
+                </div> */}
               </div>
             ))}
           </div>
