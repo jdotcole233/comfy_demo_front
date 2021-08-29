@@ -9,7 +9,7 @@ import {
   Loader,
   generateNewCulumns,
   toMoney,
-} from "../../components";
+} from "components";
 import EditInsurer from "./EditInsurer";
 import { managersColumn } from "./dummy";
 import { useQuery } from "react-apollo";

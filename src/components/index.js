@@ -61,6 +61,13 @@ export const validateInputs = (obj) => {
   return false;
 };
 
+export const toMoney = () => {
+  return (value) => {
+    if (value === null || value === undefined) return '0.00';
+    return value.toFixed(2);
+  };
+}
+
 export function chunkArray(myArray, chunk_size) {
   var index = 0;
   var arrayLength = myArray.length;
