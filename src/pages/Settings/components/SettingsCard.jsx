@@ -102,7 +102,7 @@ const SettingsCard = ({
               style={{ fontSize: 16 }}
               className={`bx bx-caret-${
                 showFunctionalities ? "up" : "down"
-              } cursor-pointer`}
+              } pointer`}
             ></span>
           </div>
           {showFunctionalities && (
