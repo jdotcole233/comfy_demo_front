@@ -432,7 +432,9 @@ function NonProportionalPaymentForm({
               >
                 <option value="">Choose a type</option>
                 {_.fill(
-                  Array(parseInt(selectdQuarter?.value?.installment_type)),
+                  Array(
+                    parseInt(selectdQuarter?.value?.installment_type ?? "0")
+                  ),
                   2
                 ).map((__, key) => (
                   <option key={key} value={key + 1}>
