@@ -82,7 +82,7 @@ const menus = [
       'Finance Executive',
       'System Administrator',
     ],
-    functionalities: ['View profile', 'Change password', 'View activities'],
+    functionalities: ["View user account", "Manage Password", "View user log activities"],
   },
 ];
 
@@ -265,12 +265,14 @@ export const treaty = [
     name: 'Treaty Programs',
     roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
     icon: 'bx bx-collection',
+    functionalities: ["Manage Insurer treaty program", "Manage treaty deductions"],
   },
   {
     link: '/admin/treaty-claims',
     name: 'Treaty Claims',
     roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
     icon: 'bx bx-receipt',
+    functionalities: ["Manage Non Proportional Claims"],
   },
 ]
 
