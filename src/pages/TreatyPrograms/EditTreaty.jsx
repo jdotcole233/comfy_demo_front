@@ -61,6 +61,7 @@ const EditTreaty = ({ treaty, setOpenDeductions }) => {
     const newInput = {
       keydetail: "",
       value: "",
+      required: true,
     };
     setCount(detailCount + 1);
     setaddintionalInputFields([...addintionalInputFields, newInput]);
@@ -113,6 +114,12 @@ const EditTreaty = ({ treaty, setOpenDeductions }) => {
           swal("Whhoops!!", "Treaty Program not updated successfully", "error");
         });
     });
+  };
+
+  const tick = (checked, key) => {
+    const inputs = [...addintionalInputFields];
+    inputs[key]["required"] = checked;
+    setaddintionalInputFields(inputs);
   };
 
   return (
@@ -189,6 +196,10 @@ const EditTreaty = ({ treaty, setOpenDeductions }) => {
                   />
                   <div className="input-group-prepend">
                     <button
+                      disabled={
+                        treaty?.treaty_type.value === "PROPORTIONAL" &&
+                        el.keydetail === "currency"
+                      }
                       onClick={() => handleRemoveParticularInput(key)}
                       className="btn btn-danger"
                       type="button"
@@ -197,6 +208,17 @@ const EditTreaty = ({ treaty, setOpenDeductions }) => {
                     </button>
                   </div>
                 </div>
+                {/* <div className="form-check mb-3">
+                  <input
+                    checked={el.required ?? true}
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={(e) => tick(e.target.checked, key)}
+                  />
+                  <label className="form-check-label" htmlFor="exampleCheck1">
+                    Required
+                  </label>
+                </div> */}
               </div>
             ))}
           </div>

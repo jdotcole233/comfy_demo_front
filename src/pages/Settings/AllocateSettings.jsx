@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import SettingsCard from "./components/SettingsCard";
-import { clients, offers, others } from "./../../layout/adminRoutes";
+import {
+  clients,
+  offers,
+  others,
+  menus,
+  treaty,
+} from "./../../layout/adminRoutes";
 import { useMutation } from "react-apollo";
 import { UPDATE_USER_ROLE } from "graphql/mutattions/settings";
 import { USER_ROLES } from "graphql/queries/settings";
 import swal from "sweetalert";
 
 const AllocateSettings = ({ role, setShow }) => {
-  const routes = [...offers, ...clients, ...others];
+  const routes = [...offers, ...clients, ...others, ...treaty, ...menus];
   const [priviledges, setPriviledges] = useState(() => {
     return JSON.parse(atob(role?.privileges) ?? "[]");
   });

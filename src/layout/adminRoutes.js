@@ -57,6 +57,35 @@ const dashboard = [
   },
 ];
 
+const menus = [
+  {
+    link: '/admin/',
+    name: 'Settings',
+    icon: 'bx bx-home-circle',
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+    functionalities: ['Create role', 'Edit role', 'Configure Account Privilegese'],
+  },
+  {
+    link: '/admin/',
+    name: 'Profile',
+    icon: 'bx bx-home-circle',
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+    functionalities: ["View user account", "Manage Password", "View user log activities"],
+  },
+];
+
 const offers = [
   {
     link: '/admin/create-slip/recent',
@@ -110,12 +139,13 @@ const offers = [
     ],
     icon: 'bx bx-lock-alt',
     functionalities: [
-      'Preview Cover Note',
-      'Preview Debit Note',
-      'Send Cover and Debit Notes',
-      'Credit Notes',
-      'Preview Credit Note',
-      'Send Credit Note',
+      'Manage Endorsement',
+      'Reopen Offer',
+      'Genereate Transfer Schedule (PDF)',
+      'Download PDF for - Cover',
+      'Download PDF for - Debit',
+      'Download PDF for - Closing notes',
+      'Delete offer'
     ],
   },
 ];
@@ -132,15 +162,12 @@ const clients = [
     ],
     icon: 'bx bx-group',
     functionalities: [
-      'Create Insurer',
-      'Add Manager',
-      'View Insurer',
-      'Delete Insurer',
-      'View Insurer Offer',
-      'Distribute Payment',
-      'View Payments',
-      'Edit Insurer Manager',
-      'Delete Insurer Manager',
+      'Manage Insurer',
+      'Manage insurer associates',
+      'Manage facultative offers',
+      'Manage treaties',
+      'Manage fac. offer payments',
+      'Manage treaty payments',
     ],
   },
   {
@@ -155,12 +182,15 @@ const clients = [
     ],
     icon: 'bx bx-group',
     functionalities: [
-      'Create Reinsurer',
-      'Add Associate',
-      'View Reinsurer',
-      'Delete Reinsurer',
-      'View Reinsurer Offer Details',
-      'View Reinsurer Offer Deductions',
+      'Facultative Data Analytics',
+      'Treaty Data Analytics',
+      'Manage reinsurers',
+      'Manage reinsurer associates',
+      'Manage Offers',
+      'Manage Deductions',
+      'Manage treaties',
+      'Manage offer payments',
+      'Manage treaty payments',
     ],
   },
 ];
@@ -177,10 +207,8 @@ const others = [
     ],
     icon: 'bx bx-group',
     functionalities: [
-      'Create Business',
-      'View Business',
-      'Update Business',
-      'Delete Business',
+      'Manage class of businesses',
+      'Class of business analytics',
     ],
   },
   {
@@ -194,7 +222,9 @@ const others = [
       'System Administrator',
     ],
     icon: 'bx bx-receipt',
-    functionalities: ['View Offer'],
+    functionalities: [
+      'Manage claim notifications',
+      ' Manage claims', 'Preview Claim Debit Note', 'Download PDF Claim Debit Note', 'Email Claim Debit Note', 'Claim Data Analytic'],
   },
   {
     link: '/admin/employees',
@@ -208,11 +238,10 @@ const others = [
     ],
     icon: 'bx bx-id-card',
     functionalities: [
-      'Create Employee',
-      'View Employee',
-      'Update Employee',
-      'Reset Employee Credentials',
-      'Delete Employee',
+      'Employee Onboarding',
+      'Track Employee Log Activities',
+      'Reset Employee Password',
+      'Delete Employee Account',
     ],
   },
   {
@@ -226,7 +255,7 @@ const others = [
       'System Administrator',
     ],
     icon: 'bx bx-box',
-    functionalities: ['View Offer'],
+    functionalities: ['Generate Dynamic reports on Facultative'],
   },
 ];
 
@@ -236,12 +265,14 @@ export const treaty = [
     name: 'Treaty Programs',
     roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
     icon: 'bx bx-collection',
+    functionalities: ["Manage Insurer treaty program", "Manage treaty deductions"],
   },
   {
     link: '/admin/treaty-claims',
     name: 'Treaty Claims',
     roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
     icon: 'bx bx-receipt',
+    functionalities: ["Manage Non Proportional Claims"],
   },
 ]
 
@@ -331,5 +362,6 @@ export {
   create_reinsurer_access,
   delete_reinsurer_access,
   edit_reinsurer_access,
-  treaty_Access
+  treaty_Access,
+  menus
 };

@@ -206,6 +206,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
 
   useEffect(() => {
     if (selectedProgram) {
+      setDeductionCreated(true);
       setTreatyDetials(
         JSON.parse(selectedProgram.value.treaty_details || "[]")
       );
@@ -653,6 +654,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                     type="text"
                     className="form-control"
                     placeholder={cob.keydetail}
+                    required
                   />
                   {_form.errors[`${cob.keydetail}`] && (
                     <p className="text-danger">
@@ -666,44 +668,46 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
         </fieldset>
       ) : null}
 
-      <div className="row mt-2">
-        <div className="col-md-12">
-          <label htmlFor="Type of goods">Currency</label>
-          <Selector
-            value={
-              currency
-                ? {
-                    label: Object.values(currencies).find(
-                      (eel) => eel.code === currency
-                    )?.name,
-                  }
-                : ""
-            }
-            components={{ Option: CurrencyOption }}
-            onChange={handleCurrencyChange}
-            options={[
-              ...Object.values(currencies).map((currency) => ({
-                label: currency.name,
-                value: currency,
-              })),
-            ]}
-          />
-          <input
-            ref={_form.register({
-              required: "Currency is required",
-            })}
-            type="hidden"
-            name="currency"
-            list="currencies"
-            placeholder="Currency"
-            className="form-control"
-          />
+      {selectedProgramType && selectedProgramType?.value === "NONPROPORTIONAL" && (
+        <div className="row mt-2">
+          <div className="col-md-12">
+            <label htmlFor="Type of goods">Currency</label>
+            <Selector
+              value={
+                currency
+                  ? {
+                      label: Object.values(currencies).find(
+                        (eel) => eel.code === currency
+                      )?.name,
+                    }
+                  : ""
+              }
+              components={{ Option: CurrencyOption }}
+              onChange={handleCurrencyChange}
+              options={[
+                ...Object.values(currencies).map((currency) => ({
+                  label: currency.name,
+                  value: currency,
+                })),
+              ]}
+            />
+            <input
+              ref={_form.register({
+                required: "Currency is required",
+              })}
+              type="hidden"
+              name="currency"
+              list="currencies"
+              placeholder="Currency"
+              className="form-control"
+            />
 
-          {_form.errors.currency && (
-            <p className="text-danger">{_form.errors.currency.message}</p>
-          )}
+            {_form.errors.currency && (
+              <p className="text-danger">{_form.errors.currency.message}</p>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {selectedProgramType && selectedProgramType?.value === "PROPORTIONAL" && (
         <Fragment>
@@ -798,7 +802,44 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                 </p>
               )}
             </div>
-            <div className="col-md-12">
+
+            <div className="col-md-6">
+              <label htmlFor="Type of goods">Currency</label>
+              <Selector
+                value={
+                  currency
+                    ? {
+                        label: Object.values(currencies).find(
+                          (eel) => eel.code === currency
+                        )?.name,
+                      }
+                    : ""
+                }
+                components={{ Option: CurrencyOption }}
+                onChange={handleCurrencyChange}
+                options={[
+                  ...Object.values(currencies).map((currency) => ({
+                    label: currency.name,
+                    value: currency,
+                  })),
+                ]}
+              />
+              <input
+                ref={_form.register({
+                  required: "Currency is required",
+                })}
+                type="hidden"
+                name="currency"
+                list="currencies"
+                placeholder="Currency"
+                className="form-control"
+              />
+
+              {_form.errors.currency && (
+                <p className="text-danger">{_form.errors.currency.message}</p>
+              )}
+            </div>
+            <div className="col-md-6">
               <Input
                 label="Retained Premium Income"
                 placeholder="Retained Premium Income"

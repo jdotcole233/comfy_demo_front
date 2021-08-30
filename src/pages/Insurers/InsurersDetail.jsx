@@ -45,7 +45,6 @@ const getParticipantsCommission = (arr = []) => {
 
 function InsurerDetail() {
   const { state: ctx } = useContext(AuthContext);
-  // console.log(ctx?.user)
   const dispatch = useDispatch();
   const type = useSelector((state) => state.insurer.type);
   const granted = useSelector((state) => state.app.granted);

@@ -57,6 +57,7 @@ const NewTreaty = (props) => {
     const newInput = {
       keydetail: "",
       value: "",
+      required: true,
     };
     setCount(detailCount + 1);
     setaddintionalInputFields([...addintionalInputFields, newInput]);
@@ -78,6 +79,12 @@ const NewTreaty = (props) => {
     const { value } = e.target;
     const inputs = [...addintionalInputFields];
     inputs[index]["keydetail"] = value;
+    setaddintionalInputFields(inputs);
+  };
+
+  const tick = (checked, key) => {
+    const inputs = [...addintionalInputFields];
+    inputs[key]["required"] = checked;
     setaddintionalInputFields(inputs);
   };
 
@@ -114,6 +121,22 @@ const NewTreaty = (props) => {
     });
   };
 
+  useEffect(() => {
+    if (treaty_type && treaty_type.value === "PROPORTIONAL") {
+      setaddintionalInputFields([
+        {
+          keydetail: "currency",
+          value: "",
+          required: true,
+        },
+      ]);
+    } else {
+      setaddintionalInputFields([]);
+    }
+  }, [treaty_type]);
+
+  const counter = treaty_type && treaty_type.value === "PROPORTIONAL" ? 1 : 0;
+
   return (
     <div className="">
       <div className={styles.card_header}>
@@ -149,7 +172,7 @@ const NewTreaty = (props) => {
           <input
             name="name"
             value={treaty_name}
-            onChange={(e) => setTreaty_name(e.target.value.trim())}
+            onChange={(e) => setTreaty_name(e.target.value)}
             type="text"
             className="form-control"
             placeholder="Treaty Name"
@@ -162,7 +185,7 @@ const NewTreaty = (props) => {
               <button onClick={handleAddInput} className="btn btn-primary mr-2">
                 +
               </button>
-              {addintionalInputFields.length ? (
+              {addintionalInputFields.length > counter ? (
                 <button onClick={handleRemoveInput} className="btn btn-danger">
                   -
                 </button>
@@ -176,17 +199,27 @@ const NewTreaty = (props) => {
         <div className="form-group">
           <div className="row">
             {addintionalInputFields.map((el, key) => (
-              <div className="col-md-6">
-                <div className="input-group mb-3">
+              <div className="col-md-6 mb-3">
+                <div className="input-group">
                   <input
                     value={el.keydetail}
                     onChange={(e) => handleInputChange(e, key)}
                     type="text"
                     className="form-control"
                     placeholder={`Detail ${key + 1}`}
+                    readOnly={
+                      treaty_type &&
+                      treaty_type.value === "PROPORTIONAL" &&
+                      el.keydetail === "currency"
+                    }
                   />
                   <div className="input-group-prepend">
                     <button
+                      disabled={
+                        treaty_type &&
+                        treaty_type.value === "PROPORTIONAL" &&
+                        el.keydetail === "currency"
+                      }
                       onClick={() => handleRemoveParticularInput(key)}
                       className="btn btn-danger"
                       type="button"
@@ -195,6 +228,17 @@ const NewTreaty = (props) => {
                     </button>
                   </div>
                 </div>
+                {/* <div className="form-check mb-3">
+                  <input
+                    checked={el.required}
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={(e) => tick(e.target.checked, key)}
+                  />
+                  <label className="form-check-label" htmlFor="exampleCheck1">
+                    Required
+                  </label>
+                </div> */}
               </div>
             ))}
           </div>
@@ -204,7 +248,7 @@ const NewTreaty = (props) => {
           <button
             onClick={createTreatyProgram}
             disabled={
-              !treaty_name ||
+              !treaty_name.trim() ||
               !treaty_type ||
               !insurer ||
               !hasOptionsAndNotEmpty(addintionalInputFields)

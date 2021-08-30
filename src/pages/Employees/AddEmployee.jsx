@@ -2,18 +2,19 @@
 import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DrawerContext } from "../../components/Drawer";
-import { useMutation } from "react-apollo";
+import { useMutation, useQuery } from "react-apollo";
 import {
   CREATE_EMPLOYEE,
   UPDATE_EMPLOYEE,
 } from "../../graphql/mutattions/employees";
 import swal from "sweetalert";
 import { EMPLOYEES } from "../../graphql/queries/employees";
+import { USER_ROLES } from "graphql/queries/settings";
 
 function AddEmployee({ editing, employee, toggle }) {
   const { register, handleSubmit, errors, setValue, reset } = useForm();
   const { closed } = useContext(DrawerContext);
-
+  const { data: userRoles } = useQuery(USER_ROLES);
   const [createEmployee] = useMutation(CREATE_EMPLOYEE, {
     refetchQueries: [{ query: EMPLOYEES }],
   });
@@ -196,7 +197,12 @@ function AddEmployee({ editing, employee, toggle }) {
                 id=""
               >
                 <option value="">Select position</option>
-                <option value="CEO">CEO</option>
+                {userRoles?.user_roles?.map((role, key) => (
+                  <option key={key} value={role.position}>
+                    {role.position}
+                  </option>
+                ))}
+                {/* <option value="CEO">CEO</option>
                 <option value="General Manager">General Manager</option>
                 <option value="Senior Broking Officer">
                   Senior Broking Officer
@@ -204,7 +210,7 @@ function AddEmployee({ editing, employee, toggle }) {
                 <option value="Finance Executive">Finance Executive</option>
                 <option value="System Administrator">
                   System Administrator
-                </option>
+                </option> */}
               </select>
               {errors.employee_position && (
                 <p className="text-danger">

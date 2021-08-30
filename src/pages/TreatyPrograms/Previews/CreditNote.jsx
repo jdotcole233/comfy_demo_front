@@ -53,6 +53,13 @@ const CreditNote = ({
     (parseFloat(share?.nic_levy_amount) +
       parseFloat(share?.withholding_tax_amount));
 
+  const currency =
+    treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
+      ? JSON.parse(treaty?.treaty_details ?? "[]").find(
+          (el) => el.keydetail.toLowerCase() === "currency"
+        )?.value
+      : treaty?.currency;
+
   return (
     <>
       <div className="row m-2">
@@ -165,7 +172,7 @@ const CreditNote = ({
                 <h3 className="dark-text">Currency:</h3>
               </div>
               <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">{treaty?.currency}</h3>
+                <h3 className="dark-text-value">{currency}</h3>
               </div>
             </div>
             <div className="row mb-2">

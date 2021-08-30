@@ -90,6 +90,10 @@ export default memo(({ children }) => {
     return;
   };
 
+  console.log(state)
+
+  const privileges = state && state?.user ? JSON.parse(atob(state?.user?.user_role?.privileges)) : [];
+
   return (
     <IdleTimer timeout={TIMEOUT} onIdle={warn}>
       <AuthContext.Provider
@@ -97,6 +101,7 @@ export default memo(({ children }) => {
           state,
           dispatch,
           user: state?.user,
+          privileges,
           authenticate,
           signOut,
         }}

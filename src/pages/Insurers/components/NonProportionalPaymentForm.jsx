@@ -17,13 +17,22 @@ import { money } from "../../../utils";
 import _ from "lodash";
 import currencies from "../../../assets/currencies.json";
 
-const getSumOFNPPayments = ({ treaty_np_payments = [], uuid, edit }) => {
+const getSumOFNPPayments = ({
+  treaty_np_payments = [],
+  uuid,
+  edit,
+  installment_type,
+}) => {
   const sum = treaty_np_payments.reduce((acc, curr) => {
     const details = JSON.parse(curr.treaty_payment_details);
     const { conversion } = details;
-    if (curr.uuid === uuid) {
+
+    if (
+      curr.uuid === uuid &&
+      curr.installment_type === parseInt(installment_type)
+    ) {
       if (edit && edit.treaty_np_payment_id === curr.treaty_np_payment_id) {
-        console.log("Current", curr, edit);
+        // console.log("Current", curr, edit);
         return acc;
       }
       if (conversion && conversion.addExchangeRate) {
@@ -64,6 +73,7 @@ function NonProportionalPaymentForm({
     payment_amount: "",
     date_on_cheque: "",
     treaty_account_id: "",
+    installment_type: "",
   });
 
   useEffect(() => {
@@ -94,6 +104,7 @@ function NonProportionalPaymentForm({
           treaty_account_id: paymentDetails.uuid,
           currency: paymentDetails?.conversion?.currency,
           exchange_rate: parseFloat(paymentDetails?.conversion?.rate),
+          installment_type: edit.installment_type,
         });
       }
     }
@@ -118,9 +129,7 @@ function NonProportionalPaymentForm({
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const amt = addExchangeRate
-      ? newExpectedAmount
-      : expectedAmtToBePaid / _fig;
+    const amt = addExchangeRate ? newExpectedAmount : expectedAmtToBePaid;
     if (name === "payment_amount") {
       if (value > amt || value < 0) {
         setAmountError(true);
@@ -259,31 +268,45 @@ function NonProportionalPaymentForm({
   const _fig = parseInt(selectdQuarter?.value?.installment_type);
 
   useEffect(() => {
-    if (selectdQuarter) {
+    if (selectdQuarter && form_inputs.installment_type) {
       const uuid = selectdQuarter?.value?.uuid;
       const total_payments_so_far = getSumOFNPPayments({
         ...treaty,
         uuid,
         edit,
+        installment_type: form_inputs.installment_type,
       });
+      console.log("total_payments_so_far", total_payments_so_far);
+      console.log("payments", treaty?.treaty_np_payments);
       const __ =
         (percentage / 100) *
-          parseFloat(selectdQuarter?.value?.m_and_d_premium) -
+          (parseFloat(selectdQuarter?.value?.m_and_d_premium) / _fig) -
         total_payments_so_far;
-      setExpectedAmtToBePaid(__ / _fig);
+      setExpectedAmtToBePaid(__);
       setForm_inputs((prev) => ({
         ...prev,
         treaty_account_id: selectdQuarter?.value?.uuid,
       }));
 
-      const amt = addExchangeRate ? newExpectedAmount : __ / _fig;
-      if (parseFloat(form_inputs.payment_amount) > amt) {
+      const amt = addExchangeRate ? newExpectedAmount : __;
+      console.log(
+        "amt",
+        parseFloat(form_inputs.payment_amount) > parseFloat(amt)
+      );
+      if (parseFloat(form_inputs.payment_amount) > parseFloat(amt)) {
         setAmountError(true);
       } else {
         setAmountError(false);
       }
     }
-  }, [selectdQuarter, newExpectedAmount, percentage, addExchangeRate, edit]);
+  }, [
+    selectdQuarter,
+    newExpectedAmount,
+    percentage,
+    addExchangeRate,
+    edit,
+    form_inputs.installment_type,
+  ]);
 
   const handleExchangeRateChange = (value) => {
     setForm_inputs((prev) => ({
@@ -331,6 +354,7 @@ function NonProportionalPaymentForm({
           layer={{ ...selectdQuarter?.value, ...selectdQuarter }}
           expectedAmtToPaid={expectedAmtToBePaid}
           newExpectedAmount={newExpectedAmount}
+          installment_type={form_inputs.installment_type}
           addExchangeRate={addExchangeRate}
           form_inputs={form_inputs}
           currency={treaty?.currency}
@@ -408,10 +432,14 @@ function NonProportionalPaymentForm({
               >
                 <option value="">Choose a type</option>
                 {_.fill(
-                  Array(parseInt(selectdQuarter?.value?.installment_type)),
+                  Array(
+                    parseInt(selectdQuarter?.value?.installment_type ?? "0")
+                  ),
                   2
                 ).map((__, key) => (
-                  <option value={key + 1}>{key + 1}</option>
+                  <option key={key} value={key + 1}>
+                    {key + 1}
+                  </option>
                 ))}
               </select>
             </div>
@@ -610,6 +638,7 @@ const LayerBreakDown = ({
   expectedAmtToPaid,
   form_inputs,
   addExchangeRate,
+  installment_type,
   newExpectedAmount,
   currency,
 }) => {
@@ -620,45 +649,53 @@ const LayerBreakDown = ({
       </div>
       <div className="col-md-10">
         <table className="table table-borderless table-condensed ">
-          <tr>
-            <td>
-              <Text>Layer Number </Text>
-            </td>
-            <td>
-              <Text>{money(parseFloat(layer?.key))}</Text>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <Text>Payment Status</Text>
-            </td>
-            <td>
-              <Text>{layer?.outgoing_payment_staus ?? "UNPAID"}</Text>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Text>Expected amount to pay </Text>
-            </td>
-            <td>
-              <Text>
-                {currency} {money(expectedAmtToPaid)}
-              </Text>
-            </td>
-          </tr>
-          {addExchangeRate && form_inputs?.currency && (
+          <tbody>
             <tr>
               <td>
-                <Text>New Expected Amount (payable) </Text>
+                <Text>Layer Number </Text>
               </td>
               <td>
-                <Text>
-                  {form_inputs?.currency} {money(newExpectedAmount)}
-                </Text>
+                <Text>{money(parseFloat(layer?.key))}</Text>
               </td>
             </tr>
-          )}
+            {installment_type ? (
+              <>
+                <tr>
+                  <td>
+                    <Text>Payment Status</Text>
+                  </td>
+                  <td>
+                    <Text>{layer?.outgoing_payment_staus ?? "UNPAID"}</Text>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Text>
+                      Expected amount to pay for installment {installment_type}{" "}
+                    </Text>
+                  </td>
+                  <td>
+                    <Text>
+                      {currency} {money(expectedAmtToPaid)}
+                    </Text>
+                  </td>
+                </tr>
+              </>
+            ) : null}
+
+            {addExchangeRate && form_inputs?.currency && (
+              <tr>
+                <td>
+                  <Text>New Expected Amount (payable) </Text>
+                </td>
+                <td>
+                  <Text>
+                    {form_inputs?.currency} {money(newExpectedAmount)}
+                  </Text>
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
     </div>
