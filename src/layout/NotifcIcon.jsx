@@ -9,17 +9,18 @@ import Push from "push.js";
 import { NOTIFICATIONS } from "../graphql/queries/notifications";
 import { useHistory, Link } from "react-router-dom";
 import { PUSHER_KEY, PUSHER_CLUSTER, CHANNEL, EVENT } from "../graphql/config";
+import { useAuth } from "context/AuthContext";
 
 let all_notifs = [];
 
-const NotifcIcon = ({ state }) => {
+const NotifcIcon = () => {
   const [notifications, setNotifications] = useState([]);
   const history = useHistory();
   const [total, settotal] = useState(0);
-
+  const { user } = useAuth();
   const { data } = useQuery(NOTIFICATIONS, {
     variables: {
-      id: state?.user?.employee?.employee_id || 1,
+      id: user?.employee?.employee_id || 1,
       page: 1,
       first: 100,
     },
@@ -46,17 +47,14 @@ const NotifcIcon = ({ state }) => {
     pusher.bind(EVENT, (notif) => {
       const newNotif = {
         employee_notification_id: JSON.parse(notif.system_data)
-          .employee_notification_id[state?.user?.employee?.employee_id],
+          .employee_notification_id[user?.employee?.employee_id],
         system_notification: {
           ...JSON.parse(notif.system_data),
         },
       };
       setNotifications([newNotif, ...all_notifs]);
       all_notifs = [newNotif, ...all_notifs];
-      if (
-        JSON.parse(notif.system_data).owner_id !=
-        state.user.employee.employee_id
-      ) {
+      if (JSON.parse(notif.system_data).owner_id != user.employee.employee_id) {
         Push.create("KEK-Re Notification", {
           body: notif.message,
           icon: "/ms-icon-70x70.png",

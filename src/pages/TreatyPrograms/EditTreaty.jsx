@@ -116,11 +116,11 @@ const EditTreaty = ({ treaty, setOpenDeductions }) => {
     });
   };
 
-  const tick = (checked, key) => {
-    const inputs = [...addintionalInputFields];
-    inputs[key]["required"] = checked;
-    setaddintionalInputFields(inputs);
-  };
+  // const tick = (checked, key) => {
+  //   const inputs = [...addintionalInputFields];
+  //   inputs[key]["required"] = checked;
+  //   setaddintionalInputFields(inputs);
+  // };
 
   return (
     <div className="">

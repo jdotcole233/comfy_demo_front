@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { TagSection } from "../components/VersionBox";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import NotifcIcon from "./NotifcIcon";
 
 export const Navbar = () => {
-  const { state, signOut } = useContext(AuthContext);
+  // const { state, signOut } = useContext(AuthContext);
+  const { user, signOut } = useAuth();
   return (
     <header id="page-topbar">
       <div className="navbar-header">
@@ -58,7 +59,7 @@ export const Navbar = () => {
             </button>
           </div>
 
-          <NotifcIcon state={state} />
+          <NotifcIcon />
 
           <div className="dropdown d-inline-block dropright">
             <button
@@ -75,10 +76,10 @@ export const Navbar = () => {
               }}
             >
               <span className="rounded-circle header-profile-user d-flex justify-content-center align-items-center  rounded-circle bg-soft-primary text-primary font-size-12">
-                {state.user?.employee?.emp_abbrv}
+                {user?.employee?.emp_abbrv}
               </span>
               <span className="d-none d-xl-inline-block ml-1">
-                {state.user?.employee?.employee_first_name}
+                {user?.employee?.employee_first_name}
               </span>
               <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
             </button>
@@ -90,13 +91,15 @@ export const Navbar = () => {
                 <i className="bx bx-user font-size-16 align-middle mr-1"></i>
                 Profile
               </Link>
-              <Link
-                to={{ pathname: "/admin/settings" }}
-                className="dropdown-item"
-              >
-                <i className="bx bx-cog font-size-16 align-middle mr-1"></i>
-                Settings
-              </Link>
+              {user?.position === "System Administrator" ? (
+                <Link
+                  to={{ pathname: "/admin/settings" }}
+                  className="dropdown-item"
+                >
+                  <i className="bx bx-cog font-size-16 align-middle mr-1"></i>
+                  Settings
+                </Link>
+              ) : null}
               <div className="dropdown-divider"></div>
               <button onClick={signOut} className="dropdown-item text-danger">
                 <i className="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i>

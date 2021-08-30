@@ -50,10 +50,6 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
   });
 
   const [removeTreaty] = useMutation(DELETE_TREATY, {
-    variables: {
-      id: treaty_id,
-      treaty_type: treaty?.treaty_program?.treaty_type,
-    },
     refetchQueries: [
       { query: INSURER, variables: { id: insurer?.insurer_id } },
     ],
@@ -226,7 +222,12 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
       ],
     }).then((input) => {
       if (!input) throw null;
-      removeTreaty()
+      removeTreaty({
+        variables: {
+          id: treaty?.treaty_id,
+          treaty_type: isProp ? "PROPORTIONAL" : "NONPROPORTIONAL",
+        },
+      })
         .then((res) => {
           swal("Hurray!!", "Treaty removed successfully", "success");
         })

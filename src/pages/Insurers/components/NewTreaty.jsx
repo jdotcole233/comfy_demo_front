@@ -82,11 +82,11 @@ const NewTreaty = (props) => {
     setaddintionalInputFields(inputs);
   };
 
-  const tick = (checked, key) => {
-    const inputs = [...addintionalInputFields];
-    inputs[key]["required"] = checked;
-    setaddintionalInputFields(inputs);
-  };
+  // const tick = (checked, key) => {
+  //   const inputs = [...addintionalInputFields];
+  //   inputs[key]["required"] = checked;
+  //   setaddintionalInputFields(inputs);
+  // };
 
   const handleChooseType = (type) => setTreaty_type(type ? type : null);
 
