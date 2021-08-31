@@ -311,6 +311,7 @@ const TreatyClaimsButtons = ({ treaty }) => {
             participant={selectedParticipant}
             claims={selectedParticipant?.treaty_claims}
             offer={treaty}
+            toggle={() => setClaimRequest(false)}
           />
         )}
       </Drawer>

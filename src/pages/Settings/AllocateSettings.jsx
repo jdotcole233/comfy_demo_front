@@ -58,6 +58,27 @@ const AllocateSettings = ({ role, setShow }) => {
   return (
     <div>
       {/* {btoa(JSON.stringify(priviledges))} */}
+      <div>
+        <h2>Role: {role?.position} privileges</h2>
+      </div>
+      <div className="alert alert-danger">
+        <p>
+          Select one or more components from the list below. The components you
+          select for a particular role will determine what a user can access or
+          not in the system.
+        </p>
+        <p>
+          Note: The component already <b>ticked</b> has been assigned to a said
+          role in the system. To prevent the user from accessing such a feature,{" "}
+          <b>untick</b> the component by clicking on the tick icon followed by a
+          save action.
+        </p>
+
+        <p>
+          These Changes will take effect after the user logs out and logs back
+          in to the system.
+        </p>
+      </div>
       {routes.map(({ name, icon, functionalities }, id) => (
         <SettingsCard
           functionalities={functionalities}
@@ -68,7 +89,7 @@ const AllocateSettings = ({ role, setShow }) => {
           key={id}
         />
       ))}
-      <div className="row pl-3">
+      <div className="row p-2">
         <button
           onClick={handleSubmit}
           className="btn btn-block btn-sm btn-primary btn-square"

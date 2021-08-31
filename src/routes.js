@@ -160,6 +160,7 @@ export default [
   {
     path: '/claims',
     layout: '/admin',
+    name: 'Facultative Claims',
     component: Claims,
     roles: [
       'CEO',
@@ -173,7 +174,7 @@ export default [
     path: '/claims/:tab',
     layout: '/admin',
     component: Claims,
-    name: 'Claims',
+    name: 'Facultative Claims',
     roles: [
       'CEO',
       'General Manager',

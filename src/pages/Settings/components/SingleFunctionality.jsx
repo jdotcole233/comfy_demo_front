@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { capitalizeFirstLetter } from "./SettingsCard";
 
 const SingleFunctionality = ({ name, onChange, selected, remove }) => {
   const [checked, setActive] = useState(false);
@@ -32,7 +33,7 @@ const SingleFunctionality = ({ name, onChange, selected, remove }) => {
           className="bx bx-radio-circle text-primary mr-3"
         ></span>
       )}
-      <h5>{name}</h5>
+      <h5>{capitalizeFirstLetter(name)}</h5>
     </div>
   );
 };

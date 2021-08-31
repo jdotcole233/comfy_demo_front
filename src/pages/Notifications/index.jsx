@@ -188,7 +188,7 @@ export default () => {
       <div className="row">
         <div className="col-12">
           <div className="page-title-box d-flex align-items-center justify-content-between">
-            <h4 className="mb-0 font-size-18">System logs</h4>
+            <h4 className="mb-0 font-size-18">Application logs</h4>
 
             <div className="page-title-right">
               <ol className="breadcrumb m-0">
@@ -201,7 +201,9 @@ export default () => {
           </div>
           <div className="card">
             <div className="bg-primary p-3">
-              <span className="card-title text-white">Filter system logs</span>
+              <span className="card-title text-white">
+                Filter application logs
+              </span>
             </div>
             <div className="card-body">
               <div className="row d-flex align-items-center">
@@ -214,7 +216,9 @@ export default () => {
                 </div>
                 <div className="col-md-8">
                   <div className="row pl-4 mb-2">
-                    <span className="font-weight-bold">Group logs by</span>
+                    <span className="font-weight-bold">
+                      Group application logs by
+                    </span>
                   </div>
                   <div className="d-flex w-auto">
                     {notificationTypes.map((el) => (
@@ -238,7 +242,7 @@ export default () => {
             <div className="card-body">
               <div className="row d-flex justify-content-between">
                 <p className="ml-2 text-muted d-flex align-items-center font-weight-medium">
-                  All System notifications
+                  All application notifications
                 </p>
                 {clearing ? (
                   <button className="btn btn-default">Clearing...</button>

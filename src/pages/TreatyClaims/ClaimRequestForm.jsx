@@ -99,7 +99,7 @@ function ClaimRequest({ offer, toggle, claims, participant }) {
     const formedData = {
       single_document: sendSingle ? 1 : 0,
       treaty_id: offer?.treaty_id,
-      treaty_participant_id: participant?.treaty_participant_id,
+      treaty_participant_id: participant?.treaty_participation_id,
       reinsurer_id: participant?.reinsurer?.reinsurer_id,
       paged: documentPage,
       email_component: {

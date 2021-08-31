@@ -13,12 +13,12 @@ const PagePermissionItem = ({ name, role }) => {
     <Fragment>
       <tr>
         <td>
-          <h5 className="text-truncate font-size-14">
+          <h5 className="text-truncate font-size-18">
             <a className="text-dark" href="/projects-list">
               {name}
             </a>
           </h5>
-          <p className="text-muted mb-0">It will be as simple as Occidental</p>
+          {/* <p className="text-muted mb-0">It will be as simple as Occidental</p> */}
         </td>
 
         <td>

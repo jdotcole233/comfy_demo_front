@@ -2,6 +2,12 @@ import React, { useState, useEffect, Fragment } from "react";
 import {} from "../../../components";
 import SingleFunctionality from "./SingleFunctionality";
 
+export function capitalizeFirstLetter(string) {
+  return (
+    string.toLowerCase().charAt(0).toUpperCase() + string.toLowerCase().slice(1)
+  );
+}
+
 const SettingsCard = ({
   active,
   name,
@@ -55,7 +61,7 @@ const SettingsCard = ({
           border: "0.5px solid #4E5283",
           //   borderRadius: 12,
           // display: "flex",
-          margin: 10,
+          marginBottom: 10,
         }}
       >
         <div className="row">
@@ -67,13 +73,13 @@ const SettingsCard = ({
               ></span>
             </div>
             <div className="col-md-10">
-              <h3 className="font-size-16">{name}</h3>
-              <p>
+              <h3 className="font-size-16">{capitalizeFirstLetter(name)}</h3>
+              {/* <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
                 quaerat iste repudiandae autem magnam illo quo animi labore
                 voluptates hic nulla pariatur ullam quidem, ut alias inventore,
                 voluptate vitae sint.
-              </p>
+              </p> */}
             </div>
           </div>
           <div
