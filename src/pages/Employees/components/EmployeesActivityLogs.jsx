@@ -1,4 +1,5 @@
 /* eslint-disable array-callback-return */
+import { useAuth } from "context/AuthContext";
 import React, { useMemo, useState } from "react";
 import { Datatable, Modal } from "../../../components";
 import { columns } from "../columns";
@@ -28,6 +29,7 @@ const formArray = (arr = []) => {
 
 const EmployeesActivityLogs = ({ employees = [] }) => {
   const [showModal, setShowModal] = useState(false);
+  const { user } = useAuth();
 
   const logs = useMemo(() => {
     if (employees) {
@@ -35,6 +37,19 @@ const EmployeesActivityLogs = ({ employees = [] }) => {
     }
     return [];
   }, [employees]);
+
+  const hasViewPrivilege = useMemo(() => {
+    if (user) {
+      return (
+        user.position === "System Adminstrator" ||
+        user.position === "CEO" ||
+        user.position === "General Manager"
+      );
+    }
+    return false;
+  }, [user]);
+
+  if (!hasViewPrivilege) return null;
 
   return (
     <div>
