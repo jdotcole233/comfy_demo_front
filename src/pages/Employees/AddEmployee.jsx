@@ -11,6 +11,9 @@ import swal from "sweetalert";
 import { EMPLOYEES } from "../../graphql/queries/employees";
 import { USER_ROLES } from "graphql/queries/settings";
 
+const getRoleId = (roles, role) =>
+  roles.find((r) => r.position === role).user_role_id || "";
+
 function AddEmployee({ editing, employee, toggle }) {
   const { register, handleSubmit, errors, setValue, reset } = useForm();
   const { closed } = useContext(DrawerContext);
@@ -44,7 +47,15 @@ function AddEmployee({ editing, employee, toggle }) {
     }).then((input) => {
       if (!input) throw {};
       createEmployee({
-        variables: { employee: { ...values } },
+        variables: {
+          employee: {
+            ...values,
+            user_role_id: getRoleId(
+              userRoles.user_roles,
+              values.employee_position
+            ),
+          },
+        },
       })
         .then((res) => {
           swal("Success", "Employee account created successfully", "success");
@@ -73,7 +84,13 @@ function AddEmployee({ editing, employee, toggle }) {
       if (!input) throw {};
       updateEmployee({
         variables: {
-          employee: { ...values },
+          employee: {
+            ...values,
+            user_role_id: getRoleId(
+              userRoles.user_roles,
+              values.employee_position
+            ),
+          },
           employee_id: employee.employee_id,
         },
       })
