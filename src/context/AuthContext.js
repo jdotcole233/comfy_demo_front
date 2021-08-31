@@ -90,7 +90,7 @@ export default memo(({ children }) => {
     return;
   };
 
-  console.log(state)
+  // console.log(state)
 
   const privileges = state && state?.user ? JSON.parse(atob(state?.user?.user_role?.privileges)) : [];
 

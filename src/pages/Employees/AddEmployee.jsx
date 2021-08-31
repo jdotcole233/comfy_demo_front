@@ -211,7 +211,6 @@ function AddEmployee({ editing, employee, toggle }) {
                 name="employee_position"
                 ref={register({ required: "Required" })}
                 className="form-control"
-                id=""
               >
                 <option value="">Select position</option>
                 {userRoles?.user_roles?.map((role, key) => (
