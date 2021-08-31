@@ -13,8 +13,10 @@ import { useState } from "react";
 import { Datatable, Modal } from "../../components";
 import columns from "./columns";
 import _ from "lodash";
+import { useAuth } from "context/AuthContext";
 
 export default function Employees({ data, openViewEmployee }) {
+  const { user } = useAuth();
   const [showLOgs, setShowLOgs] = useState(false);
   const [removeEmployee] = useMutation(REMOVE_EMPLOYEE, {
     variables: { employee_id: data.employee_id },
@@ -51,30 +53,6 @@ export default function Employees({ data, openViewEmployee }) {
   };
 
   const handleRemoveEmployee = () => {
-    // swal({
-    //   icon: "warning",
-    //   allowOutsideClick: false,
-    //   allowEscapeKey: false,
-    //   title: "Delete Employee",
-    //   text: `This action will completely remove employee details from system`,
-    //   buttons: ["No", { text: "Yes", closeModal: false }],
-    //   showCancelButton: true,
-    //   confirmButtonText: "Yes",
-    //   cancelButtonText: "No",
-    //   reverseButtons: true,
-    //   showLoaderOnConfirm: true,
-    //   preConfirm: () => {
-    //     return removeEmployee()
-    //       .then((res) => res)
-    //       .catch((err) => new Error(err));
-    //   },
-    // })
-    //   .then((input) => {
-    //     if (!input.isConfirmed) return;
-    //     swall.fire("Success", "Employee deleted successfully", "success");
-    //   })
-    //   .catch((err) => swall.fire("Whoops!!", "Something went wrong", "error"));
-
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -151,6 +129,17 @@ export default function Employees({ data, openViewEmployee }) {
   }, [data, mostFrequest]);
 
   const groupedIps = _.groupBy(data.log_activities, "device_ip");
+
+  const hasViewPrivilege = useMemo(() => {
+    if (user) {
+      return (
+        user.position === "System Administrator" ||
+        user.position === "CEO" ||
+        user.position === "General Manager"
+      );
+    }
+    return false;
+  }, [user]);
 
   return (
     <Fragment>
@@ -231,29 +220,31 @@ export default function Employees({ data, openViewEmployee }) {
               >
                 <i className="bx bx-trash-alt"></i>
               </div>
-              <div
-                onClick={() => setShowLOgs(true)}
-                className="flex-fill d-flex justify-content-center p-1 link-hover"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="Activity Logs"
-              >
-                {/* <i className="bx bx-layer"></i> */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+              {hasViewPrivilege ? (
+                <div
+                  onClick={() => setShowLOgs(true)}
+                  className="flex-fill d-flex justify-content-center p-1 link-hover"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Activity Logs"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                  />
-                </svg>
-              </div>
+                  {/* <i className="bx bx-layer"></i> */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                    />
+                  </svg>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
