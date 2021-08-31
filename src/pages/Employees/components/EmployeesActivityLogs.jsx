@@ -31,27 +31,10 @@ const EmployeesActivityLogs = ({ employees = [] }) => {
 
   const logs = useMemo(() => {
     if (employees) {
-      // const __ = employees.map((employee) => {
-      //   employee.log_activities.map((activityLog) => ({
-      //     employee_first_name: employee.employee_first_name,
-      //     employee_last_name: employee.employee_first_name,
-      //     ...activityLog,
-      //   }));
-      // });
-      // console.log(__);
-      // return __.map((log) => {
-      //   return {
-      //     ...log,
-      //     employee: `${log.employee_first_name} ${log.employee_last_name}`,
-      //     created_at: new Date(log.created_at).toLocaleString(),
-      //   };
-      // });
       return formArray(employees);
     }
     return [];
   }, [employees]);
-
-  // console.log(logs);
 
   return (
     <div>
