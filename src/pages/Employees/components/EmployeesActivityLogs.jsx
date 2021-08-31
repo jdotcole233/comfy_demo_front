@@ -41,7 +41,7 @@ const EmployeesActivityLogs = ({ employees = [] }) => {
   const hasViewPrivilege = useMemo(() => {
     if (user) {
       return (
-        user.position === "System Adminstrator" ||
+        user.position === "System Administrator" ||
         user.position === "CEO" ||
         user.position === "General Manager"
       );
