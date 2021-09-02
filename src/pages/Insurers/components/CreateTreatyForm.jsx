@@ -868,7 +868,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                   type="number"
                   step="any"
                   name="withdrawal_percentage"
-                  ref={_form.register({ required: "Required" })}
+                  ref={_form.register({ required: false })}
                 />
                 {_form.errors.withdrawal_percentage && (
                   <p className="text-danger">
@@ -883,7 +883,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                   type="number"
                   step="any"
                   name="withdrawal_loss_percentage"
-                  ref={_form.register({ required: "Required" })}
+                  ref={_form.register({ required: false })}
                 />
                 {_form.errors.withdrawal_loss_percentage && (
                   <p className="text-danger">
@@ -898,7 +898,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                   type="number"
                   step="any"
                   name="assumption_percentage"
-                  ref={_form.register({ required: "Required" })}
+                  ref={_form.register({ required: false })}
                 />
                 {_form.errors.assumption_percentage && (
                   <p className="text-danger">
@@ -913,7 +913,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                   type="number"
                   step="any"
                   name="assumption_loss_percentage"
-                  ref={_form.register({ required: "Required" })}
+                  ref={_form.register({ required: false })}
                 />
                 {_form.errors.assumption_loss_percentage && (
                   <p className="text-danger">
