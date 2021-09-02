@@ -159,13 +159,16 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
 
 export default DebitNote;
 
-const Row = ({ title, value }) => (
-  <div className="row mb-2">
-    <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
-      <h3 className="dark-text">{title}:</h3>
+const Row = ({ title, value, br = false }) => {
+  const parsedValue = br ? `(${value})` : value;
+  return (
+    <div className="row mb-2">
+      <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
+        <h3 className="dark-text">{title}:</h3>
+      </div>
+      <div className="col-md-6 col-6 col-sm-8 col-8 col-xs-8">
+        <h3 className="dark-text-value">{parsedValue}</h3>
+      </div>
     </div>
-    <div className="col-md-6 col-6 col-sm-8 col-8 col-xs-8">
-      <h3 className="dark-text-value">{value}</h3>
-    </div>
-  </div>
-);
+  );
+};
