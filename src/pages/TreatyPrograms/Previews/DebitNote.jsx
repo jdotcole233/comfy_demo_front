@@ -92,7 +92,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             )}
           </div>
           <PreviewLogo />
-          {/* {JSON.stringify(surplus)} */}
+          {JSON.stringify(note_details)}
           <div
             className="col-md-6 col-6"
             style={{
@@ -134,113 +134,6 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
                 Math.abs(cashBal)
               )}`}
             />
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
-                <h3 className="dark-text">Ceding Company:</h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {treaty?.insurer?.insurer_company_name}
-                </h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">Treaty:</h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {treaty?.treaty_program?.treaty_name} -{" "}
-                  {toPosition(props.currentStep.toString())}
-                </h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">Period:</h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {moment(treaty?.treaty_deduction?.treaty_period_from).format(
-                    "Do MMMM, YYYY"
-                  )}{" "}
-                  to{" "}
-                  {moment(treaty?.treaty_deduction?.treaty_period_to).format(
-                    "Do MMMM, YYYY"
-                  )}
-                </h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">Account:</h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text">
-                  {getFlexibleName(note?.account_periods)},
-                  {moment(treaty?.treaty_deduction?.treaty_period_from).format(
-                    "YYYY"
-                  )}
-                </h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">Currency:</h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {note_details?.currency || currency}
-                </h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">Gross Premium:</h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {money(surplus?.gross_premium)}
-                </h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">
-                  Commission {surplus?.commission}%:
-                </h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {money(surplus?.commission_amount)}
-                </h3>
-              </div>
-            </div>
-
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">Claims Settled:</h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {money(note?.claim_settled)}
-                </h3>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-xs-4">
-                <h3 className="dark-text">
-                  {cashBal < 0 ? "Amount Due You" : "Cash Balance"} 100%:
-                </h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {cashBal < 0 ? "(" : ""}
-                  {money(Math.abs(cashBal))}
-                  {cashBal < 0 ? ")" : ""}
-                </h3>
-              </div>
-            </div>
           </div>
         </div>
       </div>
