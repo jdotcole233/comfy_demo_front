@@ -50,7 +50,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
           href={`${BASE_URL_LOCAL}/treaty_debit_note/${btoa(
             JSON.stringify({
               treaty_account_id: note?.treaty_account_id,
-              default: true,
+              defualt,
             })
           )}`}
           className="btn btn-sm btn-primary w-md"
