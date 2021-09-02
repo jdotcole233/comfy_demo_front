@@ -59,15 +59,16 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
         </a>
       </div>
       <div className="col-md-12 mx-3">
-        <div className="form-group ml-2">
+        <div className="form-group d-flex align-items-center ml-2">
           <input
             style={{ width: 20, height: 20 }}
             type="checkbox"
             className="form-check-input"
+            checked={defualt}
             onChange={(e) => setDefualt(e.target.checked)}
           />
           <label
-            className="form-check-label font-weight-bold font-size-16"
+            className="form-check-label ml-2 font-weight-bold font-size-16"
             htmlFor="exampleCheck1"
           >
             Default
