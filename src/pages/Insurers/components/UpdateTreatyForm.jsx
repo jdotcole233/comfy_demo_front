@@ -29,6 +29,7 @@ const prepTreatyValues = (values, detials, limitLayers, treaty, typeObj) => {
         typeObj.value,
         values
       ),
+      treaty_reference: values.treaty_reference,
       currency: values?.currency,
       treaty_associate_deductionstreaty_associate_deduction_id:
         values?.treaty_associate_deductionstreaty_associate_deduction_id,
