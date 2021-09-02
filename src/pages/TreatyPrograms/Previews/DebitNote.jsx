@@ -130,6 +130,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             <Row title="Our Order" />
             <Row
               title="Amount Now Due to KEKE RE"
+              br={cashBal < 0}
               value={`${note_details?.currency || currency} ${money(
                 Math.abs(cashBal)
               )}`}
