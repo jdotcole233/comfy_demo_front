@@ -82,7 +82,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
           </div>
         </div>
       ) : null}
-      {JSON.stringify(note)}
+      {/* {JSON.stringify(note)} */}
       <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6">
@@ -125,7 +125,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
                   )}`}
             />
             <Row title="Currency" value={note_details?.currency || currency} />
-            <Row title="Account Year" value={note_details?.account_year} />
+            <Row title="Account Year" value={note?.account_year} />
             <Row title="Cover" value={treaty?.treaty_program?.treaty_name} />
             <Row title="Our Order" />
             <Row
