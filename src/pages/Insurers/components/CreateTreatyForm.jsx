@@ -841,8 +841,8 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             </div>
             <div className="col-md-6">
               <Input
-                label="Retained Premium Income"
-                placeholder="Retained Premium Income"
+                label="Estimated Retained Premium Income"
+                placeholder="Estimated Retained Premium Income"
                 type="text"
                 // step="any"
                 name="ernpi"
@@ -863,7 +863,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             <div className="row">
               <div className="col-md-6">
                 <Input
-                  label="Withdrawal %"
+                  label="Premium Withdrawal %"
                   placeholder="Withdrawal %"
                   type="number"
                   step="any"
@@ -878,7 +878,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
               </div>
               <div className="col-md-6">
                 <Input
-                  label="Withdrawal loss %"
+                  label="Premium Withdrawal loss %"
                   placeholder="Withdrawal loss %"
                   type="number"
                   step="any"
@@ -893,7 +893,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
               </div>
               <div className="col-md-6">
                 <Input
-                  label="Assumption %"
+                  label="Premium Assumption %"
                   placeholder="Assumption %"
                   type="number"
                   step="any"
@@ -908,7 +908,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
               </div>
               <div className="col-md-6">
                 <Input
-                  label="Assumption loss %"
+                  label="Premium Assumption loss %"
                   placeholder="Assumption loss %"
                   type="number"
                   step="any"
@@ -937,7 +937,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
           <div className="row">
             <div className="col-md-12">
               <Input
-                label="Retained Premium Income"
+                label="Estimated Retained Premium Income"
                 placeholder="Retained Premium Income"
                 name="egrnpi"
                 type="number"
