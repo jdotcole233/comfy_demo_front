@@ -75,6 +75,11 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
           </label>
         </div>
       </div>
+      <div className="col-md-12">
+        <div className="alert alert-danger">
+          <p></p>
+        </div>
+      </div>
       <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6">
