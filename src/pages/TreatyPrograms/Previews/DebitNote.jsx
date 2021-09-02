@@ -58,6 +58,18 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
           <i className="bx bxs-file-pdf"></i> Save
         </a>
       </div>
+      <div className="col-md-12 mx-3">
+        <div className="form-group ml-2">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            onChange={(e) => setDefualt(e.target.checked)}
+          />
+          <label className="form-check-label" htmlFor="exampleCheck1">
+            Default
+          </label>
+        </div>
+      </div>
       <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6">
