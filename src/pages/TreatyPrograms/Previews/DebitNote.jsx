@@ -128,7 +128,10 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             <Row title="Account Year" value={note_details?.account_year} />
             <Row title="Cover" value={treaty?.treaty_program?.treaty_name} />
             <Row title="Our Order" />
-            <Row title="Amount Now Due to KEKE RE" />
+            <Row
+              title="Amount Now Due to KEKE RE"
+              value={money(Math.abs(cashBal))}
+            />
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
                 <h3 className="dark-text">Ceding Company:</h3>
