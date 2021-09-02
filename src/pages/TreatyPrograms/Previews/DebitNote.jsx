@@ -130,7 +130,9 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             <Row title="Our Order" />
             <Row
               title="Amount Now Due to KEKE RE"
-              value={money(Math.abs(cashBal))}
+              value={`${note_details?.currency || currency} ${money(
+                Math.abs(cashBal)
+              )}`}
             />
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
