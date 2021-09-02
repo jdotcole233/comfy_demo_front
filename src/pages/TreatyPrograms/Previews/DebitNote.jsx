@@ -113,16 +113,22 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             </h3>
           </div>
           <div className="col-md-10 col-sm-12 col-xs-12 ml-md-4">
-            <div className="row mb-2">
-              <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
-                <h3 className="dark-text">Date:</h3>
-              </div>
-              <div className="col-md-6 col-6 col-sm-8 col-8 col-xs-8">
-                <h3 className="dark-text-value">
-                  {moment().format("Do MMMM, YYYY")}
-                </h3>
-              </div>
-            </div>
+            <Row
+              title="Reinsured"
+              value={treaty?.insurer?.insurer_company_name}
+            />
+            <Row
+              title="Period"
+              value={`${getFlexibleName(note?.account_periods)} 
+                  ${moment(treaty?.treaty_deduction?.treaty_period_from).format(
+                    "YYYY"
+                  )}`}
+            />
+            <Row title="Currency" />
+            <Row title="Account Year" />
+            <Row title="Cover" value={treaty?.treaty_program?.treaty_name} />
+            <Row title="Our Order" />
+            <Row title="Amount Now Due to KEKE RE" />
             <div className="row mb-2">
               <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
                 <h3 className="dark-text">Ceding Company:</h3>
@@ -254,3 +260,14 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
 };
 
 export default DebitNote;
+
+const Row = ({ title, value }) => (
+  <div className="row mb-2">
+    <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
+      <h3 className="dark-text">{title}:</h3>
+    </div>
+    <div className="col-md-6 col-6 col-sm-8 col-8 col-xs-8">
+      <h3 className="dark-text-value">{value}</h3>
+    </div>
+  </div>
+);
