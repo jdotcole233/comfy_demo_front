@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React from "react";
+import React, { useState } from "react";
 import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
@@ -25,6 +25,7 @@ const money = (value) =>
   value?.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
 const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
+  const [defualt, setDefualt] = useState(true);
   const cashBal = cashBalance(
     surplus?.gross_premium,
     surplus?.commission_amount,
@@ -49,6 +50,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
           href={`${BASE_URL_LOCAL}/treaty_debit_note/${btoa(
             JSON.stringify({
               treaty_account_id: note?.treaty_account_id,
+              default: true,
             })
           )}`}
           className="btn btn-sm btn-primary w-md"
