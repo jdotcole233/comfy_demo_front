@@ -65,7 +65,10 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             className="form-check-input"
             onChange={(e) => setDefualt(e.target.checked)}
           />
-          <label className="form-check-label" htmlFor="exampleCheck1">
+          <label
+            className="form-check-label font-weight-bold font-size-16"
+            htmlFor="exampleCheck1"
+          >
             Default
           </label>
         </div>
