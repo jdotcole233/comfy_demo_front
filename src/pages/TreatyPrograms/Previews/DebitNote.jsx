@@ -50,7 +50,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
           href={`${BASE_URL_LOCAL}/treaty_debit_note/${btoa(
             JSON.stringify({
               treaty_account_id: note?.treaty_account_id,
-              defualt,
+              default: defualt,
             })
           )}`}
           className="btn btn-sm btn-primary w-md"
@@ -75,11 +75,13 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
           </label>
         </div>
       </div>
-      <div className="col-md-12">
-        <div className="alert alert-danger">
-          <p></p>
+      {!defualt ? (
+        <div className="col-md-12">
+          <div className="alert alert-danger">
+            <p></p>
+          </div>
         </div>
-      </div>
+      ) : null}
       <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6">
