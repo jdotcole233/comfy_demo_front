@@ -124,8 +124,8 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
                     "YYYY"
                   )}`}
             />
-            <Row title="Currency" />
-            <Row title="Account Year" />
+            <Row title="Currency" value={note_details?.currency || currency} />
+            <Row title="Account Year" value={note_details?.account_year} />
             <Row title="Cover" value={treaty?.treaty_program?.treaty_name} />
             <Row title="Our Order" />
             <Row title="Amount Now Due to KEKE RE" />
