@@ -1,5 +1,6 @@
 import React from "react";
 import BrokerDetailHeader from "./components/BrokerDetailHeader";
+import BrokerDetailWelcome from "./components/BrokerDetailWelcome";
 
 const BrokerDetails = () => {
   return (
@@ -8,6 +9,7 @@ const BrokerDetails = () => {
       <div className="row">
         <div className="col-xl-4">
           {/* Welcome */}
+          <BrokerDetailWelcome />
 
           {/* Other Section */}
         </div>
