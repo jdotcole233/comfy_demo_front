@@ -9,16 +9,18 @@ const BrokerDetails = () => {
   return (
     <div className="page-content">
       <BrokerDetailHeader />
-      <div className="row">
-        <div className="col-xl-4">
-          <BrokerDetailWelcome />
-          <BrokerDetailOtherInfo />
-        </div>
-        <div className="col-xl-8">
-          <BrokerDetailTreatyStats />
-        </div>
+      <div className="container-fluid">
         <div className="row">
-          <BrokerDetailTreaties />
+          <div className="col-xl-4">
+            <BrokerDetailWelcome />
+            <BrokerDetailOtherInfo />
+          </div>
+          <div className="col-xl-8">
+            <BrokerDetailTreatyStats />
+          </div>
+          <div className="row">
+            <BrokerDetailTreaties />
+          </div>
         </div>
       </div>
     </div>
