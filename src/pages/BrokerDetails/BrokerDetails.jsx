@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import BrokerDetailHeader from "./components/BrokerDetailHeader";
 
 const BrokerDetails = () => {
-  return <div className="page-content"></div>;
+  return (
+    <div className="page-content">
+      <BrokerDetailHeader />
+    </div>
+  );
 };
 
 export default BrokerDetails;
