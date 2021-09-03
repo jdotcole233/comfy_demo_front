@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import { chunkArray } from "components";
+import React, { useState, useEffect } from "react";
 import { Fragment } from "react";
 import Broker from "./components/Broker";
+import Pagination from "react-paginate";
 
-const BrokersListing = ({ brokers }) => {
+const BrokersListing = ({ brokers = [] }) => {
   const [search, setsearch] = useState("");
   const [activePage, setActivePage] = useState(0);
+  const [brokersInPages, setBrokersInPages] = useState([]);
 
   const handleSearch = (event) => {
     const { value } = event.target;
@@ -18,18 +21,18 @@ const BrokersListing = ({ brokers }) => {
         return checkingItem.includes(itemToSearch);
       });
 
-      setInsurersInPages(chunkArray(newList, 8));
+      setBrokersInPages(chunkArray(newList, 8));
     } else {
-      setInsurersInPages(chunkArray(insurers, 8));
+      setBrokersInPages(chunkArray(brokers, 8));
     }
   };
 
   useEffect(() => {
-    if (insurers) {
-      const pages = chunkArray(insurers, 8);
-      setInsurersInPages(pages);
+    if (brokers) {
+      const pages = chunkArray(brokers, 8);
+      setBrokersInPages(pages);
     }
-  }, [insurers]);
+  }, [brokers]);
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber.selected);
@@ -53,6 +56,24 @@ const BrokersListing = ({ brokers }) => {
       <div className="row m-2">
         <Broker />
       </div>
+      <Pagination
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        containerClassName="pagination justify-content-end mr-4"
+        activeClassName="active"
+        initialPage={activePage}
+        pageCount={brokersInPages.length}
+        itemsCountPerPage={8}
+        totalItemsCount={brokers.length}
+        pageRangeDisplayed={5}
+        nextClassName="page-item"
+        previousClassName="page-item"
+        nextLinkClassName="page-link"
+        previousLinkClassName="page-link"
+        disabledClassName=""
+        marginPagesDisplayed={5}
+        onPageChange={handlePageChange}
+      />
     </Fragment>
   );
 };
