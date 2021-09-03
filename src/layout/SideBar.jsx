@@ -17,7 +17,8 @@ import { Fragment } from "react";
 import { version } from "../../package.json";
 import { Modal } from "../components";
 import VersionBox from "../components/VersionBox";
-// el.roles.includes(user?.position)
+// 
+//privileges.includes(el.name)
 const SideBar = () => {
   const { user, privileges } = useAuth();
   const { granted } = useSelector((state) => state.app);
@@ -25,7 +26,7 @@ const SideBar = () => {
   const { pathname } = useLocation();
   const showSideBarLinks = (routes, badge) => {
     return routes.map((el, key) =>
-      privileges.includes(el.name) ? (
+      el.roles.includes(user?.position) ? (
         <li key={key}>
           <Link
             to={el.link}

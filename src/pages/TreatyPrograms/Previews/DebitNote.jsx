@@ -4,7 +4,7 @@ import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
 import { getFlexibleName } from "../../Insurers/components/Note";
-import { toPosition } from "../../../utils";
+// import { toPosition } from "../../../utils";
 import PreviewLogo from "../../../components/PreviewLogo";
 
 export const cashBalance = (
@@ -34,6 +34,12 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
   );
 
   const note_details = JSON.parse(note?.exchange_rate || "{}");
+
+  const ourOrder = treaty?.treaty_participants?.reduce((acc, curr) => {
+    return acc + curr?.treaty_participation_percentage
+      ? parseFloat(curr?.treaty_participation_percentage)
+      : 0;
+  }, 0);
 
   const currency =
     treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
@@ -127,7 +133,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             <Row title="Currency" value={note_details?.currency || currency} />
             <Row title="Account Year" value={note?.account_year} />
             <Row title="Cover" value={treaty?.treaty_program?.treaty_name} />
-            <Row title="Our Order" />
+            <Row title="Our Order" value={`${ourOrder}%`} />
             <Row
               title="Amount Now Due to KEKE RE"
               br={cashBal < 0}

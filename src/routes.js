@@ -26,6 +26,10 @@ const TreatyPrograms = lazy(() => import('./pages/TreatyPrograms'))
 const TreatyProgramsOverview = lazy(() => import('./pages/Insurers/ViewTreatyWrapper'));
 const TreatyClaims = lazy(() => import("./pages/TreatyClaims"))
 
+// New Component
+const Brokers = lazy(() => import("./pages/Brokers"))
+const BrokerDetails = lazy(() => import('./pages/BrokerDetails'))
+
 export default [
   {
     path: '/',
@@ -123,6 +127,32 @@ export default [
     layout: '/admin',
     name: 'Insurers',
     component: Insurers,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/brokers',
+    layout: '/admin',
+    name: 'Reinsurance Brokers',
+    component: Brokers,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/brokers/details/:id',
+    layout: '/admin',
+    name: 'Reinsurance Brokers',
+    component: BrokerDetails,
     roles: [
       'CEO',
       'General Manager',

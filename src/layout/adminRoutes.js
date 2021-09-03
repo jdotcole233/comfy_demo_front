@@ -204,6 +204,30 @@ const clients = [
       'Manage treaty payments',
     ],
   },
+  {
+    link: '/admin/brokers',
+    name: 'Reinsurance Brokers',
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+    icon: 'bx bx-group',
+    functionalities: [
+      'Facultative Data Analytics',
+      'Treaty Data Analytics',
+      'Manage reinsurers',
+      'Manage reinsurer associates',
+      'Manage Offers',
+      'Manage Retrocedent Offers',
+      'Manage Deductions',
+      'Manage treaties',
+      'Manage offer payments',
+      'Manage treaty payments',
+    ],
+  },
 ];
 const others = [
   {
@@ -318,11 +342,28 @@ const create_insurer_access = [
   'System Administrator',
   'Senior Broking Officer',
 ];
+
+
+
 const delete_insurer_access = [
   'System Administrator',
   'Senior Broking Officer',
 ];
+
+
+
 const edit_insurer_access = ['System Administrator', 'Senior Broking Officer'];
+
+//Broker
+export const edit_broker_access = ['System Administrator', 'Senior Broking Officer'];
+export const delete_broker_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
+export const create_broker_access = [
+  'System Administrator',
+  'Senior Broking Officer',
+];
 
 const create_reinsurer_access = [
   'System Administrator',
