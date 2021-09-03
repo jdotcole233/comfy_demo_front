@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import ViewBrokerProfile from "./ViewBrokerProfile";
 
 const BrokerDetailWelcome = ({ broker, overview }) => {
   return (
@@ -51,6 +52,7 @@ const BrokerDetailWelcome = ({ broker, overview }) => {
                 </div>
               </div>
               {/* View Broker Profile */}
+              <ViewBrokerProfile />
             </div>
           </div>
         </div>
