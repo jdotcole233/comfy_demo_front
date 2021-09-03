@@ -15,7 +15,7 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                     Unpaid Treaties
                   </p>
                   <h4 className="mb-0">
-                    {overview?.treaties_overview?.total_unpaid_treaties}
+                    {overview?.treaties_overview?.total_unpaid_treaties ?? 0}
                   </h4>
                 </div>
 
@@ -37,7 +37,7 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                     Proportional Treaties
                   </p>
                   <h4 className="mb-0">
-                    {overview?.treaties_overview?.total_proportional}
+                    {overview?.treaties_overview?.total_proportional ?? 0}
                   </h4>
                 </div>
 
@@ -59,7 +59,7 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                     Nonproportional Treaties
                   </p>
                   <h4 className="mb-0">
-                    {overview?.treaties_overview?.total_nonproportional}
+                    {overview?.treaties_overview?.total_nonproportional ?? 0}
                   </h4>
                 </div>
 

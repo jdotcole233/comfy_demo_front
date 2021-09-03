@@ -27,11 +27,11 @@ const BrokerDetailWelcome = ({ broker, overview }) => {
           <div className="col-sm-4">
             <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
               <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
-                {broker?.re_abbrv}
+                {broker?.re_abbrv ?? "VR"}
               </span>
             </div>
             <h5 className="font-size-15 text-truncate">
-              {broker?.re_company_name}
+              {broker?.broker_company_name ?? "Visal Re"}
             </h5>
           </div>
 
@@ -40,13 +40,13 @@ const BrokerDetailWelcome = ({ broker, overview }) => {
               <div className="row">
                 <div className="col-6">
                   <h5 className="font-size-15">
-                    {overview?.treaties_overview?.total_treaties}
+                    {overview?.treaties_overview?.total_treaties ?? 0}
                   </h5>
                   <p className="text-muted mb-0">Treaties</p>
                 </div>
                 <div className="col-6">
                   <h5 className="font-size-15">
-                    {overview?.treaties_overview?.total_paid_treaties}
+                    {overview?.treaties_overview?.total_paid_treaties ?? 0}
                   </h5>
                   <p className="text-muted mb-0">Paid</p>
                 </div>
