@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Fragment } from "react";
 import Broker from "./components/Broker";
 
-const BrokersListing = () => {
+const BrokersListing = ({ brokers }) => {
+  const [search, setsearch] = useState("");
+  const [activePage, setActivePage] = useState(0);
+
+  const handleSearch = (event) => {
+    const { value } = event.target;
+    setsearch(value);
+
+    if (value) {
+      const newList = brokers.filter((item) => {
+        const itemToSearch = value.toLowerCase();
+        const checkingItem = item.broker_company_name.toLowerCase();
+
+        return checkingItem.includes(itemToSearch);
+      });
+
+      setInsurersInPages(chunkArray(newList, 8));
+    } else {
+      setInsurersInPages(chunkArray(insurers, 8));
+    }
+  };
+
+  useEffect(() => {
+    if (insurers) {
+      const pages = chunkArray(insurers, 8);
+      setInsurersInPages(pages);
+    }
+  }, [insurers]);
+
+  const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber.selected);
+  };
+
   return (
     <Fragment>
       <div className="row">
