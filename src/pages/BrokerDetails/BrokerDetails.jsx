@@ -21,8 +21,8 @@ const BrokerDetails = () => {
           </div>
           <div className="col-xl-12">
             <BrokerDetailTreaties />
+            <BrokersAssociates />
           </div>
-          <BrokersAssociates />
         </div>
       </div>
     </div>
