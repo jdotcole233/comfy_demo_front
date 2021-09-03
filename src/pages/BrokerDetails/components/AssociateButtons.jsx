@@ -55,16 +55,14 @@ const AssociateButtons = ({ broker, data }) => {
       id: selectedAssociate?.reinsurer_representative_id,
     },
   });
-  const handleRemoveAssociate = (reinsurer) => {
+  const handleRemoveAssociate = (broker) => {
     // return;
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
       icon: "warning",
       title: "Warning",
-      text: `Are you sure you want to delete ${
-        reinsurer.rep_first_name + " " + reinsurer.rep_last_name
-      }?`,
+      text: `Are you sure you want to delete ${broker.broker_company_name}?`,
       buttons: [
         "No",
         {
@@ -77,10 +75,10 @@ const AssociateButtons = ({ broker, data }) => {
         if (!name) throw {};
         return removeAssociate({
           variables: {
-            id: reinsurer.reinsurer_representative_id,
+            id: broker.reinsurer_representative_id,
           },
           refetchQueries: [
-            { query: REINSURER, variables: { id: state?.reinsurer_id } },
+            { query: REINSURER, variables: { id: state?.broker_id } },
           ],
         });
       })
@@ -98,21 +96,19 @@ const AssociateButtons = ({ broker, data }) => {
   };
 
   const [updateRep] = useMutation(UPDATE_REINSURER_ASSOCIATE, {
-    refetchQueries: [
-      { query: REINSURER, variables: { id: state?.reinsurer_id } },
-    ],
+    refetchQueries: [{ query: REINSURER, variables: { id: state?.broker_id } }],
   });
 
   const handleUpdateAssociate = (values) => {
     const rep = {
       ...values,
-      reinsurersreinsurer_id: data?.broker.reinsurer_id,
+      reinsurersreinsurer_id: data?.broker.broker_id,
     };
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
       icon: "warning",
-      title: `Are you sure you want to update ${values.rep_first_name}?`,
+      title: `Are you sure you want to update ${values.broker_company_name}?`,
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;
