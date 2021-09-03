@@ -12,6 +12,7 @@ const BrokerDetails = () => {
           <BrokerDetailWelcome />
           <BrokerDetailOtherInfo />
         </div>
+        <div className="col-xl-8"></div>
       </div>
     </div>
   );
