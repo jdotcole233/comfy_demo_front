@@ -45,8 +45,8 @@ const BrokersListing = ({ brokers = [] }) => {
           <div className="col-md-4 mb-2 d-flex justify-content-end">
             <input
               type="text"
-              //   value={search}
-              //   onChange={handleSearch}
+              value={search}
+              onChange={handleSearch}
               placeholder="search"
               className="form-control"
             />
