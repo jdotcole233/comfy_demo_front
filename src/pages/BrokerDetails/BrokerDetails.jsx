@@ -18,7 +18,7 @@ const BrokerDetails = () => {
           <div className="col-xl-8">
             <BrokerDetailTreatyStats />
           </div>
-          <div className="row">
+          <div className="col-xl-12">
             <BrokerDetailTreaties />
           </div>
         </div>
