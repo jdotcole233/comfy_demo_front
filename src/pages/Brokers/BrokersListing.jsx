@@ -27,12 +27,12 @@ const BrokersListing = ({ brokers = [] }) => {
     }
   };
 
-  useEffect(() => {
-    if (brokers) {
-      const pages = chunkArray(brokers, 8);
-      setBrokersInPages(pages);
-    }
-  }, [brokers]);
+  // useEffect(() => {
+  //   if (brokers) {
+  //     const pages = chunkArray(brokers, 8);
+  //     setBrokersInPages(pages);
+  //   }
+  // }, [brokers]);
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber.selected);
