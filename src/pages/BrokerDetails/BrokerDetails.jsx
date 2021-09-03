@@ -1,5 +1,6 @@
 import React from "react";
 import BrokerDetailHeader from "./components/BrokerDetailHeader";
+import BrokerDetailOtherInfo from "./components/BrokerDetailOtherInfo";
 import BrokerDetailWelcome from "./components/BrokerDetailWelcome";
 
 const BrokerDetails = () => {
@@ -8,10 +9,8 @@ const BrokerDetails = () => {
       <BrokerDetailHeader />
       <div className="row">
         <div className="col-xl-4">
-          {/* Welcome */}
           <BrokerDetailWelcome />
-
-          {/* Other Section */}
+          <BrokerDetailOtherInfo />
         </div>
       </div>
     </div>
