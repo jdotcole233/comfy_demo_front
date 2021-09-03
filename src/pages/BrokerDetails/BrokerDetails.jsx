@@ -4,6 +4,7 @@ import BrokerDetailOtherInfo from "./components/BrokerDetailOtherInfo";
 import BrokerDetailTreaties from "./components/BrokerDetailTreaties";
 import BrokerDetailTreatyStats from "./components/BrokerDetailTreatyStats";
 import BrokerDetailWelcome from "./components/BrokerDetailWelcome";
+import BrokersAssociates from "./components/BrokersAssociates";
 
 const BrokerDetails = () => {
   return (
@@ -21,6 +22,7 @@ const BrokerDetails = () => {
           <div className="col-xl-12">
             <BrokerDetailTreaties />
           </div>
+          <BrokersAssociates />
         </div>
       </div>
     </div>
