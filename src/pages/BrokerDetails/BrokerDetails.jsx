@@ -1,6 +1,7 @@
 import React from "react";
 import BrokerDetailHeader from "./components/BrokerDetailHeader";
 import BrokerDetailOtherInfo from "./components/BrokerDetailOtherInfo";
+import BrokerDetailTreaties from "./components/BrokerDetailTreaties";
 import BrokerDetailTreatyStats from "./components/BrokerDetailTreatyStats";
 import BrokerDetailWelcome from "./components/BrokerDetailWelcome";
 
@@ -15,6 +16,9 @@ const BrokerDetails = () => {
         </div>
         <div className="col-xl-8">
           <BrokerDetailTreatyStats />
+        </div>
+        <div className="row">
+          <BrokerDetailTreaties />
         </div>
       </div>
     </div>
