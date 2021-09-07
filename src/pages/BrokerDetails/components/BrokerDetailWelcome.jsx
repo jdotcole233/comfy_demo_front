@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import GeneratePaymentSchedulePluginButton from "pages/BrokerGeneratePaymentSchedule/components/GeneratePaymentSchedulePluginButton";
 import React from "react";
 import ViewBrokerProfile from "./ViewBrokerProfile";
 
@@ -52,7 +53,10 @@ const BrokerDetailWelcome = ({ broker, overview }) => {
                 </div>
               </div>
               {/* View Broker Profile */}
-              <ViewBrokerProfile />
+              <div className="mt-4">
+                <ViewBrokerProfile />
+                <GeneratePaymentSchedulePluginButton />
+              </div>
             </div>
           </div>
         </div>
