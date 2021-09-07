@@ -4,12 +4,16 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.autogit
 # testing
 /coverage
 
+#development
+/config
+
 # production
 /build
+/src/graphql/config.js
 
 # misc
 .DS_Store

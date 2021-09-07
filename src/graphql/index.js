@@ -1,13 +1,15 @@
-import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloLink,
+} from "@apollo/client";
+
 import { onError } from 'apollo-link-error';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from 'apollo-upload-client';
 import { DOMAIN, COOKIE_NAME_AUTH_TOKEN, PROTOCOL } from './config';
 import { setContext } from 'apollo-link-context';
 import swal from 'sweetalert';
 import Cookies from 'js-cookie';
-// import os from 'os';
 
 const getToken = () => {
   const token = Cookies.get(COOKIE_NAME_AUTH_TOKEN);
@@ -19,6 +21,8 @@ export const BASE_URL_LOCAL = `${PROTOCOL}${DOMAIN}`;
 const httpLink = createUploadLink({
   uri: BASE_URL_LOCAL + '/graphql',
 });
+
+console.log(DOMAIN, COOKIE_NAME_AUTH_TOKEN, PROTOCOL, BASE_URL_LOCAL);
 
 const cache = new InMemoryCache();
 

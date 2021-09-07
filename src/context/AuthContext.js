@@ -7,16 +7,17 @@ import swal from 'sweetalert';
 import { useMutation } from 'react-apollo';
 import { LOGOUT } from '../graphql/mutattions/auth';
 import IdleTimer from 'react-idle-timer';
+import { COOKIE_NAME_AUTH_TOKEN, COOKIE_NAME_AUTH } from '../graphql/config';
 
 const TIMEOUT = 60 * 1000 * 30;
 
 const getUserData = () => {
-  const s = Cookies.getJSON('visal_re_auth');
+  const s = Cookies.getJSON(COOKIE_NAME_AUTH);
   return s;
 };
 
 export const setToken = (token, expires) =>
-  Cookies.set('visal_re_auth_token', token, { expires });
+  Cookies.set(COOKIE_NAME_AUTH_TOKEN, token, { expires });
 
 
 export const AuthContext = createContext();
@@ -38,7 +39,7 @@ export default memo(({ children }) => {
     setToken(values.access_token, 0.5);
     // console.log(values);
     await Cookies.set(
-      'visal_re_auth',
+      COOKIE_NAME_AUTH,
       {
         user: {
           ...values.user,
@@ -60,8 +61,8 @@ export default memo(({ children }) => {
   const signOut = (e) => {
     logout()
       .then((res) => {
-        Cookies.remove('visal_re_auth');
-        Cookies.remove('visal_re_auth_token');
+        Cookies.remove(COOKIE_NAME_AUTH);
+        Cookies.remove(COOKIE_NAME_AUTH_TOKEN);
         dispatch({ type: SIGNOUT });
       })
       .catch((err) => { });

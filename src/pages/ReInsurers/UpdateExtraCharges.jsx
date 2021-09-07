@@ -90,7 +90,7 @@ function UpdateExtraCharges({ details, toggle }) {
                         <tbody>
                             <tr>
                                 <td>Offer/Policy number</td>
-                                <td>{details?.reinsurer_offers_only?.offer_detail.policy_number}</td>
+                                <td>{details?.reinsurer_offers_only?.offer_detail?.policy_number}</td>
                             </tr>
                             <tr>
                                 <td>Insurer</td>

@@ -15,3 +15,10 @@ mutation approveEndorseement(
   )
 }
 `;
+
+
+export const SEND_ENDORSEMENT_CONTRACT_CHANGES = gql`
+mutation sendContractChanges($data: EndorsementEmail) {
+  sendContractChanges(endorsementInput: $data)
+}
+`

@@ -17,6 +17,11 @@ export default {
       sort: "asc",
     },
     {
+      label: "Currency",
+      field: "currency",
+      sort: "asc",
+    },
+    {
       label: "Sum Insured",
       field: "sum_insured",
       sort: "asc",
@@ -32,8 +37,23 @@ export default {
       sort: "asc",
     },
     {
+      label: "Expected premium",
+      field: "expected_premium",
+      sort: "asc",
+    },
+    {
+      label: "Outstanding premium",
+      field: "outstanding",
+      sort: "asc",
+    },
+    {
       label: "Offer Status",
       field: "offer_status",
+      sort: "asc",
+    },
+    {
+      label: "END",
+      field: "endorsements",
       sort: "asc",
     },
     {
@@ -103,3 +123,63 @@ export const managersColumn = [
     field: "actions",
   },
 ];
+
+
+export const buildPayload = (data = []) => {
+  const details = data.map((el) => ({
+    offer_participant_payment_id: el.offer_participant_id,
+    paid_details: JSON.stringify({
+      payment_type: el.payment_type,
+      payment_from: {
+        cheque_number: el.cheque_number ? el.cheque_number : "N/A",
+        bank_name: el.bank_name,
+      },
+      payment_to: el.b_bank_name ? el.b_bank_name : "N/A",
+    }),
+    payment_comment: el.comment || "-",
+  }));
+
+  return details;
+};
+
+
+export const treatyColumns = [
+  {
+    label: "Ref#",
+    field: "treaty_reference",
+  },
+  {
+    label: "Treaty Program",
+    field: "treaty_program",
+  },
+  {
+    label: "Program Type",
+    field: "program_type",
+  },
+  {
+    label: "Employee",
+    field: "employee",
+  },
+  {
+    label: "Period",
+    field: "period",
+  },
+  {
+    label: "Currency",
+    field: "currency",
+  },
+  {
+    label: "Payment Status",
+    field: "treaty_payment_status",
+  },
+  {
+    label: "Actions",
+    field: "actions",
+  },
+];
+
+
+export const programTypeOptions = [
+  { label: "Proportional", value: "PROPORTIONAL" },
+  { label: "Nonproportional", value: "NONPROPORTIONAL" },
+]

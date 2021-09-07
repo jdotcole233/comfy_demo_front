@@ -34,6 +34,14 @@ export const insurerTable = [
     field: "business_name",
   },
   {
+    label: "Currency",
+    field: "currency",
+  },
+  {
+    label: "Total Sum Insured",
+    field: "sum_insured",
+  },
+  {
     label: "Fac. Sum Insured",
     field: "fac_sum_insured",
   },
@@ -46,6 +54,22 @@ export const insurerTable = [
     field: "brokerage_amount",
   },
   {
+    label: "Premium due KEK",
+    field: "expected_amount",
+  },
+  {
+    label: "Outstanding premium",
+    field: "outstanding_amount",
+  },
+  {
+    label: "Period of Insurance",
+    field: "period",
+  },
+  {
+    label: "Placed Share",
+    field: "placed_offer",
+  },
+  {
     label: "Offer Status",
     field: "offer_status",
   },
@@ -56,6 +80,10 @@ export const insurerTable = [
   {
     label: "Offer Date",
     field: "offer_date",
+  },
+  {
+    label: "Closed Date",
+    field: "closed_date",
   },
 ];
 
@@ -77,6 +105,14 @@ export const reinsurerTable = [
     field: "business_name",
   },
   {
+    label: "Currency",
+    field: "currency",
+  },
+  {
+    label: "Total Sum Insured",
+    field: "sum_insured",
+  },
+  {
     label: "Fac. Sum Insured",
     field: "fac_sum_insured",
   },
@@ -89,6 +125,22 @@ export const reinsurerTable = [
     field: "brokerage_amount",
   },
   {
+    label: "Premium due KEK",
+    field: "expected_amount",
+  },
+  {
+    label: "Outstanding premium",
+    field: "outstanding_amount",
+  },
+  {
+    label: "Period of Insurance",
+    field: "period",
+  },
+  {
+    label: "Placed Share",
+    field: "placed_offer",
+  },
+  {
     label: "Offer Status",
     field: "offer_status",
   },
@@ -99,6 +151,10 @@ export const reinsurerTable = [
   {
     label: "Offer Date",
     field: "offer_date",
+  },
+  {
+    label: "Closed Date",
+    field: "closed_date",
   },
 ];
 
@@ -121,8 +177,16 @@ export const allTable = [
     field: "business_name",
   },
   {
+    label: "Currency",
+    field: "currency",
+  },
+  {
     label: "Fac. Sum Insured",
     field: "fac_sum_insured",
+  },
+  {
+    label: "Total Sum Insured",
+    field: "sum_insured",
   },
   {
     label: "Fac. Premium",
@@ -131,6 +195,22 @@ export const allTable = [
   {
     label: "Brokerage",
     field: "brokerage_amount",
+  },
+  {
+    label: "Premium due KEK",
+    field: "expected_amount",
+  },
+  {
+    label: "Outstanding premium",
+    field: "outstanding_amount",
+  },
+  {
+    label: "Period of Insurance",
+    field: "period",
+  },
+  {
+    label: "Placed Share",
+    field: "placed_offer",
   },
   {
     label: "Offer Status",
@@ -143,5 +223,9 @@ export const allTable = [
   {
     label: "Offer Date",
     field: "offer_date",
+  },
+  {
+    label: "Closed Date",
+    field: "closed_date",
   },
 ];

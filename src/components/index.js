@@ -21,7 +21,12 @@ export { default as Selector } from './Select';
 export { default as Loader } from './Loader';
 export { default as NoData } from './Nodata';
 export { default as OverViewCard } from './OverViewCard';
+export { default as Input } from './Input';
+export { default as PageHeader } from './PageTitle';
+export { default as TreatyClaimsButtons } from './TreatyClaimsButtons';
+export { default as ErrorMessage } from './ErrorMessage';
 export { default as Editor } from './Editor';
+export { default as ReinsuredComponent } from './ReinsuredComponent';
 export { Modal, ModalBody, ModalHeader };
 
 function getWindowDimensions() {
@@ -55,6 +60,13 @@ export const validateInputs = (obj) => {
   }
   return false;
 };
+
+export const toMoney = () => {
+  return (value) => {
+    if (value === null || value === undefined) return '0.00';
+    return value.toFixed(2);
+  };
+}
 
 export function chunkArray(myArray, chunk_size) {
   var index = 0;
@@ -152,3 +164,51 @@ export function isWithinAWeek(momentDate) {
   const difference = today.diff(createdAt, "days");
   return difference < 8
 }
+
+
+export const treatyClaimsClaimsColumns = [
+  {
+    label: "Policy Number",
+    field: "policy_number"
+  },
+  {
+    label: "Claim Number",
+    field: "claim_number"
+  },
+  {
+    label: "Insured",
+    field: "insured_name"
+  },
+  {
+    label: "Date of Loss",
+    field: "date_of_loss"
+  },
+  {
+    label: "Claim Paid",
+    field: "claim_paid"
+  },
+  {
+    label: "Actions",
+    field: "actions"
+  },
+];
+
+
+export const treatyClaimsParticipantsColumn = [
+  {
+    label: "Reinsurer Name",
+    field: "re_company_name"
+  },
+  {
+    label: "Reinsurer Email",
+    field: "re_company_email"
+  },
+  {
+    label: "Participaton Percentage",
+    field: "treaty_participation_percentage"
+  },
+  {
+    label: "Actions",
+    field: "actions"
+  },
+]

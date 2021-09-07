@@ -12,6 +12,14 @@ export const EMPLOYEES = gql`
       user {
         position
       }
+      log_activities {
+        device_ip
+        device_type
+        city
+        country
+        region
+        created_at
+      }
     }
   }
 `;

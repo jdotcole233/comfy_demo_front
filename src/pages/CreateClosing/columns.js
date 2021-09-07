@@ -5,7 +5,7 @@ export const columns = [
     sort: 'asc',
   },
   {
-    label: 'Insurance Company',
+    label: 'Reinsured',
     field: 'insurance_company',
     sort: 'asc',
   },
@@ -37,6 +37,11 @@ export const columns = [
   {
     label: 'Approval Status',
     field: 'approval_status',
+    sort: 'asc',
+  },
+  {
+    label: 'Payment type',
+    field: 'payment_type',
     sort: 'asc',
   },
   {

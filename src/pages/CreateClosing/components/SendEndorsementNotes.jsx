@@ -122,9 +122,9 @@ function SendEndorsementNotes({ insurer, doc_number, toggle, endorsement }) {
     return (
         <>
             <div className={styles.card_header}>
-                <h2 className={styles.card_title}>Send Endorsement Contract Changes & Debit Note</h2>
+                <h2 className={styles.card_title}>Send Endorsement Cover Note & Debit Note</h2>
                 <Alert variant="danger">
-                    <p>This session will send a copy of Endorsement Contract Changes and Debit Note to <strong>{insurer}</strong>  as attachment</p>
+                    <p>This session will send a copy of Endorsement Cover Note and Debit Note to <strong>{insurer}</strong>  as attachment</p>
                     <p>N.B: You can include any number of EMAILS. Press ENTER or TAB key to add more </p>
                 </Alert>
             </div>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Suspense, useContext, Fragment } from "react"
+import React from "react";
+import { Suspense, useContext, Fragment } from "react";
 import { Switch, Route, useLocation, Redirect } from "react-router-dom";
 import TopBarProgress from "react-topbar-progress-indicator";
 import routes from "../routes";
@@ -9,84 +9,81 @@ import Zoom from "react-reveal/Reveal";
 import { AuthContext } from "../context/AuthContext";
 
 TopBarProgress.config({
-    barThickness: 10,
-    barColors: {
-        0: "#F03B3B",
-        "1.0": "#F03B3B",
-    },
-    shadowBlur: 5,
+  barThickness: 10,
+  barColors: {
+    0: "#F03B3B",
+    "1.0": "#F03B3B",
+  },
+  shadowBlur: 5,
 });
 
 const LoadingComponent = (props) => {
-    return (
-        <Fragment>
-            <TopBarProgress />
-        </Fragment>
-    );
+  return (
+    <Fragment>
+      <TopBarProgress />
+    </Fragment>
+  );
 };
 
-
 const AdminContent = () => {
-    const { state } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
 
-    // console.log(Offers_Access.includes(state?.user?.position))
+  // console.log(Offers_Access.includes(state?.user?.position))
 
-    const getRoutes = (routes) => {
-        return routes.map((el, key) => {
-            const Component = el.component;
-            const MainComponent = () => (
-                <Zoom effect="fadeInUp">
-                    <Component />
-                </Zoom>
-            );
-            return el.layout === "/admin" &&
-                el.roles.includes(state?.user?.position) ? (
-                    <Private
-                        key={key}
-                        path={el.layout + el.path}
-                        exact
-                        component={MainComponent}
-                    />
-                ) : null;
-        });
-    };
+  const getRoutes = (routes) => {
+    return routes.map((el, key) => {
+      const Component = el.component;
+      const MainComponent = () => (
+        <Zoom effect="fadeInUp">
+          <Component />
+        </Zoom>
+      );
+      return el.layout === "/admin" &&
+        el.roles.includes(state?.user?.position) ? (
+        <Private
+          key={key}
+          path={el.layout + el.path}
+          exact
+          component={MainComponent}
+        />
+      ) : null;
+    });
+  };
 
-    return (
-        <div className="main-content bg-layout">
-            {/* Main Content */}
-            <Suspense fallback={LoadingComponent()}>
-                <ConnectionDetector />
-                <Switch>
-                    <Private exact path="/" component={Dashboard} />
-                    {getRoutes(routes)}
-                    <Route component={null} />
-                </Switch>
-            </Suspense>
+  return (
+    <div className="main-content bg-layout">
+      {/* Main Content */}
+      <Suspense fallback={LoadingComponent()}>
+        <ConnectionDetector />
+        <Switch>
+          <Private exact path="/" component={Dashboard} />
+          {getRoutes(routes)}
+          <Route component={null} />
+        </Switch>
+      </Suspense>
 
-            <footer className="footer">
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-sm-6">
-                            {new Date().getFullYear()}©
-                            KEK Reinsurance Brokers Ltd
-                        </div>
-                        <div className="col-sm-6"></div>
-                    </div>
-                </div>
-            </footer>
+      <footer className="footer">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-sm-6">
+              {new Date().getFullYear()}© KEK Reinsurance Brokers Ltd
+            </div>
+            <div className="col-sm-6"></div>
+          </div>
         </div>
-    )
-}
+      </footer>
+    </div>
+  );
+};
 
-export default AdminContent
-
+export default AdminContent;
 
 const Private = React.memo((props) => {
-    const { state } = useContext(AuthContext);
-    const { pathname } = useLocation();
-    return !state.user ? (
-        <Redirect to={{ pathname: "/auth", state: { pathname } }} />
-    ) : (
-            <Route {...props} />
-        );
+  const { state } = useContext(AuthContext);
+  const { pathname } = useLocation();
+  return !state.user ? (
+    <Redirect to={{ pathname: "/auth", state: { pathname } }} />
+  ) : (
+    <Route {...props} />
+  );
 });

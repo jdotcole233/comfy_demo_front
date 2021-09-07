@@ -45,7 +45,7 @@ export const CREATE_REINSURER = gql`
   mutation createReinsurer(
     $re_company_name: String!
     $re_company_email: String!
-    $re_company_website: String!
+    $re_company_website: String
     $street: String!
     $suburb: String!
     $region: String!
@@ -113,6 +113,7 @@ export const CREATE_INPUT_OFFER = gql`
   mutation inputOffer(
     $class_of_business_id: ID!
     $insurer_id: ID!
+    $reinsurer_id: ID
     $employee_id: ID!
     $co_insurance_share: Float
     $rate: Float
@@ -130,13 +131,16 @@ export const CREATE_INPUT_OFFER = gql`
     $ex_currency: String
     $offer_comment: String
     $offer_details: String!
+    $payment_type: Payment_type
     $information_comment: String
   ) {
     createInputOffer(
       offer_input: {
         class_of_business_id: $class_of_business_id
         insurer_id: $insurer_id
+        reinsurer_id: $reinsurer_id
         employee_id: $employee_id
+        payment_type: $payment_type
         rate: $rate
         commission: $commission
         brokerage: $brokerage
@@ -299,7 +303,7 @@ export const CREATE_INSURER = gql`
   mutation createInsurer(
     $insurer_company_name: String!
     $insurer_company_email: String!
-    $insurer_company_website: String!
+    $insurer_company_website: String
     $street: String!
     $suburb: String!
     $region: String!
@@ -467,6 +471,27 @@ export const CLAIM_REQUEST = gql`
     sendClaimNotification(email_data: $data)
   }
 `;
+
+export const SEND_TREATY_CLAIM_DEBIT_NOTE = gql`
+mutation sendTreatyClaimDebitNote(
+  $single_document: Int
+  $treaty_id: ID
+  $treaty_participant_id: ID
+  $reinsurer_id: ID
+  $paged: Int
+  $email_component: EmailComponent
+) {
+  sendTreatyClaimDebitNote(
+    single_document: $single_document
+    treaty_id: $treaty_id
+    treaty_participant_id: $treaty_participant_id
+    reinsurer_id: $reinsurer_id
+    paged: $paged
+    email_component: $email_component
+  )
+}
+
+`
 
 export const REMOVE_CLAIM_AMOUNT = gql`
   mutation removeClaimAmount($id: ID!, $offer_id: ID!) {
