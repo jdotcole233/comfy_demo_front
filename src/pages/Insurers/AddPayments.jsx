@@ -111,15 +111,14 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         return payment;
       });
 
-      const fac_premium = getSum("fac_premium", details);
-      const commission_amount = getSum("commission_amount", details);
+      const fac_premium = hasEndorsement ? getSum("fac_premium", details): details.fac_premium;
+      const commission_amount = hasEndorsement? getSum("commission_amount", details): details.commission_amount;
       const paymentThreshold = hasEndorsement
         ? parseFloat(hasEndorsement?.fac_premium) -
           parseFloat(hasEndorsement?.commission_amount) -
           sumOfPaymentAmounts
         : parseFloat(fac_premium) -
-          parseFloat(commission_amount) -
-          sumOfPaymentAmounts;
+          (parseFloat(commission_amount) + sumOfPaymentAmounts);
       setExpectedAmtToBePaid(paymentThreshold > 0 ? paymentThreshold : 0);
     }
   }, [details, form_inputs, hasEndorsement]);
