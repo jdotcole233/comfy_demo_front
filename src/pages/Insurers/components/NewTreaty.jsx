@@ -137,13 +137,23 @@ const NewTreaty = (props) => {
 
   const counter = treaty_type && treaty_type.value === "PROPORTIONAL" ? 1 : 0;
 
+  useEffect(() => {
+    if(props.noTreatyFound && insurersData.length > 0){
+      const insurer = insurersData.find(insurer => insurer.value.insurer_id === props.noTreatyFound)
+      setInsurer(insurer);
+    }
+  },[props.noTreatyFound, insurersData])
+
   return (
     <div className="">
       <div className={styles.card_header}>
         <h2 className={styles.card_title}>Create Treaty Program</h2>
-        {/* <Alert variant="danger">
-                    <strong>A copy of the offer will be sent to the list of associates to be created below</strong>
-                </Alert> */}
+        {props.noTreatyFound && (
+          <div className="alert alert-info">
+            <p>No Treaty programs were detected for the said Insurer</p>
+            <p>Please create one to continue</p>
+          </div>
+        )}
       </div>
       <div className={styles.card_body}>
         <div className="form-group">

@@ -92,7 +92,7 @@ const LayerDebitNote = ({
           </div>
           <div className="col-md-12 mr-4 ml-4">
             <Row label="REINSURED" value={insurer?.insurer_company_name} />
-            <Row label="TYPE" value={treaty?.treaty_program?.treaty_name} />
+            <Row label="COVER" value={treaty?.treaty_program?.treaty_name} />
             <Row label="LIMIT" value={money(parseFloat(layer?.limit))} />
             <Row
               label="PERIOD"

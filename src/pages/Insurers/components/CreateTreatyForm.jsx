@@ -6,7 +6,7 @@ import styles from "../styles/ViewInsurerOffer.module.css";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-apollo";
 import { INSURER_TREATY_PROGRAMS } from "../../../graphql/queries/treaty";
-import { Selector, CurrencyOption, Input } from "../../../components";
+import { Selector, CurrencyOption, Input, Editor, Loader } from "../../../components";
 import currencies from "../../../assets/currencies.json";
 import {
   ADD_DEDUCTION_TO_TREATY,
@@ -20,6 +20,7 @@ import { v4 } from "uuid";
 import { INSURER } from "../../../graphql/queries";
 import { useDispatch } from "react-redux";
 import { GET_INSURER } from "../../../redux/types/InsurerTypes";
+import NewTreaty from "./NewTreaty";
 
 export const createExtendedTreatyDetails = (type, values) => {
   return {
@@ -54,6 +55,7 @@ const prepTreatyValues = (values, details, limitLayers, typeObj) => {
         values
       ),
       currency: values?.currency,
+      treaty_comment: values?.treaty_comment,
       treaty_associate_deductionstreaty_associate_deduction_id:
         values?.treaty_associate_deductionstreaty_associate_deduction_id,
       insurersinsurer_id: values?.insurersinsurer_id,
@@ -66,7 +68,8 @@ const prepTreatyValues = (values, details, limitLayers, typeObj) => {
 };
 
 const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
-  const { register, errors, handleSubmit, reset, setValue } = useForm();
+  const { register, errors, handleSubmit, reset, setValue, clearError } =
+    useForm();
   const _form = useForm();
   const [currency, setCurrency] = useState(null);
   const [deductionCreated, setDeductionCreated] = useState(false);
@@ -77,8 +80,9 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   const [_programs, set_programs] = useState([]);
   const [limitLayers, setLimitLayers] = useState([]);
   const [surpluses, setSurpluses] = useState([]);
+  const [content, setContent] = useState("");
   const dispatch = useDispatch();
-  const { data } = useQuery(INSURER_TREATY_PROGRAMS, {
+  const { data, loading } = useQuery(INSURER_TREATY_PROGRAMS, {
     variables: {
       id: insurer?.insurer_id,
     },
@@ -367,9 +371,22 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
     setSurpluses(_);
   };
 
+  const handleCommentChange = (value) => {
+    setValue("treaty_comment", value);
+    setContent(value);
+    if (value) {
+      clearError("treaty_comment");
+    }
+  };
+
   useEffect(() => {
     console.log(_form.errors);
   }, [_form.errors]);
+
+
+  if(loading) return <Loader />;
+
+  if(data && data?.insurerTreatyProgram.length < 1) return <NewTreaty setOpenDrawer={setOpenDrawer} noTreatyFound={insurer?.insurer_id} />
 
   return (
     <form onSubmit={_form.handleSubmit(onSubmitTreatyForm)}>
@@ -1133,7 +1150,24 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
           ))}
         </Fragment>
       )}
-
+      <fieldset className="w-auto p-2  border-form">
+        <legend className={styles.details_title}>Comment</legend>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="form-group">
+              <Editor value={content} onChange={handleCommentChange} />
+              <textarea
+                hidden
+                rows={10}
+                ref={register({ required: false })}
+                name="treaty_comment"
+                className="form-control"
+                placeholder="Add Comment"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </fieldset>
       <div className="row mt-3">
         <div className="col-md-12">
           <input

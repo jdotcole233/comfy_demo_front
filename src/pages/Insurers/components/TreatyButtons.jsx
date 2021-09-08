@@ -301,7 +301,7 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
             size="sm"
             as={ButtonGroup}
             id="dropdown-basic-button"
-            title={isProp ? "Payments" : "M&D Payments"}
+            title={isProp ? "Receipt" : "M&D Payments"}
           >
             {!isProp && treaty?.treaty_np_payments.length > 0 ? (
               <Dropdown.Item onClick={togglePayments}>
@@ -311,12 +311,12 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
 
             {showBtn && treaty?.treaty_payment_status !== "PAID" && (
               <Dropdown.Item onClick={() => setShowAddPayment(true)}>
-                Make Payments
+                Make {isProp ? "Receipt" : "Payment"}
               </Dropdown.Item>
             )}
             {!showBtn && (
               <Dropdown.Item onClick={toggleDistributePayments}>
-                Distribute Payment
+                Distribute {isProp ? "Receipt" : "Payment"}
               </Dropdown.Item>
             )}
           </DropdownButton>
