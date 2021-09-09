@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Fragment } from "react";
 import Broker from "./components/Broker";
 import Pagination from "react-paginate";
+import { useBrokerContext } from "./provider/BrokerProvider";
 
-const BrokersListing = ({ brokers = [] }) => {
+const BrokersListing = ({}) => {
+  const { brokers } = useBrokerContext();
   const [search, setsearch] = useState("");
   const [activePage, setActivePage] = useState(0);
   const [brokersInPages, setBrokersInPages] = useState([]);
@@ -16,7 +18,7 @@ const BrokersListing = ({ brokers = [] }) => {
     if (value) {
       const newList = brokers.filter((item) => {
         const itemToSearch = value.toLowerCase();
-        const checkingItem = item.broker_company_name.toLowerCase();
+        const checkingItem = item.re_broker_name.toLowerCase();
 
         return checkingItem.includes(itemToSearch);
       });
@@ -27,12 +29,12 @@ const BrokersListing = ({ brokers = [] }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (brokers) {
-  //     const pages = chunkArray(brokers, 8);
-  //     setBrokersInPages(pages);
-  //   }
-  // }, [brokers]);
+  useEffect(() => {
+    if (brokers) {
+      const pages = chunkArray(brokers, 8);
+      setBrokersInPages(pages);
+    }
+  }, [brokers]);
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber.selected);
@@ -54,7 +56,9 @@ const BrokersListing = ({ brokers = [] }) => {
         </div>
       </div>
       <div className="row m-2">
-        <Broker />
+        {brokersInPages[activePage]?.map((broker, key) => (
+          <Broker {...{ broker, key }} />
+        ))}
       </div>
       <Pagination
         pageClassName="page-item"

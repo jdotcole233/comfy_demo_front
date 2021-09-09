@@ -2,24 +2,26 @@ import { Datatable, generateNewCulumns } from "components";
 import { useAuth } from "context/AuthContext";
 import React, { useMemo } from "react";
 import { Fragment } from "react";
+import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";
 import AssociateButtons from "./AssociateButtons";
 import { associatesColumnns } from "./columns";
 
-const BrokersAssociates = ({ broker }) => {
+const BrokersAssociates = ({  }) => {
+  const { broker } = useBrokerDetailsContext();
   const { user } = useAuth();
   const associates = useMemo(() => {
     if (broker) {
       const list = [];
-      broker.reinsurer_representatives.map((_reinsurer, i) => {
+      broker.re_broker_associates.map((_broker, i) => {
         const row = {
-          name: `${_reinsurer.rep_first_name} ${_reinsurer.rep_last_name}`,
-          phone: `${_reinsurer.rep_primary_phonenumber}, ${_reinsurer.rep_secondary_phonenumber}`,
-          email: `${_reinsurer.rep_email}`,
-          position: `${_reinsurer.position}`,
-          actions: <AssociateButtons reinsurer={_reinsurer} data={broker} />,
+          name: `${_broker.re_broker_assoc_first_name} ${_broker.re_broker_assoc_last_name}`,
+          phone: `${_broker.re_broker_assoc_primary_phone}, ${_broker.re_broker_assoc_secondary_phone}`,
+          email: `${_broker.re_broker_assoc_email}`,
+          position: `${_broker.re_broker_assoc_position}`,
+          actions: <AssociateButtons reinsurer={_broker} data={broker} />,
         };
         list.push(row);
-        return _reinsurer;
+        return _broker;
       });
       return list;
     }

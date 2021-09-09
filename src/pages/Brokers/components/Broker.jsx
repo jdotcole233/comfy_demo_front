@@ -2,24 +2,30 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Drawer } from "components";
 import { useAuth } from "context/AuthContext";
+import { DELETE_BROKER } from "graphql/mutattions/brokers";
 import { create_broker_access, delete_broker_access } from "layout/adminRoutes";
 import React, { useState } from "react";
 import { Fragment } from "react";
+import { useMutation } from "react-apollo";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import AddBrokerAssociateForm from "./AddBrokerAssociateForm";
 import AddBrokerForm from "./AddBrokerForm";
 
 const Broker = ({ broker = {} }) => {
   const { user } = useAuth();
   const [openBroker, setOpenBroker] = useState(false);
-
-  const handleDeleteInsurer = (broker) => {
+  const [removeBroker] = useMutation(DELETE_BROKER, {
+    variables: { id: broker.re_broker_id },
+    refetchQueries: ["brokers"],
+  });
+  const handleDeleteBroker = (broker) => {
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
       icon: "warning",
       title: "Warning",
-      text: `Are you sure you want to delete ${broker?.broker_company_name}?`,
+      text: `Are you sure you want to delete ${broker?.re_broker_name}?`,
       buttons: [
         "No",
         {
@@ -30,10 +36,10 @@ const Broker = ({ broker = {} }) => {
     })
       .then((name) => {
         if (!name) throw null;
-        // return removeInsurer();
+        return removeBroker();
       })
       .then((json) => {
-        swal("Sucess", "Reinsurer removed Successfully", "success");
+        swal("Sucess", "Broker removed Successfully", "success");
       })
       .catch((err) => {
         if (err) {
@@ -57,7 +63,7 @@ const Broker = ({ broker = {} }) => {
             </div>
             <h5 className="font-size-15">
               <a href="#" className="text-dark">
-                {broker?.broker_company_name ?? "Visal Re"}
+                {broker?.re_broker_name ?? "Visal Re"}
               </a>
             </h5>
             {broker?.remainders?.length ? (
@@ -83,9 +89,9 @@ const Broker = ({ broker = {} }) => {
                 </div>
               )}
               <Link
-                to={`/admin/brokers/details/${btoa(
-                  JSON.stringify(broker?.id ?? "1")
-                )}`}
+                to={`/admin/brokers/details/${Buffer(
+                  broker?.re_broker_id
+                ).toString("base64")}`}
                 className="link-hover flex-fill"
                 data-toggle="tooltip"
                 data-placement="top"
@@ -95,7 +101,7 @@ const Broker = ({ broker = {} }) => {
               </Link>
               {delete_broker_access.includes(user?.position) && (
                 <div
-                  onClick={() => handleDeleteInsurer(broker)}
+                  onClick={() => handleDeleteBroker(broker)}
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Delete"
@@ -113,8 +119,9 @@ const Broker = ({ broker = {} }) => {
         isvisible={openBroker}
         width="40%"
         toggle={() => setOpenBroker(false)}
+        setShow={setOpenBroker}
       >
-        <AddBrokerForm editting={{ name: "" }} />
+        <AddBrokerAssociateForm broker={broker} />
       </Drawer>
     </Fragment>
   );

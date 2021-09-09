@@ -1,15 +1,16 @@
 import React, { useMemo } from "react";
-// import { useSelector } from "react-redux";
 import { Datatable } from "../../../components";
 import { treatyColumns } from "./columns";
 import moment from "moment";
 import TreatyButtons from "./TreatyButtons";
+import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";
 
-const BrokerDetailTreaties = ({ broker }) => {
+const BrokerDetailTreaties = ({  }) => {
+  const { broker } = useBrokerDetailsContext()
   const treaties = useMemo(() => {
     const list = [];
-    if (broker && broker.treaty_participations) {
-      broker.treaty_participations.map(
+    if (broker && broker.re_broker_participations) {
+      broker.re_broker_participations.map(
         ({ treaty, treaty_participant_payments }, i) => {
           const row = {
             ...treaty,

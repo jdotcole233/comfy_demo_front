@@ -32,7 +32,7 @@ const BrokersHeader = () => {
         isvisible={addBroker}
         toggle={() => setAddBroker(false)}
       >
-        <AddBrokerForm editing={{ name: "" }} setShow={setAddBroker} />
+        <AddBrokerForm  setShow={setAddBroker} />
       </Drawer>
     </Fragment>
   );
