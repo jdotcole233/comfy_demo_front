@@ -11,7 +11,7 @@ const AddBrokerForm = ({ editing, setShow }) => {
       setValue("broker_phone", editing?.broker_phone);
       setValue("broker_company_website", editing?.broker_company_websit);
       setValue("street_address", editing?.address?.street_address);
-      setValue("suburb", editing?.address?.suburb);
+      setValue("region", editing?.address?.region);
       setValue("country", editing?.address?.country);
       setValue("city", editing?.address?.city);
     }
@@ -106,18 +106,18 @@ const AddBrokerForm = ({ editing, setShow }) => {
           </div>
           <div className="col-md-6">
             <div className="form-group">
-              <label htmlFor="">Suburb</label>
+              <label htmlFor="">Region</label>
               <input
                 type="text"
-                name="suburb"
+                name="region"
                 ref={register({
                   required: "Required",
                 })}
                 className="form-control"
-                placeholder="Suburb"
+                placeholder="Region"
               />
-              {errors.suburb && (
-                <p className="text-danger">{errors.suburb.message}</p>
+              {errors.region && (
+                <p className="text-danger">{errors.region.message}</p>
               )}
             </div>
           </div>
