@@ -93,9 +93,8 @@ function Drawer({
               X
             </div>
           </div>
-          <div style={{ margin: isvisible ? 30 : 0 }}>{allChildren}</div>
+          <div style={{ margin: isvisible ? 30 : 0 }}>{isvisible && allChildren}</div>
         </div>
-        {/* </div> */}
       </Slide>
     </DrawerContext.Provider>,
     document.getElementById("drawer")

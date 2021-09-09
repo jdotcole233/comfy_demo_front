@@ -1,8 +1,8 @@
 import { useMutation } from "react-apollo";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { CREATE_BROKER } from "graphql/mutattions/brokers";
-import { BROKERS } from "graphql/queries/brokers";
+import { CREATE_BROKER, UPDATE_BROKER } from "graphql/mutattions/brokers";
+import { BROKER, BROKERS } from "graphql/queries/brokers";
 import swal from "sweetalert";
 import { CountryOption, Selector } from "../../../components";
 import countriesData from "../../../assets/countriesData";
@@ -14,6 +14,10 @@ const AddBrokerForm = ({ editing, setShow }) => {
   const [create] = useMutation(CREATE_BROKER, {
     refetchQueries: [{ query: BROKERS }],
   });
+
+  const [update] = useMutation(UPDATE_BROKER,{
+    refetchQueries:[{query: BROKER, variables:{id: editing?.re_broker_id}}]
+  })
 
   useEffect(() => {
     if (editing) {
@@ -32,8 +36,12 @@ const AddBrokerForm = ({ editing, setShow }) => {
         editing?.re_broker_address?.re_secondary_phone
       );
       setValue("region", editing?.re_broker_address?.region);
-      setValue("country", editing?.address?.country);
+      setValue("country", editing?.re_broker_address?.country);
       setValue("city", editing?.re_broker_address?.city);
+      setSelectedCountry({
+        label: editing?.re_broker_address?.country,
+        value: editing?.re_broker_address?.country,
+      });
     }
   }, [editing, setValue]);
 
@@ -79,7 +87,48 @@ const AddBrokerForm = ({ editing, setShow }) => {
         });
     });
   };
-  const handleUpdateEmployee = () => {};
+  const handleUpdateEmployee = (values) => {
+    const input = {
+      re_broker_email: values.re_broker_email,
+      re_broker_name: values.re_broker_name,
+      re_broker_website: values.re_broker_website,
+      re_broker_address: {
+        city: values.city,
+        street: values.street,
+        region: values.region,
+        country: values.country,
+        re_primary_phone: values.re_primary_phone,
+        re_secondary_phone: values.re_secondary_phone,
+      },
+    };
+    swal({
+      icon: "warning",
+      title: "Are you sure?",
+      text: "This action update the said broker with provided details",
+      buttons: [
+        "Cancel",
+        { text: "Yes, create broker", value: "Yes", closeModal: false },
+      ],
+    }).then((res) => {
+      if (!res) throw null;
+      update({ variables: { input, id:editing?.re_broker_id } })
+        .then((res) => {
+          setShow(false);
+          swal({
+            title: "Success!",
+            text: "Broker has been added",
+            icon: "success",
+          });
+        })
+        .catch((err) => {
+          swal({
+            title: "Error!",
+            text: err.message,
+            icon: "error",
+          });
+        });
+    });
+  }
 
   const handleCountrySelect = (value) => {
     setValue("country", value ? value.label : "");

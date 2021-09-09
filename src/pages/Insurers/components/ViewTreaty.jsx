@@ -14,7 +14,6 @@ import {
 } from "../../../graphql/queries/treaty";
 import swal from "sweetalert";
 import TreatyDebitNotes from "../../TreatyPrograms/TreatyDebitNotes";
-import CreateTreatyBroadCastList from "./CreateTreatyBroadCastList";
 import { useMemo } from "react";
 import {
   editAccessRoles,
@@ -36,6 +35,7 @@ import SendReinsurerDocuments from "./SendReinsurerDocuments";
 import AddPErcentageModal from "./AddPErcentageModal";
 import SurplusListing from "./SurplusListing";
 import AdjustmentStatement from "./AdjustmentStatement";
+import GenerateList from "./GenerateList";
 
 const ViewTreaty = () => {
   const { user } = useAuth();
@@ -528,28 +528,7 @@ const ViewTreaty = () => {
           </div>
           <div className="col-xl-8">
             <div className="row d-flex align-items-stretch">
-              <div
-                className={`col-md-${isProp && !allowAdjustment ? "12" : "6"}`}
-              >
-                <div className="card mini-stats-wid">
-                  <div className="card-body">
-                    <div className="media">
-                      <div className="mr-3 align-self-center"></div>
-                      <div className="media-body">
-                        <p className="text-muted mb-2">
-                          Create Reinsurers list
-                        </p>
-                        <button
-                          onClick={() => setshowCreateList(!showCreateList)}
-                          className="btn btn-primary btn-sm w-md"
-                        >
-                          Create List
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <GenerateList {...{isProp, allowAdjustment, ...data}} />
               {!isProp && allowAdjustment && (
                 <AdjustmentStatement {...data?.treaty} />
               )}
@@ -614,19 +593,7 @@ const ViewTreaty = () => {
         />
       </Modal>
 
-      <Drawer
-        width={600}
-        toggle={() => setshowCreateList(!showCreateList)}
-        isvisible={showCreateList}
-      >
-        {showCreateList && (
-          <CreateTreatyBroadCastList
-            treaty={data?.treaty}
-            treaty_id={data?.treaty?.treaty_id}
-            toggle={() => setshowCreateList(!showCreateList)}
-          />
-        )}
-      </Drawer>
+      
 
       <Drawer
         width="50%"
