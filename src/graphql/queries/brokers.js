@@ -20,6 +20,24 @@ query brokers {
   }
   `;
 
+export const BROKER_DISTRIBUTION_LIST = gql`
+query brokersAsoociates {
+  brokers {
+    re_broker_name
+    re_broker_id
+		re_broker_associates {
+      re_broker_assoc_email
+      re_broker_associate_id
+      re_broker_assoc_last_name
+      re_broker_assoc_first_name
+      re_broker {
+        re_broker_name
+      }
+    }
+  }
+}
+`;
+
 export const BROKER = gql`
 query broker($id: ID) {
   broker(broker_id: $id) {

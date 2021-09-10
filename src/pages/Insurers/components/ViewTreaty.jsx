@@ -36,6 +36,7 @@ import AddPErcentageModal from "./AddPErcentageModal";
 import SurplusListing from "./SurplusListing";
 import AdjustmentStatement from "./AdjustmentStatement";
 import GenerateList from "./GenerateList";
+import InsurerDetailsParticipatinBrokers from "../brokercomponents/InsureDetailsParticipationgBrokers"
 
 const ViewTreaty = () => {
   const { user } = useAuth();
@@ -565,6 +566,7 @@ const ViewTreaty = () => {
           remainingPercentage={remainingPercentages}
           reinsurers={reinsurers}
         />
+        <InsurerDetailsParticipatinBrokers treaty={data?.treaty} />
         <EffectedWithListingAssociates
           setLayer={setCurrentLayer}
           layers={layers_}

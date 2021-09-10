@@ -74,7 +74,7 @@ const GenerateList = ({ treaty }) => {
           treaty={treaty}
           treaty_id={treaty?.treaty_id}
           setShow={setShowBrokerList}
-          toggle={() => setShowBrokerList(false)}
+          // toggle={() => setShowBrokerList(false)}
         />
       </Drawer>
     </Fragment>

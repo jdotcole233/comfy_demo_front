@@ -34,3 +34,14 @@ export const REMOVE_BROKER_ASSOCIATE = gql`
 mutation removeBrokerAssociate($id: ID) {
   deleteReBrokerAssociates(re_broker_assoc_id: $id)
 }`;
+
+export const CREATE_BROKER_DISTRIBUTION_LIST = gql`
+mutation createBrokersDistribution($brokers_list: BrokerDistributionList) {
+  createReBrokerListForTreaty(brokers_list: $brokers_list)
+}
+`;
+
+export const REMOVE_BROKER_FROM_TREATY = gql`
+mutation removeReBokerAssocFromTreatyList($id: ID) {
+  removeReBokerAssocFromTreatyList(participation_to_broker_associate_id: $id)
+}`;

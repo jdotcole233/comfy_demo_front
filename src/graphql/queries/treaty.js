@@ -325,6 +325,17 @@ query treaty($treaty_id: ID) {
         rep_email
       }
     }
+    re_broker_treaties_participation {
+      re_broker_treaties_participation_id
+      share_percentage
+      admin_percentage
+      payment_status
+      re_broker {
+        re_broker_id
+        re_broker_name
+        re_broker_email
+      }
+    }
     treaty_participants {
       treaty_participation_id
       treaty_participation_percentage

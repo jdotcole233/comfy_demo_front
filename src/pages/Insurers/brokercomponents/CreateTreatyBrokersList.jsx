@@ -3,14 +3,12 @@ import React, { useState } from "react";
 import styles from "../styles/ViewInsurerOffer.module.css";
 import { Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "react-apollo";
-import { CREATE_DISTRIBUTION_LIST_DATA } from "../../../graphql/queries";
 import { Selector } from "../../../components";
-import {
-  CREATE_TREATY_DISTRIBUTION,
-  TREATY,
-} from "../../../graphql/queries/treaty";
+import { TREATY } from "../../../graphql/queries/treaty";
 import swal from "sweetalert";
 import { useMemo } from "react";
+import { BROKER_DISTRIBUTION_LIST } from "graphql/queries/brokers";
+import { CREATE_BROKER_DISTRIBUTION_LIST } from "graphql/mutattions/brokers";
 
 const buildSelectRows = (data) => {
   const list = [];
@@ -18,14 +16,13 @@ const buildSelectRows = (data) => {
     const element = data[index];
     for (
       let innerIndex = 0;
-      innerIndex < element.reinsurer_representatives.length;
+      innerIndex < element.re_broker_associates.length;
       innerIndex++
     ) {
-      const obj = element.reinsurer_representatives[innerIndex];
-      // console.log(obj.reinsurer_representative_id)
+      const obj = element.re_broker_associates[innerIndex];
       const item = {
-        label: `${obj?.reinsurer.re_company_name} - ${obj.rep_first_name} ${obj.rep_last_name}`,
-        value: obj,
+        label: `${element?.re_broker_name} - ${obj.re_broker_assoc_first_name} ${obj.re_broker_assoc_last_name}`,
+        value: { ...obj, re_broker_id: element.re_broker_id },
       };
       list.push(item);
     }
@@ -35,32 +32,33 @@ const buildSelectRows = (data) => {
 
 const buildRepsData = (data) => {
   const list = [];
-  data.map((reinsurer_rep) => {
+  data.map((broker_rep) => {
     const index = list.find(
-      (rep) => rep.reinsurer_id === reinsurer_rep.reinsurersreinsurer_id
-    );
+      (rep) => rep.re_broker_id === broker_rep.value.re_broker_id
+      );
+      // console.log(broker_rep);
     if (index) {
-      index.representatives_ids.push(reinsurer_rep.reinsurer_representative_id);
+      index.representatives_ids.push(broker_rep.re_broker_associate_id);
     } else {
       const newRep = {
-        reinsurer_id: reinsurer_rep.reinsurersreinsurer_id,
-        representatives_ids: [reinsurer_rep.reinsurer_representative_id],
+        re_broker_id: broker_rep.re_broker_id,
+        re_associate_ids: [broker_rep.re_broker_associate_id],
       };
       list.push(newRep);
     }
-    return reinsurer_rep;
+    return broker_rep;
   });
   return list;
 };
 
-export default function CreateTreatyBrokersList({ treaty_id, toggle, treaty }) {
+export default function CreateTreatyBrokersList({ treaty_id, setShow, treaty }) {
   const [reps, setBroadcastList] = useState([]);
-  const [selectdQuarter, setSelectdQuarter] = useState(null);
+  const [selectdQuarter] = useState(null);
 
   const [repData, setRepData] = useState([]);
-  const { data } = useQuery(CREATE_DISTRIBUTION_LIST_DATA);
+  const { data } = useQuery(BROKER_DISTRIBUTION_LIST);
 
-  const [createDistribution] = useMutation(CREATE_TREATY_DISTRIBUTION, {
+  const [createDistribution] = useMutation(CREATE_BROKER_DISTRIBUTION_LIST, {
     refetchQueries: [{ query: TREATY, variables: { treaty_id } }],
   });
   const __limits = JSON.parse(treaty?.layer_limit || "[]").map((_, key) => ({
@@ -73,7 +71,7 @@ export default function CreateTreatyBrokersList({ treaty_id, toggle, treaty }) {
   const options = useMemo(() => {
     let list = [];
     if (data) {
-      list = buildSelectRows(data?.reinsurers);
+      list = buildSelectRows(data?.brokers);
     }
     return list;
   }, [data]);
@@ -87,8 +85,7 @@ export default function CreateTreatyBrokersList({ treaty_id, toggle, treaty }) {
       setRepData([
         ...repData.filter(
           (rep) =>
-            rep.reinsurer_representative_id !==
-            data.value.reinsurer_representative_id
+            rep.re_broker_associate_id !== data.value.re_broker_associate_id
         ),
         data.value,
       ]);
@@ -103,21 +100,16 @@ export default function CreateTreatyBrokersList({ treaty_id, toggle, treaty }) {
     const new_repData = [
       ...repData.filter(
         (repData) =>
-          repData.reinsurer_representative_id !==
-          associate?.value.reinsurer_representative_id
+          repData.re_broker_associate_id !==
+          associate?.value.re_broker_associate_id
       ),
     ];
     setRepData(new_repData);
   };
 
   const handleCreateDistributionList = () => {
-    if (
-      treaty?.treaty_program?.treaty_type === "NONPROPORTIONAL" &&
-      !selectdQuarter
-    ) {
-      return;
-    }
-    const ids = buildRepsData(repData);
+    const broke_distribution = buildRepsData(repData);
+    // return;
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -134,21 +126,18 @@ export default function CreateTreatyBrokersList({ treaty_id, toggle, treaty }) {
       if (!event) throw null;
       createDistribution({
         variables: {
-          ids,
-          treaty_id,
-          layer_number:
-            selectdQuarter?.value === "0"
-              ? [...__limits.map((el) => el.value)]
-              : [selectdQuarter?.value],
-          treaty_associate_deduction_id:
-            treaty?.treaty_deduction?.treaty_associate_deduction_id,
+          brokers_list: { treaty_id, broke_distribution },
         },
       })
         .then((res) => {
-          swal("Hurray", "Distribution List created successfully", "success");
-          setBroadcastList([]);
-          setRepData([]);
-          toggle();
+          if(res.data.createReBrokerListForTreaty){
+            swal("Success", "Distribution List created successfully", "success");
+            setBroadcastList([]);
+            setRepData([]);
+            // setShow(false);
+          }else {
+            swal("Error", "Distribution List could not be created successfully", "error");
+          }
         })
         .catch((err) => {
           if (err) {
@@ -169,16 +158,6 @@ export default function CreateTreatyBrokersList({ treaty_id, toggle, treaty }) {
         <Alert variant="danger"></Alert>
       </div>
       <div className={styles.card_body}>
-        {treaty?.treaty_program?.treaty_type === "NONPROPORTIONAL" && (
-          <div className="form-group">
-            <label htmlFor="">Layers</label>
-            <Selector
-              value={selectdQuarter}
-              options={limits}
-              onChange={(value) => setSelectdQuarter(value)}
-            />
-          </div>
-        )}
         <div className="form-group">
           <label htmlFor="">Brokers - Reps</label>
           <Selector value={null} options={options} onChange={handleAddRep} />
