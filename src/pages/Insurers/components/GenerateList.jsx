@@ -2,31 +2,49 @@ import { Drawer } from "components";
 import React from "react";
 import { Fragment, useState } from "react";
 import CreateTreatyBroadCastList from "./CreateTreatyBroadCastList";
+import CreateTreatyBrokersList from "../brokercomponents/CreateTreatyBrokersList";
 
-const GenerateList = ({ isProp, allowAdjustment, treaty }) => {
+const GenerateList = ({ treaty }) => {
   const [showCreateList, setShowCreateList] = useState(false);
+  const [showBrokerList, setShowBrokerList] = useState(false);
   return (
     <Fragment>
-      <div className={`col-md-${isProp && !allowAdjustment ? "12" : "6"}`}>
+      <div className={`col-md-6`}>
         <div className="card mini-stats-wid">
           <div className="card-body">
             <div className="media">
               <div className="mr-3 align-self-center"></div>
               <div className="media-body">
                 <p className="text-muted mb-2">
-                  Create Reinsurers/Brokers list
+                  Create Reinsurers list
                 </p>
                 <button
                   onClick={() => setShowCreateList(true)}
                   className="btn btn-primary btn-sm w-md"
                 >
-                  Create List
+                  Create Reinsurers List
                 </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={`col-md-6`}>
+        <div className="card mini-stats-wid">
+          <div className="card-body">
+            <div className="media">
+              <div className="mr-3 align-self-center"></div>
+              <div className="media-body">
+                <p className="text-muted mb-2">
+                  Create Brokers list
+                </p>
+
                 <button
-                  onClick={() => setShowCreateList(true)}
-                  className="btn btn-primary ml-3 btn-sm w-md"
+                  onClick={() => setShowBrokerList(true)}
+                  className="btn btn-primary btn-sm w-md"
                 >
-                  Create List
+                  Create Brokers List
                 </button>
               </div>
             </div>
@@ -35,14 +53,28 @@ const GenerateList = ({ isProp, allowAdjustment, treaty }) => {
       </div>
       <Drawer
         width="40%"
-        toggle={() => setShowCreateList(!showCreateList)}
+        toggle={() => setShowCreateList(false)}
         isvisible={showCreateList}
       >
         <CreateTreatyBroadCastList
           treaty={treaty}
           treaty_id={treaty?.treaty_id}
           setShow={setShowCreateList}
-          toggle={() => setShowCreateList(!showCreateList)}
+          toggle={() => setShowCreateList(false)}
+        />
+      </Drawer>
+
+
+      <Drawer
+        width="40%"
+        toggle={() => setShowBrokerList(false)}
+        isvisible={showBrokerList}
+      >
+        <CreateTreatyBrokersList
+          treaty={treaty}
+          treaty_id={treaty?.treaty_id}
+          setShow={setShowBrokerList}
+          toggle={() => setShowBrokerList(false)}
         />
       </Drawer>
     </Fragment>

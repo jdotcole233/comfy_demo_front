@@ -6,7 +6,7 @@ import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";
 import AssociateButtons from "./AssociateButtons";
 import { associatesColumnns } from "./columns";
 
-const BrokersAssociates = ({  }) => {
+const BrokersAssociates = () => {
   const { broker } = useBrokerDetailsContext();
   const { user } = useAuth();
   const associates = useMemo(() => {
@@ -18,7 +18,7 @@ const BrokersAssociates = ({  }) => {
           phone: `${_broker.re_broker_assoc_primary_phone}, ${_broker.re_broker_assoc_secondary_phone}`,
           email: `${_broker.re_broker_assoc_email}`,
           position: `${_broker.re_broker_assoc_position}`,
-          actions: <AssociateButtons reinsurer={_broker} data={broker} />,
+          actions: <AssociateButtons broker={_broker} data={broker} />,
         };
         list.push(row);
         return _broker;

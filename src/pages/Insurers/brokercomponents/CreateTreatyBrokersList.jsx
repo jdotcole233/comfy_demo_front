@@ -53,7 +53,7 @@ const buildRepsData = (data) => {
   return list;
 };
 
-export default function CreateBroadcastList({ treaty_id, toggle, treaty }) {
+export default function CreateTreatyBrokersList({ treaty_id, toggle, treaty }) {
   const [reps, setBroadcastList] = useState([]);
   const [selectdQuarter, setSelectdQuarter] = useState(null);
 
@@ -165,7 +165,7 @@ export default function CreateBroadcastList({ treaty_id, toggle, treaty }) {
   return (
     <>
       <div className={styles.card_header}>
-        <h2 className={styles.card_title}>Create Broadcast list</h2>
+        <h2 className={styles.card_title}>Create Brokers Broadcast list</h2>
         <Alert variant="danger"></Alert>
       </div>
       <div className={styles.card_body}>

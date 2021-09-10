@@ -24,3 +24,13 @@ mutation createBrokerAssociate($re_broker_associate: ReBrokerAssociateInput) {
   createReBrokerAssociates(re_broker_associate: $re_broker_associate)
 }
 `;
+
+export const UDPATE_BROKER_ASSOCIATE = gql`
+mutation updateBrokerAssociate($id: ID, $input: ReBrokerAssociateInput) {
+  updateReBrokerAssociates(re_broker_assoc_id: $id, re_broker_associate: $input)
+}`;
+
+export const REMOVE_BROKER_ASSOCIATE = gql`
+mutation removeBrokerAssociate($id: ID) {
+  deleteReBrokerAssociates(re_broker_assoc_id: $id)
+}`;

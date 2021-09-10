@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import GeneratePaymentSchedulePluginButton from "pages/BrokerGeneratePaymentSchedule/components/GeneratePaymentSchedulePluginButton";
+// import GeneratePaymentSchedulePluginButton from "pages/BrokerGeneratePaymentSchedule/components/GeneratePaymentSchedulePluginButton";
 import React from "react";
+import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";
 import ViewBrokerProfile from "./ViewBrokerProfile";
 
-const BrokerDetailWelcome = ({ broker, overview }) => {
+const BrokerDetailWelcome = () => {
+  const { broker, overview } = useBrokerDetailsContext();
   return (
     <div className="card overflow-hidden">
       <div className="bg-soft-primary">
@@ -28,11 +30,11 @@ const BrokerDetailWelcome = ({ broker, overview }) => {
           <div className="col-sm-4">
             <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
               <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
-                {broker?.re_abbrv ?? "VR"}
+                {broker?.re_abbrv ?? "NA"}
               </span>
             </div>
             <h5 className="font-size-15 text-truncate">
-              {broker?.broker_company_name ?? "Visal Re"}
+              {broker?.re_broker_name ?? "NOT SPECIFIED"}
             </h5>
           </div>
 
@@ -55,7 +57,7 @@ const BrokerDetailWelcome = ({ broker, overview }) => {
               {/* View Broker Profile */}
               <div className="mt-4">
                 <ViewBrokerProfile />
-                <GeneratePaymentSchedulePluginButton />
+                {/* <GeneratePaymentSchedulePluginButton /> */}
               </div>
             </div>
           </div>

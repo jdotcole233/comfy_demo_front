@@ -8,25 +8,31 @@ import styles from "../styles/ViewReinsurerOffer.module.css";
 
 const AddBrokerAssociateForm = ({ setShow, broker }) => {
   const { register, handleSubmit, errors, setValue } = useForm();
-  const [createAssociate] = useMutation(CREATE_BROKER_ASSOCIATE,{refetchQueries:["brokers"]})
+  const [createAssociate] = useMutation(CREATE_BROKER_ASSOCIATE, {
+    refetchQueries: ["brokers"],
+  });
 
   const handleAddAssociate = (values) => {
-      swal({
-          icon:"warning",
-          title:"Add associate ?",
-          text:"This action adds the " + values?.re_broker_assoc_first_name + " to the associates of " + broker?.re_broker_name,
-          buttons:["Cancel",{text: "Yes, continue", closeModal:false}]
-      }).then(res => {
-          if(!res) throw null;
-          createAssociate({variables:{...values}})
-          .then(_res => {
-              swal("Huuray","Associate added successfully","success")
-              setShow(false)
-          })
-          .catch(err => {
-            swal("Whoops!","Associate not added successfully","error")
-          })
-      })
+    swal({
+      icon: "warning",
+      title: "Add associate ?",
+      text:
+        "This action adds the " +
+        values?.re_broker_assoc_first_name +
+        " to the associates of " +
+        broker?.re_broker_name,
+      buttons: ["Cancel", { text: "Yes, continue", closeModal: false }],
+    }).then((res) => {
+      if (!res) throw null;
+      createAssociate({ variables: { re_broker_associate: { ...values } } })
+        .then((_res) => {
+          swal("Huuray", "Associate added successfully", "success");
+          setShow(false);
+        })
+        .catch((err) => {
+          swal("Whoops!", "Associate not added successfully", "error");
+        });
+    });
   };
   return (
     <div>
@@ -64,7 +70,12 @@ const AddBrokerAssociateForm = ({ setShow, broker }) => {
                 className="form-control"
                 placeholder="Frist name"
               />
-              <input type="hidden" name="re_brokersre_broker_id" value={broker?.re_broker_id} ref={register({required:true})}  />
+              <input
+                type="hidden"
+                name="re_brokersre_broker_id"
+                value={broker?.re_broker_id}
+                ref={register({ required: true })}
+              />
               {errors.re_broker_assoc_first_name && (
                 <p className="text-danger">
                   {errors.re_broker_assoc_first_name.message}
@@ -125,15 +136,15 @@ const AddBrokerAssociateForm = ({ setShow, broker }) => {
               <label htmlFor="">Primary phone</label>
               <input
                 type="tel"
-                name="re_primary_phone"
+                name="re_broker_assoc_primary_phone"
                 ref={register({
                   required: "Required",
                 })}
                 className="form-control"
                 placeholder="primary phone"
               />
-              {errors.re_primary_phone && (
-                <p className="text-danger">{errors.re_primary_phone.message}</p>
+              {errors.re_broker_assoc_primary_phone && (
+                <p className="text-danger">{errors.re_broker_assoc_primary_phone.message}</p>
               )}
             </div>
           </div>
@@ -142,16 +153,16 @@ const AddBrokerAssociateForm = ({ setShow, broker }) => {
               <label htmlFor="">Secondary phone</label>
               <input
                 type="tel"
-                name="re_secondary_phone"
+                name="re_broker_assoc_secondary_phone"
                 ref={register({
                   required: false,
                 })}
                 className="form-control"
                 placeholder="secondary phone"
               />
-              {errors.re_secondary_phone && (
+              {errors.re_broker_assoc_secondary_phone && (
                 <p className="text-danger">
-                  {errors.re_secondary_phone.message}
+                  {errors.re_broker_assoc_secondary_phone.message}
                 </p>
               )}
             </div>

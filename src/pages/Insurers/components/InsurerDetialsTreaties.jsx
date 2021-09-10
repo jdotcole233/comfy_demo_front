@@ -5,6 +5,7 @@ import TreatyButtons from "./TreatyButtons";
 import CreateTreatyButton from "./CreateTreatyButton";
 import { treatyColumns } from "../dummy";
 import { Datatable } from "../../../components";
+import GeneratePaymentSchedulePluginButton from "../../BrokerGeneratePaymentSchedule/components/GeneratePaymentSchedulePluginButton";
 
 const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
   const { type } = useSelector((state) => state.insurer);
@@ -65,7 +66,10 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
         <div className="card-body">
           <div className="d-flex justify-content-between">
             <h4 className="card-title mb-4">Treaties</h4>
-            <CreateTreatyButton refetch={refetch} insurer={insurer} />
+            <div>
+              <GeneratePaymentSchedulePluginButton {...insurer} />
+              <CreateTreatyButton refetch={refetch} insurer={insurer} />
+            </div>
           </div>
           <Datatable
             btn

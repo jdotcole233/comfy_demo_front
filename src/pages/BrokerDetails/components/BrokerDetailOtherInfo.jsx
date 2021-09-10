@@ -1,6 +1,8 @@
 import React from "react";
+import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";
 
-const BrokerDetailOtherInfo = ({ broker }) => {
+const BrokerDetailOtherInfo = () => {
+  const { broker } = useBrokerDetailsContext();
   return (
     <div className="card">
       <div className="card-body">
@@ -10,19 +12,19 @@ const BrokerDetailOtherInfo = ({ broker }) => {
             <tbody>
               <tr>
                 <th scope="row">Region:</th>
-                <td>{broker?.broker_address?.region}</td>
+                <td>{broker?.re_broker_address?.city}</td>
               </tr>
               <tr>
                 <th scope="row">City :</th>
-                <td>{broker?.broker_address?.suburb}</td>
+                <td>{broker?.re_broker_address?.street}</td>
               </tr>
               <tr>
                 <th scope="row">E-mail :</th>
-                <td>{broker?.broker_company_email}</td>
+                <td>{broker?.re_broker_email}</td>
               </tr>
               <tr>
                 <th scope="row">Website :</th>
-                <td>{broker?.broker_company_website}</td>
+                <td>{broker?.re_broker_website ?? "NOT SPECIFIED"}</td>
               </tr>
             </tbody>
           </table>

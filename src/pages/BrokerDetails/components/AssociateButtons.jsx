@@ -1,26 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect, useContext } from "react";
-import {
-  REMOVE_ASSOCIATE,
-  UPDATE_REINSURER_ASSOCIATE,
-} from "../../../graphql/mutattions";
 import { useMutation } from "react-apollo";
 import { Modal } from "react-bootstrap";
 import swal from "sweetalert";
-import { REINSURER } from "../../../graphql/queries";
 import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   deleteAccessRoles,
   editAccessRoles,
 } from "../../../layout/adminRoutes";
-import { AuthContext } from "../../../context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
+import { BROKER } from "graphql/queries/brokers";
+import { REMOVE_BROKER_ASSOCIATE, UDPATE_BROKER_ASSOCIATE } from "graphql/mutattions/brokers";
 
 const AssociateButtons = ({ broker, data }) => {
-  const {
-    state: { user },
-  } = useContext(AuthContext);
+  const { user } = useAuth();
 
   const { setValue, register, errors, handleSubmit } = useForm();
   const { state } = useLocation();
@@ -29,17 +24,29 @@ const AssociateButtons = ({ broker, data }) => {
 
   useEffect(() => {
     if (selectedAssociate) {
-      setValue("rep_first_name", selectedAssociate.rep_first_name);
-      setValue("rep_last_name", selectedAssociate.rep_last_name);
-      setValue("rep_email", selectedAssociate.rep_email);
-      setValue("position", selectedAssociate.position);
       setValue(
-        "rep_primary_phonenumber",
-        selectedAssociate.rep_primary_phonenumber
+        "re_broker_assoc_first_name",
+        selectedAssociate.re_broker_assoc_first_name
       );
       setValue(
-        "rep_secondary_phonenumber",
-        selectedAssociate.rep_secondary_phonenumber
+        "re_broker_assoc_last_name",
+        selectedAssociate.re_broker_assoc_last_name
+      );
+      setValue(
+        "re_broker_assoc_email",
+        selectedAssociate.re_broker_assoc_email
+      );
+      setValue(
+        "re_broker_assoc_position",
+        selectedAssociate.re_broker_assoc_position
+      );
+      setValue(
+        "re_broker_assoc_primary_phone",
+        selectedAssociate.re_broker_assoc_primary_phone
+      );
+      setValue(
+        "re_broker_assoc_secondary_phone",
+        selectedAssociate.re_broker_assoc_secondary_phone
       );
     }
   }, [selectedAssociate]);
@@ -50,11 +57,12 @@ const AssociateButtons = ({ broker, data }) => {
     setViewAssociate(!viewAssociate);
   };
 
-  const [removeAssociate] = useMutation(REMOVE_ASSOCIATE, {
-    variables: {
-      id: selectedAssociate?.reinsurer_representative_id,
-    },
+  const [removeAssociate] = useMutation(REMOVE_BROKER_ASSOCIATE, {
+    refetchQueries: [
+      { query: BROKER, variables: { id: data?.re_broker_id } },
+    ],
   });
+
   const handleRemoveAssociate = (broker) => {
     // return;
     swal({
@@ -62,7 +70,7 @@ const AssociateButtons = ({ broker, data }) => {
       closeOnEsc: false,
       icon: "warning",
       title: "Warning",
-      text: `Are you sure you want to delete ${broker.broker_company_name}?`,
+      text: `Are you sure you want to delete ${broker.re_broker_assoc_first_name}?`,
       buttons: [
         "No",
         {
@@ -72,18 +80,14 @@ const AssociateButtons = ({ broker, data }) => {
       ],
     })
       .then((name) => {
-        if (!name) throw {};
-        return removeAssociate({
+        if (!name) throw null;
+        removeAssociate({
           variables: {
-            id: broker.reinsurer_representative_id,
+            id: broker.re_broker_associate_id,
           },
-          refetchQueries: [
-            { query: REINSURER, variables: { id: state?.broker_id } },
-          ],
+        }).then((json) => {
+          swal("Sucess", "Associate removed Successfully", "success");
         });
-      })
-      .then((json) => {
-        swal("Sucess", "Associate removed Successfully", "success");
       })
       .catch((err) => {
         if (err) {
@@ -95,28 +99,30 @@ const AssociateButtons = ({ broker, data }) => {
       });
   };
 
-  const [updateRep] = useMutation(UPDATE_REINSURER_ASSOCIATE, {
-    refetchQueries: [{ query: REINSURER, variables: { id: state?.broker_id } }],
+  const [updateRep] = useMutation(UDPATE_BROKER_ASSOCIATE, {
+    refetchQueries: [
+      { query: BROKER, variables: { id: data?.re_broker_id } },
+    ],
   });
 
   const handleUpdateAssociate = (values) => {
-    const rep = {
+    const input = {
       ...values,
-      reinsurersreinsurer_id: data?.broker.broker_id,
+      re_brokersre_broker_id: data?.re_broker_id,
     };
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
       icon: "warning",
-      title: `Are you sure you want to update ${values.broker_company_name}?`,
+      title: `Are you sure you want to update ${values.re_broker_assoc_first_name}?`,
       buttons: ["No", { text: "Yes", closeModal: false }],
-    }).then((input) => {
-      if (!input) throw null;
+    }).then((res) => {
+      if (!res) throw null;
       updateRep({
         variables: {
-          rep,
-          reinsurer_representative_id:
-            selectedAssociate?.reinsurer_representative_id,
+          input,
+          id:
+            broker?.re_broker_associate_id,
         },
       })
         .then((res) => {
@@ -166,14 +172,16 @@ const AssociateButtons = ({ broker, data }) => {
               <div className="form-group">
                 <label htmlFor="first_name">First name</label>
                 <input
-                  name="rep_first_name"
+                  name="re_broker_assoc_first_name"
                   ref={register({ required: "Required" })}
                   type="text"
                   className="form-control"
                   placeholder="First name"
                 />
-                {errors.rep_first_name && (
-                  <p className="text-danger">{errors.rep_first_name.message}</p>
+                {errors.re_broker_assoc_first_name && (
+                  <p className="text-danger">
+                    {errors.re_broker_assoc_first_name.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -181,14 +189,16 @@ const AssociateButtons = ({ broker, data }) => {
               <div className="form-group">
                 <label htmlFor="first_name">Last name</label>
                 <input
-                  name="rep_last_name"
+                  name="re_broker_assoc_last_name"
                   ref={register({ required: "Required" })}
                   type="text"
                   className="form-control"
                   placeholder="Last name"
                 />
-                {errors.rep_last_name && (
-                  <p className="text-danger">{errors.rep_last_name.message}</p>
+                {errors.re_broker_assoc_last_name && (
+                  <p className="text-danger">
+                    {errors.re_broker_assoc_last_name.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -196,15 +206,15 @@ const AssociateButtons = ({ broker, data }) => {
               <div className="form-group">
                 <label htmlFor="first_name">Primary phone number</label>
                 <input
-                  name="rep_primary_phonenumber"
+                  name="re_broker_assoc_primary_phone"
                   ref={register({ required: "Required" })}
                   type="text"
                   className="form-control"
                   placeholder="Primary phone number"
                 />
-                {errors.rep_primary_phonenumber && (
+                {errors.re_broker_assoc_primary_phone && (
                   <p className="text-danger">
-                    {errors.rep_primary_phonenumber.message}
+                    {errors.re_broker_assoc_primary_phone.message}
                   </p>
                 )}
               </div>
@@ -213,15 +223,15 @@ const AssociateButtons = ({ broker, data }) => {
               <div className="form-group">
                 <label htmlFor="first_name">Secondary Phone number</label>
                 <input
-                  name="rep_secondary_phonenumber"
+                  name="re_broker_assoc_secondary_phone"
                   ref={register({ required: false })}
                   type="text"
                   className="form-control"
                   placeholder="Secondary Phone number"
                 />
-                {errors.rep_secondary_phonenumber && (
+                {errors.re_broker_assoc_secondary_phone && (
                   <p className="text-danger">
-                    {errors.rep_secondary_phonenumber.message}
+                    {errors.re_broker_assoc_secondary_phone.message}
                   </p>
                 )}
               </div>
@@ -230,14 +240,16 @@ const AssociateButtons = ({ broker, data }) => {
               <div className="form-group">
                 <label htmlFor="first_name">Email</label>
                 <input
-                  name="rep_email"
+                  name="re_broker_assoc_email"
                   type="email"
                   ref={register({ required: "Required" })}
                   className="form-control"
                   placeholder="Email"
                 />
-                {errors.rep_email && (
-                  <p className="text-danger">{errors.rep_email.message}</p>
+                {errors.re_broker_assoc_email && (
+                  <p className="text-danger">
+                    {errors.re_broker_assoc_email.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -245,7 +257,7 @@ const AssociateButtons = ({ broker, data }) => {
               <div className="form-group">
                 <label htmlFor="first_name">Position</label>
                 <select
-                  name="position"
+                  name="re_broker_assoc_position"
                   ref={register({ required: "Required" })}
                   id=""
                   className="form-control"
@@ -254,8 +266,10 @@ const AssociateButtons = ({ broker, data }) => {
                   <option value="Manager">Manager</option>
                   <option value="Underwriter">Underwriter</option>
                 </select>
-                {errors.position && (
-                  <p className="text-danger">{errors.position.message}</p>
+                {errors.re_broker_assoc_position && (
+                  <p className="text-danger">
+                    {errors.re_broker_assoc_position.message}
+                  </p>
                 )}
               </div>
             </div>

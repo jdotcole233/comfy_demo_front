@@ -163,7 +163,20 @@ export default [
     ],
   },
   {
-    path: '/brokers/details/:id/generate-payment-schedule',
+    path: '/insurers-details/recent/:id/generate-payment-schedule',
+    layout: '/admin',
+    name: 'Reinsurance Brokers',
+    component: GenerateBrokerPaymentSchedule, // GenerateBrokerPaymentSchedule
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/insurers-details/all/:id/generate-payment-schedule',
     layout: '/admin',
     name: 'Reinsurance Brokers',
     component: GenerateBrokerPaymentSchedule, // GenerateBrokerPaymentSchedule
