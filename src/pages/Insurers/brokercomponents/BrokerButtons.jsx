@@ -3,19 +3,24 @@ import { REMOVE_BROKER_FROM_TREATY } from "graphql/mutattions/brokers";
 import { TREATY } from "graphql/queries/treaty";
 import { editAccessRoles } from "layout/adminRoutes";
 import React from "react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useMutation } from "react-apollo";
-import { DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
+import { Modal, DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 import swal from "sweetalert";
 
 // handleAddPercentage(participant)
 //handleEditPercentage(participant)
 
-const BrokerButtons = ({ share_percentage, re_broker_treaties_participation_id, treaty, ...participant }) => {
+const BrokerButtons = ({
+  share_percentage,
+  re_broker_treaties_participation_id,
+  treaty,
+  ...participant
+}) => {
   const { user } = useAuth();
-
-  const [removeReinsurer] = useMutation(REMOVE_BROKER_FROM_TREATY,{
-      refetchQueries:[{query:TREATY, variables:{id: treaty?.treaty_id}}]
+  const [showPercentageModal, setShowPercentageModal] = useState(false);
+  const [removeReinsurer] = useMutation(REMOVE_BROKER_FROM_TREATY, {
+    refetchQueries: [{ query: TREATY, variables: { id: treaty?.treaty_id } }],
   });
 
   const handleRemoveReinsurer = () => {
@@ -36,7 +41,7 @@ const BrokerButtons = ({ share_percentage, re_broker_treaties_participation_id, 
       removeReinsurer({
         variables: {
           id: re_broker_treaties_participation_id,
-        //   ids,
+          //   ids,
         },
       })
         .then((res) => {
@@ -52,6 +57,8 @@ const BrokerButtons = ({ share_percentage, re_broker_treaties_participation_id, 
         });
     });
   };
+
+  const handleAddPercentage = () => {};
 
   return (
     <Fragment>
@@ -71,7 +78,9 @@ const BrokerButtons = ({ share_percentage, re_broker_treaties_participation_id, 
             Edit
           </Dropdown.Item>
         ) : (
-          <Dropdown.Item onClick={() => {}}>Add</Dropdown.Item>
+          <Dropdown.Item onClick={() => setShowPercentageModal(true)}>
+            Add
+          </Dropdown.Item>
         )}
       </DropdownButton>
       <button
@@ -80,6 +89,17 @@ const BrokerButtons = ({ share_percentage, re_broker_treaties_participation_id, 
       >
         <i className="bx bx-trash text-danger"></i>
       </button>
+
+      <Modal
+        centered
+        show={showPercentageModal}
+        onHide={() => setShowPercentageModal(false)}
+      >
+        <Modal.Header>
+          <Modal.Title>Add percentge</Modal.Title>
+        </Modal.Header>
+        <Modal.Body></Modal.Body>
+      </Modal>
     </Fragment>
   );
 };

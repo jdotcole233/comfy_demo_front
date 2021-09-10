@@ -336,6 +336,23 @@ query treaty($treaty_id: ID) {
         re_broker_email
       }
     }
+    treaty_to_broker_associates {
+      sent_status
+      message_content
+      broker_associate {
+        re_broker_associate_id
+        re_broker_assoc_first_name
+        re_broker_assoc_last_name
+        re_broker_assoc_email
+        re_broker_assoc_primary_phone
+        re_broker_assoc_secondary_phone
+        re_broker {
+          re_broker_id
+          re_broker_name
+          re_broker_email
+        }
+      }
+    }
     treaty_participants {
       treaty_participation_id
       treaty_participation_percentage

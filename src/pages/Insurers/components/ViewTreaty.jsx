@@ -37,6 +37,7 @@ import SurplusListing from "./SurplusListing";
 import AdjustmentStatement from "./AdjustmentStatement";
 import GenerateList from "./GenerateList";
 import InsurerDetailsParticipatinBrokers from "../brokercomponents/InsureDetailsParticipationgBrokers"
+import InsurerDetailBrokerAssociates from "../brokercomponents/InsurerDetailBrokerAssociates";
 
 const ViewTreaty = () => {
   const { user } = useAuth();
@@ -567,6 +568,7 @@ const ViewTreaty = () => {
           reinsurers={reinsurers}
         />
         <InsurerDetailsParticipatinBrokers treaty={data?.treaty} />
+        <InsurerDetailBrokerAssociates treaty={data?.treaty} />
         <EffectedWithListingAssociates
           setLayer={setCurrentLayer}
           layers={layers_}
