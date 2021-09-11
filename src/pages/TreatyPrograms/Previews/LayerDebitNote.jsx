@@ -4,6 +4,7 @@ import { BASE_URL_LOCAL } from "../../../graphql";
 import moment from "moment";
 import { money } from "./CreditNote";
 import PreviewLogo from "../../../components/PreviewLogo";
+import { toLayerPosition } from "utils";
 
 const LayerDebitNote = ({
   layer,
@@ -26,10 +27,21 @@ const LayerDebitNote = ({
       ? [1, 5, 9]
       : [1, 4, 7, 10];
 
+  const url = `${BASE_URL_LOCAL}/treaty_np_debit_note/${Buffer.from(
+    JSON.stringify({
+      treaty_id: treaty?.treaty_id,
+      limit: layer?.limit,
+      layer: index,
+      m_and_d_premium: layer?.m_and_d_premium,
+      total_participation_percentage: 100 - percentage,
+      installment_type: layer?.installment_type,
+    })
+  ).toString("base64")}`;
+
   return (
     <>
       <div className="row m-2">
-        <a
+        {/* <a
           target="_blank"
           href={`${BASE_URL_LOCAL}/treaty_np_debit_note/${btoa(
             JSON.stringify({
@@ -44,9 +56,16 @@ const LayerDebitNote = ({
           className="btn btn-sm btn-primary w-md"
         >
           <i className="bx bxs-file-pdf"></i> Save
-        </a>
+        </a> */}
       </div>
-      <div className="preview-card container-fluid p-4 text-black bg-white">
+      <iframe
+        height={window.innerHeight - 100}
+        width="100%"
+        // className="preview-card container-fluid text-black bg-white"
+        src={url}
+        frameborder="0"
+      ></iframe>
+      {/* <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6"></div>
           <PreviewLogo />
@@ -91,28 +110,40 @@ const LayerDebitNote = ({
             </h3>
           </div>
           <div className="col-md-12 mr-4 ml-4">
-            <Row label="REINSURED" value={insurer?.insurer_company_name} />
-            <Row label="TYPE" value={treaty?.treaty_program?.treaty_name} />
-            <Row label="LIMIT" value={money(parseFloat(layer?.limit))} />
+            <Row label="Reinsured" value={insurer?.insurer_company_name} />
             <Row
-              label="PERIOD"
+              label="Period"
               value={`${moment(
                 treaty?.treaty_deduction?.treaty_period_from
               ).format("Do MMMM, YYYY")}${" "}
-                  to${" "}
-                  ${moment(treaty?.treaty_deduction?.treaty_period_to).format(
-                    "Do MMMM, YYYY"
-                  )}`}
+                to${" "}
+                ${moment(treaty?.treaty_deduction?.treaty_period_to).format(
+                  "Do MMMM, YYYY"
+                )}`}
             />
-            <Row label="Layer" value={index} />
-            <Row label="CURRENCY" value={treaty?.currency} />
+            <Row label="Treaty Number" value={treaty?.treaty_reference} />
             <Row
-              label="100% AMOUNT"
-              value={money(parseFloat(layer?.m_and_d_premium))}
+              label="100% Gross Minimum
+              And Deposit Premium"
+              child={
+                <table className="table table-borderless">
+                  <tbody>
+                    {JSON.parse(treaty?.layer_limit ?? "[]")?.map(
+                      (layer, index) => (
+                        <tr key={index}>
+                          <td>{toLayerPosition((index + 1).toString())}</td>
+                          <td>
+                            {treaty?.currency}{" "}
+                            {money(parseFloat(layer.m_and_d_premium))}
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              }
             />
-            <Row label="AMOUNT FOR ORDER" value={money(amountForOrder)} />
-            <Row label="DEDUCTIONS" value="NIL" />
-            <Row label="NET AMOUNT DUE" value={money(amountForOrder)} />
+            <Row label="Our Order" value={`${100 - percentage} %`} />
           </div>
 
           <div className="col-md-12 mr-4 ml-3">
@@ -144,13 +175,14 @@ const LayerDebitNote = ({
           </div>
         </div>
       </div>
+    */}
     </>
   );
 };
 
 export default LayerDebitNote;
 
-export const Row = ({ label, value }) => {
+export const Row = ({ label, value, child }) => {
   return (
     <div className="reference">
       <div className="reference-header">
@@ -159,9 +191,12 @@ export const Row = ({ label, value }) => {
         </p>
       </div>
       <div className="reference-value">
-        <p style={{ color: "#000" }}>
-          : {""} {value}
-        </p>
+        {child && child}
+        {!child && (
+          <p style={{ color: "#000" }}>
+            {""} {value}
+          </p>
+        )}
       </div>
     </div>
   );

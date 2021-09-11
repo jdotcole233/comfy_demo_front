@@ -63,7 +63,7 @@ const CreditNote = ({
   return (
     <>
       <div className="row m-2">
-        <a
+        {/* <a
           target="_blank"
           href={`${BASE_URL_LOCAL}/generate_treaty_credit_note/${btoa(
             JSON.stringify({
@@ -76,9 +76,21 @@ const CreditNote = ({
           className="btn btn-sm btn-primary w-md"
         >
           <i className="bx bxs-file-pdf"></i> Save
-        </a>
+        </a> */}
       </div>
-      <div className="preview-card container-fluid p-4 text-black bg-white">
+      <iframe
+        height={window.innerHeight - 100}
+        width="100%"
+        src={`${BASE_URL_LOCAL}/generate_treaty_credit_note/${btoa(
+          JSON.stringify({
+            participant_id: reinsurer?.treaty_participation_id,
+            treaty_account_id: note?.treaty_account_id,
+            type: 0,
+          })
+        )}`}
+        frameborder="0"
+      ></iframe>
+      {/* <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6">
             {isFleet && (
@@ -294,7 +306,7 @@ const CreditNote = ({
             next
           </button>
         </div>
-      )}
+      )} */}
     </>
   );
 };

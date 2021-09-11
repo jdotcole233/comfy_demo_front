@@ -66,11 +66,19 @@ const TreatyStatement = ({
         )?.value
       : treaty?.currency;
 
+  const url = `${BASE_URL_LOCAL}/generate_treaty_credit_note/${Buffer.from(
+    JSON.stringify({
+      participant_id: reinsurer?.treaty_participation_id,
+      treaty_account_id: note?.treaty_account_id,
+      type: 1,
+    })
+  ).toString("base64")}`;
+
   return (
     <>
       {/* {JSON.stringify(share)} */}
       <div className="row m-2">
-        <a
+        {/* <a
           target="_blank"
           href={`${BASE_URL_LOCAL}/generate_treaty_credit_note/${btoa(
             JSON.stringify({
@@ -82,9 +90,16 @@ const TreatyStatement = ({
           className="btn btn-sm btn-primary w-md"
         >
           <i className="bx bxs-file-pdf"></i> Save
-        </a>
+        </a> */}
       </div>
-      <div className="preview-card container-fluid p-4 text-black bg-white">
+      <iframe
+        height={window.innerHeight - 180}
+        width="100%"
+        // className="preview-card container-fluid text-black bg-white"
+        src={url}
+        frameborder="0"
+      ></iframe>
+      {/* <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6">
             {isFleet && (
@@ -101,7 +116,6 @@ const TreatyStatement = ({
               alignItems: "center",
             }}
           >
-            {/*  */}
           </div>
           <PreviewLogo />
           <div className="col-md-12 mt-3 mb-3">
@@ -287,8 +301,12 @@ const TreatyStatement = ({
           </div>
         </div>
       </div>
-      {isFleet && (
-        <div className="row m-2 d-flex justify-content-between">
+       */}
+
+      {/* {isFleet && (
+      
+      
+      <div className="row m-2 d-flex justify-content-between">
           <button
             className="btn btn-sm btn-primary w-md"
             onClick={props.previousStep}
@@ -302,7 +320,7 @@ const TreatyStatement = ({
             next
           </button>
         </div>
-      )}
+      )} */}
     </>
   );
 };
