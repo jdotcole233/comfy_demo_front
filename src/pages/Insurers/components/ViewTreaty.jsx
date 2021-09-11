@@ -638,6 +638,7 @@ const ViewTreaty = () => {
               <NonProportionalStatements
                 treaty={data?.treaty}
                 reinsurer={selectedReinsurer}
+                reinsurers={data?.treaty?.treaty_participants}
                 layer={currentLayer}
               />
             )

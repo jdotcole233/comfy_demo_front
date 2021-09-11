@@ -48,10 +48,17 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
         )?.value
       : treaty?.currency;
 
+  const url = `${BASE_URL_LOCAL}/treaty_debit_note/${Buffer.from(
+    JSON.stringify({
+      treaty_account_id: note?.treaty_account_id,
+      default: defualt,
+    })
+  ).toString("base64")}`;
+
   return (
     <>
       <div className="row m-2">
-        <a
+        {/* <a
           target="_blank"
           href={`${BASE_URL_LOCAL}/treaty_debit_note/${btoa(
             JSON.stringify({
@@ -62,8 +69,9 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
           className="btn btn-sm btn-primary w-md"
         >
           <i className="bx bxs-file-pdf"></i> Save
-        </a>
+        </a> */}
       </div>
+
       <div className="col-md-12 mx-3">
         <div className="form-group d-flex align-items-center ml-2">
           <input
@@ -89,7 +97,14 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
         </div>
       ) : null}
       {/* {JSON.stringify(note)} */}
-      <div className="preview-card container-fluid p-4 text-black bg-white">
+      <iframe
+        height={window.innerHeight - 100}
+        width="100%"
+        // className="preview-card container-fluid text-black bg-white"
+        src={url}
+        frameborder="0"
+      ></iframe>
+      {/* <div className="preview-card container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6">
             {isFleet && (
@@ -159,7 +174,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
             next
           </button>
         </div>
-      )}
+      )} */}
     </>
   );
 };
