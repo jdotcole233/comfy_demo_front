@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AdjustmentStatementPreview from "../../Insurers/components/AdjustmentStatementPreview";
 import CreditNote from "./NonProportionalCreditNote";
 
-const NonProportionalStatements = ({ treaty, reinsurer, layer }) => {
+const NonProportionalStatements = ({ treaty, reinsurer, layer, reinsurers }) => {
   const layers = JSON.parse(treaty?.layer_limit || "[]");
   const [statement, setStatement] = useState("initialState");
 
@@ -20,7 +20,7 @@ const NonProportionalStatements = ({ treaty, reinsurer, layer }) => {
             id="statement_type"
           >
             <option value="">Select ...</option>
-            <option value="Credit Note">Credit Note</option>
+            <option value="Closing Note">Closing Note</option>
             {/* Shows only when the adjustment statement has been submitted successfully */}
             {adjustment_created && (
               <option value="Adjustment Statement">Adjustment Statement</option>
@@ -28,12 +28,13 @@ const NonProportionalStatements = ({ treaty, reinsurer, layer }) => {
           </select>
         </div>
       </div>
-      {statement === "Credit Note" && (
+      {statement === "Closing Note" && (
         <CreditNote
           layer={layers[layer - 1]}
           layer_number={layer}
           insurer={treaty?.insurer}
           reinsurer={reinsurer}
+          reinsurers={reinsurers}
           treaty={treaty}
         />
       )}

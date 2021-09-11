@@ -5,17 +5,17 @@ import { money, mult, toLayerPosition } from "../../../utils";
 import _ from "lodash";
 
 const AdjustmentStatementPreview = ({ reinsurer, treaty }) => {
-  const details = treaty?.treaty_np_detail;
-  const layers = JSON.parse(treaty?.layer_limit ?? "[]");
-  const modifiedDeduction = reinsurer?.treaty_participant_deductions.length > 0;
-  const deduction = modifiedDeduction
-    ? _.first(reinsurer?.treaty_participant_deductions)
-    : treaty?.deduction;
-  let sumOfAdditionalPremiumDue = 0;
+  // const details = treaty?.treaty_np_detail;
+  // const layers = JSON.parse(treaty?.layer_limit ?? "[]");
+  // const modifiedDeduction = reinsurer?.treaty_participant_deductions.length > 0;
+  // const deduction = modifiedDeduction
+  //   ? _.first(reinsurer?.treaty_participant_deductions)
+  //   : treaty?.deduction;
+  // let sumOfAdditionalPremiumDue = 0;
   return (
     <Fragment>
       {/* treaty_adjustment_statement {treaty_id, treaty_participation_id} */}
-      <div className="row m-2">
+      {/* <div className="row m-2">
         <a
           target="_blank"
           href={`${BASE_URL_LOCAL}/treaty_adjustment_statement/${btoa(
@@ -28,9 +28,21 @@ const AdjustmentStatementPreview = ({ reinsurer, treaty }) => {
         >
           <i className="bx bxs-file-pdf"></i> Save
         </a>
-      </div>
-      <div className="container-fluid p-4 text-black bg-white">
-        <div className="row">
+      </div> */}
+      <iframe
+        height={window.innerHeight - 100}
+        width="100%"
+        // className="preview-card container-fluid text-black bg-white"
+        src={`${BASE_URL_LOCAL}/treaty_adjustment_statement/${btoa(
+          JSON.stringify({
+            treaty_participation_id: reinsurer?.treaty_participation_id,
+            treaty_id: treaty?.treaty_id,
+          })
+        )}`}
+        frameborder="0"
+      ></iframe>
+      {/* <div className="container-fluid p-4 text-black bg-white"> */}
+      {/* <div className="row">
           <div className="col-md-6 col-6"></div>
           <div
             className="col-md-6 col-6"
@@ -386,7 +398,8 @@ const AdjustmentStatementPreview = ({ reinsurer, treaty }) => {
             </table>
           </div>
         </div>
-      </div>
+       */}
+      {/* </div> */}
     </Fragment>
   );
 };

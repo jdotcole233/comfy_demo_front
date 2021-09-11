@@ -3,40 +3,47 @@ import React, { Fragment } from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
 import { money } from "../../../utils";
 import "../styles/preview.css";
-import PreviewLogo from '../../../components/PreviewLogo'
+import PreviewLogo from "../../../components/PreviewLogo";
 
 const TreatyPortfolioStatement = ({
   reinsurer = {},
   treaty = {},
   note = {},
 }) => {
-  const treaty_deduction = treaty?.treaty_deduction;
-  const getNetPremium = (a, b) => parseFloat(a) - parseFloat(b);
-  const withPortfolioEntry = JSON.parse(
-    treaty?.treaty_proportional_detail?.portfolio_entry ?? "{}"
-  );
+  // const treaty_deduction = treaty?.treaty_deduction;
+  // const getNetPremium = (a, b) => parseFloat(a) - parseFloat(b);
+  // const withPortfolioEntry = JSON.parse(
+  //   treaty?.treaty_proportional_detail?.portfolio_entry ?? "{}"
+  // );
 
-  const getCommissionAmount = (percentage) =>
-    (parseFloat(percentage) / 100) *
-    parseFloat(treaty?.treaty_proportional_detail?.overall_gross_premium);
+  // const getCommissionAmount = (percentage) =>
+  //   (parseFloat(percentage) / 100) *
+  //   parseFloat(treaty?.treaty_proportional_detail?.overall_gross_premium);
 
-  const portfolioWithdrawal =
-    (parseFloat(withPortfolioEntry.withdrawal_percentage) / 100) *
-    getNetPremium(
-      treaty?.treaty_proportional_detail?.overall_gross_premium,
-      getCommissionAmount(treaty_deduction?.commission)
-    );
+  // const portfolioWithdrawal =
+  //   (parseFloat(withPortfolioEntry.withdrawal_percentage) / 100) *
+  //   getNetPremium(
+  //     treaty?.treaty_proportional_detail?.overall_gross_premium,
+  //     getCommissionAmount(treaty_deduction?.commission)
+  //   );
 
-  const amountDue =
-    portfolioWithdrawal +
-    parseFloat(treaty?.treaty_proportional_detail?.losses_outstanding);
+  // const amountDue =
+  //   portfolioWithdrawal +
+  //   parseFloat(treaty?.treaty_proportional_detail?.losses_outstanding);
+
+  const url = `${BASE_URL_LOCAL}/treaty_portfolio_statement/${Buffer.from(
+    JSON.stringify({
+      treaty_participation_id: reinsurer?.treaty_participation_id,
+      treaty_id: treaty?.treaty_id,
+    })
+  ).toString("base64")}`;
 
   return (
     <Fragment>
       {/* <p style={{ wordWrap: "break-word" }}>{JSON.stringify(reinsurer)}</p> */}
       {/* {JSON.stringify(withPortfolioEntry)} */}
       <div className="row m-2">
-        <a
+        {/* <a
           target="_blank"
           href={`${BASE_URL_LOCAL}/treaty_portfolio_statement/${btoa(
             JSON.stringify({
@@ -47,9 +54,16 @@ const TreatyPortfolioStatement = ({
           className="btn btn-sm btn-primary w-md"
         >
           <i className="bx bxs-file-pdf"></i> Save
-        </a>
+        </a> */}
       </div>
-      <div className="container-fluid p-4 text-black bg-white">
+      <iframe
+        height={window.innerHeight - 100}
+        width="100%"
+        // className="preview-card container-fluid text-black bg-white"
+        src={url}
+        frameborder="0"
+      ></iframe>
+      {/* <div className="container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-6 col-6"></div>
           <PreviewLogo />
@@ -60,9 +74,7 @@ const TreatyPortfolioStatement = ({
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            
-          </div>
+          ></div>
           <div className="col-md-12 mt-3 mb-3">
             <h3
               style={{
@@ -338,6 +350,7 @@ const TreatyPortfolioStatement = ({
           </div>
         </div>
       </div>
+     */}
     </Fragment>
   );
 };

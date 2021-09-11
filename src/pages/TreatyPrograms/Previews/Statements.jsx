@@ -35,8 +35,8 @@ const Statements = ({ treaty, reinsurer }) => {
               id="statement_type"
             >
               <option value="">Select ...</option>
-              <option value="Treaty Statement">Treaty Statement</option>
-              <option value="Credit Note">Credit Note</option>
+              {/* <option value="Treaty Statement">Treaty Statement</option> */}
+              <option value="Treaty Closings">Treaty Closings</option>
               {portfolioCond && (
                 <option value="Portfolio Statement">Portfolio Statement</option>
               )}
@@ -81,7 +81,7 @@ const Statements = ({ treaty, reinsurer }) => {
           )}
         />
       )}
-      {statement === "Credit Note" && note && (
+      {statement === "Treaty Closings" && note && (
         <CreditNoateSurplus
           reinsurer={reinsurer}
           treaty={treaty}

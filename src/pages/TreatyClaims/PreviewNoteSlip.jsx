@@ -32,6 +32,14 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
     (parseFloat(participant?.treaty_participation_percentage) / 100) *
     multiplier;
 
+  const url = `${BASE_URL_LOCAL}/treaty_claim_debit_note/${Buffer.from(
+    JSON.stringify({
+      treaty_id: participant?.treaty?.treaty_id,
+      treaty_participant_id: participant?.treaty_participation_id,
+      paged: 0,
+    })
+  ).toString("base64")}`;
+
   return (
     <>
       <div className="row m-2">
@@ -62,7 +70,14 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
           <i className="bx bxs-file-pdf"></i> Save all
         </a>
       </div>
-      <div className=" container-fluid p-4 text-black bg-white">
+      <iframe
+        height={window.innerHeight - 100}
+        width="100%"
+        // className="preview-card container-fluid text-black bg-white"
+        src={url}
+        frameborder="0"
+      ></iframe>
+      {/* <div className=" container-fluid p-4 text-black bg-white">
         <div className="row">
           <div className="col-md-12 col-12">
             <h3
@@ -149,7 +164,7 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
             <div className="col-md-5 t_t_v">{money(balDueYou)}</div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

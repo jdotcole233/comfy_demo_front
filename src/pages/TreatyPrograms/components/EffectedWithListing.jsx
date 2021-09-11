@@ -24,8 +24,11 @@ function EffectedWithListing({
   const toggle = () => setShowDeductionDrawer((prev) => !prev);
   const isNonProp = treaty?.treaty_program?.treaty_type === "NONPROPORTIONAL";
 
-  const data = _.mapValues(_.groupBy(reinsurers, "layer_number"), (list) =>
-    list.map((item) => _.omit(item, "layer_number"))
+  const data = _.mapValues(_.groupBy(reinsurers, "layer_number"), (list, key) =>
+    list.map((item) => {
+      // console.log(`Layer ${key}`,item.treaty_participant_deductions[0].nic_levy_amount);
+      return _.omit(item, "layer_number")
+    })
   );
 
   const actualLayers = Object.keys(data);
