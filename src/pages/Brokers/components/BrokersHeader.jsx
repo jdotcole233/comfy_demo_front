@@ -1,4 +1,4 @@
-import { Drawer } from "components";
+import { Drawer } from "../../../components";
 import React, { useState } from "react";
 import { Fragment } from "react";
 import AddBrokerForm from "./AddBrokerForm";

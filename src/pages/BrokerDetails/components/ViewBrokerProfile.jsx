@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Drawer } from "components";
-import AddBrokerForm from "pages/Brokers/components/AddBrokerForm";
+import { Drawer } from "../../../components";
+import AddBrokerForm from "../../../pages/Brokers/components/AddBrokerForm";
 import React, { useState } from "react";
 import { Fragment } from "react";
 import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";

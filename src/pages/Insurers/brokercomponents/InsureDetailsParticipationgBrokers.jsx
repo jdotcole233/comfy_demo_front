@@ -1,4 +1,4 @@
-import { Datatable } from "components";
+import { Datatable } from "../../../components";
 import React, { useMemo } from "react";
 import BrokerButtons from "./BrokerButtons";
 import { brokersColumns } from "./columns";

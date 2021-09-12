@@ -11,8 +11,8 @@ import {
   editAccessRoles,
 } from "../../../layout/adminRoutes";
 import { useAuth } from "../../../context/AuthContext";
-import { BROKER } from "graphql/queries/brokers";
-import { REMOVE_BROKER_ASSOCIATE, UDPATE_BROKER_ASSOCIATE } from "graphql/mutattions/brokers";
+import { BROKER } from "../../../graphql/queries/brokers";
+import { REMOVE_BROKER_ASSOCIATE, UDPATE_BROKER_ASSOCIATE } from "../../../graphql/mutattions/brokers";
 
 const AssociateButtons = ({ broker, data }) => {
   const { user } = useAuth();

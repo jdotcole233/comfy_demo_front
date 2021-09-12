@@ -1,4 +1,4 @@
-import { PageHeader, Selector } from "components";
+import { PageHeader, Selector } from "../../components";
 import React from "react";
 
 const BrokerGeneratePaymentSchedule = () => {

@@ -1,9 +1,9 @@
-import { CREATE_BROKER_ASSOCIATE } from "graphql/mutattions/brokers";
+import { CREATE_BROKER_ASSOCIATE } from "../../../graphql/mutattions/brokers";
 import React from "react";
 import { useMutation } from "react-apollo";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
-import { Selector } from "../../../components";
+// import { Selector } from "../../../components";
 import styles from "../styles/ViewReinsurerOffer.module.css";
 
 const AddBrokerAssociateForm = ({ setShow, broker }) => {

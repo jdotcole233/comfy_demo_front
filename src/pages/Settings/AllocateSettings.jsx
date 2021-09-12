@@ -8,8 +8,8 @@ import {
   treaty,
 } from "./../../layout/adminRoutes";
 import { useMutation } from "react-apollo";
-import { UPDATE_USER_ROLE } from "graphql/mutattions/settings";
-import { USER_ROLES } from "graphql/queries/settings";
+import { UPDATE_USER_ROLE } from "../../graphql/mutattions/settings";
+import { USER_ROLES } from "../../graphql/queries/settings";
 import swal from "sweetalert";
 
 const AllocateSettings = ({ role, setShow }) => {

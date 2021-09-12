@@ -1,5 +1,5 @@
-import { Datatable, generateNewCulumns } from "components";
-import { useAuth } from "context/AuthContext";
+import { Datatable, generateNewCulumns } from "../../../components";
+import { useAuth } from "../../../context/AuthContext";
 import React, { useMemo } from "react";
 import { Fragment } from "react";
 import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";

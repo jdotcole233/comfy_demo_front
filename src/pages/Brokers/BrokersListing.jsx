@@ -1,4 +1,4 @@
-import { chunkArray } from "components";
+import { chunkArray } from "../../components";
 import React, { useState, useEffect } from "react";
 import { Fragment } from "react";
 import Broker from "./components/Broker";

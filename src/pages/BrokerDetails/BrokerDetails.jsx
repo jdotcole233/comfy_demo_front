@@ -1,6 +1,6 @@
-import { Loader } from "components";
-import ErrorPage from "components/ErrorPage";
-import { BROKER } from "graphql/queries/brokers";
+import { Loader } from "../../components";
+import ErrorPage from "../../components/ErrorPage";
+import { BROKER } from "../../graphql/queries/brokers";
 import React from "react";
 import { useQuery } from "react-apollo";
 import { useParams } from "react-router-dom";

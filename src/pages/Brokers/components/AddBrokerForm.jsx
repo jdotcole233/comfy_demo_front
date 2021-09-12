@@ -1,8 +1,8 @@
 import { useMutation } from "react-apollo";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { CREATE_BROKER, UPDATE_BROKER } from "graphql/mutattions/brokers";
-import { BROKER, BROKERS } from "graphql/queries/brokers";
+import { CREATE_BROKER, UPDATE_BROKER } from "../../../graphql/mutattions/brokers";
+import { BROKER, BROKERS } from "../../../graphql/queries/brokers";
 import swal from "sweetalert";
 import { CountryOption, Selector } from "../../../components";
 import countriesData from "../../../assets/countriesData";

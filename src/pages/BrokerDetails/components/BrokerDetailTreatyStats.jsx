@@ -1,4 +1,4 @@
-import { CurrencyValues } from "components";
+import { CurrencyValues } from "../../../components";
 import React from "react";
 import { Fragment } from "react";
 

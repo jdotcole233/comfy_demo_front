@@ -1,4 +1,4 @@
-import { Drawer } from "components";
+import { Drawer } from "../../../components";
 import React from "react";
 import { Fragment, useState } from "react";
 import CreateTreatyBroadCastList from "./CreateTreatyBroadCastList";
