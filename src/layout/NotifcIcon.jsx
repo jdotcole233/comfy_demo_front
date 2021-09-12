@@ -9,7 +9,7 @@ import Push from "push.js";
 import { NOTIFICATIONS } from "../graphql/queries/notifications";
 import { useHistory, Link } from "react-router-dom";
 import { PUSHER_KEY, PUSHER_CLUSTER, CHANNEL, EVENT } from "../graphql/config";
-import { useAuth } from "context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 let all_notifs = [];
 

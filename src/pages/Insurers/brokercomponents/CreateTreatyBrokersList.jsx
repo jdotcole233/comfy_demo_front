@@ -7,8 +7,8 @@ import { Selector } from "../../../components";
 import { TREATY } from "../../../graphql/queries/treaty";
 import swal from "sweetalert";
 import { useMemo } from "react";
-import { BROKER_DISTRIBUTION_LIST } from "graphql/queries/brokers";
-import { CREATE_BROKER_DISTRIBUTION_LIST } from "graphql/mutattions/brokers";
+import { BROKER_DISTRIBUTION_LIST } from "../../../graphql/queries/brokers";
+import { CREATE_BROKER_DISTRIBUTION_LIST } from "../../../graphql/mutattions/brokers";
 
 const buildSelectRows = (data) => {
   const list = [];

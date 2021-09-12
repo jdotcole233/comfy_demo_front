@@ -1,7 +1,7 @@
-import { useAuth } from "context/AuthContext";
-import { REMOVE_BROKER_FROM_TREATY } from "graphql/mutattions/brokers";
-import { TREATY } from "graphql/queries/treaty";
-import { editAccessRoles } from "layout/adminRoutes";
+import { useAuth } from "../../../context/AuthContext";
+import { REMOVE_BROKER_FROM_TREATY } from "../../../graphql/mutattions/brokers";
+import { TREATY } from "../../../graphql/queries/treaty";
+import { editAccessRoles } from "../../../layout/adminRoutes";
 import React from "react";
 import { Fragment, useState } from "react";
 import { useMutation } from "react-apollo";

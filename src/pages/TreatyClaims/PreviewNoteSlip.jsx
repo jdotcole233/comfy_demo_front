@@ -2,7 +2,7 @@
 import React, { useMemo } from "react";
 import { BASE_URL_LOCAL } from "../../graphql";
 import { money } from "../../utils";
-import PreviewLogo from "components/PreviewLogo";
+import PreviewLogo from "../../components/PreviewLogo";
 import "./styles/TreatyClams.css";
 // const showDate = (offer) => {
 //     const from = new Date(offer?.offer_detail?.period_of_insurance_from)
