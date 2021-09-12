@@ -1,6 +1,6 @@
 import React from "react";
 import Admin from "./layout/Admin";
-import Auth from "layout/Auth";
+import Auth from "./layout/Auth";
 import Push from "push.js";
 import Detector from "./components/ConnectionDetector";
 

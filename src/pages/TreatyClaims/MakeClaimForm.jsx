@@ -20,7 +20,7 @@ import {
   TREATY_CLAIMS,
 } from "../../graphql/queries/treaty";
 // import { useTreatyClaimsProps } from "./Providers/TreatyClaimsProvider";
-import useLocalStorage from "hooks";
+import useLocalStorage from "../../hooks";
 
 const MakeClaimForm = ({ details, setShow }) => {
   /**

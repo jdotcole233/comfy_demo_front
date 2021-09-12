@@ -11,8 +11,8 @@ import { useForm } from "react-hook-form";
 import { DrawerContext } from "../../components/Drawer";
 import DropZone from "../../components/DropZone";
 import { Select } from "../../components/Input";
-import { validateEmails } from "pages/CreateSlip/CreateBroadcastEmail";
-import { SEND_TREATY_CLAIM_DEBIT_NOTE } from "graphql/queries/treaty";
+import { validateEmails } from "./../../pages/CreateSlip/CreateBroadcastEmail";
+import { SEND_TREATY_CLAIM_DEBIT_NOTE } from "../../graphql/queries/treaty";
 
 const createOption = (label) => ({
   label,
