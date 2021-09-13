@@ -1,0 +1,24 @@
+.card_header {
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.card_title {
+  font-variant: small-caps;
+  font-weight: lighter;
+}
+
+.card_body {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.details_title {
+  /* font-weight: lighter; */
+  font-size: large;
+  width: auto;
+  margin-bottom: 10px;
+  font-variant: small-caps;
+}

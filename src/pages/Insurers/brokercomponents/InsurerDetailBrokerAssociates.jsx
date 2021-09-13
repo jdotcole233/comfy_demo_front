@@ -14,7 +14,7 @@ const InsurerDetailBrokerAssociates = ({ treaty }) => {
       return treaty.treaty_to_broker_associates.map((associate) => ({
         ...associate,
         ...associate.broker_associate,
-        ...associate.re_broker,
+        ...associate.broker_associate.re_broker,
         rep_phone: [
           associate.broker_associate.re_broker_assoc_primary_phone,
           associate.broker_associate.re_broker_assoc_secondary_phone,

@@ -36,8 +36,10 @@ import AddPErcentageModal from "./AddPErcentageModal";
 import SurplusListing from "./SurplusListing";
 import AdjustmentStatement from "./AdjustmentStatement";
 import GenerateList from "./GenerateList";
-import InsurerDetailsParticipatinBrokers from "../brokercomponents/InsureDetailsParticipationgBrokers"
+import InsurerDetailsParticipatinBrokers from "../brokercomponents/InsureDetailsParticipationgBrokers";
 import InsurerDetailBrokerAssociates from "../brokercomponents/InsurerDetailBrokerAssociates";
+import PreviewPlacing from "../../ViewTreaty/components/PreviewPlacing";
+import PreviewCover from "../../ViewTreaty/components/PreviewCover";
 
 const ViewTreaty = () => {
   const { user } = useAuth();
@@ -527,10 +529,12 @@ const ViewTreaty = () => {
         <div className="row">
           <div className="col-xl-4">
             <TreatyOverviewSide treaty={data?.treaty} />
+            <PreviewPlacing treaty={data?.treaty} />
+            <PreviewCover treaty={data?.treaty} />
           </div>
           <div className="col-xl-8">
             <div className="row d-flex align-items-stretch">
-              <GenerateList {...{isProp, allowAdjustment, ...data}} />
+              <GenerateList {...{ isProp, allowAdjustment, ...data }} />
               {!isProp && allowAdjustment && (
                 <AdjustmentStatement {...data?.treaty} />
               )}
@@ -596,8 +600,6 @@ const ViewTreaty = () => {
           percentageErrorEntry={percentageErrorEntry}
         />
       </Modal>
-
-      
 
       <Drawer
         width="50%"

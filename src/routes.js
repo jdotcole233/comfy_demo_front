@@ -30,6 +30,7 @@ const TreatyClaims = lazy(() => import("./pages/TreatyClaims"))
 const Brokers = lazy(() => import("./pages/Brokers"))
 const BrokerDetails = lazy(() => import('./pages/BrokerDetails'))
 const GenerateBrokerPaymentSchedule = lazy(() => import('./pages/BrokerGeneratePaymentSchedule'))
+const CreateTreaty = lazy(() => import('./pages/CreateTreaty'))
 
 export default [
   {
@@ -154,6 +155,19 @@ export default [
     layout: '/admin',
     name: 'Reinsurance Brokers',
     component: BrokerDetails, // BrokerDetails
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/insurers-details/recent/:id/create-treaty',
+    layout: '/admin',
+    name: 'Insurers',
+    component: CreateTreaty, // Create treaty page
     roles: [
       'CEO',
       'General Manager',

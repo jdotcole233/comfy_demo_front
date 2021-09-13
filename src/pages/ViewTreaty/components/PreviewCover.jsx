@@ -1,0 +1,36 @@
+import React from "react";
+import { Fragment, useState } from "react";
+import { Drawer } from "../../../components";
+
+const PreviewCover = ({ treaty }) => {
+  const [showPreview, setShowPreview] = useState(false);
+  return (
+    <Fragment>
+      <div className="card">
+        <div className="card-header">
+          <span className="card-title">Cover note</span>
+        </div>
+        <div className="card-body row">
+          <button
+            onClick={() => setShowPreview(true)}
+            className="btn btn-sm w-md mr-2 btn-primary"
+          >
+            Preview cover note
+          </button>
+          <button className="btn btn-sm w-md btn-success">
+            Send cover note
+          </button>
+        </div>
+      </div>
+
+      <Drawer
+        isvisible={showPreview}
+        width="50%"
+        toggle={() => setShowPreview(false)}
+        setShow={setShowPreview}
+      ></Drawer>
+    </Fragment>
+  );
+};
+
+export default PreviewCover;

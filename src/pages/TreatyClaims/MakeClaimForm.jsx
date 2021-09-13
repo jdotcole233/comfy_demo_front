@@ -21,8 +21,10 @@ import {
 } from "../../graphql/queries/treaty";
 // import { useTreatyClaimsProps } from "./Providers/TreatyClaimsProvider";
 import useLocalStorage from "../../hooks";
+import _ from "lodash";
+import { useEffect } from "react";
 
-const MakeClaimForm = ({ details, setShow }) => {
+const MakeClaimForm = ({ details, setShow_ }) => {
   /**
    * treaty_id
    * array of treatyclaim data
@@ -82,7 +84,7 @@ const MakeClaimForm = ({ details, setShow }) => {
   }, [details]);
 
   const toggle = () => {
-    setShow((prev) => !prev);
+    // setShow_((prev) => !prev);
     setShowList((prev) => !prev);
   };
 
@@ -96,13 +98,35 @@ const MakeClaimForm = ({ details, setShow }) => {
       if (!input) throw null;
       setClaims([]);
       setShowList(false);
-      setShow(false);
+      setShow_(false);
     });
   };
 
   const onSubmitForm = (values) => {
+    const _values = {
+      treaty_claim_details: JSON.stringify({
+        ..._.omit(values, [
+          "policy_number",
+          "claim_number",
+          "insured_name",
+          "date_of_loss",
+          "claim_paid",
+          "layer_number",
+          "treaty_comment",
+          "expected_deductible",
+        ]),
+      }),
+      ..._.omit(values, [
+        "third_party_claim_amount",
+        "survey_fees",
+        "net_liability_amount",
+        "company_name",
+        "salvage",
+        "legal_fees",
+      ]),
+    };
     if (!editable) {
-      const newClaims = [...claims, values];
+      const newClaims = [...claims, _values];
       setClaims(newClaims);
       swal({
         icon: "warning",
@@ -129,22 +153,28 @@ const MakeClaimForm = ({ details, setShow }) => {
 
   const onClickEditButton = useCallback((values, index) => {
     //set editable true and index
-    setEditable(true);
+    console.log(values);
+    setEditable(values);
     setCurrentIndex(index);
     // set values to hook form
-    setValue("policy_number", values.policy_number);
-    setValue("claim_number", values.claim_number);
-    setValue("insured_name", values.insured_name);
-    setValue("date_of_loss", values.date_of_loss);
-    // setValue("claim_date", values.claim_date)
-    setValue("claim_paid", values.claim_paid);
-    setValue("layer_number", values.layer_number);
-    setValue("treaty_comment", values.treaty_comment);
-    setValue("expected_deductible", values.expected_deductible);
-    setContent(values.treaty_comment);
     // toggle the modal and drawer
     toggle();
   });
+
+  useEffect(() => {
+    if (editable) {
+      setValue("policy_number", editable.policy_number);
+      setValue("claim_number", editable.claim_number);
+      setValue("insured_name", editable.insured_name);
+      setValue("date_of_loss", editable.date_of_loss);
+      // setValue("claim_date", editable.claim_date)
+      setValue("claim_paid", editable.claim_paid);
+      setValue("layer_number", editable.layer_number);
+      setValue("treaty_comment", editable.treaty_comment);
+      setValue("expected_deductible", editable.expected_deductible);
+      setContent(editable.treaty_comment);
+    }
+  }, [editable]);
 
   const onClickRemoveButton = useCallback((index) => {
     swal({
@@ -167,13 +197,13 @@ const MakeClaimForm = ({ details, setShow }) => {
           <>
             <button
               onClick={() => onClickEditButton(el, key)}
-              className="btn btn-square btn-sm btn-primary btn-edit"
+              className="btn btn-square btn-sm btn-primary"
             >
               Edit
             </button>
             <button
               onClick={() => onClickRemoveButton(key)}
-              className="btn btn-link text-danger"
+              className="btn text-danger"
             >
               Remove
             </button>
@@ -202,7 +232,7 @@ const MakeClaimForm = ({ details, setShow }) => {
           swal("Success", "Claim(s) made successfully", "success");
           reset();
           setClaims([]);
-          setShow(false);
+          setShow_(false);
           setShowList(false);
         })
         .catch((err) => {
@@ -210,6 +240,40 @@ const MakeClaimForm = ({ details, setShow }) => {
         });
     });
   };
+
+  if (showList)
+    return (
+      <>
+        <Modal.Header>
+          <Modal.Title>Preview of claim Data</Modal.Title>
+          <button
+            className="btn btn-square btn-primary btn-sm"
+            onClick={() => toggle()}
+            style={{ position: "absolute", right: 15 }}
+          >
+            Back to editor
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <Datatable columns={makeClaimPreview} data={previewData} />
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            onClick={cancelAllProcess}
+            className="btn btn-sm btn-square btn-danger w-md"
+          >
+            Abort Process
+          </button>
+          <button
+            disabled={loading}
+            onClick={createClaims}
+            className="btn btn-sm btn-square btn-success w-md"
+          >
+            {loading ? "loading, plesae wait..." : "Make Claim"}
+          </button>
+        </Modal.Footer>
+      </>
+    );
 
   return (
     <Fragment>
@@ -329,8 +393,8 @@ const MakeClaimForm = ({ details, setShow }) => {
           <Input
             type="number"
             step="any"
-            label="Expected Deductible"
-            placeholder="Expected Deductible"
+            label="Deductible"
+            placeholder="Deductible"
             name="expected_deductible"
             ref={register({ required: "Required" })}
           />
@@ -346,6 +410,76 @@ const MakeClaimForm = ({ details, setShow }) => {
             <Input readOnly label="limit" value={limit?.limit} />
           </div>
         )}
+
+        <fieldset className="row ml-2 border mr-2 mb-3">
+          <legend className="w-auto font-size-16">Claim details</legend>
+          <div className="col-md-6">
+            <Input
+              type="number"
+              step="any"
+              label="Plus(+) Third party claim amount"
+              placeholder="Third party claim amount"
+              name="third_party_claim_amount"
+              ref={register({ required: false })}
+            />
+            <ErrorMessage errors={errors} name="third_party_claim_amount" />
+          </div>
+          <div className="col-md-6">
+            <Input
+              type="number"
+              step="any"
+              label="Plus(+) Survey fees"
+              placeholder="survey fees"
+              name="survey_fees"
+              ref={register({ required: false })}
+            />
+            <ErrorMessage errors={errors} name="survey_fees" />
+          </div>{" "}
+          <div className="col-md-6">
+            <Input
+              type="number"
+              step="any"
+              label="Plus(+) Legal fees"
+              placeholder="legal fees"
+              name="legal_fees"
+              ref={register({ required: false })}
+            />
+            <ErrorMessage errors={errors} name="legal_fees" />
+          </div>{" "}
+          <div className="col-md-6">
+            <Input
+              type="number"
+              step="any"
+              label="Minus(-) Salvage"
+              placeholder="Salvage"
+              name="salvage"
+              ref={register({ required: false })}
+            />
+            <ErrorMessage errors={errors} name="salvage" />
+          </div>{" "}
+          <div className="col-md-6">
+            <Input
+              type="text"
+              step="any"
+              label="Company name"
+              placeholder="Company name"
+              name="company_name"
+              ref={register({ required: false })}
+            />
+            <ErrorMessage errors={errors} name="company_name" />
+          </div>{" "}
+          <div className="col-md-6">
+            <Input
+              type="number"
+              step="any"
+              label="Plus(+) Net liability amount"
+              placeholder="Net liability amount"
+              name="net_liability_amount"
+              ref={register({ required: false })}
+            />
+            <ErrorMessage errors={errors} name="net_liability_amount" />
+          </div>
+        </fieldset>
 
         <div className="col-md-12">
           <label htmlFor="">Claim comment</label>

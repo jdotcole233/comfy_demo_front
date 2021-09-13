@@ -1,12 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { Alert } from "react-bootstrap";
 import styles from "../styles/ViewInsurerOffer.module.css";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-apollo";
 import { INSURER_TREATY_PROGRAMS } from "../../../graphql/queries/treaty";
-import { Selector, CurrencyOption, Input, Editor, Loader } from "../../../components";
+import {
+  Selector,
+  CurrencyOption,
+  Input,
+  Editor,
+  Loader,
+} from "../../../components";
 import currencies from "../../../assets/currencies.json";
 import {
   ADD_DEDUCTION_TO_TREATY,
@@ -21,6 +27,7 @@ import { INSURER } from "../../../graphql/queries";
 import { useDispatch } from "react-redux";
 import { GET_INSURER } from "../../../redux/types/InsurerTypes";
 import NewTreaty from "./NewTreaty";
+import _ from "lodash";
 
 export const createExtendedTreatyDetails = (type, values) => {
   return {
@@ -81,6 +88,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   const [limitLayers, setLimitLayers] = useState([]);
   const [surpluses, setSurpluses] = useState([]);
   const [content, setContent] = useState("");
+  const [showLimit, setShowLimit] = useState(false);
   const dispatch = useDispatch();
   const { data, loading } = useQuery(INSURER_TREATY_PROGRAMS, {
     variables: {
@@ -216,6 +224,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       );
     }
   }, [selectedProgram]);
+
   const onSubmitDeductionForm = (values) => {
     swal({
       closeOnClickOutside: false,
@@ -309,10 +318,13 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   };
 
   const addlayer = () => {
+    const lastDeductible = _.last(limitLayers);
     const layer = {
       uuid: v4(),
       limit: "",
-      deductible: "",
+      deductible:
+        parseFloat(lastDeductible.limit) +
+        parseFloat(lastDeductible.deductible),
       m_and_d_premium: "",
       installment_type: "",
       outgoing_payment_staus: "UNPAID",
@@ -379,14 +391,29 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
     }
   };
 
+  const handleEgrnpiChange = (evt) => {
+    setValue("egrnpi", evt.target.value);
+    if (evt.target.value) {
+      clearError("egrnpi");
+      setShowLimit(true);
+    } else {
+      setShowLimit(false);
+    }
+  };
+
   useEffect(() => {
     console.log(_form.errors);
   }, [_form.errors]);
 
+  if (loading) return <Loader />;
 
-  if(loading) return <Loader />;
-
-  if(data && data?.insurerTreatyProgram.length < 1) return <NewTreaty setOpenDrawer={setOpenDrawer} noTreatyFound={insurer?.insurer_id} />
+  if (data && data?.insurerTreatyProgram.length < 1)
+    return (
+      <NewTreaty
+        setOpenDrawer={setOpenDrawer}
+        noTreatyFound={insurer?.insurer_id}
+      />
+    );
 
   return (
     <form onSubmit={_form.handleSubmit(onSubmitTreatyForm)}>
@@ -954,12 +981,13 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
           <div className="row">
             <div className="col-md-12">
               <Input
-                label="Estimated Retained Premium Income"
-                placeholder="Retained Premium Income"
+                label="Estimated Gross Net Retained Premim Income"
+                placeholder="Estimated Gross Net Retained Premim Income"
                 name="egrnpi"
                 type="number"
                 step="any"
                 ref={_form.register({ required: "Required" })}
+                onChange={handleEgrnpiChange}
               />
               {_form.errors.egrnpi && (
                 <p className="text-danger">{_form.errors.egrnpi.message}</p>
@@ -969,187 +997,221 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
         </fieldset>
       ) : null}
 
-      {selectedProgramType && selectedProgramType?.value === "NONPROPORTIONAL" && (
-        <Fragment>
-          <div className="d-flex justify-content-between my-2">
-            <div>
-              <h4>Limit layers</h4>
-            </div>
-            <div>
-              <button
-                onClick={addlayer}
-                type="button"
-                className="btn btn-primary mr-2"
-              >
-                <FaPlus color="#fff" />
-              </button>
-              <button
-                onClick={removelayer}
-                type="button"
-                className="btn btn-danger"
-              >
-                <FaMinus color="#fff" />
-              </button>
-            </div>
-          </div>
-
-          {limitLayers.map((layer, key) => (
-            <fieldset className="w-auto p-2 border" key={key}>
-              <legend className={styles.details_title}>
-                Limit layer {key + 1}
-              </legend>
-              <div className="row">
-                <div className="col-md-12 d-flex justify-content-end">
-                  {key > 0 && (
-                    <button
-                      onClick={() => removeParticularLayer(key)}
-                      className="btn btn-link text-danger"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label htmlFor="Type of goods">Limit</label>
-                    <input
-                      value={layer.limit}
-                      name="limit"
-                      type="number"
-                      step="any"
-                      onChange={(e) => onLimitValueChange(e, key)}
-                      placeholder="Limit"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label htmlFor="Type of goods">Deductible</label>
-                    <input
-                      value={layer.deductible}
-                      name="deductible"
-                      onChange={(e) => onLimitValueChange(e, key)}
-                      type="number"
-                      step="any"
-                      placeholder="Deductible"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
+      {selectedProgramType &&
+        selectedProgramType?.value === "NONPROPORTIONAL" &&
+        showLimit && (
+          <Fragment>
+            <div className="d-flex justify-content-between my-2">
+              <div>
+                <h4>Limit layers</h4>
               </div>
-              <div className="row mt-2">
-                <div className="col-md-6">
-                  <div className="form-group mt-2">
-                    <label htmlFor="M&D Premium">M&D Premium</label>
-                    <input
-                      name="m_and_d_premium"
-                      onChange={(e) => onLimitValueChange(e, key)}
-                      className="form-control"
-                      placeholder="M&D Premium"
-                      type="number"
-                      step="any"
-                    />
+              <div>
+                <button
+                  onClick={addlayer}
+                  type="button"
+                  disabled={
+                    _.last(limitLayers)?.limit.length < 1 ||
+                    _.last(limitLayers)?.deductible.length < 1
+                  }
+                  className="btn btn-primary mr-2"
+                  title={
+                    _.last(limitLayers)?.limit.length < 1 ||
+                    _.last(limitLayers)?.deductible.length < 1
+                      ? "Please add limit and deductible"
+                      : ""
+                  }
+                >
+                  <FaPlus color="#fff" />
+                </button>
+                <button
+                  onClick={removelayer}
+                  type="button"
+                  className="btn btn-danger"
+                >
+                  <FaMinus color="#fff" />
+                </button>
+              </div>
+            </div>
+
+            {limitLayers.map((layer, key) => (
+              <fieldset className="w-auto p-2 border" key={key}>
+                <legend className={styles.details_title}>
+                  Limit layer {key + 1}
+                </legend>
+                <div className="row">
+                  <div className="col-md-12 d-flex justify-content-end">
+                    {key > 0 && (
+                      <button
+                        onClick={() => removeParticularLayer(key)}
+                        className="btn btn-link text-danger"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="Type of goods">Limit</label>
+                      <input
+                        value={layer.limit}
+                        name="limit"
+                        type="number"
+                        step="any"
+                        onChange={(e) => onLimitValueChange(e, key)}
+                        placeholder="Limit"
+                        className="form-control"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="Type of goods">Deductible</label>
+                      <input
+                        value={layer.deductible}
+                        name="deductible"
+                        onChange={(e) => onLimitValueChange(e, key)}
+                        type="number"
+                        step="any"
+                        readOnly={key > 0}
+                        placeholder="Deductible"
+                        className="form-control"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="col-md-6">
-                  <div className="form-group mt-2">
-                    <label htmlFor="Installments">Installments</label>
-                    <select
-                      className="form-control"
-                      name="installment_type"
-                      onChange={(e) => onLimitValueChange(e, key)}
-                      id="installment_type"
-                    >
-                      <option value="">Select ...</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </select>
+                <div className="row mt-2">
+                  <div className="col-md-6">
+                    <div className="form-group mt-2">
+                      <label htmlFor="M&D Premium">M&D Premium</label>
+                      <input
+                        name="m_and_d_premium"
+                        onChange={(e) => onLimitValueChange(e, key)}
+                        className="form-control"
+                        value={
+                          layer.min_rate || layer.adjust_rate
+                            ? parseFloat(
+                                key > 0 ? layer.adjust_rate : layer.min_rate
+                              ) *
+                              _form.getValues().egrnpi *
+                              0.9
+                            : 0
+                        }
+                        placeholder="M&D Premium"
+                        readOnly
+                        type="number"
+                        step="any"
+                      />
+                    </div>
                   </div>
-                </div>
-                {key === 0 && (
-                  <div className="col-md-12">
-                    <fieldset className="border p-2 mb-2">
-                      <legend className={styles.details_title}>
-                        Burning cost rate
-                      </legend>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <Input
-                            label="Minimum rate"
-                            type="number"
-                            step="any"
-                            placeholder="Minimum rate"
-                            value={layer.minimum_rate}
-                            name="min_rate"
-                            onChange={(e) => onLimitValueChange(e, key)}
-                          />
-                        </div>
-                        <div className="col-md-6">
-                          <Input
-                            label="Maximum rate"
-                            placeholder="Maximum rate"
-                            type="number"
-                            step="any"
-                            value={layer.maximum_rate}
-                            name="max_rate"
-                            onChange={(e) => onLimitValueChange(e, key)}
-                          />
-                        </div>
-                      </div>
-                    </fieldset>
-                    {/*  */}
-                    <fieldset className="border p-2 mb-2">
-                      <legend className={styles.details_title}>
-                        Loading factor
-                      </legend>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <Input
-                            label="Numerator"
-                            placeholder="Numerator"
-                            type="number"
-                            step="any"
-                            value={layer.numerator}
-                            name="numerator"
-                            onChange={(e) => onLimitValueChange(e, key)}
-                          />
-                        </div>
-                        <div className="col-md-6">
-                          <Input
-                            label="Denominator"
-                            placeholder="Denominator"
-                            type="number"
-                            step="any"
-                            value={layer.denominator}
-                            name="denominator"
-                            onChange={(e) => onLimitValueChange(e, key)}
-                          />
-                        </div>
-                      </div>
-                    </fieldset>
+                  <div className="col-md-6">
+                    <div className="form-group mt-2">
+                      <label htmlFor="Installments">Installments</label>
+                      <select
+                        className="form-control"
+                        name="installment_type"
+                        onChange={(e) => onLimitValueChange(e, key)}
+                        id="installment_type"
+                      >
+                        <option value="">Select ...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
                   </div>
-                )}
-                {key > 0 && (
                   <div className="col-md-12">
                     <Input
-                      label="Adjustable rate"
-                      placeholder="Adjustable rate"
+                      label="Reinstatement"
                       type="number"
                       step="any"
-                      value={layer.adjustable_rate}
-                      name="adjust_rate"
+                      placeholder="Reinstatement"
+                      value={layer.reinstatement}
+                      name="reinstatement"
                       onChange={(e) => onLimitValueChange(e, key)}
                     />
                   </div>
-                )}
-              </div>
-            </fieldset>
-          ))}
-        </Fragment>
-      )}
+                  {key === 0 && (
+                    <div className="col-md-12">
+                      <fieldset className="border p-2 mb-2">
+                        <legend className={styles.details_title}>
+                          Burning cost rate
+                        </legend>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <Input
+                              label="Minimum rate"
+                              type="number"
+                              step="any"
+                              placeholder="Minimum rate"
+                              value={layer.minimum_rate}
+                              name="min_rate"
+                              onChange={(e) => onLimitValueChange(e, key)}
+                            />
+                          </div>
+                          <div className="col-md-6">
+                            <Input
+                              label="Maximum rate"
+                              placeholder="Maximum rate"
+                              type="number"
+                              step="any"
+                              value={layer.maximum_rate}
+                              name="max_rate"
+                              onChange={(e) => onLimitValueChange(e, key)}
+                            />
+                          </div>
+                        </div>
+                      </fieldset>
+                      {/*  */}
+                      <fieldset className="border p-2 mb-2">
+                        <legend className={styles.details_title}>
+                          Loading factor
+                        </legend>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <Input
+                              label="Numerator"
+                              placeholder="Numerator"
+                              type="number"
+                              step="any"
+                              value={layer.numerator}
+                              name="numerator"
+                              onChange={(e) => onLimitValueChange(e, key)}
+                            />
+                          </div>
+                          <div className="col-md-6">
+                            <Input
+                              label="Denominator"
+                              placeholder="Denominator"
+                              type="number"
+                              step="any"
+                              value={layer.denominator}
+                              name="denominator"
+                              onChange={(e) => onLimitValueChange(e, key)}
+                            />
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                  )}
+                  {key > 0 && (
+                    <div className="col-md-12">
+                      <Input
+                        label="Adjustable rate"
+                        placeholder="Adjustable rate"
+                        type="number"
+                        step="any"
+                        value={layer.adjustable_rate}
+                        name="adjust_rate"
+                        onChange={(e) => onLimitValueChange(e, key)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </fieldset>
+            ))}
+          </Fragment>
+        )}
       <fieldset className="w-auto p-2  border-form">
         <legend className={styles.details_title}>Comment</legend>
         <div className="row">
