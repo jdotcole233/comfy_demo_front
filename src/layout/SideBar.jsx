@@ -17,7 +17,7 @@ import { Fragment } from "react";
 import { version } from "../../package.json";
 import { Modal } from "../components";
 import VersionBox from "../components/VersionBox";
-// 
+// el.roles.includes(user?.position)
 //privileges.includes(el.name)
 const SideBar = () => {
   const { user, privileges } = useAuth();
@@ -26,7 +26,7 @@ const SideBar = () => {
   const { pathname } = useLocation();
   const showSideBarLinks = (routes, badge) => {
     return routes.map((el, key) =>
-      el.roles.includes(user?.position) ? (
+      privileges.includes(el.name) ? (
         <li key={key}>
           <Link
             to={el.link}
@@ -81,19 +81,18 @@ const SideBar = () => {
                 </Fragment>
               )}
             </ul>
-
-            <div
-              onClick={() => setShowVersion(true)}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                padding: 20,
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              Version: {version}
-            </div>
+          </div>
+          <div
+            onClick={() => setShowVersion(true)}
+            style={{
+              position: "absolute",
+              bottom: 0,
+              padding: 20,
+              color: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            Version: {version}
           </div>
         </div>
       </div>

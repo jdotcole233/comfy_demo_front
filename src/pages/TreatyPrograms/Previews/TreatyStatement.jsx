@@ -3,33 +3,6 @@
 import React from "react";
 import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
-import moment from "moment";
-import { getFlexibleName } from "../../Insurers/components/Note";
-import PreviewLogo from "../../../components/PreviewLogo";
-
-const cashBalance = (grossPremium, commission, nic, wth) => {
-  const result =
-    parseFloat(grossPremium) -
-    (parseFloat(commission) + parseFloat(nic) + parseFloat(wth));
-  return result;
-};
-
-const getShare = (shares, participant_id, uuid) => {
-  // console.log("shares", shares);
-  console.log("participant_id", participant_id);
-  console.log("uuid", uuid);
-  const share = shares.find(
-    (el) =>
-      el.treaty_accountstreaty_account_id === participant_id && el.uuid === uuid
-  );
-  if (share) {
-    return share;
-  }
-  return null;
-};
-
-const money = (value) =>
-  value?.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
 const TreatyStatement = ({
   surplus = {},
@@ -40,32 +13,6 @@ const TreatyStatement = ({
   isFleet,
   ...props
 }) => {
-  const share = getShare(
-    reinsurer?.treaty_participant_deductions,
-    note?.treaty_account_id,
-    surplus?.surpulus_uuid
-  );
-  // console.log("Share", share);
-
-  const cashBal = cashBalance(
-    surplus?.gross_premium,
-    share?.brokerage_amount,
-    share?.commission_amount,
-    note?.claim_settled
-  );
-
-  const finalAmmount =
-    parseFloat(share?.treaty_participation_share) -
-    (parseFloat(share?.nic_levy_amount) +
-      parseFloat(share?.withholding_tax_amount));
-
-  const currency =
-    treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
-      ? JSON.parse(treaty?.treaty_details ?? "[]").find(
-          (el) => el.keydetail.toLowerCase() === "currency"
-        )?.value
-      : treaty?.currency;
-
   const url = `${BASE_URL_LOCAL}/generate_treaty_credit_note/${Buffer.from(
     JSON.stringify({
       participant_id: reinsurer?.treaty_participation_id,
@@ -95,6 +42,7 @@ const TreatyStatement = ({
       <iframe
         height={window.innerHeight - 180}
         width="100%"
+        title="Treaty Statement"
         // className="preview-card container-fluid text-black bg-white"
         src={url}
         frameborder="0"
