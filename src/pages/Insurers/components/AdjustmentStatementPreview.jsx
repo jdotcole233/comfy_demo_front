@@ -1,38 +1,14 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { Fragment } from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
-import { money, mult, toLayerPosition } from "../../../utils";
-import _ from "lodash";
 
 const AdjustmentStatementPreview = ({ reinsurer, treaty }) => {
-  // const details = treaty?.treaty_np_detail;
-  // const layers = JSON.parse(treaty?.layer_limit ?? "[]");
-  // const modifiedDeduction = reinsurer?.treaty_participant_deductions.length > 0;
-  // const deduction = modifiedDeduction
-  //   ? _.first(reinsurer?.treaty_participant_deductions)
-  //   : treaty?.deduction;
-  // let sumOfAdditionalPremiumDue = 0;
   return (
     <Fragment>
-      {/* treaty_adjustment_statement {treaty_id, treaty_participation_id} */}
-      {/* <div className="row m-2">
-        <a
-          target="_blank"
-          href={`${BASE_URL_LOCAL}/treaty_adjustment_statement/${btoa(
-            JSON.stringify({
-              treaty_participation_id: reinsurer?.treaty_participation_id,
-              treaty_id: treaty?.treaty_id,
-            })
-          )}`}
-          className="btn btn-sm btn-primary w-md"
-        >
-          <i className="bx bxs-file-pdf"></i> Save
-        </a>
-      </div> */}
       <iframe
         height={window.innerHeight - 100}
         width="100%"
-        // className="preview-card container-fluid text-black bg-white"
+        title="Adjustment Statement Preview"
         src={`${BASE_URL_LOCAL}/treaty_adjustment_statement/${btoa(
           JSON.stringify({
             treaty_participation_id: reinsurer?.treaty_participation_id,

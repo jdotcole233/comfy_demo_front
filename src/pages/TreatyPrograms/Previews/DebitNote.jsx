@@ -2,10 +2,6 @@
 import React, { useState } from "react";
 import "../styles/preview.css";
 import { BASE_URL_LOCAL } from "../../../graphql";
-import moment from "moment";
-import { getFlexibleName } from "../../Insurers/components/Note";
-// import { toPosition } from "../../../utils";
-import PreviewLogo from "../../../components/PreviewLogo";
 
 export const cashBalance = (
   grossPremium,
@@ -21,32 +17,32 @@ export const cashBalance = (
   return result;
 };
 
-const money = (value) =>
-  value?.toLocaleString(undefined, { maximumFractionDigits: 2 });
+// const money = (value) =>
+//   value?.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
 const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
   const [defualt, setDefualt] = useState(true);
-  const cashBal = cashBalance(
-    surplus?.gross_premium,
-    surplus?.commission_amount,
-    note?.claim_settled,
-    note?.cash_loss
-  );
+  // const cashBal = cashBalance(
+  //   surplus?.gross_premium,
+  //   surplus?.commission_amount,
+  //   note?.claim_settled,
+  //   note?.cash_loss
+  // );
 
-  const note_details = JSON.parse(note?.exchange_rate || "{}");
+  // const note_details = JSON.parse(note?.exchange_rate || "{}");
 
-  const ourOrder = treaty?.treaty_participants?.reduce((acc, curr) => {
-    return acc + curr?.treaty_participation_percentage
-      ? parseFloat(curr?.treaty_participation_percentage)
-      : 0;
-  }, 0);
+  // const ourOrder = treaty?.treaty_participants?.reduce((acc, curr) => {
+  //   return acc + curr?.treaty_participation_percentage
+  //     ? parseFloat(curr?.treaty_participation_percentage)
+  //     : 0;
+  // }, 0);
 
-  const currency =
-    treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
-      ? JSON.parse(treaty?.treaty_details ?? "[]").find(
-          (el) => el.keydetail.toLowerCase() === "currency"
-        )?.value
-      : treaty?.currency;
+  // const currency =
+  //   treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
+  //     ? JSON.parse(treaty?.treaty_details ?? "[]").find(
+  //         (el) => el.keydetail.toLowerCase() === "currency"
+  //       )?.value
+  //     : treaty?.currency;
 
   const url = `${BASE_URL_LOCAL}/treaty_debit_note/${Buffer.from(
     JSON.stringify({
@@ -100,7 +96,7 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
       <iframe
         height={window.innerHeight - 100}
         width="100%"
-        // className="preview-card container-fluid text-black bg-white"
+        title="Debit Note"
         src={url}
         frameborder="0"
       ></iframe>
@@ -181,16 +177,16 @@ const DebitNote = ({ surplus, note, treaty, offer, isFleet, ...props }) => {
 
 export default DebitNote;
 
-const Row = ({ title, value, br = false }) => {
-  const parsedValue = br ? `(${value})` : value;
-  return (
-    <div className="row mb-2">
-      <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
-        <h3 className="dark-text">{title}:</h3>
-      </div>
-      <div className="col-md-6 col-6 col-sm-8 col-8 col-xs-8">
-        <h3 className="dark-text-value">{parsedValue}</h3>
-      </div>
-    </div>
-  );
-};
+// const Row = ({ title, value, br = false }) => {
+//   const parsedValue = br ? `(${value})` : value;
+//   return (
+//     <div className="row mb-2">
+//       <div className="col-md-6 col-6 col-sm-4 col-4 col-xs-4">
+//         <h3 className="dark-text">{title}:</h3>
+//       </div>
+//       <div className="col-md-6 col-6 col-sm-8 col-8 col-xs-8">
+//         <h3 className="dark-text-value">{parsedValue}</h3>
+//       </div>
+//     </div>
+//   );
+// };
