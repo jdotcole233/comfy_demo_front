@@ -1,36 +1,29 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { useMemo } from "react";
+import React from "react";
 import { BASE_URL_LOCAL } from "../../graphql";
-import { money } from "../../utils";
-import PreviewLogo from "components/PreviewLogo";
 import "./styles/TreatyClams.css";
-// const showDate = (offer) => {
-//     const from = new Date(offer?.offer_detail?.period_of_insurance_from)
-//     const to = new Date(offer?.offer_detail?.period_of_insurance_to)
-//     return <h1 className="dark-text-value">{`${from.getDate()}/${from.getMonth() + 1}/${from.getFullYear()}`} {" - "} {`${to.getDate()}/${to.getMonth() + 1}/${to.getFullYear()}`}</h1>
-// }
 
 const PreviewNoteSlip = ({ claim, participant, ...props }) => {
-  const limit = useMemo(() => {
-    if (participant && participant.treaty) {
-      const __limit = JSON.parse(participant?.treaty?.layer_limit || "[]");
-      const _actualLimit = __limit[parseInt(claim?.layer_number) - 1];
-      return _actualLimit?.limit;
-    }
-    return "N/A";
-  }, [participant, claim]);
+  // const limit = useMemo(() => {
+  //   if (participant && participant.treaty) {
+  //     const __limit = JSON.parse(participant?.treaty?.layer_limit || "[]");
+  //     const _actualLimit = __limit[parseInt(claim?.layer_number) - 1];
+  //     return _actualLimit?.limit;
+  //   }
+  //   return "N/A";
+  // }, [participant, claim]);
 
-  const balDueReinsurers =
-    parseFloat(claim?.claim_paid) - parseFloat(claim?.expected_deductible);
-  const multiplier = isNaN(balDueReinsurers)
-    ? 0
-    : balDueReinsurers > parseFloat(limit)
-    ? parseFloat(limit)
-    : balDueReinsurers;
+  // const balDueReinsurers =
+  //   parseFloat(claim?.claim_paid) - parseFloat(claim?.expected_deductible);
+  // const multiplier = isNaN(balDueReinsurers)
+  //   ? 0
+  //   : balDueReinsurers > parseFloat(limit)
+  //   ? parseFloat(limit)
+  //   : balDueReinsurers;
 
-  const balDueYou =
-    (parseFloat(participant?.treaty_participation_percentage) / 100) *
-    multiplier;
+  // const balDueYou =
+  //   (parseFloat(participant?.treaty_participation_percentage) / 100) *
+  //   multiplier;
 
   const url = `${BASE_URL_LOCAL}/treaty_claim_debit_note/${Buffer.from(
     JSON.stringify({
@@ -73,7 +66,7 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
       <iframe
         height={window.innerHeight - 100}
         width="100%"
-        // className="preview-card container-fluid text-black bg-white"
+        title="Treaty Claim"
         src={url}
         frameborder="0"
       ></iframe>
@@ -171,11 +164,11 @@ const PreviewNoteSlip = ({ claim, participant, ...props }) => {
 
 export default PreviewNoteSlip;
 
-const Row = ({ label, value }) => {
-  return (
-    <div className="row mt-2 mb-2">
-      <div className="col-md-6 t_t_h">{label}</div>
-      <div className="col-md-6 t_t_v">{value}</div>
-    </div>
-  );
-};
+// const Row = ({ label, value }) => {
+//   return (
+//     <div className="row mt-2 mb-2">
+//       <div className="col-md-6 t_t_h">{label}</div>
+//       <div className="col-md-6 t_t_v">{value}</div>
+//     </div>
+//   );
+// };

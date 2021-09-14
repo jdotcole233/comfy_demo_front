@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { Fragment } from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
-import { money } from "../../../utils";
 import "../styles/preview.css";
-import PreviewLogo from "../../../components/PreviewLogo";
+
 
 const TreatyPortfolioStatement = ({
   reinsurer = {},
@@ -59,6 +58,7 @@ const TreatyPortfolioStatement = ({
       <iframe
         height={window.innerHeight - 100}
         width="100%"
+        title="Treaty Portfolio Statement"
         // className="preview-card container-fluid text-black bg-white"
         src={url}
         frameborder="0"

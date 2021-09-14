@@ -1,12 +1,12 @@
 import React from "react";
-import { Suspense, useContext, Fragment } from "react";
+import { Suspense, Fragment } from "react";
 import { Switch, Route, useLocation, Redirect } from "react-router-dom";
 import TopBarProgress from "react-topbar-progress-indicator";
 import routes from "../routes";
 import ConnectionDetector from "../components/ConnectionDetector";
 import Dashboard from "../pages/Dashboard";
 import Zoom from "react-reveal/Reveal";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 TopBarProgress.config({
   barThickness: 10,
@@ -26,7 +26,7 @@ const LoadingComponent = (props) => {
 };
 
 const AdminContent = () => {
-  const { state } = useContext(AuthContext);
+  const { privileges } = useAuth();
 
   // console.log(Offers_Access.includes(state?.user?.position))
 
@@ -38,8 +38,7 @@ const AdminContent = () => {
           <Component />
         </Zoom>
       );
-      return el.layout === "/admin" &&
-        el.roles.includes(state?.user?.position) ? (
+      return el.layout === "/admin" && privileges.includes(el.name) ? (
         <Private
           key={key}
           path={el.layout + el.path}
@@ -68,7 +67,9 @@ const AdminContent = () => {
             <div className="col-sm-6">
               {new Date().getFullYear()}© KEK Reinsurance Brokers Ltd
             </div>
-            <div className="col-sm-6"></div>
+            <div className="col-sm-6">
+
+            </div>
           </div>
         </div>
       </footer>
@@ -79,9 +80,9 @@ const AdminContent = () => {
 export default AdminContent;
 
 const Private = React.memo((props) => {
-  const { state } = useContext(AuthContext);
+  const { user } = useAuth();
   const { pathname } = useLocation();
-  return !state.user ? (
+  return !user ? (
     <Redirect to={{ pathname: "/auth", state: { pathname } }} />
   ) : (
     <Route {...props} />

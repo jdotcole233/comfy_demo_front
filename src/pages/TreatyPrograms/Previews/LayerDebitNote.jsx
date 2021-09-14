@@ -1,10 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from "react";
 import { BASE_URL_LOCAL } from "../../../graphql";
-import moment from "moment";
-import { money } from "./CreditNote";
-import PreviewLogo from "../../../components/PreviewLogo";
-import { toLayerPosition } from "utils";
 
 const LayerDebitNote = ({
   layer,
@@ -14,19 +10,6 @@ const LayerDebitNote = ({
   percentage,
   index,
 }) => {
-  const amountForOrder =
-    ((100 - percentage) / 100) * parseFloat(layer?.m_and_d_premium);
-
-  const _fig = parseInt(layer?.installment_type);
-  const months =
-    _fig === 1
-      ? [1]
-      : _fig === 2
-      ? [1, 7]
-      : _fig === 3
-      ? [1, 5, 9]
-      : [1, 4, 7, 10];
-
   const url = `${BASE_URL_LOCAL}/treaty_np_debit_note/${Buffer.from(
     JSON.stringify({
       treaty_id: treaty?.treaty_id,
@@ -61,7 +44,7 @@ const LayerDebitNote = ({
       <iframe
         height={window.innerHeight - 100}
         width="100%"
-        // className="preview-card container-fluid text-black bg-white"
+        title="Debit Note"
         src={url}
         frameborder="0"
       ></iframe>

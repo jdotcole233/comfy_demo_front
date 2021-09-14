@@ -8,7 +8,7 @@ import swal from "sweetalert";
 
 const Broker = ({ broker }) => {
   const { user } = useAuth();
-  const [openBroker, setOpenBroker] = useState(false);
+  const [, setOpenBroker] = useState(false);
 
   const handleDeleteInsurer = (broker) => {
     swal({
