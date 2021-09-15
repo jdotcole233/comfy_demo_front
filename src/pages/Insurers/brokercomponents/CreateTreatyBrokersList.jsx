@@ -35,8 +35,8 @@ const buildRepsData = (data) => {
   data.map((broker_rep) => {
     const index = list.find(
       (rep) => rep.re_broker_id === broker_rep.value.re_broker_id
-      );
-      // console.log(broker_rep);
+    );
+    // console.log(broker_rep);
     if (index) {
       index.representatives_ids.push(broker_rep.re_broker_associate_id);
     } else {
@@ -51,7 +51,11 @@ const buildRepsData = (data) => {
   return list;
 };
 
-export default function CreateTreatyBrokersList({ treaty_id, setShow, treaty }) {
+export default function CreateTreatyBrokersList({
+  treaty_id,
+  setShow,
+  treaty,
+}) {
   const [reps, setBroadcastList] = useState([]);
   const [selectdQuarter] = useState(null);
 
@@ -130,13 +134,21 @@ export default function CreateTreatyBrokersList({ treaty_id, setShow, treaty }) 
         },
       })
         .then((res) => {
-          if(res.data.createReBrokerListForTreaty){
-            swal("Success", "Distribution List created successfully", "success");
+          if (res.data.createReBrokerListForTreaty) {
+            swal(
+              "Success",
+              "Distribution List created successfully",
+              "success"
+            );
             setBroadcastList([]);
             setRepData([]);
-            // setShow(false);
-          }else {
-            swal("Error", "Distribution List could not be created successfully", "error");
+            setShow(false);
+          } else {
+            swal(
+              "Error",
+              "Distribution List could not be created successfully",
+              "error"
+            );
           }
         })
         .catch((err) => {

@@ -571,8 +571,6 @@ const ViewTreaty = () => {
           remainingPercentage={remainingPercentages}
           reinsurers={reinsurers}
         />
-        <InsurerDetailsParticipatinBrokers treaty={data?.treaty} />
-        <InsurerDetailBrokerAssociates treaty={data?.treaty} />
         <EffectedWithListingAssociates
           setLayer={setCurrentLayer}
           layers={layers_}
@@ -580,6 +578,8 @@ const ViewTreaty = () => {
           treaty={data?.treaty}
           associates={associates}
         />
+        <InsurerDetailsParticipatinBrokers treaty={data?.treaty} />
+        <InsurerDetailBrokerAssociates treaty={data?.treaty} />
       </div>
 
       {/* Add percentage Modal */}

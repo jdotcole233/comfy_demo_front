@@ -18,13 +18,17 @@ const BrokerDetails = () => {
     variables: { id: Buffer.from(id, "base64").toString("utf-8") },
   });
 
-
   if (loading) return <Loader />;
   if (error) return <ErrorPage {...{ loading, refetch }} />;
 
-
   return (
-    <BrokerDetailsProvider value={{ broker: data?.broker, treaties: data?.broker?.re_broker_participations}}>
+    <BrokerDetailsProvider
+      value={{
+        broker: data?.broker,
+        treaties: data?.broker?.re_broker_participations,
+        overview: data?.broker?.broker_overview,
+      }}
+    >
       <div className="page-content">
         <BrokerDetailHeader />
         <div className="container-fluid">

@@ -5,13 +5,13 @@ import moment from "moment";
 import TreatyButtons from "./TreatyButtons";
 import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";
 
-const BrokerDetailTreaties = ({  }) => {
-  const { broker } = useBrokerDetailsContext()
+const BrokerDetailTreaties = ({}) => {
+  const { broker } = useBrokerDetailsContext();
   const treaties = useMemo(() => {
     const list = [];
     if (broker && broker.re_broker_participations) {
       broker.re_broker_participations.map(
-        ({ treaty, treaty_participant_payments }, i) => {
+        ({ treaty, surplus_participation, xl_particiation }, i) => {
           const row = {
             ...treaty,
             employee: `${treaty?.employee.employee_first_name} ${treaty?.employee.employee_last_name}`,
@@ -39,7 +39,7 @@ const BrokerDetailTreaties = ({  }) => {
             actions: (
               <TreatyButtons
                 treaty={treaty}
-                _payments={treaty_participant_payments}
+                _payments={surplus_participation || xl_particiation}
                 reinsurer_id={broker?.reinsurer_id}
               />
             ),

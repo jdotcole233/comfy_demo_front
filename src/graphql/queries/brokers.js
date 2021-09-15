@@ -54,6 +54,16 @@ query broker($id: ID) {
       re_secondary_phone
       re_broker_address_id
     }
+    broker_overview {
+        total_treaties
+        total_proportional
+        total_nonproportional
+        total_unpaid_treaties
+        total_paid_treaties
+        total_partpayment_treaties
+        total_brokerage_amt
+        brokerage_chart
+    }
     re_broker_associates {
       re_broker_associate_id
       re_broker_assoc_email
@@ -64,6 +74,7 @@ query broker($id: ID) {
       re_broker_assoc_secondary_phone
     }
     re_broker_participations {
+      re_broker_treaties_participation_id
       share_percentage
       payment_status
       admin_percentage

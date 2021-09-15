@@ -43,13 +43,13 @@ const BrokerDetailWelcome = () => {
               <div className="row">
                 <div className="col-6">
                   <h5 className="font-size-15">
-                    {overview?.treaties_overview?.total_treaties ?? 0}
+                    {overview?.total_treaties ?? 0}
                   </h5>
                   <p className="text-muted mb-0">Treaties</p>
                 </div>
                 <div className="col-6">
                   <h5 className="font-size-15">
-                    {overview?.treaties_overview?.total_paid_treaties ?? 0}
+                    {overview?.total_paid_treaties ?? 0}
                   </h5>
                   <p className="text-muted mb-0">Paid</p>
                 </div>

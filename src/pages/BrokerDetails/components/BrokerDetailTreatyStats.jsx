@@ -15,7 +15,7 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                     Unpaid Treaties
                   </p>
                   <h4 className="mb-0">
-                    {overview?.treaties_overview?.total_unpaid_treaties ?? 0}
+                    {overview?.total_unpaid_treaties ?? 0}
                   </h4>
                 </div>
 
@@ -36,9 +36,7 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                   <p className="text-muted font-weight-medium">
                     Proportional Treaties
                   </p>
-                  <h4 className="mb-0">
-                    {overview?.treaties_overview?.total_proportional ?? 0}
-                  </h4>
+                  <h4 className="mb-0">{overview?.total_proportional ?? 0}</h4>
                 </div>
 
                 <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
@@ -59,7 +57,7 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                     Nonproportional Treaties
                   </p>
                   <h4 className="mb-0">
-                    {overview?.treaties_overview?.total_nonproportional ?? 0}
+                    {overview?.total_nonproportional ?? 0}
                   </h4>
                 </div>
 
@@ -92,38 +90,16 @@ const BrokerDetailTreatyStats = ({ overview }) => {
             </div>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-12">
           <div className="card mini-stats-wid">
             <div className="card-body">
               <div className="media">
                 <div className="media-body">
                   <p className="text-muted font-weight-medium">
-                    Total Withholding Tax
+                    Total Administrative Charges
                   </p>
                   <CurrencyValues
                     data={JSON.parse(overview?.total_withholding_tax || null)}
-                  />
-                </div>
-
-                <div className="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary">
-                  <span className="avatar-title">
-                    <i className="bx bx-money font-size-24"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="card mini-stats-wid">
-            <div className="card-body">
-              <div className="media">
-                <div className="media-body">
-                  <p className="text-muted font-weight-medium">
-                    Total NIC Levy
-                  </p>
-                  <CurrencyValues
-                    data={JSON.parse(overview?.total_nic_tax || null)}
                   />
                 </div>
 

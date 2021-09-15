@@ -337,6 +337,7 @@ query treaty($treaty_id: ID) {
       }
     }
     treaty_to_broker_associates {
+      participation_to_broker_associate_id
       sent_status
       message_content
       broker_associate {

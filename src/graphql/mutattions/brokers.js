@@ -41,7 +41,37 @@ mutation createBrokersDistribution($brokers_list: BrokerDistributionList) {
 }
 `;
 
+
 export const REMOVE_BROKER_FROM_TREATY = gql`
+mutation removeReBokerFromTreatyList($id: ID, $treaty_id: ID) {
+  removeReBokerFromTreatyList(
+    re_broker_treaties_participation_id: $id
+    treaty_id: $treaty_id
+  )
+}
+`;
+
+export const REMOVE_BROKER_ASSOCIATE_FROM_TREATY = gql`
+mutation removeReBokerAssocFromTreatyList($id: ID) {
+  removeReBokerAssocFromTreatyList(participation_to_broker_associate_id: $id)
+}`;
+
+export const ADD_PERCENTAGE_TO_BROKER = gql`
+mutation addPercentageForBroker(
+  $broker_participation: ReBrokerParticipationPercentageInput
+) {
+  addReBrokerParticipationPercentage(
+    broker_participation: $broker_participation
+  )
+}
+`;
+// TODO: change this
+export const MAKE_PAYMENT_BROKER = gql`
+mutation removeReBokerAssocFromTreatyList($id: ID) {
+  removeReBokerAssocFromTreatyList(participation_to_broker_associate_id: $id)
+}`;
+// TODO: change this
+export const UPDATE_PAYMENT_BROKER = gql`
 mutation removeReBokerAssocFromTreatyList($id: ID) {
   removeReBokerAssocFromTreatyList(participation_to_broker_associate_id: $id)
 }`;

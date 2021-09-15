@@ -4,11 +4,11 @@ import { deleteAccessRoles } from "../../../layout/adminRoutes";
 import React, { useMemo } from "react";
 import { useState } from "react";
 import { associatesColumns } from "./columns";
+import BrokerAssociateButtons from "./BrokerAssociateButtons";
 
 const InsurerDetailBrokerAssociates = ({ treaty }) => {
-  const { user } = useAuth();
   const [toggle, setToggle] = useState(false);
-  const handleRemoveAssociate = () => {};
+
   const rows = useMemo(() => {
     if (treaty && treaty.treaty_to_broker_associates) {
       return treaty.treaty_to_broker_associates.map((associate) => ({
@@ -31,19 +31,7 @@ const InsurerDetailBrokerAssociates = ({ treaty }) => {
             {associate.sent_status}
           </span>
         ),
-        actions: (
-          <button
-            disabled={
-              ![...deleteAccessRoles, "Broking Officer"].includes(
-                user?.position
-              )
-            }
-            onClick={() => handleRemoveAssociate(associate)}
-            className="btn "
-          >
-            <i className="bx bx-trash text-danger"></i>
-          </button>
-        ),
+        actions: <BrokerAssociateButtons {...{ treaty, associate }} />,
       }));
     }
     return [];
@@ -54,13 +42,15 @@ const InsurerDetailBrokerAssociates = ({ treaty }) => {
     <div className="card">
       <div className="col-md-12 d-flex justify-content-between card-body">
         <span className="card-title">Effected with (Broker Associates)</span>
-        <button onClick={() => setToggle(prev => !prev)} className="btn">
-            {toggle ? "close":"Expand"}
+        <button onClick={() => setToggle((prev) => !prev)} className="btn">
+          {toggle ? "close" : "Expand"}
         </button>
       </div>
-      {toggle && <div className="card-body col-md-12">
-        <Datatable columns={associatesColumns} data={rows} />
-      </div>}
+      {toggle && (
+        <div className="card-body col-md-12">
+          <Datatable columns={associatesColumns} data={rows} />
+        </div>
+      )}
     </div>
   );
 };

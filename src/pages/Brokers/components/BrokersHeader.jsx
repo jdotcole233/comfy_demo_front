@@ -5,6 +5,7 @@ import AddBrokerForm from "./AddBrokerForm";
 
 const BrokersHeader = () => {
   const [addBroker, setAddBroker] = useState(false);
+  
   return (
     <Fragment>
       <div className="container-fluid">
@@ -31,8 +32,9 @@ const BrokersHeader = () => {
         width="40%"
         isvisible={addBroker}
         toggle={() => setAddBroker(false)}
+        setShow={setAddBroker}
       >
-        <AddBrokerForm  setShow={setAddBroker} />
+        <AddBrokerForm  />
       </Drawer>
     </Fragment>
   );

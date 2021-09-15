@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useMemo, useCallback } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, DropdownButton, Dropdown, ButtonGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import TreatyEditPayment from "./TreatyEditPayment";
 import _ from "lodash";
 import NonProportionalPaymentModal from "./NonProportionalPaymentsModal";
 import ProportionalPaymentsModal from "./ProportionalPaymentsModal";
+import AddBrokerPayment from "./AddBrokerPayment";
 
 const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
   const [openPayments, setOpenPayments] = useState(false);
@@ -28,16 +29,12 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
 
   const payments = useMemo(() => {
     if (treaty) {
-      return _payments
-        ?.filter((el) => {
-          const obj = JSON.parse(el.participant_payment_details || "{}");
-          return obj.payment_type;
-        })
-        ?.map((payment) => {
-          const obj = JSON.parse(payment.participant_payment_details || "{}");
-          // console.log(payment);
+      if (isProp) {
+        return [];
+      } else {
+        return _payments?.xl_participation_payments?.map((payment) => {
+          const obj = JSON.parse(payment?.payment_details || "{}");
           return {
-            ...payment,
             type:
               obj?.payment_type === "Cheque"
                 ? obj?.payment_type +
@@ -47,30 +44,38 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
                 : obj?.payment_type,
             bank_name: obj?.payment_from?.bank_name,
             beneficiary_bank: obj?.payment_to,
-            payment_amount: payment?.participant_payment_amount?.toLocaleString(
-              undefined,
-              { maximumFractionDigits: 2 }
-            ),
+            payment_amount: payment?.payment_amount?.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+            }),
             created_at: payment.created_at,
             updated_at: payment.updated_at,
-            section:
-              payment.surpulus_uuid || payment.treaty_accountstreaty_account_id,
+            // section: payment.uuid || payment.treaty_accountstreaty_account_id,
             actions: (
               <>
                 <button
-                  onClick={() => selectPayment(payment)}
-                  className="btn btn-sm w-md btn-info mr-1"
+                  onClick={() => {}}
+                  className="btn btn-sm  btn-info mr-1"
                 >
-                  Edit
+                  View
+                </button>
+                <button onClick={() => {}} className="btn btn-sm  btn-danger ">
+                  Remove
+                </button>
+                <button
+                  onClick={() => {}}
+                  className="btn btn-sm btn-success w-md mx-1"
+                >
+                  Generate Receipt
                 </button>
               </>
             ),
           };
         });
+      }
     }
 
     return [];
-  }, [_payments, selectPayment, treaty]);
+  }, [treaty]);
 
   return (
     <Fragment>
@@ -91,6 +96,19 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
           payments
         </button>
       )}
+
+      <DropdownButton
+        className="mr-1 ml-1"
+        variant="warning"
+        size="sm"
+        as={ButtonGroup}
+        id="dropdown-basic-button"
+        title="Payments"
+      >
+        <Dropdown.Item onClick={() => {}}>View Payments</Dropdown.Item>
+
+        <AddBrokerPayment />
+      </DropdownButton>
 
       <Modal
         centered

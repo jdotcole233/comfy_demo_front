@@ -7,23 +7,28 @@ import { Fragment, useState } from "react";
 import { useMutation } from "react-apollo";
 import { Modal, DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 import swal from "sweetalert";
+import AddBrokerPercentageForm from "./AddBrokerPercentageForm";
 
 // handleAddPercentage(participant)
 //handleEditPercentage(participant)
 
 const BrokerButtons = ({
   share_percentage,
+  admin_percentage,
   re_broker_treaties_participation_id,
   treaty,
   ...participant
 }) => {
   const { user } = useAuth();
   const [showPercentageModal, setShowPercentageModal] = useState(false);
-  const [removeReinsurer] = useMutation(REMOVE_BROKER_FROM_TREATY, {
-    refetchQueries: [{ query: TREATY, variables: { id: treaty?.treaty_id } }],
+  const [setEdit, setSetEdit] = useState("");
+  const [removeBroker] = useMutation(REMOVE_BROKER_FROM_TREATY, {
+    refetchQueries: [
+      { query: TREATY, variables: { treaty_id: treaty?.treaty_id } },
+    ],
   });
 
-  const handleRemoveReinsurer = () => {
+  const handleRemoveBroker = () => {
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -38,10 +43,10 @@ const BrokerButtons = ({
       ],
     }).then((input) => {
       if (!input) throw null;
-      removeReinsurer({
+      removeBroker({
         variables: {
           id: re_broker_treaties_participation_id,
-          //   ids,
+          treaty_id: treaty?.treaty_id,
         },
       })
         .then((res) => {
@@ -72,7 +77,7 @@ const BrokerButtons = ({
       >
         {share_percentage ? (
           <Dropdown.Item
-            onClick={() => {}}
+            onClick={() => setSetEdit(share_percentage)}
             disabled={!editAccessRoles.includes(user?.position)}
           >
             Edit
@@ -83,10 +88,8 @@ const BrokerButtons = ({
           </Dropdown.Item>
         )}
       </DropdownButton>
-      <button
-        onClick={() => handleRemoveReinsurer(participant)}
-        className="btn mb-1"
-      >
+      <button className="btn btn-success btn-sm">Preview closing</button>
+      <button onClick={() => handleRemoveBroker()} className="btn mb-1">
         <i className="bx bx-trash text-danger"></i>
       </button>
 
@@ -95,10 +98,29 @@ const BrokerButtons = ({
         show={showPercentageModal}
         onHide={() => setShowPercentageModal(false)}
       >
-        <Modal.Header>
-          <Modal.Title>Add percentge</Modal.Title>
-        </Modal.Header>
-        <Modal.Body></Modal.Body>
+        <AddBrokerPercentageForm
+          {...{
+            re_broker_treaties_participation_id,
+            treaty,
+            setShow: setShowPercentageModal,
+            _x_admin_percentage: admin_percentage,
+          }}
+        />
+      </Modal>
+      <Modal
+        centered
+        show={setEdit ? true : false}
+        onHide={() => setSetEdit("")}
+      >
+        <AddBrokerPercentageForm
+          {...{
+            re_broker_treaties_participation_id,
+            treaty,
+            edit: share_percentage,
+            setShow: setSetEdit,
+            _x_admin_percentage: admin_percentage,
+          }}
+        />
       </Modal>
     </Fragment>
   );

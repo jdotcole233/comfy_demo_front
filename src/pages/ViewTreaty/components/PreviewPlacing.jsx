@@ -1,6 +1,7 @@
 import React from "react";
 import { Fragment, useState } from "react";
 import { Drawer } from "../../../components";
+import PlacingSlipAndCoverDocument from "./PlacingSlipAndCoverDocument";
 
 const PreviewPlacing = ({ treaty }) => {
   const [showPreview, setShowPreview] = useState(false);
@@ -28,7 +29,11 @@ const PreviewPlacing = ({ treaty }) => {
         width="50%"
         toggle={() => setShowPreview(false)}
         setShow={setShowPreview}
-      ></Drawer>
+      >
+        <PlacingSlipAndCoverDocument
+          {...{ treaty_id: treaty?.treaty_id, doc_type: "PLACING" }}
+        />
+      </Drawer>
     </Fragment>
   );
 };

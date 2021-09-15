@@ -15,16 +15,13 @@ const GenerateList = ({ treaty }) => {
             <div className="media">
               <div className="mr-3 align-self-center"></div>
               <div className="media-body">
-                <p className="text-muted mb-2">
-                  Create Reinsurers list
-                </p>
+                <p className="text-muted mb-2">Create Reinsurers list</p>
                 <button
                   onClick={() => setShowCreateList(true)}
                   className="btn btn-primary btn-sm w-md"
                 >
                   Create Reinsurers List
                 </button>
-
               </div>
             </div>
           </div>
@@ -36,9 +33,7 @@ const GenerateList = ({ treaty }) => {
             <div className="media">
               <div className="mr-3 align-self-center"></div>
               <div className="media-body">
-                <p className="text-muted mb-2">
-                  Create Brokers list
-                </p>
+                <p className="text-muted mb-2">Create Brokers list</p>
 
                 <button
                   onClick={() => setShowBrokerList(true)}
@@ -55,6 +50,7 @@ const GenerateList = ({ treaty }) => {
         width="40%"
         toggle={() => setShowCreateList(false)}
         isvisible={showCreateList}
+        setShow={setShowCreateList}
       >
         <CreateTreatyBroadCastList
           treaty={treaty}
@@ -64,11 +60,11 @@ const GenerateList = ({ treaty }) => {
         />
       </Drawer>
 
-
       <Drawer
         width="40%"
         toggle={() => setShowBrokerList(false)}
         isvisible={showBrokerList}
+        setShow={setShowBrokerList}
       >
         <CreateTreatyBrokersList
           treaty={treaty}
