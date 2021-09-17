@@ -16,13 +16,13 @@ const buildSelectRows = (data) => {
     const element = data[index];
     for (
       let innerIndex = 0;
-      innerIndex < element.re_broker_associates.length;
+      innerIndex < element?.re_broker_associates.length;
       innerIndex++
     ) {
       const obj = element.re_broker_associates[innerIndex];
       const item = {
-        label: `${element?.re_broker_name} - ${obj.re_broker_assoc_first_name} ${obj.re_broker_assoc_last_name}`,
-        value: { ...obj, re_broker_id: element.re_broker_id },
+        label: `${element?.re_broker_name} - ${obj?.re_broker_assoc_first_name} ${obj?.re_broker_assoc_last_name}`,
+        value: { ...obj, re_broker_id: element?.re_broker_id },
       };
       list.push(item);
     }
@@ -34,15 +34,15 @@ const buildRepsData = (data) => {
   const list = [];
   data.map((broker_rep) => {
     const index = list.find(
-      (rep) => rep.re_broker_id === broker_rep.value.re_broker_id
+      (rep) => rep?.re_broker_id === broker_rep?.value?.re_broker_id
     );
     // console.log(broker_rep);
     if (index) {
-      index.representatives_ids.push(broker_rep.re_broker_associate_id);
+      index.representatives_ids.push(broker_rep?.re_broker_associate_id);
     } else {
       const newRep = {
-        re_broker_id: broker_rep.re_broker_id,
-        re_associate_ids: [broker_rep.re_broker_associate_id],
+        re_broker_id: broker_rep?.re_broker_id,
+        re_associate_ids: [broker_rep?.re_broker_associate_id],
       };
       list.push(newRep);
     }
@@ -83,15 +83,15 @@ export default function CreateTreatyBrokersList({
   const handleAddRep = (data) => {
     if (data) {
       setBroadcastList([
-        ...reps.filter((rep) => rep !== data.label),
+        ...reps.filter((rep) => rep !== data?.label),
         data.label,
       ]);
       setRepData([
         ...repData.filter(
           (rep) =>
-            rep.re_broker_associate_id !== data.value.re_broker_associate_id
+            rep.re_broker_associate_id !== data?.value?.re_broker_associate_id
         ),
-        data.value,
+        data?.value,
       ]);
     }
   };
