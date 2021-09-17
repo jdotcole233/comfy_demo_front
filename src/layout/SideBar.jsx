@@ -52,11 +52,19 @@ const SideBar = () => {
 
   return (
     <Fragment>
-      <div style={{ backgroundColor: "#273B97" }} className="vertical-menu">
-        <div data-simplebar className="h-100 ">
+      <div
+        style={{ backgroundColor: "#273B97", height: window.innerHeight }}
+        className="vertical-menu"
+      >
+        <div
+          data-simplebar
+          // className="h-100 "
+          style={{ height: window.innerHeight }}
+        >
+          {/* {window.innerHeight} */}
           <div
-            style={{ backgroundColor: "#273B97" }}
-            className="d-flex flex-column h-100 justify-content-between"
+            style={{ backgroundColor: "#273B97", height: window.innerHeight }}
+            className="d-flex flex-column h-100  justify-content-between"
             id="sidebar-menu"
           >
             <ul className="metismenu list-unstyled" id="side-menu">
@@ -81,18 +89,18 @@ const SideBar = () => {
                 </Fragment>
               )}
             </ul>
-          </div>
-          <div
-            onClick={() => setShowVersion(true)}
-            style={{
-              position: "absolute",
-              bottom: 0,
-              padding: 20,
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Version: {version}
+            <div
+              onClick={() => setShowVersion(true)}
+              style={{
+                // position: "absolute",
+                bottom: 0,
+                padding: 20,
+                color: "#fff",
+                cursor: "pointer",
+              }}
+            >
+              Version: {version}
+            </div>
           </div>
         </div>
       </div>
