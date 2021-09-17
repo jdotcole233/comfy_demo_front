@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Fragment } from "react";
 import { Dropdown } from "react-bootstrap";
 import { Drawer } from "../../../components";
-// import AddPaymentForm from "./AddPaymentForm";
+import AddPaymentForm from "./AddPaymentForm";
 
 const AddBrokerPayment = () => {
   const [showForm, setShowForm] = useState(false);
@@ -17,7 +17,7 @@ const AddBrokerPayment = () => {
         setShow={setShowForm}
         width="50%"
       >
-        {/* <AddPaymentForm /> */}
+        <AddPaymentForm />
       </Drawer>
     </Fragment>
   );

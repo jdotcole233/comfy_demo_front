@@ -15,7 +15,7 @@ import currencies from "../../assets/currencies.json";
 import plural from "pluralize";
 import _ from "lodash";
 
-const prepData = ({
+export const prepData = ({
   payment,
   form_inputs,
   user,
@@ -55,7 +55,7 @@ const prepData = ({
     : "-",
 });
 
-const getSum = (name, details) =>
+export const getSum = (name, details) =>
   details[name] +
   details?.offer_endorsements?.reduce(
     (prev, curr) => prev + parseFloat(curr[name]),

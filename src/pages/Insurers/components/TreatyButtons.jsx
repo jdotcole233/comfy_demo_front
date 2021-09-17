@@ -95,19 +95,25 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
             <>
               <button
                 onClick={() => handleShowEditpaymentDrawer(payment)}
-                className="btn btn-sm  btn-info mr-1"
+                className="btn btn-sm m-1 btn-info mr-1"
               >
                 View
               </button>
               <button
                 onClick={() => handleRemovePayment(payment)}
-                className="btn btn-sm  btn-danger "
+                className="btn btn-sm m-1  btn-danger "
               >
                 Remove
               </button>
               <button
+                // onClick={() => handleGenerateReceipt(payment)}
+                className="btn m-1 btn-sm btn-primary  mx-1"
+              >
+                Clear Cheque
+              </button>
+              <button
                 onClick={() => handleGenerateReceipt(payment)}
-                className="btn btn-sm btn-success w-md mx-1"
+                className="btn m-1 btn-sm btn-success  mx-1"
               >
                 Generate Receipt
               </button>

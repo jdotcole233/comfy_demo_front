@@ -3,12 +3,14 @@ import { Fragment, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Drawer } from "../../../components";
 import PlacingSlipAndCoverDocument from "./PlacingSlipAndCoverDocument";
+import SendPlacingNote from "./SendPlacingNote";
 
 const PreviewPlacing = ({ treaty }) => {
   const [showPreview, setShowPreview] = useState(false);
+  const [showMailbox, setShowMailbox] = useState(false);
   const { pathname } = useLocation();
   const manageUrl = `${pathname}/manage/${Buffer.from(
-    JSON.stringify({ treaty_id: treaty.treaty_id, doc_type: "PLACING" })
+    JSON.stringify({ treaty_id: treaty?.treaty_id, doc_type: "PLACING" })
   ).toString("base64")}`;
   return (
     <Fragment>
@@ -30,11 +32,22 @@ const PreviewPlacing = ({ treaty }) => {
           >
             Preview placing slip
           </button>
-          <button className="btn btn-sm w-md btn-success">
+          <button
+            onClick={() => setShowMailbox(true)}
+            className="btn btn-sm w-md btn-success"
+          >
             Send placing slip
           </button>
         </div>
       </div>
+
+      <Drawer
+        isvisible={showMailbox}
+        setShow={setShowMailbox}
+        toggle={() => setShowMailbox(false)}
+      >
+        <SendPlacingNote />
+      </Drawer>
 
       <Drawer
         isvisible={showPreview}

@@ -2,9 +2,11 @@ import React from "react";
 import { Fragment, useState } from "react";
 import { Drawer } from "../../../components";
 import PlacingSlipAndCoverDocument from "./PlacingSlipAndCoverDocument";
+import SendCoverNote from "./SendCoverNote";
 
 const PreviewCover = ({ treaty }) => {
   const [showPreview, setShowPreview] = useState(false);
+  const [showMailbox, setShowMailbox] = useState(false);
   return (
     <Fragment>
       <div className="card">
@@ -18,11 +20,22 @@ const PreviewCover = ({ treaty }) => {
           >
             Preview cover note
           </button>
-          <button className="btn btn-sm w-md btn-success">
+          <button
+            onClick={() => setShowMailbox(true)}
+            className="btn btn-sm w-md btn-success"
+          >
             Send cover note
           </button>
         </div>
       </div>
+
+      <Drawer
+        isvisible={showMailbox}
+        setShow={setShowMailbox}
+        toggle={() => setShowMailbox(false)}
+      >
+        <SendCoverNote />
+      </Drawer>
 
       <Drawer
         isvisible={showPreview}

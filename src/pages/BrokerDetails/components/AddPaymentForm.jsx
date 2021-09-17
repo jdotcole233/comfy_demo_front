@@ -1,12 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useMutation } from "react-apollo";
+import { Alert } from "react-bootstrap";
+import { CurrencyOption, Selector } from "../../../components";
+import currencies from "../../../assets/currencies.json";
+import { useAuth } from "../../../context/AuthContext";
 import {
   MAKE_PAYMENT_BROKER,
   UPDATE_PAYMENT_BROKER,
 } from "../../../graphql/mutattions/brokers";
 import { BROKER } from "../../../graphql/queries/brokers";
+import styles from "../styles/ViewInsurerOffer.module.css";
+import { prepData } from "../../Insurers/AddPayments";
+import swal from "sweetalert";
+import _ from "lodash";
 
-const AddPaymentForm = () => {
+const AddPaymentForm = ({ edit, details, payment, toggle }) => {
   const { user } = useAuth();
   const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0);
   const [newExpectedAmount, setNewExpectedAmount] = useState(0);
@@ -27,13 +35,194 @@ const AddPaymentForm = () => {
   });
 
   const formRef = useRef();
-  //   const [makePayment] = useMutation(MAKE_PAYMENT_BROKER, {
-  //     refetchQueries: [{ query: INSURER, variables: { id: insurer_id } }],
-  //   });
+  const [makePayment] = useMutation(MAKE_PAYMENT_BROKER, {
+    refetchQueries: [
+      { query: BROKER, variables: { id: "" } },
+      // { query: INSURER_OFFERS, variables: { id: insurer_id, skip: 0 } },
+    ],
+  });
 
-  //   const [updatePayment] = useMutation(UPDATE_PAYMENT_BROKER, {
-  //     refetchQueries: [{ query: BROKER, variables: { id: insurer_id } }],
-  //   });
+  const [updatePayment] = useMutation(UPDATE_PAYMENT_BROKER, {
+    refetchQueries: [
+      { query: BROKER, variables: { id: "" } },
+      // { query: INSURER_OFFERS, variables: { id: insurer_id, skip: 0 } },
+    ],
+  });
+
+  const hasEndorsement = _.last(details?.offer_endorsements);
+
+  useEffect(() => {
+    if (details) {
+    }
+  }, [details, form_inputs, hasEndorsement]);
+
+  useEffect(() => {
+    if (expectedAmtToBePaid && addExchangeRate) {
+      setNewExpectedAmount(expectedAmtToBePaid * form_inputs?.exchange_rate);
+    }
+  }, [form_inputs, expectedAmtToBePaid, addExchangeRate]);
+
+  // useEffect(() => {
+  //   if (payment && details) {
+  //     const obj = JSON.parse(payment.payment_details);
+  //     // alert(payment.payment_details)
+  //     setForm_inputs({
+  //       payment_amount: payment.payment_amount,
+  //       cheque_number: obj.payment_from.cheque_number,
+  //       bank_name: obj.payment_from.bank_name,
+  //       beneficiary_bank_name: obj.payment_to,
+  //       offer_payment_comment: payment.offer_payment_comment,
+  //       payment_type: obj.payment_type,
+  //       date_on_cheque: obj.payment_from.date_on_cheque,
+  //       exchange_rate: obj.conversion.rate,
+  //       currency: obj.conversion.currency,
+  //     });
+  //     setCurrency(obj.conversion.currency);
+  //     setAddExchangeRate(obj.conversion.addExchangeRate);
+  //   }
+  // }, [payment, details]);
+
+  const valueToCheckWith = addExchangeRate
+    ? newExpectedAmount
+    : expectedAmtToBePaid;
+
+  useEffect(() => {
+    if (parseFloat(form_inputs.payment_amount) > valueToCheckWith.toFixed(2)) {
+      setAmountError(true);
+    } else {
+      setAmountError(false);
+    }
+  }, [valueToCheckWith, form_inputs]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (
+      name === "payment_amount" &&
+      (parseFloat(value) > valueToCheckWith.toFixed(2) || value < 0)
+    ) {
+      setAmountError(true);
+    } else {
+      setAmountError(false);
+    }
+    setForm_inputs({
+      ...form_inputs,
+      [name]: value,
+    });
+  };
+
+  const handleMakePayment = (event) => {
+    event.preventDefault();
+
+    const data = prepData({
+      payment,
+      details,
+      form_inputs,
+      addExchangeRate,
+      user,
+      amountToBePaid: valueToCheckWith,
+      auto_payment_receipt,
+    });
+
+    swal({
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      icon: "warning",
+      title: "Are you sure you want to make payment ?",
+      buttons: ["No", { text: "Yes", closeModal: false }],
+    }).then((input) => {
+      if (!input) throw null;
+      makePayment({
+        variables: { data },
+      })
+        .then((res) => {
+          swal("Sucess", "Payment made Successfully", "success");
+          // formRef.current.reset()
+          setForm_inputs({
+            payment_type: "",
+            cheque_number: "",
+            bank_name: "",
+            beneficiary_bank_name: "",
+            offer_payment_comment: "",
+            payment_amount: "",
+            date_on_cheque: "",
+            currency: "",
+            exchange_rate: 1.0,
+          });
+          toggle();
+        })
+        .catch((err) => {
+          if (err) {
+            swal("Oh noes!", "The AJAX request failed!", "error");
+          } else {
+            swal.stopLoading();
+            swal.close();
+          }
+        });
+    });
+  };
+
+  const handleUpdatePayment = (event) => {
+    event.preventDefault();
+    const data = prepData({
+      payment,
+      details,
+      form_inputs,
+      addExchangeRate,
+      user,
+      amountToBePaid: valueToCheckWith,
+      auto_payment_receipt,
+    });
+    swal({
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      icon: "warning",
+      title: "Are you sure you want to update payment?",
+      buttons: ["No", { text: "Yes", closeModal: false }],
+    }).then((input) => {
+      if (!input) throw null;
+      updatePayment({
+        variables: { data },
+      })
+        .then((res) => {
+          swal("Sucess", "Payment updated Successfully", "success");
+          formRef.current.reset();
+          setForm_inputs({
+            payment_type: "",
+            cheque_number: "",
+            bank_name: "",
+            beneficiary_bank_name: "",
+            offer_payment_comment: "",
+            payment_amount: "",
+            date_on_cheque: "",
+          });
+          toggle();
+        })
+        .catch((err) => {
+          if (err) {
+            // console.log(err)
+            swal("Oh noes!", "The AJAX request failed!", "error");
+          } else {
+            swal.stopLoading();
+            swal.close();
+          }
+        });
+    });
+  };
+
+  const handleCurrencyChange = (value) => {
+    setCurrency(value ? value.value.code : "");
+    setForm_inputs((prev) => ({
+      ...prev,
+      currency: value ? value.value.code : "",
+    }));
+  };
+
+  const handleExchangeRateChange = (value) => {
+    setForm_inputs((prev) => ({
+      ...prev,
+      exchange_rate: value,
+    }));
+  };
 
   return (
     <div>
@@ -44,10 +233,10 @@ const AddPaymentForm = () => {
         ref={formRef}
         onSubmit={(e) => {
           if (edit) {
-            handleUpdatePayment(e);
+            // handleUpdatePayment(e);
             return;
           }
-          handleMakePayment(e);
+          // handleMakePayment(e);
         }}
         className={styles.card_body}
       >
