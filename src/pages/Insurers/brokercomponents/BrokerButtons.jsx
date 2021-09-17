@@ -2,12 +2,14 @@ import { useAuth } from "../../../context/AuthContext";
 import { REMOVE_BROKER_FROM_TREATY } from "../../../graphql/mutattions/brokers";
 import { TREATY } from "../../../graphql/queries/treaty";
 import { editAccessRoles } from "../../../layout/adminRoutes";
+import { Drawer } from "../../../components";
 import React from "react";
 import { Fragment, useState } from "react";
 import { useMutation } from "react-apollo";
 import { Modal, DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 import swal from "sweetalert";
 import AddBrokerPercentageForm from "./AddBrokerPercentageForm";
+import PreviewClosing from "./PreviewClosing";
 
 // handleAddPercentage(participant)
 //handleEditPercentage(participant)
@@ -21,6 +23,7 @@ const BrokerButtons = ({
 }) => {
   const { user } = useAuth();
   const [showPercentageModal, setShowPercentageModal] = useState(false);
+  const [previewClosing, setPreviewClosing] = useState(false);
   const [setEdit, setSetEdit] = useState("");
   const [removeBroker] = useMutation(REMOVE_BROKER_FROM_TREATY, {
     refetchQueries: [
@@ -88,10 +91,26 @@ const BrokerButtons = ({
           </Dropdown.Item>
         )}
       </DropdownButton>
-      <button className="btn btn-success btn-sm">Preview closing</button>
+      <button
+        onClick={() => setPreviewClosing(true)}
+        className="btn btn-success btn-sm"
+      >
+        Preview closing
+      </button>
       <button onClick={() => handleRemoveBroker()} className="btn mb-1">
         <i className="bx bx-trash text-danger"></i>
       </button>
+
+      <Drawer
+        isvisible={previewClosing}
+        toggle={() => setPreviewClosing(false)}
+        width="40%"
+      >
+        <PreviewClosing
+          treaty_id={treaty?.treaty_id}
+          rebroker_id={participant?.re_broker?.re_broker_id}
+        />
+      </Drawer>
 
       <Modal
         centered
