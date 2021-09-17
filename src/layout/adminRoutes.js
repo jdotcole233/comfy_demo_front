@@ -303,14 +303,14 @@ export const treaty = [
   {
     link: '/admin/treaty-programs',
     name: 'Treaty Programs',
-    roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
+    roles: ['CEO', 'Senior Broking Officer', 'System Administrator', 'General Manager'],
     icon: 'bx bx-collection',
     functionalities: ["Manage Insurer treaty program", "Manage treaty deductions"],
   },
   {
     link: '/admin/treaty-claims',
     name: 'Treaty Claims',
-    roles: ['CEO', 'Senior Broking Officer', 'System Administrator'],
+    roles: ['CEO', 'Senior Broking Officer', 'System Administrator', 'General Manager'],
     icon: 'bx bx-receipt',
     functionalities: ["Manage Non Proportional Claims"],
   },
@@ -341,6 +341,7 @@ const create_Access = [
 const create_insurer_access = [
   'System Administrator',
   'Senior Broking Officer',
+  'General Manager'
 ];
 
 
@@ -348,34 +349,40 @@ const create_insurer_access = [
 const delete_insurer_access = [
   'System Administrator',
   'Senior Broking Officer',
+  'General Manager',
 ];
 
 
 
-const edit_insurer_access = ['System Administrator', 'Senior Broking Officer'];
+const edit_insurer_access = ['System Administrator', 'Senior Broking Officer', 'General Manager'];
 
 //Broker
-export const edit_broker_access = ['System Administrator', 'Senior Broking Officer'];
+export const edit_broker_access = ['System Administrator', 'Senior Broking Officer', 'General Manager'];
 export const delete_broker_access = [
   'System Administrator',
   'Senior Broking Officer',
+  'General Manager'
 ];
 export const create_broker_access = [
   'System Administrator',
   'Senior Broking Officer',
+  'General Manager'
 ];
 
 const create_reinsurer_access = [
   'System Administrator',
   'Senior Broking Officer',
+  'General Manager'
 ];
 const delete_reinsurer_access = [
   'System Administrator',
   'Senior Broking Officer',
+  'General Manager'
 ];
 const edit_reinsurer_access = [
   'System Administrator',
   'Senior Broking Officer',
+  'General Manager'
 ];
 
 const Offers_Access = [
@@ -385,7 +392,7 @@ const Offers_Access = [
   'System Administrator',
 ];
 
-const treaty_Access = ['CEO', 'Senior Broking Officer', 'System Administrator'];
+const treaty_Access = ['CEO', 'Senior Broking Officer', 'System Administrator', 'General Manager'];
 const clients_Access = [
   'CEO',
   'General Manager',
