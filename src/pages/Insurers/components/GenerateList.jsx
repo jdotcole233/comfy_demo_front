@@ -33,13 +33,13 @@ const GenerateList = ({ treaty }) => {
             <div className="media">
               <div className="mr-3 align-self-center"></div>
               <div className="media-body">
-                <p className="text-muted mb-2">Create Brokers list</p>
+                <p className="text-muted mb-2">Create Intermediary list</p>
 
                 <button
                   onClick={() => setShowBrokerList(true)}
                   className="btn btn-primary btn-sm w-md"
                 >
-                  Create Brokers List
+                  Create Intermediary List
                 </button>
               </div>
             </div>

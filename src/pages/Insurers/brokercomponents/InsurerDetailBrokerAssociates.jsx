@@ -41,7 +41,7 @@ const InsurerDetailBrokerAssociates = ({ treaty }) => {
   return (
     <div className="card">
       <div className="col-md-12 d-flex justify-content-between card-body">
-        <span className="card-title">Effected with (Broker Associates)</span>
+        <span className="card-title">Intermediaries Associates</span>
         <button onClick={() => setToggle((prev) => !prev)} className="btn">
           {toggle ? "close" : "Expand"}
         </button>

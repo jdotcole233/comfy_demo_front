@@ -91,12 +91,15 @@ const BrokerButtons = ({
           </Dropdown.Item>
         )}
       </DropdownButton>
-      <button
-        onClick={() => setPreviewClosing(true)}
-        className="btn btn-success btn-sm"
-      >
-        Preview closing
-      </button>
+      {treaty?.treaty_accounts?.length > 0 && (
+        <button
+          onClick={() => setPreviewClosing(true)}
+          className="btn btn-success btn-sm"
+        >
+          Preview closing
+        </button>
+      )}
+
       <button onClick={() => handleRemoveBroker()} className="btn mb-1">
         <i className="bx bx-trash text-danger"></i>
       </button>
