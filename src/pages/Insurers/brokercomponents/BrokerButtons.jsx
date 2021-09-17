@@ -107,12 +107,9 @@ const BrokerButtons = ({
       <Drawer
         isvisible={previewClosing}
         toggle={() => setPreviewClosing(false)}
-        width="40%"
+        width="50%"
       >
-        <PreviewClosing
-          treaty_id={treaty?.treaty_id}
-          rebroker_id={participant?.re_broker?.re_broker_id}
-        />
+        <PreviewClosing {...{ treaty, re_broker_treaties_participation_id }} />
       </Drawer>
 
       <Modal
