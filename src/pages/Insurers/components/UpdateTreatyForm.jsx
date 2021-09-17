@@ -614,7 +614,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
         </form>
       </fieldset>
 
-      {(selectedProgram || oldInsurerId) && treatyDetials?.length > 0 ? (
+      {/* {(selectedProgram || oldInsurerId) && treatyDetials?.length > 0 ? (
         <fieldset className="w-auto p-2 border">
           <legend className={styles.details_title}>Treaty details</legend>
           <div className="row">
@@ -641,7 +641,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             ))}
           </div>
         </fieldset>
-      ) : null}
+      ) : null} */}
       <div className="row mt-2">
         <div className="col-md-12">
           <label htmlFor="Type of goods">Currency</label>

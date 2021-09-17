@@ -31,6 +31,7 @@ const Brokers = lazy(() => import("./pages/Brokers"))
 const BrokerDetails = lazy(() => import('./pages/BrokerDetails'))
 const GenerateBrokerPaymentSchedule = lazy(() => import('./pages/BrokerGeneratePaymentSchedule'))
 const CreateTreaty = lazy(() => import('./pages/CreateTreaty'))
+const ManageTreatyDetails = lazy(() => import('./pages/ManageTreatyDetails'));
 
 export default [
   {
@@ -350,6 +351,19 @@ export default [
     layout: "/admin",
     name: 'Treaty Programs',
     component: TreatyProgramsOverview,
+    roles: [
+      'CEO',
+      'General Manager',
+      'Senior Broking Officer',
+      'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: "/treaty-programs/overview/manage/:payload",
+    layout: "/admin",
+    name: 'Treaty Programs',
+    component: ManageTreatyDetails,
     roles: [
       'CEO',
       'General Manager',

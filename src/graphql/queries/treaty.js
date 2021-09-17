@@ -233,6 +233,7 @@ query treaty($treaty_id: ID) {
         created_at
       }
     insurer {
+      insurer_id
       insurer_company_name
       insurer_address {
         suburb

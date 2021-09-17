@@ -18,6 +18,28 @@ const hasOptionsAndNotEmpty = (options = []) => {
   return status;
 };
 
+const proportionalArray = [
+  "currency",
+  "Geographical Scope",
+  "Class of Risk/ Class of Business",
+  "Treaty Detail",
+  "Facultative Inward Acceptance",
+  "Rates",
+  "Profit Comission",
+  "Portfolio",
+  "Notice of claim",
+  "Cash Loss limit",
+  "Account Submission",
+  "Account Settlement",
+  "Revision of confirmed balances",
+  "General Conditions",
+  "Exclusion",
+  "Alteration",
+  "Wording",
+  "Exchange Rate",
+  "Additional Information",
+];
+
 const NewTreaty = (props) => {
   const [addintionalInputFields, setaddintionalInputFields] = useState([]);
   const [detailCount, setCount] = useState(0);
@@ -123,13 +145,12 @@ const NewTreaty = (props) => {
 
   useEffect(() => {
     if (treaty_type && treaty_type.value === "PROPORTIONAL") {
-      setaddintionalInputFields([
-        {
-          keydetail: "currency",
-          value: "",
-          required: true,
-        },
-      ]);
+      const initialRows = proportionalArray.map((key) => ({
+        keydetail: key,
+        value: "",
+        required: true,
+      }));
+      setaddintionalInputFields(initialRows);
     } else {
       setaddintionalInputFields([]);
     }
@@ -138,11 +159,13 @@ const NewTreaty = (props) => {
   const counter = treaty_type && treaty_type.value === "PROPORTIONAL" ? 1 : 0;
 
   useEffect(() => {
-    if(props.noTreatyFound && insurersData.length > 0){
-      const insurer = insurersData.find(insurer => insurer.value.insurer_id === props.noTreatyFound)
+    if (props.noTreatyFound && insurersData.length > 0) {
+      const insurer = insurersData.find(
+        (insurer) => insurer.value.insurer_id === props.noTreatyFound
+      );
       setInsurer(insurer);
     }
-  },[props.noTreatyFound, insurersData])
+  }, [props.noTreatyFound, insurersData]);
 
   return (
     <div className="">
@@ -220,7 +243,7 @@ const NewTreaty = (props) => {
                     readOnly={
                       treaty_type &&
                       treaty_type.value === "PROPORTIONAL" &&
-                      el.keydetail === "currency"
+                      proportionalArray.includes(el.keydetail)
                     }
                   />
                   <div className="input-group-prepend">
@@ -228,7 +251,7 @@ const NewTreaty = (props) => {
                       disabled={
                         treaty_type &&
                         treaty_type.value === "PROPORTIONAL" &&
-                        el.keydetail === "currency"
+                        proportionalArray.includes(el.keydetail)
                       }
                       onClick={() => handleRemoveParticularInput(key)}
                       className="btn btn-danger"

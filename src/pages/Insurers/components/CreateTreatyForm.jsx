@@ -226,6 +226,8 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   }, [selectedProgram]);
 
   const onSubmitDeductionForm = (values) => {
+    // console.log(values);
+    // return;
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -243,7 +245,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       if (!input) throw null;
       addDeduction({
         variables: {
-          deductions: values,
+          deductions: _.omit(values, ["treaty_comment"]),
         },
       })
         .then((_) => {
@@ -670,7 +672,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                 name="treaty_programstreaty_program_id"
                 ref={register({ required: true })}
               />
-              {createDeduction && !deductionCreated && (
+              {createDeduction && (
                 <input
                   type="submit"
                   className="btn btn-primary btn-sm form-control my-2"
@@ -682,7 +684,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
         </form>
       </fieldset>
 
-      {deductionCreated && treatyDetials.length > 0 ? (
+      {/* {deductionCreated && treatyDetials.length > 0 ? (
         <fieldset className="w-auto p-2 border">
           <legend className={styles.details_title}>Treaty details</legend>
           <div className="row">
@@ -710,7 +712,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             ))}
           </div>
         </fieldset>
-      ) : null}
+      ) : null} */}
 
       {selectedProgramType && selectedProgramType?.value === "NONPROPORTIONAL" && (
         <div className="row mt-2">

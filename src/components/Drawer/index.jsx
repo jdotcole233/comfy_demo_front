@@ -33,7 +33,7 @@ function Drawer({
   const zIndex = 0;
 
   const allChildren = React.Children.map(children, (child) => {
-    console.log(child);
+    // console.log(child);
     if (child) {
       if (typeof child.type !== "function") return child;
       const clone = React.cloneElement(child, {
