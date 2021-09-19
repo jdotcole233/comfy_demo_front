@@ -24,12 +24,12 @@ const ProportionalPaymentsModal = ({
   const generatePayments = (_payments = []) =>
     _payments
       ?.filter((el) => {
-        const obj = JSON.parse(el.participant_payment_details || "{}");
+        const obj = JSON.parse(el.payment_details || "{}");
         return obj.payment_type;
       })
       ?.map((payment) => {
-        const obj = JSON.parse(payment.participant_payment_details || "{}");
-        console.log(payment);
+        const obj = JSON.parse(payment.payment_details || "{}");
+        // console.log(payment);
         return {
           ...payment,
           type:
@@ -83,7 +83,9 @@ const ProportionalPaymentsModal = ({
 
       <Datatable
         columns={paymentsColumns}
-        data={generatePayments(selectedQuarter?.treaty_p_payments)}
+        data={generatePayments(
+          selectedQuarter?.broker_surplus_participation_payments
+        )}
       />
     </Modal.Body>
   );

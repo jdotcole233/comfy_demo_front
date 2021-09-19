@@ -10,7 +10,12 @@ const PreviewPlacing = ({ treaty }) => {
   const [showMailbox, setShowMailbox] = useState(false);
   const { pathname } = useLocation();
   const manageUrl = `${pathname}/manage/${Buffer.from(
-    JSON.stringify({ treaty_id: treaty?.treaty_id, doc_type: "PLACING" })
+    JSON.stringify({
+      treaty_id: treaty?.treaty_id,
+      doc_type: "PLACING",
+      treaty_type: treaty?.treaty_program?.treaty_type,
+      treaty_reference: treaty?.treaty_reference,
+    })
   ).toString("base64")}`;
 
   const showManageButton = treaty?.treaty_participants?.every(

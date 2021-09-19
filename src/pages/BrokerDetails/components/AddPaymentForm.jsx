@@ -1,20 +1,60 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation, useQuery } from "react-apollo";
 import { Alert } from "react-bootstrap";
-import { CurrencyOption, Selector } from "../../../components";
+import { CurrencyOption, Loader, Selector } from "../../../components";
 import currencies from "../../../assets/currencies.json";
 import { useAuth } from "../../../context/AuthContext";
 import {
-  MAKE_PAYMENT_BROKER,
+  MAKE_PAYMENT_BROKER_PROP,
   UPDATE_PAYMENT_BROKER,
 } from "../../../graphql/mutattions/brokers";
 import { BROKER } from "../../../graphql/queries/brokers";
 import styles from "../styles/ViewInsurerOffer.module.css";
-import { prepData } from "../../Insurers/AddPayments";
 import swal from "sweetalert";
 import _ from "lodash";
+import { TREATY } from "../../../graphql/queries/treaty";
+import { getFlexibleName } from "../../Insurers/components/Note";
 
-const AddPaymentForm = ({ edit, details, payment, toggle }) => {
+const prepData = ({
+  form_inputs,
+  user,
+  details,
+  addExchangeRate,
+  amountToBePaid,
+  auto_payment_receipt,
+}) => ({
+  re_broker_treaties_surplus_participation_id:
+    details?.re_broker_treaties_surplus_participation_id,
+  payment_amount: form_inputs.payment_amount,
+  auto_payment_receipt,
+  payment_status:
+    parseFloat(amountToBePaid).toFixed(2) ===
+    parseFloat(form_inputs.payment_amount).toFixed(2)
+      ? "PAID"
+      : "PARTPAYMENT",
+  payment_details: JSON.stringify({
+    employee_id: user?.employee?.employee_id,
+    payment_type: form_inputs.payment_type,
+    payment_from: {
+      cheque_number: form_inputs.cheque_number
+        ? form_inputs.cheque_number
+        : "N/A",
+      bank_name: form_inputs.bank_name,
+      date_on_cheque: form_inputs.date_on_cheque,
+    },
+    payment_to: form_inputs.beneficiary_bank_name,
+    conversion: {
+      rate: form_inputs.exchange_rate,
+      currency: form_inputs.currency,
+      addExchangeRate: addExchangeRate,
+    },
+  }),
+  payment_comment: form_inputs.payment_comment
+    ? form_inputs.payment_comment
+    : "-",
+});
+
+const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id }) => {
   const { user } = useAuth();
   const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0);
   const [newExpectedAmount, setNewExpectedAmount] = useState(0);
@@ -22,65 +62,41 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
   const [addExchangeRate, setAddExchangeRate] = useState(false);
   const [auto_payment_receipt, setAuto_payment_receipt] = useState(false);
   const [currency, setCurrency] = useState(null);
+  const [selectedQuarter, setSelectedQuarter] = useState(null);
   const [form_inputs, setForm_inputs] = useState({
     payment_type: "",
     cheque_number: "",
     bank_name: "",
     beneficiary_bank_name: "",
-    offer_payment_comment: "",
+    payment_comment: "",
     payment_amount: "",
     date_on_cheque: "",
     currency: "",
     exchange_rate: 1.0,
   });
 
+  const {
+    data: treatyData,
+    loading,
+    error,
+  } = useQuery(TREATY, {
+    variables: { treaty_id },
+  });
+
   const formRef = useRef();
-  const [makePayment] = useMutation(MAKE_PAYMENT_BROKER, {
-    refetchQueries: [
-      { query: BROKER, variables: { id: "" } },
-      // { query: INSURER_OFFERS, variables: { id: insurer_id, skip: 0 } },
-    ],
+  const [makePayment] = useMutation(MAKE_PAYMENT_BROKER_PROP, {
+    refetchQueries: [{ query: BROKER, variables: { id: "" } }],
   });
 
   const [updatePayment] = useMutation(UPDATE_PAYMENT_BROKER, {
-    refetchQueries: [
-      { query: BROKER, variables: { id: "" } },
-      // { query: INSURER_OFFERS, variables: { id: insurer_id, skip: 0 } },
-    ],
+    refetchQueries: [{ query: BROKER, variables: { id: "" } }],
   });
-
-  const hasEndorsement = _.last(details?.offer_endorsements);
-
-  useEffect(() => {
-    if (details) {
-    }
-  }, [details, form_inputs, hasEndorsement]);
 
   useEffect(() => {
     if (expectedAmtToBePaid && addExchangeRate) {
       setNewExpectedAmount(expectedAmtToBePaid * form_inputs?.exchange_rate);
     }
   }, [form_inputs, expectedAmtToBePaid, addExchangeRate]);
-
-  // useEffect(() => {
-  //   if (payment && details) {
-  //     const obj = JSON.parse(payment.payment_details);
-  //     // alert(payment.payment_details)
-  //     setForm_inputs({
-  //       payment_amount: payment.payment_amount,
-  //       cheque_number: obj.payment_from.cheque_number,
-  //       bank_name: obj.payment_from.bank_name,
-  //       beneficiary_bank_name: obj.payment_to,
-  //       offer_payment_comment: payment.offer_payment_comment,
-  //       payment_type: obj.payment_type,
-  //       date_on_cheque: obj.payment_from.date_on_cheque,
-  //       exchange_rate: obj.conversion.rate,
-  //       currency: obj.conversion.currency,
-  //     });
-  //     setCurrency(obj.conversion.currency);
-  //     setAddExchangeRate(obj.conversion.addExchangeRate);
-  //   }
-  // }, [payment, details]);
 
   const valueToCheckWith = addExchangeRate
     ? newExpectedAmount
@@ -93,6 +109,12 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
       setAmountError(false);
     }
   }, [valueToCheckWith, form_inputs]);
+
+  useEffect(() => {
+    if (selectedQuarter) {
+      setExpectedAmtToBePaid(selectedQuarter?.share_amount);
+    }
+  }, [selectedQuarter]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -110,21 +132,28 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
     });
   };
 
+  const handleQuarterChange = (event) => {
+    const { value } = event.target;
+    const _quarter = _payments?.find(
+      (el) => el.re_broker_treaties_surplus_participation_id === value
+    );
+    setSelectedQuarter(_quarter);
+  };
+
   const handleMakePayment = (event) => {
     event.preventDefault();
 
     const data = prepData({
       payment,
-      details,
+      details: selectedQuarter,
       form_inputs,
       addExchangeRate,
       user,
       amountToBePaid: valueToCheckWith,
       auto_payment_receipt,
     });
-
     console.log(data);
-    return;
+    // return;
 
     swal({
       closeOnClickOutside: false,
@@ -135,7 +164,7 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
     }).then((input) => {
       if (!input) throw null;
       makePayment({
-        variables: { data },
+        variables: { payment_data: data },
       })
         .then((res) => {
           swal("Sucess", "Payment made Successfully", "success");
@@ -145,13 +174,13 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
             cheque_number: "",
             bank_name: "",
             beneficiary_bank_name: "",
-            offer_payment_comment: "",
+            payment_comment: "",
             payment_amount: "",
             date_on_cheque: "",
             currency: "",
             exchange_rate: 1.0,
           });
-          toggle();
+          setShow(false);
         })
         .catch((err) => {
           if (err) {
@@ -168,7 +197,7 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
     event.preventDefault();
     const data = prepData({
       payment,
-      details,
+      // details,
       form_inputs,
       addExchangeRate,
       user,
@@ -194,11 +223,11 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
             cheque_number: "",
             bank_name: "",
             beneficiary_bank_name: "",
-            offer_payment_comment: "",
+            payment_comment: "",
             payment_amount: "",
             date_on_cheque: "",
           });
-          toggle();
+          setShow(false);
         })
         .catch((err) => {
           if (err) {
@@ -227,6 +256,8 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
     }));
   };
 
+  if (loading) return <Loader />;
+
   return (
     <div>
       <div className={styles.card_header}>
@@ -243,44 +274,50 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
         }}
         className={styles.card_body}
       >
-        <Alert variant="danger">
-          <p>
-            The amount to be added to this offer will be distributed evenly to
-            all entities participating on offer [
-            {details?.offer_detail.policy_number}]. Taking into consideration{" "}
-            <strong>commission, brokerage, withholding tax and NIC levy</strong>{" "}
-            where applicable.
-          </p>
-          <p>
-            {!edit ? "Make" : "Update"} payment to [
-            {details?.offer_detail.policy_number}]
-          </p>
-          {details?.exchange_rate && (
-            <p>
-              This offer was created in {details?.offer_detail.currency}, but
-              with an exchange rate of {details?.exchange_rate?.ex_rate} in{" "}
-              {details?.exchange_rate?.ex_currency}
-            </p>
-          )}
-          <p>
-            <strong>
-              Expected Amount:{" "}
-              {details?.exchange_rate?.ex_currency ||
-                details?.offer_detail.currency}{" "}
-              {expectedAmtToBePaid.toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })}
-            </strong>
-          </p>
-          {addExchangeRate && form_inputs.currency && (
+        <div className="row mb-3">
+          <div className="col-md-12">
+            <label htmlFor="paymentype">Quarter</label>
+            <select
+              name=""
+              value={
+                selectedQuarter?.re_broker_treaties_surplus_participation_id
+              }
+              onChange={handleQuarterChange}
+              id=""
+              className="form-control"
+              required
+            >
+              <option value="">Choose quarter</option>
+              {_payments?.map((quarter, key) => (
+                <option
+                  value={`${quarter?.re_broker_treaties_surplus_participation_id}`}
+                >
+                  {getFlexibleName(quarter?.treaty_account?.account_periods)}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        {selectedQuarter ? (
+          <Alert variant="danger">
             <p>
               <strong>
-                New Expected Amount (payable) : {form_inputs.currency}{" "}
-                {newExpectedAmount.toFixed(2)}
+                Expected Amount: {treatyData?.treaty?.currency}{" "}
+                {expectedAmtToBePaid.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}
               </strong>
             </p>
-          )}
-        </Alert>
+            {addExchangeRate && form_inputs.currency && (
+              <p>
+                <strong>
+                  New Expected Amount (payable) : {form_inputs.currency}{" "}
+                  {newExpectedAmount.toFixed(2)}
+                </strong>
+              </p>
+            )}
+          </Alert>
+        ) : null}
 
         <div className="row">
           <div className="col-md-12">
@@ -453,21 +490,14 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
                 )}
               </div>
             </div>
-            {(form_inputs.currency ||
-              details?.offer_detail.currency ||
-              details?.exchange_rate?.ex_currency) && (
+            {treatyData?.treaty?.currency && (
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="Currency">Currency</label>
                   {/* {&& <input type="text" value={form_inputs.currency} onChange={() => { }} className="form-control" placeholder="Currency" readOnly />} */}
                   <input
                     type="text"
-                    value={
-                      form_inputs.currency ||
-                      details?.offer_detail.currency ||
-                      details?.exchange_rate?.ex_currency ||
-                      ""
-                    }
+                    value={form_inputs.currency || treatyData?.treaty?.currency}
                     onChange={() => console.log("")}
                     className="form-control"
                     placeholder="Currency"
@@ -481,9 +511,9 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
               <div className="form-group">
                 <label htmlFor="Comment">Comment</label>
                 <textarea
-                  value={form_inputs.offer_payment_comment}
+                  value={form_inputs.payment_comment}
                   onChange={handleChange}
-                  name="offer_payment_comment"
+                  name="payment_comment"
                   cols="30"
                   rows="10"
                   className="form-control"

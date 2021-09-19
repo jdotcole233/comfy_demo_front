@@ -92,6 +92,11 @@ query broker($id: ID) {
           payment_status
           claim_settled
         }
+        broker_surplus_participation_payments {
+          re_broker_treaties_surplus_participation_payment_id
+          payment_amount
+          payment_details
+        }
       }
       treaty {
         treaty_id

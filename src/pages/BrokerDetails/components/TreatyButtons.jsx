@@ -109,7 +109,7 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
           View Payments
         </Dropdown.Item>
 
-        <AddBrokerPayment />
+        <AddBrokerPayment {...{ isProp, _payments }} />
       </DropdownButton>
 
       <Modal

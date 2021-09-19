@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { useQuery } from "react-apollo";
 import { useHistory, useParams } from "react-router-dom";
-import { Loader } from "../../components";
-import ErrorPage from "../../components/ErrorPage";
 import { BASE_URL_LOCAL } from "../../graphql";
-import { TREATY } from "../../graphql/queries/treaty";
 import TreatyDetailsEditor from "./components/TreatyDetailsEditor";
 
 const ManageTreatyDetails = () => {
@@ -20,7 +16,20 @@ const ManageTreatyDetails = () => {
         <div className="row">
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
-              <h4 className="mb-0 font-size-18"></h4>
+              <h4 className="mb-0 font-size-18">
+                Reference Number: {parsedPayload?.treaty_reference} - Program
+                Type:{" "}
+                <span
+                  style={{ letterSpacing: 5 }}
+                  className={`badge w-md badge-soft-${
+                    parsedPayload?.treaty_type === "PROPORTIONAL"
+                      ? "success"
+                      : "warning"
+                  } p-1 font-size-11`}
+                >
+                  {parsedPayload?.treaty_type}
+                </span>
+              </h4>
 
               <div className="page-title-right">
                 <ol className="breadcrumb m-0">

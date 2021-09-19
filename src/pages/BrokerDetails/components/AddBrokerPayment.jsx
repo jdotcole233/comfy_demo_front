@@ -4,7 +4,7 @@ import { Dropdown } from "react-bootstrap";
 import { Drawer } from "../../../components";
 import AddPaymentForm from "./AddPaymentForm";
 
-const AddBrokerPayment = () => {
+const AddBrokerPayment = ({ isProp, treaty_id, _payments }) => {
   const [showForm, setShowForm] = useState(false);
   return (
     <Fragment>
@@ -17,7 +17,8 @@ const AddBrokerPayment = () => {
         setShow={setShowForm}
         width="50%"
       >
-        <AddPaymentForm />
+        {isProp ? <AddPaymentForm {...{ treaty_id, _payments }} /> : null}
+        {/* <AddPaymentForm /> */}
       </Drawer>
     </Fragment>
   );

@@ -66,10 +66,11 @@ mutation addPercentageForBroker(
 }
 `;
 // TODO: change this
-export const MAKE_PAYMENT_BROKER = gql`
-mutation removeReBokerAssocFromTreatyList($id: ID) {
-  removeReBokerAssocFromTreatyList(participation_to_broker_associate_id: $id)
-}`;
+export const MAKE_PAYMENT_BROKER_PROP = gql`
+mutation makeBrokerProportionalPayment($payment_data: Broker_payment_data) {
+  makeBrokerProportionalPayment(payment_data: $payment_data)
+}
+`;
 // TODO: change this
 export const UPDATE_PAYMENT_BROKER = gql`
 mutation removeReBokerAssocFromTreatyList($id: ID) {
