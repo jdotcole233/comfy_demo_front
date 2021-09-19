@@ -8,33 +8,13 @@ import { getFlexibleName } from "../../Insurers/components/Note";
 import { paymentsColumns } from "./columns";
 
 const ProportionalPaymentsModal = ({
-  // payments = [],
+  accounts = [],
   treaty = {},
   reinsurer_id,
   selectPayment,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedQuarter, setSelectedQuarter] = useState(null);
-  const { data, loading, error } = useQuery(
-    REINSURER_PROPORTIONAL_TREATY_PAYMENTS,
-    {
-      variables: {
-        treaty_id: treaty?.treaty_id,
-        treaty_participation_id: reinsurer_id,
-      },
-    }
-  );
-
-  if (loading)
-    return (
-      <Modal.Body>
-        <div className="d-flex justify-content-center align-items-center">
-          <Loader />
-        </div>
-      </Modal.Body>
-    );
-
-  if (error) return <Modal.Body>Error</Modal.Body>;
 
   const changeLayer = (key, quarter) => {
     setSelectedQuarter(quarter);
@@ -85,7 +65,7 @@ const ProportionalPaymentsModal = ({
   return (
     <Modal.Body>
       <ul className="nav nav-tabs nav-tabs-custom">
-        {data?.treatyReinsurerAccountsPayment?.map((el, id) => (
+        {accounts?.map((el, id) => (
           <li
             key={id}
             onClick={() => changeLayer(id, el)}
@@ -95,7 +75,7 @@ const ProportionalPaymentsModal = ({
               className={`nav-link ${id === currentIndex ? "active" : ""}`}
               href="#"
             >
-              {getFlexibleName(el.account_periods)}
+              {getFlexibleName(el?.treaty_account?.account_periods)}
             </div>
           </li>
         ))}

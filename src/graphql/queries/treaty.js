@@ -336,6 +336,21 @@ query treaty($treaty_id: ID) {
         re_broker_name
         re_broker_email
       }
+      surplus_participation {
+        re_broker_treaties_surplus_participation_id
+        share_amount
+        admin_charge
+        treaty_account {
+          treaty_account_id
+          account_periods
+          gross_premium
+          claim_settled
+          cash_loss
+          exchange_rate
+          account_year
+          payment_status
+        }
+      }
     }
     treaty_to_broker_associates {
       participation_to_broker_associate_id

@@ -59,7 +59,7 @@ function EffectedWithListing({
                 onClick={() => setToggle((prev) => !prev)}
                 className="btn"
               >
-                {expand ? "close" : "Expand"}
+                {expand ? "Collapse" : "Expand"}
               </button>
             </div>
             {expand &&<div className="card-body">

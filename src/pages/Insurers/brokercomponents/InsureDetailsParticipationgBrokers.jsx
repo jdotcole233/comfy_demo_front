@@ -21,7 +21,7 @@ const InsureDetailsParticipationgBrokers = ({ treaty }) => {
       <div className="col-md-12 d-flex justify-content-between card-body">
         <span className="card-title">Intermediaries (Brokers)</span>
         <button onClick={() => setToggle((prev) => !prev)} className="btn">
-          {toggle ? "close" : "Expand"}
+          {toggle ? "Collapse" : "Expand"}
         </button>
       </div>
       {toggle && (

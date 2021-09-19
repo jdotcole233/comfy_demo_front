@@ -69,6 +69,7 @@ const prepTreatyValues = (values, details, limitLayers, typeObj) => {
       treaty_programstreaty_program_id:
         values?.treaty_programstreaty_program_id,
       treaty_reference: values.treaty_reference,
+      order_hereon: values?.order_hereon,
       layer_limit: JSON.stringify(limitLayers),
     },
   };
@@ -517,6 +518,26 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
               {_form.errors.treaty_programstreaty_program_id.message}
             </p>
           )}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <div className="form-group">
+            <label htmlFor="Type of goods">Order Hereon (%)</label>
+            <input
+              type="number"
+              step="any"
+              ref={_form.register({
+                required: "Required",
+              })}
+              name="order_hereon"
+              className="form-control"
+              placeholder="Order Hereon"
+            />
+            {errors.order_hereon && (
+              <p className="text-danger">{errors.order_hereon.message}</p>
+            )}
+          </div>
         </div>
       </div>
       {createDeduction && (
@@ -1214,7 +1235,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             ))}
           </Fragment>
         )}
-      <fieldset className="w-auto p-2  border-form">
+      {/* <fieldset className="w-auto p-2  border-form">
         <legend className={styles.details_title}>Comment</legend>
         <div className="row">
           <div className="col-md-12">
@@ -1231,7 +1252,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             </div>
           </div>
         </div>
-      </fieldset>
+      </fieldset> */}
       <div className="row mt-3">
         <div className="col-md-12">
           <input

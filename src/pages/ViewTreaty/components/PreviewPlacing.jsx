@@ -12,18 +12,25 @@ const PreviewPlacing = ({ treaty }) => {
   const manageUrl = `${pathname}/manage/${Buffer.from(
     JSON.stringify({ treaty_id: treaty?.treaty_id, doc_type: "PLACING" })
   ).toString("base64")}`;
+
+  const showManageButton = treaty?.treaty_participants?.every(
+    (el) => parseFloat(el.treaty_participation_percentage) > 0
+  );
+
   return (
     <Fragment>
       <div className="card">
         <div className="card-header d-flex align-items-center justify-content-between">
           <span className="card-title">Placing slip</span>
-          <Link
-            to={manageUrl}
-            className="btn btn-primary btn-sm d-flex align-items-center"
-          >
-            Manage
-            <i className="bx bx-edit ml-3"></i>
-          </Link>
+          {showManageButton && (
+            <Link
+              to={manageUrl}
+              className="btn btn-primary btn-sm d-flex align-items-center"
+            >
+              Manage
+              <i className="bx bx-edit ml-3"></i>
+            </Link>
+          )}
         </div>
         <div className="card-body row">
           <button

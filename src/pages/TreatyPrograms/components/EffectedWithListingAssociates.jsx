@@ -41,7 +41,7 @@ const EffectedWithListingAssociates = ({
                 onClick={() => setToggle((prev) => !prev)}
                 className="btn"
               >
-                {toggle ? "close" : "Expand"}
+                {toggle ? "Collapse" : "Expand"}
               </button>
             </div>
             {toggle && (

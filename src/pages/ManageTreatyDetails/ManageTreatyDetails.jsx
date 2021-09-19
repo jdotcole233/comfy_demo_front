@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-apollo";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Loader } from "../../components";
 import ErrorPage from "../../components/ErrorPage";
 import { BASE_URL_LOCAL } from "../../graphql";
@@ -12,10 +12,32 @@ const ManageTreatyDetails = () => {
   const url = `${BASE_URL_LOCAL}/treaty_placing_cover_note/${payload}`;
   const parsedPayload = JSON.parse(Buffer(payload, "base64").toString("ascii"));
   const [loader, setLoader] = useState(true);
+  const history = useHistory();
 
   return (
     <div className="page-content">
       <div className="container-fluid">
+        <div className="row">
+          <div className="col-12">
+            <div className="page-title-box d-flex align-items-center justify-content-between">
+              <h4 className="mb-0 font-size-18"></h4>
+
+              <div className="page-title-right">
+                <ol className="breadcrumb m-0">
+                  <li
+                    onClick={() => history.goBack()}
+                    className="breadcrumb-item link-hover"
+                  >
+                    <a>View Treaty</a>
+                  </li>
+                  <li className="breadcrumb-item active">
+                    Manage Treaty Details
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="row">
           <div className="col-md-6">
             {/* Editor here */}

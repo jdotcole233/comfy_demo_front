@@ -105,7 +105,9 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
         id="dropdown-basic-button"
         title="Payments"
       >
-        <Dropdown.Item onClick={() => {}}>View Payments</Dropdown.Item>
+        <Dropdown.Item onClick={() => setOpenPayments(true)}>
+          View Payments
+        </Dropdown.Item>
 
         <AddBrokerPayment />
       </DropdownButton>
@@ -122,6 +124,7 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
         {isProp ? (
           <ProportionalPaymentsModal
             reinsurer_id={reinsurer_id}
+            accounts={_payments}
             treaty={treaty}
             payments={payments}
             selectPayment={selectPayment}

@@ -55,14 +55,14 @@ query broker($id: ID) {
       re_broker_address_id
     }
     broker_overview {
-        total_treaties
-        total_proportional
-        total_nonproportional
-        total_unpaid_treaties
-        total_paid_treaties
-        total_partpayment_treaties
-        total_brokerage_amt
-        brokerage_chart
+      total_treaties
+      total_proportional
+      total_nonproportional
+      total_unpaid_treaties
+      total_paid_treaties
+      total_partpayment_treaties
+      total_brokerage_amt
+      brokerage_chart
     }
     re_broker_associates {
       re_broker_associate_id
@@ -78,6 +78,21 @@ query broker($id: ID) {
       share_percentage
       payment_status
       admin_percentage
+      surplus_participation {
+        re_broker_treaties_surplus_participation_id
+        share_amount
+        admin_charge
+        treaty_account {
+          treaty_account_id
+          account_periods
+          account_year
+          gross_premium
+          cash_loss
+          exchange_rate
+          payment_status
+          claim_settled
+        }
+      }
       treaty {
         treaty_id
         treaty_details
@@ -231,4 +246,5 @@ query broker($id: ID) {
     }
   }
 }
+
   `;

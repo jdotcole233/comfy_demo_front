@@ -40,6 +40,18 @@ const proportionalArray = [
   "Additional Information",
 ];
 
+const nonproportionalArray = [
+  "currency",
+  "Territorial Scope,",
+  "Limit",
+  "Reinstatement",
+  "Premium/Minimum & Deposit Premium,",
+  "Conditions",
+  "Special Exclusion",
+  "Alterations",
+  "Wording",
+  "Exchange Rate",
+];
 const NewTreaty = (props) => {
   const [addintionalInputFields, setaddintionalInputFields] = useState([]);
   const [detailCount, setCount] = useState(0);
@@ -152,7 +164,12 @@ const NewTreaty = (props) => {
       }));
       setaddintionalInputFields(initialRows);
     } else {
-      setaddintionalInputFields([]);
+      const initialRows = nonproportionalArray.map((key) => ({
+        keydetail: key,
+        value: "",
+        required: true,
+      }));
+      setaddintionalInputFields(initialRows);
     }
   }, [treaty_type]);
 
@@ -231,37 +248,38 @@ const NewTreaty = (props) => {
         </div>
         <div className="form-group">
           <div className="row">
-            {addintionalInputFields.map((el, key) => (
-              <div className="col-md-6 mb-3">
-                <div className="input-group">
-                  <input
-                    value={el.keydetail}
-                    onChange={(e) => handleInputChange(e, key)}
-                    type="text"
-                    className="form-control"
-                    placeholder={`Detail ${key + 1}`}
-                    readOnly={
-                      treaty_type &&
-                      treaty_type.value === "PROPORTIONAL" &&
-                      proportionalArray.includes(el.keydetail)
-                    }
-                  />
-                  <div className="input-group-prepend">
-                    <button
-                      disabled={
-                        treaty_type &&
-                        treaty_type.value === "PROPORTIONAL" &&
-                        proportionalArray.includes(el.keydetail)
+            {treaty_type &&
+              addintionalInputFields.map((el, key) => (
+                <div className="col-md-6 mb-3">
+                  <div className="input-group">
+                    <input
+                      value={el.keydetail}
+                      onChange={(e) => handleInputChange(e, key)}
+                      type="text"
+                      className="form-control"
+                      placeholder={`Detail ${key + 1}`}
+                      readOnly={
+                        treaty_type.value === "PROPORTIONAL"
+                          ? proportionalArray.includes(el.keydetail)
+                          : nonproportionalArray.includes(el.keydetail)
                       }
-                      onClick={() => handleRemoveParticularInput(key)}
-                      className="btn btn-danger"
-                      type="button"
-                    >
-                      X
-                    </button>
+                    />
+                    <div className="input-group-prepend">
+                      <button
+                        disabled={
+                          treaty_type.value === "PROPORTIONAL"
+                            ? proportionalArray.includes(el.keydetail)
+                            : nonproportionalArray.includes(el.keydetail)
+                        }
+                        onClick={() => handleRemoveParticularInput(key)}
+                        className="btn btn-danger"
+                        type="button"
+                      >
+                        X
+                      </button>
+                    </div>
                   </div>
-                </div>
-                {/* <div className="form-check mb-3">
+                  {/* <div className="form-check mb-3">
                   <input
                     checked={el.required}
                     type="checkbox"
@@ -272,8 +290,8 @@ const NewTreaty = (props) => {
                     Required
                   </label>
                 </div> */}
-              </div>
-            ))}
+                </div>
+              ))}
           </div>
         </div>
 

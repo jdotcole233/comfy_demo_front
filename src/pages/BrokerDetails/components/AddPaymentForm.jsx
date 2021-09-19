@@ -123,6 +123,9 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
       auto_payment_receipt,
     });
 
+    console.log(data);
+    return;
+
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -236,7 +239,7 @@ const AddPaymentForm = ({ edit, details, payment, toggle }) => {
             // handleUpdatePayment(e);
             return;
           }
-          // handleMakePayment(e);
+          handleMakePayment(e);
         }}
         className={styles.card_body}
       >
