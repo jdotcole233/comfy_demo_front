@@ -14,7 +14,6 @@ import {
 } from "../../../graphql/queries/treaty";
 import swal from "sweetalert";
 import TreatyDebitNotes from "../../TreatyPrograms/TreatyDebitNotes";
-import CreateTreatyBroadCastList from "./CreateTreatyBroadCastList";
 import { useMemo } from "react";
 import {
   editAccessRoles,
@@ -36,6 +35,11 @@ import SendReinsurerDocuments from "./SendReinsurerDocuments";
 import AddPErcentageModal from "./AddPErcentageModal";
 import SurplusListing from "./SurplusListing";
 import AdjustmentStatement from "./AdjustmentStatement";
+import GenerateList from "./GenerateList";
+import InsurerDetailsParticipatinBrokers from "../brokercomponents/InsureDetailsParticipationgBrokers";
+import InsurerDetailBrokerAssociates from "../brokercomponents/InsurerDetailBrokerAssociates";
+import PreviewPlacing from "../../ViewTreaty/components/PreviewPlacing";
+import PreviewCover from "../../ViewTreaty/components/PreviewCover";
 
 const ViewTreaty = () => {
   const { user } = useAuth();
@@ -525,31 +529,12 @@ const ViewTreaty = () => {
         <div className="row">
           <div className="col-xl-4">
             <TreatyOverviewSide treaty={data?.treaty} />
+            <PreviewPlacing treaty={data?.treaty} />
+            <PreviewCover treaty={data?.treaty} />
           </div>
           <div className="col-xl-8">
             <div className="row d-flex align-items-stretch">
-              <div
-                className={`col-md-${isProp && !allowAdjustment ? "12" : "6"}`}
-              >
-                <div className="card mini-stats-wid">
-                  <div className="card-body">
-                    <div className="media">
-                      <div className="mr-3 align-self-center"></div>
-                      <div className="media-body">
-                        <p className="text-muted mb-2">
-                          Create Reinsurers list
-                        </p>
-                        <button
-                          onClick={() => setshowCreateList(!showCreateList)}
-                          className="btn btn-primary btn-sm w-md"
-                        >
-                          Create List
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <GenerateList {...{ isProp, allowAdjustment, ...data }} />
               {!isProp && allowAdjustment && (
                 <AdjustmentStatement {...data?.treaty} />
               )}
@@ -593,6 +578,8 @@ const ViewTreaty = () => {
           treaty={data?.treaty}
           associates={associates}
         />
+        <InsurerDetailsParticipatinBrokers treaty={data?.treaty} />
+        <InsurerDetailBrokerAssociates treaty={data?.treaty} />
       </div>
 
       {/* Add percentage Modal */}
@@ -613,20 +600,6 @@ const ViewTreaty = () => {
           percentageErrorEntry={percentageErrorEntry}
         />
       </Modal>
-
-      <Drawer
-        width={600}
-        toggle={() => setshowCreateList(!showCreateList)}
-        isvisible={showCreateList}
-      >
-        {showCreateList && (
-          <CreateTreatyBroadCastList
-            treaty={data?.treaty}
-            treaty_id={data?.treaty?.treaty_id}
-            toggle={() => setshowCreateList(!showCreateList)}
-          />
-        )}
-      </Drawer>
 
       <Drawer
         width="50%"

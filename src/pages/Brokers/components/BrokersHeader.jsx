@@ -1,10 +1,11 @@
-import { Drawer } from "components";
+import { Drawer } from "../../../components";
 import React, { useState } from "react";
 import { Fragment } from "react";
 import AddBrokerForm from "./AddBrokerForm";
 
 const BrokersHeader = () => {
   const [addBroker, setAddBroker] = useState(false);
+  
   return (
     <Fragment>
       <div className="container-fluid">
@@ -31,8 +32,9 @@ const BrokersHeader = () => {
         width="40%"
         isvisible={addBroker}
         toggle={() => setAddBroker(false)}
+        setShow={setAddBroker}
       >
-        <AddBrokerForm editing={{ name: "" }} setShow={setAddBroker} />
+        <AddBrokerForm  />
       </Drawer>
     </Fragment>
   );

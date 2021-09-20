@@ -7,8 +7,14 @@ import { useWindowDimensions } from "../index";
 
 export const DrawerContext = createContext();
 
-
-function Drawer({ children, containerStyles = {}, width, isvisible, toggle }) {
+function Drawer({
+  children,
+  containerStyles = {},
+  width,
+  isvisible,
+  toggle,
+  setShow,
+}) {
   const { width: R_width } = useWindowDimensions();
   const [closed, setclosed] = React.useState(true);
   const handleToggle = (event) => {
@@ -24,7 +30,21 @@ function Drawer({ children, containerStyles = {}, width, isvisible, toggle }) {
     }
   }, [isvisible]);
 
-  const zIndex = 0
+  const zIndex = 0;
+
+  const allChildren = React.Children.map(children, (child) => {
+    // console.log(child);
+    if (child) {
+      if (typeof child.type !== "function") return child;
+      const clone = React.cloneElement(child, {
+        // zIndex: zIndex,
+        setShow: setShow,
+      });
+
+      return clone;
+    }
+    return null;
+  });
 
   return ReactDom.createPortal(
     <DrawerContext.Provider value={{ closed }}>
@@ -73,9 +93,8 @@ function Drawer({ children, containerStyles = {}, width, isvisible, toggle }) {
               X
             </div>
           </div>
-          <div style={{ margin: isvisible ? 30 : 0 }}>{children}</div>
+          <div style={{ margin: isvisible ? 30 : 0 }}>{isvisible && allChildren}</div>
         </div>
-        {/* </div> */}
       </Slide>
     </DrawerContext.Provider>,
     document.getElementById("drawer")

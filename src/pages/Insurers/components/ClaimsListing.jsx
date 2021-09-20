@@ -111,12 +111,9 @@ const ClaimsListing = ({ claims = [], treaty, setShow }) => {
           section: payment.uuid,
           actions: (
             <>
-              {/* <button
-                onClick={() => setSelectedPayment(payment)}
-                className="btn btn-sm  btn-info mr-1"
-              >
-                View
-              </button> */}
+              <button onClick={() => {}} className="btn btn-sm  btn-info mr-1">
+                Clear Cheque
+              </button>
               <button
                 onClick={() => handleRemovePayment(payment)}
                 className="btn btn-sm  btn-danger "

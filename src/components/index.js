@@ -143,6 +143,28 @@ export const ReinsurerOption = ({
     </div>
   ) : null;
 
+
+export const CountryOption = ({
+  innerProps,
+  isSelected,
+  isDisabled,
+  label,
+  value,
+}) =>
+  !isDisabled && !isSelected ? (
+    <div {...innerProps} className="row d-flex align-items-center p-1">
+      <div className="col-md-2 d-flex justify-content-center">
+        <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
+          {value.alpha2Code || "NA"}
+        </span>
+      </div>
+      <div className="col-md-10">
+        <h4>{label}</h4>
+        <p>{value.alpha2Code}</p>
+      </div>
+    </div>
+  ) : null;
+
 export const generateNewCulumns = (list, exclude) =>
   list.filter((item) => !exclude.includes(item.field));
 

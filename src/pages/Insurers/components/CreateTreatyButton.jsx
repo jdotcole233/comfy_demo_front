@@ -1,12 +1,26 @@
 import React, { useState } from "react";
 import { Drawer } from "../../../components";
 import CreateTreatyForm from "./CreateTreatyForm";
+import { Link, useLocation } from "react-router-dom";
 
 const CreateTreatyButton = ({ insurer, refetch }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { pathname } = useLocation();
   return (
     <>
+      {/* <Link
+        to={`${pathname}/${Buffer.from(insurer?.insurer_id).toString(
+          "base64"
+        )}/create-treaty`}
+        onClick={() => setOpenDrawer(!openDrawer)}
+        className="btn btn-primary waves-effect waves-light btn-sm mr-1"
+      >
+        Create Treaty <i className="mdi mdi-arrow-right ml-1"></i>
+      </Link> */}
       <button
+        // to={`${pathname}/${Buffer.from(insurer?.insurer_id).toString(
+        //   "base64"
+        // )}/create-treaty`}
         onClick={() => setOpenDrawer(!openDrawer)}
         className="btn btn-primary waves-effect waves-light btn-sm mr-1"
       >
