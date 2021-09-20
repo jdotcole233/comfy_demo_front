@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Loader } from "components";
-import { USER_ROLES } from "graphql/queries/settings";
+import { Loader } from "../../components";
+import { USER_ROLES } from "../../graphql/queries/settings";
 import React from "react";
 import { useQuery } from "react-apollo";
 import AddRole from "./components/AddRole";

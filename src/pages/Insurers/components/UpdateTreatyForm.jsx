@@ -6,7 +6,13 @@ import styles from "../styles/ViewInsurerOffer.module.css";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-apollo";
 import { INSURER_TREATY_PROGRAMS } from "../../../graphql/queries/treaty";
-import { Selector, CurrencyOption, Input, Loader } from "../../../components";
+import {
+  Selector,
+  CurrencyOption,
+  Input,
+  Loader,
+  Editor,
+} from "../../../components";
 import currencies from "../../../assets/currencies.json";
 import {
   ADD_DEDUCTION_TO_TREATY,
@@ -29,7 +35,9 @@ const prepTreatyValues = (values, detials, limitLayers, treaty, typeObj) => {
         typeObj.value,
         values
       ),
-      treaty_reference: values.treaty_reference,
+      treaty_reference: values?.treaty_reference,
+      order_hereon: values?.order_hereon,
+      treaty_comment: values?.treaty_comment,
       currency: values?.currency,
       treaty_associate_deductionstreaty_associate_deduction_id:
         values?.treaty_associate_deductionstreaty_associate_deduction_id,
@@ -43,7 +51,8 @@ const prepTreatyValues = (values, detials, limitLayers, treaty, typeObj) => {
 };
 
 const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
-  const { register, errors, handleSubmit, reset, setValue } = useForm();
+  const { register, errors, handleSubmit, reset, setValue, clearError } =
+    useForm();
   const _form = useForm();
   const [currency, setCurrency] = useState(null);
   const [deductionCreated, setDeductionCreated] = useState(false);
@@ -53,6 +62,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
   const [selectedProgramType, setSelectedProgramType] = useState(null);
   const [limitLayers, setLimitLayers] = useState([]);
   const [surpluses, setSurpluses] = useState([]);
+  const [content, setContent] = useState("");
   const [oldInsurerId, setOldInsurerId] = useState(false);
 
   const { data, loading, error, refetch } = useQuery(INSURER_TREATY_PROGRAMS, {
@@ -86,6 +96,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
       );
       _form.setValue("currency", treaty?.currency);
       _form.setValue("treaty_reference", treaty?.treaty_reference);
+      _form.setValue("order_hereon", treaty?.order_hereon);
       setCurrency(treaty?.currency);
       setTreatyDetials(JSON.parse(treaty?.treaty_details));
       setOldInsurerId({
@@ -156,6 +167,14 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
     setCurrency(value ? value.value.code : "");
     if (value) {
       _form.clearError("currency");
+    }
+  };
+
+  const handleCommentChange = (value) => {
+    setValue("treaty_comment", value);
+    setContent(value);
+    if (value) {
+      clearError("treaty_comment");
     }
   };
 
@@ -458,6 +477,26 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
           )}
         </div>
       </div>
+      <div className="row">
+        <div className="col-md-12">
+          <div className="form-group">
+            <label htmlFor="Type of goods">Order Hereon (%)</label>
+            <input
+              type="number"
+              step="any"
+              ref={_form.register({
+                required: "Required",
+              })}
+              name="order_hereon"
+              className="form-control"
+              placeholder="Order Hereon"
+            />
+            {errors.order_hereon && (
+              <p className="text-danger">{errors.order_hereon.message}</p>
+            )}
+          </div>
+        </div>
+      </div>
       {createDeduction && (
         <Alert variant="danger">
           <p>
@@ -604,7 +643,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
         </form>
       </fieldset>
 
-      {(selectedProgram || oldInsurerId) && treatyDetials?.length > 0 ? (
+      {/* {(selectedProgram || oldInsurerId) && treatyDetials?.length > 0 ? (
         <fieldset className="w-auto p-2 border">
           <legend className={styles.details_title}>Treaty details</legend>
           <div className="row">
@@ -631,7 +670,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             ))}
           </div>
         </fieldset>
-      ) : null}
+      ) : null} */}
       <div className="row mt-2">
         <div className="col-md-12">
           <label htmlFor="Type of goods">Currency</label>
@@ -1083,6 +1122,24 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
               </div>
             </fieldset>
           ))}
+          {/* <fieldset className="w-auto p-2  border-form">
+            <legend className={styles.details_title}>Comment</legend>
+            <div className="row">
+              <div className="col-md-12">
+                <div className="form-group">
+                  <Editor value={content} onChange={handleCommentChange} />
+                  <textarea
+                    hidden
+                    rows={10}
+                    ref={register({ required: false })}
+                    name="treaty_comment"
+                    className="form-control"
+                    placeholder="Add Comment"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </fieldset> */}
         </Fragment>
       )}
       <div className="row mt-3">

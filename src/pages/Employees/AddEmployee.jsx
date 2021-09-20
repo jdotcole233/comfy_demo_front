@@ -9,7 +9,7 @@ import {
 } from "../../graphql/mutattions/employees";
 import swal from "sweetalert";
 import { EMPLOYEES } from "../../graphql/queries/employees";
-import { USER_ROLES } from "graphql/queries/settings";
+import { USER_ROLES } from "../../graphql/queries/settings";
 
 const getRoleId = (roles, role) =>
   roles.find((r) => r.position === role).user_role_id || "";

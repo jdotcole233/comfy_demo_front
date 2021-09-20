@@ -233,6 +233,7 @@ query treaty($treaty_id: ID) {
         created_at
       }
     insurer {
+      insurer_id
       insurer_company_name
       insurer_address {
         suburb
@@ -323,6 +324,50 @@ query treaty($treaty_id: ID) {
         rep_primary_phonenumber
         rep_secondary_phonenumber
         rep_email
+      }
+    }
+    re_broker_treaties_participation {
+      re_broker_treaties_participation_id
+      share_percentage
+      admin_percentage
+      payment_status
+      re_broker {
+        re_broker_id
+        re_broker_name
+        re_broker_email
+      }
+      surplus_participation {
+        re_broker_treaties_surplus_participation_id
+        share_amount
+        admin_charge
+        treaty_account {
+          treaty_account_id
+          account_periods
+          gross_premium
+          claim_settled
+          cash_loss
+          exchange_rate
+          account_year
+          payment_status
+        }
+      }
+    }
+    treaty_to_broker_associates {
+      participation_to_broker_associate_id
+      sent_status
+      message_content
+      broker_associate {
+        re_broker_associate_id
+        re_broker_assoc_first_name
+        re_broker_assoc_last_name
+        re_broker_assoc_email
+        re_broker_assoc_primary_phone
+        re_broker_assoc_secondary_phone
+        re_broker {
+          re_broker_id
+          re_broker_name
+          re_broker_email
+        }
       }
     }
     treaty_participants {

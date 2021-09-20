@@ -16,11 +16,10 @@ const InsurerDetailOffers = ({
 }) => {
   const { type } = useSelector((state) => state.insurer);
   // const { insurer } = useInsurerProps();
-  console.log("InsurerDetailOffers", insurer);
   const offers = useMemo(() => {
     const list = [];
     if (insurer) {
-      insurer.insurer.offers.map((offer, i) => {
+      insurer.insurer.offers.map((offer) => {
         const expected =
           parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
@@ -81,6 +80,7 @@ const InsurerDetailOffers = ({
           comission: offer.commission,
           cob: offer.classofbusiness.business_name,
           offer_date: offer.created_at,
+          status: offer.payment_status,
           offer_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
@@ -187,6 +187,7 @@ const InsurerDetailOffers = ({
           comission: offer.commission,
           cob: offer.classofbusiness.business_name,
           offer_date: offer.created_at,
+          status: offer.payment_status,
           offer_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}

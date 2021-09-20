@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from "react";
 import { Alert } from "react-bootstrap";
-import { Selector } from "../../components";
+import { ReinsurerOption, Selector } from "../../components";
 import { useForm } from "react-hook-form";
 import countriesData from "../../assets/countriesData";
 import { useMutation, useQuery } from "react-apollo";
@@ -155,20 +155,7 @@ function AddInsurer({ edit, toggle, data, closed }) {
     }
   }, [selectedReinsurer]);
 
-  const CustomOption = ({ innerProps, isSelected, isDisabled, label, value }) =>
-    !isDisabled && !isSelected ? (
-      <div {...innerProps} className="row p-2">
-        <div className="col-md-8">
-          <h4>{label}</h4>
-          <p>{value.re_company_email}</p>
-        </div>
-        <div className="col-md-4 d-flex justify-content-end">
-          <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
-            {value.re_abbrv || "NA"}
-          </span>
-        </div>
-      </div>
-    ) : null;
+ 
 
   const Form = (
     <div className="col-md-12">
@@ -358,7 +345,7 @@ function AddInsurer({ edit, toggle, data, closed }) {
                   </strong>
                 </Alert>
                 <Selector
-                  components={{ Option: CustomOption }}
+                  components={{ Option: ReinsurerOption }}
                   onChange={handleGetReinsurer}
                   options={reinsurersData}
                 />

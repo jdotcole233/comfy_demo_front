@@ -1,14 +1,15 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import TreatyButtons from "./TreatyButtons";
 import CreateTreatyButton from "./CreateTreatyButton";
 import { treatyColumns } from "../dummy";
 import { Datatable } from "../../../components";
+import GeneratePaymentSchedulePluginButton from "../../BrokerGeneratePaymentSchedule/components/GeneratePaymentSchedulePluginButton";
 
 const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
   const { type } = useSelector((state) => state.insurer);
-
+  const [status, setStatus] = useState("UNPAID");
   const treaties = useMemo(() => {
     const list = [];
     if (insurer && insurer.treaties) {
@@ -30,6 +31,7 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
           treaty_program: treaty.treaty_program?.treaty_name,
           program_type: treaty.treaty_program?.treaty_type,
           currency: currency,
+          status: treaty.treaty_payment_status,
           treaty_payment_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
@@ -65,7 +67,47 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
         <div className="card-body">
           <div className="d-flex justify-content-between">
             <h4 className="card-title mb-4">Treaties</h4>
-            <CreateTreatyButton refetch={refetch} insurer={insurer} />
+            <div>
+              <GeneratePaymentSchedulePluginButton {...insurer} />
+              <CreateTreatyButton refetch={refetch} insurer={insurer} />
+            </div>
+          </div>
+          <div className="">
+            <div className="row mb-3">
+              <div
+                className="btn-group"
+                role="group"
+                aria-label="Basic example"
+              >
+                <button
+                  onClick={() => setStatus("UNPAID")}
+                  type="button"
+                  className={`btn btn-${
+                    status !== "UNPAID" ? "secondary" : "success"
+                  }`}
+                >
+                  Unpaid
+                </button>
+                <button
+                  onClick={() => setStatus("PARTPAYMENT")}
+                  type="button"
+                  className={`btn btn-${
+                    status !== "PARTPAYMENT" ? "secondary" : "success"
+                  }`}
+                >
+                  Partpayment
+                </button>
+                <button
+                  onClick={() => setStatus("PAID")}
+                  type="button"
+                  className={`btn btn-${
+                    status !== "PAID" ? "secondary" : "success"
+                  }`}
+                >
+                  Paid
+                </button>
+              </div>
+            </div>
           </div>
           <Datatable
             btn
@@ -74,7 +116,7 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
             striped
             responsive
             bordered
-            data={treaties}
+            data={treaties.filter((o) => o.status === status)}
             columns={treatyColumns}
           />
         </div>

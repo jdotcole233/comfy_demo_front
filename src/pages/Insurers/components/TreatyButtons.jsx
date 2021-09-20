@@ -95,19 +95,25 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
             <>
               <button
                 onClick={() => handleShowEditpaymentDrawer(payment)}
-                className="btn btn-sm  btn-info mr-1"
+                className="btn btn-sm m-1 btn-info mr-1"
               >
                 View
               </button>
               <button
                 onClick={() => handleRemovePayment(payment)}
-                className="btn btn-sm  btn-danger "
+                className="btn btn-sm m-1  btn-danger "
               >
                 Remove
               </button>
               <button
+                // onClick={() => handleGenerateReceipt(payment)}
+                className="btn m-1 btn-sm btn-primary  mx-1"
+              >
+                Clear Cheque
+              </button>
+              <button
                 onClick={() => handleGenerateReceipt(payment)}
-                className="btn btn-sm btn-success w-md mx-1"
+                className="btn m-1 btn-sm btn-success  mx-1"
               >
                 Generate Receipt
               </button>
@@ -301,7 +307,7 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
             size="sm"
             as={ButtonGroup}
             id="dropdown-basic-button"
-            title={isProp ? "Payments" : "M&D Payments"}
+            title={isProp ? "Receipt" : "M&D Payments"}
           >
             {!isProp && treaty?.treaty_np_payments.length > 0 ? (
               <Dropdown.Item onClick={togglePayments}>
@@ -311,12 +317,12 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
 
             {showBtn && treaty?.treaty_payment_status !== "PAID" && (
               <Dropdown.Item onClick={() => setShowAddPayment(true)}>
-                Make Payments
+                Make {isProp ? "Receipt" : "Payment"}
               </Dropdown.Item>
             )}
             {!showBtn && (
               <Dropdown.Item onClick={toggleDistributePayments}>
-                Distribute Payment
+                Distribute {isProp ? "Receipt" : "Payment"}
               </Dropdown.Item>
             )}
           </DropdownButton>

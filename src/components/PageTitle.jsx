@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 
-function PageTitle({ name }) {
+function PageTitle({ name, base = "Dashboard" }) {
     return (
         <div className="container-fluid">
             <div className="row">
@@ -12,9 +12,9 @@ function PageTitle({ name }) {
                         <div className="page-title-right">
                             <ol className="breadcrumb m-0">
                                 <li className="breadcrumb-item">
-                                    <a>Dashboard</a>
+                                    <a>{base}</a>
                                 </li>
-                                <li className="breadcrumb-item active">{name === "Dashboard" ? "Home" : name}</li>
+                                <li className="breadcrumb-item active">{name === base ? "Home" : name}</li>
                             </ol>
                         </div>
                     </div>

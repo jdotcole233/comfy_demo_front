@@ -296,13 +296,14 @@ const TreatyClaimsButtons = ({ treaty }) => {
         width="40%"
         isvisible={makeClaim}
         toggle={() => setMakeClaim(false)}
+        setShow={setMakeClaim}
       >
-        <MakeClaimForm details={treaty} setShow={setMakeClaim} />
+        <MakeClaimForm details={treaty} setShow_={setMakeClaim} />
       </Drawer>
 
       {/* Drawer for claim request */}
       <Drawer
-        width="40%"
+        width="50%"
         isvisible={claimRequest}
         toggle={() => setClaimRequest(false)}
       >

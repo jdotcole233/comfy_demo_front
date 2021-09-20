@@ -18,6 +18,40 @@ const hasOptionsAndNotEmpty = (options = []) => {
   return status;
 };
 
+const proportionalArray = [
+  "currency",
+  "Geographical Scope",
+  "Class of Risk/ Class of Business",
+  "Treaty Detail",
+  "Facultative Inward Acceptance",
+  "Rates",
+  "Profit Comission",
+  "Portfolio",
+  "Notice of claim",
+  "Cash Loss limit",
+  "Account Submission",
+  "Account Settlement",
+  "Revision of confirmed balances",
+  "General Conditions",
+  "Exclusion",
+  "Alteration",
+  "Wording",
+  "Exchange Rate",
+  "Additional Information",
+];
+
+const nonproportionalArray = [
+  "currency",
+  "Territorial Scope,",
+  "Limit",
+  "Reinstatement",
+  "Premium/Minimum & Deposit Premium,",
+  "Conditions",
+  "Special Exclusion",
+  "Alterations",
+  "Wording",
+  "Exchange Rate",
+];
 const NewTreaty = (props) => {
   const [addintionalInputFields, setaddintionalInputFields] = useState([]);
   const [detailCount, setCount] = useState(0);
@@ -123,27 +157,43 @@ const NewTreaty = (props) => {
 
   useEffect(() => {
     if (treaty_type && treaty_type.value === "PROPORTIONAL") {
-      setaddintionalInputFields([
-        {
-          keydetail: "currency",
-          value: "",
-          required: true,
-        },
-      ]);
+      const initialRows = proportionalArray.map((key) => ({
+        keydetail: key,
+        value: "",
+        required: true,
+      }));
+      setaddintionalInputFields(initialRows);
     } else {
-      setaddintionalInputFields([]);
+      const initialRows = nonproportionalArray.map((key) => ({
+        keydetail: key,
+        value: "",
+        required: true,
+      }));
+      setaddintionalInputFields(initialRows);
     }
   }, [treaty_type]);
 
   const counter = treaty_type && treaty_type.value === "PROPORTIONAL" ? 1 : 0;
 
+  useEffect(() => {
+    if (props.noTreatyFound && insurersData.length > 0) {
+      const insurer = insurersData.find(
+        (insurer) => insurer.value.insurer_id === props.noTreatyFound
+      );
+      setInsurer(insurer);
+    }
+  }, [props.noTreatyFound, insurersData]);
+
   return (
     <div className="">
       <div className={styles.card_header}>
         <h2 className={styles.card_title}>Create Treaty Program</h2>
-        {/* <Alert variant="danger">
-                    <strong>A copy of the offer will be sent to the list of associates to be created below</strong>
-                </Alert> */}
+        {props.noTreatyFound && (
+          <div className="alert alert-info">
+            <p>No Treaty programs were detected for the said Insurer</p>
+            <p>Please create one to continue</p>
+          </div>
+        )}
       </div>
       <div className={styles.card_body}>
         <div className="form-group">
@@ -198,37 +248,38 @@ const NewTreaty = (props) => {
         </div>
         <div className="form-group">
           <div className="row">
-            {addintionalInputFields.map((el, key) => (
-              <div className="col-md-6 mb-3">
-                <div className="input-group">
-                  <input
-                    value={el.keydetail}
-                    onChange={(e) => handleInputChange(e, key)}
-                    type="text"
-                    className="form-control"
-                    placeholder={`Detail ${key + 1}`}
-                    readOnly={
-                      treaty_type &&
-                      treaty_type.value === "PROPORTIONAL" &&
-                      el.keydetail === "currency"
-                    }
-                  />
-                  <div className="input-group-prepend">
-                    <button
-                      disabled={
-                        treaty_type &&
-                        treaty_type.value === "PROPORTIONAL" &&
-                        el.keydetail === "currency"
+            {treaty_type &&
+              addintionalInputFields.map((el, key) => (
+                <div className="col-md-6 mb-3">
+                  <div className="input-group">
+                    <input
+                      value={el.keydetail}
+                      onChange={(e) => handleInputChange(e, key)}
+                      type="text"
+                      className="form-control"
+                      placeholder={`Detail ${key + 1}`}
+                      readOnly={
+                        treaty_type.value === "PROPORTIONAL"
+                          ? proportionalArray.includes(el.keydetail)
+                          : nonproportionalArray.includes(el.keydetail)
                       }
-                      onClick={() => handleRemoveParticularInput(key)}
-                      className="btn btn-danger"
-                      type="button"
-                    >
-                      X
-                    </button>
+                    />
+                    <div className="input-group-prepend">
+                      <button
+                        disabled={
+                          treaty_type.value === "PROPORTIONAL"
+                            ? proportionalArray.includes(el.keydetail)
+                            : nonproportionalArray.includes(el.keydetail)
+                        }
+                        onClick={() => handleRemoveParticularInput(key)}
+                        className="btn btn-danger"
+                        type="button"
+                      >
+                        X
+                      </button>
+                    </div>
                   </div>
-                </div>
-                {/* <div className="form-check mb-3">
+                  {/* <div className="form-check mb-3">
                   <input
                     checked={el.required}
                     type="checkbox"
@@ -239,8 +290,8 @@ const NewTreaty = (props) => {
                     Required
                   </label>
                 </div> */}
-              </div>
-            ))}
+                </div>
+              ))}
           </div>
         </div>
 

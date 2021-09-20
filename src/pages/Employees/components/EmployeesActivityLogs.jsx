@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useAuth } from "context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 import React, { useMemo, useState } from "react";
 import { Datatable, Modal } from "../../../components";
 import { columns } from "../columns";

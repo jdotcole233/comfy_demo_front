@@ -1,0 +1,55 @@
+.preview-card {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.preview-card-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 200;
+}
+
+address {
+  font-size: larger;
+  color: #000000;
+}
+
+.preview-head-logo img {
+  height: 100px;
+  width: 100px;
+  align-self: center;
+}
+
+.dark-text {
+  color: #000000;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.dark-text-value {
+  color: #000000;
+  font-size: medium;
+}
+
+.trial-balance-tr > td {
+  color: #000000;
+  font-weight: 400;
+  font-size: medium;
+}
+
+.trial-balance-tr .balance {
+  color: #000000;
+  font-weight: bolder;
+  font-size: large;
+}
+
+.trial-balance-tr > th {
+  color: #000000;
+  font-size: larger;
+  font-weight: bold;
+}

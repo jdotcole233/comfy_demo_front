@@ -21,6 +21,7 @@ function EffectedWithListing({
 }) {
   const [showDeductionDrawer, setShowDeductionDrawer] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(1);
+  const [expand, setToggle] = useState(false);
   const toggle = () => setShowDeductionDrawer((prev) => !prev);
   const isNonProp = treaty?.treaty_program?.treaty_type === "NONPROPORTIONAL";
 
@@ -55,10 +56,19 @@ function EffectedWithListing({
       <div className="row">
         <div className="col-lg-12">
           <div className="card">
-            <div className="card-body">
+            <div className="col-md-12 d-flex justify-content-between card-body">
+              <span className="card-title">Effected with (Reinsurers)</span>
+              <button
+                onClick={() => setToggle((prev) => !prev)}
+                className="btn"
+              >
+                {expand ? "Collapse" : "Expand"}
+              </button>
+            </div>
+            {expand &&<div className="card-body">
               <div className="d-flex justify-content-between">
-                <h4 className="card-title mb-4">Effected with(Reinsurers)</h4>
-                <div className="">
+                <h4 className="card-title mb-4"></h4>
+                <div className="mb-4">
                   {!isNonProp && (
                     <PortfolioStatment
                       id={
@@ -207,6 +217,7 @@ function EffectedWithListing({
                 />
               </div>
             </div>
+}
           </div>
         </div>
       </div>

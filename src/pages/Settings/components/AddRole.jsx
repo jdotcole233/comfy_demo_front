@@ -1,11 +1,11 @@
 /* eslint-disable no-throw-literal */
 import { useMutation } from "react-apollo";
-import { Input, Modal, ModalHeader, ModalBody } from "components";
+import { Input, Modal, ModalHeader, ModalBody } from "../../../components";
 import {
   CREATE_USER_ROLE,
   UPDATE_USER_ROLE,
-} from "graphql/mutattions/settings";
-import { USER_ROLES } from "graphql/queries/settings";
+} from "../../../graphql/mutattions/settings";
+import { USER_ROLES } from "../../../graphql/queries/settings";
 import React, { Fragment, useEffect, useState } from "react";
 import swal from "sweetalert";
 

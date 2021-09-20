@@ -1,0 +1,38 @@
+.card_header {
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.card_title {
+  font-variant: small-caps;
+  font-weight: lighter;
+}
+
+.card_body {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.details_title {
+  /* font-weight: lighter; */
+  font-size: large;
+  width: auto;
+  margin-bottom: 10px;
+  font-variant: small-caps;
+}
+
+
+.repCard {
+  width: 100%;
+  /* padding: 5px; */
+  padding-left: 10px;
+  background-color: #273B97;
+  margin-bottom: 5px;
+  /* height: 50px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

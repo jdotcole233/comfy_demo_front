@@ -96,6 +96,10 @@ export const paymentsColumns = [
     field: "created_at",
   },
   {
+    label: "Date Cheque cleared",
+    field: "created_at",
+  },
+  {
     label: "Last Payment Upate",
     field: "updated_at",
   },

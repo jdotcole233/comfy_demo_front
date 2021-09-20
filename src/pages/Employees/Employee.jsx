@@ -13,7 +13,7 @@ import { useState } from "react";
 import { Datatable, Modal } from "../../components";
 import columns from "./columns";
 import _ from "lodash";
-import { useAuth } from "context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Employees({ data, openViewEmployee }) {
   const { user } = useAuth();
