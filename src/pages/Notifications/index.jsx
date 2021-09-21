@@ -19,7 +19,7 @@ import {
   CLEAR_NOTIFICATIONS,
 } from "../../graphql/mutattions/Notifications";
 import { Input, Loader } from "../../components";
-import { AuthContext } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const filterNotifications = (notifications, selectedFilters) => {
   if (selectedFilters.length === 0) return notifications;
@@ -40,7 +40,7 @@ const notificationTypes = [
 ];
 
 export default () => {
-  const { state } = useContext(AuthContext);
+  const { user } = useAuth();
   const { state: notifState } = useLocation();
   const [selectedNotification, setSelectedNotification] = useState(null);
   const [notifications, setNotifications] = useState([]);
@@ -52,7 +52,7 @@ export default () => {
     refetchQueries: [
       {
         query: NOTIFICATIONS,
-        variables: { id: state?.user?.employee?.employee_id },
+        variables: { id: user?.employee?.employee_id },
       },
     ],
   });
@@ -61,7 +61,7 @@ export default () => {
   };
   const { data, refetch, loading } = useQuery(NOTIFICATIONS, {
     variables: {
-      id: state?.user?.employee?.employee_id,
+      id: user?.employee?.employee_id,
       page,
       first: 100,
     },
@@ -179,9 +179,7 @@ export default () => {
     }
   };
 
-  if (!data) {
-    return <Loader />;
-  }
+  if (loading) return <Loader />;
 
   return (
     <div className="page-content">
