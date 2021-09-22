@@ -31,6 +31,8 @@ const BrokerButtons = ({
     ],
   });
 
+  const isProp = treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
+
   const handleRemoveBroker = () => {
     swal({
       closeOnClickOutside: false,
@@ -91,7 +93,16 @@ const BrokerButtons = ({
           </Dropdown.Item>
         )}
       </DropdownButton>
-      {treaty?.treaty_accounts?.length > 0 && (
+      {isProp && treaty?.treaty_accounts?.length > 0 && (
+        <button
+          onClick={() => setPreviewClosing(true)}
+          className="btn btn-success btn-sm"
+        >
+          Preview closing
+        </button>
+      )}
+
+      {!isProp && (
         <button
           onClick={() => setPreviewClosing(true)}
           className="btn btn-success btn-sm"

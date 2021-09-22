@@ -41,16 +41,17 @@ const proportionalArray = [
 ];
 
 const nonproportionalArray = [
-  "currency",
-  "Territorial Scope,",
+  "Class of Business",
+  "Territorial Scope",
   "Limit",
   "Reinstatement",
-  "Premium/Minimum & Deposit Premium,",
+  "Premium/Minimum & Deposit Premium",
   "Conditions",
   "Special Exclusion",
   "Alterations",
   "Wording",
   "Exchange Rate",
+  "Additional Information",
 ];
 const NewTreaty = (props) => {
   const [addintionalInputFields, setaddintionalInputFields] = useState([]);
