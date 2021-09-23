@@ -19,6 +19,7 @@ const OfferListing = ({
   path,
 }) => {
   const [_tab, setTab] = useState("recent");
+  const [status, setStatus] = useState("UNPAID");
   const { tab } = useParams();
 
   useEffect(() => {
@@ -91,10 +92,45 @@ const OfferListing = ({
                 )}
               </div>
 
+              <div className="row mb-3">
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Basic example"
+                >
+                  <button
+                    onClick={() => setStatus("UNPAID")}
+                    type="button"
+                    className={`btn btn-${
+                      status !== "UNPAID" ? "secondary" : "success"
+                    }`}
+                  >
+                    Unpaid
+                  </button>
+                  <button
+                    onClick={() => setStatus("PARTPAYMENT")}
+                    type="button"
+                    className={`btn btn-${
+                      status !== "PARTPAYMENT" ? "secondary" : "success"
+                    }`}
+                  >
+                    Partpayment
+                  </button>
+                  <button
+                    onClick={() => setStatus("PAID")}
+                    type="button"
+                    className={`btn btn-${
+                      status !== "PAID" ? "secondary" : "success"
+                    }`}
+                  >
+                    Paid
+                  </button>
+                </div>
+              </div>
               {tab === "recent" && (
                 <div>
                   <Datatable
-                    data={recent}
+                    data={recent.filter((o) => o.status === status)}
                     entries={entries}
                     columns={columns}
                   />
@@ -113,7 +149,11 @@ const OfferListing = ({
                       </button>
                     )}
                   </div>
-                  <Datatable data={all} entries={entries} columns={columns} />
+                  <Datatable
+                    data={all.filter((o) => o.status === status)}
+                    entries={entries}
+                    columns={columns}
+                  />
                 </div>
               )}
             </div>

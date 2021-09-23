@@ -11,7 +11,7 @@ import { REINSURER, REINSURER_OFFERS } from "../../graphql/queries";
 import OfferButtons from "./components/OfferButtons";
 import AssociateButtons from "./components/AssociateButtons";
 import BrokerageComponent from "./components/BrokerageComponent";
-import OfferListing from "../CreateSlip/OfferListing";
+import OfferListing from "./OfferListing";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useReinsurer } from "../../context/ReinsurersProvider";

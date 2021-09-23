@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import OfferButtons from "./Offerbuttons";
 import f_dat from "../dummy";
 // import _ from "lodash";
-import OfferListing from "../../CreateSlip/OfferListing";
+import OfferListing from "../OfferListing";
 
 // import { useInsurerProps } from "../providers/InsurerProvider";
 // const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
