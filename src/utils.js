@@ -44,3 +44,9 @@ export const calculateMAndDValue = ({ layers = [], egrnpi }) => {
     }));
     return newLayers;
 }
+
+
+export const generateList = (list, status, position) => {
+    if (position !== "Finance Executive") return list;
+    return list.filter((o) => o.status === status)
+}
