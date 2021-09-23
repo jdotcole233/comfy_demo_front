@@ -28,6 +28,7 @@ import { useDispatch } from "react-redux";
 import { GET_INSURER } from "../../../redux/types/InsurerTypes";
 import NewTreaty from "./NewTreaty";
 import _ from "lodash";
+import { calculateMAndDValue } from "../../../utils";
 
 export const createExtendedTreatyDetails = (type, values) => {
   return {
@@ -70,6 +71,7 @@ const prepTreatyValues = (values, details, limitLayers, typeObj) => {
         values?.treaty_programstreaty_program_id,
       treaty_reference: values.treaty_reference,
       order_hereon: values?.order_hereon,
+      kek_reference: values?.kek_reference,
       layer_limit: JSON.stringify(limitLayers),
     },
   };
@@ -277,7 +279,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             },
             ...surpluses,
           ]
-        : limitLayers,
+        : calculateMAndDValue({ layers: limitLayers, egrnpi: values.egrnpi }),
       selectedProgramType
     );
     swal({
@@ -311,11 +313,11 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             setCreateDeduction(false);
             setCurrency(null);
           } else {
-            swal("Whhoops!!", "Treaty not created successfully", "error");
+            swal("Whoops!!", "Treaty not created successfully", "error");
           }
         })
         .catch((err) => {
-          swal("Whhoops!!", "Treaty not created successfully", "error");
+          swal("Error", "Treaty not created successfully", "error");
         });
     });
   };
@@ -409,14 +411,6 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   }, [_form.errors]);
 
   if (loading) return <Loader />;
-
-  if (data && data?.insurerTreatyProgram.length < 1)
-    return (
-      <NewTreaty
-        setOpenDrawer={setOpenDrawer}
-        noTreatyFound={insurer?.insurer_id}
-      />
-    );
 
   return (
     <form onSubmit={_form.handleSubmit(onSubmitTreatyForm)}>
@@ -518,6 +512,25 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
               {_form.errors.treaty_programstreaty_program_id.message}
             </p>
           )}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <div className="form-group">
+            <label htmlFor="Type of goods">KEK Reference</label>
+            <input
+              type="text"
+              ref={_form.register({
+                required: false,
+              })}
+              name="kek_reference"
+              className="form-control"
+              placeholder="KEK Reference"
+            />
+            {errors.kek_reference && (
+              <p className="text-danger">{errors.kek_reference.message}</p>
+            )}
+          </div>
         </div>
       </div>
       <div className="row">

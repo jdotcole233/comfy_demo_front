@@ -58,7 +58,7 @@ const PreviewPlacing = ({ treaty }) => {
         setShow={setShowMailbox}
         toggle={() => setShowMailbox(false)}
       >
-        <SendPlacingNote />
+        <SendPlacingNote {...{ treaty }} />
       </Drawer>
 
       <Drawer
