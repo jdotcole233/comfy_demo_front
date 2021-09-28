@@ -102,7 +102,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
               selectedOFfer.offer_participant[
                 selectedOFfer.offer_participant.length - 1
               ].offer_participant_payment.length - 1
-            ].paid_details === ""
+            ]?.paid_details === ""
           ) {
             setShowBtn(!!0);
           } else {
