@@ -33,3 +33,20 @@ export const getSumOFNPPayments = ({ treaty_np_payments, uuid }) => {
 export const money = (value) => `${value?.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
 export const mult = (a, b) => parseFloat(a) * parseFloat(b)
+
+export const calculateMAndDValue = ({ layers = [], egrnpi }) => {
+    if (layers.length < 1) return layers;
+    const newLayers = layers.map((layer, key) => ({
+        ...layer,
+        m_and_d_premium: parseFloat(
+            key > 0 ? layer.adjust_rate : layer.min_rate
+        ) * egrnpi * 0.9
+    }));
+    return newLayers;
+}
+
+
+export const generateList = (list, status, position) => {
+    if (position !== "Finance Executive") return list;
+    return list.filter((o) => o.status === status)
+}

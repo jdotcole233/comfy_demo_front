@@ -34,7 +34,7 @@ const PreviewCover = ({ treaty }) => {
         setShow={setShowMailbox}
         toggle={() => setShowMailbox(false)}
       >
-        <SendCoverNote />
+        <SendCoverNote {...{ treaty }} />
       </Drawer>
 
       <Drawer

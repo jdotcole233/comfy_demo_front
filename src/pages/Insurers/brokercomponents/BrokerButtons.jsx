@@ -10,6 +10,7 @@ import { Modal, DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 import swal from "sweetalert";
 import AddBrokerPercentageForm from "./AddBrokerPercentageForm";
 import PreviewClosing from "./PreviewClosing";
+import SendTreatyClosing from "./SendTreatyClosing";
 
 // handleAddPercentage(participant)
 //handleEditPercentage(participant)
@@ -24,12 +25,15 @@ const BrokerButtons = ({
   const { user } = useAuth();
   const [showPercentageModal, setShowPercentageModal] = useState(false);
   const [previewClosing, setPreviewClosing] = useState(false);
+  const [sendClosing, setSendClosing] = useState(false);
   const [setEdit, setSetEdit] = useState("");
   const [removeBroker] = useMutation(REMOVE_BROKER_FROM_TREATY, {
     refetchQueries: [
       { query: TREATY, variables: { treaty_id: treaty?.treaty_id } },
     ],
   });
+
+  const isProp = treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
 
   const handleRemoveBroker = () => {
     swal({
@@ -91,13 +95,40 @@ const BrokerButtons = ({
           </Dropdown.Item>
         )}
       </DropdownButton>
-      {treaty?.treaty_accounts?.length > 0 && (
-        <button
-          onClick={() => setPreviewClosing(true)}
-          className="btn btn-success btn-sm"
+
+      {isProp && treaty?.treaty_accounts?.length > 0 && (
+        <DropdownButton
+          className="mr-1 mb-1"
+          variant="success"
+          size="sm"
+          as={ButtonGroup}
+          id="dropdown-basic-button"
+          title="Closing Slip"
         >
-          Preview closing
-        </button>
+          <Dropdown.Item onClick={() => setPreviewClosing(true)}>
+            Preview
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => setSendClosing(true)}>
+            Send
+          </Dropdown.Item>
+        </DropdownButton>
+      )}
+      {!isProp && (
+        <DropdownButton
+          className="mr-1 mb-1"
+          variant="success"
+          size="sm"
+          as={ButtonGroup}
+          id="dropdown-basic-button"
+          title="Closing Slip"
+        >
+          <Dropdown.Item onClick={() => setPreviewClosing(true)}>
+            Preview
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => setSendClosing(true)}>
+            Send
+          </Dropdown.Item>
+        </DropdownButton>
       )}
 
       <button onClick={() => handleRemoveBroker()} className="btn mb-1">
@@ -110,6 +141,16 @@ const BrokerButtons = ({
         width="50%"
       >
         <PreviewClosing {...{ treaty, re_broker_treaties_participation_id }} />
+      </Drawer>
+
+      <Drawer
+        isvisible={sendClosing}
+        toggle={() => setSendClosing(false)}
+        width="50%"
+      >
+        <SendTreatyClosing
+          {...{ treaty, re_broker_treaties_participation_id }}
+        />
       </Drawer>
 
       <Modal

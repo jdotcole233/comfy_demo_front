@@ -3,7 +3,13 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from "react";
 import styles from "../styles/inputOffer.module.css";
-import { Dropzone, Modal, Datatable, Selector, Editor } from "../../../components";
+import {
+  Dropzone,
+  Modal,
+  Datatable,
+  Selector,
+  Editor,
+} from "../../../components";
 import { useMutation, useQuery } from "react-apollo";
 import { SEND_OFFER_AS_BROADCAST } from "../../../graphql/mutattions";
 import swal from "sweetalert";
@@ -39,21 +45,14 @@ export const validateEmails = (emails) => {
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function SendCoverNote({
-  offer_id,
-  toggle,
-  closed,
-  noOfReinsurers = 0,
-  noOfAssociates = 0,
-}) {
+function SendCoverNote({ treaty, toggle, closed }) {
   const { register, errors, handleSubmit, setError, clearError, reset } =
     useForm();
   const [content, setContent] = useState("");
   const [contentError, setContentError] = useState(false);
   const [files, setFiles] = useState([]);
   const [sendmail, { loading: mailSending }] = useMutation(
-    SEND_OFFER_AS_BROADCAST,
-    { refetchQueries: [{ query: SINGLE_OFFER, variables: { offer_id } }] }
+    SEND_OFFER_AS_BROADCAST
   );
   const [should_send] = useState(0);
   const [inputvalue, setInputvalue] = useState("");
@@ -64,25 +63,9 @@ function SendCoverNote({
   const [data, setData] = useState(null);
   const [include_attachment, setInclude_attachment] = useState(false);
   const [responseData, setResponseData] = useState(null);
-  const { data: employees, loading } = useQuery(EMPLOYEES);
 
-  useEffect(() => {
-    if (employees) {
-      const _emails = employees.employees.map((e) => ({
-        label: e.employee_email,
-        value: e.employee_email,
-      }));
-      setSelectedableEmail(_emails);
-    }
-  }, [employees]);
-
-  useEffect(() => {
-    if (!closed) {
-      reset();
-      setContent("");
-      setFiles([]);
-    }
-  }, [closed, reset]);
+  const noOfReinsurers = treaty?.treaty_participants?.length ?? 0;
+  const noOfAssociates = treaty?.treaty_to_associates?.length ?? 0;
 
   const handleKeyDown = (event) => {
     if (!inputvalue) return;
@@ -130,7 +113,7 @@ function SendCoverNote({
     }
     // return;
     const data = {
-      offer_id,
+      // offer_id,
       message_content: content,
       subject,
       copied_emails: copied_emails.length
@@ -264,7 +247,6 @@ function SendCoverNote({
               onInputChange={handleInputChange}
               isMulti
               value={copiedMails}
-              isLoading={loading}
               onChange={handleCopiedmailChange}
               onKeyDown={handleKeyDown}
               options={selectedableEmail}

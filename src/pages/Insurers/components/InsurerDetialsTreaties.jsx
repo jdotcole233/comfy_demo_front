@@ -6,10 +6,13 @@ import CreateTreatyButton from "./CreateTreatyButton";
 import { treatyColumns } from "../dummy";
 import { Datatable } from "../../../components";
 import GeneratePaymentSchedulePluginButton from "../../BrokerGeneratePaymentSchedule/components/GeneratePaymentSchedulePluginButton";
+import { useAuth } from "../../../context/AuthContext";
+import { generateList } from "../../../utils";
 
 const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
   const { type } = useSelector((state) => state.insurer);
   const [status, setStatus] = useState("UNPAID");
+  const { user } = useAuth();
   const treaties = useMemo(() => {
     const list = [];
     if (insurer && insurer.treaties) {
@@ -61,6 +64,8 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
     return list;
   }, [insurer, refetch]);
 
+  const isFinExec = user?.user_role?.position === "Finance Executive";
+
   return type === "Treaty" ? (
     <div className="col-md-12">
       <div className="card">
@@ -73,41 +78,43 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
             </div>
           </div>
           <div className="">
-            <div className="row mb-3">
-              <div
-                className="btn-group"
-                role="group"
-                aria-label="Basic example"
-              >
-                <button
-                  onClick={() => setStatus("UNPAID")}
-                  type="button"
-                  className={`btn btn-${
-                    status !== "UNPAID" ? "secondary" : "success"
-                  }`}
+            {isFinExec && (
+              <div className="row mb-3">
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Basic example"
                 >
-                  Unpaid
-                </button>
-                <button
-                  onClick={() => setStatus("PARTPAYMENT")}
-                  type="button"
-                  className={`btn btn-${
-                    status !== "PARTPAYMENT" ? "secondary" : "success"
-                  }`}
-                >
-                  Partpayment
-                </button>
-                <button
-                  onClick={() => setStatus("PAID")}
-                  type="button"
-                  className={`btn btn-${
-                    status !== "PAID" ? "secondary" : "success"
-                  }`}
-                >
-                  Paid
-                </button>
+                  <button
+                    onClick={() => setStatus("UNPAID")}
+                    type="button"
+                    className={`btn btn-${
+                      status !== "UNPAID" ? "secondary" : "success"
+                    }`}
+                  >
+                    Unpaid
+                  </button>
+                  <button
+                    onClick={() => setStatus("PARTPAYMENT")}
+                    type="button"
+                    className={`btn btn-${
+                      status !== "PARTPAYMENT" ? "secondary" : "success"
+                    }`}
+                  >
+                    Partpayment
+                  </button>
+                  <button
+                    onClick={() => setStatus("PAID")}
+                    type="button"
+                    className={`btn btn-${
+                      status !== "PAID" ? "secondary" : "success"
+                    }`}
+                  >
+                    Paid
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <Datatable
             btn
@@ -116,7 +123,7 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
             striped
             responsive
             bordered
-            data={treaties.filter((o) => o.status === status)}
+            data={generateList(treaties, status, user?.user_role?.position)}
             columns={treatyColumns}
           />
         </div>

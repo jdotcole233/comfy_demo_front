@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Datatable } from "../../components";
+import { useAuth } from "../../context/AuthContext";
+import { generateList } from "../../utils";
 
 const OfferListing = ({
   setInputOffer,
@@ -19,6 +21,10 @@ const OfferListing = ({
   path,
 }) => {
   const [_tab, setTab] = useState("recent");
+  const { user } = useAuth();
+  const [status, setStatus] = useState(() => {
+    return "UNPAID";
+  });
   const { tab } = useParams();
 
   useEffect(() => {
@@ -27,6 +33,8 @@ const OfferListing = ({
       setTab(tab);
     }
   }, []);
+
+  const isFinExec = user?.user_role?.position === "Finance Executive";
 
   return (
     <div className="row">
@@ -91,10 +99,52 @@ const OfferListing = ({
                 )}
               </div>
 
+              {isFinExec && (
+                <div className="row mb-3">
+                  <div
+                    className="btn-group"
+                    role="group"
+                    aria-label="Basic example"
+                  >
+                    <button
+                      onClick={() => setStatus("UNPAID")}
+                      type="button"
+                      className={`btn btn-${
+                        status !== "UNPAID" ? "secondary" : "success"
+                      }`}
+                    >
+                      Unpaid
+                    </button>
+                    <button
+                      onClick={() => setStatus("PARTPAYMENT")}
+                      type="button"
+                      className={`btn btn-${
+                        status !== "PARTPAYMENT" ? "secondary" : "success"
+                      }`}
+                    >
+                      Partpayment
+                    </button>
+                    <button
+                      onClick={() => setStatus("PAID")}
+                      type="button"
+                      className={`btn btn-${
+                        status !== "PAID" ? "secondary" : "success"
+                      }`}
+                    >
+                      Paid
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {tab === "recent" && (
                 <div>
                   <Datatable
-                    data={recent}
+                    data={generateList(
+                      recent,
+                      status,
+                      user?.user_role?.position
+                    )}
                     entries={entries}
                     columns={columns}
                   />
@@ -113,7 +163,11 @@ const OfferListing = ({
                       </button>
                     )}
                   </div>
-                  <Datatable data={all} entries={entries} columns={columns} />
+                  <Datatable
+                    data={generateList(all, status, user?.user_role?.position)}
+                    entries={entries}
+                    columns={columns}
+                  />
                 </div>
               )}
             </div>

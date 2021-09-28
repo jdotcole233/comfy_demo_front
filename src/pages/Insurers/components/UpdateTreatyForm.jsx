@@ -26,6 +26,7 @@ import { v4 } from "uuid";
 import { INSURER } from "../../../graphql/queries";
 import ErrorPage from "../../../components/ErrorPage";
 import { createExtendedTreatyDetails } from "./CreateTreatyForm";
+import { calculateMAndDValue } from "../../../utils";
 
 const prepTreatyValues = (values, detials, limitLayers, treaty, typeObj) => {
   return {
@@ -37,6 +38,7 @@ const prepTreatyValues = (values, detials, limitLayers, treaty, typeObj) => {
       ),
       treaty_reference: values?.treaty_reference,
       order_hereon: values?.order_hereon,
+      kek_reference: values?.kek_reference,
       treaty_comment: values?.treaty_comment,
       currency: values?.currency,
       treaty_associate_deductionstreaty_associate_deduction_id:
@@ -97,6 +99,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
       _form.setValue("currency", treaty?.currency);
       _form.setValue("treaty_reference", treaty?.treaty_reference);
       _form.setValue("order_hereon", treaty?.order_hereon);
+      _form.setValue("kek_reference", treaty?.kek_reference);
       setCurrency(treaty?.currency);
       setTreatyDetials(JSON.parse(treaty?.treaty_details));
       setOldInsurerId({
@@ -263,7 +266,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             },
             ...surpluses,
           ]
-        : limitLayers,
+        : calculateMAndDValue({ layers: limitLayers, egrnpi: values.egrnpi }),
       treaty,
       selectedProgramType
     );
@@ -475,6 +478,26 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
               {_form.errors.treaty_programstreaty_program_id.message}
             </p>
           )}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <div className="form-group">
+            <label htmlFor="Type of goods">KEK Reference</label>
+            <input
+              type="text"
+              step="any"
+              ref={_form.register({
+                required: false,
+              })}
+              name="kek_reference"
+              className="form-control"
+              placeholder="KEK Reference"
+            />
+            {errors.kek_reference && (
+              <p className="text-danger">{errors.kek_reference.message}</p>
+            )}
+          </div>
         </div>
       </div>
       <div className="row">

@@ -30,6 +30,7 @@ import InsurerStatsFac from "./subComponents/InsurerStatsFac";
 import InsurerStatsTreaty from "./subComponents/InsurerStatsTreaty";
 import InsurerDetailsWelcomeScreen from "./components/InsurerDetailsWelcomeScreen";
 import InsurerDetailsOtherInfo from "./components/InsurerDetailsOtherInfo";
+import { getSum } from "./AddPayments";
 
 const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
 
@@ -90,16 +91,21 @@ function InsurerDetail() {
     const list = [];
     if (insurer) {
       insurer.insurer.offers.filter(retrocedentFilter).map((offer, i) => {
-        console.log(getParticipantsCommission(offer?.offer_participant));
-        const expected =
-          parseFloat(offer.fac_premium) -
-          parseFloat(
-            offer?.reinsurer_offer_extra_charge?.agreed_commission_amount
-          );
+        const hasEndorsement = _.last(offer.offer_endorsements);
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
           const payment_value = currVal.payment_amount || 0;
           return prev + payment_value;
         }, 0.0);
+        const expected =
+          parseFloat(offer.fac_premium) -
+          parseFloat(
+            offer?.reinsurer_offer_extra_charge?.agreed_commission_amount
+          ) +
+          hasEndorsement
+            ? parseFloat(hasEndorsement?.fac_premium) -
+              parseFloat(hasEndorsement?.commission_amount)
+            : 0;
+
         const row = {
           name: offer.offer_detail?.policy_number,
           currency: offer?.offer_detail?.currency,

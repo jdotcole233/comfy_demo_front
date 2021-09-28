@@ -2,8 +2,8 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import OfferButtons from "./Offerbuttons";
 import f_dat from "../dummy";
-// import _ from "lodash";
-import OfferListing from "../../CreateSlip/OfferListing";
+import _ from "lodash";
+import OfferListing from "../OfferListing";
 
 // import { useInsurerProps } from "../providers/InsurerProvider";
 // const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
@@ -19,13 +19,29 @@ const InsurerDetailOffers = ({
   const offers = useMemo(() => {
     const list = [];
     if (insurer) {
-      insurer.insurer.offers.map((offer) => {
-        const expected =
-          parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
+      insurer.insurer.offers.map((offer, i) => {
+        const hasEndorsement = _.last(offer.offer_endorsements);
+        // const expected =
+        //   parseFloat(offer.fac_premium) - parseFloat(offer.commission_amount);
         const payments_made = offer?.offer_payment?.reduce((prev, currVal) => {
           const payment_value = currVal.payment_amount || 0;
-          return prev + payment_value;
+          const payment_details = JSON.parse(currVal.payment_details ?? "{}");
+          return (
+            prev +
+            payment_value / parseFloat(payment_details?.conversion?.rate ?? 1)
+          );
         }, 0.0);
+
+        const endorsementAddon = hasEndorsement
+          ? parseFloat(hasEndorsement?.fac_premium) -
+            parseFloat(hasEndorsement?.commission_amount)
+          : 0;
+        const expected = hasEndorsement
+          ? endorsementAddon
+          : parseFloat(offer.fac_premium) -
+            parseFloat(offer?.commission_amount) +
+            endorsementAddon;
+
         const row = {
           name: offer.offer_detail?.policy_number,
           currency: offer?.offer_detail?.currency,

@@ -1,6 +1,6 @@
 {
   "name": "kek-re-front",
-  "version": "3.2.4",
+  "version": "3.4.0",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.15",

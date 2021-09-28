@@ -41,16 +41,17 @@ const proportionalArray = [
 ];
 
 const nonproportionalArray = [
-  "currency",
-  "Territorial Scope,",
+  "Class of Business",
+  "Territorial Scope",
   "Limit",
   "Reinstatement",
-  "Premium/Minimum & Deposit Premium,",
+  "Premium/Minimum & Deposit Premium",
   "Conditions",
   "Special Exclusion",
   "Alterations",
   "Wording",
   "Exchange Rate",
+  "Additional Information",
 ];
 const NewTreaty = (props) => {
   const [addintionalInputFields, setaddintionalInputFields] = useState([]);
@@ -249,49 +250,62 @@ const NewTreaty = (props) => {
         <div className="form-group">
           <div className="row">
             {treaty_type &&
-              addintionalInputFields.map((el, key) => (
-                <div className="col-md-6 mb-3">
-                  <div className="input-group">
-                    <input
-                      value={el.keydetail}
-                      onChange={(e) => handleInputChange(e, key)}
-                      type="text"
-                      className="form-control"
-                      placeholder={`Detail ${key + 1}`}
-                      readOnly={
-                        treaty_type.value === "PROPORTIONAL"
-                          ? proportionalArray.includes(el.keydetail)
-                          : nonproportionalArray.includes(el.keydetail)
-                      }
-                    />
-                    <div className="input-group-prepend">
-                      <button
-                        disabled={
+              addintionalInputFields.map((el, key) => {
+                const isAdditional = el.keydetail === "Additional Information";
+                return (
+                  <div className={`col-md-${isAdditional ? "12" : "6"} mb-3`}>
+                    {isAdditional ? (
+                      <div className="alert alert-danger">
+                        <p>
+                          All other information (Special Exclusions, Articles,
+                          Other data) should be placed here. This will be
+                          appended as extra pages after the signatory page of
+                          the treaty document" in an alert above it
+                        </p>
+                      </div>
+                    ) : null}
+                    <div className="input-group">
+                      <input
+                        value={el.keydetail}
+                        onChange={(e) => handleInputChange(e, key)}
+                        type="text"
+                        className="form-control"
+                        placeholder={`Detail ${key + 1}`}
+                        readOnly={
                           treaty_type.value === "PROPORTIONAL"
                             ? proportionalArray.includes(el.keydetail)
                             : nonproportionalArray.includes(el.keydetail)
                         }
-                        onClick={() => handleRemoveParticularInput(key)}
-                        className="btn btn-danger"
-                        type="button"
-                      >
-                        X
-                      </button>
+                      />
+                      <div className="input-group-prepend">
+                        <button
+                          disabled={
+                            treaty_type.value === "PROPORTIONAL"
+                              ? proportionalArray.includes(el.keydetail)
+                              : nonproportionalArray.includes(el.keydetail)
+                          }
+                          onClick={() => handleRemoveParticularInput(key)}
+                          className="btn btn-danger"
+                          type="button"
+                        >
+                          X
+                        </button>
+                      </div>
                     </div>
+                    {/* <div className="form-check mb-3">
+                    <input
+                      checked={el.required}
+                      type="checkbox"
+                      className="form-check-input"
+                      onChange={(e) => tick(e.target.checked, key)}
+                    />
+                    <label className="form-check-label" htmlFor="exampleCheck1">
+                      Required
+                    </label>
+                  </div> */}
                   </div>
-                  {/* <div className="form-check mb-3">
-                  <input
-                    checked={el.required}
-                    type="checkbox"
-                    className="form-check-input"
-                    onChange={(e) => tick(e.target.checked, key)}
-                  />
-                  <label className="form-check-label" htmlFor="exampleCheck1">
-                    Required
-                  </label>
-                </div> */}
-                </div>
-              ))}
+                );
+              })}
           </div>
         </div>
 

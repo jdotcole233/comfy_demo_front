@@ -3,7 +3,13 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from "react";
 import styles from "../styles/inputOffer.module.css";
-import { Dropzone, Modal, Datatable, Selector, Editor } from "../../../components";
+import {
+  Dropzone,
+  Modal,
+  Datatable,
+  Selector,
+  Editor,
+} from "../../../components";
 import { useMutation, useQuery } from "react-apollo";
 import { SEND_OFFER_AS_BROADCAST } from "../../../graphql/mutattions";
 import swal from "sweetalert";
@@ -39,21 +45,14 @@ export const validateEmails = (emails) => {
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function SendPlacingNote({
-  offer_id,
-  toggle,
-  closed,
-  noOfReinsurers = 0,
-  noOfAssociates = 0,
-}) {
+function SendPlacingNote({ treaty, setShow, closed }) {
   const { register, errors, handleSubmit, setError, clearError, reset } =
     useForm();
   const [content, setContent] = useState("");
   const [contentError, setContentError] = useState(false);
   const [files, setFiles] = useState([]);
   const [sendmail, { loading: mailSending }] = useMutation(
-    SEND_OFFER_AS_BROADCAST,
-    { refetchQueries: [{ query: SINGLE_OFFER, variables: { offer_id } }] }
+    SEND_OFFER_AS_BROADCAST
   );
   const [should_send] = useState(0);
   const [inputvalue, setInputvalue] = useState("");
@@ -66,6 +65,8 @@ function SendPlacingNote({
   const [responseData, setResponseData] = useState(null);
   const { data: employees, loading } = useQuery(EMPLOYEES);
 
+  const numOfreinsurers = treaty?.treaty_participants?.length ?? 0;
+  const noOfAssociates = treaty?.treaty_to_associates?.length ?? 0;
   useEffect(() => {
     if (employees) {
       const _emails = employees.employees.map((e) => ({
@@ -75,14 +76,6 @@ function SendPlacingNote({
       setSelectedableEmail(_emails);
     }
   }, [employees]);
-
-  useEffect(() => {
-    if (!closed) {
-      reset();
-      setContent("");
-      setFiles([]);
-    }
-  }, [closed, reset]);
 
   const handleKeyDown = (event) => {
     if (!inputvalue) return;
@@ -130,7 +123,7 @@ function SendPlacingNote({
     }
     // return;
     const data = {
-      offer_id,
+      // offer_id,
       message_content: content,
       subject,
       copied_emails: copied_emails.length
@@ -152,7 +145,8 @@ function SendPlacingNote({
       })
         .then((res) => {
           if (res.data.sendOfferAsBroadCast) {
-            toggle();
+            // toggle();
+            setShow(false);
             swal.stopLoading();
             swal.close();
             setShowModal(true);
@@ -163,7 +157,7 @@ function SendPlacingNote({
             setFiles([]);
             setFiles([]);
             reset();
-            toggle();
+            setShow(false);
           }
         })
         .catch((err) => {
@@ -223,7 +217,7 @@ function SendPlacingNote({
         <h2 className={styles.card_title}>Send Placing Note</h2>
         <Alert variant="danger">
           <strong>
-            Send offer to {noOfReinsurers} reinsurers with {noOfAssociates}{" "}
+            Send offer to {numOfreinsurers} reinsurers with {noOfAssociates}{" "}
             Associates
           </strong>
           <p>
