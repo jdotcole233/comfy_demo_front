@@ -1206,6 +1206,22 @@ export const INSURER = gql`
       payment_status
       commission
       commission_amount
+      offer_endorsements {
+        sum_insured
+        premium
+        approval_status
+        created_at
+        updated_at
+        facultative_offer
+        offer_endorsement_id
+        fac_premium
+        offer_endorsement_detail {
+          offer_comment
+          offer_endorsement_detail_id
+          offer_detail
+        }
+        commission_amount
+      }
       offer_participant {
         offer_participant_id
         participant_fac_premium

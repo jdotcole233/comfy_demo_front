@@ -111,8 +111,12 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         return payment;
       });
 
-      const fac_premium = hasEndorsement ? getSum("fac_premium", details): details.fac_premium;
-      const commission_amount = hasEndorsement? getSum("commission_amount", details): details.commission_amount;
+      const fac_premium = hasEndorsement
+        ? getSum("fac_premium", details)
+        : details.fac_premium;
+      const commission_amount = hasEndorsement
+        ? getSum("commission_amount", details)
+        : details.commission_amount;
       const paymentThreshold = hasEndorsement
         ? parseFloat(hasEndorsement?.fac_premium) -
           parseFloat(hasEndorsement?.commission_amount) -
