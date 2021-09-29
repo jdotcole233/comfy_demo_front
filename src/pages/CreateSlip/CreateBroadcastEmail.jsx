@@ -14,6 +14,7 @@ import PDF from "../../assets/pdf.png";
 import { responseFound } from "./columns";
 import { SINGLE_OFFER } from "../../graphql/queries";
 import { EMPLOYEES } from "../../graphql/queries/employees";
+import { Fragment } from "react";
 
 export const createOption = (label) => ({
   label,
@@ -152,7 +153,7 @@ function CreateBroadcastEmail({
       })
         .then((res) => {
           if (res.data.sendOfferAsBroadCast) {
-            toggle();
+            // toggle();
             swal.stopLoading();
             swal.close();
             setShowModal(true);
@@ -184,7 +185,7 @@ function CreateBroadcastEmail({
     })
       .then((res) => {
         swal("Success", "Mail sent successfully", "success");
-        // toggle();
+        toggle();
         setContent("");
         setFiles([]);
         setFiles([]);
@@ -216,6 +217,84 @@ function CreateBroadcastEmail({
       setReceivedReps(list);
     }
   }, [responseData]);
+
+  if (showModal)
+    return (
+      <Fragment>
+        <Modal.Body>
+          <Alert variant="danger">
+            <p>
+              This offer has been sent to {receivedReps.length} associates along
+              with the following attachments.
+            </p>
+            <p>
+              <strong>Will you like to include them in this email ?</strong>
+            </p>
+          </Alert>
+          <h6>Mail received by</h6>
+          <Datatable entries={2} columns={responseFound} data={receivedReps} />
+          {responseData && responseData.file_listing.length ? (
+            <fieldset className="border p-1">
+              <legend
+                className="w-auto"
+                style={{ fontSize: 14, fontWeight: "bold" }}
+              >
+                Attachments
+              </legend>
+              <div style={{ height: 150, overflow: "scroll" }}>
+                <ul>
+                  {responseData &&
+                    responseData.file_listing.map((file, key) => (
+                      <li key={key}>
+                        <img
+                          src={PDF}
+                          style={{ height: 30, width: 30 }}
+                          className="m-2"
+                        />
+                        {file}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+              <div className="form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="exampleCheck1"
+                  onChange={(e) => setInclude_attachment(e.target.checked)}
+                />
+                <label className="form-check-label" htmlFor="exampleCheck1">
+                  Include these attachment(s) to email
+                </label>
+              </div>
+            </fieldset>
+          ) : null}
+        </Modal.Body>
+        <Modal.Footer>
+          {!mailSending ? (
+            <>
+              <button
+                onClick={() => handleSendAgain(1)}
+                className="btn btn-danger"
+              >
+                No
+              </button>
+              <button
+                onClick={() => handleSendAgain(2)}
+                className="btn btn-primary"
+              >
+                Yes
+              </button>
+            </>
+          ) : (
+            <button className="btn btn-primary w-md" disabled>
+              <i className="bx bx-hourglass bx-spin mr-2"></i>
+              Sending...
+            </button>
+          )}
+        </Modal.Footer>
+      </Fragment>
+    );
 
   return (
     <>
@@ -322,86 +401,6 @@ function CreateBroadcastEmail({
           </div>
         </div>
       </form>
-      <Modal
-        centered
-        size="lg"
-        show={showModal}
-        onHide={() => setShowModal(!showModal)}
-      >
-        <Modal.Header>Record found</Modal.Header>
-        <Modal.Body>
-          <Alert variant="danger">
-            <p>
-              This offer has been sent to {receivedReps.length} associates along
-              with the following attachments.
-            </p>
-            <p>
-              <strong>Will you like to include them in this email ?</strong>
-            </p>
-          </Alert>
-          <h6>Mail received by</h6>
-          <Datatable entries={2} columns={responseFound} data={receivedReps} />
-          {responseData && responseData.file_listing.length ? (
-            <fieldset className="border p-1">
-              <legend
-                className="w-auto"
-                style={{ fontSize: 14, fontWeight: "bold" }}
-              >
-                Attachments
-              </legend>
-              <div style={{ height: 150, overflow: "scroll" }}>
-                <ul>
-                  {responseData &&
-                    responseData.file_listing.map((file, key) => (
-                      <li key={key}>
-                        <img
-                          src={PDF}
-                          style={{ height: 30, width: 30 }}
-                          className="m-2"
-                        />
-                        {file}
-                      </li>
-                    ))}
-                </ul>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                  onChange={(e) => setInclude_attachment(e.target.checked)}
-                />
-                <label className="form-check-label" htmlFor="exampleCheck1">
-                  Include these attachment(s) to email
-                </label>
-              </div>
-            </fieldset>
-          ) : null}
-        </Modal.Body>
-        <Modal.Footer>
-          {!mailSending ? (
-            <>
-              <button
-                onClick={() => handleSendAgain(1)}
-                className="btn btn-danger"
-              >
-                No
-              </button>
-              <button
-                onClick={() => handleSendAgain(2)}
-                className="btn btn-primary"
-              >
-                Yes
-              </button>
-            </>
-          ) : (
-            <button className="btn btn-primary w-md" disabled>
-              <i className="bx bx-hourglass bx-spin mr-2"></i>
-              Sending...
-            </button>
-          )}
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }

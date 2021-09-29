@@ -14,9 +14,8 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
   const [pieChartList, setPieChartList] = useState(null);
   const [showCreateList, setshowCreateList] = useState(false);
   const [broadCastEmail, setbroadCastEmail] = useState(false);
-  const [showDrawerForClosingOffer, setShowDrawerForClosingOffer] = useState(
-    false
-  );
+  const [showDrawerForClosingOffer, setShowDrawerForClosingOffer] =
+    useState(false);
 
   useEffect(() => {
     if (data) {
@@ -133,6 +132,7 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
         width={600}
         toggle={() => setshowCreateList(!showCreateList)}
         isvisible={showCreateList}
+        setShow={setshowCreateList}
       >
         <CreateBroadcastList
           offer_id={state?.offer_id}

@@ -15,11 +15,11 @@ import OfferDescriptionAndOptions from "./components/OfferDescriptionAndOptions"
 import ViewOfferHeader from "./components/VewOfferHeader";
 
 function ViewOffer() {
-  const { state: { user } } = useContext(AuthContext)
-  const history = useHistory();
   const {
-    state,
-  } = useLocation();
+    state: { user },
+  } = useContext(AuthContext);
+  const history = useHistory();
+  const { state } = useLocation();
 
   const { data, loading, startPolling, stopPolling } = useQuery(SINGLE_OFFER, {
     variables: {
@@ -29,24 +29,22 @@ function ViewOffer() {
     pollInterval: 1000,
   });
 
-
   useEffect(() => {
     if (!state) {
-      history.push("/admin/create-slip")
+      history.push("/admin/create-slip");
     }
-  }, [state])
+  }, [state]);
 
-
-  const myStartPolling = () => startPolling(1000)
+  const myStartPolling = () => startPolling(1000);
 
   useEffect(() => {
-    window.addEventListener('focus', myStartPolling);
-    window.addEventListener('blur', stopPolling);
+    window.addEventListener("focus", myStartPolling);
+    window.addEventListener("blur", stopPolling);
 
     // Specify how to clean up after this effect:
     return () => {
-      window.removeEventListener('focus', startPolling);
-      window.removeEventListener('blur', stopPolling);
+      window.removeEventListener("focus", startPolling);
+      window.removeEventListener("blur", stopPolling);
     };
   });
 
@@ -54,8 +52,8 @@ function ViewOffer() {
     return <Loader />;
   }
 
-  if (!loading && data?.findSingleOffer?.offer_status === "CLOSED") return <Redirect to="/admin/create-slip" />
-
+  if (!loading && data?.findSingleOffer?.offer_status === "CLOSED")
+    return <Redirect to="/admin/create-slip" />;
 
   return (
     <div className="page-content">
@@ -69,7 +67,6 @@ function ViewOffer() {
         <ReinsurerListing data={data} state={state} user={user} />
         <AssociateListing data={data} state={state} user={user} />
       </div>
-
     </div>
   );
 }
