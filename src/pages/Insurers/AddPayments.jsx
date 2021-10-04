@@ -30,7 +30,7 @@ export const prepData = ({
   auto_payment_receipt,
   payment_status:
     parseFloat(amountToBePaid).toFixed(2) ===
-    parseFloat(form_inputs.payment_amount).toFixed(2)
+      parseFloat(form_inputs.payment_amount).toFixed(2)
       ? "PAID"
       : "PARTPAYMENT",
   payment_details: JSON.stringify({
@@ -119,10 +119,10 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
         : details.commission_amount;
       const paymentThreshold = hasEndorsement
         ? parseFloat(hasEndorsement?.fac_premium) -
-          parseFloat(hasEndorsement?.commission_amount) -
-          sumOfPaymentAmounts
+        parseFloat(hasEndorsement?.commission_amount) -
+        sumOfPaymentAmounts
         : parseFloat(fac_premium) -
-          (parseFloat(commission_amount) + sumOfPaymentAmounts);
+        (parseFloat(commission_amount) + sumOfPaymentAmounts);
       setExpectedAmtToBePaid(paymentThreshold > 0 ? paymentThreshold : 0);
     }
   }, [details, form_inputs, hasEndorsement]);
@@ -376,24 +376,22 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                   <td>Original Offer</td>
                   <td>{new Date(details?.created_at).toDateString()}</td>
                   <td
-                    className={`${
-                      String(details?.fac_premium).charAt(0) === "-"
+                    className={`${String(details?.fac_premium).charAt(0) === "-"
                         ? "text-danger"
                         : String(details?.fac_premium).charAt(0) === "+"
-                        ? "text-success"
-                        : ""
-                    }`}
+                          ? "text-success"
+                          : ""
+                      }`}
                   >
                     {details?.offer_detail?.currency} {details?.fac_premium}
                   </td>
                   <td
-                    className={`${
-                      String(details?.fac_premium).charAt(0) === "-"
+                    className={`${String(details?.fac_premium).charAt(0) === "-"
                         ? "text-danger"
                         : String(details?.fac_premium).charAt(0) === "+"
-                        ? "text-success"
-                        : ""
-                    }`}
+                          ? "text-success"
+                          : ""
+                      }`}
                   >
                     {details?.offer_detail?.currency}{" "}
                     {details?.commission_amount}
@@ -404,20 +402,18 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                     <td>Endorsement {eID + 1}</td>
                     <td>{new Date(end.created_at).toDateString()}</td>
                     <td
-                      className={`${
-                        String(end.fac_premium).charAt(0) === "-"
+                      className={`${String(end.fac_premium).charAt(0) === "-"
                           ? "text-danger"
                           : ""
-                      }`}
+                        }`}
                     >
                       {end.offer_endorsement_detail?.currency} {end.fac_premium}
                     </td>
                     <td
-                      className={`${
-                        String(end.fac_premium).charAt(0) === "-"
+                      className={`${String(end.fac_premium).charAt(0) === "-"
                           ? "text-danger"
                           : ""
-                      }`}
+                        }`}
                     >
                       {end.offer_endorsement_detail?.currency}{" "}
                       {end.commission_amount}
@@ -453,10 +449,10 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                     value={
                       currency
                         ? {
-                            label: Object.values(currencies).find(
-                              (eel) => eel.code === currency
-                            )?.name,
-                          }
+                          label: Object.values(currencies).find(
+                            (eel) => eel.code === currency
+                          )?.name,
+                        }
                         : ""
                     }
                     components={{ Option: CurrencyOption }}
@@ -522,9 +518,8 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                 </div>
               )}
               <div
-                className={`col-md-${
-                  form_inputs.payment_type === "Bank Transfer" ? "12" : "6"
-                }`}
+                className={`col-md-${form_inputs.payment_type === "Bank Transfer" ? "12" : "6"
+                  }`}
               >
                 <div className="form-group">
                   <label htmlFor="Bank name">Bank name</label>
@@ -603,26 +598,26 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
             {(form_inputs.currency ||
               details?.offer_detail.currency ||
               details?.exchange_rate?.ex_currency) && (
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="Currency">Currency</label>
-                  {/* {&& <input type="text" value={form_inputs.currency} onChange={() => { }} className="form-control" placeholder="Currency" readOnly />} */}
-                  <input
-                    type="text"
-                    value={
-                      form_inputs.currency ||
-                      details?.offer_detail.currency ||
-                      details?.exchange_rate?.ex_currency ||
-                      ""
-                    }
-                    onChange={() => console.log("")}
-                    className="form-control"
-                    placeholder="Currency"
-                    readOnly
-                  />
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label htmlFor="Currency">Currency</label>
+                    {/* {&& <input type="text" value={form_inputs.currency} onChange={() => { }} className="form-control" placeholder="Currency" readOnly />} */}
+                    <input
+                      type="text"
+                      value={
+                        form_inputs.currency ||
+                        details?.offer_detail.currency ||
+                        details?.exchange_rate?.ex_currency ||
+                        ""
+                      }
+                      onChange={() => console.log("")}
+                      className="form-control"
+                      placeholder="Currency"
+                      readOnly
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
             <div className="col-md-12">
               <div className="form-group">
@@ -634,7 +629,6 @@ export const AddPayments = ({ details, edit, insurer_id, toggle, payment }) => {
                   cols="30"
                   rows="10"
                   className="form-control"
-                  required
                 ></textarea>
               </div>
             </div>
