@@ -37,7 +37,7 @@ export const validateEmails = (emails) => {
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-function SendCoverNote({ treaty, toggle, closed }) {
+function SendCoverNote({ treaty, setShow, closed }) {
   const { register, errors, handleSubmit, setError, clearError, reset } =
     useForm();
   const [content, setContent] = useState("");
@@ -45,7 +45,7 @@ function SendCoverNote({ treaty, toggle, closed }) {
   const [files, setFiles] = useState([]);
   const [sendmail, { loading: mailSending }] = useMutation(
     SEND_PLACING_OR_COVER_NOTE,
-    { refetchQueries: [{ query: TREATY, variables: { treaty_id: treaty_id } }] }
+    { refetchQueries: [{ query: TREATY, variables: { treaty_id: treaty?.treaty_id } }] }
   );
   const [inputvalue, setInputvalue] = useState("");
   const [copiedMails, setCopiedMails] = useState([]);
@@ -54,6 +54,16 @@ function SendCoverNote({ treaty, toggle, closed }) {
 
   const noOfReinsurers = treaty?.treaty_participants?.length ?? 0;
   const noOfAssociates = treaty?.treaty_to_associates?.length ?? 0;
+
+  useEffect(() => {
+    if (employees) {
+      const _emails = employees.employees.map((e) => ({
+        label: e.employee_email,
+        value: e.employee_email,
+      }));
+      setSelectedableEmail(_emails);
+    }
+  }, [employees]);
 
   const handleKeyDown = (event) => {
     if (!inputvalue) return;
@@ -99,15 +109,15 @@ function SendCoverNote({ treaty, toggle, closed }) {
     }
     // return;
     const data = {
-      treaty_id,
+      treaty_id: treaty?.treaty_id,
       doc_type: "COVER",
       emaildata: {
-        message_content: content,
+        email_content: content,
         subject,
-        copied_emails: copied_emails.length
+        copied_email: copied_emails.length
           ? [...copiedMails.map((e) => e.label)]
           : [],
-        attachment: [...files],
+        attachments: [...files],
       }
     };
     swal({
