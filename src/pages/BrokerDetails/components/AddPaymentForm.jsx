@@ -54,7 +54,7 @@ const prepData = ({
     : "-",
 });
 
-const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id }) => {
+const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id, re_broker_id }) => {
   const { user } = useAuth();
   const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0);
   const [newExpectedAmount, setNewExpectedAmount] = useState(0);
@@ -85,11 +85,11 @@ const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id }) => {
 
   const formRef = useRef();
   const [makePayment] = useMutation(MAKE_PAYMENT_BROKER_PROP, {
-    refetchQueries: [{ query: BROKER, variables: { id: "" } }],
+    refetchQueries: [{ query: BROKER, variables: { id: re_broker_id } }],
   });
 
   const [updatePayment] = useMutation(UPDATE_PAYMENT_BROKER, {
-    refetchQueries: [{ query: BROKER, variables: { id: "" } }],
+    refetchQueries: [{ query: BROKER, variables: { id: re_broker_id } }],
   });
 
   useEffect(() => {
