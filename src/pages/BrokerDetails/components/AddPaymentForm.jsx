@@ -29,7 +29,7 @@ const prepData = ({
   auto_payment_receipt,
   payment_status:
     parseFloat(amountToBePaid).toFixed(2) ===
-    parseFloat(form_inputs.payment_amount).toFixed(2)
+      parseFloat(form_inputs.payment_amount).toFixed(2)
       ? "PAID"
       : "PARTPAYMENT",
   payment_details: JSON.stringify({
@@ -54,7 +54,7 @@ const prepData = ({
     : "-",
 });
 
-const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id }) => {
+const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id, re_broker_id }) => {
   const { user } = useAuth();
   const [expectedAmtToBePaid, setExpectedAmtToBePaid] = useState(0);
   const [newExpectedAmount, setNewExpectedAmount] = useState(0);
@@ -85,11 +85,11 @@ const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id }) => {
 
   const formRef = useRef();
   const [makePayment] = useMutation(MAKE_PAYMENT_BROKER_PROP, {
-    refetchQueries: [{ query: BROKER, variables: { id: "" } }],
+    refetchQueries: [{ query: BROKER, variables: { id: re_broker_id } }],
   });
 
   const [updatePayment] = useMutation(UPDATE_PAYMENT_BROKER, {
-    refetchQueries: [{ query: BROKER, variables: { id: "" } }],
+    refetchQueries: [{ query: BROKER, variables: { id: re_broker_id } }],
   });
 
   useEffect(() => {
@@ -343,10 +343,10 @@ const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id }) => {
                     value={
                       currency
                         ? {
-                            label: Object.values(currencies).find(
-                              (eel) => eel.code === currency
-                            )?.name,
-                          }
+                          label: Object.values(currencies).find(
+                            (eel) => eel.code === currency
+                          )?.name,
+                        }
                         : ""
                     }
                     components={{ Option: CurrencyOption }}
@@ -412,9 +412,8 @@ const AddPaymentForm = ({ edit, _payments, payment, setShow, treaty_id }) => {
                 </div>
               )}
               <div
-                className={`col-md-${
-                  form_inputs.payment_type === "Bank Transfer" ? "12" : "6"
-                }`}
+                className={`col-md-${form_inputs.payment_type === "Bank Transfer" ? "12" : "6"
+                  }`}
               >
                 <div className="form-group">
                   <label htmlFor="Bank name">Bank name</label>

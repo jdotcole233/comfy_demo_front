@@ -3,17 +3,15 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from "react";
 import styles from "../styles/inputOffer.module.css";
-import { Dropzone, Modal, Datatable, Selector, Editor } from "../../../components";
+import { Dropzone, Selector, Editor } from "../../../components";
 import { useMutation, useQuery } from "react-apollo";
-import { SEND_OFFER_AS_BROADCAST } from "../../../graphql/mutattions";
 import swal from "sweetalert";
 import { Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 // import JoditEditor from "jodit-react";
-import PDF from "../../../assets/pdf.png";
-import { responseFound } from "./columns";
-import { SINGLE_OFFER } from "../../../graphql/queries";
 import { EMPLOYEES } from "../../../graphql/queries/employees";
+import { SEND_PLACING_OR_COVER_NOTE } from "../../../graphql/mutattions/treaty";
+import { TREATY } from "../../../graphql/queries/treaty";
 
 export const createOption = (label) => ({
   label,
@@ -40,8 +38,8 @@ export const validateEmails = (emails) => {
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
 function SendCoverNote({
-  offer_id,
-  toggle,
+  treaty_id,
+  setShow,
   closed,
   noOfReinsurers = 0,
   noOfAssociates = 0,
@@ -52,18 +50,12 @@ function SendCoverNote({
   const [contentError, setContentError] = useState(false);
   const [files, setFiles] = useState([]);
   const [sendmail, { loading: mailSending }] = useMutation(
-    SEND_OFFER_AS_BROADCAST,
-    { refetchQueries: [{ query: SINGLE_OFFER, variables: { offer_id } }] }
+    SEND_PLACING_OR_COVER_NOTE,
+    { refetchQueries: [{ query: TREATY, variables: { treaty_id: treaty_id } }] }
   );
-  const [should_send] = useState(0);
   const [inputvalue, setInputvalue] = useState("");
   const [copiedMails, setCopiedMails] = useState([]);
   const [selectedableEmail, setSelectedableEmail] = useState([]);
-  const [receivedReps, setReceivedReps] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [data, setData] = useState(null);
-  const [include_attachment, setInclude_attachment] = useState(false);
-  const [responseData, setResponseData] = useState(null);
   const { data: employees, loading } = useQuery(EMPLOYEES);
 
   useEffect(() => {
@@ -108,7 +100,6 @@ function SendCoverNote({
   useEffect(() => {
     if (copiedMails && copiedMails.length) {
       const validEmails = validateEmails(copiedMails);
-      // alert(validEmails)
       validEmails
         ? clearError("copied_emails")
         : setError("copied_emails", "pattern", "Provide valid mails");
@@ -116,7 +107,6 @@ function SendCoverNote({
   }, [copiedMails]);
 
   const handleSubmitSendMail = ({ subject, copied_emails }) => {
-    // console.log(files);
     if (!validateEmails(copiedMails)) {
       setError("copied_emails", "pattern", "Provide valid mails");
       return;
@@ -130,15 +120,17 @@ function SendCoverNote({
     }
     // return;
     const data = {
-      offer_id,
-      message_content: content,
-      subject,
-      copied_emails: copied_emails.length
-        ? [...copiedMails.map((e) => e.label)]
-        : [],
-      attachment: [...files],
+      treaty_id,
+      doc_type: "COVER",
+      emaildata: {
+        message_content: content,
+        subject,
+        copied_emails: copied_emails.length
+          ? [...copiedMails.map((e) => e.label)]
+          : [],
+        attachment: [...files],
+      }
     };
-    setData(data);
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -148,22 +140,21 @@ function SendCoverNote({
     }).then((input) => {
       if (!input) throw null;
       sendmail({
-        variables: { data, should_send, include_attachment },
+        variables: { ...data },
       })
         .then((res) => {
-          if (res.data.sendOfferAsBroadCast) {
-            toggle();
+          if (res.data.sendTreatyPlacingOrCovertNote) {
+            swal("Success", "Mail sent successfully", "success");
             swal.stopLoading();
             swal.close();
-            setShowModal(true);
-            setResponseData(JSON.parse(res.data.sendOfferAsBroadCast));
+            setShow(false)
           } else {
             swal("Success", "Mail sent successfully", "success");
             setContent("");
             setFiles([]);
             setFiles([]);
             reset();
-            toggle();
+            setShow(false)
           }
         })
         .catch((err) => {
@@ -178,44 +169,7 @@ function SendCoverNote({
     });
   };
 
-  const handleSendAgain = (should_send_input) => {
-    sendmail({
-      variables: { data, should_send: should_send_input, include_attachment },
-    })
-      .then((res) => {
-        swal("Success", "Mail sent successfully", "success");
-        // toggle();
-        setContent("");
-        setFiles([]);
-        setFiles([]);
-        reset();
-        setShowModal(false);
-      })
-      .catch((err) => {
-        if (err) {
-          // console.log(err)
-          swal("Oh noes!", "The AJAX request failed!", "error");
-        } else {
-          swal.stopLoading();
-          swal.close();
-        }
-      });
-  };
 
-  useEffect(() => {
-    if (responseData) {
-      const list = responseData.associates.map((associates) => ({
-        reinsurer: associates.reinsurer,
-        rep_name: associates.rep_name,
-        status: (
-          <span className="badge badge-success" style={{ letterSpacing: 3 }}>
-            Sent
-          </span>
-        ),
-      }));
-      setReceivedReps(list);
-    }
-  }, [responseData]);
 
   return (
     <>
@@ -322,86 +276,7 @@ function SendCoverNote({
           </div>
         </div>
       </form>
-      <Modal
-        centered
-        size="lg"
-        show={showModal}
-        onHide={() => setShowModal(!showModal)}
-      >
-        <Modal.Header>Record found</Modal.Header>
-        <Modal.Body>
-          <Alert variant="danger">
-            <p>
-              This offer has been sent to {receivedReps.length} associates along
-              with the following attachments.
-            </p>
-            <p>
-              <strong>Will you like to include them in this email ?</strong>
-            </p>
-          </Alert>
-          <h6>Mail received by</h6>
-          <Datatable entries={2} columns={responseFound} data={receivedReps} />
-          {responseData && responseData.file_listing.length ? (
-            <fieldset className="border p-1">
-              <legend
-                className="w-auto"
-                style={{ fontSize: 14, fontWeight: "bold" }}
-              >
-                Attachments
-              </legend>
-              <div style={{ height: 150, overflow: "scroll" }}>
-                <ul>
-                  {responseData &&
-                    responseData.file_listing.map((file, key) => (
-                      <li key={key}>
-                        <img
-                          src={PDF}
-                          style={{ height: 30, width: 30 }}
-                          className="m-2"
-                        />
-                        {file}
-                      </li>
-                    ))}
-                </ul>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                  onChange={(e) => setInclude_attachment(e.target.checked)}
-                />
-                <label className="form-check-label" htmlFor="exampleCheck1">
-                  Include these attachment(s) to email
-                </label>
-              </div>
-            </fieldset>
-          ) : null}
-        </Modal.Body>
-        <Modal.Footer>
-          {!mailSending ? (
-            <>
-              <button
-                onClick={() => handleSendAgain(1)}
-                className="btn btn-danger"
-              >
-                No
-              </button>
-              <button
-                onClick={() => handleSendAgain(2)}
-                className="btn btn-primary"
-              >
-                Yes
-              </button>
-            </>
-          ) : (
-            <button className="btn btn-primary w-md" disabled>
-              <i className="bx bx-hourglass bx-spin mr-2"></i>
-              Sending...
-            </button>
-          )}
-        </Modal.Footer>
-      </Modal>
+      
     </>
   );
 }

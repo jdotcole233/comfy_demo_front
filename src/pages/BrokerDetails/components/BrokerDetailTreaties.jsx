@@ -5,7 +5,7 @@ import moment from "moment";
 import TreatyButtons from "./TreatyButtons";
 import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";
 
-const BrokerDetailTreaties = ({}) => {
+const BrokerDetailTreaties = ({ }) => {
   const { broker } = useBrokerDetailsContext();
   const treaties = useMemo(() => {
     const list = [];
@@ -25,13 +25,12 @@ const BrokerDetailTreaties = ({}) => {
             treaty_payment_status: (
               <span
                 style={{ letterSpacing: 5, padding: 3 }}
-                className={`badge badge-soft-${
-                  treaty?.treaty_payment_status === "PARTPAYMENT"
+                className={`badge badge-soft-${treaty?.treaty_payment_status === "PARTPAYMENT"
                     ? "primary"
                     : treaty?.treaty_payment_status === "UNPAID"
-                    ? "danger"
-                    : "success"
-                } font-size-11`}
+                      ? "danger"
+                      : "success"
+                  } font-size-11`}
               >
                 {treaty?.treaty_payment_status}
               </span>
@@ -40,7 +39,7 @@ const BrokerDetailTreaties = ({}) => {
               <TreatyButtons
                 treaty={treaty}
                 _payments={surplus_participation || xl_particiation}
-                reinsurer_id={broker?.reinsurer_id}
+                re_broker_id={broker?.re_broker_id}
               />
             ),
           };

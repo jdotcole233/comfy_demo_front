@@ -66,7 +66,7 @@ const BrokerButtons = ({
     });
   };
 
-  const handleAddPercentage = () => {};
+  const handleAddPercentage = () => { };
 
   return (
     <Fragment>
@@ -92,12 +92,33 @@ const BrokerButtons = ({
         )}
       </DropdownButton>
       {treaty?.treaty_accounts?.length > 0 && (
-        <button
-          onClick={() => setPreviewClosing(true)}
-          className="btn btn-success btn-sm"
+        <DropdownButton
+          className="mr-1 mb-1"
+          variant="primary"
+          size="sm"
+          as={ButtonGroup}
+          id="dropdown-basic-button"
+          title="Closing note"
         >
-          Preview closing
-        </button>
+          {/* <button
+            onClick={() => setPreviewClosing(true)}
+            className="btn btn-success btn-sm"
+          >
+            Preview closing
+          </button> */}
+          <Dropdown.Item
+            onClick={() => setPreviewClosing(true)}
+            disabled={!editAccessRoles.includes(user?.position)}
+          >
+            Preview
+          </Dropdown.Item>
+          <Dropdown.Item
+            // onClick={() => setPreviewClosing(true)}
+            disabled={!editAccessRoles.includes(user?.position)}
+          >
+            Send
+          </Dropdown.Item>
+        </DropdownButton>
       )}
 
       <button onClick={() => handleRemoveBroker()} className="btn mb-1">
