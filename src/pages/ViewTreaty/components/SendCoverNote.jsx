@@ -114,12 +114,14 @@ function SendCoverNote({ treaty, toggle, closed }) {
     // return;
     const data = {
       // offer_id,
-      message_content: content,
-      subject,
-      copied_emails: copied_emails.length
-        ? [...copiedMails.map((e) => e.label)]
-        : [],
-      attachment: [...files],
+      emaildata: {
+        message_content: content,
+        subject,
+        copied_emails: copied_emails.length
+          ? [...copiedMails.map((e) => e.label)]
+          : [],
+        attachment: [...files],
+      }
     };
     setData(data);
     swal({
@@ -161,44 +163,8 @@ function SendCoverNote({ treaty, toggle, closed }) {
     });
   };
 
-  const handleSendAgain = (should_send_input) => {
-    sendmail({
-      variables: { data, should_send: should_send_input, include_attachment },
-    })
-      .then((res) => {
-        swal("Success", "Mail sent successfully", "success");
-        // toggle();
-        setContent("");
-        setFiles([]);
-        setFiles([]);
-        reset();
-        setShowModal(false);
-      })
-      .catch((err) => {
-        if (err) {
-          // console.log(err)
-          swal("Oh noes!", "The AJAX request failed!", "error");
-        } else {
-          swal.stopLoading();
-          swal.close();
-        }
-      });
-  };
 
-  useEffect(() => {
-    if (responseData) {
-      const list = responseData.associates.map((associates) => ({
-        reinsurer: associates.reinsurer,
-        rep_name: associates.rep_name,
-        status: (
-          <span className="badge badge-success" style={{ letterSpacing: 3 }}>
-            Sent
-          </span>
-        ),
-      }));
-      setReceivedReps(list);
-    }
-  }, [responseData]);
+
 
   return (
     <>
