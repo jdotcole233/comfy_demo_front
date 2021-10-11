@@ -13,7 +13,14 @@ jobs:
           host: ${{secrets.SSH_HOST}}
           port: ${{secrets.SSH_PORT}}
           username: ${{ secrets.SSH_USERNAME }}
-          pass: ${{ secrets.SSH_PASSWORD }}
+          password: ${{ secrets.SSH_PASSWORD }}
      
           script: |
             cd public_html 
+            rm -rf app
+            git clone https://github.com/jdotcole233/frontkek.git app
+            cd app
+            npm install
+            npm build
+            cd build
+            mv * ..
