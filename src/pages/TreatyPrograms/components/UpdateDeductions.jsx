@@ -77,7 +77,6 @@ function UpdateDeductions({
   };
 
   const handleSubmit = () => {
-    // console.log(reinsurers)
     const data = values
       .filter((el) => el.participating_percentage)
       .map((el) => ({
@@ -104,11 +103,11 @@ function UpdateDeductions({
         variables: { data, account_ids, isProp, layer: isProp ? "" : layer },
       })
         .then((res) => {
-          setShow(false);
           swal("Hurray!!", "Deductions modified successfully", "success");
+          setShow(false);
         })
         .catch((err) => {
-          swal("Whoops!!", "Deductions not modified successfully", "error");
+          swal("Whoops!!", err?.message, "error");
         });
     });
   };

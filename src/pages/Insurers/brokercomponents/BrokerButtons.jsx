@@ -70,7 +70,7 @@ const BrokerButtons = ({
     });
   };
 
-  const handleAddPercentage = () => {};
+  const handleAddPercentage = () => { };
 
   return (
     <Fragment>

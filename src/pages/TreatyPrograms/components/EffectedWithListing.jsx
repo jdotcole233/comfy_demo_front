@@ -66,7 +66,7 @@ function EffectedWithListing({
                 {expand ? "Collapse" : "Expand"}
               </button>
             </div>
-            {expand &&<div className="card-body">
+            {expand && <div className="card-body">
               <div className="d-flex justify-content-between">
                 <h4 className="card-title mb-4"></h4>
                 <div className="mb-4">
@@ -199,9 +199,8 @@ function EffectedWithListing({
                       className="nav-item btn"
                     >
                       <div
-                        className={`nav-link ${
-                          parseInt(_) === currentIndex ? "active" : ""
-                        }`}
+                        className={`nav-link ${parseInt(_) === currentIndex ? "active" : ""
+                          }`}
                         href="#"
                       >{`Layer ${_}`}</div>
                     </li>
@@ -218,12 +217,12 @@ function EffectedWithListing({
                 />
               </div>
             </div>
-}
+            }
           </div>
         </div>
       </div>
 
-      <Drawer isvisible={showDeductionDrawer} toggle={toggle} width="50%">
+      <Drawer isvisible={showDeductionDrawer} toggle={toggle} setShow={setShowDeductionDrawer} width="50%">
         <UpdateDeductions
           reinsurers={isNonProp ? data[`${currentIndex}`] : reinsurers}
           treaty_accounts={treaty?.treaty_accounts}
