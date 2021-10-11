@@ -134,11 +134,10 @@ function UpdateDeductions({
         )}
       </div>
       <button
-        disabled={!valid}
         onClick={handleSubmit}
         className="btn btn-sm w-lg btn-primary  mt-3"
       >
-        Enable{valid ? "" : "jhkihkjhk"}
+        Enable
       </button>
     </div>
   );
