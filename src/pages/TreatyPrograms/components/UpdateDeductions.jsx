@@ -31,27 +31,30 @@ function UpdateDeductions({
 
   useEffect(() => {
     if (reinsurers && reinsurers.length > 0) {
-      const __ = reinsurers.map((reinsurer) => ({
-        commission:
-          _.first(reinsurer?.treaty_participant_deductions)?.commission ||
-          deductions?.commission,
-        brokerage:
-          _.first(reinsurer?.treaty_participant_deductions)?.brokerage ||
-          deductions?.brokerage,
-        nic_levy:
-          _.first(reinsurer?.treaty_participant_deductions)?.nic_levy ||
-          deductions?.nic_levy,
-        withholding_tax:
-          _.first(reinsurer?.treaty_participant_deductions)?.withholding_tax ||
-          deductions?.withholding_tax,
-        name: reinsurer.company_name,
-        participant_id: reinsurer?.treaty_participation_id,
-        participating_percentage: reinsurer?.treaty_participation_percentage,
-        treaty_participant_deduction_id:
-          reinsurer?.treaty_participant_deductions?.map(
-            (el) => el.treaty_participant_deduction_id
-          ),
-      }));
+      const __ = reinsurers.map((reinsurer) => {
+        const newValue = _.first(reinsurer?.treaty_participant_deductions);
+        return {
+          commission:
+            newValue?.commission === 0 ? newValue?.commission : newValue?.commission ||
+              deductions?.commission,
+          brokerage:
+            newValue?.brokerage === 0 ? newValue?.brokerage : newValue?.brokerage ||
+              deductions?.brokerage,
+          nic_levy:
+            newValue?.nic_levy === 0 ? newValue?.nic_levy : newValue?.nic_levy ||
+              deductions?.nic_levy,
+          withholding_tax:
+            newValue?.withholding_tax === 0 ? newValue?.withholding_tax : newValue?.withholding_tax ||
+              deductions?.withholding_tax,
+          name: reinsurer.company_name,
+          participant_id: reinsurer?.treaty_participation_id,
+          participating_percentage: reinsurer?.treaty_participation_percentage,
+          treaty_participant_deduction_id:
+            reinsurer?.treaty_participant_deductions?.map(
+              (el) => el.treaty_participant_deduction_id
+            ),
+        }
+      });
 
       setValues(__);
     }
