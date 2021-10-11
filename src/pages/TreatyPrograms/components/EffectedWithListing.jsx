@@ -24,6 +24,7 @@ function EffectedWithListing({
   const [expand, setToggle] = useState(false);
   const toggle = () => setShowDeductionDrawer((prev) => !prev);
   const isNonProp = treaty?.treaty_program?.treaty_type === "NONPROPORTIONAL";
+  const hasAccounts = _.first(treaty?.treaty_accounts);
 
   const data = _.mapValues(_.groupBy(reinsurers, "layer_number"), (list, key) =>
     list.map((item) => {
@@ -79,7 +80,7 @@ function EffectedWithListing({
                     />
                   )}
                   <button
-                    disabled={!treaty?.treaty_participants?.length}
+                    disabled={!treaty?.treaty_participants?.length && !hasAccounts}
                     onClick={toggle}
                     className="btn btn-sm w-md ml-2 btn-warning"
                     title="This button allows you to specify deductions specific to reinsurers participating on this treaty"
