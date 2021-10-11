@@ -104,7 +104,6 @@ function UpdateDeductions({
         variables: { data, account_ids, isProp, layer: isProp ? "" : layer },
       })
         .then((res) => {
-          // toggleAddpayment()
           setShow(false);
           swal("Hurray!!", "Deductions modified successfully", "success");
         })
