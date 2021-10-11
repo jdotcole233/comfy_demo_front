@@ -18,7 +18,7 @@ jobs:
           script: |
             cd public_html 
             rm -rf app
-            git clone https://github.com/jdotcole233/frontkek.git app
+            git clone git@github.com:jdotcole233/frontkek.git app
             cd app
             npm install
             npm build
