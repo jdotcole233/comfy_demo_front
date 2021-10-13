@@ -13,7 +13,7 @@ import swal from "sweetalert";
 import { AuthContext } from "../../context/AuthContext";
 import { editAccessRoles } from "../../layout/adminRoutes";
 
-function AddInsurer({ edit, toggle, data, closed }) {
+function AddInsurer({ edit, toggle, data, closed, view }) {
   // const { closed } = useContext(DrawerContext);
   const {
     state: { user },
@@ -155,7 +155,7 @@ function AddInsurer({ edit, toggle, data, closed }) {
     }
   }, [selectedReinsurer]);
 
- 
+
 
   const Form = (
     <div className="col-md-12">
@@ -296,6 +296,167 @@ function AddInsurer({ edit, toggle, data, closed }) {
       </fieldset>
     </div>
   );
+
+
+  if (view) {
+    return (
+      <form
+        onSubmit={handleSubmit(handleUpdateInsurer)}
+      >
+
+        <div className="form-group">
+          <h3 className="modal-title">View Insurer</h3>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="form-group">
+              <label htmlFor="">Company name</label>
+              <input
+                name="insurer_company_name"
+                ref={register({ required: "Required" })}
+                type="text"
+                className="form-control"
+                placeholder="Company name"
+                defaultValue={data?.insurer_company_name}
+              />
+              {errors.insurer_company_name && (
+                <p className="text-danger">
+                  {errors.insurer_company_name.message}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="">Email</label>
+              <input
+                name="insurer_company_email"
+                ref={register({
+                  required: "Required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "Invalid email address",
+                  },
+                })}
+                defaultValue={data?.insurer_company_email}
+                type="email"
+                className="form-control"
+                placeholder="Email"
+              />
+              {errors.insurer_company_email && (
+                <p className="text-danger">
+                  {errors.insurer_company_email.message}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="">Website</label>
+              <input
+                name="insurer_company_website"
+                ref={register({ required: false })}
+                type="text"
+                className="form-control"
+                placeholder="Website"
+                defaultValue={data?.insurer_company_website}
+              />
+              {errors.insurer_company_website && (
+                <p className="text-danger">
+                  {errors.insurer_company_website.message}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="col-md-12">
+            <div className="form-group">
+              <label htmlFor="">Street Address</label>
+              <input
+                name="street"
+                ref={register({ required: "Required" })}
+                type="text"
+                className="form-control"
+                placeholder="Street Address"
+                defaultValue={data?.insurer_address.street}
+              />
+              {errors.street && (
+                <p className="text-danger">{errors.street.message}</p>
+              )}
+            </div>
+          </div>
+          <div className="col-md-12">
+            <div className="form-group">
+              <label htmlFor="">Suburb/city</label>
+              <input
+                name="suburb"
+                ref={register({ required: "Required" })}
+                type="text"
+                className="form-control"
+                placeholder="Suburb"
+                defaultValue={data?.insurer_address.suburb}
+              />
+              {errors.suburb && (
+                <p className="text-danger">{errors.suburb.message}</p>
+              )}
+            </div>
+          </div>
+          <div className="col-md-12">
+            <div className="form-group">
+              <label htmlFor="">Region/State</label>
+              <input
+                name="region"
+                ref={register({ required: "Required" })}
+                type="text"
+                className="form-control"
+                placeholder="Region"
+
+                defaultValue={data?.insurer_address.region}
+              />
+              {errors.region && (
+                <p className="text-danger">{errors.region.message}</p>
+              )}
+            </div>
+          </div>
+          <div className="col-md-12">
+            <div className="form-group">
+              <label htmlFor="">Country</label>
+              <input
+                ref={register({
+                  required: "Required",
+                })}
+                type="text"
+                name="country"
+                list="movies"
+                placeholder="Country"
+                className="form-control"
+                defaultValue={data?.insurer_address.region}
+              />
+              {errors.country && (
+                <p className="text-danger">{errors.country.message}</p>
+              )}
+
+              <datalist id="movies">
+                <select name="movies" className="form-control">
+                  {countries.map((country, key) => (
+                    <option key={key} value={country.label} />
+                  ))}
+                </select>
+              </datalist>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-12 mt-2">
+          <div className="form-group d-flex justify-content-end">
+            {editAccessRoles.includes(user?.position) && (
+              <button type="submit" className="btn btn-sm btn-primary w-md">
+                Edit Insurer
+              </button>
+            )}
+          </div>
+        </div>
+      </form>
+    )
+  }
 
   return (
     <form
