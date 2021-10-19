@@ -34,6 +34,7 @@ const AddQuarter = ({
   const [addExchangeRate, setAddExchangeRate] = useState(false);
   const [ex_currency, setExCurrency] = useState(null);
   const [surplusCommissions, setSurplusCommission] = useState([]);
+  const [currency, setCurrency] = useState(null)
 
   const [addTreaty] = useMutation(ADD_QUARTER, {
     refetchQueries: [{ query: TREATY, variables: { treaty_id } }],
@@ -55,9 +56,9 @@ const AddQuarter = ({
   const onSubmit = (values) => {
     const exchange_rate = addExchangeRate
       ? JSON.stringify({
-          rate: values.ex_rate,
-          currency: values.ex_currency,
-        })
+        rate: values.ex_rate,
+        currency: values.ex_currency,
+      })
       : null;
     const data = {
       ..._.omit(values, [
@@ -110,6 +111,15 @@ const AddQuarter = ({
   const handleExCurrencyChange = (value) => {
     setValue("ex_currency", value ? value.value.code : "");
     setExCurrency(value ? value.value.code : "");
+    if (value) {
+      clearError("ex_currency");
+    }
+  };
+
+
+  const handleCurrencyChange = (value) => {
+    setValue("currency", value ? value.value.code : "");
+    setCurrency(value ? value.value.code : "");
     if (value) {
       clearError("ex_currency");
     }
@@ -189,6 +199,28 @@ const AddQuarter = ({
               </span>
             </div>
             <div className="row">
+              <div className="col-md-12 mb-2">
+                <label htmlFor="form-group">Select currency</label>
+                <Selector
+                  value={
+                    currency
+                      ? {
+                        label: Object.values(currencies).find(
+                          (eel) => eel.code === currency
+                        )?.name,
+                      }
+                      : ""
+                  }
+                  components={{ Option: CurrencyOption }}
+                  onChange={handleCurrencyChange}
+                  options={[
+                    ...Object.values(currencies).map((currency) => ({
+                      label: currency.name,
+                      value: currency,
+                    })),
+                  ]}
+                />
+              </div>
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="">Quarter</label>
@@ -291,10 +323,10 @@ const AddQuarter = ({
                       value={
                         ex_currency
                           ? {
-                              label: Object.values(currencies).find(
-                                (eel) => eel.code === ex_currency
-                              )?.name,
-                            }
+                            label: Object.values(currencies).find(
+                              (eel) => eel.code === ex_currency
+                            )?.name,
+                          }
                           : ""
                       }
                       components={{ Option: CurrencyOption }}
@@ -345,11 +377,10 @@ const AddQuarter = ({
             <div className="row">
               {surplusCommissions.map((surplus, surplusId) => (
                 <div
-                  className={`col-md-${
-                    surplusId + 1 >= surpluses.length && surplusId % 2 === 0
-                      ? "12"
-                      : "6"
-                  }`}
+                  className={`col-md-${surplusId + 1 >= surpluses.length && surplusId % 2 === 0
+                    ? "12"
+                    : "6"
+                    }`}
                 >
                   <fieldset className="border w-auto p-2 mb-2">
                     <legend className="font-size-13">
