@@ -96,7 +96,7 @@ const InsurerDetailsWelcomeScreen = ({ insurer }) => {
         toggle={() => setShowInsurerProfile(!showInsurerProfile)}
       >
         <AddInsurer
-          edit={true}
+          view
           data={insurer}
           toggle={() => setShowInsurerProfile(!showInsurerProfile)}
         />
