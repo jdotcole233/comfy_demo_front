@@ -27,3 +27,8 @@ mutation sendNotes(
   )
 }
 `
+
+export const DUPLICATE_TREATY = gql`
+mutation duplicateTreaty($treaty_id: ID, $currencies: [String]) {
+  duplicateTreaty(treaty_id: $treaty_id, currencies: $currencies)
+}`;

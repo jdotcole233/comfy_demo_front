@@ -168,7 +168,7 @@ const ViewTreaty = () => {
                   )}
                 </DropdownButton>
                 {participant?.treaty_participation_percentage &&
-                !_.isEmpty(participant.treaty_participant_deductions) ? (
+                  !_.isEmpty(participant.treaty_participant_deductions) ? (
                   <Fragment>
                     {isProp ? (
                       <button
@@ -197,13 +197,13 @@ const ViewTreaty = () => {
                 {[...deleteAccessRoles, "Broking Officer"].includes(
                   user?.position
                 ) && (
-                  <button
-                    onClick={() => handleRemoveReinsurer(participant)}
-                    className="btn mb-1"
-                  >
-                    <i className="bx bx-trash text-danger"></i>
-                  </button>
-                )}
+                    <button
+                      onClick={() => handleRemoveReinsurer(participant)}
+                      className="btn mb-1"
+                    >
+                      <i className="bx bx-trash text-danger"></i>
+                    </button>
+                  )}
               </>
             ),
           };
@@ -227,9 +227,8 @@ const ViewTreaty = () => {
             email_status: (
               <span
                 style={{ letterSpacing: 3 }}
-                className={`badge badge-soft-${
-                  associate.sent_status === "UNSENT" ? "danger" : "success"
-                }`}
+                className={`badge badge-soft-${associate.sent_status === "UNSENT" ? "danger" : "success"
+                  }`}
               >
                 {associate.sent_status}
               </span>
@@ -502,11 +501,10 @@ const ViewTreaty = () => {
                 Type:{" "}
                 <span
                   style={{ letterSpacing: 5 }}
-                  className={`badge w-md badge-soft-${
-                    data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
+                  className={`badge w-md badge-soft-${data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
                       ? "success"
                       : "warning"
-                  } p-1 font-size-11`}
+                    } p-1 font-size-11`}
                 >
                   {data?.treaty?.treaty_program?.treaty_type}
                 </span>
@@ -608,16 +606,16 @@ const ViewTreaty = () => {
       >
         {!isProp
           ? openStatementsDrawer && (
-              <NonProportionalStatements
-                treaty={data?.treaty}
-                reinsurer={selectedReinsurer}
-                reinsurers={data?.treaty?.treaty_participants}
-                layer={currentLayer}
-              />
-            )
+            <NonProportionalStatements
+              treaty={data?.treaty}
+              reinsurer={selectedReinsurer}
+              reinsurers={data?.treaty?.treaty_participants}
+              layer={currentLayer}
+            />
+          )
           : openStatementsDrawer && (
-              <Statements treaty={data?.treaty} reinsurer={selectedReinsurer} />
-            )}
+            <Statements treaty={data?.treaty} reinsurer={selectedReinsurer} />
+          )}
       </Drawer>
 
       <Drawer

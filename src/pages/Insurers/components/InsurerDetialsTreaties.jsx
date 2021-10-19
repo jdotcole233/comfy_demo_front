@@ -19,9 +19,9 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
       insurer.treaties.map((treaty) => {
         const currency =
           treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
-            ? JSON.parse(treaty?.treaty_details ?? "[]").find(
-                (el) => el.keydetail.toLowerCase() === "currency"
-              )?.value
+            ? JSON.parse(treaty?.treaty_details ?? "[]")?.find(
+              (el) => el.keydetail.toLowerCase() === "currency"
+            )?.value
             : treaty?.currency;
         const row = {
           ...treaty,
@@ -38,13 +38,12 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
           treaty_payment_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-soft-${
-                treaty?.treaty_payment_status === "PARTPAYMENT"
+              className={`badge badge-soft-${treaty?.treaty_payment_status === "PARTPAYMENT"
                   ? "primary"
                   : treaty.treaty_payment_status === "UNPAID"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {treaty.treaty_payment_status}
             </span>
@@ -88,27 +87,24 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
                   <button
                     onClick={() => setStatus("UNPAID")}
                     type="button"
-                    className={`btn btn-${
-                      status !== "UNPAID" ? "secondary" : "success"
-                    }`}
+                    className={`btn btn-${status !== "UNPAID" ? "secondary" : "success"
+                      }`}
                   >
                     Unpaid
                   </button>
                   <button
                     onClick={() => setStatus("PARTPAYMENT")}
                     type="button"
-                    className={`btn btn-${
-                      status !== "PARTPAYMENT" ? "secondary" : "success"
-                    }`}
+                    className={`btn btn-${status !== "PARTPAYMENT" ? "secondary" : "success"
+                      }`}
                   >
                     Partpayment
                   </button>
                   <button
                     onClick={() => setStatus("PAID")}
                     type="button"
-                    className={`btn btn-${
-                      status !== "PAID" ? "secondary" : "success"
-                    }`}
+                    className={`btn btn-${status !== "PAID" ? "secondary" : "success"
+                      }`}
                   >
                     Paid
                   </button>
