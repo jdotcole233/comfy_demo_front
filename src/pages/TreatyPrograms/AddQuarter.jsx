@@ -65,6 +65,8 @@ const AddQuarter = ({
         "ex_rate",
         "ex_currency",
         ...surplusCommissions.map((_, id) => `gross_premium_${id}`),
+        ...surplusCommissions.map((_, id) => `cash_loss_${id}`),
+        ...surplusCommissions.map((_, id) => `claim_settled_${id}`),
       ]),
       exchange_rate,
       surpulus_data: surplusCommissions,
@@ -131,6 +133,26 @@ const AddQuarter = ({
     __[key] = {
       ..._surplus,
       gross_premium: value,
+    };
+    setSurplusCommission(__);
+  };
+
+  const onCashLossChange = (key, _surplus, evt) => {
+    const { value } = evt.target;
+    const __ = [...surplusCommissions];
+    __[key] = {
+      ..._surplus,
+      cash_loss: value,
+    };
+    setSurplusCommission(__);
+  };
+
+  const onClaimSettledChange = (key, _surplus, evt) => {
+    const { value } = evt.target;
+    const __ = [...surplusCommissions];
+    __[key] = {
+      ..._surplus,
+      claim_settled: value,
     };
     setSurplusCommission(__);
   };
@@ -251,7 +273,7 @@ const AddQuarter = ({
                   )}
                 </div>
               </div>
-              <div className="col-md-6">
+              {/* <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="Claim Settled">Claim Settled</label>
                   <input
@@ -268,7 +290,7 @@ const AddQuarter = ({
                     </p>
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="Gross Premium">Account year</label>
@@ -284,7 +306,7 @@ const AddQuarter = ({
                   )}
                 </div>
               </div>
-              <div className="col-md-6">
+              {/* <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="Gross Premium">Cash loss</label>
                   <input
@@ -299,7 +321,7 @@ const AddQuarter = ({
                     <p className="text-danger">{errors.cash_loss.message}</p>
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="col-md-12 mx-3">
                 <div className="form-group ml-2">
                   <input
@@ -408,6 +430,46 @@ const AddQuarter = ({
                           {errors[`gross_premium_${surplusId}`] && (
                             <p className="text-danger">
                               {errors[`gross_premium_${surplusId}`].message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="form-group">
+                          <label htmlFor="Gross Premium">Cash loss</label>
+                          <input
+                            name={`cash_loss_${surplusId}`}
+                            ref={register({ required: "Required" })}
+                            type="number"
+                            className="form-control"
+                            step="any"
+                            placeholder="Cash loss"
+                            onChange={(e) =>
+                              onCashLossChange(surplusId, surplus, e)
+                            }
+                          />
+                          {errors[`cash_loss_${surplusId}`] && (
+                            <p className="text-danger">{errors[`cash_loss_${surplusId}`].message}</p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="form-group">
+                          <label htmlFor="Claim Settled">Claim Settled</label>
+                          <input
+                            name={`claim_settled_${surplusId}`}
+                            ref={register({ required: "Required" })}
+                            type="number"
+                            step="any"
+                            className="form-control"
+                            placeholder="Claim Settled"
+                            onChange={(e) =>
+                              onClaimSettledChange(surplusId, surplus, e)
+                            }
+                          />
+                          {errors[`claim_settled_${surplusId}`] && (
+                            <p className="text-danger">
+                              {errors[`claim_settled_${surplusId}`].message}
                             </p>
                           )}
                         </div>
