@@ -1,7 +1,9 @@
 import React from "react";
 import { Fragment } from "react";
+import { useBrokerContext } from "../provider/BrokerProvider";
 
-const BrokersStats = ({ brokers = [], associates = 0 }) => {
+const BrokersStats = ({ associates = 0 }) => {
+  const { brokers } = useBrokerContext();
   return (
     <Fragment>
       <div className="col-xl-12 mt-">
@@ -34,7 +36,7 @@ const BrokersStats = ({ brokers = [], associates = 0 }) => {
                     <p className="text-muted font-weight-medium">
                       Total number of Associates
                     </p>
-                    <h4 className="mb-0">{associates}</h4>
+                    <h4 className="mb-0">{brokers?.reduce((pV, cV) => pV + cV?.re_broker_associates?.length || 0, 0)}</h4>
                   </div>
 
                   <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
