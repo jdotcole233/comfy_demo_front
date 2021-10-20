@@ -15,7 +15,7 @@ const createOption = (label, value) => ({
 const TreatyCurrency = ({ treaty }) => {
     const [showModal, setShowModal] = useState(false);
     const [currencies, setCurrencies] = useState(() => {
-        const firstCurrency = JSON.parse(treaty?.treaty_details).currency;
+        const firstCurrency = JSON.parse(treaty?.treaty_details)?.find(el => el.keydetail === "currency").value;
         if (firstCurrency) {
             return [createOption(Object.values(list).find(
                 (eel) => eel.code === firstCurrency
@@ -81,6 +81,7 @@ const TreatyCurrency = ({ treaty }) => {
                     <Modal.Title>Treaty currency</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {/* {JSON.stringify(treaty?.treaty_details)} */}
                     <div className="row">
                         <div className="col-md-12">
                             <h2>{treaty?.treaty_program?.treaty_name} : {_.first(currencies)?.value ?? "N/A"}</h2>

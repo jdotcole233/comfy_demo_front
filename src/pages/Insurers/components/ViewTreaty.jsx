@@ -502,8 +502,8 @@ const ViewTreaty = () => {
                 <span
                   style={{ letterSpacing: 5 }}
                   className={`badge w-md badge-soft-${data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
-                      ? "success"
-                      : "warning"
+                    ? "success"
+                    : "warning"
                     } p-1 font-size-11`}
                 >
                   {data?.treaty?.treaty_program?.treaty_type}

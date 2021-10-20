@@ -88,8 +88,8 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
         surpulus_uuid: el.surpulus_uuid,
         gross_premium: el.gross_premium,
         account_deduction_id: el.treaty_account_deduction_id,
-        cash_loss: el.treaty_cash_loss,
-        claim_settled: el.treaty_claim_settled,
+        cash_loss: el.cash_loss,
+        claim_settled: el.claim_settled,
       })),
     };
     swal({
@@ -557,7 +557,7 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
                           <input
                             name={`cash_loss_${surplusId}`}
                             ref={register({ required: "Required" })}
-                            value={surplus.gross_premium}
+                            value={surplus.cash_loss}
                             type="number"
                             className="form-control"
                             step="any"
@@ -577,7 +577,7 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
                           <input
                             name={`claim_settled_${surplusId}`}
                             ref={register({ required: "Required" })}
-                            value={surplus.gross_premium}
+                            value={surplus.claim_settled}
                             type="number"
                             step="any"
                             className="form-control"
