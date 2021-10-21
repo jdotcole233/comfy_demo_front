@@ -4,7 +4,7 @@ import list from "../../../assets/currencies.json";
 import _ from "lodash";
 import { DUPLICATE_TREATY } from '../../../graphql/mutattions/treaty';
 import { TREATY } from '../../../graphql/queries/treaty';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import swal from 'sweetalert';
 
 const createOption = (label, value) => ({
