@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles/inputOffer.module.css";
 import { Input, InsurerOption, Selector } from "../../components";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { INSURERS } from "../../graphql/queries";
 import { UPDATE_TREATY, TREATIES } from "../../graphql/queries/treaty";
 import swal from "sweetalert";

@@ -2,7 +2,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useContext } from 'react'
 import swal from 'sweetalert'
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { UPDATE_EXTRA_CHARGE } from '../../graphql/mutattions';
 import { REINSURERS } from '../../graphql/queries';
 import styles from './styles/ViewReinsurerOffer.module.css'

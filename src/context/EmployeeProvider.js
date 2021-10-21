@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { useQuery } from 'react-apollo'
+import { useQuery } from "@apollo/client"
 import { EMPLOYEES } from '../graphql/queries/employees';
 
 const EmployeeContext = createContext();

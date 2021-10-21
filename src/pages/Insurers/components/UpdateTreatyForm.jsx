@@ -4,7 +4,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Alert } from "react-bootstrap";
 import styles from "../styles/ViewInsurerOffer.module.css";
 import { useForm } from "react-hook-form";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { INSURER_TREATY_PROGRAMS } from "../../../graphql/queries/treaty";
 import {
   Selector,
@@ -18,7 +18,7 @@ import {
   ADD_DEDUCTION_TO_TREATY,
   UPDATE_INSURER_TREATY,
 } from "../../../graphql/queries/treaty";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import swal from "sweetalert";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { programTypeOptions } from "../dummy";

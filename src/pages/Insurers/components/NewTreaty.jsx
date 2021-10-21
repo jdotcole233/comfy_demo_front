@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "../styles/ViewInsurerOffer.module.css";
 import { InsurerOption, Selector } from "../../../components";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { INSURERS } from "../../../graphql/queries";
 import { CREATE_TREATY, TREATIES } from "../../../graphql/queries/treaty";
 import swal from "sweetalert";

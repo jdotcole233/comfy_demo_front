@@ -5,7 +5,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Modal, DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 import { Drawer, Loader } from "../../../components";
 import { useHistory, useLocation } from "react-router-dom";
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "@apollo/client";
 import {
   TREATY,
   ADD_TREATY_PERCENTAGE,

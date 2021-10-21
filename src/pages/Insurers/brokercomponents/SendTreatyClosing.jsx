@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { Editor, Selector } from "../../../components";

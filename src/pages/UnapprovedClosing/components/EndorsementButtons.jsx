@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useCallback, useMemo } from "react";
 import { DropdownButton, Dropdown, ButtonGroup } from "react-bootstrap";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { GET_ENDORSEMENT_PARTICIPATION } from "../../../graphql/queries";
 import { Modal } from "react-bootstrap";
 import { Drawer, Datatable } from "../../../components";

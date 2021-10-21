@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useMemo, useContext } from "react";
 import { DropdownButton, Dropdown, ButtonGroup } from "react-bootstrap";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { DELETE_OFFER, ADD_PERCENTAGE } from "../../../graphql/mutattions";
 import { OFFERS } from "../../../graphql/queries";
 import { Modal } from "react-bootstrap";

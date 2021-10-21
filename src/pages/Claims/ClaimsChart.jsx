@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Chart from 'react-apexcharts'
-import { useQuery } from 'react-apollo';
+import { useQuery } from "@apollo/client";
 import { CLAIM_OVERVIEW } from '../../graphql/queries';
 
 

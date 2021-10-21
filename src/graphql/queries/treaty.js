@@ -740,7 +740,7 @@ mutation sendPTreatyDebitNote(
 `
 
 export const SEND_NP_CREDIT_NOTE = gql`
-mutation sendNpDebitNOte($data: NPTreatyData) {
+mutation sendNpCreditNOte($data: NPTreatyData) {
   sendNPTreatyCreditNote(nptreatydata: $data)
 }
 `
@@ -764,7 +764,7 @@ mutation sendPTreatyCreditAndStatementNote(
 `
 
 export const SEND_TREATY_CLAIM_DEBIT_NOTE = gql`
-mutation sendTreatyClaimDebitNote(
+mutation SendTreatyClaimDebitNote(
   $single_document: Int
   $treaty_participant_id: ID
   $reinsurer_id: ID

@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles/ViewInsurerOffer.module.css";
 import { Alert } from "react-bootstrap";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import {
   MAKE_PAYMENT_INSURER,
   UPDATE_PAYMENT_INSURER,

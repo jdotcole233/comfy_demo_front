@@ -1,7 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { useMemo } from "react";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { TreatyClaimsButtons } from "../../components";
 import { TREATY_CLAIMS } from "../../graphql/queries/treaty";
 import TreatyClaimsProvider from "./Providers/TreatyClaimsProvider";

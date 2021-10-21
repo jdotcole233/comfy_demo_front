@@ -6,7 +6,7 @@ import { CurrencyOption, Drawer, Selector } from "../../../components";
 import { noteOptions } from "../../TreatyPrograms/columns";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import {
   TREATY,
   UPDATE_QUARTER,

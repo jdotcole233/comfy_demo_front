@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Alert } from "react-bootstrap";
 import { Selector, InsurerOption, CountryOption } from "../../components";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_REINSURER, UPDATE_REINSURER } from "../../graphql/mutattions";
 import { REINSURERS, REINSURER, INSURERS } from "../../graphql/queries";
 import swal from "sweetalert";

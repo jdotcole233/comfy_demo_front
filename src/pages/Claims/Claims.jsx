@@ -1,6 +1,6 @@
 // /* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useMemo, useState, useCallback } from 'react'
-// import { useQuery } from 'react-apollo'
+// import { useQuery } from "@apollo/client"
 // import { ALLOFFERS, OFFERS } from '../../graphql/queries'
 // import OfferListing from '../CreateSlip/OfferListing'
 // import { generateClaimsTable } from './actions'

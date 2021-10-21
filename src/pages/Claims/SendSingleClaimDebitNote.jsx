@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import styles from './styles/card.module.css'
 import { Alert } from 'react-bootstrap'
 import { Editor, Selector } from '../../components'
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation, useQuery } from "@apollo/client";
 import { EMPLOYEES } from '../../graphql/queries/employees'
 import { SEND_CLAIM_DEBIT_NOTE } from '../../graphql/mutattions';
 import swal from 'sweetalert';

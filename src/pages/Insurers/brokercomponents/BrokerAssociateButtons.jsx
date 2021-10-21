@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import swal from "sweetalert";
 import { useAuth } from "../../../context/AuthContext";
 import { REMOVE_BROKER_ASSOCIATE_FROM_TREATY } from "../../../graphql/mutattions/brokers";

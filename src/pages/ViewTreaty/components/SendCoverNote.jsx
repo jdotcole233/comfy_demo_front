@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/inputOffer.module.css";
 import { Dropzone, Selector, Editor } from "../../../components";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import swal from "sweetalert";
 import { Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";

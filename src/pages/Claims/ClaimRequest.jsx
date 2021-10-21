@@ -4,7 +4,7 @@ import styles from './styles/card.module.css'
 import JoditEditor from "jodit-react";
 import { Alert } from 'react-bootstrap'
 import { Selector } from '../../components'
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation, useQuery } from "@apollo/client";
 import { EMPLOYEES } from '../../graphql/queries/employees'
 import { CLAIM_REQUEST } from '../../graphql/mutattions';
 import swal from 'sweetalert';

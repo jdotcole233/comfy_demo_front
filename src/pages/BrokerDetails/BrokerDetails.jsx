@@ -2,7 +2,7 @@ import { Loader } from "../../components";
 import ErrorPage from "../../components/ErrorPage";
 import { BROKER } from "../../graphql/queries/brokers";
 import React from "react";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import BrokerDetailHeader from "./components/BrokerDetailHeader";
 import BrokerDetailOtherInfo from "./components/BrokerDetailOtherInfo";

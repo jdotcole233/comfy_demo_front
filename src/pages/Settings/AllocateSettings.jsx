@@ -7,7 +7,7 @@ import {
   menus,
   treaty,
 } from "./../../layout/adminRoutes";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { UPDATE_USER_ROLE } from "../../graphql/mutattions/settings";
 import { USER_ROLES } from "../../graphql/queries/settings";
 import swal from "sweetalert";

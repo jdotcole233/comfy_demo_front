@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import { sum } from 'lodash';
 import React, { useState, useEffect, Fragment } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import swal from "sweetalert";
 import { Selector, CurrencyOption } from "../../../components";
 import {

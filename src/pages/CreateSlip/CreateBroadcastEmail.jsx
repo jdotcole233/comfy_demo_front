@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles/inputOffer.module.css";
 import { Dropzone, Modal, Datatable, Selector, Editor } from "../../components";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { SEND_OFFER_AS_BROADCAST } from "../../graphql/mutattions";
 import swal from "sweetalert";
 import { Alert } from "react-bootstrap";

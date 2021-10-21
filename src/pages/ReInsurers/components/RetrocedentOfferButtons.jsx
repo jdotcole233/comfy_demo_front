@@ -8,7 +8,7 @@ import { Modal } from "react-bootstrap";
 import { paymentsColumns } from "../../Insurers/dummy";
 import DistributePayment from "./DistributePayment";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { REMOVE_PAYMENT } from "../../../graphql/mutattions";
 import { AddPayments } from "./payment/Add";
 import { REINSURER, REINSURER_OFFERS } from "../../../graphql/queries";

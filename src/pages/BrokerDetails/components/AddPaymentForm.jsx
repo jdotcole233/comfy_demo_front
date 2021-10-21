@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { Alert } from "react-bootstrap";
 import { CurrencyOption, Loader, Selector } from "../../../components";
 import currencies from "../../../assets/currencies.json";

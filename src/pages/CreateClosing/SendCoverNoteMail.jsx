@@ -8,7 +8,7 @@ import swal from 'sweetalert';
 import { useForm } from 'react-hook-form';
 import { DrawerContext } from '../../components/Drawer';
 import { Editor, Selector } from '../../components'
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation, useQuery } from "@apollo/client";
 import { EMPLOYEES } from '../../graphql/queries/employees'
 import _ from 'lodash'
 

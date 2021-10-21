@@ -5,7 +5,7 @@ import { editAccessRoles } from "../../../layout/adminRoutes";
 import { Drawer } from "../../../components";
 import React from "react";
 import { Fragment, useState } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { Modal, DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 import swal from "sweetalert";
 import AddBrokerPercentageForm from "./AddBrokerPercentageForm";

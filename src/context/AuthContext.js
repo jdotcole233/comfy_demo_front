@@ -4,7 +4,7 @@ import reducer from './AuthReducer';
 import { REFRESH, SIGNOUT } from './AuthActions';
 import Cookies from 'js-cookie';
 import swal from 'sweetalert';
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { LOGOUT } from '../graphql/mutattions/auth';
 import IdleTimer from 'react-idle-timer';
 import { COOKIE_NAME_AUTH_TOKEN, COOKIE_NAME_AUTH } from '../graphql/config';

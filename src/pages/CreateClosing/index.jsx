@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, memo, useMemo } from "react";
 import { Loader } from "../../components";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { ALLOFFERS, OFFERS } from "../../graphql/queries";
 import { columns } from "./columns";
 import { generateClosingOffers } from "./actions.js";

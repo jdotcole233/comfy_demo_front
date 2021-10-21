@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert";
 import { Modal, Alert } from "react-bootstrap";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { PostPoneNotification } from "../../../graphql/mutattions/Notifications";
 import { INSURER } from "../../../graphql/queries";
 

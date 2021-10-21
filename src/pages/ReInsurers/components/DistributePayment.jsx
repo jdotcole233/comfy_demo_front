@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from "../styles/ViewReinsurerOffer.module.css";
 import swal from "sweetalert";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { Alert } from "react-bootstrap";
 
 import DistributePaymentForm from "../../Insurers/components/DistributePaymentForm";

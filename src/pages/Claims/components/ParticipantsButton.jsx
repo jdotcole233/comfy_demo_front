@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 import React from 'react'
 import { useState } from "react"
-import { useMutation } from 'react-apollo'
+import { useMutation } from "@apollo/client"
 import { SEND_CLAIM_DEBIT_NOTE } from '../../../graphql/mutattions';
 // import swall from 'sweetalert2'
 // import swal from 'sweetalert'

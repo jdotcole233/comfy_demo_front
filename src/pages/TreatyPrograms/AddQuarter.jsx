@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
 import React, { useEffect, useState } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { ADD_QUARTER, TREATY } from "../../graphql/queries/treaty";
 import { noteOptions } from "./columns";

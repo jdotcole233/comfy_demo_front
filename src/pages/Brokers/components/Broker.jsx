@@ -6,7 +6,7 @@ import { DELETE_BROKER } from "../../../graphql/mutattions/brokers";
 import { create_broker_access, delete_broker_access } from "../../../layout/adminRoutes";
 import React, { useState } from "react";
 import { Fragment } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import AddBrokerAssociateForm from "./AddBrokerAssociateForm";

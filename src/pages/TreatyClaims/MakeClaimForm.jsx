@@ -14,7 +14,7 @@ import { Select } from "../../components/Input";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { makeClaimPreview } from "./columns";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import {
   MANUAL_CREATE_CLAIM,
   TREATY_CLAIMS,

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Alert } from "react-bootstrap";
 import SingleDeductionForm from "./SingleDeductionForm";
 import _ from "lodash";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import {
   MODIFY_TREATY_DEDUCTIONS,
   TREATY,

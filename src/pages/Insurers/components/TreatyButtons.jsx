@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState, useEffect } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { Drawer, Modal } from "../../../components";

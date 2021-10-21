@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "../styles/ViewInsurerOffer.module.css";
 import { Alert } from "react-bootstrap";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_DISTRIBUTION_LIST_DATA } from "../../../graphql/queries";
 import { Selector } from "../../../components";
 import {

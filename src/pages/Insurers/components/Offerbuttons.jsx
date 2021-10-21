@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { REMOVE_PAYMENT } from "../../../graphql/mutattions";
 import { INSURER } from "../../../graphql/queries";
 import { Drawer, Datatable } from "../../../components";

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { useQuery } from 'react-apollo';
+import { useQuery } from "@apollo/client";
 import { TREATIES } from '../graphql/queries/treaty';
 
 const TreatyProgramsContext = createContext()

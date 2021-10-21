@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react'
 import { useCallback } from 'react'
-import { useMutation } from 'react-apollo'
+import { useMutation } from "@apollo/client"
 import swal from 'sweetalert'
 import { MAKE_COMMENT } from '../../graphql/mutattions'
 import { ALLOFFERS, OFFERS, SINGLE_OFFER } from '../../graphql/queries'

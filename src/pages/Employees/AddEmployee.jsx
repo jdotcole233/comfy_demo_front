@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DrawerContext } from "../../components/Drawer";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   CREATE_EMPLOYEE,
   UPDATE_EMPLOYEE,

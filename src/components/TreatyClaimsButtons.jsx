@@ -14,7 +14,7 @@ import MakeClaimForm from "../pages/TreatyClaims/MakeClaimForm";
 import moment from "moment";
 import EditTreatyClaimForm from "./EditTreatyClaimForm";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { DELETE_TREATY_CLAIM, TREATY_CLAIMS } from "../graphql/queries/treaty";
 import PreviewNotes from "../pages/TreatyClaims/PreviewNotes";
 import { FaEdit, FaTrash } from "react-icons/fa";

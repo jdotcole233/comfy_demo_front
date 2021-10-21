@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
 import React, { useState, useEffect } from "react";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import NotificationMiniCard from "./NotificationMiniCard";
 import Pusher from "pusher-js";
 import Push from "push.js";

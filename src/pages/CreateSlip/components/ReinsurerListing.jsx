@@ -10,7 +10,7 @@ import {
   editAccessRoles,
   deleteAccessRoles,
 } from "../../../layout/adminRoutes";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import {
   REMOVE_REINSURER_FROM_PARTICIPATION,
   ADD_PERCENTAGE,

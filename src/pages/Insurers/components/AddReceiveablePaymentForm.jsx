@@ -6,7 +6,7 @@ import swal from "sweetalert";
 import { Selector } from "../../../components";
 import styles from "../styles/ViewInsurerOffer.module.css";
 import { MAKE_RECEIVABLE_PAYMENT } from "../../../graphql/queries/treaty";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { INSURER } from "../../../graphql/queries";
 import NonPorportionalTreatyReceiveablePaymentForm from "./NonPorportionalTreatyReceiveablePaymentForm";
 import { money } from "../../../utils";

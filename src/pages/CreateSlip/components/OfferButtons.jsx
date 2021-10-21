@@ -2,7 +2,7 @@
 import React, { useState, useContext } from "react";
 import { DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { DELETE_OFFER } from "../../../graphql/mutattions";
 import { OFFERS } from "../../../graphql/queries";
 import { useHistory } from "react-router-dom";

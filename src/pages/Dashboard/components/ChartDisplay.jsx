@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
 import { DASHBOARD_PIE_DATA } from '../../../graphql/queries'
-import { useQuery } from 'react-apollo'
+import { useQuery } from "@apollo/client"
 import { Modal } from 'react-bootstrap';
 import Chart from 'react-apexcharts';
 

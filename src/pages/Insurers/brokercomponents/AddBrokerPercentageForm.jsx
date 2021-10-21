@@ -1,6 +1,6 @@
 import React from "react";
 import { Fragment, useState } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { Modal } from "react-bootstrap";
 import swal from "sweetalert";
 import { ADD_PERCENTAGE_TO_BROKER } from "../../../graphql/mutattions/brokers";

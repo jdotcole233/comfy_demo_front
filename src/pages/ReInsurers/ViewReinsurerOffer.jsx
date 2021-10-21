@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import styles from "./styles/ViewReinsurerOffer.module.css";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { FETCH_CLASS_OF_BUSINESS } from "../../graphql/queries";
 import { Editor } from "../../components";
 

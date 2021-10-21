@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 import JoditEditor from "jodit-react";
 import React, { useState, useEffect } from "react";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { Dropzone, Selector } from "../../../components";
 import {
