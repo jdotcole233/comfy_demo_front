@@ -3,7 +3,6 @@
 import React, { useState, useEffect, memo } from "react";
 // import { Alert } from "react-bootstrap";
 import styles from "../../Insurers/styles/ViewInsurerOffer.module.css";
-import { useForm } from "react-hook-form";
 import { Selector, CurrencyOption, Editor, Loader } from "../../../components";
 import currencies from "../../../assets/currencies.json";
 import { useMutation, useQuery } from "@apollo/client";

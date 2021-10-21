@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
 import SingleDeductionForm from "./SingleDeductionForm";
 import _ from "lodash";
@@ -64,9 +64,9 @@ function UpdateDeductions({
     refetchQueries: [{ query: TREATY, variables: { treaty_id } }],
   });
 
-  const valid = useMemo(() => {
-    return values.every(isvalid);
-  }, [values]);
+  // const valid = useMemo(() => {
+  //   return values.every(isvalid);
+  // }, [values]);
 
   const onChange = (e, index) => {
     const { name, value } = e.target;

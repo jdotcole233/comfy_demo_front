@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { Modal } from "react-bootstrap";
 import swal from "sweetalert";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   deleteAccessRoles,
@@ -18,7 +18,7 @@ const AssociateButtons = ({ broker, data }) => {
   const { user } = useAuth();
 
   const { setValue, register, errors, handleSubmit } = useForm();
-  const { state } = useLocation();
+  // const {  } = useLocation();
   const [viewAssociate, setViewAssociate] = useState(false);
   const [selectedAssociate, seTselectedAssociate] = useState(null);
 

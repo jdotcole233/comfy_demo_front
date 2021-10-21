@@ -68,7 +68,7 @@ function EffectedWithListing({
             </div>
             {expand && <div className="card-body">
               <div className="d-flex justify-content-between">
-                <h4 className="card-title mb-4"></h4>
+                {/* <h4 className="card-title mb-4"></h4> */}
                 <div className="mb-4">
                   {!isNonProp && (
                     <PortfolioStatment

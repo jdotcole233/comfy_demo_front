@@ -41,8 +41,8 @@ const PreviewClosing = ({ treaty, re_broker_treaties_participation_id }) => {
         </div>
       )}
 
-      {treaty_account_id && isProp && <iframe src={url} width="100%" height={window.innerHeight - 100}></iframe>}
-      {!isProp && <iframe src={url} width="100%" height={window.innerHeight - 100}></iframe>}
+      {treaty_account_id && isProp && <iframe title={`${url}`} src={url} width="100%" height={window.innerHeight - 100}></iframe>}
+      {!isProp && <iframe title={`${url}`} src={url} width="100%" height={window.innerHeight - 100}></iframe>}
     </div>
   );
 };

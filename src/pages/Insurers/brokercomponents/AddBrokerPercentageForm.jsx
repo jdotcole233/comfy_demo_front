@@ -39,6 +39,7 @@ const AddBrokerPercentageForm = ({
         },
       ],
     }).then((input) => {
+      // eslint-disable-next-line
       if (!input) throw null;
       assign({
         variables: {

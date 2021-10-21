@@ -46,7 +46,7 @@ const ViewTreaty = () => {
   // const { treaty } = useInsurer();
   const { state } = useLocation();
   const history = useHistory();
-  const [showCreateList, setshowCreateList] = useState(false);
+  // const [showCreateList, setshowCreateList] = useState(false);
   const [openStatementsDrawer, setOpenStatementsDrawer] = useState(false);
   const [addPercentageModal, setAddPercentageModal] = useState(false);
   const [currentLayer, setCurrentLayer] = useState(1);
@@ -69,6 +69,7 @@ const ViewTreaty = () => {
   });
 
   const isProp = data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
+  const totalPercentage = data?.treaty?.order_hereon ?? 100;
 
   const [addPercentage] = useMutation(ADD_TREATY_PERCENTAGE, {
     variables: {
@@ -115,7 +116,7 @@ const ViewTreaty = () => {
           remainingPercentages[`${index}`] = 0;
         }
       } else {
-        remainingPercentages[`${currentLayer}`] = 100;
+        remainingPercentages[`${currentLayer}`] = totalPercentage;
       }
 
       if (data) {
@@ -371,7 +372,7 @@ const ViewTreaty = () => {
         (selectedReinsurer.treaty_participation_percentage
           ? parseFloat(selectedReinsurer.treaty_participation_percentage)
           : 0);
-      availablePercenatge = 100 - availablePercenatge;
+      availablePercenatge = totalPercentage - availablePercenatge;
     }
     // console.log(availablePercenatge);
     if (parseFloat(value) <= parseFloat(availablePercenatge).toFixed(5)) {
@@ -627,7 +628,7 @@ const ViewTreaty = () => {
           <SendReinsurerDocuments
             reinsurer={selectedReinsurer}
             total_participation_percentage={
-              100 - remainingPercentages[`${currentLayer}`]
+              totalPercentage - remainingPercentages[`${currentLayer}`]
             }
             treaty={data?.treaty}
             layer={currentLayer}

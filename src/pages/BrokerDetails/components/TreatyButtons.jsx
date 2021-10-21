@@ -12,7 +12,7 @@ const TreatyButtons = ({ treaty, _payments, re_broker_id }) => {
   const [editPayment, setEditPayment] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
 
-  const isProp = treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
+  const isProp = useMemo(() => treaty?.treaty_program?.treaty_type === "PROPORTIONAL", [treaty]);
 
   const selectPayment = useCallback(
     (payment) => {
@@ -75,7 +75,7 @@ const TreatyButtons = ({ treaty, _payments, re_broker_id }) => {
     }
 
     return [];
-  }, [treaty]);
+  }, [treaty, _payments.xl_participation_payments, isProp]);
 
   return (
     <Fragment>

@@ -5,7 +5,7 @@ import moment from "moment";
 import TreatyButtons from "./TreatyButtons";
 import { useBrokerDetailsContext } from "../provider/BrokerDetailsProvider";
 
-const BrokerDetailTreaties = ({ }) => {
+const BrokerDetailTreaties = () => {
   const { broker } = useBrokerDetailsContext();
   const treaties = useMemo(() => {
     const list = [];

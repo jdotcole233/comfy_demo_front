@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/iframe-has-title */
+//
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { BASE_URL_LOCAL } from "../../graphql";
@@ -21,11 +24,10 @@ const ManageTreatyDetails = () => {
                 Type:{" "}
                 <span
                   style={{ letterSpacing: 5 }}
-                  className={`badge w-md badge-soft-${
-                    parsedPayload?.treaty_type === "PROPORTIONAL"
-                      ? "success"
-                      : "warning"
-                  } p-1 font-size-11`}
+                  className={`badge w-md badge-soft-${parsedPayload?.treaty_type === "PROPORTIONAL"
+                    ? "success"
+                    : "warning"
+                    } p-1 font-size-11`}
                 >
                   {parsedPayload?.treaty_type}
                 </span>
@@ -66,9 +68,10 @@ const ManageTreatyDetails = () => {
               </div>
               <div
                 className="card-body"
-                // style={{ height: window.innerHeight - 100 }}
+              // style={{ height: window.innerHeight - 100 }}
               >
                 <iframe
+                  title="preview"
                   src={loader ? url : ""}
                   width="100%"
                   height={window.innerHeight - 100}

@@ -213,7 +213,7 @@ query treaty($treaty_id: ID) {
     treaty_id
     treaty_details
     treaty_reference
-
+    order_hereon
     currency
     # m_and_d_premium
     # installment_type

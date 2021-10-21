@@ -5,7 +5,7 @@ import Broker from "./components/Broker";
 import Pagination from "react-paginate";
 import { useBrokerContext } from "./provider/BrokerProvider";
 
-const BrokersListing = ({}) => {
+const BrokersListing = () => {
   const { brokers } = useBrokerContext();
   const [search, setsearch] = useState("");
   const [activePage, setActivePage] = useState(0);

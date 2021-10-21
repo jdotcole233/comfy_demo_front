@@ -68,6 +68,7 @@ const AddBrokerForm = ({ editing, setShow }) => {
         { text: "Yes, create broker", value: "Yes", closeModal: false },
       ],
     }).then((res) => {
+      // eslint-disable-next-line
       if (!res) throw null;
       create({ variables: { input } })
         .then((res) => {
