@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { useQuery } from "react-apollo";
 import { Modal } from "react-bootstrap";
 import { Datatable, Loader } from "../../../components";
 import { REINSURER_PROPORTIONAL_TREATY_PAYMENTS } from "../../../graphql/queries/treaty";

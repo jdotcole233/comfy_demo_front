@@ -46,7 +46,7 @@ const ViewTreaty = () => {
   // const { treaty } = useInsurer();
   const { state } = useLocation();
   const history = useHistory();
-  const [showCreateList, setshowCreateList] = useState(false);
+  // const [showCreateList, setshowCreateList] = useState(false);
   const [openStatementsDrawer, setOpenStatementsDrawer] = useState(false);
   const [addPercentageModal, setAddPercentageModal] = useState(false);
   const [currentLayer, setCurrentLayer] = useState(1);
@@ -69,6 +69,7 @@ const ViewTreaty = () => {
   });
 
   const isProp = data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
+  const totalPercentage = data?.treaty?.order_hereon ?? 100;
 
   const [addPercentage] = useMutation(ADD_TREATY_PERCENTAGE, {
     variables: {
@@ -115,7 +116,7 @@ const ViewTreaty = () => {
           remainingPercentages[`${index}`] = 0;
         }
       } else {
-        remainingPercentages[`${currentLayer}`] = 100;
+        remainingPercentages[`${currentLayer}`] = totalPercentage;
       }
 
       if (data) {
@@ -168,7 +169,7 @@ const ViewTreaty = () => {
                   )}
                 </DropdownButton>
                 {participant?.treaty_participation_percentage &&
-                !_.isEmpty(participant.treaty_participant_deductions) ? (
+                  !_.isEmpty(participant.treaty_participant_deductions) ? (
                   <Fragment>
                     {isProp ? (
                       <button
@@ -197,13 +198,13 @@ const ViewTreaty = () => {
                 {[...deleteAccessRoles, "Broking Officer"].includes(
                   user?.position
                 ) && (
-                  <button
-                    onClick={() => handleRemoveReinsurer(participant)}
-                    className="btn mb-1"
-                  >
-                    <i className="bx bx-trash text-danger"></i>
-                  </button>
-                )}
+                    <button
+                      onClick={() => handleRemoveReinsurer(participant)}
+                      className="btn mb-1"
+                    >
+                      <i className="bx bx-trash text-danger"></i>
+                    </button>
+                  )}
               </>
             ),
           };
@@ -227,9 +228,8 @@ const ViewTreaty = () => {
             email_status: (
               <span
                 style={{ letterSpacing: 3 }}
-                className={`badge badge-soft-${
-                  associate.sent_status === "UNSENT" ? "danger" : "success"
-                }`}
+                className={`badge badge-soft-${associate.sent_status === "UNSENT" ? "danger" : "success"
+                  }`}
               >
                 {associate.sent_status}
               </span>
@@ -372,7 +372,7 @@ const ViewTreaty = () => {
         (selectedReinsurer.treaty_participation_percentage
           ? parseFloat(selectedReinsurer.treaty_participation_percentage)
           : 0);
-      availablePercenatge = 100 - availablePercenatge;
+      availablePercenatge = totalPercentage - availablePercenatge;
     }
     // console.log(availablePercenatge);
     if (parseFloat(value) <= parseFloat(availablePercenatge).toFixed(5)) {
@@ -502,11 +502,10 @@ const ViewTreaty = () => {
                 Type:{" "}
                 <span
                   style={{ letterSpacing: 5 }}
-                  className={`badge w-md badge-soft-${
-                    data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
-                      ? "success"
-                      : "warning"
-                  } p-1 font-size-11`}
+                  className={`badge w-md badge-soft-${data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL"
+                    ? "success"
+                    : "warning"
+                    } p-1 font-size-11`}
                 >
                   {data?.treaty?.treaty_program?.treaty_type}
                 </span>
@@ -608,16 +607,16 @@ const ViewTreaty = () => {
       >
         {!isProp
           ? openStatementsDrawer && (
-              <NonProportionalStatements
-                treaty={data?.treaty}
-                reinsurer={selectedReinsurer}
-                reinsurers={data?.treaty?.treaty_participants}
-                layer={currentLayer}
-              />
-            )
+            <NonProportionalStatements
+              treaty={data?.treaty}
+              reinsurer={selectedReinsurer}
+              reinsurers={data?.treaty?.treaty_participants}
+              layer={currentLayer}
+            />
+          )
           : openStatementsDrawer && (
-              <Statements treaty={data?.treaty} reinsurer={selectedReinsurer} />
-            )}
+            <Statements treaty={data?.treaty} reinsurer={selectedReinsurer} />
+          )}
       </Drawer>
 
       <Drawer
@@ -629,7 +628,7 @@ const ViewTreaty = () => {
           <SendReinsurerDocuments
             reinsurer={selectedReinsurer}
             total_participation_percentage={
-              100 - remainingPercentages[`${currentLayer}`]
+              totalPercentage - remainingPercentages[`${currentLayer}`]
             }
             treaty={data?.treaty}
             layer={currentLayer}

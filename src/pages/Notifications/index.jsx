@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import NotificationCard from "./NotifactionCard";
 import NOtSelected from "../../assets/not_Selected_notif.gif";
 import EmailComponent from "./EmailComponent";

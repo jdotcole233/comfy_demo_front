@@ -6,7 +6,6 @@ import { useMutation } from "react-apollo";
 import { CREATE_ASSOCIATE } from "../../graphql/mutattions";
 import { REINSURERS } from "../../graphql/queries";
 import styles from "./styles/ViewReinsurerOffer.module.css";
-import { Alert } from "react-bootstrap";
 import { DrawerContext } from "../../components/Drawer";
 import { useForm } from "react-hook-form";
 
