@@ -49,6 +49,7 @@ const BrokerButtons = ({
         },
       ],
     }).then((input) => {
+      // eslint-disable-next-line
       if (!input) throw null;
       removeBroker({
         variables: {
@@ -70,7 +71,7 @@ const BrokerButtons = ({
     });
   };
 
-  const handleAddPercentage = () => { };
+  // const handleAddPercentage = () => { };
 
   return (
     <Fragment>

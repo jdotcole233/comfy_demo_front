@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Drawer } from "../../../components";
 import CreateTreatyForm from "./CreateTreatyForm";
-import { Link, useLocation } from "react-router-dom";
 
 const CreateTreatyButton = ({ insurer, refetch }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const { pathname } = useLocation();
   return (
     <>
       {/* <Link

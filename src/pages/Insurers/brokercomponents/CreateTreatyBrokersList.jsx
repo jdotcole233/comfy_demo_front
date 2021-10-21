@@ -57,7 +57,6 @@ export default function CreateTreatyBrokersList({
   treaty,
 }) {
   const [reps, setBroadcastList] = useState([]);
-  const [selectdQuarter] = useState(null);
 
   const [repData, setRepData] = useState([]);
   const { data } = useQuery(BROKER_DISTRIBUTION_LIST);
@@ -65,13 +64,13 @@ export default function CreateTreatyBrokersList({
   const [createDistribution] = useMutation(CREATE_BROKER_DISTRIBUTION_LIST, {
     refetchQueries: [{ query: TREATY, variables: { treaty_id } }],
   });
-  const __limits = JSON.parse(treaty?.layer_limit || "[]").map((_, key) => ({
-    label: `Layer ${key + 1}`,
-    value: key + 1,
-  }));
-  const limits = __limits.length
-    ? [{ label: "All", value: "0" }, ...__limits]
-    : __limits;
+  // const __limits = JSON.parse(treaty?.layer_limit || "[]").map((_, key) => ({
+  //   label: `Layer ${key + 1}`,
+  //   value: key + 1,
+  // }));
+  // const limits = __limits.length
+  //   ? [{ label: "All", value: "0" }, ...__limits]
+  //   : __limits;
   const options = useMemo(() => {
     let list = [];
     if (data) {
