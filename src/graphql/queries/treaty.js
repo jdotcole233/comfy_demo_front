@@ -227,6 +227,15 @@ query FetchTreatyAccounts(
     treaty_id
     currency
     quarters
+    quarter
+    currency
+    account_year
+    layer_limit
+    surpluses {
+      gross_premium
+      claim_settled
+      cash_loss
+    }
   }
 }`;
 

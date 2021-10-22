@@ -10,7 +10,7 @@ import _ from "lodash";
 
 const generateNewOptions = (notes = []) => {
     const existingNotes = notes.reduce((_, curr) => {
-        _.push(curr.account_periods);
+        _.push(curr);
         return _;
     }, []);
     // console.log(existingNotes)
@@ -24,17 +24,19 @@ const generateNewOptions = (notes = []) => {
 const AddQuarterForm = ({
     treaty_id,
     remainingPercentage,
-    notes = [],
+    // notes = [],
     isProp,
-    surpluses = [],
+    // surpluses = [],
     treaty,
     showModal,
-    setShow
 }) => {
     const [addExchangeRate, setAddExchangeRate] = useState(false);
     const [ex_currency, setExCurrency] = useState(null);
     const [surplusCommissions, setSurplusCommission] = useState([]);
-    const [currency, setCurrency] = useState(null)
+    const [currency, setCurrency] = useState(null);
+    const [surpluses, setSurpluses] = useState([]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [notes, setNotes] = useState([]);
 
     const { data, loading, error } = useQuery(TREATY_ACCOUNTS, {
         variables: {
@@ -55,14 +57,18 @@ const AddQuarterForm = ({
         useForm();
 
     useEffect(() => {
-        if (surpluses) {
-            const __surp = surpluses.map((el) => ({
+        if (data && activeIndex) {
+            const _surpluses = JSON.parse(data?.fetchTreatyAccounts[activeIndex]?.layer_limit ?? "[]");
+            console.log(typeof _surpluses)
+            const __surp = _surpluses?.map((el) => ({
                 surpulus_uuid: el.surpulus_uuid,
                 gross_premium: "",
             }));
             setSurplusCommission(__surp);
+            setSurpluses(_surpluses);
+            setNotes(data?.fetchTreatyAccounts[activeIndex]?.quarters ?? []);
         }
-    }, [surpluses]);
+    }, [data, activeIndex]);
 
     const onSubmit = (values) => {
         const exchange_rate = addExchangeRate
@@ -80,6 +86,7 @@ const AddQuarterForm = ({
                 ...surplusCommissions.map((_, id) => `claim_settled_${id}`),
             ]),
             exchange_rate,
+            account_periods: noteOptions.find(el => el.label === values.account_periods)?.value,
             surpulus_data: surplusCommissions,
         };
 
@@ -112,7 +119,7 @@ const AddQuarterForm = ({
                     } else {
                         swal("Hurray!!", "Quarter added successfully", "success");
                         reset();
-                        setShow(false);
+                        // setShow(false);
                     }
                 })
                 .catch((err) => {
@@ -210,25 +217,12 @@ const AddQuarterForm = ({
                 <div className="row">
                     <div className="col-md-12 mb-2">
                         <label htmlFor="form-group">Select currency</label>
-                        <Selector
-                            value={
-                                currency
-                                    ? {
-                                        label: Object.values(currencies).find(
-                                            (eel) => eel.code === currency
-                                        )?.name,
-                                    }
-                                    : ""
-                            }
-                            components={{ Option: CurrencyOption }}
-                            onChange={handleCurrencyChange}
-                            options={[
-                                ...Object.values(currencies).map((currency) => ({
-                                    label: currency.name,
-                                    value: currency,
-                                })),
-                            ]}
-                        />
+                        <select className="form-control" onChange={e => setActiveIndex(e.target.value)}>
+                            <option value="">Select</option>
+                            {data?.fetchTreatyAccounts?.map((el, idx) => (
+                                <option value={idx}>{el?.currency}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className="col-md-6">
                         <div className="form-group">
@@ -240,9 +234,9 @@ const AddQuarterForm = ({
                                 className="form-control"
                             >
                                 <option value="">Select quarter</option>
-                                {generateNewOptions(notes).map((note, key) => (
-                                    <option key={key} value={note.value}>
-                                        {note.label}
+                                {notes.map((note, key) => (
+                                    <option key={key} value={note}>
+                                        {note}
                                     </option>
                                 ))}
                             </select>
@@ -250,7 +244,7 @@ const AddQuarterForm = ({
                                 name="treatiestreaty_id"
                                 ref={register({ required: "Required" })}
                                 type="hidden"
-                                value={treaty_id}
+                                value={data?.fetchTreatyAccounts[activeIndex]?.treaty_id}
                                 placeholder="Gross Premium"
                             />
                             {errors.account_periods && (
@@ -409,7 +403,7 @@ const AddQuarterForm = ({
                                                 className="form-control"
                                                 placeholder="Gross Premium"
                                                 ref={register({ required: "Required" })}
-                                                value={surplus.gross_premium}
+                                                // value={surplus.gross_premium}
                                                 onChange={(e) =>
                                                     onGrossPremiumChange(surplusId, surplus, e)
                                                 }
