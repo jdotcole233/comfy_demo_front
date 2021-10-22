@@ -207,6 +207,29 @@ export const UPDATE_INSURER_TREATY = gql`
   }
 `;
 
+export const TREATY_ACCOUNTS = gql`
+query FetchTreatyAccounts(
+  $insurer_id: ID
+  $treaty_program_name: String
+  $treaty_period_from: Date
+  $treaty_period_to: Date
+  $type: Boolean
+  $quarter: String
+) {
+  fetchTreatyAccounts(
+    insurer_id: $insurer_id
+    treaty_period_to: $treaty_period_to
+    treaty_period_from: $treaty_period_from
+    type: $type
+    treaty_program_name: $treaty_program_name
+    quarter: $quarter
+  ) {
+    treaty_id
+    currency
+    quarters
+  }
+}`;
+
 export const TREATY = gql`
 query treaty($treaty_id: ID) {
   treaty(treaty_id: $treaty_id) {
