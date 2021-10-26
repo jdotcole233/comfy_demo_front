@@ -85,6 +85,8 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   const [createDeduction, setCreateDeduction] = useState(false);
   const [treatyDetials, setTreatyDetials] = useState([]);
   const [selectedProgramType, setSelectedProgramType] = useState(null);
+  const [selectedPeriod, setSelectedPeriod] = useState(null);
+  const [treaty_periods, setTreaty_periods] = useState([])
   const [_programs, set_programs] = useState([]);
   const [limitLayers, setLimitLayers] = useState([]);
   const [surpluses, setSurpluses] = useState([]);
@@ -136,6 +138,18 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
     }
   };
 
+  const handlePeriodChange = (program) => {
+    // _form.setValue(
+    //   "treaty_programstreaty_program_id",
+    //   program ? program.value.treaty_program_id : ""
+    // );
+    setSelectedPeriod(program ? program : null);
+    // if (program) {
+    //   _form.clearError("treaty_programstreaty_program_id");
+    // }
+  };
+
+
   const handleProgramTypeChange = (program) => {
     _form.setValue("treaty_type", program ? program.value : "");
     setSelectedProgramType(program ? program : null);
@@ -171,35 +185,23 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   };
 
   useEffect(() => {
-    if (selectedProgram) {
-      if (selectedProgram.value.treaty_associate_deductions.length > 0) {
-        const _deduction =
-          selectedProgram.value?.treaty_associate_deductions[0];
-        if (
-          new Date(_deduction?.treaty_period_to).getFullYear() <
-          new Date().getFullYear()
-        ) {
-          setCreateDeduction(true);
-          reset();
-        } else {
-          setCreateDeduction(false);
-          setValue("commission", _deduction?.commission);
-          setValue("nic_levy", _deduction?.nic_levy);
-          setValue("brokerage", _deduction?.brokerage);
-          setValue("withholding_tax", _deduction?.withholding_tax);
-          setValue("treaty_period_from", _deduction?.treaty_period_from);
-          setValue("treaty_period_to", _deduction?.treaty_period_to);
-          _form.setValue(
-            "treaty_associate_deductionstreaty_associate_deduction_id",
-            _deduction?.treaty_associate_deduction_id
-          );
-        }
-      } else {
-        setCreateDeduction(true);
-        reset();
-      }
+    if (selectedPeriod) {
+      const _deduction = selectedPeriod.value;
+      setValue("commission", _deduction?.commission);
+      setValue("nic_levy", _deduction?.nic_levy);
+      setValue("brokerage", _deduction?.brokerage);
+      setValue("withholding_tax", _deduction?.withholding_tax);
+      setValue("treaty_period_from", _deduction?.treaty_period_from);
+      setValue("treaty_period_to", _deduction?.treaty_period_to);
+      _form.setValue(
+        "treaty_associate_deductionstreaty_associate_deduction_id",
+        _deduction?.treaty_associate_deduction_id
+      );
+      setCreateDeduction(false);
+    } else {
+      reset();
     }
-  }, [selectedProgram]);
+  }, [selectedPeriod]);
 
   useEffect(() => {
     if (data && selectedProgramType) {
@@ -223,6 +225,17 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       setTreatyDetials(
         JSON.parse(selectedProgram.value.treaty_details || "[]")
       );
+    }
+  }, [selectedProgram]);
+
+  useEffect(() => {
+    if (selectedProgram) {
+      console.log(selectedProgram);
+      const _periods = selectedProgram.value.treaty_associate_deductions?.map(el => ({
+        label: `${el.treaty_period_from}  to  ${el.treaty_period_to}`,
+        value: el
+      }));
+      setTreaty_periods(_periods);
     }
   }, [selectedProgram]);
 
@@ -339,6 +352,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
     const surplus = {
       surpulus_uuid: v4(),
       commission: "",
+      profit_commission: "",
       outgoing_payment_staus: "UNPAID",
     };
     setSurpluses((prev) => [...prev, surplus]);
@@ -512,6 +526,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
           )}
         </div>
       </div>
+
       <div className="row">
         <div className="col-md-12">
           <div className="form-group">
@@ -531,7 +546,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row mb-2">
         <div className="col-md-12">
           <div className="form-group">
             <label htmlFor="Type of goods">Order Hereon (%)</label>
@@ -551,30 +566,19 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
           </div>
         </div>
       </div>
-      {createDeduction && (
-        <Alert variant="danger">
-          <p>
-            {" "}
-            Sorry, no deductions set for {selectedProgram?.label}. Create
-            Deductions in order to proceed with treaty.{" "}
-          </p>
+      <div className="row mb-2">
+        <div className="col-md-12">
+          <label htmlFor="Treaty Program">Treaty Period</label>
+          <Selector
+            // value={selectedPeriod}
+            placeholder="Treaty Program"
+            onChange={handlePeriodChange}
+            options={treaty_periods ? treaty_periods : []}
+          />
+          {/* <span onClick={() => setCreateDeduction(true)} className="mt-2 mb-2 pointer">Create new period</span> */}
+        </div>
+      </div>
 
-          <p>
-            <b>NOTE:</b>
-            {selectedProgram.value?.treaty_associate_deductions[0]
-              ? `
-            Last known deduction's on this treaty was from ${new Date(
-                selectedProgram.value?.treaty_associate_deductions[0]?.treaty_period_from
-              ).toDateString()} to ${new Date(
-                selectedProgram.value?.treaty_associate_deductions[0]?.treaty_period_to
-              ).toDateString()}
-            `
-              : ""}
-            The current date on your computer is{" "}
-            <b>{new Date().toDateString()}</b>, kindly set it if not correct.
-          </p>
-        </Alert>
-      )}
       <fieldset className="border p-2 mb-2">
         <legend className={styles.details_title}>Deductions</legend>
         <form onSubmit={handleSubmit(onSubmitDeductionForm)} className="row">
@@ -828,7 +832,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                     </button>
                   )}
                 </div>
-                <div className="col-md-12">
+                <div className="col-md-6">
                   <Input
                     label="Commission"
                     placeholder="Commission"
@@ -836,6 +840,17 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                     step="any"
                     name="commission"
                     value={surplus.commission}
+                    onChange={(e) => onSurplusValueChange(e, key)}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label="Profit Commission"
+                    placeholder="Profit Commission"
+                    type="number"
+                    step="any"
+                    name="profit_commission"
+                    value={surplus.profit_commission}
                     onChange={(e) => onSurplusValueChange(e, key)}
                   />
                 </div>
