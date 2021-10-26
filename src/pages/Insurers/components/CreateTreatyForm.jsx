@@ -26,6 +26,7 @@ import { INSURER } from "../../../graphql/queries";
 import { useDispatch } from "react-redux";
 import { GET_INSURER } from "../../../redux/types/InsurerTypes";
 import _ from "lodash";
+import moment from "moment";
 import { calculateMAndDValue } from "../../../utils";
 
 export const createExtendedTreatyDetails = (type, values) => {
@@ -232,7 +233,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
     if (selectedProgram) {
       console.log(selectedProgram);
       const _periods = selectedProgram.value.treaty_associate_deductions?.map(el => ({
-        label: `${el.treaty_period_from}  to  ${el.treaty_period_to}`,
+        label: `${moment(el.treaty_period_from).format('Do MMMM YYYY')}  to  ${moment(el.treaty_period_to).format('Do MMMM YYYY')}`,
         value: el
       }));
       setTreaty_periods(_periods);
