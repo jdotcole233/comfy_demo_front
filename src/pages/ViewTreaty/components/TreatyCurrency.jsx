@@ -35,7 +35,6 @@ const TreatyCurrency = ({ treaty }) => {
             type: true
         },
         onCompleted: (data) => {
-            console.log(data);
             setAlreadyCreatedCurrencies(data.fetchTreatyAccounts.map(el => el.currency));
         },
     })
@@ -111,11 +110,15 @@ const TreatyCurrency = ({ treaty }) => {
                         </div>
                         <div className="col-md-12 ">
                             {alreadyCreatedCurrencies.length ? <div className="alert alert-warning">
-                                <p>The following currencies have been creted already</p>
+                                <p>Duplication already made for the following currencies.</p>
                                 <ul>
                                     {alreadyCreatedCurrencies.map(el => <li key={el}>{el}</li>)}
-                                    {/* <li></li> */}
                                 </ul>
+                                <p>To enable effective cloning of {treaty?.treaty_program?.treaty_name} to various selected currencies, Ensure:</p>
+                                <p> 1. You have created all re insurers list and allocated their respective quotas.
+                                </p>
+                                <p> 2. You have created all intermediaries and allocated their respective quotas.</p>
+                                <p>This event will automate creation of {treaty?.treaty_program?.treaty_name} for all currency choices.</p>
                             </div> : null}
                         </div>
                         <div className="col-md-12 mt-1">
