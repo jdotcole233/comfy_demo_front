@@ -3,8 +3,8 @@ import { Modal, Selector } from "../../../components"
 import list from "../../../assets/currencies.json";
 import _ from "lodash";
 import { DUPLICATE_TREATY } from '../../../graphql/mutattions/treaty';
-import { TREATY } from '../../../graphql/queries/treaty';
-import { useMutation } from '@apollo/client';
+import { TREATY, TREATY_ACCOUNTS } from '../../../graphql/queries/treaty';
+import { useMutation, useQuery } from '@apollo/client';
 import swal from 'sweetalert';
 
 const createOption = (label, value) => ({
@@ -14,6 +14,7 @@ const createOption = (label, value) => ({
 
 const TreatyCurrency = ({ treaty }) => {
     const [showModal, setShowModal] = useState(false);
+    const [alreadyCreatedCurrencies, setAlreadyCreatedCurrencies] = useState([]);
     const [currencies, setCurrencies] = useState(() => {
         const firstCurrency = JSON.parse(treaty?.treaty_details)?.find(el => el.keydetail === "currency").value;
         if (firstCurrency) {
@@ -25,8 +26,30 @@ const TreatyCurrency = ({ treaty }) => {
     });
     const [inputvalue, setInputvalue] = useState("");
 
+    useQuery(TREATY_ACCOUNTS, {
+        variables: {
+            insurer_id: treaty?.insurer?.insurer_id,
+            treaty_program_name: treaty?.treaty_program?.treaty_name ?? "Not Specified",
+            treaty_period_from: treaty?.treaty_deduction?.treaty_period_from,
+            treaty_period_to: treaty?.treaty_deduction?.treaty_period_to,
+            type: true
+        },
+        onCompleted: (data) => {
+            console.log(data);
+            setAlreadyCreatedCurrencies(data.fetchTreatyAccounts.map(el => el.currency));
+        },
+    })
+
     const [duplicate] = useMutation(DUPLICATE_TREATY, {
-        refetchQueries: [{ query: TREATY, variables: { treaty_id: treaty?.treaty_id } }]
+        refetchQueries: [{ query: TREATY, variables: { treaty_id: treaty?.treaty_id } }, {
+            query: TREATY_ACCOUNTS, variables: {
+                insurer_id: treaty?.insurer?.insurer_id,
+                treaty_program_name: treaty?.treaty_program?.treaty_name ?? "Not Specified",
+                treaty_period_from: treaty?.treaty_deduction?.treaty_period_from,
+                treaty_period_to: treaty?.treaty_deduction?.treaty_period_to,
+                type: true
+            }
+        }]
     })
 
     const handleInputChange = (event) => {
@@ -64,6 +87,7 @@ const TreatyCurrency = ({ treaty }) => {
                     }
                 }).then(() => {
                     setShowModal(false);
+                    setCurrencies([]);
                     swal(`Treaty Program has been created for the following currencies: ${currencies?.map(curr => curr.label).join(", ")}`, { icon: "success" });
                 }).catch(() => {
                     swal("Oops!", "Something went wrong!", "error");
@@ -81,13 +105,18 @@ const TreatyCurrency = ({ treaty }) => {
                     <Modal.Title>Treaty currency</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* {JSON.stringify(treaty?.treaty_details)} */}
                     <div className="row">
                         <div className="col-md-12">
                             <h2>{treaty?.treaty_program?.treaty_name} : {_.first(currencies)?.value ?? "N/A"}</h2>
                         </div>
                         <div className="col-md-12 ">
-                            <div className="alert alert-danger"></div>
+                            {alreadyCreatedCurrencies.length ? <div className="alert alert-warning">
+                                <p>The following currencies have been creted already</p>
+                                <ul>
+                                    {alreadyCreatedCurrencies.map(el => <li key={el}>{el}</li>)}
+                                    {/* <li></li> */}
+                                </ul>
+                            </div> : null}
                         </div>
                         <div className="col-md-12 mt-1">
                             <div className="form-group">

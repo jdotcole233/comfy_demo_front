@@ -967,6 +967,7 @@ export const INSURER = gql`
     treaty_id
     treaty_details
     treaty_reference
+    kek_reference
     order_hereon
     currency
     treaty_payment_status
