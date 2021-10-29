@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 function PageTitle({ name, base = "Dashboard" }) {
+    const history = useHistory()
     return (
         <div className="container-fluid">
             <div className="row">
@@ -11,7 +13,7 @@ function PageTitle({ name, base = "Dashboard" }) {
 
                         <div className="page-title-right">
                             <ol className="breadcrumb m-0">
-                                <li className="breadcrumb-item">
+                                <li onClick={() => history.goBack()} className="breadcrumb-item">
                                     <a>{base}</a>
                                 </li>
                                 <li className="breadcrumb-item active">{name === base ? "Home" : name}</li>
