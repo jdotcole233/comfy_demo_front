@@ -826,7 +826,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
                     </button>
                   )}
                 </div>
-                <div className="col-md-12">
+                <div className="col-md-6">
                   <Input
                     label="Commission"
                     placeholder="Commission"
@@ -834,7 +834,17 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
                     step="any"
                     name="commission"
                     value={surplus.commission}
-                    // defaultValue={}
+                    onChange={(e) => onSurplusValueChange(e, key)}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label="Profit Commission"
+                    placeholder="Profit Commission"
+                    type="number"
+                    step="any"
+                    name="profit_commission"
+                    value={surplus.profit_commission}
                     onChange={(e) => onSurplusValueChange(e, key)}
                   />
                 </div>
