@@ -229,19 +229,10 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   useEffect(() => {
     if (selectedProgram) {
       console.log(selectedProgram);
-<<<<<<< HEAD
       const _periods = selectedProgram.value.treaty_associate_deductions?.map(el => ({
         label: `${moment(el.treaty_period_from).format('Do MMMM YYYY')}  to  ${moment(el.treaty_period_to).format('Do MMMM YYYY')}`,
         value: el
       }));
-=======
-      const _periods = selectedProgram.value.treaty_associate_deductions?.map(
-        (el) => ({
-          label: `${el.treaty_period_from}  to  ${el.treaty_period_to}`,
-          value: el,
-        })
-      );
->>>>>>> hotfix/3.3.7
       setTreaty_periods(_periods);
     }
   }, [selectedProgram, deductionCreated]);
