@@ -924,7 +924,7 @@ const CreateTreatyForm = ({ insurer }) => {
               <div className="row">
                 <div className="col-md-6">
                   <Input
-                    label="Premium Withdrawal %"
+                    label="Premium Portfolio Withdrawal %"
                     placeholder="Withdrawal %"
                     type="number"
                     step="any"
@@ -939,7 +939,7 @@ const CreateTreatyForm = ({ insurer }) => {
                 </div>
                 <div className="col-md-6">
                   <Input
-                    label="Premium Withdrawal loss %"
+                    label="Premium Portfolio Withdrawal loss %"
                     placeholder="Withdrawal loss %"
                     type="number"
                     step="any"
