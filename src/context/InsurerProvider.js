@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useQuery, useLazyQuery } from 'react-apollo';
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { INSURERS } from '../graphql/queries';
 import useLocalStorage from '../hooks';
 import _ from 'lodash';

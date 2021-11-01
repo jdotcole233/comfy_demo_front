@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Drawer, Loader } from "../../components";
 import EditReinsurer from "./EditResinsurer";
 import { offersColumns } from "./columns";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { REINSURER, REINSURER_OFFERS } from "../../graphql/queries";
 import OfferButtons from "./components/OfferButtons";
 import AssociateButtons from "./components/AssociateButtons";

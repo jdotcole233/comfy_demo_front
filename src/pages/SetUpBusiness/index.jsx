@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import { Datatable, Loader, CurrencyValues } from "../../components";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { FETCH_CLASS_OF_BUSINESS } from "../../graphql/queries";
 import { columns } from "./columns";
 import BusinessButtons from "./components/BusinessButtons";

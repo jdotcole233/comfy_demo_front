@@ -3,7 +3,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import { Drawer } from "../../components";
 import LayerDebitNote from "./Previews/LayerDebitNote";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { TREATY, UPDATE_LIMIT_LAYER } from "../../graphql/queries/treaty";
 import swal from "sweetalert";
 import SendNote from "../Insurers/components/SendNote";

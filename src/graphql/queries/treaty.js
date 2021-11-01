@@ -207,6 +207,38 @@ export const UPDATE_INSURER_TREATY = gql`
   }
 `;
 
+export const TREATY_ACCOUNTS = gql`
+query FetchTreatyAccounts(
+  $insurer_id: ID
+  $treaty_program_name: String
+  $treaty_period_from: Date
+  $treaty_period_to: Date
+  $type: Boolean
+  $quarter: String
+) {
+  fetchTreatyAccounts(
+    insurer_id: $insurer_id
+    treaty_period_to: $treaty_period_to
+    treaty_period_from: $treaty_period_from
+    type: $type
+    treaty_program_name: $treaty_program_name
+    quarter: $quarter
+  ) {
+    treaty_id
+    currency
+    quarters
+    quarter
+    currency
+    account_year
+    layer_limit
+    surpluses {
+      gross_premium
+      claim_settled
+      cash_loss
+    }
+  }
+}`;
+
 export const TREATY = gql`
 query treaty($treaty_id: ID) {
   treaty(treaty_id: $treaty_id) {
@@ -281,6 +313,8 @@ query treaty($treaty_id: ID) {
         brokerage_amount
         withholding_tax_amount
         surpulus_uuid
+        claim_settled
+        cash_loss
         # Copied
       }
 
@@ -738,7 +772,7 @@ mutation sendPTreatyDebitNote(
 `
 
 export const SEND_NP_CREDIT_NOTE = gql`
-mutation sendNpDebitNOte($data: NPTreatyData) {
+mutation sendNpCreditNOte($data: NPTreatyData) {
   sendNPTreatyCreditNote(nptreatydata: $data)
 }
 `
@@ -762,7 +796,7 @@ mutation sendPTreatyCreditAndStatementNote(
 `
 
 export const SEND_TREATY_CLAIM_DEBIT_NOTE = gql`
-mutation sendTreatyClaimDebitNote(
+mutation SendTreatyClaimDebitNote(
   $single_document: Int
   $treaty_participant_id: ID
   $reinsurer_id: ID

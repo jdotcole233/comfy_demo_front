@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useMemo } from "react";
 // import swall from "sweetalert2";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import {
   REMOVE_EMPLOYEE,
   RESET_CREDENTIALS,

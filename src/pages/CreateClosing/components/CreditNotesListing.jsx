@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState } from "react";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { ButtonGroup, DropdownButton, Dropdown } from "react-bootstrap";
 import { Datatable, Drawer, Loader } from "../../../components";
 import { BASE_URL_LOCAL } from "../../../graphql";

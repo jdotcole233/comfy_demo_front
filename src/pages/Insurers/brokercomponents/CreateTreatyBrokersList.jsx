@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "../styles/ViewInsurerOffer.module.css";
 import { Alert } from "react-bootstrap";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { Selector } from "../../../components";
 import { TREATY } from "../../../graphql/queries/treaty";
 import swal from "sweetalert";

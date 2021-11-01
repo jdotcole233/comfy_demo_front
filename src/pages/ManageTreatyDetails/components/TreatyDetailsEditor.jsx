@@ -5,7 +5,7 @@ import React, { useState, useEffect, memo } from "react";
 import styles from "../../Insurers/styles/ViewInsurerOffer.module.css";
 import { Selector, CurrencyOption, Editor, Loader } from "../../../components";
 import currencies from "../../../assets/currencies.json";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { TREATY } from "../../../graphql/queries/treaty";
 import ErrorPage from "../../../components/ErrorPage";
 import { UPDATE_TREATY_DETAILS } from "../../../graphql/mutattions/treaty";

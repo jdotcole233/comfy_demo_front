@@ -10,7 +10,7 @@ import {
   OverViewCard,
   ReinsuredComponent,
 } from "../../components";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { DASHBOARD } from "../../graphql/queries";
 import { columns } from "./columns";
 import { AuthContext } from "../../context/AuthContext";

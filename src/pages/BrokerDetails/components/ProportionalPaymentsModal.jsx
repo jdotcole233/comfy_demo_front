@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useQuery } from "@apollo/client";
 import { Modal } from "react-bootstrap";
 import { Datatable, Loader } from "../../../components";
 import { REINSURER_PROPORTIONAL_TREATY_PAYMENTS } from "../../../graphql/queries/treaty";
@@ -9,11 +10,13 @@ import { paymentsColumns } from "./columns";
 const ProportionalPaymentsModal = ({
   accounts = [],
   treaty = {},
-  reinsurer_id,
+  re_broker_id,
   selectPayment,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedQuarter, setSelectedQuarter] = useState(null);
+  const [selectedQuarter, setSelectedQuarter] = useState(() => {
+    return accounts?.length > 0 ? accounts[0] : null
+  });
 
   const changeLayer = (key, quarter) => {
     setSelectedQuarter(quarter);
@@ -34,13 +37,13 @@ const ProportionalPaymentsModal = ({
           type:
             obj?.payment_type === "Cheque"
               ? obj?.payment_type +
-                " - " +
-                obj.payment_from?.cheque_number +
-                " "
+              " - " +
+              obj.payment_from?.cheque_number +
+              " "
               : obj?.payment_type,
           bank_name: obj?.payment_from?.bank_name,
           beneficiary_bank: obj?.payment_to,
-          payment_amount: payment?.participant_payment_amount?.toLocaleString(
+          payment_amount: payment?.payment_amount?.toLocaleString(
             undefined,
             { maximumFractionDigits: 2 }
           ),
@@ -52,9 +55,15 @@ const ProportionalPaymentsModal = ({
             <>
               <button
                 onClick={() => selectPayment(payment)}
-                className="btn btn-sm w-md btn-info mr-1"
+                className="btn btn-sm  btn-info mr-1"
               >
                 Edit
+              </button>
+              <button
+                onClick={() => selectPayment(payment)}
+                className="btn btn-sm  btn-success mr-1"
+              >
+                Generate receipt
               </button>
             </>
           ),

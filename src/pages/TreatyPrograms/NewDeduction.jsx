@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import styles from './styles/inputOffer.module.css'
 import { dateBuilder } from './Treaty'
 import { Alert } from 'react-bootstrap'
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { ADD_DEDUCTION_TO_TREATY, UPDATE_TREATY_DEDUCTION, TREATIES } from '../../graphql/queries/treaty';
 import swal from 'sweetalert';
 import { useEffect } from 'react';

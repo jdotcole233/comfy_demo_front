@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-apollo'
+import { useMutation } from "@apollo/client"
 import { useLocation, useHistory } from 'react-router-dom'
 import { CHANGE_PASSWORD } from '../../graphql/mutattions/auth';
 

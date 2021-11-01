@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, createContext, useMemo, useState } from 'react'
-import { useQuery } from 'react-apollo';
+import { useQuery } from "@apollo/client";
 import { REINSURERS } from '../graphql/queries';
 
 const ReinsurersContext = createContext();

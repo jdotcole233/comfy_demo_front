@@ -17,6 +17,33 @@
     "code": "Le",
     "name_plural": "Sierra Leonean leone"
   },
+  "MK": {
+    "symbol": "MK",
+    "name": "Malawi Kwacha",
+    "symbol_native": "MK",
+    "decimal_digits": 2,
+    "rounding": 0,
+    "code": "MK",
+    "name_plural": "Malawi Kwacha"
+  },
+  "LM": {
+    "symbol": "L",
+    "name": "Lesotho Maloti ",
+    "symbol_native": "L",
+    "decimal_digits": 2,
+    "rounding": 0,
+    "code": "L",
+    "name_plural": "Lesotho Maloti "
+  },
+  "E": {
+    "symbol": "E",
+    "name": "Swaziland Lilangeni",
+    "symbol_native": "E",
+    "decimal_digits": 2,
+    "rounding": 0,
+    "code": "E",
+    "name_plural": "Swaziland Lilangeni"
+  },
   "CAD": {
     "symbol": "CA$",
     "name": "Canadian Dollar",

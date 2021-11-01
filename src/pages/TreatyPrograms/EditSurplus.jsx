@@ -1,5 +1,5 @@
 /* eslint-disable no-throw-literal */
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import swal from "sweetalert";

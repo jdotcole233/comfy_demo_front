@@ -8,6 +8,9 @@ query brokers {
       re_broker_name
       re_broker_email
       re_broker_website
+      re_broker_associates {
+        re_broker_associate_id
+      }
       re_broker_address {
         region
         country

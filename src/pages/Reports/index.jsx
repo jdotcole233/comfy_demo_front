@@ -24,7 +24,7 @@ import {
   offerStatusOptions,
 } from "./options";
 import { useForm } from "react-hook-form";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   GENERATE_REPORT,
   REPORT_PIECHART,

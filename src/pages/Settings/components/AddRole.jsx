@@ -1,5 +1,5 @@
 /* eslint-disable no-throw-literal */
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { Input, Modal, ModalHeader, ModalBody } from "../../../components";
 import {
   CREATE_USER_ROLE,

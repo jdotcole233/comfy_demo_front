@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { Editor, Selector } from "../../../components";
 import { SEND_CLOSING_SLIP } from "../../../graphql/mutattions";
 import { createOption } from "../../CreateSlip/CreateBroadcastEmail";
+import { getFlexibleName } from "../components/Note";
 import styles from "../styles/ViewInsurerOffer.module.css";
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-const SendTreatyClosing = ({ broker }) => {
+const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
   const { register, errors, handleSubmit, setError, clearError, reset } =
     useForm();
   const [contentError, setContentError] = useState(false);
@@ -17,10 +18,9 @@ const SendTreatyClosing = ({ broker }) => {
   const [copiedMails, setCopiedMails] = useState([]);
   const [selectedableEmail, setSelectedableEmail] = useState([]);
   const [content, setContent] = useState("");
-  // const [emails, setEmails] = useState("")
 
   const [sendmail] = useMutation(SEND_CLOSING_SLIP);
-
+  const isProp = treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
   const handleKeyDown = (event) => {
     if (!inputvalue) return;
     // eslint-disable-next-line default-case
@@ -51,7 +51,7 @@ const SendTreatyClosing = ({ broker }) => {
     }
   }, [copiedMails]);
 
-  const handleSubmitSendMail = ({ subject, copied_emails }) => {
+  const handleSubmitSendMail = ({ subject }) => {
     if (content.length < 1) {
       setContentError(true);
       return;
@@ -59,11 +59,14 @@ const SendTreatyClosing = ({ broker }) => {
       setContentError(false);
     }
     const data = {
-      //   reinsurer_id: reisnsurer?.reinsurer.reinsurer_id,
-      //   offer_id: offer?.offer_id,
-      //   message_content: content,
-      //   subject,
-      //   copied_emails: [...copiedMails.map((e) => e.label)],
+        treaty_id: treaty?.treaty_id,
+        re_broker_treaties_participation_id,
+      // treaty_account_id:"",
+      emaildata: {
+        email_content: content,
+        subject,
+        copied_email: [...copiedMails.map((e) => e.label)]
+      }
     };
     swal({
       closeOnClickOutside: false,
@@ -84,7 +87,7 @@ const SendTreatyClosing = ({ broker }) => {
         .catch((err) => {
           if (err) {
             // console.log(err)
-            swal("Oh noes!", "The AJAX request failed!", "error");
+            swal("Oh noes!", err.message.replace("GraphQL error:", ""), "error");
           } else {
             swal.stopLoading();
             swal.close();
@@ -112,6 +115,24 @@ const SendTreatyClosing = ({ broker }) => {
         onSubmit={handleSubmit(handleSubmitSendMail)}
         className={styles.card_body}
       >
+        <div className="form-group row mb-4">
+          <label className="col-form-label col-lg-2">Quarter</label>
+          <div className="col-lg-10">
+            <select
+              ref={register({ required: "Required" })}
+              name="treaty_account_id"
+              className="form-control"
+              placeholder="Enter subject"
+            >
+              {treaty?.treaty_accounts?.map((el, key) => (
+                <option value={el?.treaty_account_id}>{getFlexibleName(el?.account_periods)}</option>
+              ))}
+            </select>
+            {errors.subject && (
+              <p className="text-danger">{errors.treaty_account_id.message}</p>
+            )}
+          </div>
+        </div>
         <div className="form-group row mb-4">
           <label className="col-form-label col-lg-2">Subject</label>
           <div className="col-lg-10">

@@ -52,7 +52,7 @@ mutation removeReBokerFromTreatyList($id: ID, $treaty_id: ID) {
 `;
 
 export const REMOVE_BROKER_ASSOCIATE_FROM_TREATY = gql`
-mutation removeReBokerAssocFromTreatyList($id: ID) {
+mutation RemoveBrokerAssociateFromTreaty($id: ID) {
   removeReBokerAssocFromTreatyList(participation_to_broker_associate_id: $id)
 }`;
 
@@ -73,6 +73,6 @@ mutation makeBrokerProportionalPayment($payment_data: Broker_payment_data) {
 `;
 // TODO: change this
 export const UPDATE_PAYMENT_BROKER = gql`
-mutation removeReBokerAssocFromTreatyList($id: ID) {
+mutation UpdatePaymentBroker($id: ID) {
   removeReBokerAssocFromTreatyList(participation_to_broker_associate_id: $id)
 }`;

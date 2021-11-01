@@ -2,7 +2,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect, useContext } from 'react'
 import { REMOVE_ASSOCIATE, UPDATE_REINSURER_ASSOCIATE } from '../../../graphql/mutattions'
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { Modal } from 'react-bootstrap'
 import swal from 'sweetalert'
 import { REINSURER } from '../../../graphql/queries'

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, createContext, useMemo } from 'react';
-import { useQuery } from 'react-apollo';
+import { useQuery } from "@apollo/client";
 import { OFFERS } from '../graphql/queries';
 import OfferButtons from '../pages/CreateSlip/components/OfferButtons';
 

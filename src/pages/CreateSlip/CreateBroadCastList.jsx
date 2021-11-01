@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./styles/inputOffer.module.css";
 import { Alert } from "react-bootstrap";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   CREATE_DISTRIBUTION_LIST_DATA,
   SINGLE_OFFER,

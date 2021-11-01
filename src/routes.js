@@ -32,6 +32,7 @@ const BrokerDetails = lazy(() => import('./pages/BrokerDetails'))
 const GenerateBrokerPaymentSchedule = lazy(() => import('./pages/BrokerGeneratePaymentSchedule'))
 const CreateTreaty = lazy(() => import('./pages/CreateTreaty'))
 const ManageTreatyDetails = lazy(() => import('./pages/ManageTreatyDetails'));
+const DeletedOffers = lazy(() => import("./pages/DeletedOffers"))
 
 export default [
   {
@@ -104,6 +105,19 @@ export default [
     layout: '/admin',
     name: 'Unapproved Closings',
     component: UnapprovedList,
+    roles: [
+      'CEO',
+      'General Manager',
+      // 'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
+  },
+  {
+    path: '/reinstatement-offers',
+    layout: '/admin',
+    name: 'Reinstatement Offers',
+    component: DeletedOffers,
     roles: [
       'CEO',
       'General Manager',

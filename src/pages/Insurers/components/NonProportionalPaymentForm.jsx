@@ -10,7 +10,7 @@ import {
   MAKE_NON_PROPORTIONAL_PAYMENT,
   UPDATE_NONPROPORTIONAL_TREATY_PAYMENT,
 } from "../../../graphql/queries/treaty";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { INSURER } from "../../../graphql/queries";
 import { AiOutlineFileProtect } from "react-icons/ai";
 import { money } from "../../../utils";

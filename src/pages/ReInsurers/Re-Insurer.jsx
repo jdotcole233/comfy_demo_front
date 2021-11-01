@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useMutation } from 'react-apollo'
+import { useMutation } from "@apollo/client"
 import { REMOVE_REINSURER } from '../../graphql/mutattions'
 import { REINSURERS } from '../../graphql/queries'
 import swal from 'sweetalert'

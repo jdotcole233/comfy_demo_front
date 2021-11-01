@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 import React from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import swal from "sweetalert";
 import { UNPLACE_OFFER } from "../../../graphql/mutattions";
 import { SINGLE_OFFER } from "../../../graphql/queries";

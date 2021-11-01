@@ -12,7 +12,7 @@ import CliamComponent from "./ClaimComponent";
 import DocumentSMS from "./DocumentVerification";
 import { useLocation } from "react-router-dom";
 import swal from "sweetalert";
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "@apollo/client";
 import { NOTIFICATIONS } from "../../graphql/queries/notifications";
 import {
   DELETE_NOTIFICATION,

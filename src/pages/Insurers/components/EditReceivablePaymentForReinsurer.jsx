@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 import { Alert, Modal } from "react-bootstrap";
 import React, { useEffect, useRef, useState } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import swal from "sweetalert";
 import { INSURER } from "../../../graphql/queries";
 import styles from "../styles/ViewInsurerOffer.module.css";

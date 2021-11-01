@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { useQuery } from 'react-apollo';
+import { useQuery } from "@apollo/client";
 import { OFFERS } from '../graphql/queries';
 import { generateClosingOffers } from '../pages/CreateClosing/actions';
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo, useMemo } from "react";
 import { Drawer, Loader, ReinsuredComponent } from "../../components";
 import InputOffer from "./InputOffer";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { OFFERS, ALLOFFERS } from "../../graphql/queries";
 import OfferButtons from "./components/OfferButtons";
 import OfferListing from "./OfferListing";

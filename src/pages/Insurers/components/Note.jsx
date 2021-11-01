@@ -6,7 +6,7 @@ import { CurrencyOption, Drawer, Selector } from "../../../components";
 import { noteOptions } from "../../TreatyPrograms/columns";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import {
   TREATY,
   UPDATE_QUARTER,
@@ -70,15 +70,17 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
   const onSubmit = (values) => {
     const exchange_rate = addExchangeRate
       ? JSON.stringify({
-          rate: values.ex_rate,
-          currency: values.ex_currency,
-        })
+        rate: values.ex_rate,
+        currency: values.ex_currency,
+      })
       : null;
     const data = {
       ..._.omit(values, [
         "ex_rate",
         "ex_currency",
         ...surplusCommissions.map((_, id) => `gross_premium_${id}`),
+        ...surplusCommissions.map((_, id) => `cash_loss_${id}`),
+        ...surplusCommissions.map((_, id) => `claim_settled_${id}`),
       ]),
       exchange_rate,
       surpulus_data: surplusCommissions.map((el) => ({
@@ -86,6 +88,8 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
         surpulus_uuid: el.surpulus_uuid,
         gross_premium: el.gross_premium,
         account_deduction_id: el.treaty_account_deduction_id,
+        cash_loss: el.cash_loss,
+        claim_settled: el.claim_settled,
       })),
     };
     swal({
@@ -133,6 +137,26 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
     __[key] = {
       ..._surplus,
       gross_premium: value,
+    };
+    setSurplusCommissions(__);
+  };
+
+  const onCashLossChange = (key, _surplus, evt) => {
+    const { value } = evt.target;
+    const __ = [...surplusCommissions];
+    __[key] = {
+      ..._surplus,
+      cash_loss: value,
+    };
+    setSurplusCommissions(__);
+  };
+
+  const onClaimSettledChange = (key, _surplus, evt) => {
+    const { value } = evt.target;
+    const __ = [...surplusCommissions];
+    __[key] = {
+      ..._surplus,
+      claim_settled: value,
     };
     setSurplusCommissions(__);
   };
@@ -204,11 +228,10 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
               justifyContent: "center",
             }}
             onClick={() => chooseNote(note?.treaty_account_id)}
-            className={`p-2 btn ${
-              _.includes(selectedNotes, note?.treaty_account_id)
-                ? "bg-primary"
-                : "bg-white"
-            } position-absolute ml-2 mt-2`}
+            className={`p-2 btn ${_.includes(selectedNotes, note?.treaty_account_id)
+              ? "bg-primary"
+              : "bg-white"
+              } position-absolute ml-2 mt-2`}
           >
             {/* <IoIosCheckmark color="#fff" size={20} /> */}
           </div>
@@ -364,10 +387,10 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
                   </p>
                 )}
               </div>
-              <div className="col-md-6">
+              {/* <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="Claim Settled">Claim Settled</label>
-                  {/* {note?.claim_settled} */}
+                  
                   <input
                     name="claim_settled"
                     ref={register({ required: "Required" })}
@@ -382,7 +405,7 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
                     </p>
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="Gross Premium">Account year</label>
@@ -399,7 +422,7 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
                   )}
                 </div>
               </div>
-              <div className="col-md-6">
+              {/* <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="Gross Premium">Cash loss</label>
                   <input
@@ -414,7 +437,7 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
                     <p className="text-danger">{errors.cash_loss.message}</p>
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="col-md-12 mx-3">
                 <div className="form-group ml-2">
                   <input
@@ -438,10 +461,10 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
                       value={
                         ex_currency
                           ? {
-                              label: Object.values(currencies).find(
-                                (eel) => eel.code === ex_currency
-                              )?.name,
-                            }
+                            label: Object.values(currencies).find(
+                              (eel) => eel.code === ex_currency
+                            )?.name,
+                          }
                           : ""
                       }
                       components={{ Option: CurrencyOption }}
@@ -494,11 +517,10 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
             <div className="row">
               {surplusCommissions.map((surplus, surplusId) => (
                 <div
-                  className={`col-md-${
-                    surplusId + 1 >= surpluses.length && surplusId % 2 === 0
-                      ? "12"
-                      : "6"
-                  }`}
+                  className={`col-md-${surplusId + 1 >= surpluses.length && surplusId % 2 === 0
+                    ? "12"
+                    : "6"
+                    }`}
                 >
                   <fieldset className="border w-auto p-2 mb-2">
                     <legend className="font-size-13">
@@ -525,6 +547,48 @@ const Note = ({ note, notes, treaty_id, treaty, surpluses }) => {
                           {errors[`gross_premium_${surplusId}`] && (
                             <p className="text-danger">
                               {errors[`gross_premium_${surplusId}`].message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="form-group">
+                          <label htmlFor="Gross Premium">Cash loss</label>
+                          <input
+                            name={`cash_loss_${surplusId}`}
+                            ref={register({ required: "Required" })}
+                            value={surplus.cash_loss}
+                            type="number"
+                            className="form-control"
+                            step="any"
+                            placeholder="Cash loss"
+                            onChange={(e) =>
+                              onCashLossChange(surplusId, surplus, e)
+                            }
+                          />
+                          {errors[`cash_loss_${surplusId}`] && (
+                            <p className="text-danger">{errors[`cash_loss_${surplusId}`].message}</p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="form-group">
+                          <label htmlFor="Claim Settled">Claim Settled</label>
+                          <input
+                            name={`claim_settled_${surplusId}`}
+                            ref={register({ required: "Required" })}
+                            value={surplus.claim_settled}
+                            type="number"
+                            step="any"
+                            className="form-control"
+                            placeholder="Claim Settled"
+                            onChange={(e) =>
+                              onClaimSettledChange(surplusId, surplus, e)
+                            }
+                          />
+                          {errors[`claim_settled_${surplusId}`] && (
+                            <p className="text-danger">
+                              {errors[`claim_settled_${surplusId}`].message}
                             </p>
                           )}
                         </div>

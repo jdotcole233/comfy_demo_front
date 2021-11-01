@@ -5,7 +5,7 @@
 import React, { useEffect, useContext } from "react";
 import { Loader } from "../../components";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { SINGLE_OFFER } from "../../graphql/queries";
 import { AuthContext } from "../../context/AuthContext";
 import OfferDetails from "./components/OfferDetails";

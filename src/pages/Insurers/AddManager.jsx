@@ -2,7 +2,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useEffect } from 'react'
 import swal from 'sweetalert'
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { CREATE_INSURER_REP } from '../../graphql/mutattions';
 import { INSURERS } from '../../graphql/queries';
 import styles from './styles/ViewInsurerOffer.module.css'

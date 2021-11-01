@@ -156,6 +156,28 @@ const offers = [
       'Email (PDF) for - Closing notes',
     ],
   },
+  {
+    link: '/admin/reinstatement-offers',
+    name: 'Reinstatement Offers',
+    roles: [
+      'CEO',
+      'General Manager',
+      // 'Senior Broking Officer',
+      // 'Finance Executive',
+      'System Administrator',
+    ],
+    icon: 'bx bxs-data',
+    functionalities: [
+      'Manage endorsement documents',
+      'Preview and download cover cotes',
+      'Preview and Download Debit Note',
+      'Preview and Download Credit Notes',
+      'Document Approval',
+      'View and Add Comments to offer',
+      'Reopen Offer',
+      'Delete offer',
+    ],
+  }
 ];
 const clients = [
   {

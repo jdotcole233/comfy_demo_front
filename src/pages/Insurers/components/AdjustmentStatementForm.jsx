@@ -7,7 +7,7 @@ import {
   CREATE_ADJUSTMENT_STATEMENT,
   TREATY,
 } from "../../../graphql/queries/treaty";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import swal from "sweetalert";
 
 const AdjustmentStatementForm = ({

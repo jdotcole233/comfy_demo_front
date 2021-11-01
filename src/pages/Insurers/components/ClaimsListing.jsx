@@ -15,7 +15,7 @@ import { INSURER } from "../../../graphql/queries";
 import { REMOVE_RECEIVABLE_PAYMENT } from "../../../graphql/queries/treaty";
 // import { GET_INSURER } from "../../../redux/types/InsurerTypes";
 // import { useDispatch } from "react-redux";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 
 const ClaimsListing = ({ claims = [], treaty, setShow }) => {
   // const dispatch = useDispatch();

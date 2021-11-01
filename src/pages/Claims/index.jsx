@@ -9,7 +9,7 @@ import Chart from 'react-apexcharts'
 import styles from './styles/card.module.css'
 import MakeClaim from './MakeClaim';
 import { columns, claimsColumns, distributionsColumns } from './columns'
-import { useQuery, useMutation } from 'react-apollo';
+import { useQuery, useMutation } from "@apollo/client";
 import { OFFERS, CLAIM_OVERVIEW, ALLOFFERS } from '../../graphql/queries';
 import { REMOVE_CLAIM_AMOUNT, UPDATE_CLAIM_AMOUNT } from '../../graphql/mutattions';
 import swal from 'sweetalert';

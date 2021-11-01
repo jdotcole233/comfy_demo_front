@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_CLASS_OF_BUSINESS } from "../../graphql/mutattions";
 import {
   FETCH_CLASS_OF_BUSINESS,

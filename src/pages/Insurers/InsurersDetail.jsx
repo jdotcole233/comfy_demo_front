@@ -12,7 +12,7 @@ import {
 } from "../../components";
 import EditInsurer from "./EditInsurer";
 import { managersColumn } from "./dummy";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { INSURER, INSURER_OFFERS } from "../../graphql/queries";
 import OfferButtons from "./components/Offerbuttons";
 import ManagerButtons from "./components/ManagerButtons";

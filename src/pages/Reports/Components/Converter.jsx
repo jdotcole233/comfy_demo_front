@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import currencies from "../../../assets/currencies.json";
 import { Selector, CurrencyOption } from "../../../components";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { GENERATE_REPORT } from "../../../graphql/queries/reports";
 
 const Converter = ({ available_cuurencies, formData, onGenerateFinished }) => {

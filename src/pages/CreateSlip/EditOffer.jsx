@@ -2,7 +2,7 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import styles from "./styles/inputOffer.module.css";
 import { useForm } from "react-hook-form";
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "@apollo/client";
 import {
   INPUT_OFFER_QUERIES,
   OFFERS,

@@ -6,7 +6,7 @@ import { associatesColumns } from '../columns'
 import { Datatable } from '../../../components'
 import { deleteAccessRoles } from '../../../layout/adminRoutes';
 import swal from 'sweetalert';
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { REMOVE_ASSOCIATE_FROM_PARTICIPATION } from '../../../graphql/mutattions';
 import { SINGLE_OFFER } from '../../../graphql/queries';
 

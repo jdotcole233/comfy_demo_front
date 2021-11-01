@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from 'react'
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { Modal } from 'react-bootstrap';
 import swal from 'sweetalert';
 import { Datatable, Drawer } from '../../../components';

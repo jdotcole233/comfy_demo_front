@@ -2,7 +2,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useContext, useEffect } from 'react'
 import styles from '../styles/inputOffer.module.css'
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation, useQuery } from "@apollo/client";
 import { Editor, Selector } from '../../../components'
 import { SEND_CHANGES_AND_CLOSING_SLIP } from '../../../graphql/mutattions';
 import swal from 'sweetalert';

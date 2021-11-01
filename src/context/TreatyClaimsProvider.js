@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { useQuery } from 'react-apollo';
+import { useQuery } from "@apollo/client";
 import { TREATY_CLAIMS } from '../graphql/queries/treaty'
 import moment from 'moment';
 import { TreatyClaimsButtons } from '../components'

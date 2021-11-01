@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react'
 import { deleteAccessRoles } from '../../../layout/adminRoutes'
 import { AuthContext } from '../../../context/AuthContext'
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { DELETE_CLASS_OF_BUSINESS } from '../../../graphql/mutattions';
 import { FETCH_CLASS_OF_BUSINESS } from '../../../graphql/queries';
 import { Drawer } from '../../../components';

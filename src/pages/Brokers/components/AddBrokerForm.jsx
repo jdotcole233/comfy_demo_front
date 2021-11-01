@@ -1,4 +1,4 @@
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CREATE_BROKER, UPDATE_BROKER } from "../../../graphql/mutattions/brokers";

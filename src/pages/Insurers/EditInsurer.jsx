@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from 'react'
 
 import { useForm } from 'react-hook-form'
 import countriesData from '../../assets/countriesData'
-import { useMutation } from 'react-apollo'
+import { useMutation } from "@apollo/client"
 import { UPDATE_INSURER } from '../../graphql/mutattions'
 import { INSURER } from '../../graphql/queries'
 import swal from 'sweetalert'

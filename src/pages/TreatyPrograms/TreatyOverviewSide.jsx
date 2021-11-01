@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import moment from "moment";
+import TreatyCurrency from "../ViewTreaty/components/TreatyCurrency";
 // import { Drawer } from '../../components'
 // import SendNote from './SendNote'
 // import SendNonproportionalNote from './SendNonproportionalNote'
@@ -11,7 +12,7 @@ export default function TreatyOverviewSide({ treaty }) {
         <div className="card-header">
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="card-title">Treaty Overview</h4>
-            {/* <button onClick={() => setShowSendingNoteDrawer(prev => !prev)} className="btn btn-primary btn-sm rounded-0">Send Document</button> */}
+            <TreatyCurrency treaty={treaty} />
           </div>
         </div>
 

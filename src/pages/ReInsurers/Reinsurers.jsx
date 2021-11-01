@@ -4,7 +4,7 @@ import { Drawer, Loader, chunkArray } from '../../components';
 import AddReInsurer from './AddReInsurer';
 import AddAssociate from './AddAssociate';
 import Pagination from 'react-paginate'
-import { useQuery } from 'react-apollo'
+import { useQuery } from "@apollo/client"
 import { REINSURERS } from '../../graphql/queries';
 import { create_reinsurer_access } from '../../layout/adminRoutes';
 import { AuthContext } from '../../context/AuthContext';

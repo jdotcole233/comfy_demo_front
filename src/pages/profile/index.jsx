@@ -5,7 +5,7 @@ import React, { Fragment, useContext, useState, useRef } from "react";
 import { Datatable, Modal } from "../../components";
 import columns from "./columns";
 import { AuthContext } from "../../context/AuthContext";
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "@apollo/client";
 import { EMPLOYEE, CHANGE_PASSWORD } from "../../graphql/mutattions/auth";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";

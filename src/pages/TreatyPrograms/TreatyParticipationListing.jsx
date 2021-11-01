@@ -7,7 +7,7 @@ import { reinsurersColumns } from './columns'
 import { Datatable } from '../../components'
 import { DropdownButton, ButtonGroup, Dropdown, Modal } from 'react-bootstrap';
 import { editAccessRoles, deleteAccessRoles } from '../../layout/adminRoutes';
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { REMOVE_REINSURER_FROM_PARTICIPATION, ADD_PERCENTAGE } from '../../graphql/mutattions';
 import { SINGLE_OFFER } from '../../graphql/queries';
 import swal from 'sweetalert';

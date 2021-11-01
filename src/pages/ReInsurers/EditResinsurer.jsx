@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react'
 import { Selector } from '../../components'
-import { useMutation } from 'react-apollo';
+import { useMutation } from "@apollo/client";
 import { UPDATE_REINSURER } from '../../graphql/mutattions';
 import { REINSURER } from '../../graphql/queries';
 import swal from 'sweetalert';

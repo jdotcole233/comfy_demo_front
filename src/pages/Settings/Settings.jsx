@@ -2,7 +2,7 @@
 import { Loader } from "../../components";
 import { USER_ROLES } from "../../graphql/queries/settings";
 import React from "react";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import AddRole from "./components/AddRole";
 import PagePermissionItem from "./components/PagePermissionItem";
 import PagePermissionsHead from "./components/PagePermissionsHead";

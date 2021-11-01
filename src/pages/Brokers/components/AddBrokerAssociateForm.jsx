@@ -1,6 +1,6 @@
 import { CREATE_BROKER_ASSOCIATE } from "../../../graphql/mutattions/brokers";
 import React from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 // import { Selector } from "../../../components";

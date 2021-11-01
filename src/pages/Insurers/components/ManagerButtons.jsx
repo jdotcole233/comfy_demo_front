@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect, useContext } from 'react'
-import { useMutation } from 'react-apollo'
+import { useMutation } from "@apollo/client"
 import { UPDATE_INSURER_MANAGER, REMOVE_INSURER_MANAGER } from '../../../graphql/mutattions'
 import { INSURER } from '../../../graphql/queries'
 import swal from 'sweetalert'

@@ -408,7 +408,7 @@ export const REINSURER = gql`
 `
 
 export const OFFERS = gql`
-query getOffers(
+query Offers(
   $offer_status: [String]!
   $skip: Int
   $approval_status: String
@@ -851,7 +851,7 @@ export const SINGLE_OFFER = gql`
 `;
 
 export const DASHBOARD_PIE_DATA = gql`
-  query dashboard($year: String, $month: String) {
+  query DashboardData($year: String, $month: String) {
     dashboardByPieChartData(year: $year, month: $month)
   }
 `;

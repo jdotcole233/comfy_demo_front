@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useRef, useEffect, useContext } from "react";
 import styles from "./styles/ViewReinsurerOffer.module.css";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import {
   MAKE_PAYMENT_INSURER,
   UPDATE_PAYMENT_REINSURER,

@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from "react";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { CREATE_ASSOCIATE } from "../../graphql/mutattions";
 import { REINSURERS } from "../../graphql/queries";
 import styles from "./styles/ViewReinsurerOffer.module.css";

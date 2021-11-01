@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from "./styles/ViewInsurerOffer.module.css";
 import swal from "sweetalert";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { DISTRIBUTE_PAYMENT } from "../../graphql/mutattions";
 import { INSURER, GET_ISNURER_DEDUCTIONS } from "../../graphql/queries";
 import { Alert } from "react-bootstrap";

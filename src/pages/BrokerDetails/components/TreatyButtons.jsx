@@ -7,7 +7,7 @@ import NonProportionalPaymentModal from "./NonProportionalPaymentsModal";
 import ProportionalPaymentsModal from "./ProportionalPaymentsModal";
 import AddBrokerPayment from "./AddBrokerPayment";
 
-const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
+const TreatyButtons = ({ treaty, _payments, re_broker_id }) => {
   const [openPayments, setOpenPayments] = useState(false);
   const [editPayment, setEditPayment] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -109,7 +109,7 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
           View Payments
         </Dropdown.Item>
 
-        <AddBrokerPayment {...{ isProp, _payments }} />
+        <AddBrokerPayment {...{ isProp, _payments, re_broker_id }} />
       </DropdownButton>
 
       <Modal
@@ -123,7 +123,7 @@ const TreatyButtons = ({ treaty, _payments, reinsurer_id }) => {
         </Modal.Header>
         {isProp ? (
           <ProportionalPaymentsModal
-            reinsurer_id={reinsurer_id}
+            re_broker_id={re_broker_id}
             accounts={_payments}
             treaty={treaty}
             payments={payments}

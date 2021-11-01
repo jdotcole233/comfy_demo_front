@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { AuthContext, setToken } from '../../context/AuthContext';
-import { useMutation } from 'react-apollo'
+import { useMutation } from "@apollo/client"
 import { useLocation, useHistory } from 'react-router-dom'
 import { LOGIN } from '../../graphql/mutattions/auth';
 

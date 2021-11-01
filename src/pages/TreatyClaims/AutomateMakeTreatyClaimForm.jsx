@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 import React, { Fragment, useState, useMemo } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { FaRegFileExcel } from "react-icons/fa";
 import { RiListSettingsLine, RiUpload2Line } from "react-icons/ri";

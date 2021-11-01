@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "./styles/inputOffer.module.css";
 import { Alert } from "react-bootstrap";
 import swal from "sweetalert";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { CLOSE_OFFER } from "../../graphql/mutattions";
 import { SINGLE_OFFER } from "../../graphql/queries";
 import { useHistory } from "react-router-dom";

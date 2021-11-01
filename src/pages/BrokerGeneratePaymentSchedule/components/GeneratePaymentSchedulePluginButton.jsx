@@ -7,7 +7,7 @@ const GeneratePaymentSchedulePluginButton = ({insurer_id = ""}) => {
   return (
     <Fragment>
       <Link to={`recent/${Buffer.from(insurer_id).toString("base64")}/generate-payment-schedule`} className="btn btn-secondary ml-1 mr-1 text-white waves-effect waves-light btn-sm">
-        Generate Payment Schedule <i className="mdi mdi-arrow-right ml-1"></i>
+        Generate Schedule <i className="mdi mdi-arrow-right ml-1"></i>
       </Link>
     </Fragment>
   );

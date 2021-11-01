@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useMemo } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { Modal, Input, ErrorMessage, Editor } from ".";

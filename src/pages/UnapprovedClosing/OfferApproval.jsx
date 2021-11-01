@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 import React, { memo, useState } from 'react'
 import { useCallback } from 'react'
-import { useMutation } from 'react-apollo'
+import { useMutation } from "@apollo/client"
 import swal from 'sweetalert'
 import { OFFER_APPROVAL } from '../../graphql/mutattions'
 import { OFFERS } from '../../graphql/queries'

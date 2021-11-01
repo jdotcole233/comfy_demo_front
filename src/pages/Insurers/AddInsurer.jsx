@@ -5,7 +5,7 @@ import { Alert } from "react-bootstrap";
 import { ReinsurerOption, Selector } from "../../components";
 import { useForm } from "react-hook-form";
 import countriesData from "../../assets/countriesData";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_INSURER, UPDATE_INSURER } from "../../graphql/mutattions";
 import { INSURERS, INSURER, REINSURERS } from "../../graphql/queries";
 import swal from "sweetalert";

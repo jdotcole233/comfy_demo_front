@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Header from "./Header";
 import { columns, _columns } from "./columns";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import { OFFERS } from "../../graphql/queries";
 import {
   Datatable,

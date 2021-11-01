@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";

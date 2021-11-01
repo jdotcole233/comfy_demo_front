@@ -2,9 +2,10 @@
 import React from "react";
 import { MDBDataTable } from "mdbreact";
 import $ from "jquery";
+import { memo } from "react";
 $.DataTable = require("datatables.net");
 
-const Table = React.memo(({ data, columns, ref, ...rest }) => {
+const Table = ({ data = [], columns, ref, ...rest }) => {
   return (
     <MDBDataTable
       {...rest}
@@ -14,6 +15,6 @@ const Table = React.memo(({ data, columns, ref, ...rest }) => {
       data={{ columns, rows: data }}
     />
   );
-});
+};
 
-export default Table;
+export default memo(Table);

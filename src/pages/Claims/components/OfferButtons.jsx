@@ -2,7 +2,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from "react";
 import { useContext } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";

@@ -110,7 +110,7 @@ export const REMOVE_REINSURER = gql`
 `;
 
 export const CREATE_INPUT_OFFER = gql`
-  mutation inputOffer(
+  mutation CreateInputOffer(
     $class_of_business_id: ID!
     $insurer_id: ID!
     $reinsurer_id: ID
@@ -219,7 +219,7 @@ mutation createEndorsement(
 `;
 
 export const CREATE_FLEET_OFFER = gql`
-  mutation inputOffer($data: [Offer_data]) {
+  mutation CREATE_FLEET_OFFER($data: [Offer_data]) {
     createFleetOffer(offer_input: $data)
   }
 `;
@@ -386,7 +386,7 @@ export const MAKE_PAYMENT_INSURER = gql`
 `;
 
 export const UPDATE_PAYMENT_INSURER = gql`
-  mutation createPaymentInsurer($data: Offer_payment_update_data!) {
+  mutation updatePaymentInsurer($data: Offer_payment_update_data!) {
     updatePaymentOnofferFromInsurer(payment_info: $data)
   }
 `;
@@ -442,13 +442,13 @@ export const DELETE_OFFER = gql`
 `;
 
 export const SEND_DEBIT_AND_CREDIT = gql`
-  mutation sendmail($data: Email_data!) {
+  mutation sendDebitAndCredit($data: Email_data!) {
     sendDebitAndCoverNotes(email_data: $data)
   }
 `;
 
 export const SEND_OFFER_AS_BROADCAST = gql`
-  mutation sendmail(
+  mutation sendOfferAsBroadCast(
     $data: Email_data!
     $should_send: Int
     $include_attachment: Boolean
@@ -640,14 +640,14 @@ mutation deleteEndorsement(
 `;
 
 export const SEND_CONTRACT_DEBIT = gql`
-mutation sendNote($data: EndorsementEmail) {
+mutation sendContractDebitNote($data: EndorsementEmail) {
   sendContractChangesAndDebitNote(endorsementInput: $data)
 }
 
 `;
 
 export const SEND_CHANGES_AND_CLOSING_SLIP = gql`
-mutation sendNote($data: EndorsementEmail) {
+mutation sendChangesAndClosingNote($data: EndorsementEmail) {
   sendContractChangesAndClosingNote(endorsementInput: $data)
 }
 `;
