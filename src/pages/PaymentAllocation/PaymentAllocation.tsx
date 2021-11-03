@@ -143,35 +143,6 @@ const PaymentAllocation = (props: Props) => {
                 <p className="text-danger">{errors?.currencies?.message}</p>
               )}
             </div>
-            {treaty_type ? (
-              <>
-                {treaty_type.value === "PROPORTIONAL" ? (
-                  <div className="col-md-12 mt-4">
-                    <label htmlFor="Treaty Program">Quarters</label>
-                    <Selector
-                      isMulti
-                      value={quarters}
-                      onChange={handleQurterChange}
-                      options={noteOptions}
-                    />
-                    <input
-                      type="hidden"
-                      name="quarters"
-                      value={JSON.stringify(quarters ? quarters[0]?.label : "")}
-                      ref={register({ required: "Required" })}
-                    />
-                    {errors.quarters && (
-                      <p className="text-danger">{errors?.quarters?.message}</p>
-                    )}
-                  </div>
-                ) : (
-                  <div className="col-md-12 mt-4">
-                    <label htmlFor="Treaty Program">Installment type</label>
-                    {/* <Selector onChange={} isMulti options={installmentTypes} /> */}
-                  </div>
-                )}
-              </>
-            ) : null}
             <div className="col-md-6 mt-4">
               <label htmlFor="Treaty Program">Date of receipt</label>
               <input
@@ -208,7 +179,7 @@ const PaymentAllocation = (props: Props) => {
                 type="submit"
                 className="btn btn-sm btn-primary"
               >
-                Generate schedule
+                Generate Payment Allocation
               </button>
             </div>
           </div>
@@ -229,7 +200,7 @@ const PaymentAllocation = (props: Props) => {
           {loading ? <Loader /> : ""}
           {show && (
             <iframe
-              src={`${BASE_URL_LOCAL}/treaty_premium_transfer/${data}`}
+              src={`${BASE_URL_LOCAL}/treaty_payment_allocation/${data}`}
               onLoadStart={handleOnLoadStart}
               onLoad={onLoad}
               width="100%"

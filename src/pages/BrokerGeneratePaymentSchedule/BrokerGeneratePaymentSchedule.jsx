@@ -204,7 +204,7 @@ const BrokerGeneratePaymentSchedule = () => {
                 type="submit"
                 className="btn btn-sm btn-primary"
               >
-                Generate schedule
+                Generate Premium Schedule
               </button>
             </div>
           </div>
