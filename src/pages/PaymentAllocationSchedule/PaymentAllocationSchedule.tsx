@@ -7,18 +7,30 @@ import { BASE_URL_LOCAL } from "../../graphql";
 import { useParams } from "react-router-dom";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
+import { SingleValueProps, MultiValueProps } from "react-select";
 
 const installmentTypes = [
   { label: "Installment", value: "Installment" },
   { label: "Quarterly", value: "QUARTERLY" },
 ];
 
-const BrokerGeneratePaymentSchedule = () => {
-  const { id } = useParams();
+interface Props {}
+
+type Value = {
+  label: string;
+  value: any;
+} | null;
+
+type Params = {
+  [key: string]: string;
+};
+
+const PaymentAllocationSchedule = (props: Props) => {
+  const { id } = useParams<Params>();
   const { register, handleSubmit, setValue, errors, clearError } = useForm();
-  const [treaty_type, setTreaty_type] = useState(null);
-  const [_currencies, setCurrencies] = useState([]);
-  const [quarters, setQuarters] = useState([]);
+  const [treaty_type, setTreaty_type] = useState<Value>(null);
+  const [_currencies, setCurrencies] = useState<Value[]>([]);
+  const [quarters, setQuarters] = useState<Value[]>([]);
   const [loading, setLoading] = useState(false);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -30,13 +42,13 @@ const BrokerGeneratePaymentSchedule = () => {
       Buffer.from(
         JSON.stringify({
           insurer_id: parseInt(Buffer.from(id, "base64").toString("ascii")),
-          currency: _currencies?.map((currency) => currency.value),
+          currency: _currencies?.map((currency) => currency?.value),
           from,
           to,
           account_periods:
             treaty_type?.value === "NONPROPORTIONAL"
               ? null
-              : quarters?.map((quarter) => quarter.value),
+              : quarters?.map((quarter) => quarter?.value),
           installment_type: treaty_type?.value === "NONPROPORTIONAL" ? "" : "",
         })
       ).toString("base64"),
@@ -57,22 +69,22 @@ const BrokerGeneratePaymentSchedule = () => {
     setShow(true);
   };
 
-  const handleCurrencyChange = (value) => {
+  const handleCurrencyChange = (value: any) => {
     setCurrencies(value);
     if (value) clearError("currencies");
   };
 
-  const handleTreatyTypeChange = (value) => {
+  const handleTreatyTypeChange = (value: any) => {
     setTreaty_type(value);
     if (value) clearError("treaty_type");
   };
 
-  const handleQurterChange = (value) => {
+  const handleQurterChange = (value: any) => {
     setQuarters(value);
     if (value) clearError("quarters");
   };
 
-  const handleInstallmentTypeChange = (value) => {
+  const handleInstallmentTypeChange = (value: any) => {
     setValue("installment_type", value);
     if (value) clearError("installment_type");
   };
@@ -82,7 +94,7 @@ const BrokerGeneratePaymentSchedule = () => {
       {/* <PageHeader name="Generate  schedule" url="/admin/insurers-details/recent/" base="Broker session" /> */}
       <div className="card">
         <div className="card-header">
-          <div className="card-title">Generate Premium Transfer Schedule </div>
+          <div className="card-title">Generate Payment Allocation Schedule</div>
         </div>
         <form onSubmit={handleSubmit(handleGenerate)} className="card-body">
           <div className="row">
@@ -155,7 +167,7 @@ const BrokerGeneratePaymentSchedule = () => {
                 ) : (
                   <div className="col-md-12 mt-4">
                     <label htmlFor="Treaty Program">Installment type</label>
-                    <Selector isMulti options={installmentTypes} />
+                    {/* <Selector onChange={} isMulti options={installmentTypes} /> */}
                   </div>
                 )}
               </>
@@ -190,13 +202,13 @@ const BrokerGeneratePaymentSchedule = () => {
             </div>
           </div>
           {/* {JSON.stringify({
-            insurer_id: parseInt(Buffer.from(id, 'base64').toString('ascii')),
-            currency: _currencies.map(currency => currency.value),
-            from,
-            to,
-            account_periods: treaty_type?.value === "NONPROPORTIONAL" ? null : quarters.map(quarter => quarter.value),
-            installment_type: treaty_type?.value === "NONPROPORTIONAL" ? "" : ""
-          }, null, 2)} */}
+        insurer_id: parseInt(Buffer.from(id, 'base64').toString('ascii')),
+        currency: _currencies.map(currency => currency.value),
+        from,
+        to,
+        account_periods: treaty_type?.value === "NONPROPORTIONAL" ? null : quarters.map(quarter => quarter.value),
+        installment_type: treaty_type?.value === "NONPROPORTIONAL" ? "" : ""
+      }, null, 2)} */}
           <div className="row">
             <div className="col-md-12 mt-4">
               <button
@@ -213,7 +225,7 @@ const BrokerGeneratePaymentSchedule = () => {
 
       <div className="card">
         <div className="card-header d-flex align-itemsp-center justify-content-between">
-          <span className="card-title">Preview: Premium Transfer Schedule</span>
+          <span className="card-title">Preview: Payment Allocation Schedule</span>
           <span
             onClick={() => setShow(false)}
             className="btn btn-square btn-success"
@@ -230,7 +242,7 @@ const BrokerGeneratePaymentSchedule = () => {
               onLoad={onLoad}
               width="100%"
               height={800}
-              frameborder="0"
+              frameBorder="0"
             ></iframe>
           )}
         </div>
@@ -239,4 +251,4 @@ const BrokerGeneratePaymentSchedule = () => {
   );
 };
 
-export default BrokerGeneratePaymentSchedule;
+export default PaymentAllocationSchedule;
