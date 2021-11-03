@@ -10,6 +10,7 @@ import moment from 'moment'
 
 
 export { default as Drawer } from './Drawer';
+export { default as Tabs } from './Tabs';
 export { default as BottomDrawer } from "./BottomDrawer";
 export { default as Prompt } from "./Prompt";
 export { default as CurrencyValues } from './CurrencyValues';

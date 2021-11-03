@@ -57,7 +57,7 @@ const customStyles = {
       color: '#fff',
       backgroundColor: '#556EE6',
       padding: 3,
-      borderRadius: 5,
+      // borderRadius: 5,
     };
   },
   multiValue: (styles, {data}) => {
