@@ -156,17 +156,7 @@ export default () => {
         >
           <AddEmployee toggle={() => setshowAddInsurer(!!0)} />
         </Drawer>
-        <Drawer
-          width="40%"
-          isvisible={showAddAssociate}
-          toggle={() => setshowAddAssociate(!!0)}
-        >
-          <AddEmployee
-            editing={showAddAssociate}
-            employee={selectedEmployee}
-            toggle={() => setshowAddAssociate(!!0)}
-          />
-        </Drawer>
+        
       </div>
     </>
   );

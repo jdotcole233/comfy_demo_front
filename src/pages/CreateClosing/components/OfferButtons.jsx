@@ -25,6 +25,8 @@ import { AuthContext } from "../../../context/AuthContext";
 import { deleteAccessRoles } from "../../../layout/adminRoutes";
 import AddEndorsement from "./AddEndorsement";
 import { endorsementColumns } from "../columns";
+import _ from "lodash";
+import OfferRenewal from "./OfferRenewal";
 
 const OfferButtons = ({ offer }) => {
   const {
@@ -48,7 +50,7 @@ const OfferButtons = ({ offer }) => {
   const [test_offer, setTest_offer] = useState(0);
   const [showEndorsement, setShowEndorsement] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-
+  const expired = useMemo(() => offer?.expiry_status === "EXPIRED", [offer]);
   const [deleteoffer] = useMutation(DELETE_OFFER, {
     refetchQueries: [
       { query: OFFERS, variables: { offer_status: ["CLOSED"] } },
@@ -279,20 +281,24 @@ const OfferButtons = ({ offer }) => {
           id="dropdown-basic-button"
           title="Actions"
         >
-          <Dropdown.Item onClick={() => handleReopenOffer(offer)}>
-            Reopen Offer
-          </Dropdown.Item>
+          {!expired && (
+            <Dropdown.Item onClick={() => handleReopenOffer(offer)}>
+              Reopen Offer
+            </Dropdown.Item>
+          )}
           <Dropdown.Item onClick={() => setShowEndorsement((prev) => !prev)}>
             Endorsements
           </Dropdown.Item>
           {["UNPAID"].includes(offer?.payment_status) &&
             offer?.approval_status === "APPROVED" &&
-            deleteAccessRoles.includes(user?.position) && (
+            deleteAccessRoles.includes(user?.position) &&
+            !expired && (
               <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>
                 Delete Offer
               </Dropdown.Item>
             )}
         </DropdownButton>
+        {expired && <OfferRenewal offer={offer} />}
       </>
 
       {/* Modal for Reopen Offer */}
@@ -508,18 +514,30 @@ const OfferButtons = ({ offer }) => {
                           maximumFractionDigits: 2,
                         })}
                     </td>
+                    <th>Status</th>
+                    <td
+                      className={`${
+                        offer?.expiry_status === "EXPIRED"
+                          ? "text-danger"
+                          : "text-success"
+                      }`}
+                    >
+                      {offer?.expiry_status}
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </fieldset>
           </div>
           <div>
-            <button
-              onClick={openEndorsement}
-              className="btn btn-sm btn-primary"
-            >
-              Add Endorsement
-            </button>
+            {!expired && (
+              <button
+                onClick={openEndorsement}
+                className="btn btn-sm btn-primary"
+              >
+                Add Endorsement
+              </button>
+            )}
           </div>
         </div>
 

@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Datatable } from "../../components";
+import { Datatable, GroupButtons } from "../../components";
 
 const OfferListing = ({
   setInputOffer,
@@ -19,6 +19,7 @@ const OfferListing = ({
   path,
 }) => {
   const [_tab, setTab] = useState("recent");
+  const [status, setStatus] = useState("ACTIVE");
   const { tab } = useParams();
 
   useEffect(() => {
@@ -90,11 +91,25 @@ const OfferListing = ({
                   </div>
                 )}
               </div>
+              <div>
+                <GroupButtons
+                  setStatus={setStatus}
+                  statues={[
+                    { label: "ACTIVE", value: "ACTIVE" },
+                    { label: "EXPIRED", value: "EXPIRED" },
+                  ]}
+                  status={status}
+                />
+              </div>
 
               {tab === "recent" && (
                 <div>
                   <Datatable
-                    data={recent}
+                    data={
+                      status
+                        ? recent.filter((item) => item.expiry_status === status)
+                        : recent
+                    }
                     entries={entries}
                     columns={columns}
                   />

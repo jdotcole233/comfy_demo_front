@@ -10,14 +10,16 @@ import {
 import { EMPLOYEES } from "../../graphql/queries/employees";
 import swal from "sweetalert";
 import { useState } from "react";
-import { Datatable, Modal } from "../../components";
+import { Datatable, Drawer, Modal } from "../../components";
 import columns from "./columns";
 import _ from "lodash";
 import { useAuth } from "../../context/AuthContext";
+import AddEmployee from "./AddEmployee";
 
 export default function Employees({ data, openViewEmployee }) {
   const { user } = useAuth();
   const [showLOgs, setShowLOgs] = useState(false);
+  const [showEmployee, setShowEmployee] = useState(false);
   const [removeEmployee] = useMutation(REMOVE_EMPLOYEE, {
     variables: { employee_id: data.employee_id },
     refetchQueries: [{ query: EMPLOYEES }],
@@ -165,7 +167,9 @@ export default function Employees({ data, openViewEmployee }) {
                   <h5 className="text-truncate">
                     {data.employee_first_name} {data.employee_last_name}
                   </h5>
-                  <p className="text-muted">{data.user.position}</p>
+                  <p className="text-muted">
+                    {data?.user?.user_role?.position || "N/A"}
+                  </p>
                   <h5
                     className="font-size-14 text-truncate"
                     data-toggle="tooltip"
@@ -194,7 +198,7 @@ export default function Employees({ data, openViewEmployee }) {
           <div className="card-footer bg-transparent border-top">
             <div className="contact-links d-flex font-size-20">
               <div
-                onClick={() => openViewEmployee(data)}
+                onClick={() => setShowEmployee(true)}
                 className="flex-fill d-flex  p-1 justify-content-center link-hover"
                 data-toggle="tooltip"
                 data-placement="top"
@@ -249,6 +253,18 @@ export default function Employees({ data, openViewEmployee }) {
           </div>
         </div>
       </div>
+
+      <Drawer
+        width="40%"
+        isvisible={showEmployee}
+        toggle={() => setShowEmployee(false)}
+      >
+        <AddEmployee
+          editing
+          employee={data}
+          toggle={() => setShowEmployee(false)}
+        />
+      </Drawer>
 
       <Modal
         size="xl"

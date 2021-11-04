@@ -216,7 +216,7 @@ const PaymentAllocationSchedule = (props: Props) => {
                 type="submit"
                 className="btn btn-sm btn-primary"
               >
-                Generate schedule
+                Generate Payment Allocation Schedule
               </button>
             </div>
           </div>
@@ -225,7 +225,9 @@ const PaymentAllocationSchedule = (props: Props) => {
 
       <div className="card">
         <div className="card-header d-flex align-itemsp-center justify-content-between">
-          <span className="card-title">Preview: Payment Allocation Schedule</span>
+          <span className="card-title">
+            Preview: Payment Allocation Schedule
+          </span>
           <span
             onClick={() => setShow(false)}
             className="btn btn-square btn-success"
@@ -237,7 +239,7 @@ const PaymentAllocationSchedule = (props: Props) => {
           {loading ? <Loader /> : ""}
           {show && (
             <iframe
-              src={`${BASE_URL_LOCAL}/treaty_premium_transfer/${data}`}
+              src={`${BASE_URL_LOCAL}/treaty_payment_allocation_schedule/${data}`}
               onLoadStart={handleOnLoadStart}
               onLoad={onLoad}
               width="100%"

@@ -1,27 +1,34 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { Fragment } from 'react';
-import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
-import { BASE_URL_LOCAL } from '../../graphql';
-import EndorsementButtons from './components/EndorsementButtons';
-import OfferButtons from './components/OfferButtons';
-import _ from 'lodash';
-import { ReinsuredComponent } from '../../components';
+import React, { Fragment } from "react";
+import { DropdownButton, Dropdown, ButtonGroup } from "react-bootstrap";
+import { BASE_URL_LOCAL } from "../../graphql";
+import EndorsementButtons from "./components/EndorsementButtons";
+import OfferButtons from "./components/OfferButtons";
+import _ from "lodash";
+import { ReinsuredComponent } from "../../components";
 
 export const generateClosingOffers = ({ arr }) => {
   if (!arr) return [];
   const list = [];
   arr.offers.map((offer) => {
-    const payment_type_key = offer?.offer_detail?.payment_type ? Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0] : "NA"
-    const payment_type_values = offer?.offer_detail?.payment_type ? Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0] : "NA"
+    const payment_type_key = offer?.offer_detail?.payment_type
+      ? Object.keys(JSON.parse(offer?.offer_detail?.payment_type))[0]
+      : "NA";
+    const payment_type_values = offer?.offer_detail?.payment_type
+      ? Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
+      : "NA";
     const row = {
+      ...offer,
       policy_number: offer.offer_detail?.policy_number,
-      payment_type: offer?.offer_detail?.payment_type ?
-        payment_type_key === "instalment" ? `Instalment ${payment_type_values}` : _.upperFirst(payment_type_key.split("_").join(" "))
+      payment_type: offer?.offer_detail?.payment_type
+        ? payment_type_key === "instalment"
+          ? `Instalment ${payment_type_values}`
+          : _.upperFirst(payment_type_key.split("_").join(" "))
         : "NA",
       insured: offer.offer_detail?.insured_by,
       sum_insured:
         offer.offer_detail?.currency +
-        ' ' +
+        " " +
         offer.sum_insured.toLocaleString(undefined, {
           maximumFractionDigits: 2,
         }),
@@ -34,7 +41,7 @@ export const generateClosingOffers = ({ arr }) => {
       ),
       premium:
         offer.offer_detail?.currency +
-        ' ' +
+        " " +
         offer.premium.toLocaleString(undefined, { maximumFractionDigits: 2 }),
       participants: offer.offer_participant.filter(
         (el) => el.offer_participant_percentage !== 0
@@ -44,14 +51,29 @@ export const generateClosingOffers = ({ arr }) => {
       approval_status: (
         <span
           style={{ letterSpacing: 3 }}
-          className={`badge badge-${offer.approval_status === 'UNAPPROVED'
-            ? 'warning'
-            : offer.approval_status === 'APPROVED'
-              ? 'success'
-              : 'warning'
-            } font-size-11`}
+          className={`badge badge-${
+            offer.approval_status === "UNAPPROVED"
+              ? "warning"
+              : offer.approval_status === "APPROVED"
+              ? "success"
+              : "warning"
+          } font-size-11`}
         >
           {offer.approval_status}
+        </span>
+      ),
+      renewal_status: (
+        <span
+          style={{ letterSpacing: 3 }}
+          className={`badge badge-${
+            offer.renewal_status === "NOTRENEWED"
+              ? "warning"
+              : offer.renewal_status === "RENEWED"
+              ? "success"
+              : "warning"
+          } font-size-11`}
+        >
+          {offer.renewal_status}
         </span>
       ),
       actions: <OfferButtons offer={offer} />,
@@ -76,30 +98,44 @@ export const generateEndorsementOffers = ({ endorsements, offer }) => {
     approval_status: (
       <span
         style={{ letterSpacing: 3 }}
-        className={`badge badge-${_endorsement.approval_status === 'UNAPPROVED'
-          ? 'warning'
-          : _endorsement.approval_status === 'APPROVED'
-            ? 'success'
-            : 'warning'
-          } font-size-11`} F
+        className={`badge badge-${
+          _endorsement.approval_status === "UNAPPROVED"
+            ? "warning"
+            : _endorsement.approval_status === "APPROVED"
+            ? "success"
+            : "warning"
+        } font-size-11`}
+        F
       >
         {_endorsement.approval_status}
       </span>
     ),
     created_at: new Date(_endorsement.created_at).toDateString(),
-    actions: <EndorsementButtons offer={offer} endorsement={_endorsement} index={index + 1} />,
-  }))
-}
+    actions: (
+      <EndorsementButtons
+        offer={offer}
+        endorsement={_endorsement}
+        index={index + 1}
+      />
+    ),
+  }));
+};
 
 export const calculateEndorsementSumInsured = ({ offer, endorsements }) => {
-  const endorsementsSumInsured = endorsements.reduce((prev, cur) => prev + parseFloat(cur.sum_insured), 0);
+  const endorsementsSumInsured = endorsements.reduce(
+    (prev, cur) => prev + parseFloat(cur.sum_insured),
+    0
+  );
   return endorsementsSumInsured + parseFloat(offer?.sum_insured);
-}
+};
 
 export const calculateEndorsementPremium = ({ offer, endorsements }) => {
-  const endorsementsSumInsured = endorsements.reduce((prev, cur) => prev + parseFloat(cur.premium), 0);
+  const endorsementsSumInsured = endorsements.reduce(
+    (prev, cur) => prev + parseFloat(cur.premium),
+    0
+  );
   return endorsementsSumInsured + parseFloat(offer?.premium);
-}
+};
 
 export const calculateFacOffer = ({ offer, setFac_offer, setTest_offer }) => {
   if (!offer) return 0;
@@ -119,7 +155,7 @@ export const generateParticipants = ({
   setShowSendClosingSlip,
   handleShowUpdateModal,
 }) => {
-  if (!offer) return { rows: [], participants: [], downloadLink: '' };
+  if (!offer) return { rows: [], participants: [], downloadLink: "" };
   const rows = offer.offer_participant
     .filter((el) => el.offer_participant_percentage !== 0)
     .map((reinsurer) => ({
@@ -143,7 +179,7 @@ export const generateParticipants = ({
             >
               Preview
             </Dropdown.Item>
-            {offer?.approval_status === 'APPROVED' && (
+            {offer?.approval_status === "APPROVED" && (
               <Dropdown.Item
                 onClick={() => {
                   setSelectedReinsurer(reinsurer);
@@ -155,7 +191,7 @@ export const generateParticipants = ({
               </Dropdown.Item>
             )}
           </DropdownButton>
-          {reinsurer?.reinsurer?.reinsurer_address?.country !== 'Ghana' && (
+          {reinsurer?.reinsurer?.reinsurer_address?.country !== "Ghana" && (
             <a
               target="_blank"
               href={`${BASE_URL_LOCAL}/nic_form/${btoa(
