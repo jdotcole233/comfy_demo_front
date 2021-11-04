@@ -33,6 +33,7 @@ function AddEmployee({ editing, employee, toggle }) {
       setValue("employee_phonenumber", employee.employee_phonenumber);
       setValue("employee_email", employee.employee_email);
       setValue("employee_position", employee.user.position);
+      console.log(employee);
     }
   }, [employee, setValue]);
 
@@ -50,10 +51,7 @@ function AddEmployee({ editing, employee, toggle }) {
         variables: {
           employee: {
             ...values,
-            user_role_id: getRoleId(
-              userRoles.user_roles,
-              values.employee_position
-            ),
+            user_role_id: values.employee_position,
           },
         },
       })
@@ -86,10 +84,7 @@ function AddEmployee({ editing, employee, toggle }) {
         variables: {
           employee: {
             ...values,
-            user_role_id: getRoleId(
-              userRoles.user_roles,
-              values.employee_position
-            ),
+            user_role_id: values.employee_position,
           },
           employee_id: employee.employee_id,
         },
@@ -135,6 +130,7 @@ function AddEmployee({ editing, employee, toggle }) {
                 type="text"
                 name="employee_first_name"
                 ref={register({ required: "Required" })}
+                defaultValue={employee ? employee.employee_first_name : ""}
                 className="form-control"
                 placeholder="First name"
               />
@@ -152,6 +148,7 @@ function AddEmployee({ editing, employee, toggle }) {
                 type="text"
                 name="employee_last_name"
                 ref={register({ required: "Required" })}
+                defaultValue={employee ? employee.employee_last_name : ""}
                 className="form-control"
                 placeholder="Last name"
               />
@@ -168,6 +165,7 @@ function AddEmployee({ editing, employee, toggle }) {
               <input
                 type="email"
                 name="employee_email"
+                defaultValue={employee ? employee.employee_email : ""}
                 ref={register({
                   required: "Required",
                   pattern: {
@@ -189,6 +187,7 @@ function AddEmployee({ editing, employee, toggle }) {
               <input
                 type="tel"
                 name="employee_phonenumber"
+                defaultValue={employee ? employee.employee_phonenumber : ""}
                 ref={register({
                   required: "Required",
                   minLength: 9,
@@ -211,10 +210,13 @@ function AddEmployee({ editing, employee, toggle }) {
                 name="employee_position"
                 ref={register({ required: "Required" })}
                 className="form-control"
+                defaultValue={
+                  employee ? employee?.user?.user_role?.user_role_id : ""
+                }
               >
                 <option value="">Select position</option>
                 {userRoles?.user_roles?.map((role, key) => (
-                  <option key={key} value={role.position}>
+                  <option key={key} value={role.user_role_id}>
                     {role.position}
                   </option>
                 ))}

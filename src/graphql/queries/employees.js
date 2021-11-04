@@ -11,6 +11,9 @@ export const EMPLOYEES = gql`
       employee_phonenumber
       user {
         position
+        user_role {
+          user_role_id
+        }
       }
       log_activities {
         device_ip
