@@ -321,7 +321,7 @@ export const REINSURER = gql`
         rep_email
         position
       }
-
+      
       offers_participant {
         offersoffer_id
         offer_participant_id
@@ -424,6 +424,7 @@ query Offers(
       co_insurance_share
       commission
       commission_amount
+      expiry_status
       brokerage
       facultative_offer
       placed_offer
@@ -579,6 +580,7 @@ query getOffers(
       co_insurance_share
       commission
       commission_amount
+      expiry_status
       brokerage
       facultative_offer
       placed_offer
