@@ -716,6 +716,8 @@ query getOffers(
       created_at
     }
     total
+    expired
+    active
   }
 }
 `;
