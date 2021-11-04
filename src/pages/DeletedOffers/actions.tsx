@@ -14,7 +14,7 @@ export const generateOffers = (
       ? Object.values(JSON.parse(offer?.offer_detail?.payment_type))[0]
       : "NA";
     return {
-      ...offer,
+      // ...offer,
       policy_number: offer.offer_detail?.policy_number,
       participants: offer?.offer_participant?.length,
       payment_type: offer?.offer_detail?.payment_type

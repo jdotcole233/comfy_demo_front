@@ -13,6 +13,7 @@ export const EMPLOYEES = gql`
         position
         user_role {
           user_role_id
+          position
         }
       }
       log_activities {

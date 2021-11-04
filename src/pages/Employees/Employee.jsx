@@ -167,7 +167,9 @@ export default function Employees({ data, openViewEmployee }) {
                   <h5 className="text-truncate">
                     {data.employee_first_name} {data.employee_last_name}
                   </h5>
-                  <p className="text-muted">{data.user.position}</p>
+                  <p className="text-muted">
+                    {data?.user?.user_role?.position || "N/A"}
+                  </p>
                   <h5
                     className="font-size-14 text-truncate"
                     data-toggle="tooltip"

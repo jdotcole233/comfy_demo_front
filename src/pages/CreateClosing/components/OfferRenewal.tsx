@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import React from "react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import swal from "sweetalert";
 import { Modal } from "../../../components";
 import { RENEW_FAC_OFFER } from "../../../graphql/mutattions/renewal";
@@ -9,14 +9,13 @@ import {
   RenewFacOfferVariables,
 } from "../../../graphql/mutattions/__generated__/RenewFacOffer";
 import { OFFERS } from "../../../graphql/queries";
+import _ from "lodash";
 
 interface Props {
   offer: Record<string, any>;
 }
 
 const OfferRenewal = ({ offer }: Props) => {
-  const [showPrompt, setShowPrompt] = useState(false);
-
   const [renew] = useMutation<RenewFacOffer, RenewFacOfferVariables>(
     RENEW_FAC_OFFER,
     {
@@ -27,17 +26,17 @@ const OfferRenewal = ({ offer }: Props) => {
   );
 
   const hasEndorsement = useMemo(
-    () => offer?.endorsements?.length > 0,
+    () => _.last(offer?.offer_endorsements) || null,
     [offer]
   );
 
   const onRenewClicked = () => {
-    // setShowPrompt(true);
     swal({
       title: "Are you sure?",
       text: hasEndorsement
         ? "Renewal will be initialized from last know endorsement."
         : "Do you wish to process to renew offer ?",
+      // text: JSON.stringify(hasEndorsement),
       icon: "warning",
       buttons: {
         cancel: { text: "Abort", value: false, visible: true },
