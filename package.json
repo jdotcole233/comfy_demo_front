@@ -105,7 +105,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postbuild": "cp src/assets/logoEmail.png build/static/media",
-    "codegen:schema": "npx apollo client:download-schema src/graphql/schema.json --endpoint=http://192.168.100.6:8000/graphql",
+    "codegen:schema": "npx apollo client:download-schema src/graphql/schema.json --endpoint=http://192.168.100.9:8000/graphql",
     "codegen:generate": "npx apollo client:codegen --localSchemaFile=src/graphql/schema.json --globalTypesFile=src/graphql/__generated__/globalTypes.ts --includes=src/graphql/**/*.ts --target=typescript",
     "codegen": "yarn codegen:schema && yarn codegen:generate"
   },
