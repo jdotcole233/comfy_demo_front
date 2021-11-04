@@ -34,6 +34,14 @@ function ClosingOffer() {
   });
 
   const allTotal = useMemo(() => alloffers?.offers_all?.total, [alloffers]);
+  const expiredTotal = useMemo(
+    () => alloffers?.offers_all?.expired,
+    [alloffers]
+  );
+  const renewedTotal = useMemo(
+    () => alloffers?.offers_all?.active,
+    [alloffers]
+  );
 
   useMemo(() => {
     if (offers) {
@@ -79,7 +87,9 @@ function ClosingOffer() {
       {loading && <Loader />}
       {!loading && offers && (
         <div className="page-content">
-          <Header closedOffers={{ length: allTotal }} />
+          <Header
+            closedOffers={{ length: allTotal, expiredTotal, renewedTotal }}
+          />
 
           <OfferOverView offerOverview={offerOverview} />
 
