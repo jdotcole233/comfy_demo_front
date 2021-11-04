@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = ({ closedOffers = [] }) => {
+const Header = ({ closedOffers }) => {
   return (
     <div>
       <div className="col-xl-12 mt-">
@@ -33,14 +33,12 @@ const Header = ({ closedOffers = [] }) => {
                     <p className="text-muted font-weight-medium">
                       Total Renewed offers
                     </p>
-                    <h4 className="mb-0">0</h4>
+                    <h4 className="mb-0"> {closedOffers?.renewedTotal || 0}</h4>
                   </div>
 
                   <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                     <span className="avatar-title">
-                      <i className="bx bx-copy-alt font-size-24">
-                        {closedOffers?.renewedTotal || 0}
-                      </i>
+                      <i className="bx bx-copy-alt font-size-24"></i>
                     </span>
                   </div>
                 </div>
