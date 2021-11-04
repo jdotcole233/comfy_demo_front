@@ -30,11 +30,6 @@ export const columns = [
         sort: 'asc',
     },
     {
-        label: 'Total Participants',
-        field: 'participants',
-        sort: 'asc',
-    },
-    {
         label: 'Approval Status',
         field: 'approval_status',
         sort: 'asc',
