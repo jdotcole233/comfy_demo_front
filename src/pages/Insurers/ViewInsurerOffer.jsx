@@ -6,7 +6,7 @@ import { FETCH_CLASS_OF_BUSINESS } from "../../graphql/queries";
 import { Editor } from "../../components";
 
 export default function ViewInsurerOffer({ data }) {
-  const [details, setDetails] = useState(null);
+  const [details, setDetails] = useState(() => data || null);
   const [selectedClassOfBusiness, setSelectedClassOfBusiness] = useState(null);
   const { data: classOfBusinesses, loading: businessLoading } = useQuery(
     FETCH_CLASS_OF_BUSINESS

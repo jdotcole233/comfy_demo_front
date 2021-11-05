@@ -213,7 +213,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
           "Senior Broking Officer",
           "Finance Executive",
           "System Administrator",
-        ].includes(ctx?.user?.position) && (
+        ].includes(ctx?.user?.user_role?.position) && (
           <button
             onClick={() => handleViewOfferDetails(offer)}
             className="btn btn-sm btn-primary m-1"
@@ -221,7 +221,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
             View Offer
           </button>
         )}
-        {["Finance Executive"].includes(ctx?.user?.position) &&
+        {["Finance Executive"].includes(ctx?.user?.user_role?.position) &&
           offer?.offer_status === "CLOSED" && (
             <button
               onClick={() => handleViewOfferPayments(offer)}
@@ -230,7 +230,7 @@ const Offerbuttons = ({ offer, state, insurer }) => {
               Payments
             </button>
           )}
-        {["Finance Executive"].includes(ctx?.user?.position) &&
+        {["Finance Executive"].includes(ctx?.user?.user_role?.position) &&
           offer?.offer_status === "CLOSED" && (
             <button
               onClick={() => handleViewDistributePayments(offer)}
