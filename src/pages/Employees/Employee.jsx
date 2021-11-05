@@ -135,9 +135,9 @@ export default function Employees({ data, openViewEmployee }) {
   const hasViewPrivilege = useMemo(() => {
     if (user) {
       return (
-        user.position === "System Administrator" ||
-        user.position === "CEO" ||
-        user.position === "General Manager"
+        user.user_role?.position=== "System Administrator" ||
+        user.user_role?.position === "CEO" ||
+        user.user_role?.position === "General Manager"
       );
     }
     return false;

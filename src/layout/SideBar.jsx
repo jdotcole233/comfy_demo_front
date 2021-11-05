@@ -17,7 +17,7 @@ import { Fragment } from "react";
 import { version } from "../../package.json";
 import { Modal } from "../components";
 import VersionBox from "../components/VersionBox";
-// el.roles.includes(user?.position)
+// el.roles.includes(user?.user_role?.position)
 //privileges.includes(el.name)
 const SideBar = () => {
   const { user, privileges } = useAuth();
@@ -69,20 +69,20 @@ const SideBar = () => {
           >
             <ul className="metismenu list-unstyled" id="side-menu">
               {showSideBarLinks(dashboard)}
-              {Offers_Access.includes(user?.position) && (
+              {Offers_Access.includes(user?.user_role?.position) && (
                 <li className="menu-title">Offers</li>
               )}
               {showSideBarLinks(offers)}
-              {clients_Access.includes(user?.position) && (
+              {clients_Access.includes(user?.user_role?.position) && (
                 <li className="menu-title">Clients</li>
               )}
               {showSideBarLinks(clients)}
-              {others_Access.includes(user?.position) && (
+              {others_Access.includes(user?.user_role?.position) && (
                 <li className="menu-title">others</li>
               )}
               {showSideBarLinks(others)}
 
-              {granted && treaty_Access.includes(user?.position) && (
+              {granted && treaty_Access.includes(user?.user_role?.position) && (
                 <Fragment>
                   <li className="menu-title">treaty</li>
                   {showSideBarLinks(treaty)}

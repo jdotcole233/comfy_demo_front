@@ -98,12 +98,12 @@ const OfferButtons = ({ offer }) => {
             View offer
             {/* </Link> */}
           </Dropdown.Item>
-          {editAccessRoles.includes(user?.position) && (
+          {editAccessRoles.includes(user?.user_role?.position) && (
             <Dropdown.Item onClick={handleShowEditDrawer}>
               Edit offer
             </Dropdown.Item>
           )}
-          {deleteAccessRoles.includes(user?.position) && (
+          {deleteAccessRoles.includes(user?.user_role?.position) && (
             <Dropdown.Item onClick={handleDeleteOffer}>
               Delete offer
             </Dropdown.Item>
