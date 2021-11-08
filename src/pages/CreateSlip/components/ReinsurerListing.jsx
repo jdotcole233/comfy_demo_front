@@ -33,10 +33,8 @@ const ReinsurerListing = ({ data, state, user }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [percentageErrorEntry, setPercentageErrorEntry] = useState(false);
   const [percentage, setPercentage] = useState("");
-  const [
-    sumOfPArticipatingPercentage,
-    setSumOfPArticipatingPercentage,
-  ] = useState(0);
+  const [sumOfPArticipatingPercentage, setSumOfPArticipatingPercentage] =
+    useState(0);
   const [removeReinsurer] = useMutation(REMOVE_REINSURER_FROM_PARTICIPATION, {
     refetchQueries: [
       { query: SINGLE_OFFER, variables: { offer_id: state?.offer_id } },
@@ -151,7 +149,9 @@ const ReinsurerListing = ({ data, state, user }) => {
                 {reinsurer.offer_participant_percentage ? (
                   <Dropdown.Item
                     onClick={() => handleEditPercentage(reinsurer)}
-                    disabled={!editAccessRoles.includes(user?.position)}
+                    disabled={
+                      !editAccessRoles.includes(user?.user_role?.position)
+                    }
                   >
                     Edit
                   </Dropdown.Item>
@@ -161,7 +161,7 @@ const ReinsurerListing = ({ data, state, user }) => {
                   </Dropdown.Item>
                 )}
               </DropdownButton>
-              {deleteAccessRoles.includes(user?.position) && (
+              {deleteAccessRoles.includes(user?.user_role?.position) && (
                 <button
                   disabled={data?.findSingleOffer?.placed_offer}
                   onClick={() => handleRemoveReinsurer(reinsurer)}
