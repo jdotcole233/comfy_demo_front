@@ -29,7 +29,7 @@ const RetrocedentOfferButtons = ({
   const [updatepaymentDrawer, setUpdatepaymentDrawer] = useState(false);
   const [addPaymentDrawer, setAddPaymentDrawer] = useState(false);
   const finance =
-    ["Finance Executive"].includes(ctx?.user?.position) &&
+    ["Finance Executive"].includes(ctx?.user?.user_role?.position) &&
     offer?.offer_status === "CLOSED";
 
   const [removePayment] = useMutation(REMOVE_PAYMENT, {

@@ -92,7 +92,7 @@ function ReInsurers() {
                         <h3>Re-Insurers List</h3>
                     </div>
                     <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                        {create_reinsurer_access.includes(ctx?.user?.position) && <button onClick={() => setshowAddReInsurer(!0)} className="btn btn-rounded btn-sm btn-primary">Add Re-Insurer</button>}
+                        {create_reinsurer_access.includes(ctx?.user?.user_role?.position) && <button onClick={() => setshowAddReInsurer(!0)} className="btn btn-rounded btn-sm btn-primary">Add Re-Insurer</button>}
                     </div>
                 </div>
             </div>

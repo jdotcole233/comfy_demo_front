@@ -74,7 +74,7 @@ function ReinsurerDetail() {
           email: `${reinsurer.rep_email}`,
           position: `${reinsurer.position}`,
           actions: ["System Administrator", "Senior Broking Officer"].includes(
-            ctx?.user?.position
+            ctx?.user?.user_role?.position
           ) ? (
             <AssociateButtons reinsurer={reinsurer} data={data} />
           ) : null,

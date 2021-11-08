@@ -102,7 +102,7 @@ const OfferButtons = ({ offer, data, skip = 0, type = "recent" }) => {
             "General Manager",
             "Senior Broking Officer",
             "System Administrator",
-          ].includes(ctx?.user?.position) &&
+          ].includes(ctx?.user?.user_role?.position) &&
           offer.reinsurer_offers_only.offer_status === "CLOSED" &&
           !["PARTPAYMENT", "PAID"].includes(
             offer.reinsurer_offers_only.payment_status
@@ -114,7 +114,7 @@ const OfferButtons = ({ offer, data, skip = 0, type = "recent" }) => {
         </DropdownButton>
         {offer.offer_participant_payment.length &&
         ["System Administrator", "Finance Executive"].includes(
-          ctx?.user?.position
+          ctx?.user?.user_role?.position
         ) ? (
           <button
             onClick={() => handleShowPayments(offer)}
