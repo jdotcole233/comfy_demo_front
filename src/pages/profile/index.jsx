@@ -118,7 +118,7 @@ const Profile = () => {
                         {state.user?.employee?.employee_last_name}
                       </h5>
                       <p className="text-muted mb-0 text-truncate">
-                        {state.user?.position}
+                        {state.user?.user_role?.position}
                       </p>
                     </div>
                   </div>

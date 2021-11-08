@@ -200,7 +200,7 @@ function InsurerDetail() {
           phone: `${manager.assoc_primary_phonenumber}, ${manager.assoc_secondary_phonenumber}`,
           email: `${manager.assoc_email}`,
           actions: ["System Administrator", "Senior Broking Officer"].includes(
-            ctx?.user?.position
+            ctx?.user?.user_role?.position
           ) ? (
             <ManagerButtons manager={manager} state={state} />
           ) : null,
@@ -326,7 +326,7 @@ function InsurerDetail() {
                   columns={generateNewCulumns(
                     managersColumn,
                     ["System Administrator", "Senior Broking Officer"].includes(
-                      ctx?.user?.position
+                      ctx?.user?.user_role?.position
                     )
                       ? []
                       : ["actions"]

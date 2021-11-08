@@ -57,7 +57,7 @@ function EndorsementDebitNote({ offer, endorsement, doc_number }) {
   return (
     <div>
       <div className="row m-2">
-        {access.includes(ctx?.user?.position) && (
+        {access.includes(ctx?.user?.user_role?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/endorsement_debit_note/${btoa(

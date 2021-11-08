@@ -46,6 +46,10 @@ export const EMPLOYEE = gql`
       employee_id
       user {
         position
+        user_role {
+          user_role_id
+          position
+        }
       }
       total_offers {
         offer_id

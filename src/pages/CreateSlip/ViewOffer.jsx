@@ -7,7 +7,7 @@ import { Loader } from "../../components";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { SINGLE_OFFER } from "../../graphql/queries";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext, useAuth } from "../../context/AuthContext";
 import OfferDetails from "./components/OfferDetails";
 import ReinsurerListing from "./components/ReinsurerListing";
 import AssociateListing from "./components/AssociateListing";
@@ -15,9 +15,7 @@ import OfferDescriptionAndOptions from "./components/OfferDescriptionAndOptions"
 import ViewOfferHeader from "./components/VewOfferHeader";
 
 function ViewOffer() {
-  const {
-    state: { user },
-  } = useContext(AuthContext);
+  const { user } = useAuth();
   const history = useHistory();
   const { state } = useLocation();
 

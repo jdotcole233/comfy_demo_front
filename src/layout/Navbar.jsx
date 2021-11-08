@@ -91,7 +91,7 @@ export const Navbar = () => {
                 <i className="bx bx-user font-size-16 align-middle mr-1"></i>
                 Profile
               </Link>
-              {user?.position === "System Administrator" ? (
+              {user?.user_role?.position === "System Administrator" ? (
                 <Link
                   to={{ pathname: "/admin/settings" }}
                   className="dropdown-item"

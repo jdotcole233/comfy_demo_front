@@ -38,7 +38,7 @@ function ParticipantCoverNote({ offer, index, endorsement, reinsurer }) {
   return (
     <div style={{ fontFamily: "Times New Roman" }}>
       <div className="row m-2">
-        {access.includes(ctx?.user?.position) && (
+        {access.includes(ctx?.user?.user_role?.position) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/endorsement_contract_change_note/${btoa(

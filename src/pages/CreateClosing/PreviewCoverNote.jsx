@@ -46,7 +46,7 @@ function PreviewCoverNote({ offer }) {
     <Fragment>
       <div className="row m-2">
         {(offer?.approval_status === "APPROVED" ||
-          downloadAccess.includes(ctx?.user?.position)) && (
+          downloadAccess.includes(ctx?.user?.user_role?.position)) && (
           <a
             target="_blank"
             href={`${BASE_URL_LOCAL}/generate_cover_slip/${btoa(

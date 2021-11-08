@@ -582,6 +582,7 @@ query getOffers(
       commission
       commission_amount
       expiry_status
+      renewal_status
       brokerage
       facultative_offer
       placed_offer
@@ -716,6 +717,8 @@ query getOffers(
       created_at
     }
     total
+    expired
+    active
   }
 }
 `;

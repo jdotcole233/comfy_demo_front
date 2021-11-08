@@ -16,7 +16,7 @@ export const generateOffers = (
     return {
       // ...offer,
       policy_number: offer.offer_detail?.policy_number,
-      participants: offer?.offer_participant?.length,
+      // participants: offer?.offer_participant?.length,
       payment_type: offer?.offer_detail?.payment_type
         ? payment_type_key === "instalment"
           ? `Instalment ${payment_type_values}`
