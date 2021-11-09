@@ -74,7 +74,7 @@ function EndorsementButtons({ endorsement, index, offer }) {
         title="Actions"
       >
         <UpdateEndorsement endorsement={endorsement} offer={offer} />
-        {deleteAccessRoles.includes(user?.position) && (
+        {deleteAccessRoles.includes(user?.user_role?.position) && (
           <Dropdown.Item onClick={() => setShowDeletePrompt(true)}>
             Delete Endorsement
           </Dropdown.Item>

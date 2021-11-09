@@ -74,7 +74,7 @@ const Broker = ({ broker = {} }) => {
           </div>
           <div className="card-footer bg-transparent border-top">
             <div className="contact-links d-flex font-size-20">
-              {create_broker_access.includes(user?.position) && (
+              {create_broker_access.includes(user?.user_role?.position) && (
                 <div
                   onClick={() => setOpenBroker(broker)}
                   className="flex-fill link-hover"
@@ -99,7 +99,7 @@ const Broker = ({ broker = {} }) => {
               >
                 <i className="bx bx-pie-chart-alt"></i>
               </Link>
-              {delete_broker_access.includes(user?.position) && (
+              {delete_broker_access.includes(user?.user_role?.position) && (
                 <div
                   onClick={() => handleDeleteBroker(broker)}
                   data-toggle="tooltip"

@@ -156,7 +156,7 @@ const ViewTreaty = () => {
                   {participant.treaty_participation_percentage ? (
                     <Dropdown.Item
                       onClick={() => handleEditPercentage(participant)}
-                      disabled={!editAccessRoles.includes(user?.position)}
+                      disabled={!editAccessRoles.includes(user?.user_role?.position)}
                     >
                       Edit
                     </Dropdown.Item>
@@ -196,7 +196,7 @@ const ViewTreaty = () => {
                   </Fragment>
                 ) : null}
                 {[...deleteAccessRoles, "Broking Officer"].includes(
-                  user?.position
+                  user?.user_role?.position
                 ) && (
                     <button
                       onClick={() => handleRemoveReinsurer(participant)}
@@ -238,7 +238,7 @@ const ViewTreaty = () => {
               <button
                 disabled={
                   ![...deleteAccessRoles, "Broking Officer"].includes(
-                    user?.position
+                    user?.user_role?.position
                   )
                 }
                 onClick={() => handleRemoveAssociate(associate)}

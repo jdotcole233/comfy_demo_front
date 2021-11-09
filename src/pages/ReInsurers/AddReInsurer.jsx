@@ -437,7 +437,7 @@ function AddInsurer({ edit, toggle, data, closed }) {
                     Add Reinsurer
                   </button>
                 )}
-                {editAccessRoles.includes(user?.position) && edit && (
+                {editAccessRoles.includes(user?.user_role?.position) && edit && (
                   <button type="submit" className="btn btn-sm btn-primary w-md">
                     Edit Reinsurer
                   </button>

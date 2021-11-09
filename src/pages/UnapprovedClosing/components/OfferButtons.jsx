@@ -273,7 +273,7 @@ const OfferButtons = ({ offer }) => {
             <Dropdown.Item onClick={() => handleReopenOffer(offer)}>
               Reopen Offer
             </Dropdown.Item>
-            {deleteAccessRoles.includes(user?.position) && (
+            {deleteAccessRoles.includes(user?.user_role?.position) && (
               <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>
                 Delete Offer
               </Dropdown.Item>

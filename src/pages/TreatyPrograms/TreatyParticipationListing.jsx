@@ -134,7 +134,7 @@ const TreatyParticipationListing = ({ data, state, user }) => {
                                 {reinsurer.offer_participant_percentage ? (
                                     <Dropdown.Item
                                         onClick={() => handleEditPercentage(reinsurer)}
-                                        disabled={!editAccessRoles.includes(user?.position)}
+                                        disabled={!editAccessRoles.includes(user?.user_role?.position)}
                                     >
                                         Edit
                                     </Dropdown.Item>
@@ -144,7 +144,7 @@ const TreatyParticipationListing = ({ data, state, user }) => {
                                         </Dropdown.Item>
                                     )}
                             </DropdownButton>
-                            {[...deleteAccessRoles, 'Broking Officer'].includes(user?.position) && <button
+                            {[...deleteAccessRoles, 'Broking Officer'].includes(user?.user_role?.position) && <button
                                 onClick={() => handleRemoveReinsurer(reinsurer)}
                                 className="btn btn-danger btn-sm w-md"
                             >

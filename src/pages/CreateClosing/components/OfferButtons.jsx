@@ -291,7 +291,7 @@ const OfferButtons = ({ offer }) => {
           </Dropdown.Item>
           {["UNPAID"].includes(offer?.payment_status) &&
             offer?.approval_status === "APPROVED" &&
-            deleteAccessRoles.includes(user?.position) &&
+            deleteAccessRoles.includes(user?.user_role?.position) &&
             !expired && (
               <Dropdown.Item onClick={() => handleDeleteOffer(offer)}>
                 Delete Offer

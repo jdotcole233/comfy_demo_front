@@ -58,7 +58,7 @@ const BusinessButtons = ({ value }) => {
     return (
         <>
             <button onClick={() => handleViewClassOfBusiness(value)} className="btn btn-sm btn-primary mr-2">View</button>
-            {deleteAccessRoles.includes(user?.position) && <button onClick={() => handleDeleteClassOfBusiness(value)} className="btn btn-sm  btn-danger">Delete</button>}
+            {deleteAccessRoles.includes(user?.user_role?.position) && <button onClick={() => handleDeleteClassOfBusiness(value)} className="btn btn-sm  btn-danger">Delete</button>}
 
             {/* View Business Modal */}
             <Drawer width="42%" toggle={() => setshowViewBusiness(!showViewBusiness)} isvisible={showViewBusiness}>

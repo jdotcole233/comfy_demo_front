@@ -149,7 +149,7 @@ const AssociateButtons = ({ broker, data }) => {
         >
           View
         </button>
-        {deleteAccessRoles.includes(user?.position) && (
+        {deleteAccessRoles.includes(user?.user_role?.position) && (
           <button
             onClick={() => handleRemoveAssociate(broker)}
             className="btn btn-sm btn-danger w-md mr-1"
@@ -275,7 +275,7 @@ const AssociateButtons = ({ broker, data }) => {
             </div>
             <div className="col-md-12 d-flex justify-content-end">
               {/* <button type="button" onClick={() => setViewAssociate(!viewAssociate)} className="btn btn-danger btn-sm w-md mr-1">Close</button> */}
-              {editAccessRoles.includes(user?.position) && (
+              {editAccessRoles.includes(user?.user_role?.position) && (
                 <button type="submit" className="btn btn-primary btn-sm w-lg">
                   Save
                 </button>

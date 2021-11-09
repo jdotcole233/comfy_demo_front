@@ -238,7 +238,7 @@ function EditReinsurer({ closed, toggle, data }) {
                     </div>
                     <div className="col-md-12">
                         <div className="form-group d-flex justify-content-end">
-                            {edit_reinsurer_access.includes(user?.position) && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Reinsurer</button>}
+                            {edit_reinsurer_access.includes(user?.user_role?.position) && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Reinsurer</button>}
                         </div>
                     </div>
                 </form>

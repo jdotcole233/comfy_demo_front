@@ -132,8 +132,8 @@ const ClaimsButtons = ({ offer, claim, closeParent }) => {
                 setViewDistribution(true)
                 setDistributionList(claim);
             }} className="btn btn-sm w-md btn-primary mr-1">Reinsurer's claim share</button>
-            {editAccessRoles.includes(user?.position) && <button onClick={() => handleViewUpdateForm(claim)} className="btn btn-sm w-md btn-info mr-1">Modify claim</button>}
-            {deleteAccessRoles.includes(user?.position) && <button onClick={() => removeClaimAmount(claim)} className="btn btn-sm w-md btn-danger">Remove claim</button>}
+            {editAccessRoles.includes(user?.user_role?.position) && <button onClick={() => handleViewUpdateForm(claim)} className="btn btn-sm w-md btn-info mr-1">Modify claim</button>}
+            {deleteAccessRoles.includes(user?.user_role?.position) && <button onClick={() => removeClaimAmount(claim)} className="btn btn-sm w-md btn-danger">Remove claim</button>}
 
             {/* Modal for viewing the distribution */}
             <Modal size="xl" show={viewDistribution} onHide={() => setViewDistribution(!viewDistribution)}>
