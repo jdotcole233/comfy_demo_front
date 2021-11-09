@@ -155,8 +155,6 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
     }
   }, [selectedReinsurer]);
 
-
-
   const Form = (
     <div className="col-md-12">
       <fieldset className="border-form p-2">
@@ -297,13 +295,9 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
     </div>
   );
 
-
   if (view) {
     return (
-      <form
-        onSubmit={handleSubmit(handleUpdateInsurer)}
-      >
-
+      <form onSubmit={handleSubmit(handleUpdateInsurer)}>
         <div className="form-group">
           <h3 className="modal-title">View Insurer</h3>
         </div>
@@ -409,7 +403,6 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
                 type="text"
                 className="form-control"
                 placeholder="Region"
-
                 defaultValue={data?.insurer_address.region}
               />
               {errors.region && (
@@ -455,7 +448,7 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
           </div>
         </div>
       </form>
-    )
+    );
   }
 
   return (

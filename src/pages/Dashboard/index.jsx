@@ -71,7 +71,7 @@ const Dashboard = () => {
           ),
           cob: offer.classofbusiness.business_name,
           offer_date: new Date(offer.created_at).toDateString(),
-          actions: !["Finance Executive"].includes(state?.user?.position) ? (
+          actions: !["Finance Executive"].includes(state?.user?.user_role?.position) ? (
             <OfferButtons offer={offer} />
           ) : null,
         };
@@ -265,7 +265,7 @@ const Dashboard = () => {
                     entries={5}
                     columns={generateNewCulumns(
                       columns,
-                      !["Finance Executive"].includes(state?.user?.position)
+                      !["Finance Executive"].includes(state?.user?.user_role?.position)
                         ? []
                         : ["actions"]
                     )}

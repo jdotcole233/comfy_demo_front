@@ -28,7 +28,7 @@ const LoadingComponent = (props) => {
 const AdminContent = () => {
   const { privileges } = useAuth();
 
-  // console.log(Offers_Access.includes(state?.user?.position))
+  // console.log(Offers_Access.includes(state?.user?.user_role?.position))
 
   const getRoutes = (routes) => {
     return routes.map((el, key) => {
