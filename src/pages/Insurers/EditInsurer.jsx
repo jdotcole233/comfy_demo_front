@@ -172,7 +172,7 @@ function EditInsurer({ toggle, data, closed }) {
                     </div>
                     <div className="col-md-12 mt-2">
                         <div className="form-group d-flex justify-content-end">
-                            {edit_insurer_access.includes(user?.position) && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Insurer</button>}
+                            {edit_insurer_access.includes(user?.user_role?.position) && <button type="submit" className="btn btn-sm btn-primary w-md">Edit Insurer</button>}
                         </div>
                     </div>
                 </div>

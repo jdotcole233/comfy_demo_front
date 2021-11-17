@@ -38,7 +38,7 @@ const BrokersAssociates = () => {
               columns={generateNewCulumns(
                 associatesColumnns,
                 ["System Administrator", "Senior Broking Officer"].includes(
-                  user?.position
+                  user?.user_role?.position
                 )
                   ? []
                   : ["actions"]

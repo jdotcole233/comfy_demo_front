@@ -86,7 +86,7 @@ const BrokerButtons = ({
         {share_percentage ? (
           <Dropdown.Item
             onClick={() => setSetEdit(share_percentage)}
-            disabled={!editAccessRoles.includes(user?.position)}
+            disabled={!editAccessRoles.includes(user?.user_role?.position)}
           >
             Edit
           </Dropdown.Item>

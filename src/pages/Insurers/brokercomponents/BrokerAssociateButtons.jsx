@@ -52,7 +52,7 @@ const BrokerAssociateButtons = ({ associate, treaty }) => {
   return (
     <button
       disabled={
-        ![...deleteAccessRoles, "Broking Officer"].includes(user?.position)
+        ![...deleteAccessRoles, "Broking Officer"].includes(user?.user_role?.position)
       }
       onClick={() => handleRemoveAssociate()}
       className="btn "

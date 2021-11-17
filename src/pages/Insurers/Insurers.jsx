@@ -112,7 +112,7 @@ function Insurers() {
             className="col-md-6"
             style={{ display: "flex", justifyContent: "flex-end" }}
           >
-            {create_insurer_access.includes(state?.user?.position) && (
+            {create_insurer_access.includes(state?.user?.user_role?.position) && (
               <button
                 onClick={() => setshowAddInsurer(!0)}
                 className="btn btn-rounded btn-primary"

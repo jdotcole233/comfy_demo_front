@@ -49,7 +49,7 @@ const AssociateListing = ({ data, state, user }) => {
                     ),
                     actions: (
                         <button
-                            disabled={!deleteAccessRoles.includes(user?.position)}
+                            disabled={!deleteAccessRoles.includes(user?.user_role?.position)}
                             onClick={() => handleRemoveAssociate(associate)}
                             className="btn btn-danger btn-sm w-md"
                         >

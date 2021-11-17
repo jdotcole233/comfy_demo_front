@@ -118,7 +118,7 @@ const AssociateButtons = ({ reinsurer, data }) => {
         <div>
             <>
                 <button onClick={() => handleViewAssociate(reinsurer)} className="btn btn-sm btn-primary w-md mr-1">View</button>
-                {deleteAccessRoles.includes(user?.position) && <button onClick={() => handleRemoveAssociate(reinsurer)} className="btn btn-sm btn-danger w-md mr-1">Remove</button>}
+                {deleteAccessRoles.includes(user?.user_role?.position) && <button onClick={() => handleRemoveAssociate(reinsurer)} className="btn btn-sm btn-danger w-md mr-1">Remove</button>}
             </>
 
 
@@ -178,7 +178,7 @@ const AssociateButtons = ({ reinsurer, data }) => {
                         </div>
                         <div className="col-md-12 d-flex justify-content-end">
                             {/* <button type="button" onClick={() => setViewAssociate(!viewAssociate)} className="btn btn-danger btn-sm w-md mr-1">Close</button> */}
-                            {editAccessRoles.includes(user?.position) && <button type="submit" className="btn btn-primary btn-sm w-lg">Save</button>}
+                            {editAccessRoles.includes(user?.user_role?.position) && <button type="submit" className="btn btn-primary btn-sm w-lg">Save</button>}
                         </div>
                     </form>
                 </Modal.Body>
