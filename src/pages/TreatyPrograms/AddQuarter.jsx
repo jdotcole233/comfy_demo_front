@@ -3,14 +3,17 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { ADD_QUARTER, TREATY, TREATY_ACCOUNTS } from "../../graphql/queries/treaty";
+import {
+  ADD_QUARTER,
+  TREATY,
+  TREATY_ACCOUNTS,
+} from "../../graphql/queries/treaty";
 import { noteOptions } from "./columns";
 import swal from "sweetalert";
 import currencies from "../../assets/currencies.json";
 import { CurrencyOption, Drawer, Selector } from "../../components";
 import _ from "lodash";
 import AddQuarterForm from "./AddQuarterForm";
-
 
 const AddQuarter = ({
   treaty_id,
@@ -21,7 +24,6 @@ const AddQuarter = ({
   treaty,
 }) => {
   const [showModal, setShowModal] = useState(false);
-
 
   return !isProp ? null : (
     <>
@@ -52,14 +54,16 @@ const AddQuarter = ({
         width="40%"
       >
         {showModal && (
-          <AddQuarterForm {...{
-            treaty_id,
-            remainingPercentage,
-            notes,
-            isProp,
-            surpluses,
-            treaty,
-          }} />
+          <AddQuarterForm
+            {...{
+              treaty_id,
+              remainingPercentage,
+              notes,
+              isProp,
+              surpluses,
+              treaty,
+            }}
+          />
         )}
       </Drawer>
     </>
