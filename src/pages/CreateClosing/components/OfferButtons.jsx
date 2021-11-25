@@ -298,7 +298,7 @@ const OfferButtons = ({ offer }) => {
               </Dropdown.Item>
             )}
         </DropdownButton>
-        {expired && <OfferRenewal offer={offer} />}
+       <OfferRenewal offer={offer} />
       </>
 
       {/* Modal for Reopen Offer */}
