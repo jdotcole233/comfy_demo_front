@@ -66,7 +66,7 @@ const TreatyDetailsEditor = ({ parsedPayload, setLoader }) => {
             );
           });
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   if (loading) return <Loader />;
@@ -90,6 +90,7 @@ const TreatyDetailsEditor = ({ parsedPayload, setLoader }) => {
             <legend className={styles.details_title}>Treaty details</legend>
             <div className="row">
               {treatyDetials?.map((cob, key) => {
+                const isAdditional = cob.keydetail === "Additional Information";
                 if (cob.keydetail.toLowerCase() === "currency") {
                   return (
                     <div className="col-md-12" key={key}>
@@ -99,10 +100,10 @@ const TreatyDetailsEditor = ({ parsedPayload, setLoader }) => {
                           value={
                             cob.value
                               ? {
-                                  label: Object.values(currencies).find(
-                                    (eel) => eel.code === cob.value
-                                  )?.name,
-                                }
+                                label: Object.values(currencies).find(
+                                  (eel) => eel.code === cob.value
+                                )?.name,
+                              }
                               : ""
                           }
                           components={{ Option: CurrencyOption }}
@@ -120,6 +121,16 @@ const TreatyDetailsEditor = ({ parsedPayload, setLoader }) => {
                 }
                 return (
                   <div className="col-md-12" key={key}>
+                    {isAdditional ? (
+                      <div className="alert alert-danger">
+                        <p>
+                          All other information (Special Exclusions, Articles,
+                          Other data) should be placed here. This will be
+                          appended as extra pages after the signatory page of
+                          the treaty document" in an alert above it
+                        </p>
+                      </div>
+                    ) : null}
                     <div className="form-group">
                       <label htmlFor="Type of goods">{cob.keydetail}</label>
                       <Editor
