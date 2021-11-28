@@ -25,7 +25,6 @@ import { AuthContext } from "../../../context/AuthContext";
 import { deleteAccessRoles } from "../../../layout/adminRoutes";
 import AddEndorsement from "./AddEndorsement";
 import { endorsementColumns } from "../columns";
-import _ from "lodash";
 import OfferRenewal from "./OfferRenewal";
 
 const OfferButtons = ({ offer }) => {
@@ -298,7 +297,7 @@ const OfferButtons = ({ offer }) => {
               </Dropdown.Item>
             )}
         </DropdownButton>
-       <OfferRenewal offer={offer} />
+        <OfferRenewal offer={offer} />
       </>
 
       {/* Modal for Reopen Offer */}

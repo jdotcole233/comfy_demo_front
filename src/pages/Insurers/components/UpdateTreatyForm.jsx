@@ -27,7 +27,7 @@ import { INSURER } from "../../../graphql/queries";
 import ErrorPage from "../../../components/ErrorPage";
 import { createExtendedTreatyDetails } from "./CreateTreatyForm";
 import { calculateMAndDValue } from "../../../utils";
-import moment from "moment"
+import moment from "moment";
 
 const prepTreatyValues = (values, detials, limitLayers, treaty, typeObj) => {
   return {
@@ -68,7 +68,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
   const [content, setContent] = useState("");
   const [oldInsurerId, setOldInsurerId] = useState(false);
   const [selectedPeriod, setSelectedPeriod] = useState(null);
-  const [treaty_periods, setTreaty_periods] = useState([])
+  const [treaty_periods, setTreaty_periods] = useState([]);
 
   const { data, loading, error, refetch } = useQuery(INSURER_TREATY_PROGRAMS, {
     variables: {
@@ -126,15 +126,25 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
         "treaty_associate_deductionstreaty_associate_deduction_id",
         __?.treaty_associate_deductions[0]?.treaty_associate_deduction_id
       );
-      setTreaty_periods(() => __?.treaty_associate_deductions?.map(el => ({
-        label: `${moment(el.treaty_period_from).format('Do MMMM YYYY')}  to  ${moment(el.treaty_period_to).format('Do MMMM YYYY')}`,
-        value: el
-      })))
-      const _period = __?.treaty_associate_deductions?.find(el => el.treaty_associate_deduction_id === treaty?.treaty_deduction?.treaty_associate_deduction_id)
+      setTreaty_periods(() =>
+        __?.treaty_associate_deductions?.map((el) => ({
+          label: `${moment(el.treaty_period_from).format(
+            "Do MMMM YYYY"
+          )}  to  ${moment(el.treaty_period_to).format("Do MMMM YYYY")}`,
+          value: el,
+        }))
+      );
+      const _period = __?.treaty_associate_deductions?.find(
+        (el) =>
+          el.treaty_associate_deduction_id ===
+          treaty?.treaty_deduction?.treaty_associate_deduction_id
+      );
       setSelectedPeriod({
-        label: `${moment(_period.treaty_period_from).format('Do MMMM YYYY')}  to  ${moment(_period.treaty_period_to).format('Do MMMM YYYY')}`,
-        value: _period
-      })
+        label: `${moment(_period.treaty_period_from).format(
+          "Do MMMM YYYY"
+        )}  to  ${moment(_period.treaty_period_to).format("Do MMMM YYYY")}`,
+        value: _period,
+      });
       setSelectedProgramType({
         label: programTypeOptions.find(
           (option) => option.value === treaty?.treaty_program?.treaty_type
@@ -266,12 +276,12 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
       treatyDetials,
       selectedProgramType?.value === "PROPORTIONAL"
         ? [
-          {
-            ...JSON.parse(treaty?.layer_limit || "[]").shift(),
-            commission: treaty?.treaty_deduction?.commission,
-          },
-          ...surpluses,
-        ]
+            {
+              ...JSON.parse(treaty?.layer_limit || "[]").shift(),
+              commission: treaty?.treaty_deduction?.commission,
+            },
+            ...surpluses,
+          ]
         : calculateMAndDValue({ layers: limitLayers, egrnpi: values.egrnpi }),
       treaty,
       selectedProgramType
@@ -373,6 +383,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
     const surplus = {
       surpulus_uuid: v4(),
       commission: "",
+      ernpi: "",
       outgoing_payment_staus: "UNPAID",
     };
     setSurpluses((prev) => [...prev, surplus]);
@@ -389,12 +400,11 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
     // }
   };
 
-
   const handleAddNew = () => {
     setSelectedPeriod(null);
     setCreateDeduction(true);
-    reset()
-  }
+    reset();
+  };
 
   if (loading) return <Loader />;
 
@@ -471,9 +481,9 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             options={
               data
                 ? data.insurerTreatyProgram.map((insurer) => ({
-                  label: insurer.treaty_name,
-                  value: insurer,
-                }))
+                    label: insurer.treaty_name,
+                    value: insurer,
+                  }))
                 : []
             }
           />
@@ -554,7 +564,9 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             options={treaty_periods ? treaty_periods : []}
           />
         </div>
-        <span onClick={handleAddNew} className="mt-2 col-md-12 mb-2 pointer">Create new period</span>
+        <span onClick={handleAddNew} className="mt-2 col-md-12 mb-2 pointer">
+          Create new period
+        </span>
       </div>
       <fieldset className="border p-2 mb-2">
         <legend className={styles.details_title}>Deductions</legend>
@@ -581,11 +593,12 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
               </div>
             )}
           <div
-            className={`col-md-${selectedProgramType &&
+            className={`col-md-${
+              selectedProgramType &&
               selectedProgramType?.value === "PROPORTIONAL"
-              ? "6"
-              : "12"
-              }`}
+                ? "6"
+                : "12"
+            }`}
           >
             <div className="form-group">
               <label htmlFor="Type of goods">Brokerage (%)</label>
@@ -727,10 +740,10 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             value={
               currency
                 ? {
-                  label: Object.values(currencies).find(
-                    (eel) => eel.code === currency
-                  )?.name,
-                }
+                    label: Object.values(currencies).find(
+                      (eel) => eel.code === currency
+                    )?.name,
+                  }
                 : ""
             }
             components={{ Option: CurrencyOption }}
@@ -760,7 +773,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
       </div>
 
       {selectedProgramType &&
-        selectedProgramType?.value === "NONPROPORTIONAL" ? (
+      selectedProgramType?.value === "NONPROPORTIONAL" ? (
         <fieldset className="border p-2 mb-2 mt-4">
           <legend className={styles.details_title}>
             Nonproportional details
@@ -845,6 +858,17 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
                     step="any"
                     name="profit_commission"
                     value={surplus.profit_commission}
+                    onChange={(e) => onSurplusValueChange(e, key)}
+                  />
+                </div>
+                <div className="col-md-12">
+                  <Input
+                    label="Retained Premium Income"
+                    placeholder="Retained Premium Income"
+                    name="ernpi"
+                    type="number"
+                    step="any"
+                    value={surplus.ernpi}
                     onChange={(e) => onSurplusValueChange(e, key)}
                   />
                 </div>

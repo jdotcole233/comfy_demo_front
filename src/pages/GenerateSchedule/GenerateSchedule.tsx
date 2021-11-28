@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { Loader, PageHeader, Tabs } from "../../components";
+import { PageHeader, Tabs } from "../../components";
 import { lazy } from "react";
 
 const PaymentTransferSchedule = lazy(

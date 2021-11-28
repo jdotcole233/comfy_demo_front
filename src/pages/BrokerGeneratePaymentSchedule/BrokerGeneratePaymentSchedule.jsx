@@ -1,4 +1,4 @@
-import { Loader, PageHeader, Selector } from "../../components";
+import { Loader, Selector } from "../../components";
 import React from "react";
 import currencies from "../../assets/currencies.json";
 import { noteOptions } from "../TreatyPrograms/columns";
@@ -23,7 +23,7 @@ const BrokerGeneratePaymentSchedule = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [show, setShow] = useState(false);
-  const [generate, setGenerate] = useState(false);
+  const [, setGenerate] = useState(false);
 
   const data = useMemo(
     () =>
@@ -40,7 +40,7 @@ const BrokerGeneratePaymentSchedule = () => {
           installment_type: treaty_type?.value === "NONPROPORTIONAL" ? "" : "",
         })
       ).toString("base64"),
-    [show]
+    [show, _currencies, from, to, treaty_type, quarters, id]
   );
 
   const handleOnLoadStart = () => {
@@ -70,11 +70,6 @@ const BrokerGeneratePaymentSchedule = () => {
   const handleQurterChange = (value) => {
     setQuarters(value);
     if (value) clearError("quarters");
-  };
-
-  const handleInstallmentTypeChange = (value) => {
-    setValue("installment_type", value);
-    if (value) clearError("installment_type");
   };
 
   return (

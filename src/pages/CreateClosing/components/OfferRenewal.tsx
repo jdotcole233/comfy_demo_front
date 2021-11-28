@@ -2,7 +2,6 @@ import { useMutation } from "@apollo/client";
 import React from "react";
 import { useMemo } from "react";
 import swal from "sweetalert";
-import { Modal } from "../../../components";
 import { RENEW_FAC_OFFER } from "../../../graphql/mutattions/renewal";
 import {
   RenewFacOffer,

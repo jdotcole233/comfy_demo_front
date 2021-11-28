@@ -1,4 +1,4 @@
-import { Loader, PageHeader, Selector } from "../../components";
+import { Loader, Selector } from "../../components";
 import React from "react";
 import currencies from "../../assets/currencies.json";
 import { noteOptions } from "../TreatyPrograms/columns";
@@ -7,12 +7,6 @@ import { BASE_URL_LOCAL } from "../../graphql";
 import { useParams } from "react-router-dom";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { SingleValueProps, MultiValueProps } from "react-select";
-
-const installmentTypes = [
-  { label: "Installment", value: "Installment" },
-  { label: "Quarterly", value: "QUARTERLY" },
-];
 
 interface Props {}
 
@@ -25,7 +19,7 @@ type Params = {
   [key: string]: string;
 };
 
-const PaymentAllocationSchedule = (props: Props) => {
+const PaymentAllocationSchedule = () => {
   const { id } = useParams<Params>();
   const { register, handleSubmit, setValue, errors, clearError } = useForm();
   const [treaty_type, setTreaty_type] = useState<Value>(null);
@@ -35,7 +29,7 @@ const PaymentAllocationSchedule = (props: Props) => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [show, setShow] = useState(false);
-  const [generate, setGenerate] = useState(false);
+  const [, setGenerate] = useState(false);
 
   const data = useMemo(
     () =>
@@ -82,11 +76,6 @@ const PaymentAllocationSchedule = (props: Props) => {
   const handleQurterChange = (value: any) => {
     setQuarters(value);
     if (value) clearError("quarters");
-  };
-
-  const handleInstallmentTypeChange = (value: any) => {
-    setValue("installment_type", value);
-    if (value) clearError("installment_type");
   };
 
   return (

@@ -43,14 +43,15 @@ function SendCoverNote({ treaty, setShow, closed }) {
   const [content, setContent] = useState("");
   const [contentError, setContentError] = useState(false);
   const [files, setFiles] = useState([]);
-  const [sendmail, { loading: mailSending }] = useMutation(
-    SEND_PLACING_OR_COVER_NOTE,
-    { refetchQueries: [{ query: TREATY, variables: { treaty_id: treaty?.treaty_id } }] }
-  );
+  const [sendmail] = useMutation(SEND_PLACING_OR_COVER_NOTE, {
+    refetchQueries: [
+      { query: TREATY, variables: { treaty_id: treaty?.treaty_id } },
+    ],
+  });
   const [inputvalue, setInputvalue] = useState("");
   const [copiedMails, setCopiedMails] = useState([]);
   const [selectedableEmail, setSelectedableEmail] = useState([]);
-  const { data: employees, loading } = useQuery(EMPLOYEES);
+  const { data: employees } = useQuery(EMPLOYEES);
 
   const noOfReinsurers = treaty?.treaty_participants?.length ?? 0;
   const noOfAssociates = treaty?.treaty_to_associates?.length ?? 0;
@@ -118,7 +119,7 @@ function SendCoverNote({ treaty, setShow, closed }) {
           ? [...copiedMails.map((e) => e.label)]
           : [],
         attachments: [...files],
-      }
+      },
     };
     swal({
       closeOnClickOutside: false,
@@ -136,14 +137,14 @@ function SendCoverNote({ treaty, setShow, closed }) {
             swal("Success", "Mail sent successfully", "success");
             swal.stopLoading();
             swal.close();
-            setShow(false)
+            setShow(false);
           } else {
             swal("Success", "Mail sent successfully", "success");
             setContent("");
             setFiles([]);
             setFiles([]);
             reset();
-            setShow(false)
+            setShow(false);
           }
         })
         .catch((err) => {
@@ -157,8 +158,6 @@ function SendCoverNote({ treaty, setShow, closed }) {
         });
     });
   };
-
-
 
   return (
     <>
@@ -264,7 +263,6 @@ function SendCoverNote({ treaty, setShow, closed }) {
           </div>
         </div>
       </form>
-      
     </>
   );
 }

@@ -1,9 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
 import { Modal } from "react-bootstrap";
-import { Datatable, Loader } from "../../../components";
-import { REINSURER_PROPORTIONAL_TREATY_PAYMENTS } from "../../../graphql/queries/treaty";
+import { Datatable } from "../../../components";
 import { getFlexibleName } from "../../Insurers/components/Note";
 import { paymentsColumns } from "./columns";
 
@@ -15,7 +13,7 @@ const ProportionalPaymentsModal = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedQuarter, setSelectedQuarter] = useState(() => {
-    return accounts?.length > 0 ? accounts[0] : null
+    return accounts?.length > 0 ? accounts[0] : null;
   });
 
   const changeLayer = (key, quarter) => {
@@ -37,16 +35,15 @@ const ProportionalPaymentsModal = ({
           type:
             obj?.payment_type === "Cheque"
               ? obj?.payment_type +
-              " - " +
-              obj.payment_from?.cheque_number +
-              " "
+                " - " +
+                obj.payment_from?.cheque_number +
+                " "
               : obj?.payment_type,
           bank_name: obj?.payment_from?.bank_name,
           beneficiary_bank: obj?.payment_to,
-          payment_amount: payment?.payment_amount?.toLocaleString(
-            undefined,
-            { maximumFractionDigits: 2 }
-          ),
+          payment_amount: payment?.payment_amount?.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          }),
           created_at: payment.created_at,
           updated_at: payment.updated_at,
           section:

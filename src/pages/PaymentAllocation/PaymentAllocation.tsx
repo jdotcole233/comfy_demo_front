@@ -1,7 +1,6 @@
-import { Loader, PageHeader, Selector } from "../../components";
+import { Loader, Selector } from "../../components";
 import React from "react";
 import currencies from "../../assets/currencies.json";
-import { noteOptions } from "../TreatyPrograms/columns";
 import { useState } from "react";
 import { BASE_URL_LOCAL } from "../../graphql";
 import { useParams } from "react-router-dom";

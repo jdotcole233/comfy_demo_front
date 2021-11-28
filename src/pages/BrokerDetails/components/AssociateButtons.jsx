@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { Modal } from "react-bootstrap";
 import swal from "sweetalert";
@@ -12,7 +12,10 @@ import {
 } from "../../../layout/adminRoutes";
 import { useAuth } from "../../../context/AuthContext";
 import { BROKER } from "../../../graphql/queries/brokers";
-import { REMOVE_BROKER_ASSOCIATE, UDPATE_BROKER_ASSOCIATE } from "../../../graphql/mutattions/brokers";
+import {
+  REMOVE_BROKER_ASSOCIATE,
+  UDPATE_BROKER_ASSOCIATE,
+} from "../../../graphql/mutattions/brokers";
 
 const AssociateButtons = ({ broker, data }) => {
   const { user } = useAuth();
@@ -58,9 +61,7 @@ const AssociateButtons = ({ broker, data }) => {
   };
 
   const [removeAssociate] = useMutation(REMOVE_BROKER_ASSOCIATE, {
-    refetchQueries: [
-      { query: BROKER, variables: { id: data?.re_broker_id } },
-    ],
+    refetchQueries: [{ query: BROKER, variables: { id: data?.re_broker_id } }],
   });
 
   const handleRemoveAssociate = (broker) => {
@@ -100,9 +101,7 @@ const AssociateButtons = ({ broker, data }) => {
   };
 
   const [updateRep] = useMutation(UDPATE_BROKER_ASSOCIATE, {
-    refetchQueries: [
-      { query: BROKER, variables: { id: data?.re_broker_id } },
-    ],
+    refetchQueries: [{ query: BROKER, variables: { id: data?.re_broker_id } }],
   });
 
   const handleUpdateAssociate = (values) => {
@@ -121,8 +120,7 @@ const AssociateButtons = ({ broker, data }) => {
       updateRep({
         variables: {
           input,
-          id:
-            broker?.re_broker_associate_id,
+          id: broker?.re_broker_associate_id,
         },
       })
         .then((res) => {

@@ -37,8 +37,8 @@ export default () => {
     }
   }, [employees]);
   const [showAddInsurer, setshowAddInsurer] = useState(false);
-  const [showAddAssociate, setshowAddAssociate] = useState(false);
-  const [selectedEmployee, setselectedEmployee] = useState(null);
+  const [, setshowAddAssociate] = useState(false);
+  const [, setselectedEmployee] = useState(null);
 
   const handleShowEmployee = (employee) => {
     setselectedEmployee(employee);
@@ -156,7 +156,6 @@ export default () => {
         >
           <AddEmployee toggle={() => setshowAddInsurer(!!0)} />
         </Drawer>
-        
       </div>
     </>
   );

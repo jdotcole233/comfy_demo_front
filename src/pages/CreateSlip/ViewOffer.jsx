@@ -2,12 +2,12 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { Loader } from "../../components";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { SINGLE_OFFER } from "../../graphql/queries";
-import { AuthContext, useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import OfferDetails from "./components/OfferDetails";
 import ReinsurerListing from "./components/ReinsurerListing";
 import AssociateListing from "./components/AssociateListing";

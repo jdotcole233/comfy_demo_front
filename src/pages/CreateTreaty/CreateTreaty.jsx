@@ -24,8 +24,6 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { programTypeOptions } from "../Insurers/dummy";
 import { v4 } from "uuid";
 import { INSURER } from "../../graphql/queries";
-import { useDispatch } from "react-redux";
-import { GET_INSURER } from "../../redux/types/InsurerTypes";
 import _ from "lodash";
 import { useParams } from "react-router-dom";
 
@@ -74,7 +72,7 @@ const prepTreatyValues = (values, details, limitLayers, typeObj) => {
   };
 };
 
-const CreateTreatyForm = ({ insurer }) => {
+const CreateTreatyForm = () => {
   const { register, errors, handleSubmit, reset, setValue, clearError } =
     useForm();
   const _form = useForm();
@@ -88,7 +86,6 @@ const CreateTreatyForm = ({ insurer }) => {
   const [limitLayers, setLimitLayers] = useState([]);
   const [surpluses, setSurpluses] = useState([]);
   const [content, setContent] = useState("");
-  const dispatch = useDispatch();
   const { id } = useParams();
   const insurer_id = Buffer.from(id, "base64").toString("ascii");
   const { data: insurerData } = useQuery(INSURER, {
@@ -251,7 +248,7 @@ const CreateTreatyForm = ({ insurer }) => {
           setDeductionCreated(true);
           setCreateDeduction(false);
         })
-        .catch((err) => {
+        .catch(() => {
           swal("Whhoops!!", "Deduction not added successfully", "error");
         });
     });
@@ -311,7 +308,7 @@ const CreateTreatyForm = ({ insurer }) => {
             swal("Whhoops!!", "Treaty not created successfully", "error");
           }
         })
-        .catch((err) => {
+        .catch(() => {
           swal("Whhoops!!", "Treaty not created successfully", "error");
         });
     });

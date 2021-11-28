@@ -229,10 +229,14 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   useEffect(() => {
     if (selectedProgram) {
       console.log(selectedProgram);
-      const _periods = selectedProgram.value.treaty_associate_deductions?.map(el => ({
-        label: `${moment(el.treaty_period_from).format('Do MMMM YYYY')}  to  ${moment(el.treaty_period_to).format('Do MMMM YYYY')}`,
-        value: el
-      }));
+      const _periods = selectedProgram.value.treaty_associate_deductions?.map(
+        (el) => ({
+          label: `${moment(el.treaty_period_from).format(
+            "Do MMMM YYYY"
+          )}  to  ${moment(el.treaty_period_to).format("Do MMMM YYYY")}`,
+          value: el,
+        })
+      );
       setTreaty_periods(_periods);
     }
   }, [selectedProgram, deductionCreated]);
@@ -262,11 +266,17 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       })
         .then((_) => {
           swal("Hurray!!", "Deduction added successfully", "success");
-          setTreaty_periods(prev => [...prev,
-          {
-            label: `${moment(values.treaty_period_from).format('Do MMMM YYYY')}  to  ${moment(values.treaty_period_to).format('Do MMMM YYYY')}`,
-            value: values
-          }]);
+          setTreaty_periods((prev) => [
+            ...prev,
+            {
+              label: `${moment(values.treaty_period_from).format(
+                "Do MMMM YYYY"
+              )}  to  ${moment(values.treaty_period_to).format(
+                "Do MMMM YYYY"
+              )}`,
+              value: values,
+            },
+          ]);
           setDeductionCreated(true);
           setCreateDeduction(false);
         })
@@ -355,6 +365,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       surpulus_uuid: v4(),
       commission: "",
       profit_commission: "",
+      ernpi: "",
       outgoing_payment_staus: "UNPAID",
     };
     setSurpluses((prev) => [...prev, surplus]);
@@ -427,8 +438,8 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   const handleAddNew = () => {
     setSelectedPeriod(null);
     setCreateDeduction(true);
-    reset()
-  }
+    reset();
+  };
 
   if (loading) return <Loader />;
 
@@ -584,7 +595,9 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             options={treaty_periods ? treaty_periods : []}
           />
         </div>
-        <span onClick={handleAddNew} className="mt-2 col-md-12 mb-2 pointer">Create new period</span>
+        <span onClick={handleAddNew} className="mt-2 col-md-12 mb-2 pointer">
+          Create new period
+        </span>
       </div>
 
       <fieldset className="border p-2 mb-2">
@@ -860,6 +873,17 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                     step="any"
                     name="profit_commission"
                     value={surplus.profit_commission}
+                    onChange={(e) => onSurplusValueChange(e, key)}
+                  />
+                </div>
+                <div className="col-md-12">
+                  <Input
+                    label="Retained Premium Income"
+                    placeholder="Retained Premium Income"
+                    name="ernpi"
+                    type="number"
+                    step="any"
+                    value={surplus.ernpi}
                     onChange={(e) => onSurplusValueChange(e, key)}
                   />
                 </div>

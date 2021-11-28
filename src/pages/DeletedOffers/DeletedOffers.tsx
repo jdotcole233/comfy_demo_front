@@ -1,11 +1,9 @@
 import React from "react";
 import { Datatable, Loader } from "../../components";
 import ErrorPage from "../../components/ErrorPage";
-import { ReinstatmentOffers_reinstate_offers_offers } from "../../graphql/queries/__generated__/ReinstatmentOffers";
 import { columns } from "./columns";
 import StatsSection from "./components/StatsSection";
 import { useReinstatementOffers } from "./hooks/useReinstatementOffers";
-import { useMemo } from "react";
 import { generateOffers } from "./actions";
 
 interface Props {}

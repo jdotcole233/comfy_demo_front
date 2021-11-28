@@ -11,13 +11,6 @@ import {
 } from "../../../graphql/queries/treaty";
 import swal from "sweetalert";
 
-const containsSomething = (value) => {
-  let __ = "" + value;
-  return __.length > 0;
-};
-
-const isvalid = (obj) => Object.values(obj).every(containsSomething);
-
 function UpdateDeductions({
   deductions = {},
   reinsurers = [],
@@ -35,17 +28,21 @@ function UpdateDeductions({
         const newValue = _.first(reinsurer?.treaty_participant_deductions);
         return {
           commission:
-            newValue?.commission === 0 ? newValue?.commission : newValue?.commission ||
-              deductions?.commission,
+            newValue?.commission === 0
+              ? newValue?.commission
+              : newValue?.commission || deductions?.commission,
           brokerage:
-            newValue?.brokerage === 0 ? newValue?.brokerage : newValue?.brokerage ||
-              deductions?.brokerage,
+            newValue?.brokerage === 0
+              ? newValue?.brokerage
+              : newValue?.brokerage || deductions?.brokerage,
           nic_levy:
-            newValue?.nic_levy === 0 ? newValue?.nic_levy : newValue?.nic_levy ||
-              deductions?.nic_levy,
+            newValue?.nic_levy === 0
+              ? newValue?.nic_levy
+              : newValue?.nic_levy || deductions?.nic_levy,
           withholding_tax:
-            newValue?.withholding_tax === 0 ? newValue?.withholding_tax : newValue?.withholding_tax ||
-              deductions?.withholding_tax,
+            newValue?.withholding_tax === 0
+              ? newValue?.withholding_tax
+              : newValue?.withholding_tax || deductions?.withholding_tax,
           name: reinsurer.company_name,
           participant_id: reinsurer?.treaty_participation_id,
           participating_percentage: reinsurer?.treaty_participation_percentage,
@@ -53,7 +50,7 @@ function UpdateDeductions({
             reinsurer?.treaty_participant_deductions?.map(
               (el) => el.treaty_participant_deduction_id
             ),
-        }
+        };
       });
 
       setValues(__);
@@ -102,7 +99,7 @@ function UpdateDeductions({
       modify({
         variables: { data, account_ids, isProp, layer: isProp ? "" : layer },
       })
-        .then((res) => {
+        .then(() => {
           swal("Hurray!!", "Deductions modified successfully", "success");
           setShow(false);
         })

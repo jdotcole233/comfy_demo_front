@@ -1,6 +1,4 @@
 import { Datatable } from "../../../components";
-import { useAuth } from "../../../context/AuthContext";
-import { deleteAccessRoles } from "../../../layout/adminRoutes";
 import React, { useMemo } from "react";
 import { useState } from "react";
 import { associatesColumns } from "./columns";

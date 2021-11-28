@@ -1,7 +1,7 @@
 import { Loader } from "../../components";
 import ErrorPage from "../../components/ErrorPage";
 import { BROKERS } from "../../graphql/queries/brokers";
-import React, { Fragment } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import BrokersListing from "./BrokersListing";
 import BrokersHeader from "./components/BrokersHeader";

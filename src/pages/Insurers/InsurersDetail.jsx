@@ -30,19 +30,8 @@ import InsurerStatsFac from "./subComponents/InsurerStatsFac";
 import InsurerStatsTreaty from "./subComponents/InsurerStatsTreaty";
 import InsurerDetailsWelcomeScreen from "./components/InsurerDetailsWelcomeScreen";
 import InsurerDetailsOtherInfo from "./components/InsurerDetailsOtherInfo";
-import { getSum } from "./AddPayments";
 
 const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
-
-const getParticipantsCommission = (arr = []) => {
-  const amount = arr.reduce((prev, curr) => {
-    return curr.offer_participant_payment?.reduce((iprev, icurr) => {
-      return icurr?.offer_deduction_charge?.commission_taken + iprev;
-    }, 0);
-  }, 0);
-
-  return amount;
-};
 
 function InsurerDetail() {
   const { state: ctx } = useContext(AuthContext);

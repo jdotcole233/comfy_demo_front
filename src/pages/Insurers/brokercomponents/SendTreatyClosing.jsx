@@ -16,11 +16,10 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
   const [contentError, setContentError] = useState(false);
   const [inputvalue, setInputvalue] = useState("");
   const [copiedMails, setCopiedMails] = useState([]);
-  const [selectedableEmail, setSelectedableEmail] = useState([]);
+  const [selectedableEmail] = useState([]);
   const [content, setContent] = useState("");
 
   const [sendmail] = useMutation(SEND_CLOSING_SLIP);
-  const isProp = treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
   const handleKeyDown = (event) => {
     if (!inputvalue) return;
     // eslint-disable-next-line default-case
@@ -59,14 +58,14 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
       setContentError(false);
     }
     const data = {
-        treaty_id: treaty?.treaty_id,
-        re_broker_treaties_participation_id,
+      treaty_id: treaty?.treaty_id,
+      re_broker_treaties_participation_id,
       // treaty_account_id:"",
       emaildata: {
         email_content: content,
         subject,
-        copied_email: [...copiedMails.map((e) => e.label)]
-      }
+        copied_email: [...copiedMails.map((e) => e.label)],
+      },
     };
     swal({
       closeOnClickOutside: false,
@@ -79,7 +78,7 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
       sendmail({
         variables: { data },
       })
-        .then((res) => {
+        .then(() => {
           swal("Success", "Mail sent successfully", "success");
           setContent("");
           reset();
@@ -87,7 +86,11 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
         .catch((err) => {
           if (err) {
             // console.log(err)
-            swal("Oh noes!", err.message.replace("GraphQL error:", ""), "error");
+            swal(
+              "Oh noes!",
+              err.message.replace("GraphQL error:", ""),
+              "error"
+            );
           } else {
             swal.stopLoading();
             swal.close();
@@ -124,8 +127,10 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
               className="form-control"
               placeholder="Enter subject"
             >
-              {treaty?.treaty_accounts?.map((el, key) => (
-                <option value={el?.treaty_account_id}>{getFlexibleName(el?.account_periods)}</option>
+              {treaty?.treaty_accounts?.map((el) => (
+                <option value={el?.treaty_account_id}>
+                  {getFlexibleName(el?.account_periods)}
+                </option>
               ))}
             </select>
             {errors.subject && (

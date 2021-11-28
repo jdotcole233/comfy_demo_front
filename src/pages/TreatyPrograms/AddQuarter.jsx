@@ -1,18 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-throw-literal */
-import React, { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { useForm } from "react-hook-form";
-import {
-  ADD_QUARTER,
-  TREATY,
-  TREATY_ACCOUNTS,
-} from "../../graphql/queries/treaty";
-import { noteOptions } from "./columns";
-import swal from "sweetalert";
-import currencies from "../../assets/currencies.json";
-import { CurrencyOption, Drawer, Selector } from "../../components";
-import _ from "lodash";
+import React, { useState } from "react";
+import { Drawer } from "../../components";
 import AddQuarterForm from "./AddQuarterForm";
 
 const AddQuarter = ({

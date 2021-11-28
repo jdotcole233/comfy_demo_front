@@ -3,11 +3,7 @@
 /* eslint-disable no-throw-literal */
 import React, { useState, useEffect } from "react";
 import styles from "../styles/inputOffer.module.css";
-import {
-  Dropzone,
-  Selector,
-  Editor,
-} from "../../../components";
+import { Dropzone, Selector, Editor } from "../../../components";
 import { useMutation, useQuery } from "@apollo/client";
 import swal from "sweetalert";
 import { Alert } from "react-bootstrap";
@@ -46,9 +42,7 @@ function SendPlacingNote({ treaty, setShow, closed }) {
   const [content, setContent] = useState("");
   const [contentError, setContentError] = useState(false);
   const [files, setFiles] = useState([]);
-  const [sendmail, { loading: mailSending }] = useMutation(
-    SEND_PLACING_OR_COVER_NOTE
-  );
+  const [sendmail] = useMutation(SEND_PLACING_OR_COVER_NOTE);
   const [inputvalue, setInputvalue] = useState("");
   const [copiedMails, setCopiedMails] = useState([]);
   const [selectedableEmail, setSelectedableEmail] = useState([]);
@@ -121,7 +115,7 @@ function SendPlacingNote({ treaty, setShow, closed }) {
           ? [...copiedMails.map((e) => e.label)]
           : [],
         attachments: [...files],
-      }
+      },
     };
     swal({
       closeOnClickOutside: false,
@@ -139,7 +133,6 @@ function SendPlacingNote({ treaty, setShow, closed }) {
             swal.stopLoading();
             swal.close();
             setShow(false);
-            
           } else {
             swal("Success", "Mail sent successfully", "success");
             setContent("");
@@ -160,10 +153,6 @@ function SendPlacingNote({ treaty, setShow, closed }) {
         });
     });
   };
-
-
-
-
 
   return (
     <>
@@ -233,7 +222,6 @@ function SendPlacingNote({ treaty, setShow, closed }) {
         <div className="form-group row mb-4">
           <label className="col-form-label col-lg-2">Message</label>
           <div className="col-lg-10">
-
             <Editor value={content} onChange={(value) => setContent(value)} />
           </div>
           <div className="col-md-2"></div>
@@ -261,7 +249,6 @@ function SendPlacingNote({ treaty, setShow, closed }) {
           </div>
         </div>
       </form>
-      
     </>
   );
 }
