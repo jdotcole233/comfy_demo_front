@@ -38,11 +38,10 @@ const Treaty = ({ treaty }) => {
         <div className="card-body">
           <div className="row">
             <div
-              className={`col-md-2 d-flex justify-content-center align-items-center ${
-                treaty?.treaty_type === "PROPORTIONAL"
+              className={`col-md-2 d-flex justify-content-center align-items-center ${treaty?.treaty_type === "PROPORTIONAL"
                   ? "text-primary"
                   : "text-warning"
-              }`}
+                }`}
             >
               <BsCollection size={80} />
             </div>
@@ -58,9 +57,8 @@ const Treaty = ({ treaty }) => {
               <br />
               <span
                 style={{ letterSpacing: 5, padding: 3, fontSize: 8 }}
-                className={`badge badge-soft-${
-                  treaty?.treaty_type === "PROPORTIONAL" ? "primary" : "warning"
-                } font-size-11 mb-2`}
+                className={`badge badge-soft-${treaty?.treaty_type === "PROPORTIONAL" ? "primary" : "warning"
+                  } font-size-11 mb-2`}
               >
                 {treaty.treaty_type}
               </span>{" "}

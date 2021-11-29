@@ -40,7 +40,7 @@ const EditTreaty = ({ treaty, setOpenDeductions }) => {
         )?.insurer_company_name,
       });
     }
-    return () => {};
+    return () => { };
   }, [treaty, insurers]);
 
   useEffect(() => {
@@ -138,15 +138,15 @@ const EditTreaty = ({ treaty, setOpenDeductions }) => {
               insurer
                 ? insurer
                 : {
-                    label: insurers?.insurers?.find(
-                      (insurer) =>
-                        insurer?.insurer_id === treaty?.insurer?.insurer_id
-                    )?.insurer_company_name,
-                    value: insurers?.insurers?.find(
-                      (insurer) =>
-                        insurer?.insurer_id === treaty?.insurer?.insurer_id
-                    )?.insurer_company_name,
-                  }
+                  label: insurers?.insurers?.find(
+                    (insurer) =>
+                      insurer?.insurer_id === treaty?.insurer?.insurer_id
+                  )?.insurer_company_name,
+                  value: insurers?.insurers?.find(
+                    (insurer) =>
+                      insurer?.insurer_id === treaty?.insurer?.insurer_id
+                  )?.insurer_company_name,
+                }
             }
             components={{ Option: InsurerOption }}
             options={insurersData}

@@ -49,7 +49,7 @@ const nonproportionalArray = [
   "Limit",
   "Reinstatement",
   "Premium/Minimum & Deposit Premium",
-  "Premium Payabale",
+  "Premium Payable",
   "Choice of Law and Jurisdiction",
   "Conditions",
   // "Special Conditions",
@@ -83,7 +83,7 @@ const NewTreaty = (props) => {
 
   useEffect(() => {
     if (insurers) {
-      const rows = insurers.insurers.map((insurer) => ({
+      const rows = insurers?.insurers?.map((insurer) => ({
         label: insurer.insurer_company_name,
         value: insurer,
       }));

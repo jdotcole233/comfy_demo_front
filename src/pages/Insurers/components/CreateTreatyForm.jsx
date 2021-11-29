@@ -30,21 +30,21 @@ export const createExtendedTreatyDetails = (type, values) => {
     [type === "PROPORTIONAL" ? "proportional_detail" : "np_detail"]:
       type === "PROPORTIONAL"
         ? {
-            treaty_id: values.treaty_id,
-            profit_commission: values.profit_commission,
-            re_mgmt_expense: values.re_mgmt_expense,
-            ernpi: values.ernpi,
-            portfolio_entry: {
-              withdrawal_percentage: values.withdrawal_percentage,
-              withdrawal_loss_percentage: values.withdrawal_loss_percentage,
-              assumption_percentage: values.assumption_percentage,
-              assumption_loss_percentage: values.assumption_loss_percentage,
-            },
-            overall_gross_premium: values.overall_gross_premium,
-          }
-        : {
-            egrnpi: values.egrnpi,
+          treaty_id: values.treaty_id,
+          profit_commission: values.profit_commission,
+          re_mgmt_expense: values.re_mgmt_expense,
+          ernpi: values.ernpi,
+          portfolio_entry: {
+            withdrawal_percentage: values.withdrawal_percentage,
+            withdrawal_loss_percentage: values.withdrawal_loss_percentage,
+            assumption_percentage: values.assumption_percentage,
+            assumption_loss_percentage: values.assumption_loss_percentage,
           },
+          overall_gross_premium: values.overall_gross_premium,
+        }
+        : {
+          egrnpi: values.egrnpi,
+        },
   };
 };
 
@@ -295,13 +295,13 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       treatyDetials,
       selectedProgramType?.value === "PROPORTIONAL"
         ? [
-            {
-              surpulus_uuid: v4(),
-              commission: _comm,
-              outgoing_payment_staus: "UNPAID",
-            },
-            ...surpluses,
-          ]
+          {
+            surpulus_uuid: v4(),
+            commission: _comm,
+            outgoing_payment_staus: "UNPAID",
+          },
+          ...surpluses,
+        ]
         : calculateMAndDValue({ layers: limitLayers, egrnpi: values.egrnpi }),
       selectedProgramType
     );
@@ -615,7 +615,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                     ref={register({
                       required:
                         selectedProgramType &&
-                        selectedProgramType?.value === "PROPORTIONAL"
+                          selectedProgramType?.value === "PROPORTIONAL"
                           ? "Provide commission"
                           : false,
                     })}
@@ -631,12 +631,11 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
             )}
 
           <div
-            className={`col-md-${
-              selectedProgramType &&
+            className={`col-md-${selectedProgramType &&
               selectedProgramType?.value === "PROPORTIONAL"
-                ? "6"
-                : "12"
-            }`}
+              ? "6"
+              : "12"
+              }`}
           >
             <div className="form-group">
               <label htmlFor="Type of goods">Brokerage (%)</label>
@@ -779,10 +778,10 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
               value={
                 currency
                   ? {
-                      label: Object.values(currencies).find(
-                        (eel) => eel.code === currency
-                      )?.name,
-                    }
+                    label: Object.values(currencies).find(
+                      (eel) => eel.code === currency
+                    )?.name,
+                  }
                   : ""
               }
               components={{ Option: CurrencyOption }}
@@ -934,10 +933,10 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                 value={
                   currency
                     ? {
-                        label: Object.values(currencies).find(
-                          (eel) => eel.code === currency
-                        )?.name,
-                      }
+                      label: Object.values(currencies).find(
+                        (eel) => eel.code === currency
+                      )?.name,
+                    }
                     : ""
                 }
                 components={{ Option: CurrencyOption }}
@@ -1054,7 +1053,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       {/* Non Proportional Form parts */}
 
       {selectedProgramType &&
-      selectedProgramType?.value === "NONPROPORTIONAL" ? (
+        selectedProgramType?.value === "NONPROPORTIONAL" ? (
         <fieldset className="border p-2 mb-2 mt-4">
           <legend className={styles.details_title}>
             Nonproportional details
@@ -1097,7 +1096,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                   className="btn btn-primary mr-2"
                   title={
                     _.last(limitLayers)?.limit.length < 1 ||
-                    _.last(limitLayers)?.deductible.length < 1
+                      _.last(limitLayers)?.deductible.length < 1
                       ? "Please add limit and deductible"
                       : ""
                   }
@@ -1171,10 +1170,10 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                         value={
                           layer.min_rate || layer.adjust_rate
                             ? parseFloat(
-                                key > 0 ? layer.adjust_rate : layer.min_rate
-                              ) *
-                              _form.getValues().egrnpi *
-                              0.9
+                              key > 0 ? layer.adjust_rate : layer.min_rate
+                            ) *
+                            _form.getValues().egrnpi *
+                            0.9
                             : 0
                         }
                         placeholder="M&D Premium"
