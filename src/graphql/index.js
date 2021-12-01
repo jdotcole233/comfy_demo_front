@@ -1,15 +1,11 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloLink,
-} from "@apollo/client";
-
-import { onError } from 'apollo-link-error';
-import { createUploadLink } from 'apollo-upload-client';
-import { DOMAIN, COOKIE_NAME_AUTH_TOKEN, PROTOCOL } from './config';
-import { setContext } from 'apollo-link-context';
-import swal from 'sweetalert';
-import Cookies from 'js-cookie';
+import { ApolloClient, InMemoryCache, ApolloLink } from "@apollo/client";
+import { onError } from "apollo-link-error";
+import { createUploadLink } from "apollo-upload-client";
+import { DOMAIN, COOKIE_NAME_AUTH_TOKEN, PROTOCOL } from "./config";
+import { setContext } from "apollo-link-context";
+import swal from "sweetalert";
+import Cookies from "js-cookie";
+import { store } from "../redux/store";
 
 const getToken = () => {
   const token = Cookies.get(COOKIE_NAME_AUTH_TOKEN);
@@ -19,27 +15,26 @@ const getToken = () => {
 export const BASE_URL_LOCAL = `${PROTOCOL}${DOMAIN}`;
 
 const httpLink = createUploadLink({
-  uri: BASE_URL_LOCAL + '/graphql',
+  uri: BASE_URL_LOCAL + "/graphql",
 });
-
-// console.log(DOMAIN, COOKIE_NAME_AUTH_TOKEN, PROTOCOL, BASE_URL_LOCAL);
 
 const cache = new InMemoryCache();
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path }) => {
-      return null;
+    graphQLErrors.map(({ message }) => {
+      return message;
     });
   }
 
   if (networkError) {
+    store.dispatch({});
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
-      title: 'Whoops!!',
-      text: 'Something went wrong. Come back later',
-      icon: 'error',
+      title: "Whoops!!",
+      text: "Something went wrong. Come back later",
+      icon: "error",
     });
   }
 });
@@ -51,7 +46,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
