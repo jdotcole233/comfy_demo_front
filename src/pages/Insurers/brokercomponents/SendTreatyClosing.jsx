@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { Editor, Selector } from "../../../components";
@@ -7,16 +7,18 @@ import { SEND_BROKER_CLOSING_SLIP } from "../../../graphql/mutattions";
 import { createOption } from "../../CreateSlip/CreateBroadcastEmail";
 import { getFlexibleName } from "../components/Note";
 import styles from "../styles/ViewInsurerOffer.module.css";
+import { EMPLOYEES } from "../../../graphql/queries/employees";
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
 const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty, name = "Name" }) => {
   const { register, errors, handleSubmit, setError, clearError, reset } =
     useForm();
+  const { data: employees, loading } = useQuery(EMPLOYEES);
   const [contentError, setContentError] = useState(false);
   const [inputvalue, setInputvalue] = useState("");
   const [copiedMails, setCopiedMails] = useState([]);
-  const [selectedableEmail] = useState([]);
+  const [selectedableEmail, setSelectedableEmail] = useState([]);
   const [content, setContent] = useState("");
   const [treatyAccountID, setTreatyAccountID] = useState("");
 
@@ -32,6 +34,16 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty, name =
         event.preventDefault();
     }
   };
+
+  useEffect(() => {
+    if (employees) {
+      const _emails = employees.employees.map((e) => ({
+        label: e.employee_email,
+        value: e.employee_email,
+      }));
+      setSelectedableEmail(_emails);
+    }
+  }, [employees]);
 
   const handleInputChange = (event) => {
     setInputvalue(event);
