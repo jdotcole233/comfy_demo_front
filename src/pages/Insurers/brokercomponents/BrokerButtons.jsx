@@ -150,7 +150,7 @@ const BrokerButtons = ({
         width="50%"
       >
         <SendTreatyClosing
-          {...{ treaty, re_broker_treaties_participation_id }}
+          {...{ treaty, re_broker_treaties_participation_id, name: participant?.re_broker?.re_broker_name }}
         />
       </Drawer>
 

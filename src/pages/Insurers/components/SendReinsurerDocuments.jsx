@@ -212,30 +212,38 @@ const SendReinsurerDocuments = ({
         <div className={styles.card_header}>
           <h2 className={styles.card_title}>
             {isProp
-              ? "Send Treaty Statement and Credit Note"
+              ? "Send Treaty Closing Note"
               : "Send Credit Note"}
           </h2>
         </div>
       </div>
-      {!isProp && (
-        <div className="alert alert-danger p-2">
-          <p>
-            This session will send Copy of Credit Notes along with any
-            attachments to {treaty?.treaty_to_associates?.length} associates{" "}
-            {reinsurer?.reinsurer?.re_company_name}
-          </p>
-        </div>
-      )}
+
+      <div className="alert alert-danger p-2">
+        {!isProp ? <p>
+          This session will send Copy of Credit Notes along with any
+          attachments to {treaty?.treaty_to_associates?.length} associates{" "}
+          {reinsurer?.reinsurer?.re_company_name}
+        </p> :
+          <>
+            <p>
+              This session will send a copy of the TREATY CLOSING NOTE to <strong>{reinsurer?.reinsurer?.re_company_name}</strong>
+            </p>
+            <p>
+              N.B: You can include any number of EMAILs. Press ENTER OR TAB key to add more
+            </p>
+          </>
+        }
+      </div>
+
       {isProp && (
         <div className="card">
           <div className="card-body">
             <div className="row">
               <div
-                className={`${
-                  docType[0] === "Portfolio Statement"
-                    ? "col-md-12"
-                    : "col-md-6"
-                }`}
+                className={`${docType[0] === "Portfolio Statement"
+                  ? "col-md-12"
+                  : "col-md-6"
+                  }`}
               >
                 <div className="form-group">
                   <label htmlFor="Statement Type">Document Type</label>
@@ -247,9 +255,7 @@ const SendReinsurerDocuments = ({
                     id="statement_type"
                   >
                     <option value="">Select ...</option>
-                    <option value="All">Statement and Credit Note</option>
-                    <option value="0">Treaty Statement</option>
-                    <option value="1">Credit Note</option>
+                    <option value="0">Treaty Closing</option>
                     {portFolioCond && (
                       <option value="Portfolio Statement">
                         Portfolio Statement

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const CREATE_CLASS_OF_BUSINESS = gql`
   mutation createClassOfBusiness(
@@ -165,57 +165,56 @@ export const CREATE_INPUT_OFFER = gql`
   }
 `;
 
-
 export const CREATE_ENDORSEMENT = gql`
-mutation createEndorsement(
-  $class_of_business_id: ID!
-  $offer_id: ID
-  $insurer_id: ID!
-  $employee_id: ID!
-  $co_insurance_share: Float
-  $rate: Float
-  $commission: Float!
-  $brokerage: Float!
-  $facultative_offer: Float!
-  $sum_insured: Float!
-  $premium: Float!
-  $policy_number: String
-  $insured_by: String!
-  $period_of_insurance_from: Date
-  $period_of_insurance_to: Date
-  $currency: String!
-  $ex_rate: Float
-  $ex_currency: String
-  $offer_comment: String
-  $offer_details: String!
-  $information_comment: String
-) {
-  createEndorsementOffer(
-    offer_input: {
-      class_of_business_id: $class_of_business_id
-      insurer_id: $insurer_id
-      employee_id: $employee_id
-      rate: $rate
-      commission: $commission
-      brokerage: $brokerage
-      facultative_offer: $facultative_offer
-      sum_insured: $sum_insured
-      premium: $premium
-      policy_number: $policy_number
-      insured_by: $insured_by
-      period_of_insurance_from: $period_of_insurance_from
-      period_of_insurance_to: $period_of_insurance_to
-      currency: $currency
-      ex_rate: $ex_rate
-      ex_currency: $ex_currency
-      offer_comment: $offer_comment
-      offer_details: $offer_details
-      information_comment: $information_comment
-      co_insurance_share: $co_insurance_share
-    }
-    offer_id: $offer_id
-  ) 
-}
+  mutation createEndorsement(
+    $class_of_business_id: ID!
+    $offer_id: ID
+    $insurer_id: ID!
+    $employee_id: ID!
+    $co_insurance_share: Float
+    $rate: Float
+    $commission: Float!
+    $brokerage: Float!
+    $facultative_offer: Float!
+    $sum_insured: Float!
+    $premium: Float!
+    $policy_number: String
+    $insured_by: String!
+    $period_of_insurance_from: Date
+    $period_of_insurance_to: Date
+    $currency: String!
+    $ex_rate: Float
+    $ex_currency: String
+    $offer_comment: String
+    $offer_details: String!
+    $information_comment: String
+  ) {
+    createEndorsementOffer(
+      offer_input: {
+        class_of_business_id: $class_of_business_id
+        insurer_id: $insurer_id
+        employee_id: $employee_id
+        rate: $rate
+        commission: $commission
+        brokerage: $brokerage
+        facultative_offer: $facultative_offer
+        sum_insured: $sum_insured
+        premium: $premium
+        policy_number: $policy_number
+        insured_by: $insured_by
+        period_of_insurance_from: $period_of_insurance_from
+        period_of_insurance_to: $period_of_insurance_to
+        currency: $currency
+        ex_rate: $ex_rate
+        ex_currency: $ex_currency
+        offer_comment: $offer_comment
+        offer_details: $offer_details
+        information_comment: $information_comment
+        co_insurance_share: $co_insurance_share
+      }
+      offer_id: $offer_id
+    )
+  }
 `;
 
 export const CREATE_FLEET_OFFER = gql`
@@ -230,7 +229,10 @@ export const CREATE_DISTRIBUTION_LIST = gql`
     $reinsurer_reps: [Reinsurer_representative_data!]!
   ) {
     createDistributionList(
-      distribution_list: {offer_id: $offer_id, reinsurer_reps: $reinsurer_reps}
+      distribution_list: {
+        offer_id: $offer_id
+        reinsurer_reps: $reinsurer_reps
+      }
     )
   }
 `;
@@ -278,7 +280,7 @@ export const ADD_PERCENTAGE = gql`
 export const CLOSE_OFFER = gql`
   mutation closeOffer($offer_id: ID!, $data: [Reinsurer_extra_charge!]!) {
     createClosingForOffer(
-      extra_charges: {offer_id: $offer_id, reinsurer_data: $data}
+      extra_charges: { offer_id: $offer_id, reinsurer_data: $data }
     ) {
       nic_levy_amount
     }
@@ -466,6 +468,22 @@ export const SEND_CLOSING_SLIP = gql`
   }
 `;
 
+export const SEND_BROKER_CLOSING_SLIP = gql`
+  mutation sendmail(
+    $treaty_id: ID
+    $treaty_account_id: ID
+    $re_broker_treaties_participation_id: ID
+    $emaildata: EmailComponent
+  ) {
+    sendTreatyBrokerNotes(
+      treaty_id: $treaty_id
+      treaty_account_id: $treaty_account_id
+      re_broker_treaties_participation_id: $re_broker_treaties_participation_id
+      emaildata: $emaildata
+    )
+  }
+`;
+
 export const CLAIM_REQUEST = gql`
   mutation sendClaimNotification($data: Email_data!) {
     sendClaimNotification(email_data: $data)
@@ -473,25 +491,24 @@ export const CLAIM_REQUEST = gql`
 `;
 
 export const SEND_TREATY_CLAIM_DEBIT_NOTE = gql`
-mutation sendTreatyClaimDebitNote(
-  $single_document: Int
-  $treaty_id: ID
-  $treaty_participant_id: ID
-  $reinsurer_id: ID
-  $paged: Int
-  $email_component: EmailComponent
-) {
-  sendTreatyClaimDebitNote(
-    single_document: $single_document
-    treaty_id: $treaty_id
-    treaty_participant_id: $treaty_participant_id
-    reinsurer_id: $reinsurer_id
-    paged: $paged
-    email_component: $email_component
-  )
-}
-
-`
+  mutation sendTreatyClaimDebitNote(
+    $single_document: Int
+    $treaty_id: ID
+    $treaty_participant_id: ID
+    $reinsurer_id: ID
+    $paged: Int
+    $email_component: EmailComponent
+  ) {
+    sendTreatyClaimDebitNote(
+      single_document: $single_document
+      treaty_id: $treaty_id
+      treaty_participant_id: $treaty_participant_id
+      reinsurer_id: $reinsurer_id
+      paged: $paged
+      email_component: $email_component
+    )
+  }
+`;
 
 export const REMOVE_CLAIM_AMOUNT = gql`
   mutation removeClaimAmount($id: ID!, $offer_id: ID!) {
@@ -569,85 +586,82 @@ export const MAKE_COMMENT = gql`
   }
 `;
 
-
 export const UPDATE_ENDORSEMENT = gql`
-mutation updateEndorsement(
-  $class_of_business_id: ID!
-  $endorsement_id: ID!
-  $offer_id:ID
-  $offer_endorsement_detail_id: ID
-  $insurer_id: ID!
-  $employee_id: ID!
-  $co_insurance_share: Float
-  $rate: Float
-  $commission: Float!
-  $brokerage: Float!
-  $facultative_offer: Float!
-  $sum_insured: Float!
-  $premium: Float!
-  $policy_number: String
-  $insured_by: String!
-  $period_of_insurance_from: Date!
-  $period_of_insurance_to: Date!
-  $currency: String!
-  $ex_rate: Float
-  $ex_currency: String
-  $offer_comment: String
-  $offer_details: String!
-  $information_comment: String
-) {
-  updateEndorsementOffer(
-    offer_input: {
-      class_of_business_id: $class_of_business_id
-      insurer_id: $insurer_id
-      employee_id: $employee_id
-      rate: $rate
-      commission: $commission
-      brokerage: $brokerage
-      facultative_offer: $facultative_offer
-      sum_insured: $sum_insured
-      premium: $premium
-      policy_number: $policy_number
-      insured_by: $insured_by
-      period_of_insurance_from: $period_of_insurance_from
-      period_of_insurance_to: $period_of_insurance_to
-      currency: $currency
-      ex_rate: $ex_rate
-      ex_currency: $ex_currency
-      offer_comment: $offer_comment
-      offer_details: $offer_details
-      information_comment: $information_comment
-      co_insurance_share: $co_insurance_share
-    }
-    offer_endorsement_detail_id: $offer_endorsement_detail_id
-    offer_endorsement_id: $endorsement_id
-    offer_id:$offer_id
-  )
-}
-
-`
+  mutation updateEndorsement(
+    $class_of_business_id: ID!
+    $endorsement_id: ID!
+    $offer_id: ID
+    $offer_endorsement_detail_id: ID
+    $insurer_id: ID!
+    $employee_id: ID!
+    $co_insurance_share: Float
+    $rate: Float
+    $commission: Float!
+    $brokerage: Float!
+    $facultative_offer: Float!
+    $sum_insured: Float!
+    $premium: Float!
+    $policy_number: String
+    $insured_by: String!
+    $period_of_insurance_from: Date!
+    $period_of_insurance_to: Date!
+    $currency: String!
+    $ex_rate: Float
+    $ex_currency: String
+    $offer_comment: String
+    $offer_details: String!
+    $information_comment: String
+  ) {
+    updateEndorsementOffer(
+      offer_input: {
+        class_of_business_id: $class_of_business_id
+        insurer_id: $insurer_id
+        employee_id: $employee_id
+        rate: $rate
+        commission: $commission
+        brokerage: $brokerage
+        facultative_offer: $facultative_offer
+        sum_insured: $sum_insured
+        premium: $premium
+        policy_number: $policy_number
+        insured_by: $insured_by
+        period_of_insurance_from: $period_of_insurance_from
+        period_of_insurance_to: $period_of_insurance_to
+        currency: $currency
+        ex_rate: $ex_rate
+        ex_currency: $ex_currency
+        offer_comment: $offer_comment
+        offer_details: $offer_details
+        information_comment: $information_comment
+        co_insurance_share: $co_insurance_share
+      }
+      offer_endorsement_detail_id: $offer_endorsement_detail_id
+      offer_endorsement_id: $endorsement_id
+      offer_id: $offer_id
+    )
+  }
+`;
 
 export const DELETE_ENDORSEMENT = gql`
-mutation deleteEndorsement(
-  $offer_endorsement_detail_id: ID
-  $offer_endorsement_id: ID
-) {
-  deleteEndorsementOffer(
-    offer_endorsement_detail_id: $offer_endorsement_detail_id
-    offer_endorsement_id: $offer_endorsement_id
-  )
-}
+  mutation deleteEndorsement(
+    $offer_endorsement_detail_id: ID
+    $offer_endorsement_id: ID
+  ) {
+    deleteEndorsementOffer(
+      offer_endorsement_detail_id: $offer_endorsement_detail_id
+      offer_endorsement_id: $offer_endorsement_id
+    )
+  }
 `;
 
 export const SEND_CONTRACT_DEBIT = gql`
-mutation sendContractDebitNote($data: EndorsementEmail) {
-  sendContractChangesAndDebitNote(endorsementInput: $data)
-}
-
+  mutation sendContractDebitNote($data: EndorsementEmail) {
+    sendContractChangesAndDebitNote(endorsementInput: $data)
+  }
 `;
 
 export const SEND_CHANGES_AND_CLOSING_SLIP = gql`
-mutation sendChangesAndClosingNote($data: EndorsementEmail) {
-  sendContractChangesAndClosingNote(endorsementInput: $data)
-}
+  mutation sendChangesAndClosingNote($data: EndorsementEmail) {
+    sendContractChangesAndClosingNote(endorsementInput: $data)
+  }
 `;

@@ -3,14 +3,14 @@ import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { Editor, Selector } from "../../../components";
-import { SEND_CLOSING_SLIP } from "../../../graphql/mutattions";
+import { SEND_BROKER_CLOSING_SLIP } from "../../../graphql/mutattions";
 import { createOption } from "../../CreateSlip/CreateBroadcastEmail";
 import { getFlexibleName } from "../components/Note";
 import styles from "../styles/ViewInsurerOffer.module.css";
 
 const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
 
-const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
+const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty, name = "Name" }) => {
   const { register, errors, handleSubmit, setError, clearError, reset } =
     useForm();
   const [contentError, setContentError] = useState(false);
@@ -18,8 +18,9 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
   const [copiedMails, setCopiedMails] = useState([]);
   const [selectedableEmail] = useState([]);
   const [content, setContent] = useState("");
+  const [treatyAccountID, setTreatyAccountID] = useState("");
 
-  const [sendmail] = useMutation(SEND_CLOSING_SLIP);
+  const [sendmail] = useMutation(SEND_BROKER_CLOSING_SLIP);
   const handleKeyDown = (event) => {
     if (!inputvalue) return;
     // eslint-disable-next-line default-case
@@ -60,13 +61,15 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
     const data = {
       treaty_id: treaty?.treaty_id,
       re_broker_treaties_participation_id,
-      // treaty_account_id:"",
+      treaty_account_id: treatyAccountID,
       emaildata: {
         email_content: content,
         subject,
         copied_email: [...copiedMails.map((e) => e.label)],
       },
     };
+    // console.log(data)
+    // return;
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -101,11 +104,11 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
   return (
     <>
       <div className={styles.card_header}>
-        <h2 className={styles.card_title}>Send Closing Slip</h2>
+        <h2 className={styles.card_title}>Send Broker Closing Slip</h2>
         <div className="alert alert-danger">
           <p>
-            This session will send a copy of closing slip to{" "}
-            {/* <strong>{reisnsurer?.reinsurer?.re_company_name}</strong> as */}
+            This session will send a copy of closing slip to {" "}
+            <strong>{name}</strong> as
             attachment
           </p>
           <p>
@@ -126,9 +129,11 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty }) => {
               name="treaty_account_id"
               className="form-control"
               placeholder="Enter subject"
+              onChange={e => setTreatyAccountID(e.target.value)}
             >
-              {treaty?.treaty_accounts?.map((el) => (
-                <option value={el?.treaty_account_id}>
+              <option value="">Select</option>
+              {treaty?.treaty_accounts?.map((el, key) => (
+                <option key={key} value={el?.treaty_account_id}>
                   {getFlexibleName(el?.account_periods)}
                 </option>
               ))}
