@@ -24,7 +24,6 @@ const SendReinsurerDocuments = ({
   treaty,
   layers,
   layer,
-  total_participation_percentage,
   reinsurer,
 }) => {
   const { register, errors, handleSubmit, setError, clearError } = useForm();
@@ -140,7 +139,7 @@ const SendReinsurerDocuments = ({
       sendcreditnote({
         variables: { data },
       })
-        .then((res) => {
+        .then(() => {
           swal("Hurray!!", "Mail sent successfully", "success");
           setContent("");
           setFiles([]);
@@ -185,7 +184,7 @@ const SendReinsurerDocuments = ({
       sendmail({
         variables: { ...data },
       })
-        .then((res) => {
+        .then(() => {
           swal("Hurray!!", "Mail sent successfully", "success");
           setContent("");
           setFiles([]);
@@ -283,7 +282,7 @@ const SendReinsurerDocuments = ({
                     >
                       <option value="">Select ...</option>
                       <option value="All">All</option>
-                      {treaty?.treaty_accounts?.map((note, key) => (
+                      {treaty?.treaty_accounts?.map((note) => (
                         <option value={note?.treaty_account_id}>
                           {getFlexibleName(note?.account_periods)}
                         </option>

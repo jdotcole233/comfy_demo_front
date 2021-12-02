@@ -91,7 +91,7 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty, name =
     }).then((input) => {
       if (!input) throw null;
       sendmail({
-        variables: { data },
+        variables: { ...data },
       })
         .then(() => {
           swal("Success", "Mail sent successfully", "success");
