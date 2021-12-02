@@ -53,8 +53,8 @@ export default function DistributePayment({
         const row = {
           offer_participant_id: part.offer_participant_payment.length
             ? part.offer_participant_payment[
-                part.offer_participant_payment.length - 1
-              ].offer_participant_payment_id
+              part.offer_participant_payment.length - 1
+            ].offer_participant_payment_id
             : "",
           payment_type: "",
           bank_name: "",

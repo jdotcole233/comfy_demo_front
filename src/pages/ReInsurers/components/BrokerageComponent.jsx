@@ -33,9 +33,9 @@ const BrokerageComponent = ({ data }) => {
         name: "Revenue",
         data: data
           ? generateArray(
-              data.reinsurer.reinsurer_overview.brokerage_chart,
-              currency
-            )
+            data.reinsurer.reinsurer_overview.brokerage_chart,
+            currency
+          )
           : [42, 85, 101, 56, 37, 105, 38, 58, 92, 82, 72, 32],
       },
     ],
