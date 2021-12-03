@@ -26,7 +26,7 @@ const SendReinsurerDocuments = ({
   layer,
   reinsurer,
 }) => {
-  const { register, errors, handleSubmit, setError, clearError } = useForm();
+  const { register, errors, handleSubmit, setError, clearError, reset } = useForm();
   const [content, setContent] = useState("");
   const [contentError /*setContentError*/] = useState(false);
   const [selectedableEmail, setSelectedableEmail] = useState([]);
@@ -183,23 +183,22 @@ const SendReinsurerDocuments = ({
       if (!input) throw null;
       sendmail({
         variables: { ...data },
-      })
-        .then(() => {
-          swal("Hurray!!", "Mail sent successfully", "success");
-          setContent("");
-          setFiles([]);
-          setFiles([]);
-          setShow(false);
-        })
-        .catch((err) => {
-          if (err) {
-            console.log(err);
-            swal("Oh noes!", "The AJAX request failed!", "error");
-          } else {
-            swal.stopLoading();
-            swal.close();
-          }
-        });
+      }).then(() => {
+        swal("Hurray!!", "Mail sent successfully", "success");
+        setContent("");
+        setFiles([]);
+        setCopiedMails([]);
+        reset();
+        setShow(false);
+      }).catch((err) => {
+        if (err) {
+          // console.log(err);
+          swal("Oh noes!", "The AJAX request failed!", "error");
+        } else {
+          swal.stopLoading();
+          swal.close();
+        }
+      });
     });
   };
 

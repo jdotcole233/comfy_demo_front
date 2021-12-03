@@ -80,13 +80,12 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty, name =
         copied_email: [...copiedMails.map((e) => e.label)],
       },
     };
-    // console.log(data)
-    // return;
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
       icon: "warning",
-      title: "Are you sure ?",
+      title: `Are you sure?`,
+      text: `You want to send out this closing slip to ${name}`,
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;
@@ -96,11 +95,11 @@ const SendTreatyClosing = ({ re_broker_treaties_participation_id, treaty, name =
         .then(() => {
           swal("Success", "Mail sent successfully", "success");
           setContent("");
+          setCopiedMails([]);
           reset();
         })
         .catch((err) => {
           if (err) {
-            // console.log(err)
             swal(
               "Oh noes!",
               err.message.replace("GraphQL error:", ""),
