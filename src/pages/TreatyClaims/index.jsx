@@ -26,13 +26,12 @@ export default () => {
         treaty_payment_status: (
           <span
             style={{ letterSpacing: 5, padding: 3 }}
-            className={`badge badge-soft-${
-              treaty?.treaty_payment_status === "PARTPAYMENT"
-                ? "primary"
-                : treaty.treaty_payment_status === "UNPAID"
+            className={`badge badge-soft-${treaty?.treaty_payment_status === "PARTPAYMENT"
+              ? "primary"
+              : treaty.treaty_payment_status === "UNPAID"
                 ? "danger"
                 : "success"
-            } font-size-11`}
+              } font-size-11`}
           >
             {treaty.treaty_payment_status}
           </span>

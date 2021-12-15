@@ -39,10 +39,10 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
             <span
               style={{ letterSpacing: 5, padding: 3 }}
               className={`badge badge-soft-${treaty?.treaty_payment_status === "PARTPAYMENT"
-                  ? "primary"
-                  : treaty.treaty_payment_status === "UNPAID"
-                    ? "danger"
-                    : "success"
+                ? "primary"
+                : treaty.treaty_payment_status === "UNPAID"
+                  ? "danger"
+                  : "success"
                 } font-size-11`}
             >
               {treaty.treaty_payment_status}

@@ -276,12 +276,12 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
       treatyDetials,
       selectedProgramType?.value === "PROPORTIONAL"
         ? [
-            {
-              ...JSON.parse(treaty?.layer_limit || "[]").shift(),
-              commission: treaty?.treaty_deduction?.commission,
-            },
-            ...surpluses,
-          ]
+          {
+            ...JSON.parse(treaty?.layer_limit || "[]").shift(),
+            commission: treaty?.treaty_deduction?.commission,
+          },
+          ...surpluses,
+        ]
         : calculateMAndDValue({ layers: limitLayers, egrnpi: values.egrnpi }),
       treaty,
       selectedProgramType
@@ -481,9 +481,9 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             options={
               data
                 ? data.insurerTreatyProgram.map((insurer) => ({
-                    label: insurer.treaty_name,
-                    value: insurer,
-                  }))
+                  label: insurer.treaty_name,
+                  value: insurer,
+                }))
                 : []
             }
           />
@@ -559,7 +559,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
           <label htmlFor="Treaty Program">Treaty Period</label>
           <Selector
             value={selectedPeriod}
-            placeholder="Treaty Program"
+            placeholder="Treaty Period"
             onChange={handlePeriodChange}
             options={treaty_periods ? treaty_periods : []}
           />
@@ -593,12 +593,11 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
               </div>
             )}
           <div
-            className={`col-md-${
-              selectedProgramType &&
-              selectedProgramType?.value === "PROPORTIONAL"
+            className={`col-md-${selectedProgramType &&
+                selectedProgramType?.value === "PROPORTIONAL"
                 ? "6"
                 : "12"
-            }`}
+              }`}
           >
             <div className="form-group">
               <label htmlFor="Type of goods">Brokerage (%)</label>
@@ -740,10 +739,10 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             value={
               currency
                 ? {
-                    label: Object.values(currencies).find(
-                      (eel) => eel.code === currency
-                    )?.name,
-                  }
+                  label: Object.values(currencies).find(
+                    (eel) => eel.code === currency
+                  )?.name,
+                }
                 : ""
             }
             components={{ Option: CurrencyOption }}
@@ -773,7 +772,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
       </div>
 
       {selectedProgramType &&
-      selectedProgramType?.value === "NONPROPORTIONAL" ? (
+        selectedProgramType?.value === "NONPROPORTIONAL" ? (
         <fieldset className="border p-2 mb-2 mt-4">
           <legend className={styles.details_title}>
             Nonproportional details

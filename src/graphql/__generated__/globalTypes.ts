@@ -24,6 +24,11 @@ export enum Payment_status {
   UNPAID = "UNPAID",
 }
 
+export enum TreatyType {
+  NONPROPORTIONAL = "NONPROPORTIONAL",
+  PROPORTIONAL = "PROPORTIONAL",
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

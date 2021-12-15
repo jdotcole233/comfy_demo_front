@@ -463,13 +463,13 @@ export const SEND_OFFER_AS_BROADCAST = gql`
   }
 `;
 export const SEND_CLOSING_SLIP = gql`
-  mutation sendmail($data: Email_data!) {
+  mutation SEND_CLOSING_SLIP($data: Email_data!) {
     sendClosingslip(email_data: $data)
   }
 `;
 
 export const SEND_BROKER_CLOSING_SLIP = gql`
-  mutation sendmail(
+  mutation SEND_BROKER_CLOSING_SLIP(
     $treaty_id: ID
     $treaty_account_id: ID
     $re_broker_treaties_participation_id: ID

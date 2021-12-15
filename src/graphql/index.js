@@ -28,7 +28,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
 
   if (networkError) {
-    store.dispatch({});
+    // store.dispatch({});
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useMemo, useState } from "react";
 import Header from "./Header";
-import { columns, _columns } from "./columns";
+import { columns, treatyColumns, _columns } from "./columns";
 import { useQuery } from "@apollo/client";
 import { OFFERS } from "../../graphql/queries";
 import {
@@ -13,11 +13,12 @@ import {
 import OfferButtons from "./components/OfferButtons";
 import { ENDORSEMENTS } from "../../graphql/queries/endorsements";
 import EndorsementButtons from "./components/EndorsementButtons";
+import { useTreaties } from "./hooks/useTreaties";
 
 const UnApproved = () => {
   const [offerListing, setOfferListing] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
-
+  const { treaties } = useTreaties({ status: "UNAPPROVED", treaty_type: ["NONPROPORTIONAL", "PROPORTIONAL"] });
   const { data, loading, startPolling, stopPolling } = useQuery(OFFERS, {
     variables: {
       offer_status: ["CLOSED"],
@@ -140,7 +141,7 @@ const UnApproved = () => {
 
   return (
     <div className="page-content">
-      <Header closedOffers={offerListing} endorsements={endorsements} />
+      <Header closedOffers={offerListing} endorsements={endorsements} treaties={treaties} />
       <div className="container-fluid">
         <div className="row">
           <div className="d-flex my-2">
@@ -168,17 +169,23 @@ const UnApproved = () => {
                 </span>
               )}
             </div>
+            <div
+              onClick={() => setActiveTab(2)}
+              className={`${activeTab === 2 ? "kek-tab-active" : "kek-tab"}`}
+            >
+              <span>Treaties</span>
+            </div>
           </div>
         </div>
       </div>
       <div className="card">
         <div className="card-body">
           <h3 className="font-size-16">
-            {activeTab === 0 ? "Unapproved Offers" : "Unapproved Endorsements"}
+            {activeTab === 0 ? "Unapproved Offers" : activeTab === 1 ? "Unapproved Endorsements" : "Unapproved Treaties"}
           </h3>
           <Datatable
-            data={activeTab === 0 ? offerListing : endorsements}
-            columns={activeTab === 0 ? columns : _columns}
+            data={activeTab === 0 ? offerListing : activeTab === 1 ? endorsements : treaties}
+            columns={activeTab === 0 ? columns : activeTab === 1 ? _columns : treatyColumns}
           />
         </div>
       </div>

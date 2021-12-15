@@ -68,7 +68,7 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
     if (treaty) {
       const payments =
         treaty.treaty_program &&
-        treaty.treaty_program.treaty_type === "PROPORTIONAL"
+          treaty.treaty_program.treaty_type === "PROPORTIONAL"
           ? treaty.treaty_p_payments
           : treaty.treaty_np_payments;
 
@@ -78,9 +78,9 @@ const TreatyButtons = ({ treaty, insurer, refetch }) => {
           type:
             obj?.payment_type === "Cheque"
               ? obj?.payment_type +
-                " - " +
-                obj.payment_from?.cheque_number +
-                " "
+              " - " +
+              obj.payment_from?.cheque_number +
+              " "
               : obj?.payment_type,
           bank_name: obj?.payment_from?.bank_name,
           beneficiary_bank: obj?.payment_to,

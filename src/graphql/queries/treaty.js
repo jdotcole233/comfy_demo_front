@@ -122,7 +122,6 @@ export const INSURER_TREATIES = gql`
         treaty_payment_amount
       }
       treaty_accounts {
-        
         treaty_account_id
         claim_settled
         account_periods
@@ -134,27 +133,27 @@ export const INSURER_TREATIES = gql`
           withholding_tax_amount
         }
       }
-    treaty_to_associates {
-      layer_number
-      sent_status
-      treaty_to_associate_id
-      reinsurer {
-        reinsurer_id
-        re_company_name
+      treaty_to_associates {
+        layer_number
+        sent_status
+        treaty_to_associate_id
+        reinsurer {
+          reinsurer_id
+          re_company_name
+        }
+        reinsurer_representative {
+          rep_last_name
+          rep_first_name
+          rep_primary_phonenumber
+          rep_secondary_phonenumber
+          rep_email
+        }
       }
-      reinsurer_representative {
-        rep_last_name
-        rep_first_name
-        rep_primary_phonenumber
-        rep_secondary_phonenumber
-        rep_email
-      }
-    }
       treaty_participants {
         treaty_participation_id
         treaty_participation_percentage
-      # Payments
-      treaty_participant_payments {
+        # Payments
+        treaty_participant_payments {
           participant_payment_details
           treaty_participants_payment_id
         }
@@ -193,13 +192,13 @@ export const INSURER_TREATIES = gql`
 `;
 
 export const DISTRIBUTE_PAYMENT_FOR_TREATY = gql`
-mutation distributePaymentForTreaty(
-  $id: ID
-  $data: [TreatyPaymentDistribution]
-) {
-  distributePaymentForTreaty(treaty_id: $id, payment_information: $data)
-}
-`
+  mutation distributePaymentForTreaty(
+    $id: ID
+    $data: [TreatyPaymentDistribution]
+  ) {
+    distributePaymentForTreaty(treaty_id: $id, payment_information: $data)
+  }
+`;
 
 export const UPDATE_INSURER_TREATY = gql`
   mutation updateInsurerTreaty($treaty: TreatyData, $treaty_id: ID) {
@@ -208,54 +207,56 @@ export const UPDATE_INSURER_TREATY = gql`
 `;
 
 export const TREATY_ACCOUNTS = gql`
-query FetchTreatyAccounts(
-  $insurer_id: ID
-  $treaty_program_name: String
-  $treaty_period_from: Date
-  $treaty_period_to: Date
-  $type: Boolean
-  $quarter: String
-) {
-  fetchTreatyAccounts(
-    insurer_id: $insurer_id
-    treaty_period_to: $treaty_period_to
-    treaty_period_from: $treaty_period_from
-    type: $type
-    treaty_program_name: $treaty_program_name
-    quarter: $quarter
+  query FetchTreatyAccounts(
+    $insurer_id: ID
+    $treaty_program_name: String
+    $treaty_period_from: Date
+    $treaty_period_to: Date
+    $type: Boolean
+    $quarter: String
   ) {
-    treaty_id
-    currency
-    quarters
-    quarter
-    currency
-    account_year
-    layer_limit
-    surpluses {
-      gross_premium
-      claim_settled
-      cash_loss
+    fetchTreatyAccounts(
+      insurer_id: $insurer_id
+      treaty_period_to: $treaty_period_to
+      treaty_period_from: $treaty_period_from
+      type: $type
+      treaty_program_name: $treaty_program_name
+      quarter: $quarter
+    ) {
+      treaty_id
+      currency
+      quarters
+      quarter
+      currency
+      account_year
+      layer_limit
+      surpluses {
+        gross_premium
+        claim_settled
+        cash_loss
+      }
     }
   }
-}`;
+`;
 
 export const TREATY = gql`
-query treaty($treaty_id: ID) {
-  treaty(treaty_id: $treaty_id) {
-    treaty_id
-    treaty_details
-    treaty_reference
-    order_hereon
-    currency
-    # m_and_d_premium
-    # installment_type
-    treaty_payment_status
-    treaty_program {
-      treaty_name
-      treaty_type
-    }
-    treaty_proportional_detail {
-      treaty_proportional_detail_id
+  query treaty($treaty_id: ID) {
+    treaty(treaty_id: $treaty_id) {
+      treaty_id
+      treaty_details
+      treaty_reference
+      order_hereon
+      currency
+      approval_status
+      # m_and_d_premium
+      # installment_type
+      treaty_payment_status
+      treaty_program {
+        treaty_name
+        treaty_type
+      }
+      treaty_proportional_detail {
+        treaty_proportional_detail_id
         profit_commission
         re_mgmt_expense
         ernpi
@@ -264,24 +265,24 @@ query treaty($treaty_id: ID) {
         portfolio_entry
         created_at
       }
-    insurer {
-      insurer_id
-      insurer_company_name
-      insurer_address {
-        suburb
-        region
-        country
+      insurer {
+        insurer_id
+        insurer_company_name
+        insurer_address {
+          suburb
+          region
+          country
+        }
       }
-    }
-    employee {
-      employee_last_name
-      employee_first_name
-      employee_phonenumber
-      employee_email
-    }
+      employee {
+        employee_last_name
+        employee_first_name
+        employee_phonenumber
+        employee_email
+      }
 
-    treaty_np_detail {
-      treaty_np_id
+      treaty_np_detail {
+        treaty_np_id
         egrnpi
         burning_cost_rate
         loaded_burning_cost
@@ -292,126 +293,126 @@ query treaty($treaty_id: ID) {
         outstanding_payment
       }
 
-    treaty_accounts {
-      treaty_account_id
-      claim_settled
-      account_periods
-      exchange_rate
-      # gross_premium
-      cash_loss
-      account_year
-      # treaty_surpulus {
-      #   treaty_account_surpulus_id
-      #   surpulus_uuid
-      #   gross_premium
-      # }
-      treaty_account_deduction {
-        treaty_account_deduction_id
-        commission_amount
-        nic_levy_amount
-        gross_premium
-        brokerage_amount
-        withholding_tax_amount
-        surpulus_uuid
+      treaty_accounts {
+        treaty_account_id
         claim_settled
+        account_periods
+        exchange_rate
+        # gross_premium
         cash_loss
-        # Copied
-      }
-
-      treaty_p_payments {
-        treaty_p_payment_id
-      }
-      
-      treaty_participant_deduction {
-        treaty_participation_share
-        treaty_participationstreaty_participation_id
-        treaty_participant_deduction_id
-        withholding_tax_amount
-        nic_levy_amount
-        brokerage_amount
-        commission_amount
-        uuid
-      }
-    }
-    layer_limit
-    treaty_deduction {
-      treaty_associate_deduction_id
-      commission
-      nic_levy
-      withholding_tax
-      brokerage
-      treaty_period_to
-      treaty_period_from
-    }
-    treaty_to_associates {
-      layer_number
-      sent_status
-      treaty_to_associate_id
-      reinsurer {
-        reinsurer_id
-        re_company_name
-        re_company_email
-      }
-      reinsurer_representative {
-        rep_last_name
-        rep_first_name
-        rep_primary_phonenumber
-        rep_secondary_phonenumber
-        rep_email
-      }
-    }
-    re_broker_treaties_participation {
-      re_broker_treaties_participation_id
-      share_percentage
-      admin_percentage
-      payment_status
-      re_broker {
-        re_broker_id
-        re_broker_name
-        re_broker_email
-      }
-      surplus_participation {
-        re_broker_treaties_surplus_participation_id
-        share_amount
-        admin_charge
-        treaty_account {
-          treaty_account_id
-          account_periods
+        account_year
+        # treaty_surpulus {
+        #   treaty_account_surpulus_id
+        #   surpulus_uuid
+        #   gross_premium
+        # }
+        treaty_account_deduction {
+          treaty_account_deduction_id
+          commission_amount
+          nic_levy_amount
           gross_premium
+          brokerage_amount
+          withholding_tax_amount
+          surpulus_uuid
           claim_settled
           cash_loss
-          exchange_rate
-          account_year
-          payment_status
+          # Copied
+        }
+
+        treaty_p_payments {
+          treaty_p_payment_id
+        }
+
+        treaty_participant_deduction {
+          treaty_participation_share
+          treaty_participationstreaty_participation_id
+          treaty_participant_deduction_id
+          withholding_tax_amount
+          nic_levy_amount
+          brokerage_amount
+          commission_amount
+          uuid
         }
       }
-    }
-    treaty_to_broker_associates {
-      participation_to_broker_associate_id
-      sent_status
-      message_content
-      broker_associate {
-        re_broker_associate_id
-        re_broker_assoc_first_name
-        re_broker_assoc_last_name
-        re_broker_assoc_email
-        re_broker_assoc_primary_phone
-        re_broker_assoc_secondary_phone
+      layer_limit
+      treaty_deduction {
+        treaty_associate_deduction_id
+        commission
+        nic_levy
+        withholding_tax
+        brokerage
+        treaty_period_to
+        treaty_period_from
+      }
+      treaty_to_associates {
+        layer_number
+        sent_status
+        treaty_to_associate_id
+        reinsurer {
+          reinsurer_id
+          re_company_name
+          re_company_email
+        }
+        reinsurer_representative {
+          rep_last_name
+          rep_first_name
+          rep_primary_phonenumber
+          rep_secondary_phonenumber
+          rep_email
+        }
+      }
+      re_broker_treaties_participation {
+        re_broker_treaties_participation_id
+        share_percentage
+        admin_percentage
+        payment_status
         re_broker {
           re_broker_id
           re_broker_name
           re_broker_email
         }
+        surplus_participation {
+          re_broker_treaties_surplus_participation_id
+          share_amount
+          admin_charge
+          treaty_account {
+            treaty_account_id
+            account_periods
+            gross_premium
+            claim_settled
+            cash_loss
+            exchange_rate
+            account_year
+            payment_status
+          }
+        }
       }
-    }
-    treaty_participants {
-      treaty_participation_id
-      treaty_participation_percentage
-      layer_number
-      treaty_participant_payments {
+      treaty_to_broker_associates {
+        participation_to_broker_associate_id
+        sent_status
+        message_content
+        broker_associate {
+          re_broker_associate_id
+          re_broker_assoc_first_name
+          re_broker_assoc_last_name
+          re_broker_assoc_email
+          re_broker_assoc_primary_phone
+          re_broker_assoc_secondary_phone
+          re_broker {
+            re_broker_id
+            re_broker_name
+            re_broker_email
+          }
+        }
+      }
+      treaty_participants {
+        treaty_participation_id
+        treaty_participation_percentage
+        layer_number
+        treaty_participant_payments {
           participant_payment_details
         }
-      treaty_participant_deductions {
+        treaty_participant_deductions {
           treaty_accountstreaty_account_id
           treaty_participant_deduction_id
           uuid
@@ -425,48 +426,47 @@ query treaty($treaty_id: ID) {
           treaty_participation_share
           brokerage_amount
         }
-      reinsurer {
-        re_abbrv
-        reinsurer_id
-        re_company_name
-        re_company_email
-        reinsurer_address {
-          suburb
-          region
-          country
+        reinsurer {
+          re_abbrv
+          reinsurer_id
+          re_company_name
+          re_company_email
+          reinsurer_address {
+            suburb
+            region
+            country
+          }
         }
       }
     }
   }
-}
 `;
 
-
 export const REMOVE_RECEIVABLE_PAYMENT = gql`
-mutation deleteReceivablePayment($id: ID) {
-  deleteReceivablePayment(receivable_payment_id: $id)
-}
-`
+  mutation deleteReceivablePayment($id: ID) {
+    deleteReceivablePayment(receivable_payment_id: $id)
+  }
+`;
 
 export const UPDATE_RECEIVABLE_PAYMENT = gql`
-mutation updatePayment(
-  $receivable_payment_id: ID
-  $receivable_payments: ReceivablePaymentInput
-  $treaty_id:ID
-) {
-  updateReceivablePayment(
-    receivable_payment_id: $receivable_payment_id
-    receivable_payments: $receivable_payments
-    treaty_id:$treaty_id
-  )
-}
-`
+  mutation updatePayment(
+    $receivable_payment_id: ID
+    $receivable_payments: ReceivablePaymentInput
+    $treaty_id: ID
+  ) {
+    updateReceivablePayment(
+      receivable_payment_id: $receivable_payment_id
+      receivable_payments: $receivable_payments
+      treaty_id: $treaty_id
+    )
+  }
+`;
 
 export const REMOVE_ASOCIATE_TREATY = gql`
-mutation removeTreatyAssociate($id: ID) {
-  removeAssociateFromTreaty(treaty_to_associate_id: $id)
-}
-`
+  mutation removeTreatyAssociate($id: ID) {
+    removeAssociateFromTreaty(treaty_to_associate_id: $id)
+  }
+`;
 
 export const SEND_TREATY_EMAIL = gql`
   mutation sendTreatyEmail($data: P_Treaty_data!) {
@@ -475,17 +475,33 @@ export const SEND_TREATY_EMAIL = gql`
 `;
 
 export const CREATE_TREATY_DISTRIBUTION = gql`
-  mutation createTreatyDistribution($ids: [Reinsurer_representative_data], $treaty_id: ID, $layer_number:[Int],$treaty_associate_deduction_id:ID) {
-    createReinsurersDistribution(reinsurer_ids: $ids, treaty_id: $treaty_id,layer_number:$layer_number,treaty_associate_deduction_id:$treaty_associate_deduction_id)
+  mutation createTreatyDistribution(
+    $ids: [Reinsurer_representative_data]
+    $treaty_id: ID
+    $layer_number: [Int]
+    $treaty_associate_deduction_id: ID
+  ) {
+    createReinsurersDistribution(
+      reinsurer_ids: $ids
+      treaty_id: $treaty_id
+      layer_number: $layer_number
+      treaty_associate_deduction_id: $treaty_associate_deduction_id
+    )
   }
 `;
 
 export const ADD_TREATY_PERCENTAGE = gql`
-  mutation addPerctenage($treaty_participation_id: ID, $percentage: Float, $treaty_id:ID, $associate_deduction_id:ID,$layer_number:Int) {
+  mutation addPerctenage(
+    $treaty_participation_id: ID
+    $percentage: Float
+    $treaty_id: ID
+    $associate_deduction_id: ID
+    $layer_number: Int
+  ) {
     addReinsurersParticipationPercentage(
       treaty_participation_id: $treaty_participation_id
       participation_percentage: $percentage
-      treaty_id:$treaty_id
+      treaty_id: $treaty_id
       layer_number: $layer_number
       associate_deduction_id: $associate_deduction_id
     )
@@ -506,26 +522,26 @@ export const UPDATE_QUARTER = gql`
 
 export const REMOVE_REINSURER_FROM_TREATY_PARTICIPATION = gql`
   mutation removeTreatyParticipant($ids: [ID], $id: ID) {
-  removeParticipantFromTreaty(
-    treaty_to_associate_ids: $ids
-    treaty_participant_id: $id
-  )
-}
+    removeParticipantFromTreaty(
+      treaty_to_associate_ids: $ids
+      treaty_participant_id: $id
+    )
+  }
 `;
 
 export const CREATE_AND_UPDATE_PORTFOLIO_STATEMENT = gql`
-mutation createAndUpdatePortfolioStatment(
-  $treaty_proportional_detail_id: ID
-  $overall_gross_premium: Float
-  $losses: Float
-) {
-  createAndUpdatePortfolioStatment(
-    treaty_proportional_detail_id: $treaty_proportional_detail_id
-    overall_gross_premium: $overall_gross_premium
-    losses_outstanding: $losses
-  )
-}
-`
+  mutation createAndUpdatePortfolioStatment(
+    $treaty_proportional_detail_id: ID
+    $overall_gross_premium: Float
+    $losses: Float
+  ) {
+    createAndUpdatePortfolioStatment(
+      treaty_proportional_detail_id: $treaty_proportional_detail_id
+      overall_gross_premium: $overall_gross_premium
+      losses_outstanding: $losses
+    )
+  }
+`;
 
 export const REMOVE_QUARTER = gql`
   mutation removeNote($treaty_account_id: ID) {
@@ -533,17 +549,17 @@ export const REMOVE_QUARTER = gql`
   }
 `;
 export const UPDATE_REINSURER_TREATY_PAYMENT = gql`
-mutation editPayment($id: ID, $payment: PaymentDetails) {
-  updateEachReinsurerPaymentDetails(
-    treaty_participants_payment_id: $id
-    payment: $payment
-  )
-}
-`
+  mutation editPayment($id: ID, $payment: PaymentDetails) {
+    updateEachReinsurerPaymentDetails(
+      treaty_participants_payment_id: $id
+      payment: $payment
+    )
+  }
+`;
 
 export const TREATY_CLAIMS = gql`
   {
-    all_treaties {
+    all_treaties(status: "APPROVED", treaty_type: ["NONPROPORTIONAL"]) {
       treaty_id
       treaty_reference
       currency
@@ -630,51 +646,50 @@ export const TREATY_CLAIMS = gql`
 `;
 
 export const MANUAL_CREATE_CLAIM = gql`
-mutation makeTreatyClaim($id: ID, $claims: [TreatyClaimData]) {
-  manuallyCreateClaims(treaty_id: $id, claims: $claims)
-}
-`
+  mutation makeTreatyClaim($id: ID, $claims: [TreatyClaimData]) {
+    manuallyCreateClaims(treaty_id: $id, claims: $claims)
+  }
+`;
 
 export const UPDATE_PROPORTIONAL_TREATY_PAYMENT = gql`
-mutation updateProportionalPayment($data: PaymentDetails) {
-  updateProportionalPayment(payment: $data)
-}
-`
+  mutation updateProportionalPayment($data: PaymentDetails) {
+    updateProportionalPayment(payment: $data)
+  }
+`;
 
 export const UPDATE_NONPROPORTIONAL_TREATY_PAYMENT = gql`
-mutation updateNonProportionalTreatyPayment($data: PaymentDetails) {
-  updateNonProportionalPayment(payment: $data)
-}
-`
+  mutation updateNonProportionalTreatyPayment($data: PaymentDetails) {
+    updateNonProportionalPayment(payment: $data)
+  }
+`;
 
 export const MODIFY_TREATY_DEDUCTIONS = gql`
-mutation updateReinsurerDeductions(
-  $data: [ReinsurerParticipationUpdate]
-  $account_ids: [ID]
-  $layer: String
-  $isProp: Boolean
-) {
-  updateReinsurerDeductions(
-    data: $data
-    account_ids: $account_ids
-    layer: $layer
-    isProp: $isProp
-  )
-}
-`
+  mutation updateReinsurerDeductions(
+    $data: [ReinsurerParticipationUpdate]
+    $account_ids: [ID]
+    $layer: String
+    $isProp: Boolean
+  ) {
+    updateReinsurerDeductions(
+      data: $data
+      account_ids: $account_ids
+      layer: $layer
+      isProp: $isProp
+    )
+  }
+`;
 
 export const UPDATE_TREATY_CLAIM = gql`
-mutation updateTreatyClaim($id: ID, $claims: TreatyClaimData) {
-  updateClaimCreated(treaty_claim_id: $id, claims: $claims)
-}
-
-`
+  mutation updateTreatyClaim($id: ID, $claims: TreatyClaimData) {
+    updateClaimCreated(treaty_claim_id: $id, claims: $claims)
+  }
+`;
 
 export const DELETE_TREATY_CLAIM = gql`
-mutation removeTreatyClaim($id: ID) {
-  deleteClaimCreated(treaty_claim_id: $id)
-}
-`
+  mutation removeTreatyClaim($id: ID) {
+    deleteClaimCreated(treaty_claim_id: $id)
+  }
+`;
 
 export const UPDATE_LIMIT_LAYER = gql`
   mutation updatelayer($limit: LimitData) {
@@ -682,180 +697,184 @@ export const UPDATE_LIMIT_LAYER = gql`
   }
 `;
 
-
 export const MAKE_PROPORTIONAL_PAYMENT = gql`
-mutation makeProportionalTreatyPayment($input: PaymentDetails) {
-  makeProportionalPayment(payment: $input)
-}
-`
+  mutation makeProportionalTreatyPayment($input: PaymentDetails) {
+    makeProportionalPayment(payment: $input)
+  }
+`;
 
 export const MAKE_NON_PROPORTIONAL_PAYMENT = gql`
-mutation makeNonProportionalTreatyPayment($data:PaymentDetails) {
-  makeNonProportionalPayment(payment:$data)
-}
-`
-
+  mutation makeNonProportionalTreatyPayment($data: PaymentDetails) {
+    makeNonProportionalPayment(payment: $data)
+  }
+`;
 
 export const MAKE_RECEIVABLE_PAYMENT = gql`
-mutation makePayment(
-  $treaty_id: ID
-  $receivable_payments: [ReceivablePaymentInput]
-) {
-  recordReceivablePayment(
-    treaty_id: $treaty_id
-    receivable_payments: $receivable_payments
-  )
-}
-`
+  mutation makePayment(
+    $treaty_id: ID
+    $receivable_payments: [ReceivablePaymentInput]
+  ) {
+    recordReceivablePayment(
+      treaty_id: $treaty_id
+      receivable_payments: $receivable_payments
+    )
+  }
+`;
 
 export const REMOVE_PROPORTIONAL_PAYMENT = gql`
-mutation removeProportionalPayment($id: ID) {
-  removeProportionalPayment(payment_id: $id)
-}
+  mutation removeProportionalPayment($id: ID) {
+    removeProportionalPayment(payment_id: $id)
+  }
 `;
 
 export const REMOVE_NONPROPORTIONAL_PAYMENT = gql`
-mutation removeNonProportionalPayment($id: ID) {
-  removeNonProportionalPayment(payment_id: $id)
-}
+  mutation removeNonProportionalPayment($id: ID) {
+    removeNonProportionalPayment(payment_id: $id)
+  }
 `;
 
 export const UPLOAD_CLAIMS = gql`
-mutation uploadClaims(
-  $treaty_id: ID
-  $layer_number: Int
-  $start_at: Int
-  $custom_headers: String
-  $file: Upload
-) {
-  automateCreateClaims(
-    treaty_id: $treaty_id
-    layer_number: $layer_number
-    start_at: $start_at
-    custom_headers: $custom_headers
-    file: $file
-  )
-}
-
-`
+  mutation uploadClaims(
+    $treaty_id: ID
+    $layer_number: Int
+    $start_at: Int
+    $custom_headers: String
+    $file: Upload
+  ) {
+    automateCreateClaims(
+      treaty_id: $treaty_id
+      layer_number: $layer_number
+      start_at: $start_at
+      custom_headers: $custom_headers
+      file: $file
+    )
+  }
+`;
 
 export const DELETE_TREATY = gql`
-mutation deleteTreaty($id: ID, $treaty_type: TreatyType) {
-  deleteTreaty(treaty_id: $id,treaty_type:$treaty_type)
-}
-`
+  mutation deleteTreaty($id: ID, $treaty_type: TreatyType) {
+    deleteTreaty(treaty_id: $id, treaty_type: $treaty_type)
+  }
+`;
 
 export const DELETE_TREATY_PROGRAM = gql`
-mutation deleteTreatyProgram($id: ID) {
-  deleteTreatyProgram(program_id: $id)
-}
-`
+  mutation deleteTreatyProgram($id: ID) {
+    deleteTreatyProgram(program_id: $id)
+  }
+`;
 
 export const SEND_NP_DEBIT_NOTE = gql`
-mutation sendNpDebitNOte($data: NPTreatyData) {
-  sendNPTreatyDebitNote(nptreatydata: $data)
-}
-`
+  mutation sendNpDebitNOte($data: NPTreatyData) {
+    sendNPTreatyDebitNote(nptreatydata: $data)
+  }
+`;
 
 export const SEND_P_DEBIT_NOTE = gql`
-mutation sendPTreatyDebitNote(
-  $treaty_account_ids: [ID]
-  $treaty_id: ID
-  $email_component: EmailComponent
-) {
-  sendPTreatyDebitNote(
-    treaty_id: $treaty_id
-    email_component: $email_component
-    treaty_account_id: $treaty_account_ids
-  )
-}
-`
+  mutation sendPTreatyDebitNote(
+    $treaty_account_ids: [ID]
+    $treaty_id: ID
+    $email_component: EmailComponent
+  ) {
+    sendPTreatyDebitNote(
+      treaty_id: $treaty_id
+      email_component: $email_component
+      treaty_account_id: $treaty_account_ids
+    )
+  }
+`;
 
 export const SEND_NP_CREDIT_NOTE = gql`
-mutation sendNpCreditNOte($data: NPTreatyData) {
-  sendNPTreatyCreditNote(nptreatydata: $data)
-}
-`
+  mutation sendNpCreditNOte($data: NPTreatyData) {
+    sendNPTreatyCreditNote(nptreatydata: $data)
+  }
+`;
 
 export const SEND_TREATY_CREDIT_AND_STATEMENTS_NOTE = gql`
-mutation sendPTreatyCreditAndStatementNote(
-  $treaty_account_id: [ID]
-  $participant_id: ID
-  $docType:[String]
-  $treaty_id: ID
-  $email_component: EmailComponent
-) {
-  sendPTreatyCreditAndStatementNote(
-    treaty_account_id: $treaty_account_id
-    email_component: $email_component
-    treaty_id: $treaty_id
-    participant_id: $participant_id
-    type: $docType
-  )
-}
-`
+  mutation sendPTreatyCreditAndStatementNote(
+    $treaty_account_id: [ID]
+    $participant_id: ID
+    $docType: [String]
+    $treaty_id: ID
+    $email_component: EmailComponent
+  ) {
+    sendPTreatyCreditAndStatementNote(
+      treaty_account_id: $treaty_account_id
+      email_component: $email_component
+      treaty_id: $treaty_id
+      participant_id: $participant_id
+      type: $docType
+    )
+  }
+`;
 
 export const SEND_TREATY_CLAIM_DEBIT_NOTE = gql`
-mutation SendTreatyClaimDebitNote(
-  $single_document: Int
-  $treaty_participant_id: ID
-  $reinsurer_id: ID
-  $paged: Int
-  $treaty_id: ID
-  $email_component: EmailComponent
-) {
-  sendTreatyClaimDebitNote(
-    treaty_id: $treaty_id
-    email_component: $email_component
-    single_document: $single_document
-    reinsurer_id: $reinsurer_id
-    paged: $paged
-    treaty_participant_id: $treaty_participant_id
-  )
-}
-`
+  mutation SendTreatyClaimDebitNote(
+    $single_document: Int
+    $treaty_participant_id: ID
+    $reinsurer_id: ID
+    $paged: Int
+    $treaty_id: ID
+    $email_component: EmailComponent
+  ) {
+    sendTreatyClaimDebitNote(
+      treaty_id: $treaty_id
+      email_component: $email_component
+      single_document: $single_document
+      reinsurer_id: $reinsurer_id
+      paged: $paged
+      treaty_participant_id: $treaty_participant_id
+    )
+  }
+`;
 
 export const CREATE_ADJUSTMENT_STATEMENT = gql`
-mutation createAdjustment($treaty_id: ID, $outstanding_payment:Float, $claim_paid:Float,$treaty_np_detail_id:ID) {
-  createOrUpdateAdjustmentStatment(
-    treaty_id: $treaty_id,
-    claims_paid:$claim_paid, 
-    outstanding_payment:$outstanding_payment,
-    treaty_np_detail_id:$treaty_np_detail_id
+  mutation createAdjustment(
+    $treaty_id: ID
+    $outstanding_payment: Float
+    $claim_paid: Float
+    $treaty_np_detail_id: ID
+  ) {
+    createOrUpdateAdjustmentStatment(
+      treaty_id: $treaty_id
+      claims_paid: $claim_paid
+      outstanding_payment: $outstanding_payment
+      treaty_np_detail_id: $treaty_np_detail_id
     )
-}
-`
+  }
+`;
 
 export const DELETE_ADJUSTMENT_STATEMENT = gql`
-mutation deleteAdjustmentStatment($treaty_id: ID, $treaty_np_detail_id: ID) {
-  deleteAdjustmentStatment(
-    treaty_id: $treaty_id
-    treaty_np_detail_id: $treaty_np_detail_id
-  )
-}
-`
-
-
-
+  mutation deleteAdjustmentStatment($treaty_id: ID, $treaty_np_detail_id: ID) {
+    deleteAdjustmentStatment(
+      treaty_id: $treaty_id
+      treaty_np_detail_id: $treaty_np_detail_id
+    )
+  }
+`;
 
 export const REINSURER_PROPORTIONAL_TREATY_PAYMENTS = gql`
-query treatyReinsurerAccountsPayment($treaty_id:ID, $treaty_participation_id:ID){
-  treatyReinsurerAccountsPayment(treaty_id:$treaty_id, treaty_participation_id:$treaty_participation_id){
-    treaty_account_id
-    account_periods
-    gross_premium
-    claim_settled
-    treaty_p_payments {
-      treaty_p_payment_id
-      treaty_payment_amount
-      treaty_payment_details
-      treaty_payment_comment
-      created_at
-      updated_at
-      surpulus_uuid
-      treaty_accountstreaty_account_id
+  query treatyReinsurerAccountsPayment(
+    $treaty_id: ID
+    $treaty_participation_id: ID
+  ) {
+    treatyReinsurerAccountsPayment(
+      treaty_id: $treaty_id
+      treaty_participation_id: $treaty_participation_id
+    ) {
+      treaty_account_id
+      account_periods
+      gross_premium
+      claim_settled
+      treaty_p_payments {
+        treaty_p_payment_id
+        treaty_payment_amount
+        treaty_payment_details
+        treaty_payment_comment
+        created_at
+        updated_at
+        surpulus_uuid
+        treaty_accountstreaty_account_id
+      }
     }
   }
-}
-
-`
+`;
