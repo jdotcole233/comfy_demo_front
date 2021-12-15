@@ -132,7 +132,7 @@ const SendReinsurerDocuments = ({
       closeOnClickOutside: false,
       closeOnEsc: false,
       icon: "warning",
-      title: "Are you sure you want to send this mail?",
+      title: `Are you sure? You want to send this credit note to ${reinsurer?.reinsurer?.re_company_name}?`,
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;
@@ -177,7 +177,7 @@ const SendReinsurerDocuments = ({
       closeOnClickOutside: false,
       closeOnEsc: false,
       icon: "warning",
-      title: "Are you sure you want to send this mail?",
+      title: `Are you sure? You want to send this closing slip to ${reinsurer?.reinsurer?.re_company_name}?`,
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;

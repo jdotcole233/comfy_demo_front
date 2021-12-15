@@ -39,8 +39,8 @@ const Treaty = ({ treaty }) => {
           <div className="row">
             <div
               className={`col-md-2 d-flex justify-content-center align-items-center ${treaty?.treaty_type === "PROPORTIONAL"
-                  ? "text-primary"
-                  : "text-warning"
+                ? "text-primary"
+                : "text-warning"
                 }`}
             >
               <BsCollection size={80} />
