@@ -46,7 +46,7 @@ const Header = ({ closedOffers, endorsements, treaties }) => {
                             <div className="card-body">
                                 <div className="media">
                                     <div className="media-body">
-                                        <p className="text-muted font-weight-medium">Total unapproved offers</p>
+                                        <p className="text-muted font-weight-medium">Total unapproved Treaties</p>
                                         <h4 className="mb-0">{treaties?.length}</h4>
                                     </div>
 

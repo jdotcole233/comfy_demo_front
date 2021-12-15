@@ -55,9 +55,8 @@ const EffectedWithListingAssociates = ({
                         className="nav-item btn"
                       >
                         <div
-                          className={`nav-link ${
-                            parseInt(_) === currentIndex ? "active" : ""
-                          }`}
+                          className={`nav-link ${parseInt(_) === currentIndex ? "active" : ""
+                            }`}
                           href="#"
                         >{`Layer ${_}`}</div>
                       </li>
