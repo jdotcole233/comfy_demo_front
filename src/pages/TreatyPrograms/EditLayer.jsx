@@ -90,7 +90,7 @@ function EditLayer({ index, layer, insurer, treaty, percentage, _layers }) {
       >
         Edit
       </button>
-      {percentage >= 100 && (
+      {percentage >= parseFloat(treaty?.order_hereon) && (
         <button
           onClick={() => setShowSendingNoteDrawer((prev) => !prev)}
           className="btn btn-primary btn-sm w-md mr-2"
@@ -98,7 +98,7 @@ function EditLayer({ index, layer, insurer, treaty, percentage, _layers }) {
           Send Debit Note{" "}
         </button>
       )}
-      {percentage >= 100 && (
+      {percentage >= parseFloat(treaty?.order_hereon) && (
         <button
           onClick={() => setShowDrawer(true)}
           className="btn btn-success btn-sm w-md"
@@ -186,7 +186,7 @@ function EditLayer({ index, layer, insurer, treaty, percentage, _layers }) {
         {showDrawer && (
           <LayerDebitNote
             index={index}
-            percentage={100 - parseFloat(percentage)}
+            percentage={parseFloat(treaty?.order_hereon) - parseFloat(percentage)}
             insurer={insurer}
             treaty={treaty}
             layer={layers}
@@ -212,7 +212,7 @@ function EditLayer({ index, layer, insurer, treaty, percentage, _layers }) {
           <SendNonproportionalNote
             setShow={setShowSendingNoteDrawer}
             limit={layers.limit}
-            total_participation_percentage={100 - percentage}
+            total_participation_percentage={parseFloat(treaty?.order_hereon) - percentage}
             installment_type={layers.installment_type}
             m_and_d_premium={layers.m_and_d_premium}
             layer={index}

@@ -147,7 +147,7 @@ function EffectedWithListing({
                   <CircularProgressbarWithChildren
                     value={remainingPercentage[currentIndex]}
                     strokeWidth={10}
-                    maxValue={100}
+                    maxValue={parseFloat(treaty?.order_hereon)}
                     // text={`${showingFacOffer.toFixed(5)}%`}
                     styles={buildStyles({
                       // Rotation of path and trail, in number of turns (0-1)
