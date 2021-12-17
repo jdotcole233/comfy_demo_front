@@ -79,9 +79,9 @@ const OfferDetails = ({ data }) => {
               label="Comission"
               value={` 
                                 ${data?.findSingleOffer?.commission.toLocaleString(
-                                  undefined,
-                                  { maximumFractionDigits: 2 }
-                                )}%`}
+                undefined,
+                { maximumFractionDigits: 2 }
+              )}%`}
             />
 
             <OfferDeatilsRow
@@ -94,43 +94,41 @@ const OfferDetails = ({ data }) => {
             />
             <OfferDeatilsRow
               label="Premium"
-              value={`${
-                data?.findSingleOffer?.exchange_rate?.ex_currency ||
+              value={`${data?.findSingleOffer?.exchange_rate?.ex_currency ||
                 data?.findSingleOffer?.offer_detail.currency
-              } 
+                } 
                                 ${data?.findSingleOffer?.premium.toLocaleString(
-                                  undefined,
-                                  { maximumFractionDigits: 2 }
-                                )}`}
+                  undefined,
+                  { maximumFractionDigits: 2 }
+                )}`}
             />
 
             <OfferDeatilsRow
               label="Sum Insured"
               value={`${data?.findSingleOffer?.offer_detail.currency} 
                                 ${data?.findSingleOffer?.sum_insured.toLocaleString(
-                                  undefined,
-                                  { maximumFractionDigits: 2 }
-                                )}`}
+                undefined,
+                { maximumFractionDigits: 2 }
+              )}`}
             />
 
             <OfferDeatilsRow
               label="Fac. Sum Insured"
               value={`${data?.findSingleOffer?.offer_detail.currency} 
                                 ${data?.findSingleOffer?.fac_sum_insured.toLocaleString(
-                                  undefined,
-                                  { maximumFractionDigits: 2 }
-                                )}`}
+                undefined,
+                { maximumFractionDigits: 2 }
+              )}`}
             />
             <OfferDeatilsRow
               label="Fac. Premium"
-              value={`${
-                data?.findSingleOffer?.exchange_rate?.ex_currency ||
+              value={`${data?.findSingleOffer?.exchange_rate?.ex_currency ||
                 data?.findSingleOffer?.offer_detail.currency
-              } 
+                } 
                                 ${data?.findSingleOffer?.fac_premium.toLocaleString(
-                                  undefined,
-                                  { maximumFractionDigits: 2 }
-                                )}`}
+                  undefined,
+                  { maximumFractionDigits: 2 }
+                )}`}
             />
           </div>
         </div>

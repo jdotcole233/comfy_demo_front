@@ -24,15 +24,23 @@ const TreeatyMessages = ({ treaty }: Props) => {
         width={"40%"}
         toggle={() => setShowMessages(false)}
       >
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Treaty Detail</h5>
-            <p className="card-text">
-              The currency of the treaty is the currency of the country that is
-              signing the treaty.
-            </p>
-          </div>
-        </div>
+        <fieldset className="border-form mb-2">
+          <legend className={`text-xl font-light`}>
+            Treaty Details [{treaty?.treaty_reference}]
+          </legend>
+          <table className="table">
+            <tbody>
+              <tr style={{ margin: 0, lineHeight: 0 }}>
+                <td>Insurance company</td>
+                <td>{treaty?.insurer?.insurer_company_name} </td>
+              </tr>
+              <tr style={{ margin: 0 }}>
+                <td>Class of business</td>
+                <td>{treaty?.treaty_program?.treaty_name} </td>
+              </tr>
+            </tbody>
+          </table>
+        </fieldset>
         <CommentChatBox
           userComments={[]}
           comments={treaty?.treaty_document_messages}
