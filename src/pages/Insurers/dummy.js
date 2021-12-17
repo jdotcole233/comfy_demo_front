@@ -1,4 +1,3 @@
-
 export default {
   columns: [
     {
@@ -128,7 +127,6 @@ export const managersColumn = [
   },
 ];
 
-
 export const buildPayload = (data = []) => {
   const details = data.map((el) => ({
     offer_participant_payment_id: el.offer_participant_id,
@@ -145,7 +143,6 @@ export const buildPayload = (data = []) => {
 
   return details;
 };
-
 
 export const treatyColumns = [
   {
@@ -173,6 +170,10 @@ export const treatyColumns = [
     field: "currency",
   },
   {
+    label: "Approval Status",
+    field: "approval_status",
+  },
+  {
     label: "Payment Status",
     field: "treaty_payment_status",
   },
@@ -182,8 +183,7 @@ export const treatyColumns = [
   },
 ];
 
-
 export const programTypeOptions = [
   { label: "Proportional", value: "PROPORTIONAL" },
   { label: "Nonproportional", value: "NONPROPORTIONAL" },
-]
+];

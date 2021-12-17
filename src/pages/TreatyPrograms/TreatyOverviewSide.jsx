@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import moment from "moment";
 import TreatyCurrency from "../ViewTreaty/components/TreatyCurrency";
+import TreeatyMessages from "../ViewTreaty/components/TreeatyMessages";
 // import { Drawer } from '../../components'
 // import SendNote from './SendNote'
 // import SendNonproportionalNote from './SendNonproportionalNote'
@@ -12,6 +13,7 @@ export default function TreatyOverviewSide({ treaty }) {
         <div className="card-header">
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="card-title">Treaty Overview</h4>
+            <TreeatyMessages treaty={treaty} />
             <TreatyCurrency treaty={treaty} />
           </div>
         </div>

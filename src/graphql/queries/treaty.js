@@ -255,6 +255,20 @@ export const TREATY = gql`
         treaty_name
         treaty_type
       }
+
+      # Document Messages
+      treaty_document_messages {
+        document_message
+        treatiestreaty_id
+        employeesemployee_id
+        employee {
+          employee_last_name
+          employee_first_name
+          emp_abbrv
+        }
+        created_at
+      }
+
       treaty_proportional_detail {
         treaty_proportional_detail_id
         profit_commission

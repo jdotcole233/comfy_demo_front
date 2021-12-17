@@ -48,6 +48,17 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
               {treaty.treaty_payment_status}
             </span>
           ),
+          approval_status: (
+            <span
+              style={{ letterSpacing: 5, padding: 3 }}
+              className={`badge badge-soft-${treaty?.approval_status === "APPROVED"
+                ? "success"
+                : "danger"
+                } font-size - 11`}
+            >
+              {treaty.approval_status}
+            </span>
+          ),
           actions: (
             <TreatyButtons
               refetch={refetch}
@@ -87,24 +98,24 @@ const InsurerDetialsTreaties = ({ refetch, insurer = {} }) => {
                   <button
                     onClick={() => setStatus("UNPAID")}
                     type="button"
-                    className={`btn btn-${status !== "UNPAID" ? "secondary" : "success"
-                      }`}
+                    className={`btn btn - ${status !== "UNPAID" ? "secondary" : "success"
+                      } `}
                   >
                     Unpaid
                   </button>
                   <button
                     onClick={() => setStatus("PARTPAYMENT")}
                     type="button"
-                    className={`btn btn-${status !== "PARTPAYMENT" ? "secondary" : "success"
-                      }`}
+                    className={`btn btn - ${status !== "PARTPAYMENT" ? "secondary" : "success"
+                      } `}
                   >
                     Partpayment
                   </button>
                   <button
                     onClick={() => setStatus("PAID")}
                     type="button"
-                    className={`btn btn-${status !== "PAID" ? "secondary" : "success"
-                      }`}
+                    className={`btn btn - ${status !== "PAID" ? "secondary" : "success"
+                      } `}
                   >
                     Paid
                   </button>

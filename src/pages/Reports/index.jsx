@@ -120,8 +120,8 @@ function Reports() {
         clientType === "Reinsurer"
           ? [...reinsurerTable.map((el) => el.label)]
           : clientType === "All"
-          ? [...allTable.map((el) => el.label)]
-          : [...insurerTable.map((el) => el.label)],
+            ? [...allTable.map((el) => el.label)]
+            : [...insurerTable.map((el) => el.label)],
       ],
       body: [
         ...printData.map((el) =>
@@ -131,8 +131,8 @@ function Reports() {
               clientType === "Reinsurer"
                 ? [...reinsurerTable.map((el) => el.field)]
                 : clientType === "All"
-                ? [...allTable.map((el) => el.field)]
-                : [...insurerTable.map((el) => el.field)]
+                  ? [...allTable.map((el) => el.field)]
+                  : [...insurerTable.map((el) => el.field)]
             )
           )
         ),
@@ -159,7 +159,7 @@ function Reports() {
         if (!input) throw {};
         doc.save(`${input}.pdf`);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const options = {
@@ -268,8 +268,8 @@ function Reports() {
       "business_id",
       value
         ? JSON.stringify([
-            ...value.map((value) => value.value.class_of_business_id),
-          ])
+          ...value.map((value) => value.value.class_of_business_id),
+        ])
         : ""
     );
   };
@@ -279,8 +279,8 @@ function Reports() {
       "client_id",
       value
         ? value.value[
-            clientType === "Reinsurer" ? "reinsurer_id" : "insurer_id"
-          ]
+        clientType === "Reinsurer" ? "reinsurer_id" : "insurer_id"
+        ]
         : ""
     );
   };
@@ -390,13 +390,12 @@ function Reports() {
         offer_status: (
           <span
             style={{ letterSpacing: 3 }}
-            className={`badge badge-${
-              report.offer_status === "OPEN"
+            className={`badge badge-${report.offer_status === "OPEN"
                 ? "primary"
                 : report.offer_status === "PENDING"
-                ? "danger"
-                : "success"
-            } font-size-11`}
+                  ? "danger"
+                  : "success"
+              } font-size-11`}
           >
             {report.offer_status}
           </span>
@@ -404,13 +403,12 @@ function Reports() {
         payment_status: (
           <span
             style={{ letterSpacing: 5, padding: 3 }}
-            className={`badge badge-${
-              report.payment_status === "PARTPAYMENT"
+            className={`badge badge-${report.payment_status === "PARTPAYMENT"
                 ? "primary"
                 : report.payment_status === "UNPAID"
-                ? "danger"
-                : "success"
-            } font-size-11`}
+                  ? "danger"
+                  : "success"
+              } font-size-11`}
           >
             {report.payment_status}
           </span>
@@ -451,7 +449,7 @@ function Reports() {
     const variables = { data: obj };
     generate({ variables })
       .then((res) => handleSuccessFulGeneration(res))
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const showData = queryData.length ? true : false;
@@ -894,8 +892,8 @@ function Reports() {
                   clientType === "Reinsurer"
                     ? reinsurerTable
                     : clientType === "All"
-                    ? allTable
-                    : insurerTable
+                      ? allTable
+                      : insurerTable
                 }
                 data={queryData}
               />

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import moment from "moment";
 
-const CommentChatBox = ({ onChange, comments, userComments, height = 400 }) => {
+const CommentChatBox = ({ onChange, comments, userComments, height = 400, disabled = false }) => {
   const [comment, setComment] = useState("");
   const chatBoxRef = useRef();
 
@@ -54,6 +54,7 @@ const CommentChatBox = ({ onChange, comments, userComments, height = 400 }) => {
           <div className="input-group-append">
             <button
               onClick={() => handleOnchange(comment)}
+              disabled={disabled}
               className="btn btn-success"
               type="button"
             >

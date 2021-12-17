@@ -14,6 +14,7 @@ export const offerStatusOptions = [
 export const periodStatus = [
   { label: "ACTIVE", value: "ACTIVE" },
   { label: "EXPIRED", value: "EXPIRED" },
+  { label: "EXPIRING", value: "EXPIRING" },
 ];
 
 export const insurerTable = [

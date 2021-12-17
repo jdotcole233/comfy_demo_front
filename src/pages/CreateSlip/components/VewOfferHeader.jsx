@@ -12,14 +12,14 @@ const VewOfferHeader = ({ data }) => {
                         <h4 className="mb-0 font-size-18">
                             Policy Number:{" "}
                             {data?.findSingleOffer.offer_detail.policy_number} - Offer
-                Status:{" "}
+                            Status:{" "}
                             <span
                                 style={{ letterSpacing: 5 }}
                                 className={`badge w-md badge-${data?.findSingleOffer.offer_status === "OPEN"
-                                        ? "primary"
-                                        : data?.findSingleOffer.offer_status === "CLOSED"
-                                            ? "success"
-                                            : "warning"
+                                    ? "primary"
+                                    : data?.findSingleOffer.offer_status === "CLOSED"
+                                        ? "success"
+                                        : "warning"
                                     } p-1 font-size-11`}
                             >
                                 {data.findSingleOffer.offer_status}

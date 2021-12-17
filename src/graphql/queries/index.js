@@ -977,6 +977,7 @@ export const INSURER = gql`
     order_hereon
     currency
     treaty_payment_status
+    approval_status
 
     receivable_payments {
       receivable_payment_id
