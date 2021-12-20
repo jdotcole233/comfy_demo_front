@@ -35,7 +35,7 @@ const TreeatyMessages = ({ treaty }: Props) => {
                 <td>{treaty?.insurer?.insurer_company_name} </td>
               </tr>
               <tr style={{ margin: 0 }}>
-                <td>Class of business</td>
+                <td>Treaty Program</td>
                 <td>{treaty?.treaty_program?.treaty_name} </td>
               </tr>
             </tbody>
