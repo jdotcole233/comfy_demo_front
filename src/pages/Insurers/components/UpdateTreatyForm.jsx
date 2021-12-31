@@ -195,13 +195,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
     }
   };
 
-  const handleCommentChange = (value) => {
-    setValue("treaty_comment", value);
-    setContent(value);
-    if (value) {
-      clearError("treaty_comment");
-    }
-  };
+
 
   useEffect(() => {
     if (selectedPeriod) {
@@ -229,6 +223,23 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
       );
     }
   }, [selectedProgram]);
+
+  useEffect(() => {
+    if (selectedProgram) {
+      console.log(selectedProgram);
+      const _periods = selectedProgram.value.treaty_associate_deductions?.map(
+        (el) => ({
+          label: `${moment(el.treaty_period_from).format(
+            "Do MMMM YYYY"
+          )}  to  ${moment(el.treaty_period_to).format("Do MMMM YYYY")}`,
+          value: el,
+        })
+      );
+      setSelectedPeriod(null);
+      setTreaty_periods(_periods);
+    }
+  }, [selectedProgram, deductionCreated]);
+
   const onSubmitDeductionForm = (values) => {
     // alert(JSON.stringify(values))
     swal({
@@ -262,13 +273,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
     });
   };
 
-  const handleDetailsChange = (e, index) => {
-    const { value } = e.target;
-    const inputs = [...treatyDetials];
-    inputs[index]["value"] = value;
-    console.log(inputs[index]);
-    setTreatyDetials(inputs);
-  };
+
 
   const onSubmitTreatyForm = (values) => {
     const variables = prepTreatyValues(
@@ -389,16 +394,9 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
     setSurpluses((prev) => [...prev, surplus]);
   };
 
-  const handlePeriodChange = (program) => {
-    // _form.setValue(
-    //   "treaty_programstreaty_program_id",
-    //   program ? program.value.treaty_program_id : ""
-    // );
-    setSelectedPeriod(program ? program : null);
-    // if (program) {
-    //   _form.clearError("treaty_programstreaty_program_id");
-    // }
-  };
+  const handlePeriodChange = (program) => setSelectedPeriod(program ? program : null);
+
+
 
   const handleAddNew = () => {
     setSelectedPeriod(null);
@@ -594,9 +592,9 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             )}
           <div
             className={`col-md-${selectedProgramType &&
-                selectedProgramType?.value === "PROPORTIONAL"
-                ? "6"
-                : "12"
+              selectedProgramType?.value === "PROPORTIONAL"
+              ? "6"
+              : "12"
               }`}
           >
             <div className="form-group">
