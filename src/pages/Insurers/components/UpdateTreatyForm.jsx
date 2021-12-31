@@ -226,7 +226,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
 
   useEffect(() => {
     if (selectedProgram) {
-      console.log(selectedProgram);
+      // console.log(selectedProgram);
       const _periods = selectedProgram.value.treaty_associate_deductions?.map(
         (el) => ({
           label: `${moment(el.treaty_period_from).format(
