@@ -9,11 +9,11 @@ import {
 import { OFFERS } from "../../../graphql/queries";
 import { ENDORSEMENTS } from "../../../graphql/queries/endorsements";
 import { TREATY_CLAIMS } from "../../../graphql/queries/treaties";
-import { unapporvedTreatyClaims_all_treaties } from "../../../graphql/queries/__generated__/unapporvedTreatyClaims";
+import { UnapporvedTreatyClaims_all_treaties } from "../../../graphql/queries/__generated__/unapporvedTreatyClaims";
 import CommentChatBox from "../CommentChatBox";
 
 interface Props {
-  treaty: unapporvedTreatyClaims_all_treaties;
+  treaty: UnapporvedTreatyClaims_all_treaties;
   setShow?: any;
 }
 

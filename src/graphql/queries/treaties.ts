@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const TREATY_CLAIMS = gql`
-  query unapporvedTreatyClaims($status: String, $treaty_type: [String]) {
+  query UnapporvedTreatyClaims($status: String, $treaty_type: [String]) {
     all_treaties(status: $status, treaty_type: $treaty_type) {
       treaty_id
       treaty_reference

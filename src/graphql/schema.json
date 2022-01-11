@@ -3143,6 +3143,18 @@
             "deprecationReason": null
           },
           {
+            "name": "approval_status",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "treaty_payment_status",
             "description": null,
             "args": [],

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const TREATIES = gql`
-  {
+  query TreatyPrograms {
     treatyPrograms {
       treaty_program_id
       insurer {
@@ -25,31 +25,31 @@ export const TREATIES = gql`
 `;
 
 export const CREATE_TREATY = gql`
-  mutation createTreatyProgram($program: TreatyProgramData) {
+  mutation CreateTreatyProgram($program: TreatyProgramData) {
     createTreatyProgram(program: $program)
   }
 `;
 
 export const UPDATE_TREATY = gql`
-  mutation updateTreaty($program: TreatyProgramData, $id: ID) {
+  mutation UpdateTreaty($program: TreatyProgramData, $id: ID) {
     updateTreatyProgram(program: $program, program_id: $id)
   }
 `;
 
 export const ADD_DEDUCTION_TO_TREATY = gql`
-  mutation createDeductionForTreaty($deductions: TreatyAssociateDeductionData) {
+  mutation CreateDeductionForTreaty($deductions: TreatyAssociateDeductionData) {
     createTreatyProgramAssociateDeductions(deductions: $deductions)
   }
 `;
 
 export const DELETE_TREATY_DEDUCTION = gql`
-  mutation deleteDeudction($id: ID) {
+  mutation DeleteDeudction($id: ID) {
     deleteTreatyProgramAssociateDeductions(deduction_id: $id)
   }
 `;
 
 export const UPDATE_TREATY_DEDUCTION = gql`
-  mutation updateDeduction(
+  mutation UpdateDeduction(
     $deductions: TreatyAssociateDeductionData
     $deduction_id: ID
   ) {
@@ -61,7 +61,7 @@ export const UPDATE_TREATY_DEDUCTION = gql`
 `;
 
 export const INSURER_TREATY_PROGRAMS = gql`
-  query insurerTreatyPrograms($id: ID) {
+  query InsurerTreatyPrograms($id: ID) {
     insurerTreatyProgram(insurer_id: $id) {
       treaty_name
       treaty_details
@@ -81,13 +81,13 @@ export const INSURER_TREATY_PROGRAMS = gql`
 `;
 
 export const CREATE_TREATY_FOR_INSURER = gql`
-  mutation createTreaty($treaty: TreatyData) {
+  mutation CreateTreaty($treaty: TreatyData) {
     createTreaty(treaty: $treaty)
   }
 `;
 
 export const INSURER_TREATIES = gql`
-  query treaties($id: ID) {
+  query InsurerTreaties($id: ID) {
     treaties(insurer_id: $id) {
       treaty_id
       treaty_reference
@@ -116,7 +116,7 @@ export const INSURER_TREATIES = gql`
       treaty_p_payments {
         created_at
         updated_at
-        treaty_payment_id
+        treaty_p_payment_id
         treaty_payment_details
         treaty_payment_comment
         treaty_payment_amount
@@ -192,7 +192,7 @@ export const INSURER_TREATIES = gql`
 `;
 
 export const DISTRIBUTE_PAYMENT_FOR_TREATY = gql`
-  mutation distributePaymentForTreaty(
+  mutation DistributePaymentForTreaty(
     $id: ID
     $data: [TreatyPaymentDistribution]
   ) {
@@ -201,13 +201,13 @@ export const DISTRIBUTE_PAYMENT_FOR_TREATY = gql`
 `;
 
 export const UPDATE_INSURER_TREATY = gql`
-  mutation updateInsurerTreaty($treaty: TreatyData, $treaty_id: ID) {
+  mutation UpdateInsurerTreaty($treaty: TreatyData, $treaty_id: ID) {
     updateTreaty(treaty: $treaty, treaty_id: $treaty_id)
   }
 `;
 
 export const TREATY_ACCOUNTS = gql`
-  query FetchTreatyAccounts(
+  query TreatyAccounts(
     $insurer_id: ID
     $treaty_program_name: String
     $treaty_period_from: Date
@@ -240,7 +240,7 @@ export const TREATY_ACCOUNTS = gql`
 `;
 
 export const TREATY = gql`
-  query treaty($treaty_id: ID) {
+  query Treaty($treaty_id: ID) {
     treaty(treaty_id: $treaty_id) {
       treaty_id
       treaty_details
@@ -457,13 +457,13 @@ export const TREATY = gql`
 `;
 
 export const REMOVE_RECEIVABLE_PAYMENT = gql`
-  mutation deleteReceivablePayment($id: ID) {
+  mutation DeleteReceivablePayment($id: ID) {
     deleteReceivablePayment(receivable_payment_id: $id)
   }
 `;
 
 export const UPDATE_RECEIVABLE_PAYMENT = gql`
-  mutation updatePayment(
+  mutation UpdatePayment(
     $receivable_payment_id: ID
     $receivable_payments: ReceivablePaymentInput
     $treaty_id: ID
@@ -477,19 +477,19 @@ export const UPDATE_RECEIVABLE_PAYMENT = gql`
 `;
 
 export const REMOVE_ASOCIATE_TREATY = gql`
-  mutation removeTreatyAssociate($id: ID) {
+  mutation RemoveTreatyAssociate($id: ID) {
     removeAssociateFromTreaty(treaty_to_associate_id: $id)
   }
 `;
 
-export const SEND_TREATY_EMAIL = gql`
-  mutation sendTreatyEmail($data: P_Treaty_data!) {
-    sendTreatyEmail(email_data: $data)
-  }
-`;
+// export const SEND_TREATY_EMAIL = gql`
+//   mutation SendTreatyEmail($data: P_Treaty_data!) {
+//     sendTreatyEmail(email_data: $data)
+//   }
+// `;
 
 export const CREATE_TREATY_DISTRIBUTION = gql`
-  mutation createTreatyDistribution(
+  mutation CreateTreatyDistribution(
     $ids: [Reinsurer_representative_data]
     $treaty_id: ID
     $layer_number: [Int]
@@ -505,7 +505,7 @@ export const CREATE_TREATY_DISTRIBUTION = gql`
 `;
 
 export const ADD_TREATY_PERCENTAGE = gql`
-  mutation addPerctenage(
+  mutation AddTreatyPerctenage(
     $treaty_participation_id: ID
     $percentage: Float
     $treaty_id: ID
@@ -523,19 +523,19 @@ export const ADD_TREATY_PERCENTAGE = gql`
 `;
 
 export const ADD_QUARTER = gql`
-  mutation createQuarter($data: TreatyAccountData) {
+  mutation CreateQuarter($data: TreatyAccountData) {
     addQuarterForTreaty(treaty_account: $data)
   }
 `;
 
 export const UPDATE_QUARTER = gql`
-  mutation updateQuarter($data: TreatyAccountData, $id: ID) {
+  mutation UpdateQuarter($data: TreatyAccountData, $id: ID) {
     updateQuarterForTreaty(treaty_account: $data, treaty_account_id: $id)
   }
 `;
 
 export const REMOVE_REINSURER_FROM_TREATY_PARTICIPATION = gql`
-  mutation removeTreatyParticipant($ids: [ID], $id: ID) {
+  mutation RemoveTreatyParticipant($ids: [ID], $id: ID) {
     removeParticipantFromTreaty(
       treaty_to_associate_ids: $ids
       treaty_participant_id: $id
@@ -544,7 +544,7 @@ export const REMOVE_REINSURER_FROM_TREATY_PARTICIPATION = gql`
 `;
 
 export const CREATE_AND_UPDATE_PORTFOLIO_STATEMENT = gql`
-  mutation createAndUpdatePortfolioStatment(
+  mutation CreateAndUpdatePortfolioStatment(
     $treaty_proportional_detail_id: ID
     $overall_gross_premium: Float
     $losses: Float
@@ -558,12 +558,12 @@ export const CREATE_AND_UPDATE_PORTFOLIO_STATEMENT = gql`
 `;
 
 export const REMOVE_QUARTER = gql`
-  mutation removeNote($treaty_account_id: ID) {
+  mutation RemoveNote($treaty_account_id: ID) {
     removeQuarterForTreaty(treaty_account_id: $treaty_account_id)
   }
 `;
 export const UPDATE_REINSURER_TREATY_PAYMENT = gql`
-  mutation editPayment($id: ID, $payment: PaymentDetails) {
+  mutation EditReinsurerTreatyPayment($id: ID, $payment: PaymentDetails) {
     updateEachReinsurerPaymentDetails(
       treaty_participants_payment_id: $id
       payment: $payment
@@ -572,7 +572,7 @@ export const UPDATE_REINSURER_TREATY_PAYMENT = gql`
 `;
 
 export const TREATY_CLAIMS = gql`
-  {
+  query TreatyClaims {
     all_treaties(status: "APPROVED", treaty_type: ["NONPROPORTIONAL"]) {
       treaty_id
       treaty_reference
@@ -660,25 +660,25 @@ export const TREATY_CLAIMS = gql`
 `;
 
 export const MANUAL_CREATE_CLAIM = gql`
-  mutation makeTreatyClaim($id: ID, $claims: [TreatyClaimData]) {
+  mutation MakeTreatyClaim($id: ID, $claims: [TreatyClaimData]) {
     manuallyCreateClaims(treaty_id: $id, claims: $claims)
   }
 `;
 
 export const UPDATE_PROPORTIONAL_TREATY_PAYMENT = gql`
-  mutation updateProportionalPayment($data: PaymentDetails) {
+  mutation UpdateProportionalPayment($data: PaymentDetails) {
     updateProportionalPayment(payment: $data)
   }
 `;
 
 export const UPDATE_NONPROPORTIONAL_TREATY_PAYMENT = gql`
-  mutation updateNonProportionalTreatyPayment($data: PaymentDetails) {
+  mutation UpdateNonProportionalTreatyPayment($data: PaymentDetails) {
     updateNonProportionalPayment(payment: $data)
   }
 `;
 
 export const MODIFY_TREATY_DEDUCTIONS = gql`
-  mutation updateReinsurerDeductions(
+  mutation UpdateReinsurerDeductions(
     $data: [ReinsurerParticipationUpdate]
     $account_ids: [ID]
     $layer: String
@@ -694,37 +694,37 @@ export const MODIFY_TREATY_DEDUCTIONS = gql`
 `;
 
 export const UPDATE_TREATY_CLAIM = gql`
-  mutation updateTreatyClaim($id: ID, $claims: TreatyClaimData) {
+  mutation UpdateTreatyClaim($id: ID, $claims: TreatyClaimData) {
     updateClaimCreated(treaty_claim_id: $id, claims: $claims)
   }
 `;
 
 export const DELETE_TREATY_CLAIM = gql`
-  mutation removeTreatyClaim($id: ID) {
+  mutation RemoveTreatyClaim($id: ID) {
     deleteClaimCreated(treaty_claim_id: $id)
   }
 `;
 
 export const UPDATE_LIMIT_LAYER = gql`
-  mutation updatelayer($limit: LimitData) {
+  mutation Updatelayer($limit: LimitData) {
     updateLimitLayer(limit: $limit)
   }
 `;
 
 export const MAKE_PROPORTIONAL_PAYMENT = gql`
-  mutation makeProportionalTreatyPayment($input: PaymentDetails) {
+  mutation MakeProportionalTreatyPayment($input: PaymentDetails) {
     makeProportionalPayment(payment: $input)
   }
 `;
 
 export const MAKE_NON_PROPORTIONAL_PAYMENT = gql`
-  mutation makeNonProportionalTreatyPayment($data: PaymentDetails) {
+  mutation MakeNonProportionalTreatyPayment($data: PaymentDetails) {
     makeNonProportionalPayment(payment: $data)
   }
 `;
 
 export const MAKE_RECEIVABLE_PAYMENT = gql`
-  mutation makePayment(
+  mutation MakePayment(
     $treaty_id: ID
     $receivable_payments: [ReceivablePaymentInput]
   ) {
@@ -736,19 +736,19 @@ export const MAKE_RECEIVABLE_PAYMENT = gql`
 `;
 
 export const REMOVE_PROPORTIONAL_PAYMENT = gql`
-  mutation removeProportionalPayment($id: ID) {
+  mutation RemoveProportionalPayment($id: ID) {
     removeProportionalPayment(payment_id: $id)
   }
 `;
 
 export const REMOVE_NONPROPORTIONAL_PAYMENT = gql`
-  mutation removeNonProportionalPayment($id: ID) {
+  mutation RemoveNonProportionalPayment($id: ID) {
     removeNonProportionalPayment(payment_id: $id)
   }
 `;
 
 export const UPLOAD_CLAIMS = gql`
-  mutation uploadClaims(
+  mutation UploadClaims(
     $treaty_id: ID
     $layer_number: Int
     $start_at: Int
@@ -766,25 +766,25 @@ export const UPLOAD_CLAIMS = gql`
 `;
 
 export const DELETE_TREATY = gql`
-  mutation deleteTreaty($id: ID, $treaty_type: TreatyType) {
+  mutation DeleteTreaty($id: ID, $treaty_type: TreatyType) {
     deleteTreaty(treaty_id: $id, treaty_type: $treaty_type)
   }
 `;
 
 export const DELETE_TREATY_PROGRAM = gql`
-  mutation deleteTreatyProgram($id: ID) {
+  mutation DeleteTreatyProgram($id: ID) {
     deleteTreatyProgram(program_id: $id)
   }
 `;
 
 export const SEND_NP_DEBIT_NOTE = gql`
-  mutation sendNpDebitNOte($data: NPTreatyData) {
+  mutation SendNpDebitNOte($data: NPTreatyData) {
     sendNPTreatyDebitNote(nptreatydata: $data)
   }
 `;
 
 export const SEND_P_DEBIT_NOTE = gql`
-  mutation sendPTreatyDebitNote(
+  mutation SendPTreatyDebitNote(
     $treaty_account_ids: [ID]
     $treaty_id: ID
     $email_component: EmailComponent
@@ -798,13 +798,13 @@ export const SEND_P_DEBIT_NOTE = gql`
 `;
 
 export const SEND_NP_CREDIT_NOTE = gql`
-  mutation sendNpCreditNOte($data: NPTreatyData) {
+  mutation SendNpCreditNOte($data: NPTreatyData) {
     sendNPTreatyCreditNote(nptreatydata: $data)
   }
 `;
 
 export const SEND_TREATY_CREDIT_AND_STATEMENTS_NOTE = gql`
-  mutation sendPTreatyCreditAndStatementNote(
+  mutation SendPTreatyCreditAndStatementNote(
     $treaty_account_id: [ID]
     $participant_id: ID
     $docType: [String]
@@ -842,7 +842,7 @@ export const SEND_TREATY_CLAIM_DEBIT_NOTE = gql`
 `;
 
 export const CREATE_ADJUSTMENT_STATEMENT = gql`
-  mutation createAdjustment(
+  mutation CreateAdjustment(
     $treaty_id: ID
     $outstanding_payment: Float
     $claim_paid: Float
@@ -858,7 +858,7 @@ export const CREATE_ADJUSTMENT_STATEMENT = gql`
 `;
 
 export const DELETE_ADJUSTMENT_STATEMENT = gql`
-  mutation deleteAdjustmentStatment($treaty_id: ID, $treaty_np_detail_id: ID) {
+  mutation DeleteAdjustmentStatment($treaty_id: ID, $treaty_np_detail_id: ID) {
     deleteAdjustmentStatment(
       treaty_id: $treaty_id
       treaty_np_detail_id: $treaty_np_detail_id
@@ -867,7 +867,7 @@ export const DELETE_ADJUSTMENT_STATEMENT = gql`
 `;
 
 export const REINSURER_PROPORTIONAL_TREATY_PAYMENTS = gql`
-  query treatyReinsurerAccountsPayment(
+  query TreatyReinsurerAccountsPayment(
     $treaty_id: ID
     $treaty_participation_id: ID
   ) {

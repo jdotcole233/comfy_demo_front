@@ -1,20 +1,20 @@
 import { useQuery } from "@apollo/client";
 import moment from "moment";
 import { TREATY_CLAIMS } from "../../../graphql/queries/treaties";
-import {
-  unapporvedTreatyClaims,
-  unapporvedTreatyClaims_all_treaties,
-  unapporvedTreatyClaimsVariables,
-} from "../../../graphql/queries/__generated__/unapporvedTreatyClaims";
+
 import React from "react";
 import TreatiesButton from "../tabs/TreatiesButton";
 import { TreatyType } from "../../../graphql/__generated__/globalTypes";
-import { ApproveTreatyVariables } from "../../../graphql/mutattions/__generated__/ApproveTreaty";
+import {
+  UnapporvedTreatyClaims,
+  UnapporvedTreatyClaimsVariables,
+  UnapporvedTreatyClaims_all_treaties,
+} from "../../../graphql/queries/__generated__/unapporvedTreatyClaims";
 
-export const useTreaties = (variables: unapporvedTreatyClaimsVariables) => {
+export const useTreaties = (variables: UnapporvedTreatyClaimsVariables) => {
   const { data, loading, error } = useQuery<
-    unapporvedTreatyClaims,
-    unapporvedTreatyClaimsVariables
+    UnapporvedTreatyClaims,
+    UnapporvedTreatyClaimsVariables
   >(TREATY_CLAIMS, {
     variables,
   });
@@ -44,7 +44,7 @@ export const useTreaties = (variables: unapporvedTreatyClaimsVariables) => {
       ),
       actions: (
         <TreatiesButton
-          treaty={treaty as unapporvedTreatyClaims_all_treaties}
+          treaty={treaty as UnapporvedTreatyClaims_all_treaties}
         />
       ),
     })),

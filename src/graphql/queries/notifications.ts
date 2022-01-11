@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const NOTIFICATIONS = gql`
-  query getNotifications($id: ID!, $first: Int!, $page: Int) {
+  query Notifications($id: ID!, $first: Int!, $page: Int) {
     readSystemNotifications(employee_id: $id) {
       employee_notification(first: $first, page: $page) {
         paginatorInfo {

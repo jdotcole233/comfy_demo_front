@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const EMPLOYEES = gql`
-  {
+  query Employees {
     employees {
       emp_abbrv
       employee_id

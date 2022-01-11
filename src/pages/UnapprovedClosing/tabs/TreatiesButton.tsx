@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Drawer } from "../../../components";
-import { unapporvedTreatyClaims_all_treaties } from "../../../graphql/queries/__generated__/unapporvedTreatyClaims";
+import { UnapporvedTreatyClaims_all_treaties } from "../../../graphql/queries/__generated__/unapporvedTreatyClaims";
 import PlacingSlipAndCoverDocument from "../../ViewTreaty/components/PlacingSlipAndCoverDocument";
 import ApprovTreaty from "./ApprovTreaty";
 
 interface Props {
-  treaty: unapporvedTreatyClaims_all_treaties;
+  treaty: UnapporvedTreatyClaims_all_treaties;
 }
 
 const TreatiesButton = ({ treaty }: Props) => {
