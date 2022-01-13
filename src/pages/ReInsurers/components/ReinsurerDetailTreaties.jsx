@@ -11,8 +11,8 @@ const ReinsurerDetailTreaties = ({ reinsurer }) => {
   const treaties = useMemo(() => {
     const list = [];
     if (reinsurer && reinsurer.treaty_participations) {
-      reinsurer.treaty_participations.map(
-        ({ treaty, treaty_participant_payments }, i) => {
+      reinsurer.treaty_participations.filter(el => el.treaty).map(
+        ({ treaty, treaty_participant_payments }) => {
           const row = {
             ...treaty,
             employee: `${treaty?.employee.employee_first_name} ${treaty?.employee.employee_last_name}`,
@@ -26,13 +26,12 @@ const ReinsurerDetailTreaties = ({ reinsurer }) => {
             treaty_payment_status: (
               <span
                 style={{ letterSpacing: 5, padding: 3 }}
-                className={`badge badge-soft-${
-                  treaty?.treaty_payment_status === "PARTPAYMENT"
-                    ? "primary"
-                    : treaty?.treaty_payment_status === "UNPAID"
+                className={`badge badge-soft-${treaty?.treaty_payment_status === "PARTPAYMENT"
+                  ? "primary"
+                  : treaty?.treaty_payment_status === "UNPAID"
                     ? "danger"
                     : "success"
-                } font-size-11`}
+                  } font-size-11`}
               >
                 {treaty?.treaty_payment_status}
               </span>

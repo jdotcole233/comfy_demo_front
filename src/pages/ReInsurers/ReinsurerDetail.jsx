@@ -108,13 +108,12 @@ function ReinsurerDetail() {
           offer_status: (
             <span
               style={{ letterSpacing: 3 }}
-              className={`badge badge-${
-                offer.reinsurer_offers_only.offer_status === "OPEN"
+              className={`badge badge-${offer.reinsurer_offers_only.offer_status === "OPEN"
                   ? "primary"
                   : offer.reinsurer_offers_only.offer_status === "PENDING"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {offer.reinsurer_offers_only.offer_status}
             </span>
@@ -123,13 +122,12 @@ function ReinsurerDetail() {
           payment_status: (
             <span
               style={{ letterSpacing: 3 }}
-              className={`badge badge-${
-                offer.reinsurer_offers_only.payment_status === "PART PAYMENT"
+              className={`badge badge-${offer.reinsurer_offers_only.payment_status === "PART PAYMENT"
                   ? "primary"
                   : offer.reinsurer_offers_only.payment_status === "UNPAID"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {offer.reinsurer_offers_only.payment_status}
             </span>
@@ -169,13 +167,12 @@ function ReinsurerDetail() {
           offer_status: (
             <span
               style={{ letterSpacing: 3 }}
-              className={`badge badge-${
-                offer.reinsurer_offers_only.offer_status === "OPEN"
+              className={`badge badge-${offer.reinsurer_offers_only.offer_status === "OPEN"
                   ? "primary"
                   : offer.reinsurer_offers_only.offer_status === "PENDING"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {offer.reinsurer_offers_only.offer_status}
             </span>
@@ -184,13 +181,12 @@ function ReinsurerDetail() {
           payment_status: (
             <span
               style={{ letterSpacing: 3 }}
-              className={`badge badge-${
-                offer.reinsurer_offers_only.payment_status === "PART PAYMENT"
+              className={`badge badge-${offer.reinsurer_offers_only.payment_status === "PART PAYMENT"
                   ? "primary"
                   : offer.reinsurer_offers_only.payment_status === "UNPAID"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {offer.reinsurer_offers_only.payment_status}
             </span>
@@ -223,13 +219,12 @@ function ReinsurerDetail() {
           offer_status: (
             <span
               style={{ letterSpacing: 3 }}
-              className={`badge badge-${
-                offer.offer_status === "OPEN"
+              className={`badge badge-${offer.offer_status === "OPEN"
                   ? "primary"
                   : offer.offer_status === "PENDING"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {offer.offer_status}
             </span>
@@ -238,13 +233,12 @@ function ReinsurerDetail() {
           payment_status: (
             <span
               style={{ letterSpacing: 3 }}
-              className={`badge badge-${
-                offer.payment_status === "PART PAYMENT"
+              className={`badge badge-${offer.payment_status === "PART PAYMENT"
                   ? "primary"
                   : offer.payment_status === "UNPAID"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {offer.payment_status}
             </span>
@@ -300,18 +294,16 @@ function ReinsurerDetail() {
                   <div className="btn-group mr-4">
                     <div
                       onClick={() => changePageType("Fac")}
-                      className={`btn ${
-                        type !== "Fac" ? "btn-secondary" : "btn-primary"
-                      } w-lg btn-sm`}
+                      className={`btn ${type !== "Fac" ? "btn-secondary" : "btn-primary"
+                        } w-lg btn-sm`}
                     >
                       <span className="bx bx-archive-in mr-4"></span>
                       Facultative
                     </div>
                     <div
                       onClick={() => changePageType("Treaty")}
-                      className={`btn ${
-                        type !== "Treaty" ? "btn-secondary" : "btn-primary"
-                      } w-lg btn-sm`}
+                      className={`btn ${type !== "Treaty" ? "btn-secondary" : "btn-primary"
+                        } w-lg btn-sm`}
                     >
                       <span className="bx bx-receipt mr-4"></span>
                       Treaty
