@@ -210,7 +210,7 @@ const ViewTreaty = () => {
           };
         });
 
-        associates = data?.treaty?.treaty_to_associates?.map(
+        associates = data?.treaty?.treaty_to_associates?.filter(el => el.reinsurer_representative)?.map(
           (associate, key) => ({
             ...associate,
             company_email: associate?.reinsurer?.re_company_email,
