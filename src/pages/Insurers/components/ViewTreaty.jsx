@@ -213,18 +213,18 @@ const ViewTreaty = () => {
         associates = data?.treaty?.treaty_to_associates?.map(
           (associate, key) => ({
             ...associate,
-            company_email: associate.reinsurer.re_company_email,
-            company_name: associate.reinsurer.re_company_name,
+            company_email: associate?.reinsurer?.re_company_email,
+            company_name: associate?.reinsurer?.re_company_name,
             rep_name:
-              associate.reinsurer_representative.rep_first_name +
+              associate?.reinsurer_representative?.rep_first_name || "N/A" +
               " " +
-              associate.reinsurer_representative.rep_last_name,
+              associate?.reinsurer_representative?.rep_last_name || "N/A",
             rep_phone: [
-              associate.reinsurer_representative.rep_primary_phonenumber,
-              associate.reinsurer_representative.rep_secondary_phonenumber,
+              associate?.reinsurer_representative?.rep_primary_phonenumber ?? "N/A",
+              associate?.reinsurer_representative?.rep_secondary_phonenumber ?? "N/A",
             ].join(","),
-            rep_email: associate.reinsurer_representative.rep_email,
-            layer_number: associate.layer_number,
+            rep_email: associate?.reinsurer_representative?.rep_email,
+            layer_number: associate?.layer_number,
             email_status: (
               <span
                 style={{ letterSpacing: 3 }}

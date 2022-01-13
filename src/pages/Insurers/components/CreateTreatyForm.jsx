@@ -71,6 +71,12 @@ const prepTreatyValues = (values, details, limitLayers, typeObj) => {
   };
 };
 
+const calculateMD = (rate, egrnpi, percentage = 90) => {
+  const m = percentage ? parseFloat(percentage) : 90;
+
+  return rate * egrnpi * (m / 100);
+};
+
 const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
   const { register, errors, handleSubmit, reset, setValue, clearError } =
     useForm();
@@ -1162,20 +1168,15 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                 <div className="row mt-2">
                   <div className="col-md-6">
                     <div className="form-group mt-2">
-                      <label htmlFor="M&D Premium">M&D Premium</label>
+                      <label htmlFor="M&D Premium">M&D Premium {layer.discount_percentage}</label>
                       <input
                         name="m_and_d_premium"
                         onChange={(e) => onLimitValueChange(e, key)}
                         className="form-control"
-                        value={
-                          layer.min_rate || layer.adjust_rate
-                            ? parseFloat(
-                              key > 0 ? layer.adjust_rate : layer.min_rate
-                            ) *
-                            _form.getValues().egrnpi *
-                            0.9
-                            : 0
-                        }
+
+                        value={layer.min_rate || layer.adjust_rate ? calculateMD(parseFloat(
+                          key > 0 ? layer.adjust_rate : layer.min_rate
+                        ), _form.getValues().egrnpi, layer.discount_percentage) : 0}
                         placeholder="M&D Premium"
                         readOnly
                         type="number"
@@ -1200,7 +1201,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                       </select>
                     </div>
                   </div>
-                  <div className="col-md-12">
+                  <div className="col-md-6">
                     <Input
                       label="Reinstatement"
                       type="number"
@@ -1208,6 +1209,17 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                       placeholder="Reinstatement"
                       value={layer.reinstatement}
                       name="reinstatement"
+                      onChange={(e) => onLimitValueChange(e, key)}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <Input
+                      label="Discount Percentage"
+                      type="number"
+                      step="any"
+                      placeholder="Discount Percentage"
+                      value={layer.discount_percentage}
+                      name="discount_percentage"
                       onChange={(e) => onLimitValueChange(e, key)}
                     />
                   </div>
