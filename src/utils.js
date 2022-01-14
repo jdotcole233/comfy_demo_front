@@ -1,23 +1,21 @@
 export const toPosition = (num) =>
-  `${num}${
-    num.slice(-1) === "1"
-      ? "st"
-      : num.slice(-1) === "2"
+  `${num}${num.slice(-1) === "1"
+    ? "st"
+    : num.slice(-1) === "2"
       ? "nd"
       : num.slice(-1) === "3"
-      ? "rd"
-      : "th"
+        ? "rd"
+        : "th"
   } Surplus`;
 
 export const toLayerPosition = (num) =>
-  `${num}${
-    num.slice(-1) === "1"
-      ? "st"
-      : num.slice(-1) === "2"
+  `${num}${num.slice(-1) === "1"
+    ? "st"
+    : num.slice(-1) === "2"
       ? "nd"
       : num.slice(-1) === "3"
-      ? "rd"
-      : "th"
+        ? "rd"
+        : "th"
   } Layer`;
 
 export const getSumOFNPPayments = ({ treaty_np_payments, uuid }) => {
@@ -38,11 +36,14 @@ export const mult = (a, b) => parseFloat(a) * parseFloat(b);
 
 export const calculateMAndDValue = ({ layers = [], egrnpi }) => {
   if (layers.length < 1) return layers;
-  const newLayers = layers.map((layer, key) => ({
-    ...layer,
-    m_and_d_premium:
-      parseFloat(key > 0 ? layer.adjust_rate : layer.min_rate) * egrnpi * 0.9,
-  }));
+  const newLayers = layers.map((layer, key) => {
+    const percentage = layer.discount_percentage ? 100 - parseFloat(layer.discount_percentage) : 90;
+    return {
+      ...layer,
+      m_and_d_premium:
+        parseFloat(key > 0 ? layer.adjust_rate : layer.min_rate) * egrnpi * percentage,
+    }
+  });
   return newLayers;
 };
 

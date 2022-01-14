@@ -71,9 +71,8 @@ const prepTreatyValues = (values, details, limitLayers, typeObj) => {
   };
 };
 
-const calculateMD = (rate, egrnpi, percentage = 90) => {
-  const m = percentage ? parseFloat(percentage) : 90;
-
+const calculateMD = (rate, egrnpi, percentage = 10) => {
+  const m = percentage ? 100 - parseFloat(percentage) : 90;
   return rate * egrnpi * (m / 100);
 };
 
