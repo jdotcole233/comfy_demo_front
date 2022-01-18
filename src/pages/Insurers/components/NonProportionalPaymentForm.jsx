@@ -177,8 +177,8 @@ function NonProportionalPaymentForm({
         form_inputs.payment_amount === 0
           ? "UNPAID"
           : form_inputs.payment_amount < amt
-          ? "PARTPAYMENT"
-          : "PAID",
+            ? "PARTPAYMENT"
+            : "PAID",
       payment_comment: form_inputs.treaty_payment_comment,
     };
 
@@ -235,8 +235,8 @@ function NonProportionalPaymentForm({
         form_inputs.payment_amount === 0
           ? "UNPAID"
           : form_inputs.payment_amount < expectedAmtToBePaid
-          ? "PARTPAYMENT"
-          : "PAID",
+            ? "PARTPAYMENT"
+            : "PAID",
       payment_comment: form_inputs.treaty_payment_comment,
     };
 
@@ -280,7 +280,7 @@ function NonProportionalPaymentForm({
       console.log("payments", treaty?.treaty_np_payments);
       const __ =
         (percentage / 100) *
-          (parseFloat(selectdQuarter?.value?.m_and_d_premium) / _fig) -
+        (parseFloat(selectdQuarter?.value?.m_and_d_premium) / _fig) -
         total_payments_so_far;
       setExpectedAmtToBePaid(__);
       setForm_inputs((prev) => ({
@@ -387,10 +387,10 @@ function NonProportionalPaymentForm({
                       value={
                         currency
                           ? {
-                              label: Object.values(currencies).find(
-                                (eel) => eel.code === currency
-                              )?.name,
-                            }
+                            label: Object.values(currencies).find(
+                              (eel) => eel.code === currency
+                            )?.name,
+                          }
                           : ""
                       }
                       components={{ Option: CurrencyOption }}
@@ -484,9 +484,8 @@ function NonProportionalPaymentForm({
                   </div>
                 )}
                 <div
-                  className={`col-md-${
-                    form_inputs.payment_type === "Bank Transfer" ? "12" : "6"
-                  }`}
+                  className={`col-md-${form_inputs.payment_type === "Bank Transfer" ? "12" : "6"
+                    }`}
                 >
                   <div className="form-group">
                     <label htmlFor="Bank name">Bank name</label>
@@ -628,7 +627,6 @@ function NonProportionalPaymentForm({
 export default NonProportionalPaymentForm;
 
 const Text = styled.p`
-  line-height: 0px;
   font-weight: bolder;
   color: #a83236;
 `;

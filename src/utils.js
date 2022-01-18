@@ -37,7 +37,7 @@ export const mult = (a, b) => parseFloat(a) * parseFloat(b);
 export const calculateMAndDValue = ({ layers = [], egrnpi }) => {
   if (layers.length < 1) return layers;
   const newLayers = layers.map((layer, key) => {
-    const percentage = layer.discount_percentage ? 100 - parseFloat(layer.discount_percentage) : 90;
+    const percentage = !isNaN(parseFloat(layer.discount_percentage)) ? 100 - parseFloat(layer.discount_percentage) : 90;
     return {
       ...layer,
       m_and_d_premium:

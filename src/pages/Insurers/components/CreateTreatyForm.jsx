@@ -1167,7 +1167,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                 <div className="row mt-2">
                   <div className="col-md-6">
                     <div className="form-group mt-2">
-                      <label htmlFor="M&D Premium">M&D Premium {layer.discount_percentage}</label>
+                      <label htmlFor="M&D Premium">M&D Premium </label>
                       <input
                         name="m_and_d_premium"
                         onChange={(e) => onLimitValueChange(e, key)}
@@ -1213,10 +1213,12 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
                   </div>
                   <div className="col-md-6">
                     <Input
-                      label="Discount Percentage"
+                      label="Discount Percentage (%)"
                       type="number"
                       step="any"
-                      placeholder="Discount Percentage"
+                      max={100}
+                      min={0}
+                      placeholder="Discount Percentage (%)"
                       value={layer.discount_percentage}
                       name="discount_percentage"
                       onChange={(e) => onLimitValueChange(e, key)}

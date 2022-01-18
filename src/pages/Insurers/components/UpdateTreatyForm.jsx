@@ -28,6 +28,7 @@ import ErrorPage from "../../../components/ErrorPage";
 import { createExtendedTreatyDetails } from "./CreateTreatyForm";
 import { calculateMAndDValue } from "../../../utils";
 import moment from "moment";
+import _ from "lodash";
 
 const prepTreatyValues = (values, detials, limitLayers, treaty, typeObj) => {
   return {
@@ -51,6 +52,11 @@ const prepTreatyValues = (values, detials, limitLayers, treaty, typeObj) => {
     },
     treaty_id: treaty?.treaty_id,
   };
+};
+
+const calculateMD = (rate, egrnpi, percentage = 10) => {
+  const m = percentage ? 100 - parseFloat(percentage) : 90;
+  return rate * egrnpi * (m / 100);
 };
 
 const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
@@ -291,6 +297,8 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
       treaty,
       selectedProgramType
     );
+    // console.log("Variables", variables);
+    // return
     swal({
       closeOnClickOutside: false,
       closeOnEsc: false,
@@ -331,10 +339,13 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
   };
 
   const addlayer = () => {
+    const lastDeductible = _.last(limitLayers);
     const layer = {
       uuid: v4(),
       limit: "",
-      deductible: "",
+      deductible:
+        parseFloat(lastDeductible.limit) +
+        parseFloat(lastDeductible.deductible),
       m_and_d_premium: "",
       installment_type: "",
       outgoing_payment_staus: "UNPAID",
@@ -1031,7 +1042,17 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
               <button
                 onClick={addlayer}
                 type="button"
+                disabled={
+                  _.last(limitLayers)?.limit.length < 1 ||
+                  _.last(limitLayers)?.deductible.length < 1
+                }
                 className="btn btn-primary mr-2"
+                title={
+                  _.last(limitLayers)?.limit.length < 1 ||
+                    _.last(limitLayers)?.deductible.length < 1
+                    ? "Please add limit and deductible"
+                    : ""
+                }
               >
                 <FaPlus color="#fff" />
               </button>
@@ -1084,6 +1105,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
                       onChange={(e) => onLimitValueChange(e, key)}
                       type="number"
                       step="any"
+                      readOnly={key > 0}
                       placeholder="Deductible"
                       className="form-control"
                     />
@@ -1096,11 +1118,15 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
                     <label htmlFor="M&D Premium">M&D Premium</label>
                     <input
                       name="m_and_d_premium"
-                      value={layer.m_and_d_premium}
+                      // defaultValue={layer.m_and_d_premium}
+                      value={layer.min_rate || layer.adjust_rate ? calculateMD(parseFloat(
+                        key > 0 ? layer.adjust_rate : layer.min_rate
+                      ), parseFloat(_form.getValues().egrnpi ? _form.getValues().egrnpi : treaty?.treaty_np_detail?.egrnpi), layer.discount_percentage) : 0}
                       onChange={(e) => onLimitValueChange(e, key)}
                       className="form-control"
                       type="number"
                       step="any"
+                      readOnly
                       placeholder="M&D Premium"
                     />
                   </div>
@@ -1111,7 +1137,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
                     <select
                       className="form-control"
                       name="installment_type"
-                      value={layer.installment_type}
+                      defaultValue={layer.installment_type}
                       onChange={(e) => onLimitValueChange(e, key)}
                       id="installment_type"
                     >
@@ -1122,6 +1148,32 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
                       <option value="4">4</option>
                     </select>
                   </div>
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label="Reinstatement"
+                    type="number"
+                    step="any"
+                    placeholder="Reinstatement"
+                    defaultValue={layer.reinstatement}
+                    value={layer.reinstatement}
+                    name="reinstatement"
+                    onChange={(e) => onLimitValueChange(e, key)}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Input
+                    label="Discount Percentage (%)"
+                    type="number"
+                    step="any"
+                    max={100}
+                    min={0}
+                    placeholder="Discount Percentage (%)"
+                    defaultValue={layer.discount_percentage}
+                    value={layer.discount_percentage}
+                    name="discount_percentage"
+                    onChange={(e) => onLimitValueChange(e, key)}
+                  />
                 </div>
                 {key === 0 && (
                   <div className="col-md-12">
@@ -1221,7 +1273,8 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
             </div>
           </fieldset> */}
         </Fragment>
-      )}
+      )
+      }
       <div className="row mt-3">
         <div className="col-md-12">
           <input
@@ -1231,7 +1284,7 @@ const UpdateTreatyForm = ({ insurer, setOpenDrawer, treaty }) => {
           />
         </div>
       </div>
-    </form>
+    </form >
   );
 };
 
