@@ -304,6 +304,7 @@ export const TREATY = gql`
         adjustment_created
         created_at
         claims_paid
+        retained_premium_income
         outstanding_payment
       }
 
