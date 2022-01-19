@@ -847,12 +847,14 @@ export const CREATE_ADJUSTMENT_STATEMENT = gql`
     $outstanding_payment: Float
     $claim_paid: Float
     $treaty_np_detail_id: ID
+    $retained_premium_income: Float
   ) {
     createOrUpdateAdjustmentStatment(
       treaty_id: $treaty_id
       claims_paid: $claim_paid
       outstanding_payment: $outstanding_payment
       treaty_np_detail_id: $treaty_np_detail_id
+      retained_premium_income: $retained_premium_income
     )
   }
 `;

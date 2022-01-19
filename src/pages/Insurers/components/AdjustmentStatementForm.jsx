@@ -90,6 +90,20 @@ const AdjustmentStatementForm = ({
             <Input
               type="number"
               step="any"
+              name="retained_premium_income"
+              defaultValue={treaty_np_detail?.retained_premium_income}
+              ref={register({ required: "Required" })}
+              placeholder="Retained Premium Income"
+              label="Retained Premium Income"
+            />
+            <ErrorMessage name="retained_premium_income" errors={errors} />
+          </div>
+        </div>
+        <div className="col-md-12">
+          <div className="form-group">
+            <Input
+              type="number"
+              step="any"
               name="outstanding_payment"
               defaultValue={treaty_np_detail?.outstanding_payment}
               ref={register({ required: "Required" })}
