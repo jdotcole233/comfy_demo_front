@@ -61,6 +61,11 @@ export default {
       sort: "asc",
     },
     {
+      label: "Clearance Status",
+      field: "clearance_status",
+      sort: "asc",
+    },
+    {
       label: "Offer Date",
       field: "offer_date",
       sort: "asc",

@@ -87,12 +87,12 @@ function InsurerDetail() {
         }, 0.0);
         const expected =
           parseFloat(offer.fac_premium) -
-          parseFloat(
-            offer?.reinsurer_offer_extra_charge?.agreed_commission_amount
-          ) +
-          hasEndorsement
+            parseFloat(
+              offer?.reinsurer_offer_extra_charge?.agreed_commission_amount
+            ) +
+            hasEndorsement
             ? parseFloat(hasEndorsement?.fac_premium) -
-              parseFloat(hasEndorsement?.commission_amount)
+            parseFloat(hasEndorsement?.commission_amount)
             : 0;
 
         const row = {
@@ -144,13 +144,12 @@ function InsurerDetail() {
           offer_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-${
-                offer.offer_status === "OPEN"
+              className={`badge badge-${offer.offer_status === "OPEN"
                   ? "primary"
                   : offer.offer_status === "PENDING"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {offer.offer_status}
             </span>
@@ -158,13 +157,12 @@ function InsurerDetail() {
           payment_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-${
-                offer.payment_status === "PARTPAYMENT"
+              className={`badge badge-${offer.payment_status === "PARTPAYMENT"
                   ? "primary"
                   : offer.payment_status === "UNPAID"
-                  ? "danger"
-                  : "success"
-              } font-size-11`}
+                    ? "danger"
+                    : "success"
+                } font-size-11`}
             >
               {offer.payment_status}
             </span>
@@ -216,7 +214,7 @@ function InsurerDetail() {
         return fetchMoreResult;
       },
     })
-      .then((res) => {})
+      .then((res) => { })
       .catch((err) => {
         console.log(err);
       });
@@ -248,18 +246,16 @@ function InsurerDetail() {
                   <div className="btn-group mr-4">
                     <div
                       onClick={() => changePageType("Fac")}
-                      className={`btn ${
-                        type !== "Fac" ? "btn-secondary" : "btn-primary"
-                      } w-lg btn-sm`}
+                      className={`btn ${type !== "Fac" ? "btn-secondary" : "btn-primary"
+                        } w-lg btn-sm`}
                     >
                       <span className="bx bx-archive-in mr-4"></span>
                       Facultative
                     </div>
                     <div
                       onClick={() => changePageType("Treaty")}
-                      className={`btn ${
-                        type !== "Treaty" ? "btn-secondary" : "btn-primary"
-                      } w-lg btn-sm`}
+                      className={`btn ${type !== "Treaty" ? "btn-secondary" : "btn-primary"
+                        } w-lg btn-sm`}
                     >
                       <span className="bx bx-receipt mr-4"></span>
                       Treaty
