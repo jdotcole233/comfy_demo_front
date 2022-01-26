@@ -7,7 +7,7 @@ const CreateBusinessButton = () => {
 
     return (
         <>
-            <button onClick={() => setshowCreateBusinessForm(!showCreateBusinessForm)} className="btn btn-rounded btn-sm w-md waves-effect btn-primary">Create Business</button>
+            <button onClick={() => setshowCreateBusinessForm(!showCreateBusinessForm)} className="btn  btn-sm w-md waves-effect btn-success">Create Business</button>
 
             {/* Create business modal */}
             <Drawer width="40%" toggle={() => setshowCreateBusinessForm(!showCreateBusinessForm)} isvisible={showCreateBusinessForm}>

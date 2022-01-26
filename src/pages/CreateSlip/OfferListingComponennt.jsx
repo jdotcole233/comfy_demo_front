@@ -32,7 +32,7 @@ const OfferListing = ({
                                 <button onClick={() => {
                                     setInputOffer(true)
                                 }
-                                } className="btn btn-rounded btn-primary btn-sm w-md">Input offer</button>
+                                } className="btn  btn-primary btn-sm w-md">Input offer</button>
                             ) : null}
                         </div>
                     </div>

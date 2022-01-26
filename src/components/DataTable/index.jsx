@@ -14,6 +14,8 @@ const Table = ({ data = [], columns, ref, ...rest }) => {
       responsive
       searchingLabel="Search"
       data={{ columns, rows: data }}
+      theadColor="success"
+      className=""
     />
   );
 };

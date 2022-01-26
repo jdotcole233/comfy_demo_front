@@ -32,8 +32,6 @@ const Renderer = () => (
   </Provider>
 );
 
-const Test = () => <div className="tw-flex-1 tw-h-screen tw-bg-black"></div>;
-
 ReactDOM.render(<Renderer />, document.getElementById("root"));
 
 serviceWorker.unregister();

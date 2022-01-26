@@ -21,11 +21,9 @@ function PreviewCoverNote({ offer, reinsurer }) {
     if (!offer?.offer_detail?.period_of_insurance_from) return "TBA";
     const from = new Date(offer?.offer_detail?.period_of_insurance_from);
     const to = new Date(offer?.offer_detail?.period_of_insurance_to);
-    return `${from.getDate()}/${
-      from.getMonth() + 1
-    }/${from.getFullYear()} ${to.getDate()}/${
-      to.getMonth() + 1
-    }/${to.getFullYear()}`;
+    return `${from.getDate()}/${from.getMonth() + 1
+      }/${from.getFullYear()} ${to.getDate()}/${to.getMonth() + 1
+      }/${to.getFullYear()}`;
   };
 
   const payment_type_key = offer?.offer_detail?.payment_type
@@ -40,19 +38,19 @@ function PreviewCoverNote({ offer, reinsurer }) {
       <div className="row m-2">
         {(offer?.approval_status === "APPROVED" ||
           downloadAccess.includes(ctx?.user?.user_role?.position)) && (
-          <a
-            target="_blank"
-            href={`${BASE_URL_LOCAL}/generate_closing_slip/${btoa(
-              JSON.stringify({
-                offer_id: offer?.offer_id,
-                reinsurer_id: reinsurer?.reinsurer.reinsurer_id,
-              })
-            )}`}
-            className="btn btn-sm btn-primary w-md"
-          >
-            <i className="bx bxs-file-pdf"></i> Save
-          </a>
-        )}
+            <a
+              target="_blank"
+              href={`${BASE_URL_LOCAL}/generate_closing_slip/${btoa(
+                JSON.stringify({
+                  offer_id: offer?.offer_id,
+                  reinsurer_id: reinsurer?.reinsurer.reinsurer_id,
+                })
+              )}`}
+              className="btn btn-sm btn-primary w-md"
+            >
+              <i className="bx bxs-file-pdf"></i> Save
+            </a>
+          )}
       </div>
       <div
         style={{ boxShadow: "1px 2px 2px 5px #f2f2f2" }}
@@ -99,23 +97,23 @@ function PreviewCoverNote({ offer, reinsurer }) {
             {["Motor Comprehensive", "Motor Comprehensive Fleet"].includes(
               offer?.classofbusiness.business_name
             ) && (
-              <div className="row mb-2">
-                <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
-                  <h3 className="dark-text">REGISTRATION:</h3>
+                <div className="row mb-2">
+                  <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
+                    <h3 className="dark-text">REGISTRATION:</h3>
+                  </div>
+                  <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
+                    <h3 className="dark-text-value">
+                      {
+                        JSON.parse(offer?.offer_detail.offer_details).find(
+                          (el) =>
+                            el.keydetail === "Vehicle Reg No." ||
+                            el.keydetail === "Vehicle Reg No"
+                        )?.value
+                      }
+                    </h3>
+                  </div>
                 </div>
-                <div className="col-md-8 col-8 col-sm-8 col-8 col-xs-8">
-                  <h3 className="dark-text-value">
-                    {
-                      JSON.parse(offer?.offer_detail.offer_details).find(
-                        (el) =>
-                          el.keydetail === "Vehicle Reg No." ||
-                          el.keydetail === "Vehicle Reg No"
-                      )?.value
-                    }
-                  </h3>
-                </div>
-              </div>
-            )}
+              )}
             <div className="row mb-2">
               <div className="col-md-4 col-4 col-sm-4 col-4 col-xs-4">
                 <h3 className="dark-text">Form:</h3>
@@ -189,7 +187,7 @@ function PreviewCoverNote({ offer, reinsurer }) {
                 <h3 className="dark-text-value">
                   {getCurrencyFullName(
                     offer?.exchange_rate?.ex_currency ||
-                      offer?.offer_detail.currency
+                    offer?.offer_detail.currency
                   )}
                 </h3>
               </div>

@@ -26,7 +26,7 @@ export const Navbar = () => {
               </span>
               <span className="logo logo-lg pt-2">
                 <img
-                  src={"https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"}
+                  src={require("../assets/visal-sm-logo.png")}
                   alt=""
                   width="200"
                   height="60"
@@ -75,7 +75,7 @@ export const Navbar = () => {
                 alignItems: "center",
               }}
             >
-              <span className="rounded-circle header-profile-user d-flex justify-content-center align-items-center  rounded-circle bg-soft-success text-success font-size-12">
+              <span className=" header-profile-user d-flex justify-content-center align-items-center   bg-soft-success text-success font-size-12">
                 {user?.employee?.emp_abbrv}
               </span>
               <span className="d-none d-xl-inline-block ml-1">

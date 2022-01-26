@@ -47,7 +47,7 @@ export const Tagline = styled.div`
 `;
 
 export const TagSection = styled.div`
-  background-color: #04f06a;
+  background-color: #0ca59f;
   color: white;
   letter-spacing: 2px;
   padding: 4px;
@@ -71,13 +71,13 @@ const VersionBox = () => {
             objectFit: "contain",
             backgrroundImage: `url(${Logo})`,
           }}
-          className="avatar-title logo-img-bg rounded-circle bg-white"
+          className="avatar-title logo-img-bg  bg-white"
         >
           <img style={{ objectFit: "contain" }} src={Logo} alt="KEK RE BROKER APP" height="120" width="120" />
         </span>
       </LogoSide>
       <div className="d-flex flex-column pt-5 pb-4 align-items-center justify-content-center">
-        <Appname>KEK RE BROKER SYSTEM</Appname>
+        <Appname>AFRO-ASIAN BROKER SYSTEM</Appname>
         <OtherText>version: {"1.0.0"}</OtherText>
         <OtherText>
           Protected By: Positive SSL, BitNinja, Advance DDoS Protecttion

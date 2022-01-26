@@ -152,7 +152,7 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
                         </h4>
                       </div>
 
-                      <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                      <div className="mini-stat-icon avatar-sm  bg-primary align-self-center">
                         <span className="avatar-title">
                           <i className="bx bx-copy-alt font-size-24"></i>
                         </span>
@@ -177,8 +177,8 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
                         />
                       </div>
 
-                      <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                        <span className="avatar-title rounded-circle bg-primary">
+                      <div className="avatar-sm  bg-primary align-self-center mini-stat-icon">
+                        <span className="avatar-title  bg-primary">
                           <i className="bx bx-archive-in font-size-24"></i>
                         </span>
                       </div>

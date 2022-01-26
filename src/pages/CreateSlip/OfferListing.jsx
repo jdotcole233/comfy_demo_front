@@ -45,7 +45,7 @@ const OfferListing = ({
                   onClick={() => {
                     setInputOffer(true);
                   }}
-                  className="btn btn-rounded btn-primary btn-sm w-md"
+                  className="btn  btn-success btn-sm w-md"
                 >
                   Input offer
                 </button>
@@ -66,9 +66,8 @@ const OfferListing = ({
                             pathname: path + "/recent",
                             state: { insurer_id },
                           }}
-                          className={`nav-link ${
-                            _tab === "recent" ? "active" : ""
-                          }`}
+                          className={`nav-link ${_tab === "recent" ? "active" : ""
+                            }`}
                         >
                           Recent
                         </Link>
@@ -79,9 +78,8 @@ const OfferListing = ({
                             pathname: path + "/all",
                             state: { insurer_id },
                           }}
-                          className={`nav-link ${
-                            _tab === "all" ? "active" : ""
-                          }`}
+                          className={`nav-link ${_tab === "all" ? "active" : ""
+                            }`}
                         >
                           All
                         </Link>
@@ -105,7 +103,7 @@ const OfferListing = ({
                   <div className="d-flex w-auto justify-content-end">
                     {all.length < allTotal && (
                       <button
-                        className="btn btn-primary btn-sm w-md "
+                        className="btn btn-success btn-sm w-md "
                         onClick={() => handleLoadMore(all.length)}
                       >
                         {fetching ? "Loading more ..." : "Load More"}

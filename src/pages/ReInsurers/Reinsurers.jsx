@@ -75,8 +75,8 @@ function ReInsurers() {
                                         <h4 className="mb-0">{reinsurers.length}</h4>
                                     </div>
 
-                                    <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
-                                        <span className="avatar-title">
+                                    <div className="mini-stat-icon avatar-sm  bg-success align-self-center">
+                                        <span className="avatar-title bg-success">
                                             <i className="bx bx-copy-alt font-size-24"></i>
                                         </span>
                                     </div>
@@ -92,7 +92,7 @@ function ReInsurers() {
                         <h3>Re-Insurers List</h3>
                     </div>
                     <div className="col-md-6" style={{ display: 'flex', justifyContent: "flex-end" }}>
-                        {create_reinsurer_access.includes(ctx?.user?.user_role?.position) && <button onClick={() => setshowAddReInsurer(!0)} className="btn btn-rounded btn-sm btn-primary">Add Re-Insurer</button>}
+                        {create_reinsurer_access.includes(ctx?.user?.user_role?.position) && <button onClick={() => setshowAddReInsurer(!0)} className="btn  btn-sm btn-success">Add Re-Insurer</button>}
                     </div>
                 </div>
             </div>

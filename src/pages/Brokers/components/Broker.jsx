@@ -57,7 +57,7 @@ const Broker = ({ broker = {} }) => {
         <div className="card text-center">
           <div className="card-body">
             <div className="avatar-md mx-auto mb-4">
-              <span className="avatar-title rounded-circle p-auto bg-soft-primary text-primary font-size-16">
+              <span className="avatar-title rounded-circle  p-auto bg-soft-success text-success font-size-16">
                 {broker?.broker_abbrv ?? "VR"}
               </span>
             </div>

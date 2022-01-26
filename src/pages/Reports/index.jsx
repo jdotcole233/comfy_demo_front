@@ -746,8 +746,8 @@ function Reports() {
                         <CurrencyValues data={toalBrokerage} />
                       </div>
 
-                      <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                        <span className="avatar-title rounded-circle bg-primary">
+                      <div className="avatar-sm  bg-primary align-self-center mini-stat-icon">
+                        <span className="avatar-title  bg-primary">
                           <i className="bx bx-money font-size-24"></i>
                         </span>
                       </div>
@@ -768,8 +768,8 @@ function Reports() {
                         <CurrencyValues data={totalFacPremium} />
                       </div>
 
-                      <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                        <span className="avatar-title rounded-circle bg-primary">
+                      <div className="avatar-sm  bg-primary align-self-center mini-stat-icon">
+                        <span className="avatar-title  bg-primary">
                           <i className="bx bx-money font-size-24"></i>
                         </span>
                       </div>
@@ -790,8 +790,8 @@ function Reports() {
                         <CurrencyValues data={totalFacSumInsured} />
                       </div>
 
-                      <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                        <span className="avatar-title rounded-circle bg-primary">
+                      <div className="avatar-sm  bg-primary align-self-center mini-stat-icon">
+                        <span className="avatar-title  bg-primary">
                           <i className="bx bx-money font-size-24"></i>
                         </span>
                       </div>
@@ -812,8 +812,8 @@ function Reports() {
                         <CurrencyValues data={totalWithholdingTax} />
                       </div>
 
-                      <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                        <span className="avatar-title rounded-circle bg-primary">
+                      <div className="avatar-sm  bg-primary align-self-center mini-stat-icon">
+                        <span className="avatar-title  bg-primary">
                           <i className="bx bx-money font-size-24"></i>
                         </span>
                       </div>
@@ -834,8 +834,8 @@ function Reports() {
                         <CurrencyValues data={totalNic} />
                       </div>
 
-                      <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                        <span className="avatar-title rounded-circle bg-primary">
+                      <div className="avatar-sm  bg-primary align-self-center mini-stat-icon">
+                        <span className="avatar-title  bg-primary">
                           <i className="bx bx-money font-size-24"></i>
                         </span>
                       </div>
@@ -856,8 +856,8 @@ function Reports() {
                         <CurrencyValues data={totalCommission} />
                       </div>
 
-                      <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                        <span className="avatar-title rounded-circle bg-primary">
+                      <div className="avatar-sm  bg-primary align-self-center mini-stat-icon">
+                        <span className="avatar-title  bg-primary">
                           <i className="bx bx-money font-size-24"></i>
                         </span>
                       </div>

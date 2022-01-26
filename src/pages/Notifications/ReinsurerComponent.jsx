@@ -51,7 +51,7 @@ const ReinsurerComponent = ({ data }) => {
                 </div>
                 <div className="h-1/3">
                     <div className="avatar-lg mx-auto mb-4">
-                        <span className="avatar-title rounded-circle p-auto bg-soft-primary text-primary font-size-16">
+                        <span className="avatar-title  p-auto bg-soft-primary text-primary font-size-16">
                             {insurer?.re_abbrv}
                         </span>
                     </div>

@@ -27,7 +27,7 @@ class ProfileMenu extends Component {
             <React.Fragment>
                 <Dropdown isOpen={this.state.menu} toggle={this.toggle} className="d-inline-block" >
                     <DropdownToggle className="btn header-item waves-effect" id="page-header-user-dropdown" tag="button">
-                        <img className="rounded-circle header-profile-user" src={user1} alt="Header Avatar" />
+                        <img className=" header-profile-user" src={user1} alt="Header Avatar" />
                         <span className="d-none d-xl-inline-block ml-2 mr-1">Henry</span>
                         <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </DropdownToggle>

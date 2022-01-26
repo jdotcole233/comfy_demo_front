@@ -24,7 +24,7 @@ const InsurerStatsTreaty = ({ insurer }) => {
                   />
                 </div>
 
-                <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
+                <div className="avatar-sm align-self-center mini-stat-icon  bg-primary">
                   <span className="avatar-title">
                     <i className="bx bx-money font-size-24"></i>
                   </span>

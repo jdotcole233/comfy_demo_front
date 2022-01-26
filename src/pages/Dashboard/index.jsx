@@ -115,7 +115,7 @@ const Dashboard = () => {
                     <div className="col-7">
                       <div className="text-success p-3">
                         <h5 className="text-success">Welcome Back !</h5>
-                        <p> Afro-AsianDashboard</p>
+                        <p> Afro-Asian Dashboard</p>
                       </div>
                     </div>
                     <div className="col-5 align-self-end">
@@ -131,7 +131,7 @@ const Dashboard = () => {
                   <div className="row">
                     <div className="col-sm-4">
                       <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                        <span className="avatar-title rounded-circle bg-soft-success text-success font-size-16">
+                        <span className="avatar-title rounded-circle  bg-soft-success text-success font-size-16">
                           {state?.user?.employee?.emp_abbrv}
                         </span>
                       </div>
@@ -186,7 +186,7 @@ const Dashboard = () => {
                           </h4>
                         </div>
 
-                        <div className="mini-stat-icon avatar-sm rounded-circle bg-success align-self-center">
+                        <div className="mini-stat-icon avatar-sm  bg-success align-self-center">
                           <span className="avatar-title bg-success">
                             <i className="bx bx-copy-alt font-size-24"></i>
                           </span>
@@ -208,8 +208,8 @@ const Dashboard = () => {
                           </h4>
                         </div>
 
-                        <div className="avatar-sm rounded-circle bg-success align-self-center mini-stat-icon">
-                          <span className="avatar-title rounded-circle bg-success">
+                        <div className="avatar-sm  bg-success align-self-center mini-stat-icon">
+                          <span className="avatar-title  bg-success">
                             <i className="bx bx-time font-size-24"></i>
                           </span>
                         </div>
@@ -230,8 +230,8 @@ const Dashboard = () => {
                           </h4>
                         </div>
 
-                        <div className="avatar-sm rounded-circle bg-success align-self-center mini-stat-icon">
-                          <span className="avatar-title rounded-circle bg-success">
+                        <div className="avatar-sm  bg-success align-self-center mini-stat-icon">
+                          <span className="avatar-title  bg-success">
                             <i className="bx bx-lock-alt font-size-24"></i>
                           </span>
                         </div>

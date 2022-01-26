@@ -49,11 +49,11 @@ const ResetPassword = () => {
                         <div>
                             <a href="index.html">
                                 <div className="avatar-xl profile-user-wid mb-4">
-                                    <span className="avatar-title rounded-circle bg-white">
+                                    <span className="avatar-title  bg-white">
                                         <img
                                             src={require("../../assets/visal-sm-logo.png")}
                                             alt=""
-                                            // className="rounded-circle"
+                                            // className=""
                                             height="44"
                                             width="100"
                                         />

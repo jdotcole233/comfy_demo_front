@@ -54,7 +54,7 @@ class NotificationDropdown extends Component {
               <Link to="" className="text-reset notification-item">
                 <div className="media">
                   <div className="avatar-xs mr-3">
-                    <span className="avatar-title bg-primary rounded-circle font-size-16">
+                    <span className="avatar-title bg-primary  font-size-16">
                       <i className="bx bx-cart"></i>
                     </span>
                   </div>
@@ -69,7 +69,7 @@ class NotificationDropdown extends Component {
               </Link>
               <Link to="" className="text-reset notification-item">
                 <div className="media">
-                  <img src={avatar3} className="mr-3 rounded-circle avatar-xs" alt="user-pic" />
+                  <img src={avatar3} className="mr-3  avatar-xs" alt="user-pic" />
                   <div className="media-body">
                     <h6 className="mt-0 mb-1">James Lemire</h6>
                     <div className="font-size-12 text-muted">
@@ -82,7 +82,7 @@ class NotificationDropdown extends Component {
               <Link to="" className="text-reset notification-item">
                 <div className="media">
                   <div className="avatar-xs mr-3">
-                    <span className="avatar-title bg-success rounded-circle font-size-16">
+                    <span className="avatar-title bg-success  font-size-16">
                       <i className="bx bx-badge-soft-check"></i>
                     </span>
                   </div>
@@ -98,7 +98,7 @@ class NotificationDropdown extends Component {
 
               <Link to="" className="text-reset notification-item">
                 <div className="media">
-                  <img src={avatar4} className="mr-3 rounded-circle avatar-xs" alt="user-pic" />
+                  <img src={avatar4} className="mr-3  avatar-xs" alt="user-pic" />
                   <div className="media-body">
                     <h6 className="mt-0 mb-1">Salena Layfield</h6>
                     <div className="font-size-12 text-muted">

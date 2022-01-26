@@ -13,7 +13,7 @@ const Header = ({ offerListing, offerOverview }) => {
                                     <h4 className="mb-0">{offerListing.length}</h4>
                                 </div>
 
-                                <div className="mini-stat-icon avatar-sm rounded-circle bg-success align-self-center">
+                                <div className="mini-stat-icon avatar-sm  bg-success align-self-center">
                                     <span className="avatar-title bg-success">
                                         <i className="bx bx-copy-alt font-size-24"></i>
                                     </span>
@@ -31,8 +31,8 @@ const Header = ({ offerListing, offerOverview }) => {
                                     <h4 className="mb-0">{offerOverview?.total_pending}</h4>
                                 </div>
 
-                                <div className="avatar-sm rounded-circle bg-success align-self-center mini-stat-icon">
-                                    <span className="avatar-title rounded-circle bg-success">
+                                <div className="avatar-sm  bg-success align-self-center mini-stat-icon">
+                                    <span className="avatar-title  bg-success">
                                         <i className="bx bx-archive-in font-size-24"></i>
                                     </span>
                                 </div>

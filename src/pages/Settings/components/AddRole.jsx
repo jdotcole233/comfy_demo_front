@@ -15,7 +15,7 @@ const AddRole = () => {
     <Fragment>
       <button
         onClick={() => setShowModal(true)}
-        className="btn btn-rounded btn-primary btn-sm w-md mr-1"
+        className="btn  btn-primary btn-sm w-md mr-1"
       >
         Create Role
       </button>

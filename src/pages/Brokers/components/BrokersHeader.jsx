@@ -5,7 +5,7 @@ import AddBrokerForm from "./AddBrokerForm";
 
 const BrokersHeader = () => {
   const [addBroker, setAddBroker] = useState(false);
-  
+
   return (
     <Fragment>
       <div className="container-fluid">
@@ -19,7 +19,7 @@ const BrokersHeader = () => {
           >
             <button
               onClick={() => setAddBroker(true)}
-              className="btn btn-rounded btn-primary"
+              className="btn  btn-success"
             >
               Add Broker
             </button>
@@ -34,7 +34,7 @@ const BrokersHeader = () => {
         toggle={() => setAddBroker(false)}
         setShow={setAddBroker}
       >
-        <AddBrokerForm  />
+        <AddBrokerForm />
       </Drawer>
     </Fragment>
   );

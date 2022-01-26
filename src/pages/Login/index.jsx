@@ -37,11 +37,11 @@ const Login = () => {
         <div className="row justify-content-center">
             <div className="col-md-8 col-lg-6 col-xl-5">
                 <div className="card overflow-hidden">
-                    <div className="bg-soft-primary">
+                    <div className="bg-soft-success">
                         <div className="row">
                             <div className="col-7">
-                                <div className="text-primary p-4">
-                                    <h5 className="text-primary">Welcome Back !</h5>
+                                <div className="text-success p-4">
+                                    <h5 className="text-success">Welcome Back !</h5>
                                     <p>Sign in to continue to KEK Re-Dashboard.</p>
                                 </div>
                             </div>
@@ -59,11 +59,11 @@ const Login = () => {
                         <div>
                             <a href="index.html">
                                 <div className="avatar-xl profile-user-wid mb-4">
-                                    <span className="avatar-title rounded-circle bg-white">
+                                    <span className="avatar-title rounded-circle  bg-white">
                                         <img
                                             src={require("../../assets/visal-sm-logo.png")}
                                             alt=""
-                                            // className="rounded-circle"
+                                            // className=""
                                             height="44"
                                             width="100"
                                         />
@@ -73,8 +73,8 @@ const Login = () => {
                         </div>
                         <div className="p-2">
                             {state?.changed_password && <div className="container alert alert-success font-size-14 text-center" >
-                                Password Changed SuccessFully. Login to access the Afro-AsianDashboard
-                        </div>}
+                                Password Changed SuccessFully. Login to access the Afro-Asian Dashboard
+                            </div>}
                             <form
                                 onSubmit={handleSubmit(handleLogin)}
                             >
@@ -109,12 +109,12 @@ const Login = () => {
                                 <div className="mt-3">
 
                                     {loading ?
-                                        <button disabled={true} className="btn btn-primary btn-block waves-effect waves-light">
+                                        <button disabled={true} className="btn btn-success btn-block waves-effect waves-light">
                                             <i className="bx bx-hourglass bx-spin mr-2"></i>
-                                        Authenticating...
-                                    </button> : <button
+                                            Authenticating...
+                                        </button> : <button
                                             disabled={loading}
-                                            className="btn btn-primary btn-block waves-effect waves-light"
+                                            className="btn btn-success btn-block waves-effect waves-light"
                                             type="submit">
                                             Log In
                                         </button>}

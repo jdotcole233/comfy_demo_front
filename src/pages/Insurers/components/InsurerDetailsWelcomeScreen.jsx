@@ -36,7 +36,7 @@ const InsurerDetailsWelcomeScreen = ({ insurer }) => {
           <div className="row">
             <div className="col-sm-4">
               <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
+                <span className="avatar-title  bg-soft-primary text-primary font-size-16">
                   {insurer?.insurer_abbrv}
                 </span>
               </div>

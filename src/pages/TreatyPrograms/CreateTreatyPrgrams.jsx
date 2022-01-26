@@ -8,7 +8,7 @@ const CreateTreatyPrgrams = () => {
     <Fragment>
       <button
         onClick={() => setOpenDrawer((prev) => !prev)}
-        className="btn btn-sm w-md waves-effect btn-primary"
+        className="btn btn-sm w-md waves-effect btn-success"
       >
         Create Treaty Progam
       </button>

@@ -16,12 +16,13 @@ const ReinsurerDetailsFacStats = ({ overview }) => {
                   <h4 className="mb-0">{overview?.total_closed}</h4>
                 </div>
 
-                <div className="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary">
-                  <span className="avatar-title">
+                <div className="mini-stat-icon avatar-sm align-self-center  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-check-circle font-size-24"></i>
                   </span>
                 </div>
               </div>
+              
             </div>
           </div>
         </div>
@@ -36,8 +37,8 @@ const ReinsurerDetailsFacStats = ({ overview }) => {
                   <h4 className="mb-0">{overview?.total_pending}</h4>
                 </div>
 
-                <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
-                  <span className="avatar-title">
+                <div className="avatar-sm align-self-center mini-stat-icon  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-hourglass font-size-24"></i>
                   </span>
                 </div>
@@ -56,8 +57,8 @@ const ReinsurerDetailsFacStats = ({ overview }) => {
                   />
                 </div>
 
-                <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
-                  <span className="avatar-title">
+                <div className="avatar-sm align-self-center mini-stat-icon  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-money  font-size-24"></i>
                   </span>
                 </div>
@@ -78,8 +79,8 @@ const ReinsurerDetailsFacStats = ({ overview }) => {
                   />
                 </div>
 
-                <div className="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary">
-                  <span className="avatar-title">
+                <div className="mini-stat-icon avatar-sm align-self-center  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-money font-size-24"></i>
                   </span>
                 </div>
@@ -100,8 +101,8 @@ const ReinsurerDetailsFacStats = ({ overview }) => {
                   />
                 </div>
 
-                <div className="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary">
-                  <span className="avatar-title">
+                <div className="mini-stat-icon avatar-sm align-self-center  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-money font-size-24"></i>
                   </span>
                 </div>

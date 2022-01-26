@@ -17,7 +17,7 @@ const InsurerDetailsStatsFac = ({ insurer }) => {
                 </h4>
               </div>
 
-              <div className="mini-stat-icon avatar-sm align-self-center rounded-circle bg-primary">
+              <div className="mini-stat-icon avatar-sm align-self-center  bg-primary">
                 <span className="avatar-title">
                   <i className="bx bx-check-circle font-size-24"></i>
                 </span>
@@ -37,7 +37,7 @@ const InsurerDetailsStatsFac = ({ insurer }) => {
                 </h4>
               </div>
 
-              <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
+              <div className="avatar-sm align-self-center mini-stat-icon  bg-primary">
                 <span className="avatar-title">
                   <i className="bx bx-hourglass font-size-24"></i>
                 </span>
@@ -57,7 +57,7 @@ const InsurerDetailsStatsFac = ({ insurer }) => {
                 </h4>
               </div>
 
-              <div className="avatar-sm align-self-center mini-stat-icon rounded-circle bg-primary">
+              <div className="avatar-sm align-self-center mini-stat-icon  bg-primary">
                 <span className="avatar-title">
                   <i className="bx bx-money font-size-24"></i>
                 </span>

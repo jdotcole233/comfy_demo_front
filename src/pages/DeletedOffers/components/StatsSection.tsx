@@ -20,7 +20,7 @@ const StatsSection = ({ total }: Props) => {
                     <h4 className="mb-0">{total}</h4>
                   </div>
 
-                  <div className="mini-stat-icon avatar-sm rounded-circle bg-success align-self-center">
+                  <div className="mini-stat-icon avatar-sm  bg-success align-self-center">
                     <span className="avatar-title bg-success">
                       <i className="bx bx-copy-alt font-size-24"></i>
                     </span>
