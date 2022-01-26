@@ -74,7 +74,7 @@ const Profile = () => {
                     <div className="col-7">
                       <div className="text-primary p-3">
                         <h5 className="text-primary">Welcome Back !</h5>
-                        <p>KEK-Re Dashboard</p>
+                        <p>Afro-AsianDashboard</p>
                       </div>
                     </div>
                     <div className="col-5 align-self-end">

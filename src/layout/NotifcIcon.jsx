@@ -55,7 +55,7 @@ const NotifcIcon = () => {
       setNotifications([newNotif, ...all_notifs]);
       all_notifs = [newNotif, ...all_notifs];
       if (JSON.parse(notif.system_data).owner_id != user.employee.employee_id) {
-        Push.create("KEK-Re Notification", {
+        Push.create("Afro-AsianNotification", {
           body: notif.message,
           icon: "/ms-icon-70x70.png",
           timeout: 4000,

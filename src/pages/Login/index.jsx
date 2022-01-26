@@ -73,7 +73,7 @@ const Login = () => {
                         </div>
                         <div className="p-2">
                             {state?.changed_password && <div className="container alert alert-success font-size-14 text-center" >
-                                Password Changed SuccessFully. Login to access the KEK-Re Dashboard
+                                Password Changed SuccessFully. Login to access the Afro-AsianDashboard
                         </div>}
                             <form
                                 onSubmit={handleSubmit(handleLogin)}

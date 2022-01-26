@@ -12,7 +12,7 @@ export const Navbar = () => {
       <div className="navbar-header">
         <div className="d-flex">
           <div
-            style={{ backgroundColor: "#273B97" }}
+            style={{ backgroundColor: "#343434" }}
             className="navbar-brand-box"
           >
             <Link to="/admin/" className="logo logo-light">
@@ -75,7 +75,7 @@ export const Navbar = () => {
                 alignItems: "center",
               }}
             >
-              <span className="rounded-circle header-profile-user d-flex justify-content-center align-items-center  rounded-circle bg-soft-primary text-primary font-size-12">
+              <span className="rounded-circle header-profile-user d-flex justify-content-center align-items-center  rounded-circle bg-soft-success text-success font-size-12">
                 {user?.employee?.emp_abbrv}
               </span>
               <span className="d-none d-xl-inline-block ml-1">

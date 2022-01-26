@@ -19,8 +19,8 @@ function App() {
     }
   }, []);
 
-  const onGranted = () => {};
-  const onDenied = () => {};
+  const onGranted = () => { };
+  const onDenied = () => { };
 
   return (
     <>
@@ -33,7 +33,7 @@ function App() {
         </Switch>
       </Router>
     </>
-  );
+  )
 }
 
 export default App;

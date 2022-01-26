@@ -66,7 +66,7 @@ export default ({ toggle }) => {
             swal({
                 icon: "warning",
                 title: "Are you sure ?",
-                text: `You want to add ${businessname} with  ${business_details.length} detail(s) to KEK-Re System?.`,
+                text: `You want to add ${businessname} with  ${business_details.length} detail(s) to Afro-AsianSystem?.`,
                 buttons: ["No", {
                     text: "Yes",
                     closeModal: false

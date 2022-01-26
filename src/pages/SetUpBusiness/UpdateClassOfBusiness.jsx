@@ -92,7 +92,7 @@ export const UpdateClassOfBusiness = ({ data, toggle }) => {
         closeOnEsc: false,
         icon: "warning",
         title: "Are you sure ?",
-        text: `You want to update ${businessname} with  ${business_details.length} detail(s) to KEK-Re System?.`,
+        text: `You want to update ${businessname} with  ${business_details.length} detail(s) to Afro-AsianSystem?.`,
         buttons: [
           "No",
           {

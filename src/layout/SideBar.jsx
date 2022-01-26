@@ -30,12 +30,11 @@ const SideBar = () => {
         <li key={key}>
           <Link
             to={el.link}
-            className={`waves-effect ${
-              pathname === el.link ||
+            className={`waves-effect ${pathname === el.link ||
               (pathname === "/admin/view-offer" && el.name === "Create Slip")
-                ? "bg-danger text-white"
-                : ""
-            }`}
+              ? "bg-success text-white"
+              : ""
+              }`}
           >
             <i className={`${el.icon} text-white`}></i>
             {badge && (
@@ -53,7 +52,7 @@ const SideBar = () => {
   return (
     <Fragment>
       <div
-        style={{ backgroundColor: "#273B97", height: window.innerHeight }}
+        style={{ backgroundColor: "#343434", height: window.innerHeight }}
         className="vertical-menu"
       >
         <div
@@ -63,7 +62,7 @@ const SideBar = () => {
         >
           {/* {window.innerHeight} */}
           <div
-            style={{ backgroundColor: "#273B97", height: window.innerHeight }}
+            style={{ backgroundColor: "#343434", height: window.innerHeight }}
             className="d-flex flex-column h-100  justify-content-between"
             id="sidebar-menu"
           >
@@ -99,7 +98,7 @@ const SideBar = () => {
                 cursor: "pointer",
               }}
             >
-              Version: {version}
+              Version: {"1.0.0"}
             </div>
           </div>
         </div>
