@@ -16,7 +16,7 @@ const OverViewCard = ({ title, value, className = "col-md-6", icon = "bx bx-mone
                             <div className="col-md-6 d-flex justify-content-end">
                                 <div className="avatar-sm rounded-circle bg-success align-self-center mini-stat-icon">
                                     <span className="avatar-title rounded-circle bg-success">
-                                        <i className={`${icon} tw-text-3xl`}></i>
+                                        <i className={`${icon} font-size-24`}></i>
                                     </span>
                                 </div>
                             </div>
