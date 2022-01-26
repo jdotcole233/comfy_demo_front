@@ -15,18 +15,18 @@ export const Navbar = () => {
             style={{ backgroundColor: "#343434" }}
             className="navbar-brand-box"
           >
-            <Link to="/admin/" className="logo logo-light">
+            <Link to="/admin/" className="logo logo-light pt-2">
               <span className="logo-sm">
                 <img
-                  src={require("../assets/visal-sm-logo.png")}
+                  src={"https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"}
                   alt=""
                   height="40"
                   width="40"
                 />
               </span>
-              <span className="logo logo-lg">
+              <span className="logo logo-lg pt-2">
                 <img
-                  src={require("../assets/visal-logo-big.png")}
+                  src={"https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"}
                   alt=""
                   width="200"
                   height="60"
