@@ -41,7 +41,7 @@ export const calculateMAndDValue = ({ layers = [], egrnpi }) => {
     return {
       ...layer,
       m_and_d_premium:
-        parseFloat(key > 0 ? layer.adjust_rate : layer.min_rate) * egrnpi * percentage,
+        parseFloat(key > 0 ? layer.adjust_rate : layer.min_rate) * egrnpi * (percentage / 100),
     }
   });
   return newLayers;
