@@ -36,7 +36,7 @@ const BottomDrawer = ({ children, containerStyles = {}, height, isvisible, toggl
                 backgroundColor: "#FFFFFF",
                 ...containerStyles,
             }}>
-                <div style={{ position: "fixed", right: 0, left: 0, backgroundColor: "#273B97", display: "flex", justifyContent: "flex-end" }}>
+                <div style={{ position: "fixed", right: 0, left: 0, backgroundColor: "#0ca59f", display: "flex", justifyContent: "flex-end" }}>
                     <button onClick={toggle} style={{ backgroundColor: "red", border: 0, color: "white" }}>
                         <AiOutlineClose color="#fff" size={18} />
                     </button>

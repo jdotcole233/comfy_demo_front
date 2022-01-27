@@ -325,7 +325,7 @@ const NewTreaty = (props) => {
               !insurer ||
               !hasOptionsAndNotEmpty(addintionalInputFields)
             }
-            className="btn btn-primary btn-sm w-md"
+            className="btn btn-success btn-sm w-md"
           >
             Create Treaty Program
           </button>

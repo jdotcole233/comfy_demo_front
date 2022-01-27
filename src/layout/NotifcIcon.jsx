@@ -114,7 +114,7 @@ const NotifcIcon = () => {
         <div className="p-2 border-top">
           <Link
             to="/admin/notifications"
-            className="btn btn-sm btn-link font-size-14 btn-block text-center"
+            className="btn btn-sm btn-link text-success font-size-14 btn-block text-center"
           >
             <i className="mdi mdi-arrow-right-circle mr-1"></i> View More..
           </Link>

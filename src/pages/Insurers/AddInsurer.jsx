@@ -441,7 +441,7 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
         <div className="col-md-12 mt-2">
           <div className="form-group d-flex justify-content-end">
             {editAccessRoles.includes(user?.user_role?.position) && (
-              <button type="submit" className="btn btn-sm btn-primary w-md">
+              <button type="submit" className="btn btn-sm btn-success w-md">
                 Edit Insurer
               </button>
             )}
@@ -512,12 +512,12 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
             <div className="col-md-12 mt-2">
               <div className="form-group d-flex justify-content-end">
                 {!edit && (
-                  <button type="submit" className="btn btn-sm btn-primary w-md">
+                  <button type="submit" className="btn btn-sm btn-success w-md">
                     Add Insurer
                   </button>
                 )}
                 {editAccessRoles.includes(user?.user_role?.position) && edit && (
-                  <button type="submit" className="btn btn-sm btn-primary w-md">
+                  <button type="submit" className="btn btn-sm btn-success w-md">
                     Edit Insurer
                   </button>
                 )}

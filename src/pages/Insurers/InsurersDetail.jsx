@@ -145,10 +145,10 @@ function InsurerDetail() {
             <span
               style={{ letterSpacing: 5, padding: 3 }}
               className={`badge badge-${offer.offer_status === "OPEN"
-                  ? "primary"
-                  : offer.offer_status === "PENDING"
-                    ? "danger"
-                    : "success"
+                ? "primary"
+                : offer.offer_status === "PENDING"
+                  ? "danger"
+                  : "success"
                 } font-size-11`}
             >
               {offer.offer_status}
@@ -158,10 +158,10 @@ function InsurerDetail() {
             <span
               style={{ letterSpacing: 5, padding: 3 }}
               className={`badge badge-${offer.payment_status === "PARTPAYMENT"
-                  ? "primary"
-                  : offer.payment_status === "UNPAID"
-                    ? "danger"
-                    : "success"
+                ? "primary"
+                : offer.payment_status === "UNPAID"
+                  ? "danger"
+                  : "success"
                 } font-size-11`}
             >
               {offer.payment_status}
@@ -246,7 +246,7 @@ function InsurerDetail() {
                   <div className="btn-group mr-4">
                     <div
                       onClick={() => changePageType("Fac")}
-                      className={`btn ${type !== "Fac" ? "btn-secondary" : "btn-primary"
+                      className={`btn ${type !== "Fac" ? "btn-secondary" : "btn-success"
                         } w-lg btn-sm`}
                     >
                       <span className="bx bx-archive-in mr-4"></span>
@@ -254,7 +254,7 @@ function InsurerDetail() {
                     </div>
                     <div
                       onClick={() => changePageType("Treaty")}
-                      className={`btn ${type !== "Treaty" ? "btn-secondary" : "btn-primary"
+                      className={`btn ${type !== "Treaty" ? "btn-secondary" : "btn-success"
                         } w-lg btn-sm`}
                     >
                       <span className="bx bx-receipt mr-4"></span>
