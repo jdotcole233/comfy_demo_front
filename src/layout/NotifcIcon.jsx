@@ -57,7 +57,7 @@ const NotifcIcon = () => {
       if (JSON.parse(notif.system_data).owner_id != user.employee.employee_id) {
         Push.create("Afro-AsianNotification", {
           body: notif.message,
-          icon: "/ms-icon-70x70.png",
+          icon: "/apple-touch-icon.png",
           timeout: 4000,
           onClick: function () {
             history.push({

@@ -623,6 +623,7 @@ const ViewTreaty = () => {
         width="50%"
         isvisible={showSendDocs}
         toggle={() => setShowSendDocs(false)}
+        setShow={setShowSendDocs}
       >
         {showSendDocs && (
           <SendReinsurerDocuments
@@ -633,7 +634,7 @@ const ViewTreaty = () => {
             treaty={data?.treaty}
             layer={currentLayer}
             layers={layers[currentLayer - 1]}
-            setShow={setShowSendDocs}
+            // setShow={setShowSendDocs}
             isProp={isProp}
           />
         )}
