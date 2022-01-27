@@ -284,7 +284,7 @@ function AddInsurer({ edit, toggle, data, closed }) {
                   required: "Company website is required",
                 })}
                 name="re_company_website"
-                type="text"
+                type="url"
                 className="form-control"
                 placeholder="Website"
               />

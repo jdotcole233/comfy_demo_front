@@ -83,13 +83,16 @@ function EditReinsurer({ closed, toggle, data }) {
                 })
                     .catch(err => {
                         if (err) {
-                            swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
+                            swal("Sorry!!", err.message.replace("GraphQL error:", ""), "error");
                         } else {
                             swal.stopLoading();
                             swal.close();
                         }
                     });;
-            })
+            }).catch(err => {
+                swal.stopLoading();
+                swal.close();
+            });
 
     }
 

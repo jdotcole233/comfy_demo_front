@@ -19,8 +19,8 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                   </h4>
                 </div>
 
-                <div className="avatar-sm align-self-center mini-stat-icon  bg-primary">
-                  <span className="avatar-title">
+                <div className="avatar-sm align-self-center mini-stat-icon  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-hourglass font-size-24"></i>
                   </span>
                 </div>
@@ -39,8 +39,8 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                   <h4 className="mb-0">{overview?.total_proportional ?? 0}</h4>
                 </div>
 
-                <div className="avatar-sm align-self-center mini-stat-icon  bg-primary">
-                  <span className="avatar-title">
+                <div className="avatar-sm align-self-center mini-stat-icon  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-hourglass font-size-24"></i>
                   </span>
                 </div>
@@ -61,8 +61,8 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                   </h4>
                 </div>
 
-                <div className="mini-stat-icon avatar-sm align-self-center  bg-primary">
-                  <span className="avatar-title">
+                <div className="mini-stat-icon avatar-sm align-self-center  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-check-circle font-size-24"></i>
                   </span>
                 </div>
@@ -81,8 +81,8 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                   />
                 </div>
 
-                <div className="avatar-sm align-self-center mini-stat-icon  bg-primary">
-                  <span className="avatar-title">
+                <div className="avatar-sm align-self-center mini-stat-icon  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-money  font-size-24"></i>
                   </span>
                 </div>
@@ -103,8 +103,8 @@ const BrokerDetailTreatyStats = ({ overview }) => {
                   />
                 </div>
 
-                <div className="mini-stat-icon avatar-sm align-self-center  bg-primary">
-                  <span className="avatar-title">
+                <div className="mini-stat-icon avatar-sm align-self-center  bg-success">
+                  <span className="avatar-title bg-success">
                     <i className="bx bx-money font-size-24"></i>
                   </span>
                 </div>

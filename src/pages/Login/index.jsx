@@ -42,7 +42,7 @@ const Login = () => {
                             <div className="col-7">
                                 <div className="text-success p-4">
                                     <h5 className="text-success">Welcome Back !</h5>
-                                    <p>Sign in to continue to KEK Re-Dashboard.</p>
+                                    <p>Sign in to continue to Afro-Asian Dashboard</p>
                                 </div>
                             </div>
                             <div className="col-5 align-self-end">
@@ -61,11 +61,9 @@ const Login = () => {
                                 <div className="avatar-xl profile-user-wid mb-4">
                                     <span className="avatar-title rounded-circle  bg-white">
                                         <img
-                                            src={require("../../assets/visal-sm-logo.png")}
+                                            src={require("../../assets/signinLogo.png")}
                                             alt=""
-                                            // className=""
-                                            height="44"
-                                            width="100"
+                                            className='w-100 h-100 rounded-circle'
                                         />
                                     </span>
                                 </div>

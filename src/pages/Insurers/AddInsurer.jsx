@@ -116,14 +116,15 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
       buttons: ["No", { text: "Yes", closeModal: false }],
     }).then((input) => {
       if (!input) throw null;
+      // alert("Sending");
       updateInsurer({
         variables: {
           insurer,
-          insurer_id: data?.insurer.insurer_id,
+          insurer_id: data?.insurer_id,
         },
       })
         .then(async (res) => {
-          swal("Sucess", "Insurer Created Successfully", "success");
+          swal("Sucess", "Insurer Updated Successfully", "success");
           toggle();
         })
         .catch((err) => {
@@ -164,6 +165,7 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
         <div className="row">
           <div className="col-md-12">
             <div className="form-group">
+
               <label htmlFor="">Company name</label>
               <input
                 name="insurer_company_name"
@@ -208,7 +210,7 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
               <input
                 name="insurer_company_website"
                 ref={register({ required: false })}
-                type="text"
+                type="url"
                 className="form-control"
                 placeholder="Website"
               />
@@ -273,7 +275,6 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
                 })}
                 type="text"
                 name="country"
-                list="movies"
                 placeholder="Country"
                 className="form-control"
               />
@@ -304,6 +305,7 @@ function AddInsurer({ edit, toggle, data, closed, view }) {
         <div className="row">
           <div className="col-md-12">
             <div className="form-group">
+              {/* {JSON.stringify(data)} */}
               <label htmlFor="">Company name</label>
               <input
                 name="insurer_company_name"
