@@ -69,7 +69,7 @@ const ViewTreaty = () => {
   });
 
   const isProp = data?.treaty?.treaty_program?.treaty_type === "PROPORTIONAL";
-  const totalPercentage = data?.treaty?.order_hereon ?? 100;
+  const totalPercentage = parseFloat(data?.treaty?.order_hereon) ?? 100;
 
   const [addPercentage] = useMutation(ADD_TREATY_PERCENTAGE, {
     variables: {
@@ -530,6 +530,7 @@ const ViewTreaty = () => {
             <TreatyOverviewSide treaty={data?.treaty} />
             <PreviewPlacing treaty={data?.treaty} />
             <PreviewCover treaty={data?.treaty} />
+            {/* {totalPercentage} */}
           </div>
           <div className="col-xl-8">
             <div className="row d-flex align-items-stretch">

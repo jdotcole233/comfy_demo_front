@@ -182,6 +182,7 @@ function EditLayer({ index, layer, insurer, treaty, percentage, _layers }) {
         isvisible={showDrawer}
         width="50%"
         toggle={() => setShowDrawer(false)}
+        setShow={setShowDrawer}
       >
         {showDrawer && (
           <LayerDebitNote
@@ -199,6 +200,7 @@ function EditLayer({ index, layer, insurer, treaty, percentage, _layers }) {
         isvisible={showSendingNoteDrawer}
         width="50%"
         toggle={() => setShowSendingNoteDrawer((prev) => !prev)}
+        setShow={setShowSendingNoteDrawer}
       >
         {showSendingNoteDrawer && isProp && (
           <SendNote
@@ -210,7 +212,6 @@ function EditLayer({ index, layer, insurer, treaty, percentage, _layers }) {
         )}
         {showSendingNoteDrawer && !isProp && (
           <SendNonproportionalNote
-            setShow={setShowSendingNoteDrawer}
             limit={layers.limit}
             total_participation_percentage={parseFloat(treaty?.order_hereon) - percentage}
             installment_type={layers.installment_type}

@@ -2,12 +2,10 @@ import React from "react";
 import Note from "../Insurers/components/Note";
 
 export const mergeTwoArrays = (limits, surpluses) => {
-  console.log(limits);
   const data = [
     ...surpluses.map((el, id) => ({
       ...el,
-      commission: limits.find((ll) => ll.surpulus_uuid === el.surpulus_uuid)
-        ?.commission,
+      ...limits.find((ll) => ll.surpulus_uuid === el.surpulus_uuid)
     })),
   ];
   return data;
