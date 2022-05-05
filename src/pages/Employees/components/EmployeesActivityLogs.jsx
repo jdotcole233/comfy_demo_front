@@ -55,7 +55,7 @@ const EmployeesActivityLogs = ({ employees = [] }) => {
     <div>
       <button
         onClick={() => setShowModal(true)}
-        className="btn btn-rounded btn-sm w-md btn-primary"
+        className="btn  btn-sm w-md btn-success"
       >
         All employee access logs
       </button>

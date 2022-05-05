@@ -22,25 +22,28 @@ import currencies from "../../../assets/currencies.json";
 
 const expectedAmount = ({
   treaty_account_deduction = [],
-  claim_settled,
   layer_limit,
 }) => {
   const surpluses = mergeTwoArrays(
     JSON.parse(layer_limit ?? "[]"),
-    treaty_account_deduction
+    treaty_account_deduction,
   );
 
-  console.log(surpluses);
-
+  const claim_settled_amount = treaty_account_deduction.reduce(
+    (acc, curr) => {
+      if (curr.claim_settled) {
+        return acc + curr.claim_settled;
+      }
+      return acc;
+    },
+    0,
+  );
   const value = surpluses.reduce(
     (acc, curr) =>
       acc +
-      cashBalance(curr?.gross_premium, curr?.commission_amount, claim_settled),
+      cashBalance(curr?.gross_premium, curr?.commission_amount, claim_settled_amount),
     0
   );
-
-  console.log(value);
-
   return value;
 };
 
@@ -122,6 +125,7 @@ function ProportionalPaymentForm({
     ],
   });
 
+  // console.log("Accounts", treaty?.treaty_accounts);
   const quarters =
     treaty?.treaty_accounts?.map((account, key) => ({
       label: getFlexibleName(account?.account_periods),
@@ -172,10 +176,6 @@ function ProportionalPaymentForm({
 
         return prev + parseFloat(curr.treaty_payment_amount);
       }, 0);
-      console.log(
-        "Sum of payments",
-        selectdQuarter?.value?.expectedAmountToPay
-      );
       const _expected =
         parseFloat(selectdQuarter?.value?.expectedAmountToPay) -
         sumOfPastPayments;
@@ -224,8 +224,8 @@ function ProportionalPaymentForm({
         form_inputs.payment_amount === 0
           ? "UNPAID"
           : form_inputs.payment_amount < expectedAmtToBePaid
-          ? "PARTPAYMENT"
-          : "PAID",
+            ? "PARTPAYMENT"
+            : "PAID",
       payment_comment: form_inputs.treaty_payment_comment,
     };
 
@@ -277,8 +277,8 @@ function ProportionalPaymentForm({
         form_inputs.payment_amount === 0
           ? "UNPAID"
           : form_inputs.payment_amount < expectedAmtToBePaid
-          ? "PARTPAYMENT"
-          : "PAID",
+            ? "PARTPAYMENT"
+            : "PAID",
       payment_comment: form_inputs.treaty_payment_comment,
     };
 
@@ -380,10 +380,10 @@ function ProportionalPaymentForm({
                       value={
                         currency
                           ? {
-                              label: Object.values(currencies).find(
-                                (eel) => eel.code === currency
-                              )?.name,
-                            }
+                            label: Object.values(currencies).find(
+                              (eel) => eel.code === currency
+                            )?.name,
+                          }
                           : ""
                       }
                       components={{ Option: CurrencyOption }}
@@ -451,9 +451,8 @@ function ProportionalPaymentForm({
                   </div>
                 )}
                 <div
-                  className={`col-md-${
-                    form_inputs.payment_type === "Bank Transfer" ? "12" : "6"
-                  }`}
+                  className={`col-md-${form_inputs.payment_type === "Bank Transfer" ? "12" : "6"
+                    }`}
                 >
                   <div className="form-group">
                     <label htmlFor="Bank name">Bank name</label>
@@ -636,7 +635,7 @@ const SurplusBreakDown = ({
               </td>
               <td>
                 <Text>
-                  {currency} {money(expectedAmtToPaid)}
+                  {currency} {expectedAmtToPaid}
                 </Text>
               </td>
             </tr>

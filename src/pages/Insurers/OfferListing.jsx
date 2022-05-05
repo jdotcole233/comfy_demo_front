@@ -53,7 +53,7 @@ const OfferListing = ({
                   onClick={() => {
                     setInputOffer(true);
                   }}
-                  className="btn btn-rounded btn-primary btn-sm w-md"
+                  className="btn  btn-primary btn-sm w-md"
                 >
                   Input offer
                 </button>
@@ -74,9 +74,8 @@ const OfferListing = ({
                             pathname: path + "/recent",
                             state: { insurer_id },
                           }}
-                          className={`nav-link ${
-                            _tab === "recent" ? "active" : ""
-                          }`}
+                          className={`nav-link ${_tab === "recent" ? "active" : ""
+                            }`}
                         >
                           Recent
                         </Link>
@@ -87,9 +86,8 @@ const OfferListing = ({
                             pathname: path + "/all",
                             state: { insurer_id },
                           }}
-                          className={`nav-link ${
-                            _tab === "all" ? "active" : ""
-                          }`}
+                          className={`nav-link ${_tab === "all" ? "active" : ""
+                            }`}
                         >
                           All
                         </Link>
@@ -109,27 +107,24 @@ const OfferListing = ({
                     <button
                       onClick={() => setStatus("UNPAID")}
                       type="button"
-                      className={`btn btn-${
-                        status !== "UNPAID" ? "secondary" : "success"
-                      }`}
+                      className={`btn btn-${status !== "UNPAID" ? "secondary" : "success"
+                        }`}
                     >
                       Unpaid
                     </button>
                     <button
                       onClick={() => setStatus("PARTPAYMENT")}
                       type="button"
-                      className={`btn btn-${
-                        status !== "PARTPAYMENT" ? "secondary" : "success"
-                      }`}
+                      className={`btn btn-${status !== "PARTPAYMENT" ? "secondary" : "success"
+                        }`}
                     >
                       Partpayment
                     </button>
                     <button
                       onClick={() => setStatus("PAID")}
                       type="button"
-                      className={`btn btn-${
-                        status !== "PAID" ? "secondary" : "success"
-                      }`}
+                      className={`btn btn-${status !== "PAID" ? "secondary" : "success"
+                        }`}
                     >
                       Paid
                     </button>

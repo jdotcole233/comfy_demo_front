@@ -1089,6 +1089,8 @@ export const INSURER = gql`
             brokerage_amount
             withholding_tax_amount
             surpulus_uuid
+            claim_settled
+            cash_loss
             # Copied
           }
 

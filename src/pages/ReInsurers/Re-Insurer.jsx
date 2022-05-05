@@ -56,13 +56,13 @@ function ReInsurer({ data, openAssociateModal }) {
             })
         })
     }
-    
+
     return (
         <div className="col-xl-3 col-md-3 col-sm-6">
             <div className="card text-center">
                 <div className="card-body">
                     <div className="avatar-md mx-auto mb-4">
-                        <span className="avatar-title rounded-circle p-auto bg-soft-primary text-primary font-size-16">
+                        <span className="avatar-title rounded-circle  p-auto bg-soft-success text-success font-size-16">
                             {data.re_abbrv}
                         </span>
                     </div>
@@ -77,9 +77,9 @@ function ReInsurer({ data, openAssociateModal }) {
                             </div>
                         }
                         {delete_reinsurer_access.includes(user?.user_role?.position) &&
-                         <div onClick={() => handleDeleteReinsurer(data)} className="flex-fill link-hover">
-                            <i className="bx bx-trash-alt"></i>
-                        </div>}
+                            <div onClick={() => handleDeleteReinsurer(data)} className="flex-fill link-hover">
+                                <i className="bx bx-trash-alt"></i>
+                            </div>}
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@ const ViewBrokerProfile = () => {
     <Fragment>
       <a
         onClick={() => setShowProfile(true)}
-        className="btn btn-primary text-white waves-effect waves-light btn-sm"
+        className="btn btn-success text-white waves-effect waves-light btn-sm"
       >
         View Profile <i className="mdi mdi-arrow-right ml-1"></i>
       </a>

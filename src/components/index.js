@@ -96,7 +96,7 @@ export const InsurerOption = ({
         <p>{value.insurer_company_email}</p>
       </div>
       <div className="col-md-4 d-flex justify-content-end">
-        <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
+        <span className="avatar-sm d-flex justify-content-center align-items-center  header-profile-user  bg-soft-primary text-primary font-size-16">
           {value.insurer_abbrv || "NA"}
         </span>
       </div>
@@ -113,7 +113,7 @@ export const CurrencyOption = ({
   !isDisabled && !isSelected ? (
     <div {...innerProps} className="row p-2">
       <div className="col-md-2">
-        <span className="d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-12">
+        <span className="d-flex justify-content-center align-items-center  header-profile-user  bg-soft-primary text-primary font-size-12">
           {value.symbol || "NA"}
         </span>
       </div>
@@ -137,7 +137,7 @@ export const ReinsurerOption = ({
         <p>{value.re_company_email}</p>
       </div>
       <div className="col-md-4 d-flex justify-content-end">
-        <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
+        <span className="avatar-sm d-flex justify-content-center align-items-center  header-profile-user  bg-soft-primary text-primary font-size-16">
           {value.re_abbrv || "NA"}
         </span>
       </div>
@@ -154,7 +154,7 @@ export const CountryOption = ({
   !isDisabled && !isSelected ? (
     <div {...innerProps} className="row d-flex align-items-center p-1">
       <div className="col-md-2 d-flex justify-content-center">
-        <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
+        <span className="avatar-sm d-flex justify-content-center align-items-center  header-profile-user  bg-soft-primary text-primary font-size-16">
           {value.alpha2Code || "NA"}
         </span>
       </div>

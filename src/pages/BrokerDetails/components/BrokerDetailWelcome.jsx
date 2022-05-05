@@ -8,11 +8,11 @@ const BrokerDetailWelcome = () => {
   const { broker, overview } = useBrokerDetailsContext();
   return (
     <div className="card overflow-hidden">
-      <div className="bg-soft-primary">
+      <div className="bg-soft-success">
         <div className="row">
           <div className="col-7">
-            <div className="text-primary p-3">
-              <h5 className="text-primary">Welcome Back !</h5>
+            <div className="text-success p-3">
+              <h5 className="text-success">Welcome Back !</h5>
               <p>It will seem like simplified</p>
             </div>
           </div>
@@ -29,7 +29,7 @@ const BrokerDetailWelcome = () => {
         <div className="row">
           <div className="col-sm-4">
             <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-              <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
+              <span className="avatar-title rounded-circle  bg-soft-success text-success font-size-16">
                 {broker?.re_abbrv ?? "NA"}
               </span>
             </div>

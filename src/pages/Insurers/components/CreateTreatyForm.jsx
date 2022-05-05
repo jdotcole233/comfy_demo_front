@@ -554,7 +554,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
       <div className="row">
         <div className="col-md-12">
           <div className="form-group">
-            <label htmlFor="Type of goods">KEK Reference</label>
+            <label htmlFor="Type of goods">Company Reference</label>
             <input
               type="text"
               ref={_form.register({
@@ -562,7 +562,7 @@ const CreateTreatyForm = ({ insurer, setOpenDrawer, refetch }) => {
               })}
               name="kek_reference"
               className="form-control"
-              placeholder="KEK Reference"
+              placeholder="Company Reference"
             />
             {errors.kek_reference && (
               <p className="text-danger">{errors.kek_reference.message}</p>

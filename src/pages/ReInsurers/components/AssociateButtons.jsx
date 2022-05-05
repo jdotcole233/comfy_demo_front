@@ -106,7 +106,7 @@ const AssociateButtons = ({ reinsurer, data }) => {
   const handleUpdateAssociate = (values) => {
     const rep = {
       ...values,
-      reinsurersreinsurer_id: data?.reinsurer.reinsurer_id,
+      reinsurersreinsurer_id: data?.reinsurer?.reinsurer_id,
     };
     swal({
       closeOnClickOutside: false,

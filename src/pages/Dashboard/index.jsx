@@ -58,13 +58,12 @@ const Dashboard = () => {
           offer_status: (
             <span
               style={{ letterSpacing: 3 }}
-              className={`badge badge-${
-                offer.offer_status === "OPEN"
-                  ? "primary"
-                  : offer.offer_status === "PENDING"
+              className={`badge badge-${offer.offer_status === "OPEN"
+                ? "success"
+                : offer.offer_status === "PENDING"
                   ? "danger"
                   : "success"
-              } font-size-11`}
+                } font-size-11`}
             >
               {offer.offer_status}
             </span>
@@ -111,12 +110,12 @@ const Dashboard = () => {
           <div className="row">
             <div className="col-xl-4">
               <div className="card overflow-hidden">
-                <div className="bg-soft-primary">
+                <div className="bg-soft-success">
                   <div className="row">
                     <div className="col-7">
-                      <div className="text-primary p-3">
-                        <h5 className="text-primary">Welcome Back !</h5>
-                        <p> KEK-Re Dashboard</p>
+                      <div className="text-success p-3">
+                        <h5 className="text-success">Welcome Back !</h5>
+                        <p> Afro-Asian Dashboard</p>
                       </div>
                     </div>
                     <div className="col-5 align-self-end">
@@ -132,7 +131,7 @@ const Dashboard = () => {
                   <div className="row">
                     <div className="col-sm-4">
                       <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                        <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
+                        <span className="avatar-title rounded-circle  bg-soft-success text-success font-size-16">
                           {state?.user?.employee?.emp_abbrv}
                         </span>
                       </div>
@@ -147,7 +146,7 @@ const Dashboard = () => {
                         <div className="mt-4">
                           <Link
                             to={{ pathname: "/admin/profile" }}
-                            className="btn btn-primary waves-effect waves-light btn-sm"
+                            className="btn btn-success waves-effect waves-light btn-sm"
                           >
                             View Profile
                             <i className="mdi mdi-arrow-right ml-1"></i>
@@ -187,8 +186,8 @@ const Dashboard = () => {
                           </h4>
                         </div>
 
-                        <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
-                          <span className="avatar-title">
+                        <div className="mini-stat-icon avatar-sm  bg-success align-self-center">
+                          <span className="avatar-title bg-success">
                             <i className="bx bx-copy-alt font-size-24"></i>
                           </span>
                         </div>
@@ -209,8 +208,8 @@ const Dashboard = () => {
                           </h4>
                         </div>
 
-                        <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                          <span className="avatar-title rounded-circle bg-primary">
+                        <div className="avatar-sm  bg-success align-self-center mini-stat-icon">
+                          <span className="avatar-title  bg-success">
                             <i className="bx bx-time font-size-24"></i>
                           </span>
                         </div>
@@ -231,8 +230,8 @@ const Dashboard = () => {
                           </h4>
                         </div>
 
-                        <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                          <span className="avatar-title rounded-circle bg-primary">
+                        <div className="avatar-sm  bg-success align-self-center mini-stat-icon">
+                          <span className="avatar-title  bg-success">
                             <i className="bx bx-lock-alt font-size-24"></i>
                           </span>
                         </div>

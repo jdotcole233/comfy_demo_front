@@ -52,8 +52,8 @@ function SetUpBusiness() {
                     <h4 className="mb-0">{classOfBusinesses.length}</h4>
                   </div>
 
-                  <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
-                    <span className="avatar-title">
+                  <div className="mini-stat-icon avatar-sm  bg-success align-self-center">
+                    <span className="avatar-title bg-success">
                       <i className="bx bx-copy-alt font-size-24"></i>
                     </span>
                   </div>
@@ -72,8 +72,8 @@ function SetUpBusiness() {
                     <CurrencyValues data={overView?.total_fac_premium} />
                   </div>
 
-                  <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                    <span className="avatar-title rounded-circle bg-primary">
+                  <div className="avatar-sm  bg-success align-self-center mini-stat-icon">
+                    <span className="avatar-title  bg-success">
                       <i className="bx bx-money  font-size-24"></i>
                     </span>
                   </div>

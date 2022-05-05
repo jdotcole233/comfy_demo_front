@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useContext, useMemo, useCallback } from 'react'
 import { Alert } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
-import { Drawer, Modal, CurrencyValues, Datatable, Loader, Editor } from '../../components';
+import { Drawer, Modal, CurrencyValues, Datatable, Loader, Editor, OverViewCard } from '../../components';
 import Chart from 'react-apexcharts'
 import styles from './styles/card.module.css'
 import MakeClaim from './MakeClaim';
@@ -383,8 +383,8 @@ function Claims() {
                                             <h4 className="mb-0">{overview ? JSON.parse(overview?.claimOverview).claimOverview.total_claims : 0}</h4>
                                         </div>
 
-                                        <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
-                                            <span className="avatar-title">
+                                        <div className="mini-stat-icon avatar-sm  bg-success align-self-center">
+                                            <span className="avatar-title bg-success">
                                                 <i className="bx bx-copy-alt font-size-24"></i>
                                             </span>
                                         </div>
@@ -392,45 +392,10 @@ function Claims() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
-                            <div className="card mini-stats-wid">
-                                <div className="card-body">
-                                    <div className="media">
-                                        <div className="media-body">
-                                            <p className="text-muted font-weight-medium">Overall claims by currency</p>
-                                            <CurrencyValues data={overview ? JSON.parse(overview?.claimOverview).claimOverview.total_claim_amounts : {}} />
-                                        </div>
+                        
+                        <OverViewCard icon='bx bx-copy-alt ' title="Overall claims by currency" data={overview ? JSON.parse(overview?.claimOverview).claimOverview.total_claim_amounts : {}} />
+                        <OverViewCard title="Total Claims" />
 
-                                        <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
-                                            <span className="avatar-title">
-                                                <i className="bx bx-copy-alt font-size-24"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="card mini-stats-wid">
-                                <div className="card-body">
-                                    <div className="media">
-                                        <div className="media-body">
-                                            <p className="text-muted font-weight-medium">Total Claims </p>
-                                            {/* <h4 className="mb-0">$35, 723</h4> */}
-                                            <CurrencyValues />
-                                        </div>
-
-                                        <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                            <span className="avatar-title rounded-circle bg-primary">
-                                                <i className="bx bx-archive-in font-size-24"></i>
-                                            </span>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -534,7 +499,7 @@ function Claims() {
                             </div>}
                             <div className="col-md-12">
                                 <div className="form-group">
-                                    <input type="submit" className="btn btn-primary btn-block btn-sm" value="Update" />
+                                    <input type="submit" className="btn btn-success btn-block btn-sm" value="Update" />
                                 </div>
                             </div>
                         </form>
@@ -573,7 +538,7 @@ function Claims() {
                 <Modal size="xl" show={viewDistribution} onHide={() => setViewDistribution(!viewDistribution)}>
                     <Modal.Header closeButton>
                         Claim History [{selectedOffer?.offer_detail?.policy_number}]
-                </Modal.Header>
+                    </Modal.Header>
                     <Modal.Body>
                         {/* <div className="row d-flex justify-content-end">
                             <button onClick={handleSendAllClaimDebitNote} className="btn btn-sm w-md btn-success">Send All</button>

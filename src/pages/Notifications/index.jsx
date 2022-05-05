@@ -152,7 +152,7 @@ export default () => {
         .then((_res) => {
           setNotifications([]);
         })
-        .catch((_err) => {});
+        .catch((_err) => { });
     });
   };
 
@@ -198,8 +198,8 @@ export default () => {
             </div>
           </div>
           <div className="card">
-            <div className="bg-primary p-3">
-              <span className="card-title text-white">
+            <div className="bg-soft-success p-3">
+              <span className="card-title text-success">
                 Filter application logs
               </span>
             </div>
@@ -272,7 +272,7 @@ export default () => {
                 <div className="col-md-4">
                   <button
                     onClick={loadMore}
-                    className="btn btn-info btn-sm btn-block"
+                    className="btn btn-success btn-sm btn-block"
                   >
                     {loading && (
                       <i className="bx bx-hourglass bx-spin mr-2"></i>
@@ -347,9 +347,8 @@ const Pill = ({ name, setSelectedFilters, selectedFilters = [] }) => {
   return (
     <div
       onClick={selected ? onRemove : onAdd}
-      className={`p-2  pointer font-weight-bold rounded ${
-        selected ? "bg-primary text-white" : "bg-soft-primary text-primary"
-      } ml-2`}
+      className={`p-2  pointer font-weight-bold rounded ${selected ? "bg-success text-white" : "bg-soft-success text-success"
+        } ml-2`}
     >
       {name.split(":")[1]}
     </div>

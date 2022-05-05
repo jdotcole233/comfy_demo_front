@@ -46,7 +46,7 @@ const OfferListing = ({
                   onClick={() => {
                     setInputOffer(true);
                   }}
-                  className="btn btn-rounded btn-primary btn-sm w-md"
+                  className="btn  btn-primary btn-sm w-md"
                 >
                   Input offer
                 </button>

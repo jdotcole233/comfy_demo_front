@@ -71,8 +71,8 @@ function Insurer({ data, openManagerDrawer }) {
     <div className="col-xl-3 col-sm-6">
       <div className="card text-center">
         <div className="card-body">
-          <div className="avatar-md mx-auto mb-4">
-            <span className="avatar-title rounded-circle p-auto bg-soft-primary text-primary font-size-16">
+          <div className="avatar-md mx-auto rounded-circle mb-4">
+            <span className="avatar-title rounded-circle p-auto bg-soft-success text-success font-size-16">
               {data.insurer_abbrv}
             </span>
           </div>

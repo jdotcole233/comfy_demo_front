@@ -12,8 +12,8 @@ const NotificationMiniCard = ({ notification }) => {
         <div onClick={handleClickedNotification} className="text-reset notification-item">
             <div className="media">
                 <div className="avatar-xs mr-3">
-                    <span className="avatar-title bg-primary rounded-circle font-size-16">
-                        <i className={`bx bx-${notification?.system_notification?.notification_type?.includes("SYSTEM") ? "cog" : "bell"}`}></i>
+                    <span className="avatar-title bg-white  font-size-16">
+                        <i className={`text-success bx bx-${notification?.system_notification?.notification_type?.includes("SYSTEM") ? "cog" : "bell"}`}></i>
                     </span>
                 </div>
                 <div className="media-body">

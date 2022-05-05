@@ -23,8 +23,8 @@ const Register = () => {
                         <div>
                             <a href="index.html">
                                 <div className="avatar-md profile-user-wid mb-4">
-                                    <span className="avatar-title rounded-circle bg-light">
-                                        <img src="/assets/images/logo.svg" alt="" className="rounded-circle" height="34" />
+                                    <span className="avatar-title  bg-light">
+                                        <img src="/assets/images/logo.svg" alt="" className="" height="34" />
                                     </span>
                                 </div>
                             </a>

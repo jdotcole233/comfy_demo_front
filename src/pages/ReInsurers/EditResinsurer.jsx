@@ -83,13 +83,16 @@ function EditReinsurer({ closed, toggle, data }) {
                 })
                     .catch(err => {
                         if (err) {
-                            swal("Sorry!!", err.message.replace("GraphQL error:",""), "error");
+                            swal("Sorry!!", err.message.replace("GraphQL error:", ""), "error");
                         } else {
                             swal.stopLoading();
                             swal.close();
                         }
                     });;
-            })
+            }).catch(err => {
+                swal.stopLoading();
+                swal.close();
+            });
 
     }
 
@@ -111,7 +114,7 @@ function EditReinsurer({ closed, toggle, data }) {
         !isDisabled && !isSelected ? (
             <div {...innerProps} className="row d-flex align-items-center p-1">
                 <div className="col-md-2 d-flex justify-content-center">
-                    <span className="avatar-sm d-flex justify-content-center align-items-center rounded-circle header-profile-user rounded-circle bg-soft-primary text-primary font-size-16">
+                    <span className="avatar-sm d-flex justify-content-center align-items-center  header-profile-user  bg-soft-primary text-primary font-size-16">
                         {value.alpha2Code || "NA"}
                     </span>
                 </div>

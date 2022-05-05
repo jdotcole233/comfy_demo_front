@@ -102,24 +102,22 @@ export default function Employees({ data, openViewEmployee }) {
           ...log,
           device_ip: (
             <span
-              className={`${
-                logIndex + 1 < data.log_activities.length &&
+              className={`${logIndex + 1 < data.log_activities.length &&
                 mostFrequest === log.device_ip
-                  ? "bg-success"
-                  : "bg-danger"
-              } text-white p-2`}
+                ? "bg-success"
+                : "bg-danger"
+                } text-white p-2`}
             >
               {log.device_ip}
             </span>
           ),
           created_at: (
             <span
-              className={`${
-                logIndex + 1 < data.log_activities.length &&
+              className={`${logIndex + 1 < data.log_activities.length &&
                 mostFrequest === log.device_ip
-                  ? "bg-success"
-                  : "bg-danger"
-              } text-white p-2`}
+                ? "bg-success"
+                : "bg-danger"
+                } text-white p-2`}
             >
               {new Date(log.created_at).toLocaleString()}
             </span>
@@ -135,7 +133,7 @@ export default function Employees({ data, openViewEmployee }) {
   const hasViewPrivilege = useMemo(() => {
     if (user) {
       return (
-        user.user_role?.position=== "System Administrator" ||
+        user.user_role?.position === "System Administrator" ||
         user.user_role?.position === "CEO" ||
         user.user_role?.position === "General Manager"
       );
@@ -152,7 +150,7 @@ export default function Employees({ data, openViewEmployee }) {
               <div className="col-lg-4">
                 <div className="text-lg-center">
                   <div className="avatar-lg mr-3 mx-lg-auto mb-4 float-left float-lg-none">
-                    <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
+                    <span className="avatar-title  bg-soft-success text-success font-size-16">
                       {data.emp_abbrv}
                     </span>
                   </div>
@@ -163,7 +161,7 @@ export default function Employees({ data, openViewEmployee }) {
 
               <div className="col-lg-8">
                 <div>
-                  {/* <a href="invoices-detail.html" className="d-block text-primary mb-2">Invoice #14251</a> */}
+                  {/* <a href="invoices-detail.html" className="d-block text-success mb-2">Invoice #14251</a> */}
                   <h5 className="text-truncate">
                     {data.employee_first_name} {data.employee_last_name}
                   </h5>
@@ -177,7 +175,7 @@ export default function Employees({ data, openViewEmployee }) {
                     title=""
                     data-original-title="Amount"
                   >
-                    <i className="bx bx-envelope mr-1 text-primary"></i>{" "}
+                    <i className="bx bx-envelope mr-1 text-success"></i>{" "}
                     {data.employee_email}
                   </h5>
                   <h5
@@ -187,7 +185,7 @@ export default function Employees({ data, openViewEmployee }) {
                     title=""
                     data-original-title="Due Date"
                   >
-                    <i className="bx bx-calendar mr-1 text-primary"></i>{" "}
+                    <i className="bx bx-calendar mr-1 text-success"></i>{" "}
                     {data.employee_phonenumber}
                   </h5>
                 </div>
@@ -291,9 +289,9 @@ export default function Employees({ data, openViewEmployee }) {
                   0
                 )
                   ? Object.keys(groupedIps).reduce(
-                      (a, b) => a + groupedIps[b].length,
-                      0
-                    ) - groupedIps[mostFrequest]?.length
+                    (a, b) => a + groupedIps[b].length,
+                    0
+                  ) - groupedIps[mostFrequest]?.length
                   : 0}
               </span>
             </div>

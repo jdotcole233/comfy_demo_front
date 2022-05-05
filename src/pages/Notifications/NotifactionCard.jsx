@@ -5,15 +5,14 @@ const NotifactionCard = ({ notification, onSelect, deleteNotif }) => {
   return (
     <div className="media my-3 border-1 border p-2">
       <div className="avatar-xs mr-3">
-        <span className="avatar-title bg-primary rounded-circle font-size-16">
+        <span className="avatar-title bg-success  font-size-16">
           <i
-            className={`bx bx-${
-              notification.system_notification.notification_type.includes(
-                "SYSTEM"
-              )
-                ? "cog"
-                : "bell"
-            }`}
+            className={`bx bx-${notification.system_notification.notification_type.includes(
+              "SYSTEM"
+            )
+              ? "cog"
+              : "bell"
+              }`}
           ></i>
         </span>
       </div>

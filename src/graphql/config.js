@@ -2,7 +2,7 @@ export const PROTOCOL =
   process.env.NODE_ENV === "development" ? "http://" : "https://";
 export const DOMAIN =
   process.env.NODE_ENV === "development"
-    ? "192.168.100.14:8001"
+    ? "192.168.100.9:8001"
     : "manage.kekrebrokerapp.com";
 export const COOKIE_NAME_AUTH_TOKEN = "kek_re_auth_token";
 export const COOKIE_NAME_AUTH = "kek_re_auth";

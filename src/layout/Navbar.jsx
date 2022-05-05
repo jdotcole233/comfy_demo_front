@@ -12,21 +12,21 @@ export const Navbar = () => {
       <div className="navbar-header">
         <div className="d-flex">
           <div
-            style={{ backgroundColor: "#273B97" }}
+            style={{ backgroundColor: "#343434" }}
             className="navbar-brand-box"
           >
-            <Link to="/admin/" className="logo logo-light">
+            <Link to="/admin/" className="logo logo-light pt-2">
               <span className="logo-sm">
                 <img
-                  src={require("../assets/visal-sm-logo.png")}
+                  src={"https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"}
                   alt=""
                   height="40"
                   width="40"
                 />
               </span>
-              <span className="logo logo-lg">
+              <span className="logo logo-lg pt-2">
                 <img
-                  src={require("../assets/visal-logo-big.png")}
+                  src={require("../assets/visal-sm-logo.png")}
                   alt=""
                   width="200"
                   height="60"
@@ -75,7 +75,7 @@ export const Navbar = () => {
                 alignItems: "center",
               }}
             >
-              <span className="rounded-circle header-profile-user d-flex justify-content-center align-items-center  rounded-circle bg-soft-primary text-primary font-size-12">
+              <span className=" header-profile-user d-flex justify-content-center align-items-center   bg-soft-success text-success font-size-12">
                 {user?.employee?.emp_abbrv}
               </span>
               <span className="d-none d-xl-inline-block ml-1">

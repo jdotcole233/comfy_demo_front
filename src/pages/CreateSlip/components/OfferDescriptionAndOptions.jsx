@@ -48,7 +48,7 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
                     <p className="mb-2">Create Distribution list</p>
                     <button
                       onClick={() => setshowCreateList(!showCreateList)}
-                      className="btn btn-primary btn-sm w-md"
+                      className="btn btn-success btn-sm w-md"
                     >
                       Create List
                     </button>
@@ -67,7 +67,7 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
                     <button
                       disabled={!data?.findSingleOffer.offer_associates.length}
                       onClick={() => setbroadCastEmail(!broadCastEmail)}
-                      className="btn btn-primary btn-sm w-md"
+                      className="btn btn-success btn-sm w-md"
                     >
                       Send Emails
                     </button>
@@ -90,7 +90,7 @@ const OfferDescriptionAndOptions = ({ data, state }) => {
                       onClick={() =>
                         setShowDrawerForClosingOffer(!showDrawerForClosingOffer)
                       }
-                      className="btn btn-primary btn-sm w-md"
+                      className="btn btn-success btn-sm w-md"
                     >
                       Completed
                     </button>

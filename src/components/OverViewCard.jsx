@@ -14,8 +14,8 @@ const OverViewCard = ({ title, value, className = "col-md-6", icon = "bx bx-mone
                                 </p>
                             </div>
                             <div className="col-md-6 d-flex justify-content-end">
-                                <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                    <span className="avatar-title rounded-circle bg-primary">
+                                <div className="avatar-sm  bg-success align-self-center mini-stat-icon">
+                                    <span className="avatar-title  bg-success">
                                         <i className={`${icon} font-size-24`}></i>
                                     </span>
                                 </div>

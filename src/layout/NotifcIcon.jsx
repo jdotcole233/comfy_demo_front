@@ -55,9 +55,9 @@ const NotifcIcon = () => {
       setNotifications([newNotif, ...all_notifs]);
       all_notifs = [newNotif, ...all_notifs];
       if (JSON.parse(notif.system_data).owner_id != user.employee.employee_id) {
-        Push.create("KEK-Re Notification", {
+        Push.create("Afro-AsianNotification", {
           body: notif.message,
-          icon: "/ms-icon-70x70.png",
+          icon: "/apple-touch-icon.png",
           timeout: 4000,
           onClick: function () {
             history.push({
@@ -114,7 +114,7 @@ const NotifcIcon = () => {
         <div className="p-2 border-top">
           <Link
             to="/admin/notifications"
-            className="btn btn-sm btn-link font-size-14 btn-block text-center"
+            className="btn btn-sm btn-link text-success font-size-14 btn-block text-center"
           >
             <i className="mdi mdi-arrow-right-circle mr-1"></i> View More..
           </Link>

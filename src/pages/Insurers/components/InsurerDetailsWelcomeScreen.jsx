@@ -15,11 +15,11 @@ const InsurerDetailsWelcomeScreen = ({ insurer }) => {
     <Fragment>
       {/* {JSON.stringify(insurer)} */}
       <div className="card overflow-hidden">
-        <div className="bg-soft-primary">
+        <div className="bg-soft-success">
           <div className="row">
             <div className="col-7">
-              <div className="text-primary p-3">
-                <h5 className="text-primary">Welcome Back !</h5>
+              <div className="text-success p-3">
+                <h5 className="text-success">Welcome Back !</h5>
                 <p>It will seem like simplified</p>
               </div>
             </div>
@@ -36,7 +36,7 @@ const InsurerDetailsWelcomeScreen = ({ insurer }) => {
           <div className="row">
             <div className="col-sm-4">
               <div className="avatar-lg mr-3 mx-lg-auto mb-4 profile-user-wid">
-                <span className="avatar-title rounded-circle bg-soft-primary text-primary font-size-16">
+                <span className="avatar-title rounded-circle  bg-soft-success text-success font-size-16">
                   {insurer?.insurer_abbrv}
                 </span>
               </div>
@@ -54,7 +54,7 @@ const InsurerDetailsWelcomeScreen = ({ insurer }) => {
                       {isFac
                         ? insurer?.offers?.length
                         : insurer?.insurer_overview?.treaties_overview
-                            ?.total_treaties}
+                          ?.total_treaties}
                     </h5>
                     <p className="text-muted mb-0">
                       {isFac ? "Offers" : "Treaties"}
@@ -66,7 +66,7 @@ const InsurerDetailsWelcomeScreen = ({ insurer }) => {
                       {isFac
                         ? insurer?.insurer_overview?.total_paid
                         : insurer?.insurer_overview?.treaties_overview
-                            ?.total_paid_treaties}
+                          ?.total_paid_treaties}
                     </h5>
                     <p className="text-muted mb-0">Paid</p>
                   </div>
@@ -74,7 +74,7 @@ const InsurerDetailsWelcomeScreen = ({ insurer }) => {
                 <div className="mt-4">
                   <button
                     onClick={() => setShowInsurerProfile(!showInsurerProfile)}
-                    className="btn btn-primary waves-effect waves-light btn-sm mr-1"
+                    className="btn btn-success waves-effect waves-light btn-sm mr-1"
                   >
                     View Profile <i className="mdi mdi-arrow-right ml-1"></i>
                   </button>

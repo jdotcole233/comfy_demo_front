@@ -1398,7 +1398,7 @@ body[data-layout="horizontal"][data-layout-size="boxed"] .navbar-header {
   display: block;
   width: 25%;
   height: 25%;
-  background-color: #556ee6;
+  background-color: #0ca59f;
   border-radius: 100%;
   -webkit-animation: chase-dot-before 2s infinite ease-in-out both;
   animation: chase-dot-before 2s infinite ease-in-out both;

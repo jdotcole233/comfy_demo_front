@@ -4,6 +4,7 @@ import OfferButtons from "./Offerbuttons";
 import f_dat from "../dummy";
 import _ from "lodash";
 import OfferListing from "../OfferListing";
+import { useAuth } from "../../../context/AuthContext";
 
 // import { useInsurerProps } from "../providers/InsurerProvider";
 // const retrocedentFilter = (offer) => offer && _.isNull(offer.offer_retrocedent);
@@ -15,7 +16,7 @@ const InsurerDetailOffers = ({
   insurer_offers,
 }) => {
   const { type } = useSelector((state) => state.insurer);
-  // const { insurer } = useInsurerProps();
+  const { user } = useAuth()
   const offers = useMemo(() => {
     const list = [];
     if (insurer) {
@@ -34,13 +35,13 @@ const InsurerDetailOffers = ({
 
         const endorsementAddon = hasEndorsement
           ? parseFloat(hasEndorsement?.fac_premium) -
-            parseFloat(hasEndorsement?.commission_amount)
+          parseFloat(hasEndorsement?.commission_amount)
           : 0;
         const expected = hasEndorsement
           ? endorsementAddon
           : parseFloat(offer.fac_premium) -
-            parseFloat(offer?.commission_amount) +
-            endorsementAddon;
+          parseFloat(offer?.commission_amount) +
+          endorsementAddon;
 
         const row = {
           name: offer.offer_detail?.policy_number,
@@ -100,27 +101,36 @@ const InsurerDetailOffers = ({
           offer_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-${
-                offer.offer_status === "OPEN"
-                  ? "primary"
-                  : offer.offer_status === "PENDING"
+              className={`badge badge-${offer.offer_status === "OPEN"
+                ? "primary"
+                : offer.offer_status === "PENDING"
                   ? "danger"
                   : "success"
-              } font-size-11`}
+                } font-size-11`}
             >
               {offer.offer_status}
+            </span>
+          ),
+          clearance_status: (
+            <span
+              style={{ letterSpacing: 5, padding: 3 }}
+              className={`badge badge-${offer.clearance_status === "UNCLEARED"
+                ? "danger"
+                : "success"
+                } font-size-11`}
+            >
+              {offer.clearance_status}
             </span>
           ),
           payment_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-${
-                offer.payment_status === "PARTPAYMENT"
-                  ? "primary"
-                  : offer.payment_status === "UNPAID"
+              className={`badge badge-${offer.payment_status === "PARTPAYMENT"
+                ? "primary"
+                : offer.payment_status === "UNPAID"
                   ? "danger"
                   : "success"
-              } font-size-11`}
+                } font-size-11`}
             >
               {offer.payment_status}
             </span>
@@ -207,27 +217,36 @@ const InsurerDetailOffers = ({
           offer_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-${
-                offer.offer_status === "OPEN"
-                  ? "primary"
-                  : offer.offer_status === "PENDING"
+              className={`badge badge-${offer.offer_status === "OPEN"
+                ? "primary"
+                : offer.offer_status === "PENDING"
                   ? "danger"
                   : "success"
-              } font-size-11`}
+                } font-size-11`}
             >
               {offer.offer_status}
+            </span>
+          ),
+          clearance_status: (
+            <span
+              style={{ letterSpacing: 5, padding: 3 }}
+              className={`badge badge-${offer.clearance_status === "UNCLEARED"
+                ? "danger"
+                : "success"
+                } font-size-11`}
+            >
+              {offer.clearance_status}
             </span>
           ),
           payment_status: (
             <span
               style={{ letterSpacing: 5, padding: 3 }}
-              className={`badge badge-${
-                offer.payment_status === "PARTPAYMENT"
-                  ? "primary"
-                  : offer.payment_status === "UNPAID"
+              className={`badge badge-${offer.payment_status === "PARTPAYMENT"
+                ? "primary"
+                : offer.payment_status === "UNPAID"
                   ? "danger"
                   : "success"
-              } font-size-11`}
+                } font-size-11`}
             >
               {offer.payment_status}
             </span>
@@ -261,7 +280,7 @@ const InsurerDetailOffers = ({
         handleLoadMore={loadMore}
         recent={offers}
         all={insurers_all_offers}
-        columns={f_dat.columns}
+        columns={user?.user_role?.position === "Finance Executive" ? f_dat.columns : f_dat.columns?.filter(el => el.field !== "clearance_status")}
         allTotal={insurers_all_offers_total}
       />
     </div>

@@ -21,8 +21,8 @@ const OfferDetails = ({ data }) => {
     <Fragment>
       <div className="col-xl-4">
         <div className="card">
-          <div className="card-header d-flex justify-content-between bg-soft-primary">
-            <h4 className="card-title">Offer Overview</h4>
+          <div className="card-header d-flex justify-content-between bg-soft-success">
+            <h4 className="card-title text-success">Offer Overview</h4>
             <button
               onClick={() => setViewComments(true)}
               className="btn btn-danger btn-sm d-flex align-items-center "

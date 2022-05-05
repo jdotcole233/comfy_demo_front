@@ -12,7 +12,10 @@ const Table = ({ data = [], columns, ref, ...rest }) => {
       ref={ref}
       bordered
       responsive
+      searchingLabel="Search"
       data={{ columns, rows: data }}
+      theadColor="success"
+      className=""
     />
   );
 };
