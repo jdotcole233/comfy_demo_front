@@ -42,7 +42,7 @@ const Login = () => {
                             <div className="col-7">
                                 <div className="text-success p-4">
                                     <h5 className="text-success">Welcome Back !</h5>
-                                    <p>Sign in to continue to Afro-Asian Dashboard</p>
+                                    <p>Sign in to continue to [Company Name] Dashboard</p>
                                 </div>
                             </div>
                             <div className="col-5 align-self-end">
@@ -71,7 +71,7 @@ const Login = () => {
                         </div>
                         <div className="p-2">
                             {state?.changed_password && <div className="container alert alert-success font-size-14 text-center" >
-                                Password Changed SuccessFully. Login to access the Afro-Asian Dashboard
+                                Password Changed SuccessFully. Login to access the Company Names Dashboard
                             </div>}
                             <form
                                 onSubmit={handleSubmit(handleLogin)}

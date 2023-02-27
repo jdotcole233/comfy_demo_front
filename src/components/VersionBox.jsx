@@ -78,7 +78,7 @@ const VersionBox = () => {
         </span>
       </LogoSide>
       <div className="d-flex flex-column pt-5 pb-4  justify-content-center">
-        <Appname>AFRO-ASIAN BROKER SYSTEM</Appname>
+        <Appname>COMPANY NAME SYSTEM</Appname>
         <OtherText>version: {"1.0.0"}</OtherText>
         <OtherText>
           Protected By: Positive SSL, BitNinja, Advance DDoS Protecttion
