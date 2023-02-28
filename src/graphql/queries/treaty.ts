@@ -549,11 +549,15 @@ export const CREATE_AND_UPDATE_PORTFOLIO_STATEMENT = gql`
     $treaty_proportional_detail_id: ID
     $overall_gross_premium: Float
     $losses: Float
+    $prev_year_configuration: PrevYearConfigurationData
+    $known_losses: KnownLossesData
   ) {
-    createAndUpdatePortfolioStatment(
+    createAndUpdatePortfolioStatmentAndProfitCommission(
       treaty_proportional_detail_id: $treaty_proportional_detail_id
       overall_gross_premium: $overall_gross_premium
       losses_outstanding: $losses
+      prev_year_configuration: $prev_year_configuration
+      known_losses: $known_losses
     )
   }
 `;

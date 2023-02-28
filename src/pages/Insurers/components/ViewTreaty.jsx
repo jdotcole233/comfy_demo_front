@@ -60,7 +60,7 @@ const ViewTreaty = () => {
     if (!state) {
       history.replace("/admin/insurers");
     }
-    console.log("State ID", state?.treaty_id);
+    // console.log("State ID", state?.treaty_id);
   }, [state]);
 
   const { data, loading } = useQuery(TREATY, {
